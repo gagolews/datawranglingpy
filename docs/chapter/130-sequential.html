@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. Sequential and Other Types in Python &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/130-sequential.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Bibliography" href="999-bibliography.html" />
+    <link rel="prev" title="2. Scalar Types in Python" href="120-scalar.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with <em>Python</em> and <em>JupyterLab</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Sequential and Other Types in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sequential-types">3.1. Sequential Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lists">3.1.1. Lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tuples">3.1.2. Tuples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ranges">3.1.3. Ranges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strings">3.1.4. Strings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-sequences">3.2. Working with Sequences</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extracting-elements">3.2.1. Extracting Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slicing">3.2.2. Slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modifying-elements">3.2.3. Modifying Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searching-elements">3.2.4. Searching Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic-operators">3.2.5. Arithmetic Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dictionaries">3.3. Dictionaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iterable-types">3.4. Iterable Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-for-loop">3.4.1. The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tuple-assignment">3.4.2. Tuple Assignment (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#object-references-and-copying">3.5. Object References and Copying (*)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#copying-references">3.5.1. Copying References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pass-by-assignment">3.5.2. Pass by Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#object-copies">3.5.3. Object Copies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modify-in-place-or-return-a-modified-copy">3.5.4. Modify In-Place or Return a Modified Copy?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">3.6. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">3.7. Questions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">4. Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>Sequential and Other Types in Python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="999-bibliography.html" class="btn btn-neutral float-right" title="4. Bibliography" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="120-scalar.html" class="btn btn-neutral float-left" title="2. Scalar Types in Python" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="sequential-and-other-types-in-python">
+<span id="chap-sequential"></span><h1><span class="section-number">3. </span>Sequential and Other Types in Python<a class="headerlink" href="#sequential-and-other-types-in-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sequential-types">
+<h2><span class="section-number">3.1. </span>Sequential Types<a class="headerlink" href="#sequential-types" title="Permalink to this headline">¶</a></h2>
+<p><em>Sequential</em> objects store data items that we can access
+by index (position).</p>
+<p>The three main types of sequential objects are:
+lists, tuples, and ranges.</p>
+<p>Actually, strings (which we often treat as scalars)
+can also be classified as such. Therefore,
+the four main types of sequential objects are:
+lists, tuples, ranges, and strings.</p>
+<div class="section" id="lists">
+<h3><span class="section-number">3.1.1. </span>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
+<p><em>Lists</em> consist of arbitrary Python objects
+and are created using square brackets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="n">j</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;six&quot;</span><span class="p">]]</span>
+<span></span><span class="c1">## [True, &#39;two&#39;, 3, [4j, 5, &#39;six&#39;]]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Note.</strong> We will often be using lists when creating
+vectors in <em>numpy</em> or data frame columns in <em>pandas</em>.
+Further, lists of lists of equal lengths can be used to create matrices.</p>
+</div></blockquote>
+<p>Lists are <em>mutable</em> and hence their state may be changed arbitrarily:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">]</span>  <span class="c1"># a list of lists</span>
+<span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tuples">
+<h3><span class="section-number">3.1.2. </span>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h3>
+<p>Next, <em>tuples</em> are like lists, but they are immutable (read-only) – once
+created, their state cannot be changed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">(</span><span class="mi">3</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">,</span> <span class="s2">&quot;six&quot;</span><span class="p">))</span>
+<span></span><span class="c1">## (&#39;one&#39;, [], (3j, 4, &#39;five&#39;, &#39;six&#39;))</span>
+</pre></div>
+</div>
+<p>This gave us a triple (3-tuple) featuring a string, an empty list,
+and a 4-tuple.</p>
+<p>Furthermore, note that often we can drop the round brackets
+and still get a tuple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>  <span class="c1"># the same as `(1, 2, 3)`</span>
+<span></span><span class="c1">## (1, 2, 3)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># i.e., `(1,)` – note it&#39;s not the same as simply `1` or `(1)`</span>
+<span></span><span class="c1">## (1,)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Note.</strong> Having a separate data type representing
+an immutable sequence actually makes sense in certain contexts.
+For example, a data frame’s <em>shape</em> is its inherent property
+that should not be tinkered with. If a tabular dataset has 10 rows and 5
+columns, we should not allow the user to set the former to 15
+(without making further assumptions, providing extra data, etc.).</p>
+</div></blockquote>
+</div>
+<div class="section" id="ranges">
+<h3><span class="section-number">3.1.3. </span>Ranges<a class="headerlink" href="#ranges" title="Permalink to this headline">¶</a></h3>
+<p>Moreover, <em>ranges</em> are of the form <code class="docutils literal notranslate"><span class="pre">range(from,</span> <span class="pre">to)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">range(from,</span> <span class="pre">to,</span> <span class="pre">by)</span></code> and represent arithmetic progressions
+of integers.</p>
+<p>For the sake of illustration, we convert them to lists below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># i.e., range(0, 5, 1) – from 0 to 5 (exclusive) by 1</span>
+<span></span><span class="c1">## [0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># from 10 to 0 (exclusive) by -1</span>
+<span></span><span class="c1">## [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]</span>
+</pre></div>
+</div>
+<p>Note that the rightmost boundary (<code class="docutils literal notranslate"><span class="pre">to</span></code>) is exclusive
+and that <code class="docutils literal notranslate"><span class="pre">by</span></code> defaults to 1.</p>
+</div>
+<div class="section" id="strings">
+<h3><span class="section-number">3.1.4. </span>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>Recall that we have discussed character strings
+in the previous part.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;example</span><span class="se">\n</span><span class="s2">string&quot;</span>
+<span></span><span class="c1">## &#39;example\nstring&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="working-with-sequences">
+<h2><span class="section-number">3.2. </span>Working with Sequences<a class="headerlink" href="#working-with-sequences" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="extracting-elements">
+<h3><span class="section-number">3.2.1. </span>Extracting Elements<a class="headerlink" href="#extracting-elements" title="Permalink to this headline">¶</a></h3>
+<p>The index operator, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, can be applied on any sequential object
+to extract an element at a position specified by a single integer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">]</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># the first element</span>
+<span></span><span class="c1">## &#39;one&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># the last element</span>
+<span></span><span class="c1">## &#39;five&#39;</span>
+</pre></div>
+</div>
+<p>Therefore, the valid indices are <em>0, 1, …, n-2, n-1</em>,
+where <em>n</em> is the length of the sequence.</p>
+<blockquote>
+<div><p><strong>Note.</strong> Think of an index as the distance from the start of a sequence.
+For example, <code class="docutils literal notranslate"><span class="pre">x[3]</span></code> means “3 items away from the beginning”, hence,
+the 4th element.</p>
+</div></blockquote>
+<p>Negative indices count from the end:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># the last element</span>
+<span></span><span class="c1">## &#39;five&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># the second to last</span>
+<span></span><span class="c1">## &#39;four&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>  <span class="c1"># the first element; `len(x)` gives the number of elements in `x`</span>
+<span></span><span class="c1">## &#39;one&#39;</span>
+</pre></div>
+</div>
+<p>The index operator can be applied on any sequential object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;string&quot;</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span></span><span class="c1">## &#39;i&#39;</span>
+</pre></div>
+</div>
+<p>Note that indexing a string returns a string – that is why we have classified
+strings as scalars too.</p>
+<p>More examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># the last item in an arithmetic progression</span>
+<span></span><span class="c1">## 9</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># extract from a 1-tuple</span>
+<span></span><span class="c1">## 1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="slicing">
+<h3><span class="section-number">3.2.2. </span>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h3>
+<p>We can also use slices of the form <code class="docutils literal notranslate"><span class="pre">from:to</span></code>
+or <code class="docutils literal notranslate"><span class="pre">from:to:by</span></code> to select a subsequence of a given sequence.
+Slices are similar to ranges, but <code class="docutils literal notranslate"><span class="pre">:</span></code> can only be used within square brackets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">]</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># from 2nd to 5th (exclusive)</span>
+<span></span><span class="c1">## [&#39;two&#39;, &#39;three&#39;, &#39;four&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># from last to first (exclusive) by every 2nd backwards</span>
+<span></span><span class="c1">## [&#39;five&#39;, &#39;three&#39;]</span>
+</pre></div>
+</div>
+<p>Actually, <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> are optional – when omitted, they default to one
+of the sequence boundaries.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>  <span class="c1"># from 3rd to end</span>
+<span></span><span class="c1">## [&#39;four&#39;, &#39;five&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># every 2nd from the start</span>
+<span></span><span class="c1">## [&#39;one&#39;, &#39;three&#39;, &#39;five&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># elements in the reversed order</span>
+<span></span><span class="c1">## [&#39;five&#39;, &#39;four&#39;, &#39;three&#39;, &#39;two&#39;, &#39;one&#39;]</span>
+</pre></div>
+</div>
+<p>And of course, they can be applied on other sequential objects as well:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam, bacon, spam, and eggs&quot;</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span>
+<span></span><span class="c1">## &#39;spam&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important.</strong>
+It is crucial to know the difference between
+element extraction and subsetting a sequence (creating a subsequence).</p>
+</div></blockquote>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># extraction (indexing with a single integer)</span>
+<span></span><span class="c1">## &#39;one&#39;</span>
+</pre></div>
+</div>
+<p>gives the object <em>at</em> that index.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># subsetting (indexing with a slice)</span>
+<span></span><span class="c1">## [&#39;one&#39;]</span>
+</pre></div>
+</div>
+<p>gives the object of the same type as <code class="docutils literal notranslate"><span class="pre">x</span></code> (here, a list)
+featuring the items at that indices (in this case, only the first object,
+but a slice can potentially select more than one element).</p>
+<p><em>Pandas</em> data frames and <em>numpy</em> arrays will behave similarly,
+but there will be many more indexing options.</p>
+</div>
+<div class="section" id="modifying-elements">
+<h3><span class="section-number">3.2.3. </span>Modifying Elements<a class="headerlink" href="#modifying-elements" title="Permalink to this headline">¶</a></h3>
+<p>Lists are <em>mutable</em> – their state may be changed.
+The index operator can be used to replace the elements at given indices.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">]</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;spam&quot;</span>  <span class="c1"># replace the first element</span>
+<span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">]</span>  <span class="c1"># replace last three with given two</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## [&#39;spam&#39;, &#39;two&#39;, &#39;bacon&#39;, &#39;eggs&#39;]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong> There are quite a few methods
+which we can use to modify list elements:
+<code class="docutils literal notranslate"><span class="pre">append</span></code>, <code class="docutils literal notranslate"><span class="pre">insert</span></code>, <code class="docutils literal notranslate"><span class="pre">remove</span></code>, <code class="docutils literal notranslate"><span class="pre">pop</span></code>, etc.
+Invoke <code class="docutils literal notranslate"><span class="pre">help(&quot;list&quot;)</span></code> to access their descriptions and call them
+on a few example lists.</p>
+</div></blockquote>
+</div>
+<div class="section" id="searching-elements">
+<h3><span class="section-number">3.2.4. </span>Searching Elements<a class="headerlink" href="#searching-elements" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">in</span></code> operator and its negation, <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">in</span></code>,
+determine whether an element exists in a given sequence:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">7</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span></span><span class="c1">## True</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span> <span class="p">]</span>
+<span></span><span class="c1">## True</span>
+</pre></div>
+</div>
+<p>For strings, <code class="docutils literal notranslate"><span class="pre">in</span></code> tests whether a string features a specific <em>substring</em>,
+so we don’t have to restrict ourselves to single characters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam&quot;</span> <span class="ow">in</span> <span class="s2">&quot;lovely spams&quot;</span>
+<span></span><span class="c1">## True</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Check out the <code class="docutils literal notranslate"><span class="pre">count</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code> methods in the <code class="docutils literal notranslate"><span class="pre">list</span></code> and other classes.</p>
+</div></blockquote>
+</div>
+<div class="section" id="arithmetic-operators">
+<h3><span class="section-number">3.2.5. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline">¶</a></h3>
+<p>Some arithmetic operators have been <em>overloaded</em> for certain sequential types,
+but they of course carry different meanings than
+those for integers and floats.</p>
+<p>In particular, <code class="docutils literal notranslate"><span class="pre">+</span></code> can be used to join (concatenate) strings, lists,
+and tuples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam&quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="s2">&quot;bacon&quot;</span>
+<span></span><span class="c1">## &#39;spam bacon&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span></span><span class="c1">## [1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<p>and <code class="docutils literal notranslate"><span class="pre">*</span></code> duplicates (recycles) a given sequence:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam&quot;</span> <span class="o">*</span> <span class="mi">3</span>
+<span></span><span class="c1">## &#39;spamspamspam&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<span></span><span class="c1">## (1, 2, 1, 2, 1, 2, 1, 2)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="dictionaries">
+<h2><span class="section-number">3.3. </span>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this headline">¶</a></h2>
+<p>Dictionaries (objects of type <code class="docutils literal notranslate"><span class="pre">dict</span></code>) are sets of <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> pairs,
+where the <code class="docutils literal notranslate"><span class="pre">values</span></code> (any Python object) can be accessed by <code class="docutils literal notranslate"><span class="pre">key</span></code>
+(usually a string).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="s2">&quot;spam!&quot;</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## {&#39;a&#39;: [1, 2, 3], &#39;b&#39;: 7, &#39;z&#39;: &#39;spam!&#39;}</span>
+</pre></div>
+</div>
+<p>We can also create a dictionary with string keys using
+the <code class="docutils literal notranslate"><span class="pre">dict</span></code> function which expects a number of keyword arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">b</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
+<span></span><span class="c1">## {&#39;a&#39;: [1, 2, 3], &#39;b&#39;: 7, &#39;z&#39;: &#39;spam!&#39;}</span>
+</pre></div>
+</div>
+<p>The index operator can be used to extract specific elements:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>
+<span></span><span class="c1">## [1, 2, 3]</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">x[0]</span></code> is not valid – it is not an object of sequential type;
+a key of <code class="docutils literal notranslate"><span class="pre">0</span></code> does not exist in a given dictionary.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">in</span></code> operator can be used to check whether
+a given key exists:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">x</span>  <span class="c1"># a tuple of 4 check results</span>
+<span></span><span class="c1">## (True, True, True, False)</span>
+</pre></div>
+</div>
+<p>We can also add new elements to a dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;more spam!&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## {&#39;a&#39;: [1, 2, 3], &#39;b&#39;: 7, &#39;z&#39;: &#39;spam!&#39;, &#39;f&#39;: &#39;more spam!&#39;}</span>
+</pre></div>
+</div>
+<p>(*) Here is a more advanced example:
+in the sequel, we will frequently be reading
+<a class="reference external" href="https://en.wikipedia.org/wiki/JSON">JSON</a> files (which is popular data
+exchange format on the internet) exactly in the form of Python dictionaries.
+Let’s demo it quickly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.github.com/users/gagolews/starred&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">x</span></code> is a sequence of dictionaries giving the information
+on the repositories starred by yours truly on GitHub.
+As an exercise, the reader is encouraged to inspect its structure.</p>
+</div>
+<div class="section" id="iterable-types">
+<h2><span class="section-number">3.4. </span>Iterable Types<a class="headerlink" href="#iterable-types" title="Permalink to this headline">¶</a></h2>
+<p>All the objects we have discussed here
+are <em>iterable</em>. In other words, we can iterate
+through each element contained therein.</p>
+<p>In particular, the <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">tuple</span></code> <em>functions</em> take any iterable
+object and convert it to a sequence of the corresponding type, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span>
+<span></span><span class="c1">## [&#39;s&#39;, &#39;p&#39;, &#39;a&#39;, &#39;m&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span></span><span class="c1">## (0, 2, 4, 6, 8)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">({</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">]</span> <span class="p">})</span>
+<span></span><span class="c1">## [&#39;a&#39;, &#39;b&#39;]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong>  Take a look at the documentation of the <code class="docutils literal notranslate"><span class="pre">extend</span></code> method
+in the <code class="docutils literal notranslate"><span class="pre">list</span></code> class. The manual page suggests that this operation
+takes any iterable object. Feed it with a list, tuple, range,
+and a string and see what happens.</p>
+</div></blockquote>
+<p>The notion of iterable objects is important, as they appear in many contexts.
+There are quite a few other iterable types
+which are for example non-sequential (we cannot access their elements
+at random using the index operator).</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>  (*)
+Check out the <code class="docutils literal notranslate"><span class="pre">enumerate</span></code>, <code class="docutils literal notranslate"><span class="pre">zip</span></code>, and <code class="docutils literal notranslate"><span class="pre">reversed</span></code> functions and what kind of
+iterable objects do they return.</p>
+</div></blockquote>
+<div class="section" id="the-for-loop">
+<h3><span class="section-number">3.4.1. </span>The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop<a class="headerlink" href="#the-for-loop" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">for</span></code> loop iterates over every element in an iterable object,
+allowing us to perform a specific action.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="n">j</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="kc">False</span><span class="p">]</span>  <span class="c1"># some iterable object</span>
+<span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>  <span class="c1"># for every element in `x`, let&#39;s call it `el`</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>  <span class="c1"># do something on `el`</span>
+<span></span><span class="c1">## 1</span>
+<span class="c1">## two</span>
+<span class="c1">## [&#39;three&#39;, 3j, 3]</span>
+<span class="c1">## False</span>
+</pre></div>
+</div>
+<p>Another example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span></span><span class="c1">## 0 : 1</span>
+<span class="c1">## 1 : two</span>
+<span class="c1">## 2 : [&#39;three&#39;, 3j, 3]</span>
+<span class="c1">## 3 : False</span>
+</pre></div>
+</div>
+<p>One more example – computing the elementwise multiply
+of two vectors of equal lengths:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>   <span class="mi">3</span><span class="p">,</span>    <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">]</span>  <span class="c1"># for testing</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]</span>  <span class="c1"># just a test</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># result list – start with an empty one</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span></span><span class="c1">## [1, 20, 300, 4000, 50000]</span>
+</pre></div>
+</div>
+<p>Yet another example: here is
+a function which determines the minimum of a given iterable object
+(compare the built-in <code class="docutils literal notranslate"><span class="pre">min</span></code> function, see <code class="docutils literal notranslate"><span class="pre">help(&quot;min&quot;)</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="k">def</span> <span class="nf">mymin</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The smallest element in an iterable object x.</span>
+<span class="sd">    We assume that x consists of numbers only.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">curmin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>  <span class="c1"># infinity is greater than any other number</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;</span> <span class="n">curmin</span><span class="p">:</span>
+            <span class="n">curmin</span> <span class="o">=</span> <span class="n">e</span>  <span class="c1"># a better candidate for the minimum</span>
+    <span class="k">return</span> <span class="n">curmin</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Write your own basic versions (using the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop) of the built-in
+<code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">sum</span></code>, <code class="docutils literal notranslate"><span class="pre">any</span></code>, and <code class="docutils literal notranslate"><span class="pre">all</span></code> functions.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+The <code class="docutils literal notranslate"><span class="pre">glob</span></code> function in the <code class="docutils literal notranslate"><span class="pre">glob</span></code> module can be used to
+list all files in a given directory whose names match a specific wildcard,
+e.g., <code class="docutils literal notranslate"><span class="pre">glob.glob(&quot;~/Music/*.mp3&quot;)</span></code> (note that <code class="docutils literal notranslate"><span class="pre">~</span></code> points to the current
+user’s home directory).
+Moreover, <code class="docutils literal notranslate"><span class="pre">getsize</span></code> from the <code class="docutils literal notranslate"><span class="pre">os.path</span></code> module returns the size of a given
+file, in bytes. Write a function that determines
+the total size of all the files in a given directory.</p>
+</div></blockquote>
+</div>
+<div class="section" id="tuple-assignment">
+<h3><span class="section-number">3.4.2. </span>Tuple Assignment (*)<a class="headerlink" href="#tuple-assignment" title="Permalink to this headline">¶</a></h3>
+<p>We can create many variables in one line of code
+by using the syntax <code class="docutils literal notranslate"><span class="pre">tuple_of_identifiers</span> <span class="pre">=</span> <span class="pre">iterable_object</span></code>,
+which unpacks the iterable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="n">j</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span></span><span class="c1">## 1</span>
+<span class="c1">## two</span>
+<span class="c1">## [3, 3j, &#39;three&#39;]</span>
+</pre></div>
+</div>
+<p>This is useful, for example, when the swapping of two elements is needed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>  <span class="c1"># the same as (a, b) = (1, 2)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>  <span class="c1"># swap a and b</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span></span><span class="c1">## 2</span>
+<span class="c1">## 1</span>
+</pre></div>
+</div>
+<p>For example, knowing that the <code class="docutils literal notranslate"><span class="pre">items</span></code> method
+for a dictionary generates an iterable object that
+can be used to traverse through all the <em>(key, value)</em> pairs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">]</span> <span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>  <span class="c1"># just a demo</span>
+<span></span><span class="c1">## [(&#39;a&#39;, 1), (&#39;b&#39;, [&#39;spam&#39;, &#39;bacon&#39;, &#39;spam&#39;])]</span>
+</pre></div>
+</div>
+<p>we can also utilise tuple assignments in contexts such as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>   <span class="c1"># or: for (k, v) in x.items()...</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;: &quot;</span><span class="p">)</span>
+<span></span><span class="c1">## a: 1</span>
+<span class="c1">## b: [&#39;spam&#39;, &#39;bacon&#39;, &#39;spam&#39;]</span>
+</pre></div>
+</div>
+<p>(**) Also note that, if there are too many values to unpack,
+we can use the notation like <code class="docutils literal notranslate"><span class="pre">*name</span></code>. This will serve as a placeholder
+that gathers all the remaining values and wraps them up in a list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span></span><span class="c1">## 0</span>
+<span class="c1">## 1</span>
+<span class="c1">## [2, 3, 4, 5, 6, 7, 8]</span>
+<span class="c1">## 9</span>
+</pre></div>
+</div>
+<p>This placeholder may appear only once on the lefthand side of the
+assignment operator.</p>
+</div>
+</div>
+<div class="section" id="object-references-and-copying">
+<h2><span class="section-number">3.5. </span>Object References and Copying (*)<a class="headerlink" href="#object-references-and-copying" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="copying-references">
+<h3><span class="section-number">3.5.1. </span>Copying References<a class="headerlink" href="#copying-references" title="Permalink to this headline">¶</a></h3>
+<p>It is important to always keep in mind that when writing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>The assignment operator does not create a copy of <code class="docutils literal notranslate"><span class="pre">x</span></code>.
+Both <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> refer to the same object in computer’s memory.</p>
+<blockquote>
+<div><p><strong>Important.</strong>
+If <code class="docutils literal notranslate"><span class="pre">x</span></code> is mutable, any change made to it will of course
+affect <code class="docutils literal notranslate"><span class="pre">y</span></code> (as, again, they are two different means to access
+the same object).</p>
+</div></blockquote>
+<p>Hence:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span></span><span class="c1">## [1, 2, 3, 4]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pass-by-assignment">
+<h3><span class="section-number">3.5.2. </span>Pass by Assignment<a class="headerlink" href="#pass-by-assignment" title="Permalink to this headline">¶</a></h3>
+<p>Arguments are passed to functions by assignment too.
+In other words, they behave as if <code class="docutils literal notranslate"><span class="pre">=</span></code> was used – what we get
+is another reference to the existing object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myadd</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And now:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myadd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">myadd</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## [1, 2, 3, 4, 5, 6]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="object-copies">
+<h3><span class="section-number">3.5.3. </span>Object Copies<a class="headerlink" href="#object-copies" title="Permalink to this headline">¶</a></h3>
+<p>If we find the above behaviour undesirable, we can always make
+a copy of an object. It is customary for the mutable objects
+to be equipped with a relevant method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span></span><span class="c1">## [1, 2, 3]</span>
+</pre></div>
+</div>
+<p>This did not change the object referred to as <code class="docutils literal notranslate"><span class="pre">y</span></code>,
+because it is now a different entity.</p>
+</div>
+<div class="section" id="modify-in-place-or-return-a-modified-copy">
+<h3><span class="section-number">3.5.4. </span>Modify In-Place or Return a Modified Copy?<a class="headerlink" href="#modify-in-place-or-return-a-modified-copy" title="Permalink to this headline">¶</a></h3>
+<p>We now know that we <em>can</em> have functions or methods that
+change the state of a given object.</p>
+<p>Hence, for all the functions we apply, it is important to
+read their documentation to determine if they modify their inputs
+in-place or return a completely new object.
+Although surely some patterns can be identified
+(such as: a method is likely to modify an object in-place
+whereas a similar standalone function would be returning a copy) –
+ultimately the functions’ developers are free to come up with some
+exceptions to them if they deem it more sensible or convenient.</p>
+<p>Consider the following examples.
+The <code class="docutils literal notranslate"><span class="pre">sorted</span></code> function returns a sorted version of the input iterable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># returns a sorted copy of x (does not change x)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># unchanged</span>
+<span></span><span class="c1">## [1, 2, 3, 4, 5]</span>
+<span class="c1">## [5, 3, 2, 4, 1]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">list.sorted</span></code> method modifies the list it is applied on in-place:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  <span class="c1"># modifies x in-place</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## [1, 2, 3, 4, 5]</span>
+</pre></div>
+</div>
+<p>To add to joy, <code class="docutils literal notranslate"><span class="pre">random.shuffle</span></code> is a function (not a method)
+that changes the state of the argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># modifies x in-place</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## [1, 4, 3, 2, 5]</span>
+</pre></div>
+</div>
+<p>Moreover, later we will learn about <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects in <em>pandas</em>, which represent
+data frame columns. They have the <code class="docutils literal notranslate"><span class="pre">sort_values</span></code> method which by default
+returns a sorted copy of the object it acts upon:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()))</span>  <span class="c1"># inplace=False</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># unchanged</span>
+<span></span><span class="c1">## [1, 2, 3, 4, 5]</span>
+<span class="c1">## [5, 3, 2, 4, 1]</span>
+</pre></div>
+</div>
+<p>However, this behaviour might be changed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">x</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># changed</span>
+<span></span><span class="c1">## [1, 2, 3, 4, 5]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important.</strong>
+We should always carefully study the official documentation
+(not some random page on the internet displaying us ads)
+of every function we call.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">3.6. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>This overview of the Python language is by no means comprehensive,
+however it touches upon the most important topics from the perspective
+of data wrangling.</p>
+<p>We will be   elaborating on many other language
+elements and its standard library
+in the course of this course (list comprehensions,
+lambda expressions, exception handling, string formatting,
+argument unpacking, variadic arguments like <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>,
+regular expressions, file handling, etc.).</p>
+<p>We have also decided <em>not</em> to introduce some language constructs
+which we can easily do without (e.g.,
+<code class="docutils literal notranslate"><span class="pre">else</span></code> clauses on <code class="docutils literal notranslate"><span class="pre">for</span></code> and <code class="docutils literal notranslate"><span class="pre">while</span></code> loops,
+the <code class="docutils literal notranslate"><span class="pre">match</span></code> statement) or are perhaps too technical for an introductory
+course (<code class="docutils literal notranslate"><span class="pre">yield</span></code>, <code class="docutils literal notranslate"><span class="pre">iter</span></code> and <code class="docutils literal notranslate"><span class="pre">next</span></code>, sets, name binding scopes,
+deep copying of objects, defining own classes,
+function factories and closures).</p>
+<p>Also, we skipped the constructs that do not work well with the third
+party packages we are soon going to be using (e.g., notation like <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span> <span class="pre">&lt;</span> <span class="pre">z</span></code>
+is not valid if the three variables are <em>numpy</em> vectors).</p>
+<p>The said simplifications  have been brought in so that the reader is not
+overwhelmed – we strongly advocate for minimalism in software development.
+Python is the basis of one of a few programming environments for
+exercising data science and, in the long run, it is best to focus
+on developing the most <em>transferable</em> skills.</p>
+<p>The official Python 3 tutorial is available at
+<a class="reference external" href="https://docs.python.org/3/tutorial/index.html">https://docs.python.org/3/tutorial/index.html</a>.
+We encourage at some point to skim through at least the following chapters:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/tutorial/introduction.html">3. An Informal Introduction to Python</a>,</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html">4. More Control Flow Tools</a>,</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html">5. Data Structures</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">3.7. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Name the sequential objects we have introduced.</p></li>
+<li><p>Is every iterable object sequential?</p></li>
+<li><p>Is <code class="docutils literal notranslate"><span class="pre">dict</span></code> an instance of a sequential type?</p></li>
+<li><p>What is the meaning of <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">*</span></code> operations on strings and lists?</p></li>
+<li><p>Given a list <code class="docutils literal notranslate"><span class="pre">x</span></code> featuring numeric scalars, how to create a new list
+of the same length giving the squares of all the elements in the former?</p></li>
+<li><p>(*) How to make an object copy and when we should do so?</p></li>
+<li><p>What is the difference between <code class="docutils literal notranslate"><span class="pre">x[0]</span></code> and <code class="docutils literal notranslate"><span class="pre">x[:0]</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">x</span></code> is a sequential object?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="999-bibliography.html" class="btn btn-neutral float-right" title="4. Bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="120-scalar.html" class="btn btn-neutral float-left" title="2. Scalar Types in Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T15:48:42+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
