@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6. Descriptive Statistics for Continuous Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/230-aggregate.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Transforming and Filtering Continuous Data" href="240-transform-uni.html" />
+    <link rel="prev" title="5. Inspecting the Distribution of Numeric Data" href="220-histogram.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Descriptive Statistics for Continuous Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-notation">6.1. Mathematical Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#measures-of-location">6.2. Measures of Location</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic-mean-and-median">6.2.1. Arithmetic Mean and Median</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quantiles">6.2.2. Quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#measures-of-dispersion">6.3. Measures of Dispersion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#box-and-whisker-plots">6.4. Box (and Whisker) Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#measures-of-shape">6.5. Measures of Shape (*)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#some-other-measures">6.6. Some Other Measures (*)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">6.7. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">6.8. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">6. </span>Descriptive Statistics for Continuous Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="240-transform-uni.html" class="btn btn-neutral float-right" title="7. Transforming and Filtering Continuous Data" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="220-histogram.html" class="btn btn-neutral float-left" title="5. Inspecting the Distribution of Numeric Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="descriptive-statistics-for-continuous-data">
+<span id="chap-aggregate"></span><h1><span class="section-number">6. </span>Descriptive Statistics for Continuous Data<a class="headerlink" href="#descriptive-statistics-for-continuous-data" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>Histograms are based on binned data and hence
+provide us with snapshots of how much probability mass
+is allocated in different parts of the data domain.</p>
+<p>For instance, here is a textual summary of the UK income data
+that we have studied in the previous part:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">,</span> <span class="mi">80000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span>  <span class="c1"># bin bounds</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># counts</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span></span><span class="c1">##     0-10000:   29</span>
+<span class="c1">## 10000-20000:  207</span>
+<span class="c1">## 20000-30000:  263</span>
+<span class="c1">## 30000-40000:  196</span>
+<span class="c1">## 40000-50000:  117</span>
+<span class="c1">## 50000-60000:   74</span>
+<span class="c1">## 60000-80000:   64</span>
+<span class="c1">## 80000-  inf:   50</span>
+</pre></div>
+</div>
+<p>And a graphical representation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-230-aggregate-2"></span><img alt="../_images/230-aggregate-2-1.png" src="../_images/230-aggregate-2-1.png" />
+<p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">plot of chunk 230-aggregate-2</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Instead of dealing with a large dataset, we
+obtained just a few counts.</p>
+<p>Generally, the process of binning and its textual or visual depictions
+are useful in determining whether the distribution
+is unimodal or multimodal, left or right skewed or maybe symmetric around
+some point, what range of values contains most of the observations,
+how small or large are extreme values, etc.</p>
+<p>Still, to much information may sometimes be overwhelming.
+Also, revealing it might not be a good idea for privacy or confidentially
+reasons (although we strongly advocate for all information
+of concern to the general public be openly available!).</p>
+<p>Thus, oftentimes we will be interested in even more synthetic descriptions –
+data aggregates which reduce the whole dataset into a <em>single</em>
+number reflecting one of its many characteristics
+and thus providing a kind of bird’s eye view on some aspect of it.</p>
+<p>In the sequel, we discuss a few noteworthy measures of:</p>
+<ul class="simple">
+<li><p>location; e.g., central tendency measures such as mean and median;</p></li>
+<li><p>dispersion; e.g., standard deviation and interquartile range;</p></li>
+<li><p>distribution shape; e.g., skewness.</p></li>
+</ul>
+<p>We also introduce box and whisker plots.</p>
+<div class="section" id="mathematical-notation">
+<h2><span class="section-number">6.1. </span>Mathematical Notation<a class="headerlink" href="#mathematical-notation" title="Permalink to this headline">¶</a></h2>
+<p>From now on we will denote the sample to be aggregated
+with <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1, x_2, \dots, x_n)\)</span>,
+where <span class="math notranslate nohighlight">\(x_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-th element therein and <span class="math notranslate nohighlight">\(n\)</span>
+is the size of the sample.
+The bold font (hopefully visible) is to emphasise that <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
+is not an atomic entity (<span class="math notranslate nohighlight">\(x\)</span>), but rather a collection thereof.</p>
+<p>For brevity, instead of saying “let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
+be a real-valued sequence (or a vector – in many contexts
+this is synonymous) of length <span class="math notranslate nohighlight">\(n\)</span>”,
+we shall write “let <span class="math notranslate nohighlight">\(\boldsymbol{x}\in\mathbb{R}^n\)</span>”.
+Here, the “<span class="math notranslate nohighlight">\(\in\)</span>” symbol  stand for “<em>is in</em>” or
+“<em>is a member of</em>” and
+<span class="math notranslate nohighlight">\(\mathbb{R}\)</span> denotes the set of real numbers.</p>
+<p>Mathematical notation is pleasantly <em>abstract</em> (general)
+in the sense that <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> can be anything,
+e.g., the above <code class="docutils literal notranslate"><span class="pre">income</span></code> vector.</p>
+<p>Using the programming syntax,
+<span class="math notranslate nohighlight">\(n\)</span> corresponds to <code class="docutils literal notranslate"><span class="pre">len(income)</span></code> or equivalently <code class="docutils literal notranslate"><span class="pre">income.shape[0]</span></code>
+and <span class="math notranslate nohighlight">\(x_i\)</span> is <code class="docutils literal notranslate"><span class="pre">income[i-1]</span></code> (because in Python the first element is
+at index 0).</p>
+<p>Furthermore, by <span class="math notranslate nohighlight">\(x_{(i)}\)</span> (note the bracket)
+we will denote the <span class="math notranslate nohighlight">\(i\)</span>-th smallest value in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>.
+In particular, <span class="math notranslate nohighlight">\(x_{(1)}\)</span> is the minimum
+and <span class="math notranslate nohighlight">\(x_{(n)}\)</span> is the maximum.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span class="n">income_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">income_sorted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># the minimum and the maximum</span>
+<span></span><span class="c1">## (5750.0, 199969.0)</span>
+</pre></div>
+</div>
+<p>This gave us the smallest and largest income,
+which are already data aggregates of some kind.</p>
+<p>Below we will also be using the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset as an illustration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">heights_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">heights_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">heights_sorted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span></span><span class="c1">## (131.1, 189.3)</span>
+</pre></div>
+</div>
+<p>Let’s draw its histogram again:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id2">
+<span id="fig-230-aggregate-5"></span><img alt="../_images/230-aggregate-5-3.png" src="../_images/230-aggregate-5-3.png" />
+<p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">plot of chunk 230-aggregate-5</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="measures-of-location">
+<h2><span class="section-number">6.2. </span>Measures of Location<a class="headerlink" href="#measures-of-location" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="arithmetic-mean-and-median">
+<h3><span class="section-number">6.2.1. </span>Arithmetic Mean and Median<a class="headerlink" href="#arithmetic-mean-and-median" title="Permalink to this headline">¶</a></h3>
+<p>Two main measures of <em>central tendency</em> are:</p>
+<ul>
+<li><p><em>the arithmetic mean</em> (sometimes for simplicity called the mean or average),
+defined as the sum of all observations divided by the sample size:</p>
+<div class="math notranslate nohighlight">
+\[
+    \bar{x} = \frac{(x_1+x_2+\dots+x_n)}{n} = \frac{1}{n} \sum_{i=1}^n x_i,
+    \]</div>
+</li>
+<li><p><em>the median</em>, being the middle value in a sorted version of the
+sample if its length is odd
+or the arithmetic mean of the two middle values otherwise:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    m = \left\{
+    \begin{array}{ll}
+    x_{(n+1)/2} &amp; \text{if }n\text{ is odd},\\
+    \frac{x_{(n/2)}+x_{(n/2+1)}}{2} &amp; \text{if }n\text{ is even}.
+    \end{array}
+    \right.
+    \end{split}\]</div>
+</li>
+</ul>
+<p>They can be computed using the <code class="docutils literal notranslate"><span class="pre">numpy.mean</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.median</span></code> functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span></span><span class="c1">## (160.08245186988268, 160.0)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span></span><span class="c1">## (35779.994, 30042.0)</span>
+</pre></div>
+</div>
+<p>We note what follows:</p>
+<ul class="simple">
+<li><p>for symmetric distributions, the arithmetic mean and the median are
+expected to be more or less equal,</p></li>
+<li><p>for skewed distributions, the arithmetic mean will be biased towards
+the heavier tail.</p></li>
+</ul>
+<p>The arithmetic mean is strongly influenced by very large
+or very small observations (which in some context we refer to as <em>outliers</em>).
+For instance, assume that we are adding one billionaire to the <code class="docutils literal notranslate"><span class="pre">income</span></code>
+dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="p">[</span><span class="mi">1_000_000_000</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income2</span><span class="p">)</span>
+<span></span><span class="c1">## 1034745.2487512487</span>
+</pre></div>
+</div>
+<p>We feel we are all richer now, right?
+In fact, the arithmetic mean reflects the income each of us would
+get if the all the wealth was gathered in a single Santa Claus
+(or Robin Hood) sack and then distributed equally amongst all of us.
+But we do not live in a utopia, so let us move on.</p>
+<p>On the other hand, the median is the value
+such that 50% of the observations are less than or equal to it
+and 50% of the remaining ones are no less than it.</p>
+<p>Hence, it totally ignores most data points – on both the left and the
+right side of the distribution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income2</span><span class="p">)</span>
+<span></span><span class="c1">## 30076.0</span>
+</pre></div>
+</div>
+<p>Because of this, we cannot say that one measure is better than the other.
+Certainly for symmetrical distributions with no outliers
+(e.g., <code class="docutils literal notranslate"><span class="pre">heights</span></code>), the mean
+will be better as it uses <em>all</em> data (and its efficiency
+can be proven for certain statistical models).
+For skewed distributions (e.g., <code class="docutils literal notranslate"><span class="pre">income</span></code>),
+the median has a nice interpretation: what is the “middle”
+value? Let us still remember that these are data summaries – they
+only allow us to look at a single data aspect, and there can be
+many different, valid perspectives. The reality is complex.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Compute the arithmetic mean
+and median for the <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> dataset
+mentioned in the previous part.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> (*) Write a function
+that computes the median without the use of <code class="docutils literal notranslate"><span class="pre">numpy.median</span></code>
+(based on its mathematical definition and <code class="docutils literal notranslate"><span class="pre">numpy.sort</span></code>).</p>
+</div></blockquote>
+<p>(*) On a side note, the arithmetic mean can also be computed
+using the <code class="docutils literal notranslate"><span class="pre">mean</span></code> <em>method</em> in the <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> class –
+it will sometimes be the case
+that we have many different ways to perform the same operation.
+Or, we can “implement” it manually using the <code class="docutils literal notranslate"><span class="pre">sum</span></code> function.
+Thus, the following expressions are equivalent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">heights</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> \
+    <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">heights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">heights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="c1">## (160.08245186988268, 160.08245186988268, 160.08245186988268, 160.08245186988268)</span>
+</pre></div>
+</div>
+<p>On the other hand, there exists the <code class="docutils literal notranslate"><span class="pre">numpy.median</span></code> function
+but, unfortunately, the <code class="docutils literal notranslate"><span class="pre">median</span></code> method for vectors is not available.</p>
+</div>
+<div class="section" id="quantiles">
+<h3><span class="section-number">6.2.2. </span>Quantiles<a class="headerlink" href="#quantiles" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">Quantiles</a>
+generalise the notion of the sample median.</p>
+<p>For any <em>p</em> between 0 and 1,
+a <em>p</em>-quantile, denoted <span class="math notranslate nohighlight">\(q_p\)</span>,
+is a value dividing the sample in such a way that:</p>
+<ul class="simple">
+<li><p><em>100p</em>% of observations are not greater than <span class="math notranslate nohighlight">\(q_p\)</span>,</p></li>
+<li><p>the remaining <em>100(1-p)</em>% are not less than <span class="math notranslate nohighlight">\(q_p\)</span>.</p></li>
+</ul>
+<p>Quantiles appear under many different names, but they
+all refer to the same concept.
+In particular, the we can speak about <em>100p</em>-th percentiles,
+e.g., the 0.5-quantile is the same as the 50th percentile.</p>
+<p>Furthermore:</p>
+<ul class="simple">
+<li><p>0-quantile (<span class="math notranslate nohighlight">\(q_0\)</span>) = the minimum (also: <code class="docutils literal notranslate"><span class="pre">numpy.min</span></code>),</p></li>
+<li><p>25-quantile (<span class="math notranslate nohighlight">\(q_{0.25}\)</span>) = the 1st quartile (denoted <span class="math notranslate nohighlight">\(Q_1\)</span>),</p></li>
+<li><p>50-quantile (<span class="math notranslate nohighlight">\(q_{0.5}\)</span>)  = the 2nd quartile a.k.a. median,</p></li>
+<li><p>75-quantile (<span class="math notranslate nohighlight">\(q_{0.75}\)</span>) = the 3rd quartile (denoted <span class="math notranslate nohighlight">\(Q_3\)</span>),</p></li>
+<li><p>100-quantile (<span class="math notranslate nohighlight">\(q_{1}\)</span>)   = the maximum (also: <code class="docutils literal notranslate"><span class="pre">numpy.max</span></code>).</p></li>
+</ul>
+<p>Here are the above five aggregates for the two datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span></span><span class="c1">## array([  5750.  ,  20669.75,  30042.  ,  44123.75, 199969.  ])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span></span><span class="c1">## array([131.1 , 155.3 , 160.  , 164.75, 189.3 ])</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong> Compute some quantiles for
+the whole <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> dataset.
+In particular, does the minimum and maximum make sense?
+Or maybe there are some errors in the dataset that require further inspection?</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> What is the income bracket for 95% of the “most typical”
+taxpayers? In other words, determine the 2.5- and 97.5-percentiles.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Technical note.</strong> We’ve been discussing <em>a</em> <em>p</em>-quantile, because
+the devil is in the detail – there are many definitions
+of quantiles across statistical software, although most of them
+fall into our (broad) definition; they have been nicely
+summarised in the article R.J. Hyndman and Y. Fan,
+Sample Quantiles in Statistical Packages, <em>American Statistician</em> <strong>50</strong>(4),
+361-365 (1996). doi:10.2307/2684934.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Compute the <em>midrange</em> of <code class="docutils literal notranslate"><span class="pre">income</span></code> and <code class="docutils literal notranslate"><span class="pre">heights</span></code>,
+being the arithmetic mean of the minimum and the maximum.
+Note that this measure is extremely sensitive to outliers.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="measures-of-dispersion">
+<h2><span class="section-number">6.3. </span>Measures of Dispersion<a class="headerlink" href="#measures-of-dispersion" title="Permalink to this headline">¶</a></h2>
+<p>Measures of central tendency quantify the location of the
+most <em>typical</em> value (whatever that means, and we already
+know it’s complicated). That of dispersion (spread), on the other hand,
+will tell us how much <em>variability</em> is in our data.</p>
+<p>After all, when we say that the height of a group of people is 160 cm
+(on average) ± 14 cm (here, 2 standard deviations), the latter
+piece of information is a valuable addition
+(and is much different to the imaginary ± 4 cm case).</p>
+<p>Some degree of variability might be good in certain contexts and bad in other
+ones. A bolt factory should keep the variance of the fasteners’
+diameters as low as possible – after all, this is how we define quality products
+(assuming that on average they all meet the required specification).
+On the other hand, too much diversity in human behaviour, where everyone
+feels that they are special, is not really sustainable
+(but lack thereof would be extremely boring), and so forth.</p>
+<p>The noteworthy dispersion measures include:</p>
+<ul>
+<li><p>the standard deviation (** in the so-called uncorrected for bias version),
+being the average distance to the arithmetic mean:</p>
+<div class="math notranslate nohighlight">
+\[s = \sqrt{
+    \frac{ (x_1-\bar{x})^2 + (x_2-\bar{x})^2 + \dots + (x_n-\bar{x})^2 }{n}
+    } =
+    \sqrt{
+    \frac{1}{n} \sum_{i=1}^n (x_i-\bar{x})^2,
+    }
+    \]</div>
+</li>
+<li><p>the interquartile range (IQR), being the difference between the 3rd
+and the 1st quartile:</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathrm{IQR} = q_{0.75}-q_{0.25} = Q_3-Q_1.
+    \]</div>
+</li>
+</ul>
+<p>Computing the above is almost effortless:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+<span></span><span class="c1">## (22888.77122437908, 23454.0)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+<span></span><span class="c1">## (7.035238940603155, 9.449999999999989)</span>
+</pre></div>
+</div>
+<p>The IQR has an appealing interpretation,
+because we may say that this is the range comprised of the 50% <em>most typical</em>
+values.</p>
+<p>The standard deviation measures the average degree of spread around the
+arithmetic mean. Thus, it makes most sense for data distributions that
+are symmetric around the mean.
+This measure is useful overall for making comparisons across different samples.
+However, without further assumptions, it’s quite difficult to express the
+meaning of a particular value of <em>s</em> (e.g., the statement
+that the standard deviation of income is £22,900 is hard to interpret).</p>
+<blockquote>
+<div><p>(*) <strong>Note.</strong> For bell-shaped data (like <code class="docutils literal notranslate"><span class="pre">heights</span></code>, more precisely,
+for normally-distributed samples, see the next chapter),
+we sometimes report <span class="math notranslate nohighlight">\(\bar{x}\pm 2s\)</span>, as the theoretical expectancy is that
+ca. 95% of data points fall into the <span class="math notranslate nohighlight">\([\bar{x}-2s, \bar{x}+2s]\)</span>
+interval (the so-called 2-sigma rule).</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Note.</strong>
+Passing <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> (<em>delta degrees of freedom</em>)
+to <code class="docutils literal notranslate"><span class="pre">numpy.std</span></code> will apply division by <em>n-1</em> instead of <em>n</em>
+in the denominator. This estimator has slightly better statistical properties
+(which we normally explore in a course in mathematical statistics,
+which this one is not); interestingly, the <code class="docutils literal notranslate"><span class="pre">std</span></code> methods in the <em>pandas</em>
+package has <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> by default, therefore we might be interested
+in setting <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> therein.</p>
+</div></blockquote>
+<p>Further, the <em>variance</em> is the square of the standard deviation.
+Note that if data are expressed in centimetres,
+then the variance is in centimetres <em>squared</em>, which
+is not very intuitive. The standard deviation does not have this
+drawback. Mathematicians find the square root annoying though
+(for many reasons); that’s might come across the variance every now and then
+as well.</p>
+<p>The <em>range</em> (or support) is simply the difference between the maximal
+and minimal observation.</p>
+</div>
+<div class="section" id="box-and-whisker-plots">
+<h2><span class="section-number">6.4. </span>Box (and Whisker) Plots<a class="headerlink" href="#box-and-whisker-plots" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Box_plot">box and whisker plot</a>
+(or the box plot for short)
+depicts some of the most noteworthy features of a data sample.</p>
+<p>Box plots  will be particularly useful for comparing
+data samples with each other
+(e.g., heights of men and women separately).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 1st subplot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">income</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;income&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 2nd subplot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;heights&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-230-aggregate-15"></span><img alt="../_images/230-aggregate-15-5.png" src="../_images/230-aggregate-15-5.png" />
+<p class="caption"><span class="caption-number">Figure 6.3 </span><span class="caption-text">plot of chunk 230-aggregate-15</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>Each box plot consists of:</p>
+<ul class="simple">
+<li><p>the box, which spans between the 1st and the 3rd quartile:</p>
+<ul>
+<li><p>the median is clearly marked by a vertical bar inside the box;</p></li>
+<li><p>note that the width of the box corresponds to the IQR;</p></li>
+</ul>
+</li>
+<li><p>the whiskers, which span between</p>
+<ul>
+<li><p>the smallest observation (the minimum)
+or <span class="math notranslate nohighlight">\(Q_1-1.5 \mathrm{IQR}\)</span> (the left side of the box minus
+3/2 of its width), whichever is larger,</p></li>
+<li><p>the largest observation (the maximum)
+or <span class="math notranslate nohighlight">\(Q_3+1.5 \mathrm{IQR}\)</span> (the right side of the box
+plus 3/2 of its width), whichever is smaller.</p></li>
+</ul>
+</li>
+</ul>
+<p>Additionally, all observations that are less than
+<span class="math notranslate nohighlight">\(Q_1-1.5 \mathrm{IQR}\)</span> (if any)
+or greater than <span class="math notranslate nohighlight">\(Q_3+1.5 \mathrm{IQR}\)</span> (if any)
+are separately marked.</p>
+<blockquote>
+<div><p><strong>Note</strong>.
+We are used to referring to the marked points as <em>outliers</em>, however,
+it doesn’t automatically mean there is anything <em>anomalous</em> about them.
+They are <em>atypical</em> in the sense that they are
+considerably farther away from the box.
+However, they might also indicate some problems in data quality
+(e.g., when one made a typo entering the data).
+Actually, box plots are calibrated in such a way that we expect there
+to be no or only few outliers if the data are normally distributed.
+For skewer distributions, there will naturally be many outliers
+on either side.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Important.</strong> Most of the statistical packages <em>do not</em> include
+the arithmetic mean in the figure. If they do, it is marked with
+a special symbol.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Call <code class="docutils literal notranslate"><span class="pre">plt.plot(np.mean(..data..),</span> <span class="pre">0,</span> <span class="pre">&quot;wX&quot;)</span></code> after
+<code class="docutils literal notranslate"><span class="pre">seaborn.boxplot</span></code> to mark the arithmetic mean with a white cross.</p>
+</div></blockquote>
+<p>(*) We may also sometimes be interested in a <em>violin plot</em>,
+which combines the box plot (although with no outliers marked)
+and the so-called
+<a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_density_estimator">kernel density estimator</a>
+(which is a smoothened version of a histogram):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">income</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id4">
+<span id="fig-230-aggregate-16"></span><img alt="../_images/230-aggregate-16-7.png" src="../_images/230-aggregate-16-7.png" />
+<p class="caption"><span class="caption-number">Figure 6.4 </span><span class="caption-text">plot of chunk 230-aggregate-16</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="measures-of-shape">
+<h2><span class="section-number">6.5. </span>Measures of Shape (*)<a class="headerlink" href="#measures-of-shape" title="Permalink to this headline">¶</a></h2>
+<p>Note that from a histogram or a box plot we can easily deduce
+if a dataset is symmetric or skewed.</p>
+<p>It turns out that we can also give a numerical summary of such a feature.
+Namely, the <em>skewness</em> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+g = \frac{
+\frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^3
+}{
+\left(\sqrt{\frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2}\right)^3
+}.
+\]</div>
+<p>For symmetric distributions, skewness is approximately zero.
+Positive and negative skewness indicates a heavier right
+and left tail, respectively.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span></span><span class="c1">## 0.08279841283619495</span>
+</pre></div>
+</div>
+<p>is thus an instance of almost-symmetric distribution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span></span><span class="c1">## 1.9768735693998942</span>
+</pre></div>
+</div>
+<p>Income is right-skewed, and now we have this expressed as a single number.</p>
+</div>
+<div class="section" id="some-other-measures">
+<h2><span class="section-number">6.6. </span>Some Other Measures (*)<a class="headerlink" href="#some-other-measures" title="Permalink to this headline">¶</a></h2>
+<p>We have said that the arithmetic mean is very sensitive
+to extreme observations.
+In a farther part, we will consider the <em>trimmed</em> and <em>winsorised</em>
+means which are more <em>robust</em> in presence of outliers – they remove
+or replace a few smallest and largest observations in a sample.</p>
+<p>Similarly, the <em>mean absolute deviation from the mean</em> or from the median
+or even the <em>median absolute deviation from the median</em>
+can be used as more robust versions of dispersion measures.</p>
+<p>The arithmetic mean is not the only mean of interest.
+The two other very famous means
+are the <a class="reference external" href="https://en.wikipedia.org/wiki/Harmonic_mean"><em>harmonic</em></a>
+and <a class="reference external" href="https://en.wikipedia.org/wiki/Geometric_mean"><em>geometric</em></a> ones.
+The former can be used for computing the average speed from
+speed measurements at sections of identical lengths
+and the latter is more meaningful for averaging
+growth rates and speedups.</p>
+<p>The <em>coefficient of variation</em>, being the standard deviation
+dived by the arithmetic mean, is an example of a <em>relative</em> (or
+normalised) spread measure. It can be useful for comparing data
+on different scales, as it is unit-less
+(think how standard deviation changes when you
+convert between metres and kilometres).</p>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Gini_coefficient"><em>Gini index</em></a>,
+widely used in economics, can serve as a measure of dispersion
+(or shape – depending how we look at it),
+but assumes that all data points are nonnegative.
+It is normalised so that it takes values in the unit interval.
+An index of 0 reflects the situation where all values in a sample are the
+same (0 variance; perfect equality).
+If there is a single entity in possession of all the “wealth”,
+and the remaining ones are 0, then the index is equal to 1.</p>
+<p><em>Entropy</em> can be used as a measure of spread
+for data which sum to 1, e.g., probabilities.</p>
+<p><em>Kurtosis</em> (or excess kurtosis) is another measure of shape,
+describing whether a distribution is heavy- or thin-tailed.</p>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">6.7. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>M. Gagolewski, Spread measures and their relation to aggregation functions,
+<em>European Journal of Operational Research</em> <strong>241</strong>(2), 469–477, 2015, doi:10.1016/j.ejor.2014.08.034</p>
+<p>M. Grabisch, J.-L. Marichal, R. Mesiar, and E. Pap,
+<em>Aggregation functions</em>, Cambridge University Press, 2009</p>
+<p>R.J. Hyndman and Y. Fan,
+Sample Quantiles in Statistical Packages, <em>American Statistician</em> <strong>50</strong>(4),
+361-365, 1996. doi:10.2307/2684934</p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">6.8. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>How can we interpret the different values
+of the arithmetic mean, median, standard deviation, interquartile range,
+skewness, and the Gini index?</p></li>
+<li><p>There is something scientific and magical about <em>numbers</em>
+that makes us approach them with some kind of respect.
+However, taking into account that there are many possible data aggregates,
+there is a risk that a party may be cherry-picking – reporting
+the one that portrays the analysed entity in a good or bad light. For instance,
+reporting the mean instead of the median or vice versa.
+Is there anything that can be done about it?</p></li>
+<li><p>Although – mathematically speaking – all measures can be computed on all
+data, it does not mean that it always makes sense.
+For instance, some distributions will yield skewness of 0,
+but we should not automatically assume that they are nicely symmetric
+and bell-shaped (e.g., this can be a bimodal distribution).
+It is thus best to always visualise your data.
+Give some examples of datasets and measures where we should be critical
+about the obtained results.</p></li>
+<li><p>Give some examples, where simple data preprocessing
+can drastically change the values of chosen sample aggregates.</p></li>
+<li><p>(**) Reflect on the
+<a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein/">famous</a>
+saying <em>not everything that can be counted counts,
+and not everything that counts can be counted</em>.</p></li>
+<li><p>(**) Being a data scientist can be a frustrating job, especially
+when you care for some causes.
+Reflect on: <em>some things that count can be counted,
+but we will not count them, because there’s no budget for it.</em></p></li>
+<li><p>(**) Assume you were to establish your own nation on some island
+and become the benevolent dictator thereof.
+How would you <em>measure</em> if your people are happy or not?
+Let’s say that you need to come up with 3 qualitative measures
+(key performance indicators).
+What would happen if your policy making were solely be focused
+on optimising those KPIs?
+How about the same problem but with regards to your company and employees?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="240-transform-uni.html" class="btn btn-neutral float-right" title="7. Transforming and Filtering Continuous Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="220-histogram.html" class="btn btn-neutral float-left" title="5. Inspecting the Distribution of Numeric Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

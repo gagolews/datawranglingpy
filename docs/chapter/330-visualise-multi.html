@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>14. Visualising Multidimensional Data and Measuring Correlation &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/330-visualise-multi.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="15. Multidimensional Time Series" href="350-time-multi.html" />
+    <link rel="prev" title="13. Multivariate Categorical and Relational Data" href="330-categorical-multi.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">14. Visualising Multidimensional Data and Measuring Correlation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scatterplots">14.1. Scatterplots</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#d-data">14.1.1. 2D Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-data-and-beyond">14.1.2. 3D Data and Beyond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scatterplot-matrix-pairplot">14.1.3. Scatterplot Matrix (Pairplot)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#measuring-correlation">14.2. Measuring Correlation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pearson-s-linear-correlation-coefficient">14.2.1. Pearson’s Linear Correlation Coefficient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#correlation-heatmap">14.2.2. Correlation Heatmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linear-correlation-coefficients-on-transformed-data">14.2.3. Linear Correlation Coefficients on Transformed Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spearman-s-rank-correlation-coefficient">14.2.4. Spearman’s Rank Correlation Coefficient</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">14.3. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">14.4. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">14. </span>Visualising Multidimensional Data and Measuring Correlation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="350-time-multi.html" class="btn btn-neutral float-right" title="15. Multidimensional Time Series" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="330-categorical-multi.html" class="btn btn-neutral float-left" title="13. Multivariate Categorical and Relational Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="visualising-multidimensional-data-and-measuring-correlation">
+<span id="chap-visualise-multi"></span><h1><span class="section-number">14. </span>Visualising Multidimensional Data and Measuring Correlation<a class="headerlink" href="#visualising-multidimensional-data-and-measuring-correlation" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> be a numeric matrix
+with <em>n</em> rows and <em>m</em> columns. Such matrices are a convenient
+means of representing many different kinds of data:</p>
+<ul class="simple">
+<li><p><em>n</em> points in an <em>m</em> dimensional space
+(like <em>n</em> observations for which there are <em>m</em>
+measurements/features recorded,
+where each row describes a different object);</p></li>
+<li><p><em>m</em> time series sampled at <em>n</em> points in time (e.g., <em>m</em>
+different stocks on <em>n</em> consecutive days);</p></li>
+<li><p>a single kind of measurement for data
+in <em>m</em> groups, each consisting of <em>n</em> subjects
+(e.g., heights of <em>n</em> males and <em>n</em> females);
+here, the order of elements in each column does not usually
+matter as observations are not <em>paired</em>; there is no relationship
+between <span class="math notranslate nohighlight">\(x_{i,j}\)</span> and <span class="math notranslate nohighlight">\(x_{i,k}\)</span> for <span class="math notranslate nohighlight">\(j\neq k\)</span>;
+a matrix is used merely as a convenient container for
+storing a few unrelated vectors of identical sizes;
+we will be dealing with a more generic case of possibly
+nonhomogeneous groups in the data frame chapter;</p></li>
+<li><p>two-way contingency tables, where an element
+<span class="math notranslate nohighlight">\(x_{i,j}\)</span> gives the number of occurrences of items
+at the <span class="math notranslate nohighlight">\(i\)</span>-th level of the first categorical variable and,
+at the same time, being at the <span class="math notranslate nohighlight">\(j\)</span>-th level of the second
+variable (e.g., blue-eyed <em>and</em> blonde-haired);</p></li>
+<li><p>graphs and other relationships between objects,
+e.g., <span class="math notranslate nohighlight">\(x_{i,j}=0\)</span> might denote that the <span class="math notranslate nohighlight">\(i\)</span>-th object
+is not connected with the <span class="math notranslate nohighlight">\(j\)</span>-th one
+and <span class="math notranslate nohighlight">\(x_{k,l}=0.2\)</span> that there is a weak connection between
+<span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(l\)</span>;</p></li>
+<li><p>images, where <span class="math notranslate nohighlight">\(x_{i,j}\)</span> represents the
+intensity of a colour component (e.g., red, green, blue
+or shades of grey or hue, saturation, brightness)
+of a pixel in the <span class="math notranslate nohighlight">\((n-i+1)\)</span>-th row and the <span class="math notranslate nohighlight">\(j\)</span>-th column.</p></li>
+</ul>
+<p>In this part we will be dealing with the first case,
+i.e., <em>n</em> points in an <em>m</em> dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
+which we  refer to as <em>multidimensional data</em>.</p>
+<p>The National Health and Nutrition Examination Survey
+(NHANES study) excerpt is a typical example of such data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>  <span class="c1"># data frames will be covered later</span>
+<span class="n">body</span><span class="o">.</span><span class="n">shape</span>
+<span></span><span class="c1">## (4221, 7)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 6 first rows, all columns</span>
+<span></span><span class="c1">## array([[ 97.1, 160.2,  34.7,  40.8,  35.8, 126.1, 117.9],</span>
+<span class="c1">##        [ 91.1, 152.7,  33.5,  33. ,  38.5, 125.5, 103.1],</span>
+<span class="c1">##        [ 73. , 161.2,  37.4,  38. ,  31.8, 106.2,  92. ],</span>
+<span class="c1">##        [ 61.7, 157.4,  38. ,  34.7,  29. , 101. ,  90.5],</span>
+<span class="c1">##        [ 55.4, 154.6,  34.6,  34. ,  28.3,  92.5,  73.2],</span>
+<span class="c1">##        [ 62. , 144.7,  32.5,  34.2,  29.8, 106.7,  84.8]])</span>
+</pre></div>
+</div>
+<p>We thus have <em>n=4221</em> participants and <em>7</em> different
+features describing them, in this order:</p>
+<ol class="simple">
+<li><p>weight (kg),</p></li>
+<li><p>standing height (cm),</p></li>
+<li><p>upper arm length (cm),</p></li>
+<li><p>upper leg length (cm),</p></li>
+<li><p>arm circumference (cm),</p></li>
+<li><p>hip circumference (cm),</p></li>
+<li><p>waist circumference (cm).</p></li>
+</ol>
+<p>Such kind of tabular (“structured”) data are the most prevalent.</p>
+<p>The important property it that the elements in each row
+describe the same person;
+we can reorder all the columns at the same time
+(change the order of participants),
+but sorting a single column and leaving the others
+unchanged will be semantically invalid.</p>
+<p>Thus, we expect that the data in columns
+will somewhat be <em>correlated</em> which each other
+(e.g., a taller person <em>usually tends to</em> weight more).
+We will also be interested in quantifying
+the degree of association between variables.</p>
+<blockquote>
+<div><p><strong>Important.</strong> In practice, quite often more complex and
+less-structured data can be mapped to a tabular form.
+For instance, <a class="reference external" href="http://millionsongdataset.com/">a set of audio recordings</a>
+can be described by measuring overall loudness,
+timbre, and danceability of each song.
+Also, a collection of documents can be described
+by means of the degrees of belongingness to some
+automatically discovered topics
+(e.g., Joyce’s <em>Ulysses</em> is 40% travel literature, 70% comedy,
+and 50% heroic fantasy, but do not take it for granted).</p>
+</div></blockquote>
+<div class="section" id="scatterplots">
+<h2><span class="section-number">14.1. </span>Scatterplots<a class="headerlink" href="#scatterplots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="d-data">
+<h3><span class="section-number">14.1.1. </span>2D Data<a class="headerlink" href="#d-data" title="Permalink to this headline">¶</a></h3>
+<p>A <em>scatterplot</em> can be used to visualise one variable against another one.
+For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># x=body[:, 1], y=body[:, 3]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;standing height (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;upper leg length (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-330-visualise-multi-3"></span><img alt="../_images/330-visualise-multi-3-1.png" src="../_images/330-visualise-multi-3-1.png" />
+<p class="caption"><span class="caption-number">Figure 14.1 </span><span class="caption-text">plot of chunk 330-visualise-multi-3</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>gives a depiction of upper leg length (<em>y</em> axis)
+vs standing height (<em>x</em> axis) in the form
+of a point cloud with <em>(x, y)</em> coordinates like
+<code class="docutils literal notranslate"><span class="pre">(body[i,</span> <span class="pre">1],</span> <span class="pre">body[i,</span> <span class="pre">3])</span></code>.</p>
+<p>For instance, here are the exact coordinates of the point
+corresponding to the person of the smallest height:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+<span></span><span class="c1">## array([131.1,  30.8])</span>
+</pre></div>
+</div>
+<p>and here is the one with the greatest upper leg length:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+<span></span><span class="c1">## array([168.9,  49.1])</span>
+</pre></div>
+</div>
+<p>As the points are plentiful, we do not necessarily see
+<em>where</em> the majority of them is located.
+A simple trick to remedy this is to plot the points
+using a semi-transparent colour:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;#00000011&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]),</span> <span class="s2">&quot;rX&quot;</span><span class="p">)</span>  <span class="c1"># the centroid</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;standing height (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;upper leg length (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## (128.19, 192.21, 23.795, 50.305)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id2">
+<span id="fig-330-visualise-multi-6"></span><img alt="../_images/330-visualise-multi-6-3.png" src="../_images/330-visualise-multi-6-3.png" />
+<p class="caption"><span class="caption-number">Figure 14.2 </span><span class="caption-text">plot of chunk 330-visualise-multi-6</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Here, the colour specifier is of the form
+<a class="reference external" href="https://en.wikipedia.org/wiki/RGBA_color_model"><code class="docutils literal notranslate"><span class="pre">#rrggbbaa</span></code></a>,
+giving the intensity of the red, green, blue, and alpha (opaqueness)
+channel in series of two <a class="reference external" href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a>
+digits (between <code class="docutils literal notranslate"><span class="pre">00</span></code> = 0 and <code class="docutils literal notranslate"><span class="pre">ff</span></code> = 255).</p>
+<p>We have also, but more for the sake of an exercise,
+marked the point corresponding to the
+<em>centroid</em>, which is simply the componentwise arithmetic mean.
+Furthermore, we asked for the axes to use the same scale.</p>
+<p>The plot reveals that there is a <em>general tendency</em>
+of small heights and small upper leg lengths to occur frequently together.
+The same with larger pairs. Later we will explore some measures
+of correlation that enable us to quantify the degree of association
+between variable pairs.</p>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Check out <code class="docutils literal notranslate"><span class="pre">seaborn.jointplot</span></code> for a two-dimensional version of a histogram,
+a density heatmap.
+Instead of bar heights, the number of classes in each bin
+can be encoded by colour intensities.
+This function can also depict  2D kernel density estimators (KDEs)
+in the form of nice level curve plots.
+Note the marginal distributions depicted in the top and right pane.</p>
+</div></blockquote>
+</div>
+<div class="section" id="d-data-and-beyond">
+<h3><span class="section-number">14.1.2. </span>3D Data and Beyond<a class="headerlink" href="#d-data-and-beyond" title="Permalink to this headline">¶</a></h3>
+<p>If we have more than 2 variables
+to visualise, we might be tempted to use, e.g.,
+a 3-dimensional scatterplot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#00000011&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vertical_axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;standing height (cm)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;upper leg length (cm)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;weight (kg)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-330-visualise-multi-7"></span><img alt="../_images/330-visualise-multi-7-5.png" src="../_images/330-visualise-multi-7-5.png" />
+<p class="caption"><span class="caption-number">Figure 14.3 </span><span class="caption-text">plot of chunk 330-visualise-multi-7</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>However, infrequently will it provide us with readable results:
+we are projecting a three-dimensional reality onto
+a two-dimensional screen or page. Some information must inherently
+be lost. Also, what we see is relative to the position of the
+virtual camera.</p>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Try finding an <em>interesting</em> elevation and azimuth angle
+by playing with the arguments passed to the
+<code class="docutils literal notranslate"><span class="pre">mpl_toolkits.mplot3d.axes3d.Axes3D.view_init</span></code> function.
+Also, depict arm circumference, hip circumference, and weight.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Note.</strong>
+Sometimes there might be facilities available to create an interactive
+scatterplot (e.g., running the above from the Python’s console
+actually enables this), where the virtual camera can be freely repositioned.
+This can give some insight into our data.
+Also, there are means of creating animated sequences, where we
+can fly over the data scene. Some people find it cool, others
+find in annoying, but the biggest problem therewith is that
+they cannot be included in printed material.
+However, if we are only targeting the display for the web (this
+includes mobile devices), we can try <a class="reference external" href="https://wiki.python.org/moin/NumericAndScientific/Plotting">some Python libraries</a>
+that output HTML+CSS+JavaScript code to be rendered by a browser engine.
+Still, there are people who want to keep JavaScript disabled/blocked,
+therefore we are not big fans of such solutions. Less is better.</p>
+</div></blockquote>
+<p>A piece of paper is 2-dimensional. We only have height and width.
+The world around us is 3-dimensional, we thus also understand the notion
+of depth.
+As far as the case of more-dimensional data is concerned, well,
+suffice it to say that we are 3-dimensional creatures
+and any attempts towards visualising them will simply not work,
+don’t even trip.</p>
+<p>Luckily, this is where mathematics comes to our rescue.
+With some more knowledge and intuitions, and this book lets us
+gain them, it will be as easy as imagining a generic <em>m</em>-dimensional space,
+and then assuming that, say, <em>m=7</em> or <em>42</em>.</p>
+<p>Pardon yours truly an old joke.</p>
+<p>But, really, jokes aside, this is exactly why data science relies
+on automated methods for knowledge/pattern discovery – so that
+we are able to identify, describe, and analyse the structures that
+might be present in the data, but cannot be perceived with our imperfect
+senses.</p>
+<blockquote>
+<div><p><strong>Note.</strong> Linear and nonlinear dimensionality reduction techniques
+can be applied to visualise some aspects of high-dimensional data
+in form of 2-, or 3-dimensional plots.
+In particular, the principal component analysis (PCA) finds
+an <em>interesting</em> angle at which to look at the data
+(so that most variance is along the first, and then second, etc., axis).</p>
+</div></blockquote>
+<p>As some form of a workaround, we can play with marker colours
+(or sometimes sizes: think of them as bubbles).
+A suitable
+<a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">colour map</a>,
+can be used to distinguish between low and high values of an
+additional variable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">body</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span>   <span class="c1"># x</span>
+    <span class="n">body</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span>   <span class="c1"># y</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># &quot;z&quot; - colours</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">),</span>  <span class="c1"># colour map</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span>  <span class="c1"># opaqueness level between 0 and 1</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;arm circumference (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;hip circumference (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;weight (kg)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## (15.934999999999999, 59.165000000000006, 68.75, 184.25)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id4">
+<span id="fig-330-visualise-multi-8"></span><img alt="../_images/330-visualise-multi-8-7.png" src="../_images/330-visualise-multi-8-7.png" />
+<p class="caption"><span class="caption-number">Figure 14.4 </span><span class="caption-text">plot of chunk 330-visualise-multi-8</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>We can see some tendency for the weight be greater
+as both the arm and the hip circumferences increase.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Play around with different
+<a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">colour pallettes</a>.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Important.</strong> We should be wary that
+ca. every 1 in 12 men (8%) and 1 in 200 women (0.5%) has
+<a class="reference external" href="https://en.wikipedia.org/wiki/Color_blindness">colour vision deficiencies</a>,
+especially in the red-green or blue-yellow spectrum,
+thence some diverging colour maps might be worse than others.</p>
+</div></blockquote>
+</div>
+<div class="section" id="scatterplot-matrix-pairplot">
+<h3><span class="section-number">14.1.3. </span>Scatterplot Matrix (Pairplot)<a class="headerlink" href="#scatterplot-matrix-pairplot" title="Permalink to this headline">¶</a></h3>
+<p>As a countermeasure, we may try depicting all (or most – ones we
+deem interesting) pairs of variables in the same figure
+in form of a scatterplot matrix.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;weight (kg)&quot;</span><span class="p">,</span> <span class="s2">&quot;standing height (cm)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;arm circumference (cm)&quot;</span><span class="p">,</span> <span class="s2">&quot;hip circumference (cm)&quot;</span>
+    <span class="p">]</span>
+<span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<span id="fig-330-visualise-multi-9"></span><img alt="../_images/330-visualise-multi-9-9.png" src="../_images/330-visualise-multi-9-9.png" />
+<p class="caption"><span class="caption-number">Figure 14.5 </span><span class="caption-text">plot of chunk 330-visualise-multi-9</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<div class="legend">
+<div class="highlight-(fig:330-visualise-multi-9)= notranslate"><div class="highlight"><pre><span></span>```{figure} 330-visualise-multi-figures/330-visualise-multi-9-10.*
+plot of chunk 330-visualise-multi-9
+</pre></div>
+</div>
+</div>
+</div>
+<p>As depicting a variable against itself is uninteresting (exercise:
+what would that be?), we have included histograms on the main
+diagonal to see how the one-dimensional projections are distributed
+(the <em>marginal distributions</em>).</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Draw a scatterplot matrix for the
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/%5Cteaching_data/master/clustering/fcps_chainlink.csv">fcps_chainlink</a> dataset.
+Note that we are only observing different 2-dimensional projections
+of this more complex domain – only those that are along
+the main axes. Create a 3D scatterplot to reveal the true shapes.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Use <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.subplot</span></code> and other functions we have learned
+in the previous part to create a scatterplot matrix manually.
+Draw weight, arm circumference,  and hip circumference on a logarithmic
+scale.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="measuring-correlation">
+<h2><span class="section-number">14.2. </span>Measuring Correlation<a class="headerlink" href="#measuring-correlation" title="Permalink to this headline">¶</a></h2>
+<p>Scatterplots let us identify some simple patterns or structure in data:
+we note that higher hip circumferences <em>tend to</em> occur more often
+together with higher arm circumferences
+and that the latter does not really tell us anything
+about height.</p>
+<p>Let’s explore the two most popular means for measuring
+(expressing as a single number) the degree of association
+between a set of pairs of points.</p>
+<div class="section" id="pearson-s-linear-correlation-coefficient">
+<h3><span class="section-number">14.2.1. </span>Pearson’s Linear Correlation Coefficient<a class="headerlink" href="#pearson-s-linear-correlation-coefficient" title="Permalink to this headline">¶</a></h3>
+<p>First, the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson’s <em>linear correlation</em> coefficient</a>:</p>
+<div class="math notranslate nohighlight">
+\[
+r(\boldsymbol{x}, \boldsymbol{y}) = \frac{1}{n-1} \sum_{i=1}^n
+   \frac{x_i - \bar{x}}{s_{x}}
+\,
+   \frac{y_i - \bar{y}}{s_{y}},
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(s_x, s_y\)</span> denoting the standard deviations
+and <span class="math notranslate nohighlight">\(\bar{x}, \bar{y}\)</span> being the means of
+<span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> and
+<span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span>, respectively.</p>
+<blockquote>
+<div><p><strong>Note.</strong> Look carefully: we are computing pairwise
+products of standardised versions of the two vectors.
+It is a normalised measure of how they <em>vary</em> together
+(co-variance).</p>
+</div></blockquote>
+<p>Here is how we can compute it manually:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span>  <span class="c1"># arm circumference</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">]</span>  <span class="c1"># hip circumference</span>
+<span class="n">x_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x_std</span><span class="o">*</span><span class="n">y_std</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="c1">## 0.8682684478597853</span>
+</pre></div>
+</div>
+<p>And here is a built-in function that implements the same formula:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># returns more than we ask for</span>
+<span></span><span class="c1">## 0.8680627457873241</span>
+</pre></div>
+</div>
+<p>To get more insight, we’ll illustrate some interesting cases
+using the following function
+that draws a scatter plot and prints out Pearson’s <em>r</em>
+(and Spearman’s <em>ρ</em> which we discuss below – let’s ignore
+it by then):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ρ</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;r = </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\n</span><span class="s2">ρ = </span><span class="si">{</span><span class="n">ρ</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here are the basic properties of Pearson’s <em>r</em>:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>
+(symmetric);</p></li>
+<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})\)</span> is always between -1 and 1
+(bounded from below and above);</p></li>
+<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=1\)</span> if and only if
+<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&gt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=-1\)</span> if and only if
+<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&lt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span>;</p></li>
+</ol>
+<p>Hence, we get perfect <em>linear correlation</em> (-1 or 1) when
+one variable is a scaled and shifted version (linear function)
+of the other variable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># negative slope</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># positive slope</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## (-0.032832257071933206, 1.0443199458009675, 2.477840027099516, 3.0164161285359667)</span>
+<span class="c1">## (-0.032832257071933206, 1.0443199458009675, 9.9015032287842, 13.132959837402902)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id6">
+<span id="fig-330-visualise-multi-13"></span><img alt="../_images/330-visualise-multi-13-13.png" src="../_images/330-visualise-multi-13-13.png" />
+<p class="caption"><span class="caption-number">Figure 14.6 </span><span class="caption-text">plot of chunk 330-visualise-multi-13</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that negative correlation means that when one variable
+increases, the other one decreases (like: a car’s braking distance vs
+velocity).</p>
+<p>If two variables are <em>more or less</em> linear functions
+of themselves, the correlations will be close to -1 or 1,
+with the degree of association diminishing as the linear relationship
+becomes less and less present.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">x</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># random white noise (of mean 0)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mf">0.05</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># add some noise</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mf">0.1</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>   <span class="c1"># more noise</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># even more noise</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id7">
+<span id="fig-330-visualise-multi-14"></span><img alt="../_images/330-visualise-multi-14-15.png" src="../_images/330-visualise-multi-14-15.png" />
+<p class="caption"><span class="caption-number">Figure 14.7 </span><span class="caption-text">plot of chunk 330-visualise-multi-14</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note again that the arm and hip circumferences enjoy
+quite high positive degree of linear correlation.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Draw a  series of similar plots but
+for the case of negatively correlated point pairs.</p>
+</div></blockquote>
+<p>We should stress that correlation close to 0 does not necessarily
+mean that two variables are not related to each other.
+It is a <em>linear</em> correlation coefficient, so we
+are only quantifying those types of relationships.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>  <span class="c1"># independent (not correlated)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># quadratic dependence</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># another form of dependence</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># another</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id8">
+<span id="fig-330-visualise-multi-15"></span><img alt="../_images/330-visualise-multi-15-17.png" src="../_images/330-visualise-multi-15-17.png" />
+<p class="caption"><span class="caption-number">Figure 14.8 </span><span class="caption-text">plot of chunk 330-visualise-multi-15</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>What’s more, sometimes we can detect <em>false</em> correlations –
+when data are functionally dependent, but the relationship
+is not linear, but it kind of looks like linear.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.7</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id9">
+<span id="fig-330-visualise-multi-16"></span><img alt="../_images/330-visualise-multi-16-19.png" src="../_images/330-visualise-multi-16-19.png" />
+<p class="caption"><span class="caption-number">Figure 14.9 </span><span class="caption-text">plot of chunk 330-visualise-multi-16</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>No single measure is perfect – we are trying to compress
+<em>2n</em> data points into a single number — it is obvious that
+there will be many different datasets, sometimes very diverse,
+that will yield the same correlation value.</p>
+<blockquote>
+<div><p><strong>Important.</strong> Note that high correlation
+degree (either positive or negative) does not
+mean that there is any <em>casual</em> relationship between
+the two variables (“correlation is not causation”).
+We cannot say that having large arm circumference affects hip size
+or the other way around. There might be some <em>latent</em> variable
+that influences these two (e.g., maybe also related to weight?).</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> Quite often, medical advice is formulated
+based on correlations and similar association-measuring tools.
+We should know how to interpret them, as it is never
+a true cause-effect relationship; rather,
+it’s all about detecting common patterns in larger populations.
+For instance, in “obesity increases the likelihood of lower back
+pain and diabetes” we does not say that one necessarily
+<em>implies</em> another or that if you are not obese, there is no
+risk of getting the two said conditions.
+It might also work the other way around, as lower back pain
+may lead to less exercise and then weight gain. Reality
+is complex.
+Find similar patterns related to other sets of conditions.
+Which are stronger than others?</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Note.</strong>
+Measuring correlations can aid in constructing
+regression models, where we would like to
+identify the transformation that expresses one variable
+as a function of one or more other ones
+(when we say that <span class="math notranslate nohighlight">\(y\)</span> can be modelled by <span class="math notranslate nohighlight">\(ax+b\)</span>,
+regression analysis with identify the concrete <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>
+coefficients).
+In particular, we would like to include some variables
+that are correlated with the modelled variable
+but avoid modelling with the features that are highly
+correlated with each other, because they do not bring anything
+interesting to the table and can cause the solution to be numerically
+unstable.</p>
+</div></blockquote>
+</div>
+<div class="section" id="correlation-heatmap">
+<h3><span class="section-number">14.2.2. </span>Correlation Heatmap<a class="headerlink" href="#correlation-heatmap" title="Permalink to this headline">¶</a></h3>
+<p>Calling
+<code class="docutils literal notranslate"><span class="pre">numpy.corrcoef(body.T)</span></code> (note the matrix transpose)
+allows for determining the linear correlation
+coefficients between all pairs of variables.</p>
+<p>We can nicely depict them on a heatmap.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;arm len&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;leg len&quot;</span><span class="p">,</span> <span class="s2">&quot;arm circ&quot;</span><span class="p">,</span> <span class="s2">&quot;hip circ&quot;</span><span class="p">,</span> <span class="s2">&quot;waist circ&quot;</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">C</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)],</span>
+    <span class="n">xticklabels</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">order</span><span class="p">],</span>
+    <span class="n">yticklabels</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">order</span><span class="p">],</span>
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id10">
+<span id="fig-330-visualise-multi-17"></span><img alt="../_images/330-visualise-multi-17-21.png" src="../_images/330-visualise-multi-17-21.png" />
+<p class="caption"><span class="caption-number">Figure 14.10 </span><span class="caption-text">plot of chunk 330-visualise-multi-17</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that we have ordered the columns to reveal some naturally
+occurring variable <em>clusters</em>: for instance,
+arm, hip, waist circumference and weight are all quite strongly
+correlated.</p>
+<p>Of course, we have 1.0s on the main diagonal because a variable
+is trivially correlated with itself.
+Also, note that this heatmap is symmetric
+which is due to the property
+<span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>.</p>
+</div>
+<div class="section" id="linear-correlation-coefficients-on-transformed-data">
+<h3><span class="section-number">14.2.3. </span>Linear Correlation Coefficients on Transformed Data<a class="headerlink" href="#linear-correlation-coefficients-on-transformed-data" title="Permalink to this headline">¶</a></h3>
+<p>Pearson’s coefficient can of course also be applied
+on nonlinearly transformed versions of variables,
+e.g., logarithms (remember incomes?), squares, square roots, etc.</p>
+<p>Let’s consider an excerpt from the
+the 2020 CIA <a class="reference external" href="https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html">World Factbook</a>,
+where we have data on
+<a class="reference external" href="https://en.wikipedia.org/wiki/Gross_domestic_product">gross domestic product</a>
+per capita (based on
+<a class="reference external" href="https://en.wikipedia.org/wiki/Purchasing_power_parity">purchasing power parity</a>)
+and life expectancy at birth in many countries.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/world_factbook_2020_subset1.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">world</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview</span>
+<span></span><span class="c1">## array([[ 2000. ,    52.8],</span>
+<span class="c1">##        [12500. ,    79. ],</span>
+<span class="c1">##        [15200. ,    77.5],</span>
+<span class="c1">##        [11200. ,    74.8],</span>
+<span class="c1">##        [49900. ,    83. ],</span>
+<span class="c1">##        [ 6800. ,    61.3]])</span>
+</pre></div>
+</div>
+<p>Computing Pearson’s <em>r</em>
+between these two indicates a quite weak linear correlation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="c1">## 0.656471945486374</span>
+</pre></div>
+</div>
+<p>However, already the logarithm of GDP is slightly more strongly linearly
+correlated with life expectancy:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="c1">## 0.8066505089380016</span>
+</pre></div>
+</div>
+<p>which means that modelling our data
+via <span class="math notranslate nohighlight">\(\boldsymbol{y}=a \log\boldsymbol{x}+b\)</span>
+can be an idea worth considering.</p>
+<p>Here are the scatterplots:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plot_corr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id11">
+<span id="fig-330-visualise-multi-21"></span><img alt="../_images/330-visualise-multi-21-23.png" src="../_images/330-visualise-multi-21-23.png" />
+<p class="caption"><span class="caption-number">Figure 14.11 </span><span class="caption-text">plot of chunk 330-visualise-multi-21</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="spearman-s-rank-correlation-coefficient">
+<h3><span class="section-number">14.2.4. </span>Spearman’s Rank Correlation Coefficient<a class="headerlink" href="#spearman-s-rank-correlation-coefficient" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes we might be interested in measuring
+the degree of any kind of <em>monotonic</em> correlation – to what extent
+one variable is an increasing or decreasing function
+of another one (linear, logarithmic, quadratic over the positive
+domain, etc.).</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">Spearman’s rank correlation coefficient</a> is frequently used
+in such a scenario:</p>
+<div class="math notranslate nohighlight">
+\[
+\rho(\boldsymbol{x}, \boldsymbol{y}) = r(R(\boldsymbol{x}), R(\boldsymbol{y}))
+\]</div>
+<p>which is the Pearson coefficient
+computed over vectors of the corresponding
+ranks of all the elements in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>
+(denoted with <span class="math notranslate nohighlight">\(R(\boldsymbol{x})\)</span> and <span class="math notranslate nohighlight">\(R(\boldsymbol{y})\)</span>.</p>
+<p>Hence, the two following calls are equivalent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="c1">## 0.8275220380818622</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span>
+    <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span>
+    <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="c1">## 0.8275220380818621</span>
+</pre></div>
+</div>
+<p>Let’s point out that this measure is invariant with respect to
+monotone transformations of the input variables
+(up to the sign):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+<span></span><span class="c1">## -0.8275220380818622</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+We have included the <em>ρ</em>s in all the outputs generated
+by our <code class="docutils literal notranslate"><span class="pre">plot_corr</span></code> functions. Review all the figures listed
+above.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> Draw the scatterplots of the ranks of columns
+in the <code class="docutils literal notranslate"><span class="pre">world</span></code> and <code class="docutils literal notranslate"><span class="pre">body</span></code> datasets.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">14.3. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>Another interesting rank correlation coefficient:
+<a class="reference external" href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient">Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span></a>.</p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">14.4. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>What does “correlation is not causation” mean?</p></li>
+<li><p>Give some ways to visualise 3-dimensional data.</p></li>
+<li><p>How to and why set point opaqueness/transparency when drawing
+a scatter plot?</p></li>
+<li><p>What does linear correlation of 0.9 mean?</p></li>
+<li><p>What does rank correlation of 0.9 mean?</p></li>
+<li><p>What does linear correlation of 0.0 mean?</p></li>
+<li><p>How is the Spearman’s coefficient related to the Pearson’s one?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="350-time-multi.html" class="btn btn-neutral float-right" title="15. Multidimensional Time Series" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="330-categorical-multi.html" class="btn btn-neutral float-left" title="13. Multivariate Categorical and Relational Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

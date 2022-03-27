@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>8. Continuous Probability Distributions (**) &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/250-distribution-uni.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Handling Categorical Data" href="260-categorical-uni.html" />
+    <link rel="prev" title="7. Transforming and Filtering Continuous Data" href="240-transform-uni.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Continuous Probability Distributions (**)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#normal-distribution">8.1. Normal Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comparing-cumulative-distribution-functions">8.2. Comparing Cumulative Distribution Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#q-q-plots">8.3. Q-Q plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-normal-distribution">8.4. Log-normal Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pareto-distribution">8.5. Pareto Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uniform-distribution">8.6. Uniform Distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-pseudorandom-numbers">8.7. Generating Pseudorandom Numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distribution-mixtures">8.8. Distribution Mixtures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">8.9. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">8.10. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">8. </span>Continuous Probability Distributions (**)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="260-categorical-uni.html" class="btn btn-neutral float-right" title="9. Handling Categorical Data" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="240-transform-uni.html" class="btn btn-neutral float-left" title="7. Transforming and Filtering Continuous Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="continuous-probability-distributions">
+<span id="chap-distribution-uni"></span><h1><span class="section-number">8. </span>Continuous Probability Distributions (**)<a class="headerlink" href="#continuous-probability-distributions" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>Each successful data analyst will deal with hundreds or thousands of
+datasets in their lifetime. In the long run, at some level, most of them will
+be deemed <em>boring</em>. This is because a few common patterns will be occurring
+over and over again.</p>
+<p>In particular, the previously mentioned bell-shapedness and right-skewness
+is quite prevalent in nature. But, surprisingly, this is  exactly when things
+become scientific and interesting – allowing us to study various phenomena
+at an appropriate level of generality.</p>
+<p>Mathematically, such patterns in the histogram shapes
+can be formalised using the notion of a <em>continuous probability distribution</em>,
+and more precisely, a <em>probability density function</em> of
+the corresponding random variable.</p>
+<p>Unfortunately, we do not intend this to be a course in probability theory,
+therefore we shall provide the curious reader with a digestible intuition only,
+and encourage them to delve into this magical world on their own
+at some other time.</p>
+<p>A <em>density function</em> is a nicely smooth curve that
+would arise if we drew a probability histogram
+(i.e., one whose bars’ total sum are equal to 1)
+given the whole <em>population</em> (e.g., all women living currently on Earth and
+beyond) or otherwise an extremely (infinitely even) large data sample.</p>
+<p>(**) Mathematically, it is a continuous function <span class="math notranslate nohighlight">\(f\)</span>
+(fulfilling <span class="math notranslate nohighlight">\(f(x)\ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>
+and <span class="math notranslate nohighlight">\(\int_{-\infty}^\infty f(x)\,dx=1\)</span> – these are probabilities
+after all)
+such that <span class="math notranslate nohighlight">\(\int_a^b f(x)\,dx\)</span> gives the probability
+of obtaining a result in any <span class="math notranslate nohighlight">\([a, b]\)</span> interval.
+This is a continuous equivalent of the concept of binning
+and determining the fraction of values falling therein.</p>
+<p>The so-called <em>kerned density estimators</em> (KDEs), although based
+on finite data samples, can give us the taste of the said objects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-250-distribution-uni-2"></span><img alt="../_images/250-distribution-uni-2-1.png" src="../_images/250-distribution-uni-2-1.png" />
+<p class="caption"><span class="caption-number">Figure 8.1 </span><span class="caption-text">plot of chunk 250-distribution-uni-2</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">stat=&quot;density&quot;</span></code> means exactly that
+the total area of all the bars are normalised so that they sum to 1.</p>
+<p>Some distributions appear more frequently than others
+and fit empirical data or parts thereof particularly well.
+Let us thus review a few noteworthy probability distributions:
+the normal, log-normal, Pareto, and uniform families.
+In the sequel, we will be using the <em>scipy</em> package,
+which is built on top of <em>numpy</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>(*) <strong>Note.</strong> There are many other useful continuous probability
+distributions that we usually study in a course in statistics:
+the exponential, beta, gamma, chi-square, Cauchy,
+Snedecor’s F, Student’s t, and other families, just to name a few.</p>
+</div></blockquote>
+<div class="section" id="normal-distribution">
+<h2><span class="section-number">8.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normal distribution</a>
+yields a prototypical bell-shaped density.
+It is described by two parameters:
+μ (the expected value, at which the density is centred)
+and σ (the standard deviation, saying how
+much is the distribution dispersed around μ).</p>
+<p>A course in statistics (which again – this one is not,
+we are merely making an illustration here), may tell us
+that the sample arithmetic mean
+and standard deviation are natural, statistically well-behaving
+<em>estimators</em> of the said parameters:
+if all samples would really be drawn independently from N(μ, σ) each,
+the we <em>expect</em> the mean and standard deviation be equal
+to, more or less, μ and σ (the more the samples are, the smaller
+the error).</p>
+<p>Let’s estimate these parameters in the case of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">μ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>  <span class="c1"># an estimator of expected value</span>
+<span class="n">σ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># an estimator of standard deviation</span>
+<span class="n">μ</span><span class="p">,</span> <span class="n">σ</span>
+<span></span><span class="c1">## (160.08245186988268, 7.03601747642589)</span>
+</pre></div>
+</div>
+<p>We use <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>, because this estimator has slightly better
+statistical properties.</p>
+<p>Next, we can draw the density function of the
+N(160.1, 7.04) distribution on top of the histogram:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">μ</span><span class="p">,</span> <span class="n">σ</span><span class="p">),</span> <span class="s2">&quot;r:&quot;</span><span class="p">)</span>  <span class="c1"># a dotted red curve</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id2">
+<span id="fig-250-distribution-uni-5"></span><img alt="../_images/250-distribution-uni-5-3.png" src="../_images/250-distribution-uni-5-3.png" />
+<p class="caption"><span class="caption-number">Figure 8.2 </span><span class="caption-text">plot of chunk 250-distribution-uni-5</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>This yields a very nice fit! (Of course,
+formally, this of course needs to be verified
+more rigorously using some statistical hypothesis testing –
+which yours truly did on the side, hence his enthusiasm.)</p>
+<p>Instead of working with a few thousands data points,
+an analyst may instead decide that they will use
+the above <em>idealisation</em> as the data <em>model</em>.
+Note that the whole sample has been <em>reduced</em> to merely two parameters.</p>
+<p>This not only saves storage space and computational time, but – based
+on some facts that can be proven mathematically and be
+found in good textbooks in probability and statistics – we can imply things
+such as:</p>
+<ul class="simple">
+<li><p>95% of (i.e., <em>most</em>)  women are μ±2σ tall (the 2σ rule),</p></li>
+<li><p>99.7% of (i.e., <em>almost all</em>) women are μ±3σ tall (the 3σ rule).</p></li>
+</ul>
+<p>Also, if we knew that the distribution of heights of men
+is also normal with some other parameters, we could be able to
+make some comparisons, etc.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> How different manufacturing industries
+can make use of such knowledge?
+Are simplifications necessary when dealing with complexity?
+What are the alternatives?</p>
+</div></blockquote>
+</div>
+<div class="section" id="comparing-cumulative-distribution-functions">
+<h2><span class="section-number">8.2. </span>Comparing Cumulative Distribution Functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Permalink to this headline">¶</a></h2>
+<p>One way of visually assessing the extent to which
+a sample deviates from a hypothesised distribution,
+is by plotting the empirical and the theoretical
+<em>cumulative distribution function</em> (CDF) on one plot.</p>
+<p>If <span class="math notranslate nohighlight">\(f\)</span> is a density function, then the corresponding
+theoretical CDF is defined as <span class="math notranslate nohighlight">\(F(x) = \int_{-\infty}^x f(t)\,dt\)</span>,
+i.e., the probability of obtaining a value not greater than <span class="math notranslate nohighlight">\(x\)</span>.
+For the normal distribution family,
+this can be computed by calling <code class="docutils literal notranslate"><span class="pre">scipy.stats.norm.cdf</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="mi">1001</span><span class="p">)</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">μ</span><span class="p">,</span> <span class="n">σ</span><span class="p">)</span>  <span class="c1"># sample the CDF at many points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Theoretical CDF&quot;</span><span class="p">)</span>
+<span class="n">heights_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">heights_sorted</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">,</span>
+    <span class="n">drawstyle</span><span class="o">=</span><span class="s2">&quot;steps-post&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Empirical CDF&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$Prob(height $</span><span class="se">\\</span><span class="s2">leq$ x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-250-distribution-uni-6"></span><img alt="../_images/250-distribution-uni-6-5.png" src="../_images/250-distribution-uni-6-5.png" />
+<p class="caption"><span class="caption-number">Figure 8.3 </span><span class="caption-text">plot of chunk 250-distribution-uni-6</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>This is a superb match.</p>
+<p>Of course, visual inspection does not replace statistical goodness-of-fit
+tests. However, it is worth noting that the popular
+<a class="reference external" href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">Kolmogorov–Smirnov</a> test
+relies on assessing the greatest absolute deviation between the two functions.</p>
+</div>
+<div class="section" id="q-q-plots">
+<h2><span class="section-number">8.3. </span>Q-Q plots<a class="headerlink" href="#q-q-plots" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot">Q-Q</a>
+(quantile-quantile) plot is another graphical method
+for comparing two distributions.
+This time, instead of working with cumulative distribution functions,
+we will be dealing with their inverses, i.e.,
+quantile functions.</p>
+<p>A Q-Q plot draws a version of sample quantiles
+as a function of the corresponding theoretical quantiles.
+For simplicity, instead of using the <code class="docutils literal notranslate"><span class="pre">numpy.quantile</span></code> function,
+we will simply assume that the <span class="math notranslate nohighlight">\(\frac{i}{n+1}\)</span>-quantile
+is equal to <span class="math notranslate nohighlight">\(x_{(i)}\)</span>, i.e., the <em>i</em>-th smallest value in
+the given sample <span class="math notranslate nohighlight">\((x_1,x_2,\dots,x_n)\)</span>
+and consider only <em>i=1, 2, …, n</em>.</p>
+<p>The theoretical quantiles can be generated
+by the <code class="docutils literal notranslate"><span class="pre">scipy.stats.norm.ppf</span></code> function,
+where <em>ppf</em> stands for the percent point function
+(but most statisticians call it the quantile function).</p>
+<p>Our simplified setting successfully avoids the problem which arises
+when the 0- or 1-quantile of the theoretical distribution
+is infinite (and this is the case for the normal distribution family).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1/(n+1), 2/(n+2), ..., n/(n+1)</span>
+<span class="n">heights_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>          <span class="c1"># theoretical quantiles</span>
+<span class="n">quantiles</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">μ</span><span class="p">,</span> <span class="n">σ</span><span class="p">)</span>  <span class="c1"># sample quantiles</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">heights_sorted</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">heights_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">heights_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Theoretical quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sample quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id4">
+<span id="fig-250-distribution-uni-7"></span><img alt="../_images/250-distribution-uni-7-7.png" src="../_images/250-distribution-uni-7-7.png" />
+<p class="caption"><span class="caption-number">Figure 8.4 </span><span class="caption-text">plot of chunk 250-distribution-uni-7</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>Ideally, the points should be arranged on the <span class="math notranslate nohighlight">\(y=x\)</span> line
+(which was added for readability) – which would happen if
+the sample quantiles matched the theoretical ones perfectly.</p>
+<p>In our case, there are small discrepancies in the tails
+(e.g., the smallest observation was slightly smaller than expected,
+and the largest one was larger than expected),
+although it is quite <em>normal</em> a behaviour for small samples.</p>
+<p>Overall, we can say that this is a very good fit.</p>
+</div>
+<div class="section" id="log-normal-distribution">
+<h2><span class="section-number">8.4. </span>Log-normal Distribution<a class="headerlink" href="#log-normal-distribution" title="Permalink to this headline">¶</a></h2>
+<p>We say that a sample is
+<a class="reference external" href="https://en.wikipedia.org/wiki/Log-normal_distribution">log-normally distributed</a>,
+if its logarithm is normally distributed.
+It is sometimes observed that the income of most individuals
+(except the richest) is distributed, at least approximately, log-normally.</p>
+<p>Let us depict the distribution of the logarithm of income:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<span id="fig-250-distribution-uni-8"></span><img alt="../_images/250-distribution-uni-8-9.png" src="../_images/250-distribution-uni-8-9.png" />
+<p class="caption"><span class="caption-number">Figure 8.5 </span><span class="caption-text">plot of chunk 250-distribution-uni-8</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>This indeed resembles a normal distribution (note again the
+log scale on the x-axis).</p>
+<p>It might thus make sense to fit a log-normal model.
+The fitting process is similar to the normal case, but this time
+we the compute mean and standard deviation based on the logarithm of data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">μ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">income</span><span class="p">))</span>
+<span class="n">σ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">μ</span><span class="p">,</span> <span class="n">σ</span>
+<span></span><span class="c1">## (10.314409794364623, 0.5816585197803816)</span>
+</pre></div>
+</div>
+<p>Let’s draw the probability density function (on the original,
+not log-scale now):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">σ</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">μ</span><span class="p">)),</span> <span class="s2">&quot;r:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id6">
+<span id="fig-250-distribution-uni-10"></span><img alt="../_images/250-distribution-uni-10-11.png" src="../_images/250-distribution-uni-10-11.png" />
+<p class="caption"><span class="caption-number">Figure 8.6 </span><span class="caption-text">plot of chunk 250-distribution-uni-10</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>This fit is not too bad.
+It slightly underestimates the proportion of households with extremely small
+income and overestimates the fraction of the quite small-income ones,
+hence it might be considered too optimistic
+(note that we deal with only a sample of 1000 households here;
+the original UK Office of National Statistics <a class="reference external" href="https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/householddisposableincomeandinequality/financialyear2020">data</a>
+could tell us more about the quality of the model in general,
+but it’s beyond the scope of our simple exercise).</p>
+<p>Here is the quantile-quantile plot on a double-logarithmic scale
+for both the above log-normal model and an estimated normal one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">income_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">quantiles</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">σ</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">μ</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">income_sorted</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">income_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">income_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Log-normal heoretical quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sample quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">quantiles2</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span>
+    <span class="n">q</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">income_sorted</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">quantiles2</span><span class="p">,</span> <span class="n">income_sorted</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">income_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">income_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Normal theoretical quantiles&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id7">
+<span id="fig-250-distribution-uni-11"></span><img alt="../_images/250-distribution-uni-11-13.png" src="../_images/250-distribution-uni-11-13.png" />
+<p class="caption"><span class="caption-number">Figure 8.7 </span><span class="caption-text">plot of chunk 250-distribution-uni-11</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>We see that definitely the hypothesis that our data follow
+a normal distribution (the right subplot) is most likely false.</p>
+<p>The log-normal  model (the left subplot), on the other hand,
+might be quite usable.
+It again reduced the whole dataset to merely two numbers,
+μ and σ, based on which (and probability theory),
+we may <a class="reference external" href="https://en.wikipedia.org/wiki/Log-normal_distribution">deduce</a> that:</p>
+<ul class="simple">
+<li><p>the expected average (mean) income is <span class="math notranslate nohighlight">\(e^{\mu + \sigma^2/2}\)</span>,</p></li>
+<li><p>median is <span class="math notranslate nohighlight">\(e^\mu\)</span>,</p></li>
+<li><p>most probable one (mode) in <span class="math notranslate nohighlight">\(e^{\mu-\sigma^2}\)</span>,</p></li>
+</ul>
+<p>etc.</p>
+<p>Recall again that for skewed distributions such as this one,
+reporting the mean might mislead some of us.
+This is why <em>most</em> people get angry when they read the news
+about the prospering economy – “yeah, I’d like to see that
+kind of money in my pocket”. Hence, it’s not only μ that matters,
+it’s also σ which quantifies the discrepancy between the rich and the poor
+(too much inequality is bad, but also too much uniformity is
+to be avoided).</p>
+<p>Note that for a <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normal</a>
+distribution the situation is very different,
+because, the mean, median, and most probable
+outcomes tend to be the same – the distribution is
+symmetric around μ.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Compare the empirical and theoretical CDFs
+for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset and its log-normal model.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> What is the fraction of people with earnings
+below the mean?</p>
+</div></blockquote>
+</div>
+<div class="section" id="pareto-distribution">
+<h2><span class="section-number">8.5. </span>Pareto Distribution<a class="headerlink" href="#pareto-distribution" title="Permalink to this headline">¶</a></h2>
+<p>Consider again the <a class="reference external" href="https://arxiv.org/abs/0706.1062v2">dataset</a>
+on the populations of the US cities in the 2000 US Census:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">cities</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cities</span><span class="p">)</span>  <span class="c1"># number of cities, total population</span>
+<span></span><span class="c1">## (19447, 175062893.0)</span>
+</pre></div>
+</div>
+<p>Here is the histogram with the populations on the log-scale:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id8">
+<span id="fig-250-distribution-uni-13"></span><img alt="../_images/250-distribution-uni-13-15.png" src="../_images/250-distribution-uni-13-15.png" />
+<p class="caption"><span class="caption-number">Figure 8.8 </span><span class="caption-text">plot of chunk 250-distribution-uni-13</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>This kind-of looks like a log-normal distribution again,
+which the reader can inspect themself.</p>
+<p>We, however, this time will be interested in not what’s <em>typical</em>,
+but what’s in some sense <em>anomalous</em> or <em>extreme</em>.</p>
+<p>Let’s take a look at the <em>truncated</em> version of the city size distribution
+by considering the cities with 10,000 or more inhabitants – i.e.,
+we will only study the right tail the original data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">min_size</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="n">large_cities</span> <span class="o">=</span> <span class="n">cities</span><span class="p">[</span><span class="n">cities</span> <span class="o">&gt;=</span> <span class="n">min_size</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">large_cities</span><span class="p">)</span>  <span class="c1"># number of cities, total population</span>
+<span></span><span class="c1">## (2696, 146199374.0)</span>
+</pre></div>
+</div>
+<p>Plotting the above on a double-logarithmic scale:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id9">
+<span id="fig-250-distribution-uni-15"></span><img alt="../_images/250-distribution-uni-15-17.png" src="../_images/250-distribution-uni-15-17.png" />
+<p class="caption"><span class="caption-number">Figure 8.9 </span><span class="caption-text">plot of chunk 250-distribution-uni-15</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>reveals something interesting: the bar tops on the double-log-scale are
+arranged more or less on a straight line. There are many datasets
+which exhibit this behaviour; we say that they follow a <em>power law</em>
+(power in the arithmetic sense, not social one),
+see <a class="reference external" href="https://arxiv.org/pdf/0706.1062v2.pdf">this paper</a>
+and <a class="reference external" href="https://www.cs.cornell.edu/courses/cs6241/2019sp/readings/Newman-2005-distributions.pdf">this one</a> for discussion.</p>
+<p>(**)
+Let’s fit a Pareto distribution to our dataset.
+This is a little tricky; the reader is free to skip the following
+and just take a look at the final plot.</p>
+<p>The Pareto distribution family is also identified by two parameters:
+the  (what <em>scipy</em> calls it) scale parameter is equal to
+the shift from 0, and is usually taken as the sample minimum (i.e., 10,000
+in our case).
+The shape parameter, α, which controls the slope of the said line on the
+double-log-scale, can be estimated through the reciprocal of the mean of
+the scaled logarithms of our observations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">α</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">large_cities</span><span class="o">/</span><span class="n">min_size</span><span class="p">))</span>
+<span class="n">α</span>
+<span></span><span class="c1">## 0.9496171695997675</span>
+</pre></div>
+</div>
+<p>Unfortunately, comparing the theoretical densities
+and an empirical histogram on a log-scale is quite problematic,
+therefore we will have to implement the whole drawing manually.</p>
+<p>First, we apply logarithmic binning on the dataset
+and normalise the counts so that they add to 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">min_size</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">21</span><span class="p">)</span>  <span class="c1"># bins&#39; boundaries</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># apply binning</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># normalise so that it adds to 1</span>
+</pre></div>
+</div>
+<p>Next, we compute the probabilities of a random variable’s
+from our Pareto distribution falling into each bin:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">α</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">min_size</span><span class="p">))</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>  <span class="c1"># normalise so that it adds to 1</span>
+</pre></div>
+</div>
+<p>This is based on the cumulative distribution function.
+We have that for any <code class="docutils literal notranslate"><span class="pre">b[i]</span></code>, <code class="docutils literal notranslate"><span class="pre">cdf(b[i])</span></code> is the probability
+that we observe a value ≤ <code class="docutils literal notranslate"><span class="pre">b[i]</span></code>. Therefore, <code class="docutils literal notranslate"><span class="pre">cdf(b[i])</span> <span class="pre">-</span> <span class="pre">cdf(b[i-1])</span></code>,
+which we ultimately get by applying <code class="docutils literal notranslate"><span class="pre">numpy.diff</span></code>,
+is the probability of observing a value between <code class="docutils literal notranslate"><span class="pre">b[i-1]</span></code> and <code class="docutils literal notranslate"><span class="pre">b[i]</span></code>.</p>
+<p>Now we can depict the counts and the probabilities on the same plot:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">midb</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>  <span class="c1"># mid-bins</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">midb</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">midb</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s2">&quot;r:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 20 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id10">
+<span id="fig-250-distribution-uni-19"></span><img alt="../_images/250-distribution-uni-19-19.png" src="../_images/250-distribution-uni-19-19.png" />
+<p class="caption"><span class="caption-number">Figure 8.10 </span><span class="caption-text">plot of chunk 250-distribution-uni-19</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>This is an okayish fit, although the populations of the largest
+cities are overestimated.</p>
+<p>Here is the corresponding Q-Q plot on a double-logarithmic scale.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">large_cities</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cities_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">large_cities</span><span class="p">)</span>
+<span class="n">quantiles</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">α</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">min_size</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">cities_sorted</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">quantiles</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">cities_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Theoretical quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sample quantiles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id11">
+<span id="fig-250-distribution-uni-20"></span><img alt="../_images/250-distribution-uni-20-21.png" src="../_images/250-distribution-uni-20-21.png" />
+<p class="caption"><span class="caption-number">Figure 8.11 </span><span class="caption-text">plot of chunk 250-distribution-uni-20</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+<p>It could be better, but the cities are still growing, right?</p>
+<blockquote>
+<div><p>(**) <strong>Exercise.</strong> Compare the empirical and theoretical CDFs
+for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and its Paretian model.</p>
+</div></blockquote>
+</div>
+<div class="section" id="uniform-distribution">
+<h2><span class="section-number">8.6. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline">¶</a></h2>
+<p>Consider the Polish <em>Lotto</em> lottery, where 6 numbered balls {1,2,…,49}
+are drawn without replacement from an urn.
+We have a data set that summarises the number of times
+each ball has been drawn in all the drawings in the period 1957–2016.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lotto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/lotto_table.txt&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">lotto</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 49 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id12">
+<span id="fig-250-distribution-uni-21"></span><img alt="../_images/250-distribution-uni-21-23.png" src="../_images/250-distribution-uni-21-23.png" />
+<p class="caption"><span class="caption-number">Figure 8.12 </span><span class="caption-text">plot of chunk 250-distribution-uni-21</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<p>Here, we see that each event occurs more or less with the same probability.
+Of course, the numbers on the balls are integer,
+but in our idealised scenario we may try modelling this dataset
+using a continuous <a class="reference external" href="https://en.wikipedia.org/wiki/Continuous_uniform_distribution"><em>uniform</em></a>
+distribution (there is its discrete version too),
+which yields arbitrary real numbers on a given interval <em>(a, b)</em>,
+i.e., between some <em>a</em> and <em>b</em>.</p>
+<p>In our case, it makes sense to set <em>a=1</em> and <em>b=50</em> and interpret
+an outcome like <em>49.1253</em> as representing the 49th ball
+(compare the notion of the <a class="reference external" href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions"><em>floor</em></a> function).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">lotto</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">lotto</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">49</span><span class="p">),</span> <span class="s2">&quot;r:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 49 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id13">
+<span id="fig-250-distribution-uni-22"></span><img alt="../_images/250-distribution-uni-22-25.png" src="../_images/250-distribution-uni-22-25.png" />
+<p class="caption"><span class="caption-number">Figure 8.13 </span><span class="caption-text">plot of chunk 250-distribution-uni-22</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+<p>Visually, this model makes much sense, but again, some more rigorous
+statistical testing would be required to determine
+if someone hasn’t been tampering with the lottery results, i.e.,
+if data does not deviate from the uniform distribution significantly.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Does playing <a class="reference external" href="https://en.wikipedia.org/wiki/Lottery">lotteries</a>
+and engaging in gambling make <em>rational</em> sense at all?
+Well, we see that 16 is the most frequently occurring outcome
+in <em>Lotto</em>, maybe there’s some magic in it?
+Also, some people became millionaires after all, right?</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Note.</strong> In data modelling (e.g., Bayesian statistics),
+sometimes a uniform distribution is chosen
+as a placeholder for “we know nothing about a phenomenon,
+so let’s just assume that every event is equally likely”.
+However, overall, it is quite fascinating that the real world tends
+to be structured and that the emerging patterns are plentiful
+and subject to qualitative analysis.
+<a class="reference external" href="https://en.wikipedia.org/wiki/Why_there_is_anything_at_all">“Why there is something rather than nothing”</a>, being the fundamental question of metaphysics,
+is left for the reader to figure out once and for all
+when they go for their next stroll (or millions thereof) in the park.</p>
+</div></blockquote>
+</div>
+<div class="section" id="generating-pseudorandom-numbers">
+<h2><span class="section-number">8.7. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this headline">¶</a></h2>
+<p>A probability distribution is useful not only for describing a dataset.
+It also enables performing some experiments on data that we don’t currently
+have, but we might obtain in the future, to test various scenarios
+and hypotheses.</p>
+<p>To do this, we can generate a random <em>sample</em> of
+any numbers of independent (not related to each other) observations.</p>
+<p>When most people say <em>random</em>, they implicitly mean <em>uniformly distributed</em>.
+For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span></span><span class="c1">## array([0.64690469, 0.57709702, 0.11913463, 0.10785634, 0.30480813])</span>
+</pre></div>
+</div>
+<p>gives 5 deviates from the uniform distribution on the <em>(0, 1)</em> interval.</p>
+<p>The same with <em>scipy</em>, but this time the support will be
+<em>(-10, 15)</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># from -10 to -10+25</span>
+<span></span><span class="c1">## array([ 4.70983568, -8.64842379,  2.65283952,  2.6988176 , -0.97321071])</span>
+</pre></div>
+</div>
+<p>Actually, we are generating numbers using a computer, which is purely
+deterministic, hence we shall refer to them as
+<a class="reference external" href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">pseudorandom</a>
+or random-like ones (albeit they are non-distinguishable from truly random,
+when subject to rigorous tests for randomness).</p>
+<p>To prove it, we can set the initial state of the number generator
+(the <em>seed</em>) to some number and see what values are output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># set seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span></span><span class="c1">## array([0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897])</span>
+</pre></div>
+</div>
+<p>and then set the seed once again to the same number and
+see how “random” the next values are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># set seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span></span><span class="c1">## array([0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897])</span>
+</pre></div>
+</div>
+<p>This enables us to perform completely <em>reproducible</em> numerical
+experiments, and this is a very good feature: truly scientific
+inquiries should lead to identical results in the same conditions.</p>
+<blockquote>
+<div><p><strong>Note.</strong> If we don’t set the seed manually,
+it will be initialised based on the current wall time, which is
+different every… time – therefore the numbers will <em>seem</em> random to us.</p>
+</div></blockquote>
+<p>Many Python packages that we will be using in the future,
+including <em>pandas</em> and <em>sklearn</em> rely
+on <em>numpy</em>’s random number generator,
+thus we’ll be calling <code class="docutils literal notranslate"><span class="pre">numpy.random.seed</span></code> to make them predictable.</p>
+<p>Additionally, many of them
+(e.g., <code class="docutils literal notranslate"><span class="pre">sklearn.model_selection.train_test_split</span></code>
+or <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.sample</span></code>) are equipped with the <code class="docutils literal notranslate"><span class="pre">random_state</span></code>
+argument, which can <em>temporarily</em> change the seed (for just one
+call to that function). For instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span></span><span class="c1">## array([0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897])</span>
+</pre></div>
+</div>
+<p>This gives the same sequence as above.</p>
+<p>Of course, generating data from other distributions is possible too.
+For example, here is a normally distributed sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">12641</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">164</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="s2">&quot;r:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id14">
+<span id="fig-250-distribution-uni-28"></span><img alt="../_images/250-distribution-uni-28-27.png" src="../_images/250-distribution-uni-28-27.png" />
+<p class="caption"><span class="caption-number">Figure 8.14 </span><span class="caption-text">plot of chunk 250-distribution-uni-28</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that even a sample which we know that was generated from a
+specific distribution will deviate from it, sometimes considerably.
+Such effects usually disappear when the sample size increases
+(compare the <a class="reference external" href="https://en.wikipedia.org/wiki/Glivenko%E2%80%93Cantelli_theorem">Fundamental Theorem of Statistics</a>).</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Conclusions based on simulated data are trustworthy,
+because they cannot be manipulated.
+Or can they? The above pseudorandom number generator’s seed,
+<code class="docutils literal notranslate"><span class="pre">12641</span></code>, is quite suspicious. It might suggest that someone
+wanted to <em>prove</em> some point. This is why yours truly recommends
+sticking to one and only seed most of the time, e.g., <code class="docutils literal notranslate"><span class="pre">123</span></code>.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Generate many samples from the standard normal distribution
+of different sizes (e.g., 100 and 10000) and plot histograms
+for them. Note how often there will be some ruggedness
+in the bars’ sizes that a naïve observer would try to interpret
+as something meaningful; a competent data scientist must train
+their eye to ignore such impurities that are only due to random effects
+(but be always ready do detect those which are worth attention).</p>
+</div></blockquote>
+</div>
+<div class="section" id="distribution-mixtures">
+<h2><span class="section-number">8.8. </span>Distribution Mixtures<a class="headerlink" href="#distribution-mixtures" title="Permalink to this headline">¶</a></h2>
+<p>Some datasets may fail to fit into simple models such as the ones
+describe above. It may sometimes be due to their non-random behaviour:
+statistics gives just one means to create data idealisations,
+we also have partial differential equations, approximation theory,
+graphs and complex networks, agent-based modelling, and so forth,
+which might be worth giving a try.</p>
+<p>Other reasons may be that what we observe is in fact a <em>mixture</em>
+of simpler processes.</p>
+<p>The December 2021 hourly averages
+<a class="reference external" href="http://www.pedestrian.melbourne.vic.gov.au/">pedestrian counts</a>
+near the Southern Cross Station in Melbourne data
+might be a good instance of such a scenario:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/southern_cross_station_peds_2019_dec.txt&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">peds</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 24 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id15">
+<span id="fig-250-distribution-uni-29"></span><img alt="../_images/250-distribution-uni-29-29.png" src="../_images/250-distribution-uni-29-29.png" />
+<p class="caption"><span class="caption-number">Figure 8.15 </span><span class="caption-text">plot of chunk 250-distribution-uni-29</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+<p>This particular data set is quite coarse-grained
+(we only have 24 bar heights at our disposal),
+but otherwise it might not be a bad idea to
+try to fit a <a class="reference external" href="https://en.wikipedia.org/wiki/Mixture_distribution">probabilistic combination</a>
+of three normal distributions,
+corresponding to the morning, lunch-time, and evening pedestrian count peak.</p>
+<p>For example (below are lucky guesstimates only):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">peds</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">peds</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.35</span><span class="o">*</span><span class="n">p1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">p2</span> <span class="o">+</span> <span class="mf">0.55</span><span class="o">*</span><span class="n">p3</span>  <span class="c1"># weighted (convex) combination of 3 densities</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s2">&quot;r:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 24 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id16">
+<span id="fig-250-distribution-uni-30"></span><img alt="../_images/250-distribution-uni-30-31.png" src="../_images/250-distribution-uni-30-31.png" />
+<p class="caption"><span class="caption-number">Figure 8.16 </span><span class="caption-text">plot of chunk 250-distribution-uni-30</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+<p>depicts a mixture of N(8, 1), N(12, 1), and N(17, 2)
+with the corresponding weights of 0.35, 0.1, and 0.55.</p>
+<p>It will frequently be the case in data modelling
+that more complex entities will be arising as combinations
+of simpler (primitive) components.
+This is why we should spend a great deal of time
+studying the <em>fundamentals</em>.</p>
+<blockquote>
+<div><p><strong>Note.</strong> Some data clustering techniques
+(in particular, the <em>k</em>-means algorithm that we briefly discuss
+later in this course)
+could be used to split a data sample into disjoint chunks
+corresponding to different mixture components.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Generate 1000 pseudorandom numbers from the above mixture.</p>
+</div></blockquote>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">8.9. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>James E. Gentle, <em>Theory of Statistics</em>, draft
+https://mason.gmu.edu/~jgentle/books/MathStat.pdf</p>
+<p>A. Clauset, C.R. Shalizi, and M.E.J. Newman, Power-law distributions in empirical data, <em>SIAM Review</em> <strong>51</strong>(4), 661-703 (2009). (arXiv:0706.1062)
+https://arxiv.org/pdf/0706.1062v2.pdf</p>
+<p>M.E.J. Newman, Power laws, Pareto distributions and Zipf’s law,
+<em>Contemporary Physics</em> <strong>46</strong>, 323 (2005).
+https://www.cs.cornell.edu/courses/cs6241/2019sp/readings/Newman-2005-distributions.pdf</p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">8.10. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Why is the notion of the mean income confusing?</p></li>
+<li><p>When manually setting the seed of a random number generator
+makes sense?</p></li>
+<li><p>Given a log-normally distributed sample <code class="docutils literal notranslate"><span class="pre">x</span></code>, how  can we turn it
+to a normally distributed one, i.e., <code class="docutils literal notranslate"><span class="pre">y=f(x)</span></code>, with <code class="docutils literal notranslate"><span class="pre">f</span></code> being = …?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="260-categorical-uni.html" class="btn btn-neutral float-right" title="9. Handling Categorical Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="240-transform-uni.html" class="btn btn-neutral float-left" title="7. Transforming and Filtering Continuous Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

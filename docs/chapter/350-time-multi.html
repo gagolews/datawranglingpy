@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>15. Multidimensional Time Series &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/350-time-multi.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="16. Notes on Signal Processing (Audio, Image, Video)" href="360-image.html" />
+    <link rel="prev" title="14. Visualising Multidimensional Data and Measuring Correlation" href="330-visualise-multi.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">15. Multidimensional Time Series</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-plotting">15.1. Basic Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#candlestick-plots">15.2. Candlestick Plots (*)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">15.3. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">15. </span>Multidimensional Time Series</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="360-image.html" class="btn btn-neutral float-right" title="16. Notes on Signal Processing (Audio, Image, Video)" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="330-visualise-multi.html" class="btn btn-neutral float-left" title="14. Visualising Multidimensional Data and Measuring Correlation" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="multidimensional-time-series">
+<span id="chap-time-multi"></span><h1><span class="section-number">15. </span>Multidimensional Time Series<a class="headerlink" href="#multidimensional-time-series" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>Multidimensional time series stored in form of
+an <em>n</em>-by-<em>m</em> matrix are best viewed as <em>m</em> time series –
+possibly but not necessarily somehow related to each other –
+all sampled at the same <em>n</em> points in time
+(e.g., <em>m</em> different stocks on <em>n</em> consecutive days).</p>
+<p>Let us make a few additions to what we have covered whilst
+discussing the unidimensional case.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="basic-plotting">
+<h2><span class="section-number">15.1. </span>Basic Plotting<a class="headerlink" href="#basic-plotting" title="Permalink to this headline">¶</a></h2>
+<p>Consider the currency exchange rates
+for the first half of 2020:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eurxxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/eurxxx-20200101-20200630-no-na.csv&quot;</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">eurxxx</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview</span>
+<span></span><span class="c1">## array([[1.6006 , 7.7946 , 0.84828, 4.2544 ],</span>
+<span class="c1">##        [1.6031 , 7.7712 , 0.85115, 4.2493 ],</span>
+<span class="c1">##        [1.6119 , 7.8049 , 0.85215, 4.2415 ],</span>
+<span class="c1">##        [1.6251 , 7.7562 , 0.85183, 4.2457 ],</span>
+<span class="c1">##        [1.6195 , 7.7184 , 0.84868, 4.2429 ],</span>
+<span class="c1">##        [1.6193 , 7.7011 , 0.85285, 4.2422 ]])</span>
+</pre></div>
+</div>
+<p>This gives EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN, in this order.</p>
+<p>Let’s draw the four time series:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/euraud-20200101-20200630-dates.txt&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AUD&quot;</span><span class="p">,</span> <span class="s2">&quot;CNY&quot;</span><span class="p">,</span> <span class="s2">&quot;GBP&quot;</span><span class="p">,</span> <span class="s2">&quot;PLN&quot;</span><span class="p">]</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="s2">&quot;dotted&quot;</span><span class="p">,</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="s2">&quot;dashdot&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">styles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-350-time-multi-3"></span><img alt="../_images/350-time-multi-3-1.png" src="../_images/350-time-multi-3-1.png" />
+<p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">plot of chunk 350-time-multi-3</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Unfortunately, they are all on different scales, hence
+the plot is not necessarily readable.</p>
+<p>Let’s draw the currency exchange rates
+<em>relative</em> to the prices on 2020-03-19.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dates</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2020-03-19&quot;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">eurxxx</span><span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+        <span class="n">ls</span><span class="o">=</span><span class="n">styles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id2">
+<span id="fig-350-time-multi-4"></span><img alt="../_images/350-time-multi-4-3.png" src="../_images/350-time-multi-4-3.png" />
+<p class="caption"><span class="caption-number">Figure 15.2 </span><span class="caption-text">plot of chunk 350-time-multi-4</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>This way, e.g., relative
+rate of 1.05 denotes the rate 5% higher than on the reference day.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Based on EUR/AUD and EUR/PLN rates,
+compute and plot the AUD/PLN as well as PLN/AUD ones.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Draw the EUR/AUD and EUR/GBP rates on a single
+plot, but with each series having <a class="reference external" href="https://matplotlib.org/stable/gallery/subplots_axes_and_figures/secondary_axis.html">its own</a>
+<em>y</em> axis.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Draw the EUR/xxx  rates for your favourite
+currencies over a larger period of time.
+Use <a class="reference external" href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html">data</a> downloaded
+from the European Central Bank.
+Add a few moving averages.
+For each year, identify the lowest and the highest rate.</p>
+</div></blockquote>
+</div>
+<div class="section" id="candlestick-plots">
+<h2><span class="section-number">15.2. </span>Candlestick Plots (*)<a class="headerlink" href="#candlestick-plots" title="Permalink to this headline">¶</a></h2>
+<p>Consider the BTC/USD data for 2021:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">btcusd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/btcusd_ohlcv_2021.csv&quot;</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">btcusd</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># preview</span>
+<span></span><span class="c1">## array([[28994.01 , 29600.627, 28803.586, 29374.152],</span>
+<span class="c1">##        [29376.455, 33155.117, 29091.182, 32127.268],</span>
+<span class="c1">##        [32129.408, 34608.559, 32052.316, 32782.023],</span>
+<span class="c1">##        [32810.949, 33440.219, 28722.756, 31971.914],</span>
+<span class="c1">##        [31977.041, 34437.59 , 30221.188, 33992.43 ],</span>
+<span class="c1">##        [34013.613, 36879.699, 33514.035, 36824.363]])</span>
+</pre></div>
+</div>
+<p>This gives the open, high, low, close prices on the 365
+consecutive days (we skipped the marked volume column for
+readability), which is a common way to summarise daily rates.</p>
+<p>The <a class="reference external" href="https://github.com/matplotlib/mplfinance">mplfinance</a>
+package (<em>matplotlib-finance</em>) features a few functions
+related to the plotting of financial data.</p>
+<p>Here, let us briefly mention the <a class="reference external" href="https://en.wikipedia.org/wiki/Candlestick_chart">candlestick plot</a>.
+Unfortunately, the package requires the data to be fed
+as a <em>pandas</em> data frame (which we cover later).
+However, we are now only interested in getting to know
+the meaning of the basic plot elements.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mplfinance</span> <span class="k">as</span> <span class="nn">mpf</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
+<span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">btcusd</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Open&quot;</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">,</span> <span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="s2">&quot;Volume&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">31</span><span class="p">,</span> <span class="p">:],</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;candle&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;charles&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-350-time-multi-6"></span><img alt="../_images/350-time-multi-6-5.png" src="../_images/350-time-multi-6-5.png" />
+<p class="caption"><span class="caption-number">Figure 15.3 </span><span class="caption-text">plot of chunk 350-time-multi-6</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<div class="legend">
+<div class="highlight-(fig:350-time-multi-6)= notranslate"><div class="highlight"><pre><span></span>```{figure} 350-time-multi-figures/350-time-multi-6-6.*
+plot of chunk 350-time-multi-6
+</pre></div>
+</div>
+</div>
+</div>
+<p>This depicts the January 2021 data.</p>
+<p>Note that this is not a box and whisker plot.
+The candlestick body denotes the difference in the market opening
+and the closing price. The wicks (shadows) give the range
+(high to low).</p>
+<p>Green candlesticks represent bullish days – where the
+closing rate is greater than the opening one (uptrend).
+Red candles are bearish (decline)</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Draw the BTC/USD rates for the whole year
+and add the 10-day moving averages.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Draw a candlestick plot manually, without using
+the <em>mplfinance</em> package. <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.fill</span></code> might
+be helpful.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Using <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.fill_between</span></code> add a semi-transparent
+polygon that fills the area bounded between the Low
+and High prices on all the days.</p>
+</div></blockquote>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">15.3. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>(*) In your own words, describe the key elements
+in a candlestick plot.</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="360-image.html" class="btn btn-neutral float-right" title="16. Notes on Signal Processing (Audio, Image, Video)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="330-visualise-multi.html" class="btn btn-neutral float-left" title="14. Visualising Multidimensional Data and Measuring Correlation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

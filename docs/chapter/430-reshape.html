@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>19. Reshaping and Fusing Datasets &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-reshape.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="20. Observation Grouping" href="440-groupby.html" />
+    <link rel="prev" title="18. Basic Operations on Data Frames" href="420-transform-hetero.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">19. Reshaping and Fusing Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sorting">19.1. Sorting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stacking-and-unstacking">19.2. Stacking and Unstacking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-theoretic-operations">19.3. Set-Theoretic Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#joining-merging">19.4. Joining (Merging)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">19.5. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">19.6. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">19. </span>Reshaping and Fusing Datasets</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="440-groupby.html" class="btn btn-neutral float-right" title="20. Observation Grouping" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="420-transform-hetero.html" class="btn btn-neutral float-left" title="18. Basic Operations on Data Frames" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="reshaping-and-fusing-datasets">
+<span id="chap-reshape"></span><h1><span class="section-number">19. </span>Reshaping and Fusing Datasets<a class="headerlink" href="#reshaping-and-fusing-datasets" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>In this part we discuss some further ways to transform
+data frames, that benefit from, make sense because of,
+or are possible due to their being able to store
+heterogeneous data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.notebook_repr_html&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># disable &quot;rich&quot; output</span>
+</pre></div>
+</div>
+<div class="section" id="sorting">
+<h2><span class="section-number">19.1. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h2>
+<p>Let’s consider another example dataset.
+Here are the yearly (for 2018) average
+<a class="reference external" href="https://discover.data.vic.gov.au/dataset/epa-air-watch-all-sites-air-quality-hourly-averages-yearly">air quality data</a>
+in the Australian state of Victoria.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/air_quality_2018_means.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">air</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">air</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">air</span><span class="o">.</span><span class="n">param_id</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;BPM2.5&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;CO&quot;</span><span class="p">]),</span> <span class="p">:]</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">air</span>
+<span></span><span class="c1">##           sp_name param_id      value</span>
+<span class="c1">## 0      Alphington   BPM2.5   7.848758</span>
+<span class="c1">## 1      Alphington       CO   0.210884</span>
+<span class="c1">## 2      Alphington      NO2   9.558120</span>
+<span class="c1">## 3    Altona North      NO2   9.467912</span>
+<span class="c1">## 4       Churchill   BPM2.5   6.391230</span>
+<span class="c1">## 5       Dandenong      NO2   9.800705</span>
+<span class="c1">## 6       Footscray   BPM2.5   7.640948</span>
+<span class="c1">## 7       Footscray       CO   0.139754</span>
+<span class="c1">## 8       Footscray      NO2  10.274531</span>
+<span class="c1">## 9   Geelong South   BPM2.5   6.502762</span>
+<span class="c1">## 10  Geelong South       CO   0.142473</span>
+<span class="c1">## 11  Geelong South      NO2   5.681722</span>
+<span class="c1">## 12  Melbourne CBD   BPM2.5   8.072998</span>
+<span class="c1">## 13            Moe   BPM2.5   6.427079</span>
+<span class="c1">## 14   Morwell East   BPM2.5   6.784596</span>
+<span class="c1">## 15   Morwell East       CO   0.140836</span>
+<span class="c1">## 16  Morwell South   BPM2.5   6.512849</span>
+<span class="c1">## 17  Morwell South       CO   0.151979</span>
+<span class="c1">## 18  Morwell South      NO2   5.124430</span>
+<span class="c1">## 19      Traralgon   BPM2.5   8.024735</span>
+<span class="c1">## 20      Traralgon       CO   0.159212</span>
+<span class="c1">## 21      Traralgon      NO2   5.776333</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sort_values</span></code> is a convenient means to order the rows
+with respect to one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="c1">##           sp_name param_id      value</span>
+<span class="c1">## 8       Footscray      NO2  10.274531</span>
+<span class="c1">## 5       Dandenong      NO2   9.800705</span>
+<span class="c1">## 2      Alphington      NO2   9.558120</span>
+<span class="c1">## 3    Altona North      NO2   9.467912</span>
+<span class="c1">## 12  Melbourne CBD   BPM2.5   8.072998</span>
+<span class="c1">## 19      Traralgon   BPM2.5   8.024735</span>
+<span class="c1">## 0      Alphington   BPM2.5   7.848758</span>
+<span class="c1">## 6       Footscray   BPM2.5   7.640948</span>
+<span class="c1">## 14   Morwell East   BPM2.5   6.784596</span>
+<span class="c1">## 16  Morwell South   BPM2.5   6.512849</span>
+<span class="c1">## 9   Geelong South   BPM2.5   6.502762</span>
+<span class="c1">## 13            Moe   BPM2.5   6.427079</span>
+<span class="c1">## 4       Churchill   BPM2.5   6.391230</span>
+<span class="c1">## 21      Traralgon      NO2   5.776333</span>
+<span class="c1">## 11  Geelong South      NO2   5.681722</span>
+<span class="c1">## 18  Morwell South      NO2   5.124430</span>
+<span class="c1">## 1      Alphington       CO   0.210884</span>
+<span class="c1">## 20      Traralgon       CO   0.159212</span>
+<span class="c1">## 17  Morwell South       CO   0.151979</span>
+<span class="c1">## 10  Geelong South       CO   0.142473</span>
+<span class="c1">## 15   Morwell East       CO   0.140836</span>
+<span class="c1">## 7       Footscray       CO   0.139754</span>
+</pre></div>
+</div>
+<p>or more criteria:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;param_id&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<span></span><span class="c1">##           sp_name param_id      value</span>
+<span class="c1">## 12  Melbourne CBD   BPM2.5   8.072998</span>
+<span class="c1">## 19      Traralgon   BPM2.5   8.024735</span>
+<span class="c1">## 0      Alphington   BPM2.5   7.848758</span>
+<span class="c1">## 6       Footscray   BPM2.5   7.640948</span>
+<span class="c1">## 14   Morwell East   BPM2.5   6.784596</span>
+<span class="c1">## 16  Morwell South   BPM2.5   6.512849</span>
+<span class="c1">## 9   Geelong South   BPM2.5   6.502762</span>
+<span class="c1">## 13            Moe   BPM2.5   6.427079</span>
+<span class="c1">## 4       Churchill   BPM2.5   6.391230</span>
+<span class="c1">## 1      Alphington       CO   0.210884</span>
+<span class="c1">## 20      Traralgon       CO   0.159212</span>
+<span class="c1">## 17  Morwell South       CO   0.151979</span>
+<span class="c1">## 10  Geelong South       CO   0.142473</span>
+<span class="c1">## 15   Morwell East       CO   0.140836</span>
+<span class="c1">## 7       Footscray       CO   0.139754</span>
+<span class="c1">## 8       Footscray      NO2  10.274531</span>
+<span class="c1">## 5       Dandenong      NO2   9.800705</span>
+<span class="c1">## 2      Alphington      NO2   9.558120</span>
+<span class="c1">## 3    Altona North      NO2   9.467912</span>
+<span class="c1">## 21      Traralgon      NO2   5.776333</span>
+<span class="c1">## 11  Geelong South      NO2   5.681722</span>
+<span class="c1">## 18  Morwell South      NO2   5.124430</span>
+</pre></div>
+</div>
+<p>Note that in the latter example,
+in each group of identical parameters,
+we get a decreasing order with respect to the value.</p>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Compare the ordering with respect to <code class="docutils literal notranslate"><span class="pre">param_id</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>
+vs <code class="docutils literal notranslate"><span class="pre">value</span></code> and then <code class="docutils literal notranslate"><span class="pre">param_id</span></code>.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Exercise.</strong> Perform
+identical reorderings but using only
+<code class="docutils literal notranslate"><span class="pre">iloc[...]</span></code>, <code class="docutils literal notranslate"><span class="pre">loc[...]</span></code>, and <code class="docutils literal notranslate"><span class="pre">numpy.argsort</span></code>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="stacking-and-unstacking">
+<h2><span class="section-number">19.2. </span>Stacking and Unstacking<a class="headerlink" href="#stacking-and-unstacking" title="Permalink to this headline">¶</a></h2>
+<p>Note that the above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the so-called <em>long</em> format,
+where all measurements are <em>stacked</em> one after/below another.
+Such a form is quite convenient for the purpose of storing data,
+but not necessarily for all processing tasks.
+Recall from the matrix part that a more natural way
+would be to have a single <em>observation</em> (e.g.,
+data for a measurement station) in each row.</p>
+<p>We can <em>unstack</em> the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame
+(convert to the <em>wide</em> format) quite easily:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
+<span></span><span class="c1">## param_id         BPM2.5        CO        NO2</span>
+<span class="c1">## sp_name                                     </span>
+<span class="c1">## Alphington     7.848758  0.210884   9.558120</span>
+<span class="c1">## Altona North        NaN       NaN   9.467912</span>
+<span class="c1">## Churchill      6.391230       NaN        NaN</span>
+<span class="c1">## Dandenong           NaN       NaN   9.800705</span>
+<span class="c1">## Footscray      7.640948  0.139754  10.274531</span>
+<span class="c1">## Geelong South  6.502762  0.142473   5.681722</span>
+<span class="c1">## Melbourne CBD  8.072998       NaN        NaN</span>
+<span class="c1">## Moe            6.427079       NaN        NaN</span>
+<span class="c1">## Morwell East   6.784596  0.140836        NaN</span>
+<span class="c1">## Morwell South  6.512849  0.151979   5.124430</span>
+<span class="c1">## Traralgon      8.024735  0.159212   5.776333</span>
+</pre></div>
+</div>
+<p>Note that the missing values are denoted with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s (not-a-number) –
+we have a separate section devoted to their processing given a bit later.
+Interestingly, we got a hierarchical index in the columns,
+hence the <code class="docutils literal notranslate"><span class="pre">loc[...]</span></code> part.</p>
+<p>Equivalently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">air_wide</span>
+<span></span><span class="c1">##                  BPM2.5        CO        NO2</span>
+<span class="c1">## Alphington     7.848758  0.210884   9.558120</span>
+<span class="c1">## Altona North        NaN       NaN   9.467912</span>
+<span class="c1">## Churchill      6.391230       NaN        NaN</span>
+<span class="c1">## Dandenong           NaN       NaN   9.800705</span>
+<span class="c1">## Footscray      7.640948  0.139754  10.274531</span>
+<span class="c1">## Geelong South  6.502762  0.142473   5.681722</span>
+<span class="c1">## Melbourne CBD  8.072998       NaN        NaN</span>
+<span class="c1">## Moe            6.427079       NaN        NaN</span>
+<span class="c1">## Morwell East   6.784596  0.140836        NaN</span>
+<span class="c1">## Morwell South  6.512849  0.151979   5.124430</span>
+<span class="c1">## Traralgon      8.024735  0.159212   5.776333</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">rename_axis</span></code> part is there so as to get rid of the <code class="docutils literal notranslate"><span class="pre">name</span></code> parts
+of the <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> slots.</p>
+<p>The other way around, we can use the <code class="docutils literal notranslate"><span class="pre">stack</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;param&quot;</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span></span><span class="c1">##    location          param      value</span>
+<span class="c1">## 0    BPM2.5     Alphington   7.848758</span>
+<span class="c1">## 1    BPM2.5      Churchill   6.391230</span>
+<span class="c1">## 2    BPM2.5      Footscray   7.640948</span>
+<span class="c1">## 3    BPM2.5  Geelong South   6.502762</span>
+<span class="c1">## 4    BPM2.5  Melbourne CBD   8.072998</span>
+<span class="c1">## 5    BPM2.5            Moe   6.427079</span>
+<span class="c1">## 6    BPM2.5   Morwell East   6.784596</span>
+<span class="c1">## 7    BPM2.5  Morwell South   6.512849</span>
+<span class="c1">## 8    BPM2.5      Traralgon   8.024735</span>
+<span class="c1">## 9        CO     Alphington   0.210884</span>
+<span class="c1">## 10       CO      Footscray   0.139754</span>
+<span class="c1">## 11       CO  Geelong South   0.142473</span>
+<span class="c1">## 12       CO   Morwell East   0.140836</span>
+<span class="c1">## 13       CO  Morwell South   0.151979</span>
+<span class="c1">## 14       CO      Traralgon   0.159212</span>
+<span class="c1">## 15      NO2     Alphington   9.558120</span>
+<span class="c1">## 16      NO2   Altona North   9.467912</span>
+<span class="c1">## 17      NO2      Dandenong   9.800705</span>
+<span class="c1">## 18      NO2      Footscray  10.274531</span>
+<span class="c1">## 19      NO2  Geelong South   5.681722</span>
+<span class="c1">## 20      NO2  Morwell South   5.124430</span>
+<span class="c1">## 21      NO2      Traralgon   5.776333</span>
+</pre></div>
+</div>
+<p>We used the data frame transpose (<code class="docutils literal notranslate"><span class="pre">T</span></code>) to
+get a location-major order (less boring an outcome in this context).</p>
+</div>
+<div class="section" id="set-theoretic-operations">
+<h2><span class="section-number">19.3. </span>Set-Theoretic Operations<a class="headerlink" href="#set-theoretic-operations" title="Permalink to this headline">¶</a></h2>
+<p>Here are two not at all disjoint sets of imaginary persons:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/some_birth_dates1.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">A</span>
+<span></span><span class="c1">##                   Name   BirthDate</span>
+<span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
+<span class="c1">## 1         Antónia Lata  20.05.1935</span>
+<span class="c1">## 2    Bertoldo Mallozzi  17.08.1972</span>
+<span class="c1">## 3        Nedeljko Bukv  19.12.1921</span>
+<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
+<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 6         Paul Meckler  29.09.1968</span>
+<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
+<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/some_birth_dates2.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">B</span>
+<span></span><span class="c1">##                    Name   BirthDate</span>
+<span class="c1">## 0    Hushang Naigamwala  25.08.1991</span>
+<span class="c1">## 1              Zhen Wei  16.11.1975</span>
+<span class="c1">## 2         Micha Kitchen  17.09.1930</span>
+<span class="c1">## 3           Jodoc Alwin  16.11.1969</span>
+<span class="c1">## 4            Igor Mazał  14.05.2004</span>
+<span class="c1">## 5       Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 6   Duchanee Panomyaong  19.06.1952</span>
+<span class="c1">## 7       Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 8          Paul Meckler  29.09.1968</span>
+<span class="c1">## 9         Noe Tae-Woong  11.07.1970</span>
+<span class="c1">## 10         Åge Trelstad  07.03.1935</span>
+</pre></div>
+</div>
+<p>In both datasets, there is a single column whose
+elements uniquely identify each record (i.e., <code class="docutils literal notranslate"><span class="pre">Name</span></code>).
+In the language of relational databases, we would call it
+a <em>primary key</em>.
+In such a case, implementing the set-theoretic operations
+is relatively easy:</p>
+<p><span class="math notranslate nohighlight">\(A\cap B\)</span> (intersection) – the rows that are both in <em>A</em> and in <em>B</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
+<span></span><span class="c1">##                   Name   BirthDate</span>
+<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
+<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 6         Paul Meckler  29.09.1968</span>
+<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
+<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(A\setminus B\)</span> (difference) – the rows that are in <em>A</em> but not in <em>B</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
+<span></span><span class="c1">##                 Name   BirthDate</span>
+<span class="c1">## 0   Paitoon Ornwimol  26.06.1958</span>
+<span class="c1">## 1       Antónia Lata  20.05.1935</span>
+<span class="c1">## 2  Bertoldo Mallozzi  17.08.1972</span>
+<span class="c1">## 3      Nedeljko Bukv  19.12.1921</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(A\cup B\)</span> (union) – the rows that exist in <em>A</em> or are in <em>B</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]))</span>
+<span></span><span class="c1">##                   Name   BirthDate</span>
+<span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
+<span class="c1">## 1         Antónia Lata  20.05.1935</span>
+<span class="c1">## 2    Bertoldo Mallozzi  17.08.1972</span>
+<span class="c1">## 3        Nedeljko Bukv  19.12.1921</span>
+<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
+<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 6         Paul Meckler  29.09.1968</span>
+<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
+<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
+<span class="c1">## 0   Hushang Naigamwala  25.08.1991</span>
+<span class="c1">## 1             Zhen Wei  16.11.1975</span>
+<span class="c1">## 3          Jodoc Alwin  16.11.1969</span>
+<span class="c1">## 4           Igor Mazał  14.05.2004</span>
+<span class="c1">## 9        Noe Tae-Woong  11.07.1970</span>
+</pre></div>
+</div>
+<p>Not that there are no duplicate rows in the output.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Determine
+<span class="math notranslate nohighlight">\((A\cup B) \setminus (A\cap B) = (A\setminus B)\cup(B\setminus A)\)</span>
+(symmetric difference).</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Determine the union, intersection, and difference of the
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_sample1.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample1</span></code></a>
+and
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_sample2.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample2</span></code></a> datasets,
+where there is no column uniquely identifying the observations.
+Hint: consider using
+<code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.duplicated</span></code> or
+<code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.drop_duplicates</span></code>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="joining-merging">
+<h2><span class="section-number">19.4. </span>Joining (Merging)<a class="headerlink" href="#joining-merging" title="Permalink to this headline">¶</a></h2>
+<p>In database design, it is common to
+<a class="reference external" href="https://en.wikipedia.org/wiki/Database_normalization">normalise</a>
+the datasets in order to avoid the duplication of information
+and pathologies stemming from them.</p>
+<p>For example, the above air quality parameters
+are separately described in another data frame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/air_quality_2018_param.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">param</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">param_std_unit_of_measure</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="c1">##   param_id                   param_name   unit      param_short_name</span>
+<span class="c1">## 0      API      Airborne particle index   none  Visibility Reduction</span>
+<span class="c1">## 1   BPM2.5  BAM  Particles &lt; 2.5 micron  ug/m3                 PM2.5</span>
+<span class="c1">## 2       CO              Carbon Monoxide    ppm                    CO</span>
+<span class="c1">## 3    HPM10                   Hivol PM10  ug/m3                   NaN</span>
+<span class="c1">## 4      NO2             Nitrogen Dioxide    ppb                   NO2</span>
+<span class="c1">## 5       O3                        Ozone    ppb                    O3</span>
+<span class="c1">## 6     PM10     TEOM Particles &lt;10micron  ug/m3                  PM10</span>
+<span class="c1">## 7   PPM2.5               Partisol PM2.5  ug/m3                   NaN</span>
+<span class="c1">## 8      SO2               Sulfur Dioxide    ppb                   SO2</span>
+</pre></div>
+</div>
+<p>We could have stored them alongside the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame,
+but that would be a waste of space.</p>
+<p>Also, if we wanted to modify some datum
+(note, e.g., the annoying double space in <code class="docutils literal notranslate"><span class="pre">param_name</span></code> for <code class="docutils literal notranslate"><span class="pre">BPM2.5</span></code>),
+we would have to update all the relevant records.</p>
+<p>Instead, we can always look the information up by <code class="docutils literal notranslate"><span class="pre">param_id</span></code>
+and join (merge) the two data frames only if we need it.</p>
+<p>Let us discuss the possible join operations by studying
+the two following data sets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a3&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;b3&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">A</span>
+<span></span><span class="c1">##     x   y</span>
+<span class="c1">## 0  a0  b0</span>
+<span class="c1">## 1  a1  b1</span>
+<span class="c1">## 2  a2  b2</span>
+<span class="c1">## 3  a3  b3</span>
+</pre></div>
+</div>
+<p>and:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a4&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c0&quot;</span><span class="p">,</span> <span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="s2">&quot;c3&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="n">B</span>
+<span></span><span class="c1">##     x   z</span>
+<span class="c1">## 0  a0  c0</span>
+<span class="c1">## 1  a2  c1</span>
+<span class="c1">## 2  a2  c2</span>
+<span class="c1">## 3  a4  c3</span>
+</pre></div>
+</div>
+<p>They both have one column somewhat <em>in common</em>, <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p>The inner (natural) join returns the records that have a match in both datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span></span><span class="c1">##     x   y   z</span>
+<span class="c1">## 0  a0  b0  c0</span>
+<span class="c1">## 1  a2  b2  c1</span>
+<span class="c1">## 2  a2  b2  c2</span>
+</pre></div>
+</div>
+<p>The  left join of <em>A</em> with <em>B</em> guarantees to return all the records from <em>A</em>,
+even those which are not matched by anything in <em>B</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span></span><span class="c1">##     x   y    z</span>
+<span class="c1">## 0  a0  b0   c0</span>
+<span class="c1">## 1  a1  b1  NaN</span>
+<span class="c1">## 2  a2  b2   c1</span>
+<span class="c1">## 3  a2  b2   c2</span>
+<span class="c1">## 4  a3  b3  NaN</span>
+</pre></div>
+</div>
+<p>The right join of <em>A</em> with <em>B</em> is the same as the left join of <em>B</em> with <em>A</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span></span><span class="c1">##     x    y   z</span>
+<span class="c1">## 0  a0   b0  c0</span>
+<span class="c1">## 1  a2   b2  c1</span>
+<span class="c1">## 2  a2   b2  c2</span>
+<span class="c1">## 3  a4  NaN  c3</span>
+</pre></div>
+</div>
+<p>Finally, the full outer join is the set-theoretic
+union of the left and the right join:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span></span><span class="c1">##     x    y    z</span>
+<span class="c1">## 0  a0   b0   c0</span>
+<span class="c1">## 1  a1   b1  NaN</span>
+<span class="c1">## 2  a2   b2   c1</span>
+<span class="c1">## 3  a2   b2   c2</span>
+<span class="c1">## 4  a3   b3  NaN</span>
+<span class="c1">## 5  a4  NaN   c3</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong> Join
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_value.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_value</span></code></a>
+with <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_point.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_point</span></code></a>
+and <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_param.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_param</span></code></a>.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> Normalise
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
+yourself so that you get the three data frames mentioned in the previous
+exercise (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">point</span></code>, <code class="docutils literal notranslate"><span class="pre">param</span></code>).</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+In the National Health and Nutrition Examination Survey
+(NHANES) by the US Centres for Disease Control and Prevention,
+each participant is uniquely identified
+by their sequence number (<code class="docutils literal notranslate"><span class="pre">SEQN</span></code>),
+which is mentioned in numerous datasets, including:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_DEMO.htm">demographic variables</a></p></li>
+<li><p><a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">body measures</a></p></li>
+<li><p><a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/AUX_J.htm">audiometry</a></p></li>
+</ul>
+<p>and <a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/continuousnhanes/default.aspx?BeginYear=2017">many more</a>.
+Join a few chosen datasets that are to your liking.</p>
+</div></blockquote>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">19.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>McKinney W. <em>Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython</em>, O’Reilly, 2017.</p>
+<p>Wickham H.
+Tidy Data. Journal of Statistical Software, 59 (10):1–23. 2014. https://doi.org/10.18637/jss.v059.i10.</p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">19.6. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>What is a train/test split and how to perform it using
+<em>numpy</em> and <em>pandas</em>?</p></li>
+<li><p>What is the difference between stacking and unstacking?
+Which one yields a wide (as opposed to long) format?</p></li>
+<li><p>Name different data frame join (merge) operations and explain how
+they work.</p></li>
+<li><p>How does sorting with respect to more than one criterion work?</p></li>
+<li><p>Name the basic set-theoretic operations on data frames.</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="440-groupby.html" class="btn btn-neutral float-right" title="20. Observation Grouping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="420-transform-hetero.html" class="btn btn-neutral float-left" title="18. Basic Operations on Data Frames" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

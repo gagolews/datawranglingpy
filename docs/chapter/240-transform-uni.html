@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>7. Transforming and Filtering Continuous Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/240-transform-uni.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Continuous Probability Distributions (**)" href="250-distribution-uni.html" />
+    <link rel="prev" title="6. Descriptive Statistics for Continuous Data" href="230-aggregate.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Transforming and Filtering Continuous Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vectorised-mathematical-functions">7.1. Vectorised Mathematical Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arithmetic-operators">7.2. Arithmetic Operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vector-scalar-case">7.2.1. Vector-Scalar Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-feature-scaling">7.2.2. Application: Feature Scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#standardisation">7.2.2.1. Standardisation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#min-max-scaling-and-clipping">7.2.2.2. Min-Max Scaling and Clipping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#normalisation">7.2.2.3. Normalisation (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#vector-vector-case">7.2.3. Vector-Vector Case</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vector-indexing">7.3. Vector Indexing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#integer-indexing">7.3.1. Integer Indexing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logical-indexing">7.3.2. Logical Indexing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slicing">7.3.3. Slicing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-operations">7.4. Other Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sorting-and-ranking">7.4.1. Sorting and Ranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes">7.4.2. Searching for Certain Indexes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cumulative-sums-and-iterated-differences">7.4.3. Cumulative Sums and Iterated Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations">7.4.4. Vectorising Scalar Operations (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">7.5. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">7. </span>Transforming and Filtering Continuous Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="250-distribution-uni.html" class="btn btn-neutral float-right" title="8. Continuous Probability Distributions (**)" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="230-aggregate.html" class="btn btn-neutral float-left" title="6. Descriptive Statistics for Continuous Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="transforming-and-filtering-continuous-data">
+<span id="chap-transform-uni"></span><h1><span class="section-number">7. </span>Transforming and Filtering Continuous Data<a class="headerlink" href="#transforming-and-filtering-continuous-data" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>It is extremely rare for our datasets to bring interesting
+and valid insights out of the box. The ones we are using
+for illustrational purposes in the first part of our series have
+already been curated. After all, this is an introductory course,
+and we need to build up the necessary skills and not overwhelm
+the kind reader with too much information at the same time.
+We learn simple things first, learn them well, so that then we can move to
+more complex matters with a healthy level of confidence.</p>
+<p>In real life, various <em>data cleansing</em> and <em>feature engineering</em>
+techniques will need to be performed on data.
+Generally, most of them can be reduced to
+simple operations on vectors:</p>
+<ul class="simple">
+<li><p>summarising data (for example, computing the median or sum),</p></li>
+<li><p>transforming values (applying mathematical operations on each element,
+such as subtracting a scalar or taking the natural logarithm),</p></li>
+<li><p>filtering (selecting or removing observations
+that meet specific criteria,
+e.g., those that are larger than the arithmetic mean ± 5 standard
+deviations).</p></li>
+</ul>
+<p>The first topic has already been covered in a previous part,
+time for the two remaining ones.
+Also, we will be discussing basic techniques for handling
+missing data and outliers.</p>
+<blockquote>
+<div><p><strong>Important.</strong> The same operations we are going to be applying on individual
+data frame columns.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="section" id="vectorised-mathematical-functions">
+<h2><span class="section-number">7.1. </span>Vectorised Mathematical Functions<a class="headerlink" href="#vectorised-mathematical-functions" title="Permalink to this headline">¶</a></h2>
+<p><em>Numpy</em>, just like any other comprehensive numerical computing
+package, library, or environment (e.g., R and Julia),
+defines many basic mathematical functions:</p>
+<ul class="simple">
+<li><p>absolute value: <code class="docutils literal notranslate"><span class="pre">numpy.abs</span></code>,</p></li>
+<li><p>square and square root: <code class="docutils literal notranslate"><span class="pre">numpy.square</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.sqrt</span></code>,</p></li>
+<li><p>exponential function: <code class="docutils literal notranslate"><span class="pre">numpy.exp</span></code>,</p></li>
+<li><p>logarithms: <code class="docutils literal notranslate"><span class="pre">numpy.log</span></code> (the natural logarithm, i.e., base <em>e</em>),
+<code class="docutils literal notranslate"><span class="pre">numpy.log10</span></code> (base 10), etc.,</p></li>
+<li><p>trigonometric functions: <code class="docutils literal notranslate"><span class="pre">numpy.sin</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.cos</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.tan</span></code>, etc.,</p></li>
+<li><p>rounding and truncating: <code class="docutils literal notranslate"><span class="pre">numpy.round</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.floor</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.ceil</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.trunc</span></code> (when in doubt about their definitions,
+we should, as usual, refer to the official manual).</p></li>
+</ul>
+<p>All these functions are <em>vectorised</em>: if we apply them on a vector of
+length <em>n</em>, they return a sequence of the same size,
+with all elements transformed.</p>
+<p>Thanks to this, our code can not only be more readable, but it runs faster –
+as otherwise we would have to employ a  <code class="docutils literal notranslate"><span class="pre">while</span></code> or <code class="docutils literal notranslate"><span class="pre">for</span></code> loop
+to traverse through each element in a given sequence.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span></span><span class="c1">## array([2, 1, 0, 1, 2, 3])</span>
+</pre></div>
+</div>
+<p>Note that the input list has automatically been converted to a <em>numpy</em> vector.</p>
+<p>Other examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span></span><span class="c1">## array([0.36787944, 1.        , 2.71828183, 7.3890561 ])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>  <span class="c1"># the natural logarithm is the inverse of exp</span>
+<span></span><span class="c1">## array([-1.,  0.,  1.,  2.])</span>
+</pre></div>
+</div>
+<p>and so forth.</p>
+</div>
+<div class="section" id="arithmetic-operators">
+<h2><span class="section-number">7.2. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline">¶</a></h2>
+<p>We can apply the standard binary (two-argument) arithmetic operators
+<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">**</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code>, <code class="docutils literal notranslate"><span class="pre">//</span></code> on vectors too.</p>
+<div class="section" id="vector-scalar-case">
+<h3><span class="section-number">7.2.1. </span>Vector-Scalar Case<a class="headerlink" href="#vector-scalar-case" title="Permalink to this headline">¶</a></h3>
+<p>Often we will be applying the binary operators
+in contexts where one operand is a vector and the other one is a single
+value, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<span></span><span class="c1">## array([4, 1, 0, 1, 4, 9])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span>
+<span></span><span class="c1">## array([0. , 0.2, 0.4, 0.6, 0.8, 1. ])</span>
+</pre></div>
+</div>
+<p>In such a case, each element in the vector is being
+operated upon (e.g., squared, divided by 5)
+and we get a vector of the same length in return.
+Hence, this use case behaves just like the vectorised mathematical functions
+discussed above.</p>
+</div>
+<div class="section" id="application-feature-scaling">
+<h3><span class="section-number">7.2.2. </span>Application: Feature Scaling<a class="headerlink" href="#application-feature-scaling" title="Permalink to this headline">¶</a></h3>
+<p>Vector-scalar operations and aggregation functions are the basis
+for the most commonly applied
+<a class="reference external" href="https://en.wikipedia.org/wiki/Feature_scaling">feature scalers</a>,
+which can increase the interpretability of data points:</p>
+<ul class="simple">
+<li><p>standardisation,</p></li>
+<li><p>normalisation,</p></li>
+<li><p>min-max scaling and clipping.</p></li>
+</ul>
+<div class="section" id="standardisation">
+<h4><span class="section-number">7.2.2.1. </span>Standardisation<a class="headerlink" href="#standardisation" title="Permalink to this headline">¶</a></h4>
+<p>Consider the female heights dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">heights</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span> <span class="c1"># preview</span>
+<span></span><span class="c1">## array([157. , 167.4, 159.6, 168.5, 147.8])</span>
+</pre></div>
+</div>
+<p>whose mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span> are as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span></span><span class="c1">## (160.08245186988268, 7.035238940603155)</span>
+</pre></div>
+</div>
+<p>A <em>standardised</em> version of a vector <span class="math notranslate nohighlight">\((x_1,\dots,x_n)\)</span>
+consists in subtracting from each element the sample arithmetic mean
+(which we call <em>centring</em>) and then dividing it by the standard deviation.</p>
+<p>Mathematically, we transform each <span class="math notranslate nohighlight">\(x_i\)</span> so as to obtain:</p>
+<div class="math notranslate nohighlight">
+\[
+z_i = \frac{x_i-\bar{x}}{s}.
+\]</div>
+<p>With <em>numpy</em>, we simply apply 2 aggregation functions
+and 2 arithmetic operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">heights</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">heights_std</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span> <span class="c1"># preview</span>
+<span></span><span class="c1">## array([-0.43814459,  1.04012788, -0.06857647,  1.19648362, -1.74584715])</span>
+</pre></div>
+</div>
+<p>What we obtain in result is sometimes referred to as the <em>z-scores</em>.
+They are nicely interpretable:</p>
+<ul class="simple">
+<li><p>z-score of 0 corresponds to an observation equal to the sample mean
+(perfectly average);</p></li>
+<li><p>z-score of 1 is obtained for a datum 1 standard deviation
+above the mean;</p></li>
+<li><p>z-score of -2 means that it is a value 2 standard deviations
+below the mean;</p></li>
+</ul>
+<p>all right, we get the point.</p>
+<p>We should also note that because of the way they emerge,
+the mean of z-scores is always 0 and standard deviation is 1
+(up to a tiny numerical error, as usual):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights_std</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights_std</span><span class="p">)</span>
+<span></span><span class="c1">## (6.0252262965981495e-15, 1.0)</span>
+</pre></div>
+</div>
+<p>Moreover, z-scores are unitless (e.g., the original <code class="docutils literal notranslate"><span class="pre">heights</span></code> were measured
+in centimetres).</p>
+<blockquote>
+<div><p><strong>Important.</strong> Standardisation
+enables the comparison of measurements on different scales
+(think: height in cm vs weight in kg or apples vs oranges).</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> We have a patient whose height z-score is 1 and
+weight z-score is -1. How to interpret this information?</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> How about a patient whose weight z-score is 0
+but BMI z-score is 2?</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Note.</strong>
+Standardisation makes most sense for bell-shaped distributions,
+in particular normally-distributed ones.
+Recalling the 2σ rule for the normal family,
+it is <em>expected</em> that 95% of observations should
+have z-scores between -2 and 2.
+Further, z-scores less than -3 and greater than 3 are highly unlikely.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Note.</strong>
+Sometimes we might be interested in performing some form
+of <em>robust</em> standardisation (e.g., for skewed data or
+those that feature some outliers). In such a case,
+we can replace the mean with the median
+and the standard deviation with the IQR.</p>
+</div></blockquote>
+</div>
+<div class="section" id="min-max-scaling-and-clipping">
+<h4><span class="section-number">7.2.2.2. </span>Min-Max Scaling and Clipping<a class="headerlink" href="#min-max-scaling-and-clipping" title="Permalink to this headline">¶</a></h4>
+<p>A less frequently but still noteworthy transformation
+is called <em>min-max scaling</em> and
+involves subtracting the minimum
+and then dividing by the range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.33</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span></span><span class="c1">## array([0.   , 0.4  , 1.   , 0.034, 0.35 , 0.46 ])</span>
+</pre></div>
+</div>
+<p>Here, the smallest value is mapped to 0 and the
+largest one is equal to 1.</p>
+<p>Note that 0.5 does not mean that the value is equal to the mean
+(unless we are very lucky!).</p>
+<p>Also, <em>clipping</em> can be used to replace all values less than
+0 with 0 and those greater than 1 with 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span></span><span class="c1">## array([0.  , 0.5 , 1.  , 0.  , 0.25, 0.8 ])</span>
+</pre></div>
+</div>
+<p>The function is of course flexible; another popular choice is
+clipping to <em>[-1, 1]</em>.</p>
+<p>(*) This can be implemented manually by means of the vectorised pairwise
+minimum and maximum functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span></span><span class="c1">## array([0.  , 0.5 , 1.  , 0.  , 0.25, 0.8 ])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="normalisation">
+<h4><span class="section-number">7.2.2.3. </span>Normalisation (*)<a class="headerlink" href="#normalisation" title="Permalink to this headline">¶</a></h4>
+<p><em>Normalisation</em> is the scaling of a given vector so that it is of
+<em>unit length</em>. Usually, by <em>length</em> we mean the square root of the sum of
+squares, i.e., the Euclidean norm:</p>
+<div class="math notranslate nohighlight">
+\[
+\| (x_1,\dots,x_n) \| = \sqrt{
+x_1^2 + x_2^2 + \dots + x_n^2
+} = \sqrt{
+\sum_{i=1}^n x_i^2
+},
+\]</div>
+<p>whose special case for <em>n=2</em> we know well from high school:
+the length of a vector <span class="math notranslate nohighlight">\((a,b)\)</span>
+is <span class="math notranslate nohighlight">\(\sqrt{a^2+b^2}\)</span>, e.g., <span class="math notranslate nohighlight">\(\|(1, 2)\| = \sqrt{5} \simeq 2.236\)</span>.</p>
+<p>We can thus write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
+<span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># x divided by the Euclidean norm of x</span>
+<span></span><span class="c1">## array([ 0.13834289,  0.69171446, -0.55337157,  0.27668579,  0.34585723])</span>
+</pre></div>
+</div>
+<p>(**) Note that normalisation is pretty similar to
+standardisation if data are already centred (when mean was subtracted).
+Actually, we can obtain one from the other
+by scaling by <span class="math notranslate nohighlight">\(\sqrt{n-1}\)</span>.</p>
+<p>At other times, by <em>length</em> we can also mean the Manhattan
+norm,
+$<span class="math notranslate nohighlight">\(
+\| (x_1,\dots,x_n) \|_1 = |x_1| + |x_2| + \dots + |x_n| = \sum_{i=1}^n |x_i|,
+\)</span>$
+being the sum of absolute values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span></span><span class="c1">## array([ 0.06896552,  0.34482759, -0.27586207,  0.13793103,  0.17241379])</span>
+</pre></div>
+</div>
+<p>This is frequently applied on vectors of nonnegative values,
+whose normalised versions can
+be interpreted as <em>probabilities</em>:
+values between 0 and 1 which additionally
+add up to 1 (or, equivalently, 100%).
+In particular, on binned data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># counts</span>
+<span></span><span class="c1">## [ 330 1918 1890  381]</span>
+</pre></div>
+</div>
+<p>And now, converting the counts to
+empirical probabilities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span></span><span class="c1">## [0.07302501 0.42443018 0.41823412 0.08431069]</span>
+</pre></div>
+</div>
+<p>We did not apply <code class="docutils literal notranslate"><span class="pre">numpy.abs</span></code>, because the values were already nonnegative.</p>
+</div>
+</div>
+<div class="section" id="vector-vector-case">
+<h3><span class="section-number">7.2.3. </span>Vector-Vector Case<a class="headerlink" href="#vector-vector-case" title="Permalink to this headline">¶</a></h3>
+<p>The arithmetic operators can also be applied
+on two vectors of equal lengths.
+In such a case, they will act <em>elementwisely</em>:
+taking each element from the first operand
+and combining it with the <em>corresponding</em> element from the second argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
+<span></span><span class="c1">## array([   20,   300,  4000, 50000])</span>
+</pre></div>
+</div>
+<p>We see that the first element in the left operand (2)
+was multiplied by the first element in the right operand (10).
+Then, we computed 3*100 (the second elements), and so forth.</p>
+<p>Another example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">])</span>  <span class="c1"># example vector</span>
+<span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span></span><span class="c1">## 1.6790818544987114</span>
+</pre></div>
+</div>
+<p>computes the value of the expression
+<span class="math notranslate nohighlight">\(h = - (p_1\, \log p_1 + p_2\, \log p_2 + \dots + p_n\, \log p_n) =
+-\sum_{i=1}^n p_i\, \log p_i\)</span>.
+Note that it involves the use of a unary vectorised
+minus (change sign), an aggregation function (sum),
+a vectorised mathematical function (log),
+and an elementwise multiplication.</p>
+<p>Yet another example:
+let’s say we would like to plot two mathematical functions:
+<span class="math notranslate nohighlight">\(f(x)= \sin x\, \cos^2 \frac{x}{3}\)</span>
+and
+<span class="math notranslate nohighlight">\(g(x) = \frac{\sin (-2x)}{x^2+1}\)</span>
+for <span class="math notranslate nohighlight">\(x\)</span> in the interval <span class="math notranslate nohighlight">\([-2\pi, 4\pi]\)</span>.</p>
+<p>To do this, we can probe the values of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> at sufficiently many points
+using the vectorised operations discussed so far
+and then use the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>  <span class="c1"># many points in the said interval</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">yg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yf</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>  <span class="c1"># red solid line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yg</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;g(x)&quot;</span><span class="p">)</span>  <span class="c1"># blue dotted line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-240-transform-uni-20"></span><img alt="../_images/240-transform-uni-20-1.png" src="../_images/240-transform-uni-20-1.png" />
+<p class="caption"><span class="caption-number">Figure 7.1 </span><span class="caption-text">plot of chunk 240-transform-uni-20</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that decreasing the number of points in <code class="docutils literal notranslate"><span class="pre">x</span></code> will reveal that the
+plotting function in fact draws a series of straight line segments.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Based on the <code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020.txt</span></code> and
+<code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020.txt</span></code> datasets (discussed in the
+part on histograms), using a single line of code,
+compute the vector of BMIs of all persons.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="vector-indexing">
+<h2><span class="section-number">7.3. </span>Vector Indexing<a class="headerlink" href="#vector-indexing" title="Permalink to this headline">¶</a></h2>
+<p>Recall that sequential objects in Python
+(lists, tuples, strings, ranges) support indexing
+using scalars and slices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># scalar index - extract</span>
+<span></span><span class="c1">## 20</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># slice index - subset</span>
+<span></span><span class="c1">## [20]</span>
+</pre></div>
+</div>
+<p><em>Numpy</em> vectors additionally support  two other indexing schemes:
+using integer and boolean sequences.</p>
+<div class="section" id="integer-indexing">
+<h3><span class="section-number">7.3.1. </span>Integer Indexing<a class="headerlink" href="#integer-indexing" title="Permalink to this headline">¶</a></h3>
+<p>Indexing with a single integer <em>extracts</em>
+a particular element:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># first, second, last</span>
+<span></span><span class="c1">## (10, 20, 50)</span>
+</pre></div>
+</div>
+<p>We can also use lists of vector of integer indexes,
+which return a subvector with elements at the specified indices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">],</span> <span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">],</span> <span class="n">x</span><span class="p">[</span> <span class="p">[]</span> <span class="p">],</span> <span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+<span></span><span class="c1">## (array([10]), array([10, 20, 50]), array([], dtype=int64), array([10, 20, 10, 10]))</span>
+</pre></div>
+</div>
+<p>Note that we added some spaces between the square brackets,
+because, for example, <code class="docutils literal notranslate"><span class="pre">x[[0,</span> <span class="pre">1,</span> <span class="pre">-1]]</span></code> might look slightly more
+enigmatic (What are these double square brackets?
+Nah, it is a list inside the index operator).</p>
+</div>
+<div class="section" id="logical-indexing">
+<h3><span class="section-number">7.3.2. </span>Logical Indexing<a class="headerlink" href="#logical-indexing" title="Permalink to this headline">¶</a></h3>
+<p>Subsetting using a vector of the same length as the indexed
+vector is possible too:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span> <span class="p">]</span>
+<span></span><span class="c1">## array([10, 30, 40])</span>
+</pre></div>
+</div>
+<p>Returned the 1st, 3rd, and 4th element
+(select 1st, don’t select 2nd, select 3rd, select 4th, don’t select 5th).</p>
+<p>This is particularly useful as a <em>data filtering</em> technique.</p>
+<p>Knowing that the relational operators <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> on vectors are also performed elementwisely
+(just like <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, etc.), for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">30</span>
+<span></span><span class="c1">## array([False, False,  True,  True,  True])</span>
+</pre></div>
+</div>
+<p>we can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">30</span> <span class="p">]</span>
+<span></span><span class="c1">## array([30, 40, 50])</span>
+</pre></div>
+</div>
+<p>to mean “select those elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> which are not less than 30”.</p>
+<p>Of course, the indexed vector and the vector
+used in comparisons does not have to be the same:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+<span class="n">y</span>  <span class="c1"># 0 if a number is a multiply of 10 times an even number</span>
+<span></span><span class="c1">## array([1., 0., 1., 0., 1.])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">]</span>
+<span></span><span class="c1">## array([20, 40])</span>
+</pre></div>
+</div>
+<p>If we would like to combine many logical vectors,
+unfortunately we cannot use the <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code> operators,
+because they are not vectorised (this is a limitation of our language
+per se).</p>
+<p>Instead, <em>numpy</em> uses the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, and <code class="docutils literal notranslate"><span class="pre">~</span></code> operators,
+which unfortunately have lower order of precedence than
+<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>, etc.
+Therefore, the bracketing of the comparisons is obligatory.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">(</span><span class="mi">20</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">40</span><span class="p">)</span> <span class="p">]</span>  <span class="c1"># check what happens if we skip the brackets</span>
+<span></span><span class="c1">## array([20, 30, 40])</span>
+</pre></div>
+</div>
+<p>means “elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> between 20 and 40”
+(greater than or equal to 20 and less than or equal to 40).</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Based on the <code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020.txt</span></code> and
+<code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020.txt</span></code> datasets,
+compute the BMIs of the persons only whose
+height is between 150 and 170 cm.</p>
+</div></blockquote>
+</div>
+<div class="section" id="slicing">
+<h3><span class="section-number">7.3.3. </span>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h3>
+<p>Just as with ordinary lists,
+slicing with “<code class="docutils literal notranslate"><span class="pre">:</span></code>” can be used to fetch the elements
+at indexes in a given range <code class="docutils literal notranslate"><span class="pre">from:to</span></code> or <code class="docutils literal notranslate"><span class="pre">from:to:by</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span></span><span class="c1">## (array([50, 40, 30, 20, 10]), array([40, 50]), array([20, 30, 40]))</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>(*) <strong>Note.</strong>
+For efficiency reasons, slicing returns a
+<em>view</em> on existing data – it does not make an independent
+copy of the subsetted elements.</p>
+</div></blockquote>
+<p>In other words, both <code class="docutils literal notranslate"><span class="pre">x</span></code> and its sliced version share the same memory.
+This is important when we apply operations which modify a
+given vector in place, such as the <code class="docutils literal notranslate"><span class="pre">sort</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">y</span>
+<span></span><span class="c1">## array([1, 4, 2, 5, 6, 3, 7, 9, 8])</span>
+</pre></div>
+</div>
+<p>This sorted every second element in <code class="docutils literal notranslate"><span class="pre">y</span></code> ([6, 8, 1, 2, 7] → [1, 2, 6, 7, 8]).</p>
+<p>Indexing with an integer or logical vector always returns a copy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">y</span>
+<span></span><span class="c1">## array([1, 4, 2, 5, 6, 3, 7, 9, 8])</span>
+</pre></div>
+</div>
+<p>This <em>did not</em> modify the original vector.</p>
+</div>
+</div>
+<div class="section" id="other-operations">
+<h2><span class="section-number">7.4. </span>Other Operations<a class="headerlink" href="#other-operations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sorting-and-ranking">
+<h3><span class="section-number">7.4.1. </span>Sorting and Ranking<a class="headerlink" href="#sorting-and-ranking" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">numpy.sort</span></code> function returns a sorted copy of the given vector.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## array([10, 20, 30, 40, 50, 50])</span>
+</pre></div>
+</div>
+<p>Recall that <code class="docutils literal notranslate"><span class="pre">x.sort()</span></code> sorts the vector in-place.</p>
+<p>Next, <code class="docutils literal notranslate"><span class="pre">scipy.stats.rankdata</span></code> returns a vector of
+<a class="reference external" href="https://en.wikipedia.org/wiki/Ranking">ranks</a>,
+which is the inverse of <code class="docutils literal notranslate"><span class="pre">numpy.argsort</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## array([1. , 3. , 5.5, 4. , 2. , 5.5])</span>
+</pre></div>
+</div>
+<p>Element 10 is the smallest (“the winner”, say, the quickest racer),
+hence it has rank 1.
+Next is element 30, which is the 3rd on the podium, hence its rank is 3.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Consult the manual page of
+<code class="docutils literal notranslate"><span class="pre">scipy.stats.rankdata</span></code> and test various methods for dealing
+with <em>tied</em> elements, e.g., a situation where some values
+are nonunique (for instance, when two racers finished in exactly
+the same time).</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*)  <strong>Note.</strong> There are many methods in nonparametric statistics
+(those that do not make any too particular assumptions
+about the underlying data distribution) that are based on ranks,
+e.g., the Spearman correlation coefficient which we cover later.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">numpy.argsort</span></code> returns a sequence of indexes that
+lead to an ordered version of a given vector
+(i.e., an ordering permutation).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## array([0, 4, 1, 3, 2, 5])</span>
+</pre></div>
+</div>
+<p>Which means that the smallest element is at index 0,
+then the 2nd smallest is at index 4, 3rd smallest at index 1, etc.
+Therefore:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+<span></span><span class="c1">## array([10, 20, 30, 40, 50, 50])</span>
+</pre></div>
+</div>
+<p>is equivalent to <code class="docutils literal notranslate"><span class="pre">numpy.sort(x)</span></code>.</p>
+<p>On a side note, <code class="docutils literal notranslate"><span class="pre">numpy.random.permutation</span></code> rearranges
+the elements in a given vector.</p>
+<blockquote>
+<div><p>(**) <strong>Note.</strong>
+If there are tied observations in a vector <code class="docutils literal notranslate"><span class="pre">x</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.argsort(x,</span> <span class="pre">kind=&quot;stable&quot;)</span></code> will use
+a <a class="reference external" href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability"><em>stable</em></a>
+sorting algorithm
+(<a class="reference external" href="https://github.com/python/cpython/blob/3.7/Objects/listsort.txt">timsort</a>,
+a variant of mergesort), which guarantees that the ordering
+permutation is unique: tied elements are placed in order of appearance</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Note.</strong>
+Readers with some background in discrete mathematics
+will be interested in the fact that
+calling <code class="docutils literal notranslate"><span class="pre">argsort</span></code> on a vector representing a permutation of elements
+in fact generates its [inverse](https://en.wikipedia.org/wiki/Inversion_(discrete_mathematics).
+In particular, <code class="docutils literal notranslate"><span class="pre">np.argsort(np.argsort(x,</span> <span class="pre">kind=&quot;stable&quot;))+1</span></code>
+is equivalent to <code class="docutils literal notranslate"><span class="pre">scipy.stats.rankdata(x,</span> <span class="pre">method=&quot;ordinal&quot;)</span></code>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="searching-for-certain-indexes">
+<h3><span class="section-number">7.4.2. </span>Searching for Certain Indexes<a class="headerlink" href="#searching-for-certain-indexes" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">numpy.argmin</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.argmax</span></code> return the index at
+which we can find the smallest and the largest observation
+in a given vector.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## (0, 2)</span>
+</pre></div>
+</div>
+<p>Note that if there are tied observations,
+the smallest index is returned.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">numpy.where</span></code> to get the indexes
+where a logical vector has elements equal to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span></span><span class="c1">## (array([2, 5]),)</span>
+</pre></div>
+</div>
+<p>This is a version of <code class="docutils literal notranslate"><span class="pre">numpy.argmax</span></code> that lets us decide
+what we would like to do with the tied maxima.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Let <code class="docutils literal notranslate"><span class="pre">x</span></code> be a vector with possible ties.
+Write an expression that returns a randomly chosen index
+pinpointing the sample maximum.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+<em>numpy.where</em> can also act as a vectorised version
+of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement. Consult its documentation</p>
+</div></blockquote>
+</div>
+<div class="section" id="cumulative-sums-and-iterated-differences">
+<h3><span class="section-number">7.4.3. </span>Cumulative Sums and Iterated Differences<a class="headerlink" href="#cumulative-sums-and-iterated-differences" title="Permalink to this headline">¶</a></h3>
+<p>Recall that the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator acts elementwisely on two vectors
+and that the <code class="docutils literal notranslate"><span class="pre">numpy.sum</span></code> function aggregates all values into a single one.
+We have one more similar function, but vectorised in a slightly different
+fashion. Namely, <code class="docutils literal notranslate"><span class="pre">numpy.cumsum</span></code> returns the vector of <em>cumulative sums</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span></span><span class="c1">## array([5, 8, 4, 5, 6, 9])</span>
+</pre></div>
+</div>
+<p>gave, in this order: the first element, the sum of first two elements,
+the sum of first three elements, …, the sum of all elements.</p>
+<p>(*) Note that this operation is useful when preparing cumulative
+histograms discussed earlier.</p>
+<p>Further, <em>iterative differences</em> are a somewhat inverse operation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span></span><span class="c1">## array([ 3, -4,  1,  1,  3])</span>
+</pre></div>
+</div>
+<p>returned the difference between the 2nd and 1st element,
+then the difference between the 3rd and the 2nd, and so forth.
+The resulting vector is 1 element shorter than the input one.</p>
+<p>We often make use of cumulative sums and iterated differences when
+processing time series, e.g., stock exchange data
+(e.g., by how much the price changed since the previous day?).</p>
+</div>
+<div class="section" id="vectorising-scalar-operations">
+<h3><span class="section-number">7.4.4. </span>Vectorising Scalar Operations (*)<a class="headerlink" href="#vectorising-scalar-operations" title="Permalink to this headline">¶</a></h3>
+<p>List comprehensions of the form
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">expression</span> <span class="pre">for</span> <span class="pre">name</span> <span class="pre">in</span> <span class="pre">iterable</span> <span class="pre">]</span></code> are part of base Python.
+They allow us to create lists based on transformed versions
+of individual elements in a given iterable object.
+Hence, they might work in cases where a task at hand
+cannot be solved by means of vectorised <em>numpy</em> functions.</p>
+<p>For example, here is a way to generate squares of 10 first natural numbers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">i</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="p">]</span>
+<span></span><span class="c1">## [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</span>
+</pre></div>
+</div>
+<p>The result can be passed to <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> to convert it to a vector.</p>
+<p>And if we wish to filter our all elements that are not greater
+than 0, we can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># make pseudorandom number generation reproducible</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[</span> <span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">]</span>
+<span></span><span class="c1">## [0.39, 0.1, 0.44, 0.96, 0.37]</span>
+</pre></div>
+</div>
+<p>Further, we can use the ternary operator of the form
+<code class="docutils literal notranslate"><span class="pre">x_true</span> <span class="pre">if</span> <span class="pre">cond</span> <span class="pre">else</span> <span class="pre">x_false</span></code> to return either <code class="docutils literal notranslate"><span class="pre">x_true</span></code> or
+<code class="docutils literal notranslate"><span class="pre">x_false</span></code> depending on the truth value of <code class="docutils literal notranslate"><span class="pre">cond</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">e</span><span class="o">**</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+<span></span><span class="c1">## 1.4142135623730951</span>
+</pre></div>
+</div>
+<p>Combined with a list comprehension, we can write, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span> <span class="p">]</span>
+<span></span><span class="c1">## [0.62, 0.66, 0.74, 0.32, 0.66, 0.39, 0.98, 0.61, 0.2, 0.47]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Write equivalent versions of the above expressions
+using vectorised <em>numpy</em> functions.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Write equivalent versions of the above expressions
+using base Python lists,
+the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and the <code class="docutils literal notranslate"><span class="pre">list.append</span></code> method (start from
+an empty list which will store the result).</p>
+</div></blockquote>
+<p>There is also a tool which vectorises a scalar function
+so that it can be used on <em>numpy</em> vectors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clip1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>    <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">clip1</span><span class="p">)</span>  <span class="c1"># returns a function object</span>
+<span class="n">clip</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span></span><span class="c1">## array([0.3, 0. , 0.7, 1. , 1. ])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">7.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Give the mathematical definitions, use cases, and interpretations
+of standardisation, normalisation, and min-max scaling.</p></li>
+<li><p>How are <code class="docutils literal notranslate"><span class="pre">numpy.log</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.exp</span></code> related to each other?
+How about <code class="docutils literal notranslate"><span class="pre">numpy.log</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.log10</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.cumsum</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.diff</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.min</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.argmin</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.sort</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.argsort</span></code>,  and
+<code class="docutils literal notranslate"><span class="pre">scipy.stats.rankdata</span></code> vs <code class="docutils literal notranslate"><span class="pre">numpy.argsort</span></code>?</p></li>
+<li><p>What is the difference between
+<code class="docutils literal notranslate"><span class="pre">numpy.trunc</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.floor</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.ceil</span></code>, and <code class="docutils literal notranslate"><span class="pre">numpy.round</span></code>?</p></li>
+<li><p>What happens when we apply <code class="docutils literal notranslate"><span class="pre">+</span></code> on two vectors of different
+lengths?</p></li>
+<li><p>List four ways to index a vector.</p></li>
+<li><p>What is wrong with the expression
+<code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
+How about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p></li>
+<li><p>(*) What does it mean that slicing returns a view on existing data?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="250-distribution-uni.html" class="btn btn-neutral float-right" title="8. Continuous Probability Distributions (**)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="230-aggregate.html" class="btn btn-neutral float-left" title="6. Descriptive Statistics for Continuous Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

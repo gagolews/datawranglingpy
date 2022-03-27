@@ -25,11 +25,10 @@ this is how we all learn, after all.
 
 Any bug/typos reports/fixes are appreciated, as well as interesting and
 non-trivial remarks that could lead to the improvement of the presented
-material or my learning something noteworthy. Please email me about any
-issues discovered; my contact data can be found at my [homepage][1].
+material or my learning something noteworthy. Please use the
+[*Issues*](https://github.com/gagolews/datawranglingpy/issues)
+tracker to notify me about any issues discovered.
 
 Thank you.
 
 Good luck!
-
-[1]: https://www.gagolewski.com

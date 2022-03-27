@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>21. Outliers, Missing, Censored, and Incorrect Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/450-missingness.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="22. Database Access" href="460-sql.html" />
+    <link rel="prev" title="20. Observation Grouping" href="440-groupby.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">21. Outliers, Missing, Censored, and Incorrect Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#missing-data">21.1. Missing Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#representing-and-detecting-missing-values">21.1.1. Representing and Detecting Missing Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#computing-with-missing-values">21.1.2. Computing with Missing Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#missing-at-random-or-not">21.1.3. Missing at Random or Not?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#discarding-missing-values">21.1.4. Discarding Missing Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mean-imputation">21.1.5. Mean Imputation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#missing-values-in-time-series">21.1.6. Missing Values in Time Series</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#incorrect-data">21.2. Incorrect Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outliers">21.3. Outliers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#unidimensional-data">21.3.1. Unidimensional Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robust-aggregates">21.3.2. Robust Aggregates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multidimensional-data">21.3.3. Multidimensional Data (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#censored-data">21.4. Censored Data (*)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">21.5. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">21.6. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">21. </span>Outliers, Missing, Censored, and Incorrect Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="460-sql.html" class="btn btn-neutral float-right" title="22. Database Access" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="440-groupby.html" class="btn btn-neutral float-left" title="20. Observation Grouping" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="outliers-missing-censored-and-incorrect-data">
+<span id="chap-missingness"></span><h1><span class="section-number">21. </span>Outliers, Missing, Censored, and Incorrect Data<a class="headerlink" href="#outliers-missing-censored-and-incorrect-data" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>So far we have been assuming that observations are of “decent quality”,
+i.e., trustworthy. It would be nice if in reality that was always the case,
+but it is not.</p>
+<p>In this section we briefly address the most basic
+methods for dealing with “suspicious” observations:
+outliers, missing, censored, and incorrect data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.notebook_repr_html&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># disable &quot;rich&quot; output</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="missing-data">
+<h2><span class="section-number">21.1. </span>Missing Data<a class="headerlink" href="#missing-data" title="Permalink to this headline">¶</a></h2>
+<p>Consider the <code class="docutils literal notranslate"><span class="pre">nhanes_p_demo_bmx_2020</span></code> dataset being
+another excerpt from the National Health and Nutrition Examination Survey
+by the US Centres for Disease Control and Prevention:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span></span><span class="c1">##      SEQN  BMDSTATS  BMXWT  BMIWT  BMXRECUM  ...      WTINTPRP      WTMECPRP  SDMVPSU  SDMVSTRA  INDFMPIR</span>
+<span class="c1">## 0  109263         4    NaN    NaN       NaN  ...   7891.762435   8951.815567        3       156      4.66</span>
+<span class="c1">## 1  109264         1   42.2    NaN       NaN  ...  11689.747264  12271.157043        1       155      0.83</span>
+<span class="c1">## 2  109265         1   12.0    NaN      91.6  ...  16273.825939  16658.764203        1       157      3.06</span>
+<span class="c1">## </span>
+<span class="c1">## [3 rows x 50 columns]</span>
+</pre></div>
+</div>
+<p>Some of the columns feature <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (not-a-number) values,
+which are  used here to encode <em>missing data</em>.</p>
+<p>The reasons behind why some items are missing might be numerous,
+for instance:</p>
+<ul class="simple">
+<li><p>a participant doesn’t know the answer to a given question;</p></li>
+<li><p>a patient refused to answer a given question;</p></li>
+<li><p>a participant does not take part in the study anymore
+(attrition, death, etc.);</p></li>
+<li><p>an item is not applicable (e.g., number of minutes spent cycling weekly
+when someone answered they don’t like bikes at all);</p></li>
+<li><p>a piece of information was not collected, e.g., due to the lack of funding
+or equipment failure.</p></li>
+</ul>
+<div class="section" id="representing-and-detecting-missing-values">
+<h3><span class="section-number">21.1.1. </span>Representing and Detecting Missing Values<a class="headerlink" href="#representing-and-detecting-missing-values" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes missing values will be specially encoded, especially
+in CSV files, e.g., with <code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">9999</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.inf</span></code>, <code class="docutils literal notranslate"><span class="pre">-numpy.inf</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">None</span></code>,  strings such as  <code class="docutils literal notranslate"><span class="pre">&quot;NA&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;N/A&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Not</span> <span class="pre">Applicable&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;---&quot;</span></code> – we should always inspect
+our datasets carefully.</p>
+<p>Generally, we will be converting them to <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (as in: <code class="docutils literal notranslate"><span class="pre">numpy.nan</span></code>)
+in numeric (floating-point) columns or
+to Python’s <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise,
+to assure consistent representation.</p>
+<p>Vectorised functions such as <code class="docutils literal notranslate"><span class="pre">numpy.isnan</span></code> (or, more generally,
+<code class="docutils literal notranslate"><span class="pre">numpy.isfinite</span></code>) and <code class="docutils literal notranslate"><span class="pre">pandas.isnull</span></code>
+as well as <code class="docutils literal notranslate"><span class="pre">isna</span></code> methods in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> classes
+can be used to verify whether an item is missing or not.</p>
+<p>For instance, here are the counts and proportions of missing
+values in each column (we will display only the top 5 columns
+to save space):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_na_stats</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">nhanes_na_stats</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+<span></span><span class="c1">##               sum      mean</span>
+<span class="c1">## BMIHEAD   14300.0  1.000000</span>
+<span class="c1">## BMIRECUM  14257.0  0.996993</span>
+<span class="c1">## BMIHT     14129.0  0.988042</span>
+<span class="c1">## BMXHEAD   13990.0  0.978322</span>
+<span class="c1">## BMIHIP    13924.0  0.973706</span>
+</pre></div>
+</div>
+<p>Looking at the column <a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">descriptions</a>, <code class="docutils literal notranslate"><span class="pre">BMIHEAD</span></code> stands for “Head Circumference Comment”,
+whereas <code class="docutils literal notranslate"><span class="pre">BMXHEAD</span></code> is “Head Circumference (cm)”,
+but it is only applicable for infants.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Read the column descriptions
+(refer to the comments in the CSV file for the relevant URLs)
+to identify the possible reasons for some of the NHANES data being missing.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> Study the <em>pandas</em> manual to learn about the
+difference between the <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy.size</span></code>
+and <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy.count</span></code> methods.</p>
+</div></blockquote>
+</div>
+<div class="section" id="computing-with-missing-values">
+<h3><span class="section-number">21.1.2. </span>Computing with Missing Values<a class="headerlink" href="#computing-with-missing-values" title="Permalink to this headline">¶</a></h3>
+<p>Our use of <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to denote a missing
+piece of information is actually an ugly (but still functioning) hack.
+The original use case for not-a-number is to represent
+the results of incorrect operations, e.g., logarithms of negative
+numbers or subtracting two infinite entities.
+Therefore, we need extra care when handling them.
+On a side note, e.g., the R environment has a built-in, seamless support
+for missing values.</p>
+<p>Generally, arithmetic operations on missing values yield a result
+that is undefined as well:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">+</span> <span class="mi">2</span>  <span class="c1"># &quot;don&#39;t know&quot; + 2 == &quot;don&#39;t know&quot;</span>
+<span></span><span class="c1">## nan</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span></span><span class="c1">## nan</span>
+</pre></div>
+</div>
+<p>There are versions of certain aggregation functions
+that ignore missing values whatsoever:
+<code class="docutils literal notranslate"><span class="pre">numpy.nanmean</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.nanmin</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.nanmax</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.nanpercentile</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.std</span></code>, etc.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span></span><span class="c1">## 2.0</span>
+</pre></div>
+</div>
+<p>However, running aggregation functions directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects ignores
+missing entities by default. Compare an application of <code class="docutils literal notranslate"><span class="pre">numpy.mean</span></code>
+on a <code class="docutils literal notranslate"><span class="pre">Series</span></code> instance vs on a vector:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">]</span>  <span class="c1"># some example Series, whatever</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+<span></span><span class="c1">## (148.5, nan)</span>
+</pre></div>
+</div>
+<p>This is quite an unfortunate behaviour, because this way we might
+miss (sic!) the presence of missing values.
+This is why it is very important always to pre-inspect a dataset carefully.</p>
+<p>Also, due to <code class="docutils literal notranslate"><span class="pre">NaN</span></code>’s being of floating-point type,
+it cannot be present in, amongst others, logical vectors.
+By convention, comparisons against missing values
+yield <code class="docutils literal notranslate"><span class="pre">False</span></code> (instead of the more semantically valid missing value):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>  <span class="c1"># preview</span>
+<span></span><span class="c1">## 0      NaN</span>
+<span class="c1">## 1    154.7</span>
+<span class="c1">## 2     89.3</span>
+<span class="c1">## 3    160.2</span>
+<span class="c1">## 4      NaN</span>
+<span class="c1">## 5    156.0</span>
+<span class="c1">## 6    182.3</span>
+<span class="c1">## Name: BMXHT, dtype: float64</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">y</span>
+<span></span><span class="c1">## 0    False</span>
+<span class="c1">## 1     True</span>
+<span class="c1">## 2     True</span>
+<span class="c1">## 3     True</span>
+<span class="c1">## 4    False</span>
+<span class="c1">## 5     True</span>
+<span class="c1">## 6     True</span>
+<span class="c1">## Name: BMXHT, dtype: bool</span>
+</pre></div>
+</div>
+<p>(*) If we want to retain the missingness information
+(we don’t know if a missing value is greater than 40),
+we need to do it manually:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;object&quot;</span><span class="p">)</span>  <span class="c1"># required for numpy vectors, not for pandas Series</span>
+<span class="n">y</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">y</span>
+<span></span><span class="c1">## 0    None</span>
+<span class="c1">## 1    True</span>
+<span class="c1">## 2    True</span>
+<span class="c1">## 3    True</span>
+<span class="c1">## 4    None</span>
+<span class="c1">## 5    True</span>
+<span class="c1">## 6    True</span>
+<span class="c1">## Name: BMXHT, dtype: object</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="missing-at-random-or-not">
+<h3><span class="section-number">21.1.3. </span>Missing at Random or Not?<a class="headerlink" href="#missing-at-random-or-not" title="Permalink to this headline">¶</a></h3>
+<p>At a general level (from the mathematical modelling perspective),
+we may distinguish between
+different missingness patterns (as per Rubin, 1976):</p>
+<ul class="simple">
+<li><p>missing completely at random: reasons are unrelated to data
+and probabilities of cases being missing are all the same;</p></li>
+<li><p>missing at random: there are different probabilities of being missing
+within different groups (e.g., males might systematically
+refuse to answer specific questions);</p></li>
+<li><p>missing not at random: due to reasons unknown to us
+(e.g., data was collected at different times,
+there might be systematic differences but within the groups
+that we cannot easily identify, e.g., amongst
+participants with data science background where we did not ask
+about education or occupation).</p></li>
+</ul>
+<p>It is important to try to determine the reason for missingness,
+because this will usually imply the kinds of techniques that
+are more or less suitable in specific cases.</p>
+</div>
+<div class="section" id="discarding-missing-values">
+<h3><span class="section-number">21.1.4. </span>Discarding Missing Values<a class="headerlink" href="#discarding-missing-values" title="Permalink to this headline">¶</a></h3>
+<p>We may try removing (discarding) the rows or columns
+that feature at least one, some, or too many missing values.</p>
+<p>However, for this we need to be “rich enough” – such a scheme
+will obviously not work for small datasets, where each observation
+is precious (but on the other hand, if we want to infer from
+too small datasets, we should ask ourselves whether this
+is a good idea at all… it might be better to simply refrain
+from any data analysis than to come up with conclusions
+that are likely to be unjustified).</p>
+<p>Also, we should not exercise data removal in situations where missingness
+is conditional (e.g., data only available for infants)
+or otherwise group-dependent (not-completely at random;
+e.g., it might result in an imbalanced dataset).</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> With the <code class="docutils literal notranslate"><span class="pre">nhanes_p_demo_bmx_2020</span></code> dataset:</p>
+<ol class="simple">
+<li><p>remove all columns that are comprised of missing values only,</p></li>
+<li><p>remove all columns that are made of more than 20% missing values,</p></li>
+<li><p>remove all rows that only consist of missing values,</p></li>
+<li><p>remove all rows that feature at least one missing value,</p></li>
+<li><p>remove all columns that feature at least one missing value.</p></li>
+</ol>
+<p>Hint: <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.dropna</span></code> might be useful in the simplest cases,
+and <code class="docutils literal notranslate"><span class="pre">numpy.isnan</span></code> or <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.isna</span></code> with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> or <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>
+otherwise.</p>
+</div></blockquote>
+</div>
+<div class="section" id="mean-imputation">
+<h3><span class="section-number">21.1.5. </span>Mean Imputation<a class="headerlink" href="#mean-imputation" title="Permalink to this headline">¶</a></h3>
+<p>When we cannot afford or it is inappropriate/inconvenient to proceed with
+the removal of missing observations or columns,
+we might try applying some missing value <em>imputation</em>
+techniques. Although, let us be clear – this is merely a
+replacement thereof by some hopefully useful guesstimates.</p>
+<blockquote>
+<div><p><strong>Important.</strong> Whatever we decide to do with the missing values,
+we need to be explicit about the way we have handled them in all the
+reports from data analysis, as sometimes they might strongly
+affect the results.</p>
+</div></blockquote>
+<p>Let’s consider an example vector with missing values,
+comprised of heights of the adult participants of the NHANES study.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The simplest approach is to replace
+each missing value with the corresponding column’s mean
+(for each column separately).
+This does not change the overall average
+(but decreases the variance).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xi</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">xi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">xi</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, we could have considered replacing missing values
+with the median, or – in case of categorical data – the mode.</p>
+<p>Our height data are definitely not missing completely at random –
+in particular, we expect heights to differ, on average, between sexes.
+Therefore, another basic imputation option is to replace
+the missing values with the corresponding within-group averages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xg</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">]</span>
+<span class="n">xg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">xg</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">xg</span><span class="p">[</span><span class="n">g</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># male</span>
+<span class="n">xg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">xg</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">xg</span><span class="p">[</span><span class="n">g</span> <span class="o">==</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># female</span>
+</pre></div>
+</div>
+<p>Unfortunately, whichever imputation method we choose,
+it will artificially distort the data distribution
+(and hence introduce some kind of bias).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">binrange</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">binrange</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Replace by mean&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">xg</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">binrange</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Replace by group mean&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## (0.0, 500.0)</span>
+<span class="c1">## (0.0, 500.0)</span>
+<span class="c1">## (0.0, 500.0)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-450-missingness-14"></span><img alt="../_images/450-missingness-14-1.png" src="../_images/450-missingness-14-1.png" />
+<p class="caption"><span class="caption-number">Figure 21.1 </span><span class="caption-text">plot of chunk 450-missingness-14</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that these effects might not be visible
+if we increase the bin widths, but they are still there.
+After all, we have added to the sample many
+identical values.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> With the <code class="docutils literal notranslate"><span class="pre">nhanes_p_demo_bmx_2020</span></code> dataset:</p>
+<ol class="simple">
+<li><p>for each numerical column, replace all missing values with the column
+averages,</p></li>
+<li><p>for each categorical column, replace all missing values with the column
+modes,</p></li>
+<li><p>for each numerical column, replace all missing values with the
+averages corresponding to a patient’s sex
+(as given by the <code class="docutils literal notranslate"><span class="pre">RIAGENDR</span></code> column).</p></li>
+</ol>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Note.</strong> <code class="docutils literal notranslate"><span class="pre">sklearn.impute.KNNImputer</span></code> implements missing value
+imputation based on averaging data from an observation’s
+non-missing neighbours.
+This is an extension of the simple idea of finding
+the most “similar” observation (with respect to chosen criteria)
+to a given one and “borrowing” missing measurements from it.
+More generally, different regression or classification
+models can be built on non-missing data and then
+the missing observations can be replaced by the values
+predicted by those models.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Note.</strong> Rubin (1987, 1996) suggests the use of a procedure
+called <em>multiple imputation</em> (see also van Buuren, 2018),
+where copies of the original datasets are created,
+missing values are imputed by sampling from some estimated distributions,
+inference is made, and then the results are aggregated.
+An example algorithm’s implementation is available
+in <code class="docutils literal notranslate"><span class="pre">sklearn.impute.IterativeImputer</span></code>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="missing-values-in-time-series">
+<h3><span class="section-number">21.1.6. </span>Missing Values in Time Series<a class="headerlink" href="#missing-values-in-time-series" title="Permalink to this headline">¶</a></h3>
+<p>Missing values in time series can use the information
+from the neighbouring non-missing observations.
+After all, it is usually the case that, e.g.,
+today’s weather is “similar” to yesterday’s and tomorrow’s.</p>
+<p>The most straightforward ways for dealing with missing values
+in time series are:</p>
+<ul class="simple">
+<li><p>forward-fill – propagate the last non-missing observation,</p></li>
+<li><p>backward-fill – get the next non-missing value,</p></li>
+<li><p>linearly interpolate between two adjacent non-missing values,
+in particular, a single missing value will be replaced
+by the average of its neighbours.</p></li>
+</ul>
+<p>The classic <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/r/air_quality_1973.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_1973</span></code></a> dataset gives some
+daily air quality measurements in New York, between May and September 1973.
+As an example, let’s impute a first few observations in the
+solar radiation column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/r/air_quality_1973.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Solar.R&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">12</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">original</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+    <span class="n">ffilled</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;ffill&quot;</span><span class="p">),</span>
+    <span class="n">bfilled</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;bfill&quot;</span><span class="p">),</span>
+    <span class="n">interpolated</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+<span class="p">))</span>
+<span></span><span class="c1">##     original  ffilled  bfilled  interpolated</span>
+<span class="c1">## 0      190.0    190.0    190.0    190.000000</span>
+<span class="c1">## 1      118.0    118.0    118.0    118.000000</span>
+<span class="c1">## 2      149.0    149.0    149.0    149.000000</span>
+<span class="c1">## 3      313.0    313.0    313.0    313.000000</span>
+<span class="c1">## 4        NaN    313.0    299.0    308.333333</span>
+<span class="c1">## 5        NaN    313.0    299.0    303.666667</span>
+<span class="c1">## 6      299.0    299.0    299.0    299.000000</span>
+<span class="c1">## 7       99.0     99.0     99.0     99.000000</span>
+<span class="c1">## 8       19.0     19.0     19.0     19.000000</span>
+<span class="c1">## 9      194.0    194.0    194.0    194.000000</span>
+<span class="c1">## 10       NaN    194.0    256.0    225.000000</span>
+<span class="c1">## 11     256.0    256.0    256.0    256.000000</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> With the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
+dataset:</p>
+<ol>
+<li><p>Based on the hourly observations, compute the daily mean PM2.5s for
+Melbourne CBD and Morwell South.</p>
+<p>For Melbourne CBD, if some hourly measurement is missing,
+linearly interpolate between the preceding and following non-missing
+data, e.g., a PM2.5 sequence of <code class="docutils literal notranslate"><span class="pre">[...,</span> <span class="pre">10,</span> <span class="pre">NaN,</span> <span class="pre">NaN,</span> <span class="pre">40,</span> <span class="pre">...]</span></code>
+(you need to manually add the <code class="docutils literal notranslate"><span class="pre">NaN</span></code> rows to the dataset)
+should be transformed to <code class="docutils literal notranslate"><span class="pre">[...,</span> <span class="pre">10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40,</span> <span class="pre">...]</span></code>.</p>
+<p>For Morwell South, impute the reading as an average
+of the records in the nearest air quality
+stations, located in Morwell East, Moe, Churchill, or Traralgon.</p>
+</li>
+<li><p>Present the daily mean PM2.5 measurements for Melbourne CBD
+and Morwell South on a single plot.
+The x-axis labels should be human-readable and intuitive.</p></li>
+<li><p>For the Melbourne data, count on how many days
+the average PM2.5 was greater than in the preceding day.</p></li>
+<li><p>Find 5 most air-polluted days for Melbourne.</p></li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="incorrect-data">
+<h2><span class="section-number">21.2. </span>Incorrect Data<a class="headerlink" href="#incorrect-data" title="Permalink to this headline">¶</a></h2>
+<p><em>Missing data</em> might already be present in a given sample
+but also we might be willing to mark some existing values
+as missing, e.g., when they are simply incorrect.</p>
+<p>For example:</p>
+<ul class="simple">
+<li><p>for text data, misspelled words;</p></li>
+<li><p>for spatial data, GPS coordinates of places out of this world,
+non-existing zip codes, or invalid addresses;</p></li>
+<li><p>for date-time data, misformatted date-time strings,
+incorrect dates such as “29 February 2011”,
+an event’s start date being after the end date;</p></li>
+<li><p>for physical measurements, observations that do not meet specific
+constraints, e.g., negative ages, or heights of people over
+300 centimetres;</p></li>
+<li><p>IDs of entities that simply do not exist (e.g., unregistered
+or deleted clients’ accounts);</p></li>
+</ul>
+<p>and so forth.</p>
+<p>In order to be able to identify and handle incorrect data,
+we need specific knowledge valid for a particular domain.
+Optimally, basic data validation techniques should already be
+employed on the data collection stage, for instance
+when a user submits an online form.</p>
+<p>There can be many tools that can assist us
+with identifying errorneous observations,
+e.g., spell checkers such as <a class="reference external" href="https://hunspell.github.io/"><em>hunspell</em></a>.</p>
+<p>For smaller datasets, observations can also be manually inspected.
+However, sometimes we will have to develop our own algorithms
+for detecting “bugs” in data.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Given some data frame with numeric columns only,
+perform what follows.</p>
+<ol class="simple">
+<li><p>Check if all numeric values in each column are between 0 and 1000.</p></li>
+<li><p>Check if all values in each column are unique.</p></li>
+<li><p>Verify that all the rowwise sums add up to 1.0 (up to a small
+numeric error).</p></li>
+<li><p>Check if the data frame consists of 0s and 1s only.
+It that is the case, verify that for each row,
+if there is a 1 in the first column, then all the remaining columns
+are filled with 1s too.</p></li>
+</ol>
+</div></blockquote>
+<p>Many data validation methods can be reduced to operations on strings.
+They may be as simple as writing a single regular expression
+or checking if a label is in a dictionary of possible values
+and as difficult as writing your own parser for a
+custom context-sensitive grammar.</p>
+<p>We will suggest more data validation
+exercises in the part on the processing of text data.</p>
+</div>
+<div class="section" id="outliers">
+<h2><span class="section-number">21.3. </span>Outliers<a class="headerlink" href="#outliers" title="Permalink to this headline">¶</a></h2>
+<p>Another group of inspectionworthy observations consists of
+<em>outliers</em>, which we may define as the samples that reside
+at areas of substantially lower density than their neighbours.</p>
+<p>Outliers might be present due to an error, or their being
+otherwise anomalous,
+but they may also simply be interesting, original, or novel.
+After all, statistics does not give any meaning to data items; humans do.</p>
+<p>What we do with outliers is a separate decision.
+We can get rid of them, correct them, replace them
+with a missing value (and then possibly impute), etc.</p>
+<div class="section" id="unidimensional-data">
+<h3><span class="section-number">21.3.1. </span>Unidimensional Data<a class="headerlink" href="#unidimensional-data" title="Permalink to this headline">¶</a></h3>
+<p>For unidimensional data (or individual columns in matrices
+and data frames), usually the first few smallest and largest
+observations should be inspected manually.
+It might be, for instance, the case that someone accidentally
+entered a patient’s height in metres instead of centimetres – such
+cases are easily detectable. A data scientist is like a detective.</p>
+<p>Recall that in the section on box-and-whisker plots,
+one heuristic definition of an outlier that is particularly suited for
+data that are expected/suspected to
+come from a normal distribution, was to consider
+everything that does not fall into the interval
+<span class="math notranslate nohighlight">\([Q_1-1.5\mathrm{IQR}, Q_3+1.5\mathrm{IQR}]\)</span>.</p>
+<p>For skewed distributions such as the ones
+representing incomes, there might be nothing wrong, at least statistically
+speaking, with very large isolated observations.</p>
+<p>For well-separated multimodal distributions on the real line,
+outliers may sometimes also fall in-between the areas of high density.</p>
+<p>That neither box plots themselves,
+nor the 1.5 IQR rule might not be ideal tools for multimodal
+data is exemplified below, where we have
+a mixture of N(10, 1) and N(25, 1) samples and 4 potential
+outliers at 0, 15, 45, and 50.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/blobs2.txt&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">binwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id2">
+<span id="fig-450-missingness-16"></span><img alt="../_images/450-missingness-16-3.png" src="../_images/450-missingness-16-3.png" />
+<p class="caption"><span class="caption-number">Figure 21.2 </span><span class="caption-text">plot of chunk 450-missingness-16</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>(*) Note that for the normal distribution N(10, 1),
+the probability of observing a value ≥ 15 is non-zero,
+hence whether we consider 15 an outlier is a matter of taste
+(or, to be precise, the threshold we impose).
+Nevertheless, this probability is smaller than
+0.000029%, and thus it is simply rational to treat this
+observation as suspicious.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> For each column in <code class="docutils literal notranslate"><span class="pre">nhanes_p_demo_bmx_2020</span></code>,
+inspect a few smallest and largest observations
+and see if they make sense.
+Draw a histogram to verify if the data are perhaps multimodal.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> Perform the above separately for data in each group
+as defined by the <code class="docutils literal notranslate"><span class="pre">RIAGENDR</span></code> column.</p>
+</div></blockquote>
+</div>
+<div class="section" id="robust-aggregates">
+<h3><span class="section-number">21.3.2. </span>Robust Aggregates<a class="headerlink" href="#robust-aggregates" title="Permalink to this headline">¶</a></h3>
+<p>Some time ago we have noted that the arithmetic mean
+(and hence standard deviation and skewness) are very fragile
+when exposed to significantly smaller or larger observations
+than the rest.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## 3.0</span>
+</pre></div>
+</div>
+<p>And now:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5000</span>  <span class="c1"># oopsie, someone made a typo</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span></span><span class="c1">## 1002.0</span>
+</pre></div>
+</div>
+<p>The sample median is an example of a <em>robust</em> aggregate — it ignores
+almost all but 1-2 middle observations (we’d say it has
+a high <em>breakdown point</em>). Some measures of central tendency
+that are in-between the mean-median extreme include:</p>
+<ul class="simple">
+<li><p><em>trimmed means</em> – the arithmetic mean of all the observations except
+a number of, say <em>p</em>, the smallest and the greatest ones,</p></li>
+<li><p><em>winsorised means</em> – the arithmetic mean with <em>p</em> smallest and <em>p</em> greatest
+observations replaced with the (<em>p+1</em>)-smallest
+the (<em>p+1</em>)-largest one.</p></li>
+</ul>
+<p>As far as spread measures are concerned, the interquartile range (IQR)
+is a robust statistic.
+If need be, standard deviation might be replaced with:</p>
+<ul class="simple">
+<li><p>mean absolute deviation from the mean:
+<span class="math notranslate nohighlight">\(\frac{1}{n} \sum_{i=1}^n |x_i-\bar{x}|\)</span>,</p></li>
+<li><p>mean absolute deviation from the median:
+<span class="math notranslate nohighlight">\(\frac{1}{n} \sum_{i=1}^n |x_i-m|\)</span>,</p></li>
+<li><p>median absolute deviation from the median:
+<span class="math notranslate nohighlight">\(\mathrm{median}_{i=1}^n (| x_i-m |)\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="multidimensional-data">
+<h3><span class="section-number">21.3.3. </span>Multidimensional Data (*)<a class="headerlink" href="#multidimensional-data" title="Permalink to this headline">¶</a></h3>
+<p>By far we should have got used to the fact that
+unidimensional data projections might lead to our losing too much information:
+some values might seem perfectly fine when they are considered
+in isolation, but already plotting them in 2D reveals the
+truth.</p>
+<p>Consider the following example dataset
+and the depiction of the distributions of its two natural projections:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/blobs1.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;x[:, 0]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;x[:, 1]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-450-missingness-19"></span><img alt="../_images/450-missingness-19-5.png" src="../_images/450-missingness-19-5.png" />
+<p class="caption"><span class="caption-number">Figure 21.3 </span><span class="caption-text">plot of chunk 450-missingness-19</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>There is nothing suspicious here. Or is there?</p>
+<p>Scatterplot already reveals that the data consist of two quite
+well-separable blobs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## (-4.1426233828018475, 3.863959941421967, -3.6005325979117258, 4.451040375538787)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id4">
+<span id="fig-450-missingness-20"></span><img alt="../_images/450-missingness-20-7.png" src="../_images/450-missingness-20-7.png" />
+<p class="caption"><span class="caption-number">Figure 21.4 </span><span class="caption-text">plot of chunk 450-missingness-20</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>Also, the are a few observations that we might consider outliers.
+Yours truly included 8 junk points at the very end of the dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:,</span> <span class="p">:]</span>
+<span></span><span class="c1">## array([[-3. ,  3. ],</span>
+<span class="c1">##        [ 3. ,  3. ],</span>
+<span class="c1">##        [ 3. , -3. ],</span>
+<span class="c1">##        [-3. , -3. ],</span>
+<span class="c1">##        [-3.5,  3.5],</span>
+<span class="c1">##        [-2.5,  2.5],</span>
+<span class="c1">##        [-2. ,  2. ],</span>
+<span class="c1">##        [-1.5,  1.5]])</span>
+</pre></div>
+</div>
+<p>Thus, handling multidimensional data requires slightly more sophisticated
+methods. A quite straightforward approach is to check
+if there are any points within an observation’s radius of some
+assumed size <span class="math notranslate nohighlight">\(\varepsilon&gt;0\)</span>. If that is not the case,
+we may consider it an outlier.</p>
+<p>(**) For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.spatial</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">query_ball_tree</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># epsilon=0.2 (radius)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">n</span><span class="p">])</span>
+<span class="n">c</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># preview</span>
+<span></span><span class="c1">## array([42, 30,  1,  1])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">c[i]</span></code> gives the number of points within <code class="docutils literal notranslate"><span class="pre">x[i,</span> <span class="pre">:]</span></code>’s
+<span class="math notranslate nohighlight">\(\varepsilon\)</span>-radius (with respect to the Euclidean distance),
+including the point itself. Therefore, <code class="docutils literal notranslate"><span class="pre">c[i]==1</span></code> denotes a
+potential outlier.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;normal point&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;outlier&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## (-4.1426233828018475, 3.863959941421967, -3.6005325979117258, 4.451040375538787)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<span id="fig-450-missingness-23"></span><img alt="../_images/450-missingness-23-9.png" src="../_images/450-missingness-23-9.png" />
+<p class="caption"><span class="caption-number">Figure 21.5 </span><span class="caption-text">plot of chunk 450-missingness-23</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> Use <code class="docutils literal notranslate"><span class="pre">sklearn.neighbors.LocalOutlierFactor</span></code>
+to detect some outliers in the above dataset.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Exercise.</strong> Use <code class="docutils literal notranslate"><span class="pre">sklearn.svm.OneClassSVM</span></code>
+for the same purpose.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Exercise.</strong> Play with <code class="docutils literal notranslate"><span class="pre">sklearn.ensemble.IsolationForest</span></code>.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="censored-data">
+<h2><span class="section-number">21.4. </span>Censored Data (*)<a class="headerlink" href="#censored-data" title="Permalink to this headline">¶</a></h2>
+<p>Censored data frequently appear in the context of reliability, risk analysis,
+and biostatistics, where the observed objects might
+“fail” (e.g., break down, die, withdraw) in the course of the study.
+Our introductory course can’t of course cover everything,
+but a beginner analyst should at least be aware of such data being a
+thing, in particular:</p>
+<ul class="simple">
+<li><p>right-censored data: we only know that the actual value
+is above the recorded one (e.g., we stopped the experiment
+on the reliability of light bulbs after 1000 hours,
+so those which still work will not have a time-of-failure
+precisely known);</p></li>
+<li><p>left-censored data: the actual observation is below
+the recorded one, e.g., we observe a component’s failure, but
+we don’t know for how long it has been in operation before
+the study has started.</p></li>
+</ul>
+<p>Hence, in such cases, the recorded datum of, say, 1000,
+can actually mean <span class="math notranslate nohighlight">\([1000, \infty)\)</span>, <span class="math notranslate nohighlight">\([0, 1000]\)</span>, or <span class="math notranslate nohighlight">\((-\infty, 1000]\)</span>.</p>
+<p>There might also be  instances where we know that a value
+is in some interval <span class="math notranslate nohighlight">\([a, b]\)</span>. There are numerical libraries
+that deal with <em>interval computations</em>, and some data analysis
+methods exist in such a case.</p>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">21.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html</a></p>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/gotchas.html#gotchas-intna">https://pandas.pydata.org/pandas-docs/stable/user_guide/gotchas.html#gotchas-intna</a></p>
+<p>S. van Buuren, <em>Flexible Imputation of Missing Data</em>, CRC Press, 2018.
+https://stefvanbuuren.name/fimd/</p>
+<p>S. van Buuren, K. Groothuis-Oudshoorn,
+mice: Multivariate Imputation by Chained Equations in R,
+<em>Journal of Statistical Software</em> <strong>45</strong>(3), 2011, 1–67.
+https://doi.org/10.18637/jss.v045.i03</p>
+<p>R.J.A. Little, D.B. Rubin, <em>Statistical Analysis with Missing Data</em>,
+John Wiley &amp; Sons, 2002</p>
+<p>M. Modarres, M.P. Kaminskiy, V. Krivtsov,
+<em>Reliability Engineering and Risk Analysis: A Practical Guide</em>,
+CRC Press, 2016.</p>
+<p>D.B. Rubin, Inference and Missing Data, <em>Biometrika</em> <strong>63</strong>(3), 1976, 581–590</p>
+<p>D.B. Rubin, <em>Multiple Imputation for Nonresponse in Surveys</em>, John Wiley &amp; Sons, 1987</p>
+<p>D.B. Rubin, Multiple Imputation After 18+ Years,
+<em>Journal of the American Statistical Association</em> <strong>91</strong>(434), 1996, 473–89.</p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">21.6. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>How can missing values be represented in <em>numpy</em> and <em>pandas</em>?</p></li>
+<li><p>Explain some basic strategies for dealing
+with missing values in numeric vectors.</p></li>
+<li><p>Why we should be very explicit about the way we have handled missing
+and other suspicious data? Is it a good idea to mark as missing
+or remove completely the observations
+that we <em>don’t like</em> or otherwise deem <em>inappropriate</em>, <em>controversial</em>,
+<em>dangerous</em>, <em>incompatible with our political views</em>, etc.?</p></li>
+<li><p>Is replacing missing values with the sample arithmetic mean
+for income data (as in, e.g., <code class="docutils literal notranslate"><span class="pre">uk_income_simulated_2020.txt</span></code>)
+a sensible strategy?</p></li>
+<li><p>What is the differences between data missing completely at random,
+missing at random, and missing not at random
+(according to Rubin’s classification)?</p></li>
+<li><p>List some basic strategies for dealing
+with data that might contain outliers.</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="460-sql.html" class="btn btn-neutral float-right" title="22. Database Access" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="440-groupby.html" class="btn btn-neutral float-left" title="20. Observation Grouping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

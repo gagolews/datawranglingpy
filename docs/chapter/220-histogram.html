@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5. Inspecting the Distribution of Numeric Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/220-histogram.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Descriptive Statistics for Continuous Data" href="230-aggregate.html" />
+    <link rel="prev" title="4. Introduction to Vectors in numpy" href="210-vector.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Inspecting the Distribution of Numeric Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#histograms">5.1. Histograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binning">5.2. Binning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cumulative-counts">5.3. Cumulative Counts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-scale">5.4. Log-scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">5.5. Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-webscrape.html">25. Fetching and Cleaning Text Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>Inspecting the Distribution of Numeric Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="230-aggregate.html" class="btn btn-neutral float-right" title="6. Descriptive Statistics for Continuous Data" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="210-vector.html" class="btn btn-neutral float-left" title="4. Introduction to Vectors in numpy" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="inspecting-the-distribution-of-numeric-data">
+<span id="chap-histogram"></span><h1><span class="section-number">5. </span>Inspecting the Distribution of Numeric Data<a class="headerlink" href="#inspecting-the-distribution-of-numeric-data" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<p>Let’s assume that we have dozens of data points
+at hand, representing some measurements, such as heights or weights
+of patients in a clinic, salaries of employees, sizes of cities, etc.</p>
+<p>For instance, consider the heights of adult females (&gt;= 18 years old, in cm)
+in the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Longitudinal_study">longitudinal study</a> called
+National Health and Nutrition Examination Survey
+(<a class="reference external" href="https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx">NHANES</a>)
+conducted by the US Centres for Disease Control and Prevention.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s preview a few randomly chosen observations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="c1">## array([144.8, 163.8, 157.5, 173.8, 161.4, 166.5, 159.1, 160.2, 160.8,</span>
+<span class="c1">##        166. , 152.9, 168.3, 154.7, 153.1, 145.1, 157.4, 159.3, 164.1,</span>
+<span class="c1">##        153.6, 162. , 159.7, 154.8, 161.1, 166.6])</span>
+</pre></div>
+</div>
+<p>This is an example of <em>quantitative</em> (numeric)  data –
+as opposed to, e.g., <em>qualitative</em> (<em>categorical</em>) data
+which we shall cover later
+– we are dealing with a series of numbers on which it makes sense
+to apply various mathematical operations, such as subtraction,
+taking logarithms, etc.</p>
+<p>Looking at the numbers themselves (luckily there are not that many of them)
+tells us nothing. They’re gibberish. Thus, we yearn for methods that
+could extract some meaning from them.</p>
+<div class="section" id="histograms">
+<h2><span class="section-number">5.1. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://seaborn.pydata.org"><em>seaborn</em></a> is a nice package
+for data visualisation written by Michael Waskom.
+It is build on top of <a class="reference external" href="https://matplotlib.org/"><em>matplotlib</em></a>,
+which we will be using frequently.</p>
+<p>Let’s import both packages and set its traditional aliases:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">__version__</span>  <span class="c1"># FYI</span>
+<span></span><span class="c1">## &#39;0.11.2&#39;</span>
+</pre></div>
+</div>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Histogram">histogram</a> is one of the most
+intuitive tools for depicting the empirical distribution of a
+data sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<span id="fig-220-histogram-4"></span><img alt="../_images/220-histogram-4-1.png" src="../_images/220-histogram-4-1.png" />
+<p class="caption"><span class="caption-number">Figure 5.1 </span><span class="caption-text">plot of chunk 220-histogram-4</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The data were split into 11 bins and plotted in such a way that
+bar heights are proportional to the number of observations
+falling into each interval.</p>
+<p>The bins are non-overlapping, adjacent to each other, and of equal lengths
+and we can read their coordinates by looking at the bottom side of each
+rectangular bar.</p>
+<p>This distribution is bell-shaped – nicely symmetrical around
+about 160 cm. It resembles a <em>normal</em> distribution (which we cover
+later) – the most typical (<em>normal</em>) observations
+are somewhere in the middle, and the probability mass decreases quickly.
+For instance, observations outside the (more or less) <em>[139, 181]</em> interval
+are very rare (less than 1% probability).</p>
+<p>For some of us, a normal distribution is a prototypical one – we
+think of many phenomena to be distributed in this way.
+And that is indeed the case, e.g., in psychology (IQ or
+personality tests), physiology (the above heights), or
+when measuring stuff with not-so-precise devices (distribution of errors).</p>
+<p>(*) In fact, we have a strong mathematical result saying
+that the sum or average of many observations,
+assuming that they are independent
+and follow the same (any!) distribution with finite variance,
+is approximately normally distributed (the central limit theorem).
+This is a very strong result.</p>
+<p>We might be tempted to think now that everything is normally
+distributed, but this is very much untrue.</p>
+<p>Let us therefore consider another dataset.
+Below is a simulated sample of disposable
+income (financial year ending 2020)
+of 1000 randomly chosen UK households, in £
+(of course, the UK Office for National Statistics does not provide
+us with details on each tax payer, for privacy and other reasons,
+hence we needed to recreate it based on data from
+this <a class="reference external" href="https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/householddisposableincomeandinequality/financialyear2020">report</a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id2">
+<span id="fig-220-histogram-5"></span><img alt="../_images/220-histogram-5-3.png" src="../_images/220-histogram-5-3.png" />
+<p class="caption"><span class="caption-number">Figure 5.2 </span><span class="caption-text">plot of chunk 220-histogram-5</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>We have normalised (<code class="docutils literal notranslate"><span class="pre">stat=&quot;percent&quot;</span></code>) the bar heights so that
+they all sum to 1 (or, equivalently, 100%), which resulted in a <em>probability</em>
+histogram.</p>
+<p>Now we  see that the probability density
+quickly increases, reaches peak at around £16,500 (it is an educated
+guess) and then slowly goes down. It has a <em>long tail</em> on the right
+(and hence it is <em>right- or positive-skewed</em>), which means that high
+salaries are quite likely.</p>
+<p>Thus, it’s quite a non-normal distribution. Most people are rather
+poor, they do not earn the average salary. We will get back to that
+later.</p>
+<p>Also take note of the higher bars, as compared to their neighbours,
+at ca. £100,000 and £120,000. Some of us might be tempted
+to try to invent a <em>story</em> about why there can be some difference
+in the relative probability mass, but we will refrain from it.
+Our data sample is quite small and it is likely
+that they are just due to the some natural variability.
+Of course, there might be some reasons behind it (theoretically),
+but we cannot read this by merely looking at a single histogram –
+a careful further inspection is necessary, but maybe not today.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> There is also a
+<code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020.txt</span></code> dataset in the above folder,
+giving weights (in kgs) of the participants.
+Draw a histogram. Does its shape resemble the
+<code class="docutils literal notranslate"><span class="pre">income</span></code> or <code class="docutils literal notranslate"><span class="pre">heights</span></code> distribution more?</p>
+</div></blockquote>
+<p>Next, let’s consider the 37th PZU Warsaw Marathon (2015) results.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_mins.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here are the top 5 gun times (in minutes):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># preview top 5 (data are sorted increasingly)</span>
+<span></span><span class="c1">## array([129.32, 130.75, 130.97, 134.17, 134.68])</span>
+</pre></div>
+</div>
+<p>Plotting the histogram for the participants who finished the 42.2 km run
+in less than three hours:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">marathon</span><span class="p">[</span><span class="n">marathon</span> <span class="o">&lt;</span> <span class="mi">180</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<span id="fig-220-histogram-8"></span><img alt="../_images/220-histogram-8-5.png" src="../_images/220-histogram-8-5.png" />
+<p class="caption"><span class="caption-number">Figure 5.3 </span><span class="caption-text">plot of chunk 220-histogram-8</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>reveals that the data are highly <em>left</em>-skewed.</p>
+<p>This is of course to be expected – there are only few elite runners
+in the game. Yours truly wishes his personal best becomes &lt; 180 minutes someday.
+We shall see. Running is fun, so is walking; why not taking a break
+for an hour and going outside?</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Plot the histogram of the untruncated (complete) version of this
+dataset.</p>
+</div></blockquote>
+</div>
+<div class="section" id="binning">
+<h2><span class="section-number">5.2. </span>Binning<a class="headerlink" href="#binning" title="Permalink to this headline">¶</a></h2>
+<p>Choosing the right number of bins is more art than science:</p>
+<ul class="simple">
+<li><p>too many will result in a rugged histogram,</p></li>
+<li><p>too few might result in our missing of important details.</p></li>
+</ul>
+<p>Consider the income dataset again:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 1st plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 2nd plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id4">
+<span id="fig-220-histogram-9"></span><img alt="../_images/220-histogram-9-7.png" src="../_images/220-histogram-9-7.png" />
+<p class="caption"><span class="caption-number">Figure 5.4 </span><span class="caption-text">plot of chunk 220-histogram-9</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>For example in the histogram with 5 bins, we miss the information
+that the ca. £16,000 income is more popular than the ca. £12,000 one.</p>
+<p>The other histogram seems too fine-grained already.</p>
+<p>As usual, the “truth” is probably somewhere in-between.
+When preparing a histogram for publication (e.g., in a report
+or on a webpage), you might be tempted to thing “I need to choose one
+and only one bin count”. The truth is that you do not have to –
+even though some people will insist on it, remember that it is we who are responsible for the data be presented in an as unambiguous fashion as possible.
+Thus, actually, providing 2 or 3 histograms is often a much better idea.</p>
+<p>Further, note that someone might want to trick you by choosing the
+number of bins that depict the reality in a good light,
+when the truth is quite the opposite. For instance, the histogram on
+the left above hides the poorest households inside the first bar –
+the first income bracket is very wide. If you cannot request
+access to the original data, best thing you can do is to simply ignore
+such a data visualisation instance as non-informative
+and tell others not to trust it.
+A real scientist is a sceptic, first and foremost.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Studying the manual of the <code class="docutils literal notranslate"><span class="pre">seaborn.histplot</span></code> function,
+we see that we can provide the function with custom bin breaks.
+Plot a histogram which has breaks at
+0, 10,000, 20,000, etc.</p>
+</div></blockquote>
+<p>(*) There are quite a few heuristics
+to determine the number of bins automagically,
+see <code class="docutils literal notranslate"><span class="pre">numpy.histogram_bin_edges</span></code> for a few formulae.
+Check out how different values of the <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument
+(e.g., <code class="docutils literal notranslate"><span class="pre">&quot;sturges&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;fd&quot;</span></code>) affect the histogram shapes
+on both <code class="docutils literal notranslate"><span class="pre">income</span></code> and <code class="docutils literal notranslate"><span class="pre">heights</span></code> datasets.
+Each has its own limitations, but some might be a good
+starting point for further fine-tuning.</p>
+<p>(*) <code class="docutils literal notranslate"><span class="pre">numpy.histogram</span></code> can be used to apply the binning
+of a numeric vector manually and then count the number
+of items falling into each bin.
+We will discuss it in more detail in the section
+on categorical data processing.
+This can for instance be useful for data reporting –
+a table of ranges and corresponding counts is more informative
+and takes less space. Also, it can increase privacy
+(making subjects less identifiable) or hide some uncomfortable facts
+(“there are 10 people in our company earning more than £200,000
+p.a.” – this can be as much as £10,000,000, but shush).</p>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> Use <code class="docutils literal notranslate"><span class="pre">numpy.histogram</span></code> on the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> data.</p>
+</div></blockquote>
+<p>Sometimes data we get access to have already been binned by somebody else.
+For instance, here are the December 2021 hourly averages
+<a class="reference external" href="http://www.pedestrian.melbourne.vic.gov.au/">pedestrian counts</a>
+near the Southern Cross Station in Melbourne:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/southern_cross_station_peds_2019_dec.txt&quot;</span><span class="p">)</span>
+<span class="n">peds</span>
+<span></span><span class="c1">## array([  31.22580645,   18.38709677,   11.77419355,    8.48387097,</span>
+<span class="c1">##           8.58064516,   58.70967742,  332.93548387, 1121.96774194,</span>
+<span class="c1">##        2061.87096774, 1253.41935484,  531.64516129,  502.35483871,</span>
+<span class="c1">##         899.06451613,  775.        ,  614.87096774,  825.06451613,</span>
+<span class="c1">##        1542.74193548, 1870.48387097,  884.38709677,  345.83870968,</span>
+<span class="c1">##         203.48387097,  150.4516129 ,  135.67741935,   94.03225806])</span>
+</pre></div>
+</div>
+<p>We cannot thus use <code class="docutils literal notranslate"><span class="pre">seaborn.histplot</span></code> to depict them.
+Instead, we can rely on a more low-level function,
+<code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.bar</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">peds</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 24 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<span id="fig-220-histogram-11"></span><img alt="../_images/220-histogram-11-9.png" src="../_images/220-histogram-11-9.png" />
+<p class="caption"><span class="caption-number">Figure 5.5 </span><span class="caption-text">plot of chunk 220-histogram-11</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>This is an example of a bimodal (or even trimodal)
+distribution: there is a morning peak and
+an evening peak (and some analysts
+probably would distinguish a lunch-time one too).</p>
+<p>Here is another interesting dataset which has already been pre-summarised:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">matura</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/matura_2019_polish.txt&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">71</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">matura</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span></span><span class="c1">## &lt;BarContainer object of 71 artists&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id6">
+<span id="fig-220-histogram-12"></span><img alt="../_images/220-histogram-12-11.png" src="../_images/220-histogram-12-11.png" />
+<p class="caption"><span class="caption-number">Figure 5.6 </span><span class="caption-text">plot of chunk 220-histogram-12</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>This gives the <a class="reference external" href="https://cke.gov.pl/images/_EGZAMIN_MATURALNY_OD_2015/Informacje_o_wynikach/2019/sprawozdanie/Sprawozdanie%202019%20-%20J%C4%99zyk%20polski.pdf">distribution</a>
+of the 2019 <a class="reference external" href="https://en.wikipedia.org/wiki/Matura">Matura</a>
+exam scores in Poland (in %) – Polish literature at basic level.</p>
+<p>It seems that the distribution should be bell-shaped, but someone
+tinkered with it. However, knowing that:</p>
+<ul class="simple">
+<li><p>the examiners are good people – we teachers love our students,</p></li>
+<li><p>20 points were required to pass,</p></li>
+<li><p>50 points were for an essay – and beauty is in the eye of beholder,</p></li>
+</ul>
+<p>this actually starts to make sense.</p>
+<p>Without graphically depicting this dataset, we wouldn’t know
+that such (albeit lucky for some students) <em>anomalies</em> occurred.</p>
+</div>
+<div class="section" id="cumulative-counts">
+<h2><span class="section-number">5.3. </span>Cumulative Counts<a class="headerlink" href="#cumulative-counts" title="Permalink to this headline">¶</a></h2>
+<p>Let’s get back to the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset.
+The histogram above told us that, e.g.,
+ca. 30% of women are approximately 160±5 cm tall.</p>
+<p>However, sometimes we might be more interested in <em>cumulative</em>
+counts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id7">
+<span id="fig-220-histogram-13"></span><img alt="../_images/220-histogram-13-13.png" src="../_images/220-histogram-13-13.png" />
+<p class="caption"><span class="caption-number">Figure 5.7 </span><span class="caption-text">plot of chunk 220-histogram-13</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>This has a different interpretation:
+we can read that, e.g, 60% of all women are <em>no more than</em>
+ca. 162 cm tall (or that 40% are taller).</p>
+<p>(*) Very similar is the plot of the <em>empirical cumulative
+distribution function</em> (ECDF), which we denote as <span class="math notranslate nohighlight">\(\hat{F}_n\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">heights_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">heights_sorted</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s2">&quot;steps-post&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">hat</span><span class="si">{F}</span><span class="s2">_n(x)$, i.e., Prob(height $</span><span class="se">\\</span><span class="s2">leq$ x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id8">
+<span id="fig-220-histogram-14"></span><img alt="../_images/220-histogram-14-15.png" src="../_images/220-histogram-14-15.png" />
+<p class="caption"><span class="caption-number">Figure 5.8 </span><span class="caption-text">plot of chunk 220-histogram-14</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>At any given point <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\hat{F}_n(x)\)</span> is a step function
+(we cannot see the steps here, because the points are too plentiful) that
+gives the <em>proportion of observations in our sample that are not greater
+than <span class="math notranslate nohighlight">\(x\)</span></em>.</p>
+<p>Note that drawing the ECDF does not involve binning – we only need
+to arrange the observations in an ascending order.
+Then, the arithmetic progression <em>1/n, 2/n, … n</em> is plotted
+against them.</p>
+</div>
+<div class="section" id="log-scale">
+<h2><span class="section-number">5.4. </span>Log-scale<a class="headerlink" href="#log-scale" title="Permalink to this headline">¶</a></h2>
+<p>Consider the <a class="reference external" href="https://arxiv.org/abs/0706.1062v2">dataset</a>
+on the populations of cities in the 2000 US Census:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s restrict ourselves only to the cities
+whose population is no less than 10,000.
+Even though they constitute ca. 14% of all the US settlements,
+about 84% of all the citizens live there.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">large_cities</span> <span class="o">=</span> <span class="n">cities</span><span class="p">[</span><span class="n">cities</span> <span class="o">&gt;=</span> <span class="mi">10000</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here are the populations of the 5 largest cities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">large_cities</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>  <span class="c1"># data are sorted</span>
+<span></span><span class="c1">## array([1517550., 1953633., 2896047., 3694742., 8008654.])</span>
+</pre></div>
+</div>
+<p>The histogram:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id9">
+<span id="fig-220-histogram-18"></span><img alt="../_images/220-histogram-18-17.png" src="../_images/220-histogram-18-17.png" />
+<p class="caption"><span class="caption-number">Figure 5.9 </span><span class="caption-text">plot of chunk 220-histogram-18</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>is basically unreadable because the distribution is
+not just right-skewed; it’s extremely <em>heavy-tailed</em>:
+most cities are small, and those that are large – such as New York –
+are <em>really</em> unique.
+Had we plotted the whole dataset (<code class="docutils literal notranslate"><span class="pre">cities</span></code> instead of <code class="docutils literal notranslate"><span class="pre">large_cities</span></code>),
+the results’ intelligibility would be even worse.</p>
+<p>This is why we should rather draw such a distribution
+on the <a class="reference external" href="https://en.wikipedia.org/wiki/Logarithmic_scale"><em>logarithmic</em> scale</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id10">
+<span id="fig-220-histogram-19"></span><img alt="../_images/220-histogram-19-19.png" src="../_images/220-histogram-19-19.png" />
+<p class="caption"><span class="caption-number">Figure 5.10 </span><span class="caption-text">plot of chunk 220-histogram-19</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>The log-scale on the <em>x</em> axis does not increase
+linearly – based on steps of equal sizes 0,
+1,000,000, 2,000,000, …, and so forth.
+Now the increases are geometrical: 10,000, 100,000, 1,000,000.</p>
+<p>This is a right-skewed distribution even on the logarithmic scale.
+Many real-world datasets have a similar behaviour,
+for instance, the frequencies of occurrences of words in books.
+(*) Later we will discuss the Pareto distribution family which
+yields similar histograms.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Draw the histogram of <code class="docutils literal notranslate"><span class="pre">income</span></code> on the logarithmic scale.
+Does is resemble a bell-shaped distribution?</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> Use <code class="docutils literal notranslate"><span class="pre">numpy.geomspace</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.histogram</span></code> to apply
+logarithmic binning of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset manually, i.e.,
+to create bins of equal lengths on the log-scale.</p>
+</div></blockquote>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">5.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>What is a bell-shaped distribution?</p></li>
+<li><p>What is a right-skewed distribution?</p></li>
+<li><p>What is a heavy-tailed distribution?</p></li>
+<li><p>What is a multi-modal distribution?</p></li>
+<li><p>(*) When does logarithmic binning make sense?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="230-aggregate.html" class="btn btn-neutral float-right" title="6. Descriptive Statistics for Continuous Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="210-vector.html" class="btn btn-neutral float-left" title="4. Introduction to Vectors in numpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

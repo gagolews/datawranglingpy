@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>25. Fetching and Cleaning Text Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/530-webscrape.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bibliography" href="999-bibliography.html" />
+    <link rel="prev" title="24. Regular Expressions (*)" href="520-regex.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python and JupyterLab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Continuous Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="270-time-uni.html">10. Processing Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">11. Introduction to Matrices in <em>numpy</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">12. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-categorical-multi.html">13. Multivariate Categorical and Relational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">14. Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="350-time-multi.html">15. Multidimensional Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="360-image.html">16. Notes on Signal Processing (Audio, Image, Video)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">17. Introduction to Data Frames in <em>pandas</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">18. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">19. Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">20. Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">22. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">23. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">24. Regular Expressions (*)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">25. Fetching and Cleaning Text Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-data-serialisation-formats-for-the-web">25.1. Common Data Serialisation Formats for the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-many-files">25.2. Working with Many Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#file-paths">25.2.1. File Paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-search">25.2.2. File Search</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#validating-data">25.3. Validating Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">25.4. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">25.5. Questions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">25. </span>Fetching and Cleaning Text Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="999-bibliography.html" class="btn btn-neutral float-right" title="Bibliography" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="520-regex.html" class="btn btn-neutral float-left" title="24. Regular Expressions (*)" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="fetching-and-cleaning-text-data">
+<span id="chap-webscrape"></span><h1><span class="section-number">25. </span>Fetching and Cleaning Text Data<a class="headerlink" href="#fetching-and-cleaning-text-data" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Minimalist Data Wrangling with Python</em> is a very-early-and-rough-draft
+of the forthcoming (ETA 2023) textbook by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>.
+It is distributed in the hope that it will be useful.
+If you detect any bugs or typos, please share them by
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">email</a>.
+Although available online, this is a whole course, and should be read
+from the beginning to the end. In particular, refer to the Preface for
+general introductory remarks. Enjoy.</p>
+</div></blockquote>
+<div class="section" id="common-data-serialisation-formats-for-the-web">
+<h2><span class="section-number">25.1. </span>Common Data Serialisation Formats for the Web<a class="headerlink" href="#common-data-serialisation-formats-for-the-web" title="Permalink to this headline">¶</a></h2>
+<p>CSV files are an all-round way to exchange <em>tabular</em> data between
+different programming and data analysis environments.</p>
+<p>For unstructured or non-tabularly-structured data,
+XML as well as JSON (and its superset YAML) are the common formats of choice,
+especially for communicating with different Web APIs.</p>
+<p>It is recommended that the reader solves some of the following exercises
+to make sure they can fetch data in these formats.
+Warning: often, this will quite tedious labour, neither art nor science.
+Good luck.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong>
+Consider the Web API for accessing the on-street parking bay
+sensor data in Melbourne, VIC, Australia,
+see <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs</a>. Using, for example, the <em>json</em> package,
+convert the data in the JSON format
+fetched from <a class="reference external" href="https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json">https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json</a>
+to a <em>pandas</em> data frame.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Exercise.</strong> Australian Radiation Protection and Nuclear
+Safety Agency publishes UV data for different Aussie cities.
+Using, for example, the <em>xml</em> package,
+convert the XML dataset fetched from
+&lt;https://www.arpansa.gov.au/our-services/monitoring/ultraviolet-radiation-monitoring/ultraviolet-radation-data-information
+https://uvdata.arpansa.gov.au/xml/uvvalues.xml&gt; to a <em>pandas</em> data frame.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong>
+Check out the English Wikipedia article featuring
+a <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_20th-century_classical_composers">list of 20th-century classical composers</a>.
+Using <code class="docutils literal notranslate"><span class="pre">pandas.read_html</span></code>, convert the <em>Climate Data</em> table
+included therein to a data frame.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(*) <strong>Exercise.</strong> Using, for example, the <em>lxml</em> package,
+write a function that converts each bullet list
+featured in a given Wikipedia article (e.g.,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Fr%C3%A9d%C3%A9ric_Chopin">https://en.wikipedia.org/wiki/Category:Fr%C3%A9d%C3%A9ric_Chopin</a>),
+to a list of strings.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Exercise.</strong>
+Import an archived version of a
+<a class="reference external" href="https://stackexchange.com/">Stack Exchange</a> site that you find interesting
+and store it in an SQLite database.
+You can find the relevant data dumps at
+<a class="reference external" href="https://archive.org/details/stackexchange">https://archive.org/details/stackexchange</a>.</p>
+</div></blockquote>
+<blockquote>
+<div><p>(**) <strong>Exercise.</strong>
+Download from <a class="reference external" href="https://meta.wikimedia.org/wiki/Data_dumps">https://meta.wikimedia.org/wiki/Data_dumps</a>
+and then import an archived version of one of the wikis hosted by the
+<a class="reference external" href="https://wikimediafoundation.org/">Wikimedia Foundation</a>
+(e.g., the whole English Wikipedia)
+so that it can be stored in an SQLite database.</p>
+</div></blockquote>
+</div>
+<div class="section" id="working-with-many-files">
+<h2><span class="section-number">25.2. </span>Working with Many Files<a class="headerlink" href="#working-with-many-files" title="Permalink to this headline">¶</a></h2>
+<p>For mass-processing of many files, it is worth knowing <em>of</em>
+the most basic functions for dealing with file paths, searching for files,
+etc. Usually we will be looking up ways to complete specific
+tasks at hand, e.g., how to read data from a ZIP archive, on the internet.</p>
+<div class="section" id="file-paths">
+<h3><span class="section-number">25.2.1. </span>File Paths<a class="headerlink" href="#file-paths" title="Permalink to this headline">¶</a></h3>
+<p>UNIX-like operating systems, including GNU/Linux and macOS,
+use slashes, <code class="docutils literal notranslate"><span class="pre">/</span></code>, as path separators, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;/home/marek/file.csv&quot;</span></code>.
+Windows, however, uses backslashes, <code class="docutils literal notranslate"><span class="pre">\</span></code>, which have a special meaning
+in character strings (escape sequences), therefore they should be
+input as, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;c:\\users\\marek\\file.csv&quot;</span></code>
+or <code class="docutils literal notranslate"><span class="pre">r&quot;c:\users\marek\file.csv&quot;</span></code>.</p>
+<p>When constructing file paths programmatically, it is thus best
+to rely on <code class="docutils literal notranslate"><span class="pre">os.path.join</span></code>, which takes care of the system-specific nuances.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;file.csv&quot;</span><span class="p">)</span>  <span class="c1"># we&#39;re on GNU/Linux</span>
+<span></span><span class="c1">## &#39;~/file.csv&#39;</span>
+</pre></div>
+</div>
+<p>Note that the tilde, <code class="docutils literal notranslate"><span class="pre">~</span></code>, denotes the current user’s home directory.</p>
+<p>It is often also worth knowing
+what the working directory of the currently executed Python session is,
+as all non-absolute file names, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;filetype.csv&quot;</span></code>
+or <code class="docutils literal notranslate"><span class="pre">os.path.join(&quot;subdir&quot;,</span> <span class="pre">&quot;filetype.csv&quot;)</span></code>
+will be relative to it.
+This can be read by calling <code class="docutils literal notranslate"><span class="pre">os.getcwd()</span></code>.</p>
+<p>For creating temporary directory names,
+we can use <code class="docutils literal notranslate"><span class="pre">tempfile.mkdtemp()</span></code>.</p>
+</div>
+<div class="section" id="file-search">
+<h3><span class="section-number">25.2.2. </span>File Search<a class="headerlink" href="#file-search" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">glob.glob</span></code> and <code class="docutils literal notranslate"><span class="pre">os.listdir</span></code> can generate a list of files in
+a given directory (and possibly all its subdirectories).</p>
+<p><code class="docutils literal notranslate"><span class="pre">os.path.isdir</span></code> and <code class="docutils literal notranslate"><span class="pre">os.path.isfile</span></code> can be used to determine
+the type of a given object in the file system.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Write a function that computes the total
+size of all the files in a given directory and all its subdirectories.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="validating-data">
+<h2><span class="section-number">25.3. </span>Validating Data<a class="headerlink" href="#validating-data" title="Permalink to this headline">¶</a></h2>
+<p>Once we have imported the data fetched from different
+sources, it will usually be the case that
+relevant information will have to be extracted from raw text,
+e.g., strings like <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code> should be converted to floating-point
+numbers. Below we suggest a number of tasks
+that aid in developing data validation skills involving
+some operations on textual information.</p>
+<blockquote>
+<div><p><strong>Exercise.</strong> Given an example data frame with text columns
+(manually invented, be creative), perform what follows.</p>
+<ol class="simple">
+<li><p>Remove trailing and leading whitespaces from each string.</p></li>
+<li><p>Check if all strings can be interpreted as numbers, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;23.43&quot;</span></code>.</p></li>
+<li><p>Verify if a date string in <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> format is correct.</p></li>
+<li><p>Determine if a date-time string in <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span> <span class="pre">hh:mm:ss</span></code> format is
+correct.</p></li>
+<li><p>Check if all strings are of the form <code class="docutils literal notranslate"><span class="pre">(+NN)</span> <span class="pre">NNN-NNN-NNN</span></code>
+or <code class="docutils literal notranslate"><span class="pre">(+NN)</span> <span class="pre">NNNN-NNN-NNN</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> denotes any digit
+(valid telephone numbers).</p></li>
+<li><p>Inspect whether all strings are valid country names.</p></li>
+<li><p>Given a person’s date of birth, sex,
+and their Polish ID number <a class="reference external" href="https://en.wikipedia.org/wiki/PESEL">PESEL</a>,
+check if that PESEL is correct.</p></li>
+<li><p>Determine if a string represents a correct International Bank Account
+Number (<a class="reference external" href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">IBAN</a>)
+(note that IBANs feature two check digits).</p></li>
+<li><p>Transliterate text to ASCII, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;→</span> <span class="pre">żółty</span> <span class="pre">©&quot;</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;-&gt;</span> <span class="pre">zolty</span> <span class="pre">(C)&quot;</span></code>.</p></li>
+<li><p>Using an external spell checker, determine if every string
+is a valid English word.</p></li>
+<li><p>Using an external spell checker, ascertain that every string
+is a valid English noun in singular form.</p></li>
+<li><p>Resolve all abbreviations by means of a custom dictionary,
+e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Kat.&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;Katherine&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Gr.&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;Grzegorz&quot;</span></code>.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">25.4. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p><em>Pandas – IO Tools</em>,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html</a></p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">25.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Find an example of an XML and JSON file. Which
+one is more human-readable? Do they differ in terms of capabilities?</p></li>
+<li><p>What is wrong with constructing file paths like
+<code class="docutils literal notranslate"><span class="pre">&quot;~&quot;</span> <span class="pre">+</span> <span class="pre">&quot;\\&quot;</span> <span class="pre">+</span> <span class="pre">&quot;filename.csv&quot;</span></code>?</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="999-bibliography.html" class="btn btn-neutral float-right" title="Bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="520-regex.html" class="btn btn-neutral float-left" title="24. Regular Expressions (*)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2015-2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-27T18:03:39+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
