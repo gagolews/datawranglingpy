@@ -9,7 +9,7 @@
 
 This repository hosts the HTML and PDF versions of the book.
 
-You can read them at:
+You can browse them at:
 
 * https://datawranglingpy.gagolewski.com/ (a browser-friendly version)
 * https://datawranglingpy.gagolewski.com/datawranglingpy.pdf (PDF)
