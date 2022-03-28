@@ -45,7 +45,7 @@ and machine learning in Australia, Poland, and Germany
 
 --------------------------------------------------------------------------------
 
-Copyright (C) 2015-2022, [Marek Gagolewski][1].
+Copyright (C) 2022, [Marek Gagolewski][1].
 
 This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International][2] License
