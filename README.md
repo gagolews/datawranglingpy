@@ -20,24 +20,24 @@ You can browse them at:
 
 ## About the Author
 
-[Marek Gagolewski][1] (pronounced like Mark Gaggle-Eve-Ski 🙃)
-is currently a Senior Lecturer in Applied
+I, [Marek Gagolewski][1] (pronounced like Mark Gaggle-Eve-Ski),
+am currently a Senior Lecturer in Applied
 AI at Deakin University in Melbourne, VIC, Australia
 and an Associate Professor in Data Science (on long-term leave)
 at Faculty of Mathematics and Information Science, Warsaw University
 of Technology, Poland.
 
-He is actively involved in developing *usable* free (libre) and open source
+I'm actively involved in developing *usable* free (libre) and open source
 software, with particular focus on data science and machine learning.
-He is the main author and maintainer of [stringi][3] – one of the most often
+I'm the main author and maintainer of [stringi][3] – one of the most often
 downloaded R packages that aims at natural
 language and string processing as well as the Python and R package
 [genieclust][4] implementing the fast and robust hierarchical clustering
 algorithm *Genie* with noise point detection.
 
-He's an author of over 80 publications on machine learning and
+I'm an author of over 80 publications on machine learning and
 optimisation algorithms, data aggregation and clustering, statistical
-modelling, and scientific computing. Moreover, Marek taught various courses
+modelling, and scientific computing. Moreover, I taught various courses
 related to R and Python programming, algorithms, data science,
 and machine learning in Australia, Poland, and Germany
 (e.g., at [Data Science Retreat](https://datascienceretreat.com)).

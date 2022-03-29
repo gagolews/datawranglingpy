@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>22. Time Series &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/540-time.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="998-changelog.html" />
+    <link rel="prev" title="21. Outliers, Missing, Censored, and Incorrect Data" href="530-missingness.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <strong class="program">numpy</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Descriptive Statistics for Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="260-categorical-uni.html">9. 🚧 Handling Categorical Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">10. Introduction to Matrices in <strong class="program">numpy</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">11. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">12. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="340-categorical-multi.html">13. 🚧 Multivariate Categorical and Relational Data</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">14. 🚧 Introduction to Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">15. 🚧 Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">16. 🚧 Reshaping and Fusing Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">17. 🚧 Observation Grouping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-sql.html">18. Database Access</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">19. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">20. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">21. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">22. Time Series</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#temporal-ordering-and-line-charts">22.1. Temporal Ordering and Line Charts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-datetimes-and-timedeltas">22.2. Working with Datetimes and Timedeltas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-operations">22.3. Basic Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iterative-differences-and-cumulative-sums-revisited">22.3.1. Iterative Differences and Cumulative Sums Revisited</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smoothing-with-moving-averages">22.3.2. Smoothing with Moving Averages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imputing-missing-values">22.3.3. Imputing Missing Values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a-note-on-nonuniform-sampling">22.4. A Note on Nonuniform Sampling (*)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dealing-with-nonequispaced-series">22.4.1. Dealing with Nonequispaced Series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelling-event-times-with-an-exponential-distribution">22.4.2. Modelling Event Times with an Exponential Distribution (**)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#multidimensional-time-series">22.5. Multidimensional Time Series</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-plotting">22.5.1. Basic Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#candlestick-plots">22.5.2. Candlestick Plots (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#notes-on-signal-processing-audio-image-video">22.6. Notes on Signal Processing (Audio, Image, Video) (**)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#representing-images">22.6.1. Representing Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#colour-models">22.6.2. Colour Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">22.7. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">22.8. Questions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="998-changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">This Book in PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/teaching_data">Datasets</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">22. </span>Time Series</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="998-changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="530-missingness.html" class="btn btn-neutral float-left" title="21. Outliers, Missing, Censored, and Incorrect Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="time-series">
+<span id="chap-time"></span><h1><span class="section-number">22. </span>Time Series<a class="headerlink" href="#time-series" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
+in the hope that it will be useful. Any
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+are appreciated. Although available online, this is a whole course,
+and should be read from the beginning to the end. In particular,
+refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
+</div></blockquote>
+<p>So far we have been using <strong class="program">numpy</strong>
+and <strong class="program">pandas</strong> mostly for storing:</p>
+<ul class="simple">
+<li><p><em>independent</em> measurements, e.g., where each element is a height record
+of a different subject; we often consider these a sample of a
+representative subset of a population recorded at a particular point
+in time;</p></li>
+<li><p>frequency distributions, i.e.,
+count data and the corresponding categories or labels,</p></li>
+<li><p>data to report (as in: tables, figures, heatmaps, etc.).</p></li>
+</ul>
+<p>In this part we’ll explore the most basic concepts related to the
+wrangling of <em>time series</em> data – signals indexed by discrete time.
+Usually a time series is a sequence of measurements
+sampled at equally spaced moments, e.g.,
+a patient’s heart rate probed every second,
+daily opening stock market prices,
+or average monthly temperatures recorded in some location.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="temporal-ordering-and-line-charts">
+<h2><span class="section-number">22.1. </span>Temporal Ordering and Line Charts<a class="headerlink" href="#temporal-ordering-and-line-charts" title="Permalink to this headline">¶</a></h2>
+<p>Consider the midrange daily temperatures in degrees Celsius
+at Spokane International Airport (Spokane, WA, US)
+between 1889-08-01 (first observation) and 2021-12-31 (last observation).
+Note that midrange, being the mean of the lowest and highest observed
+temperature on a given day, is not a particularly good estimate
+of the average daily reading, however, we must work with the data we have.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/spokane_temperature.txt&quot;</span><span class="p">)</span>
+<span class="n">temps</span><span class="p">[</span><span class="o">-</span><span class="mi">31</span><span class="p">:]</span>  <span class="c1"># December 2021 data</span>
+<span class="c1">## array([ 11.9,   5.8,   0.6,   0.8,  -1.9,  -4.4,  -1.9,   1.4,  -1.9,</span>
+<span class="c1">##         -1.4,   3.9,   1.9,   1.9,  -0.8,  -2.5,  -3.6, -10. ,  -1.1,</span>
+<span class="c1">##         -1.7,  -5.3,  -5.3,  -0.3,   1.9,  -0.6,  -1.4,  -5. ,  -9.4,</span>
+<span class="c1">##        -12.8, -12.2, -11.4, -11.4])</span>
+</pre></div>
+</div>
+<p>Here are some data aggregates – the popular quantiles:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="c1">## array([-26.9,   2.2,   8.6,  16.4,  33.9])</span>
+</pre></div>
+</div>
+<p>as well as the arithmetic mean and standard deviation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">temps</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">temps</span><span class="p">)</span>
+<span class="c1">## (8.990273958441023, 9.16204388619955)</span>
+</pre></div>
+</div>
+<p>and a graphical summary of the data distribution
+in <a class="reference internal" href="#fig-spokane-violinplot"><span class="std std-numref">Figure 22.1</span></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">temps</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<span id="fig-spokane-violinplot"></span><img alt="../_images/spokane-violinplot-1.png" src="../_images/spokane-violinplot-1.png" />
+<p class="caption"><span class="caption-number">Figure 22.1 </span><span class="caption-text">Distribution of the midrange daily temperatures in Spokane in the period 1889-2021; observations are treated as a bag of unrelated items (temperature on a “randomly chosen day” in a version of planet Earth where there is no climate change)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Contrary to the <em>independent</em> measurements case,
+we do not have to treat vectors representing time series simply
+as mixed bags of unrelated items (note that when computing data aggregates
+or plotting histograms, the order of elements does not matter).</p>
+<p>Instead, in time series, for any given
+item <span class="math notranslate nohighlight">\(x_i\)</span>, its neighbouring elements <span class="math notranslate nohighlight">\(x_{i-1}\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>
+denote the recordings occurring directly before and after it.
+We can use this <em>temporal ordering</em> to model how consecutive
+measurements <em>depend</em> on each other, describe how they
+change over time, forecast future values, detect long-time trends, and so forth.</p>
+</div>
+<p>Here are the data for 2021, plotted as a function of time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temps</span><span class="p">[</span><span class="o">-</span><span class="mi">365</span><span class="p">:])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">364</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-07-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id6">
+<span id="fig-spokane-1-linechart"></span><img alt="../_images/spokane-1-linechart-3.png" src="../_images/spokane-1-linechart-3.png" />
+<p class="caption"><span class="caption-number">Figure 22.2 </span><span class="caption-text">Line chart of midrange daily temperatures in Spokane for 2021; plotting data as a function of the time variable reveals some trends</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>What we see in <a class="reference internal" href="#fig-spokane-1-linechart"><span class="std std-numref">Figure 22.2</span></a>
+is often referred to as a <em>line chart</em> – data points are connected
+by straight line segments.
+There are some visible trends, such as that, well, obviously,
+winter is colder than summer.</p>
+</div>
+<div class="section" id="working-with-datetimes-and-timedeltas">
+<h2><span class="section-number">22.2. </span>Working with Datetimes and Timedeltas<a class="headerlink" href="#working-with-datetimes-and-timedeltas" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.datetime.html"><code class="docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a> is a type to represent datetimes.
+Usually, we’ll be creating datetimes from strings, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
+<span class="n">d</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
+<span class="n">dt</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;], dtype=&#39;datetime64[s]&#39;)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Internally, the above are represented as
+the number of days or seconds since the so-called <em>Unix Epoch</em>,
+1970-01-01T00:00:00 in the UTC time zone.</p>
+</div>
+<p>Let’s inspect that:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="c1">## array([-29372.,      0.,  18992.])</span>
+<span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="c1">## array([7265.])</span>
+</pre></div>
+</div>
+<p>Computing datetime differences is possible thanks
+to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="n">dt</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;], dtype=&#39;datetime64[s]&#39;)</span>
+<span class="n">d</span><span class="o">-</span><span class="n">dt</span>
+<span class="c1">## array([-2537748065,       -7265,  1640901535], dtype=&#39;timedelta64[s]&#39;)</span>
+</pre></div>
+</div>
+<div class="proof proof-type-example" id="id7">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 22.1</span>
+        
+    </div><div class="proof-content">
+<p><strong class="command">numpy.arange</strong> and <strong class="command">pandas.date_range</strong>
+can be used to generate sequences of equidistant
+datetimes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
+<span class="n">dates</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>   <span class="c1"># preview</span>
+<span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>  <span class="c1"># preview</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1889-08-02&#39;, &#39;1889-08-03&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">## array([&#39;2021-12-29&#39;, &#39;2021-12-30&#39;, &#39;2021-12-31&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+</pre></div>
+</div>
+<p>Based on this, we can plot the data for the last 5 years quite easily,
+see <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 22.3</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">which</span> <span class="o">=</span> <span class="p">(</span><span class="n">dates</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">))</span>
+<span class="n">dates5</span><span class="p">,</span> <span class="n">temps5</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="n">which</span><span class="p">],</span> <span class="n">temps</span><span class="p">[</span><span class="n">which</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates5</span><span class="p">,</span> <span class="n">temps5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id8">
+<span id="fig-spokane-5-linechart"></span><img alt="../_images/spokane-5-linechart-5.png" src="../_images/spokane-5-linechart-5.png" />
+<p class="caption"><span class="caption-number">Figure 22.3 </span><span class="caption-text">Line chart of midrange daily temperatures in Spokane for 2017-2021</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that now the x-axis labels have been generated automatically.</p>
+</div></div><div class="proof proof-type-exercise" id="id9">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.2</span>
+        
+    </div><div class="proof-content">
+<p>Check out <strong class="command">pandas.to_datetime</strong> for a way
+to convert arbitrarily formatted date strings to <code class="docutils literal notranslate"><span class="pre">Series</span></code> of
+<code class="docutils literal notranslate"><span class="pre">datetime64</span></code>.</p>
+</div></div><div class="proof proof-type-exercise" id="id10">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.3</span>
+        
+    </div><div class="proof-content">
+<p>Data frame with indexes (as in <code class="docutils literal notranslate"><span class="pre">.index</span></code>) of dtype
+<code class="docutils literal notranslate"><span class="pre">datetime64</span></code> are also possible. This gives, amongst others,
+very convenient slicing like <code class="docutils literal notranslate"><span class="pre">df.loc[&quot;2020&quot;:&quot;2022&quot;,</span> <span class="pre">:]</span></code>.
+Refer to the manual of <code class="docutils literal notranslate"><span class="pre">pandas.DateTimeIndex</span></code> for more details.</p>
+</div></div></div>
+<div class="section" id="basic-operations">
+<h2><span class="section-number">22.3. </span>Basic Operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iterative-differences-and-cumulative-sums-revisited">
+<span id="sec-diff-ts"></span><h3><span class="section-number">22.3.1. </span>Iterative Differences and Cumulative Sums Revisited<a class="headerlink" href="#iterative-differences-and-cumulative-sums-revisited" title="Permalink to this headline">¶</a></h3>
+<p>Recall the <strong class="command">numpy.diff</strong> function and its almost-inverse, <strong class="command">numpy.cumsum</strong>.
+The former can turn a time series into a vector of <em>relative changes</em>
+(also called <em>deltas</em>, <span class="math notranslate nohighlight">\(\Delta_i=x_{i+1}-x_i\)</span>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">temps</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>  <span class="c1"># last 5 days</span>
+<span class="n">x</span>
+<span class="c1">## array([ -9.4, -12.8, -12.2, -11.4, -11.4])</span>
+</pre></div>
+</div>
+<p>The iterative differences (deltas) are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">d</span>
+<span class="c1">## array([-3.4,  0.6,  0.8,  0. ])</span>
+</pre></div>
+</div>
+<p>For instance, between the second and the first day, the midrange temperature
+dropped by -3.4°C.</p>
+<div style="margin-top: 1em"></div><p>The other way around, here the cumulative sums of the deltas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="c1">## array([-3.4, -2.8, -2. , -2. ])</span>
+</pre></div>
+</div>
+<p>This turned deltas back to a shifted version of the original series.
+However, we will need the first (root) observation therefrom
+to restore the dataset in full.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+<span class="c1">## array([ -9.4, -12.8, -12.2, -11.4, -11.4])</span>
+</pre></div>
+</div>
+<div class="proof proof-type-exercise" id="id11">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.4</span>
+        
+    </div><div class="proof-content">
+<p>Consider the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/%5Cteaching_data/master/marek/euraud-20200101-20200630-no-na.txt">euraud-20200101-20200630-no-na</a> dataset
+which lists daily EUR/AUD exchange rates in the first half of 2020 (remember
+COVID-19?), with missing observations removed. Using <strong class="command">numpy.diff</strong>,
+compute the minimal, median, average, and maximal daily price <em>changes</em>.
+Also, draw a box and whisker plot for these deltas.</p>
+</div></div></div>
+<div class="section" id="smoothing-with-moving-averages">
+<h3><span class="section-number">22.3.2. </span>Smoothing with Moving Averages<a class="headerlink" href="#smoothing-with-moving-averages" title="Permalink to this headline">¶</a></h3>
+<p>With time series it makes sense to consider
+batches of consecutive points as there is a time dependence between them.
+In particular, we can consider computing different
+aggregates inside <em>rolling windows</em> of a particular size.</p>
+<p>For example, given sequence <span class="math notranslate nohighlight">\((x_1, x_2, \dots, x_n)\)</span>
+and some <span class="math notranslate nohighlight">\(k \le n\)</span>, the <span class="math notranslate nohighlight">\(k\)</span>-moving average
+is a vector <span class="math notranslate nohighlight">\((y_1, y_2, \dots, y_{n-k+1})\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+y_i = \frac{1}{k} \sum_{j=1}^k x_{i+j-1},
+\]</div>
+<p>i.e., the arithmetic mean of <span class="math notranslate nohighlight">\(k\)</span> consecutive observations
+starting at <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
+<div style="margin-top: 1em"></div><p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Here is the 3-moving average:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="kn">import</span> <span class="n">sliding_window_view</span>
+<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sliding_window_view</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1">## array([4.  , 2.  , 2.33, 4.  , 8.67, 9.  , 6.67])</span>
+</pre></div>
+</div>
+<p>We get, in this order: the mean of the first 3 observations;
+the mean of the 2nd, 3rd, and 4th items;
+then the mean of the 3rd, 4th, and 5th; and so forth.</p>
+<p>And now for something completely different: the 5-moving average:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sliding_window_view</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1">## array([3. , 4.2, 5.4, 6. , 7. ])</span>
+</pre></div>
+</div>
+<div style="margin-top: 1em"></div><p>Applying the moving average has the nice effect of
+<em>smoothing</em> out all kinds of broadly-conceived noise.
+To illustrate this, consider
+the temperature data for the 5 last years,
+see <a class="reference internal" href="#fig-spokane-ma-linechart"><span class="std std-numref">Figure 22.4</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temps5_ma30</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sliding_window_view</span><span class="p">(</span><span class="n">temps5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates5</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="o">-</span><span class="mi">14</span><span class="p">],</span> <span class="n">temps5_ma30</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;30-day moving average&quot;</span><span class="p">)</span>
+<span class="n">temps5_ma100</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sliding_window_view</span><span class="p">(</span><span class="n">temps5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates5</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">49</span><span class="p">],</span> <span class="n">temps5_ma100</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;100-day moving average&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id12">
+<span id="fig-spokane-ma-linechart"></span><img alt="../_images/spokane-ma-linechart-7.png" src="../_images/spokane-ma-linechart-7.png" />
+<p class="caption"><span class="caption-number">Figure 22.4 </span><span class="caption-text">Line chart of 30- and 100-moving averages of the midrange daily temperatures in Spokane for 2017-2021</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<p>Note that computing the moving averages results in a shorter
+series, therefore, the corresponding dates needed to be adjusted.
+We have centred them by removing a similar number of values
+from both sides.
+This way, we treat the first 30-day moving average
+(the average of the first 30 days) as representative for
+the 15th day.</p>
+<div class="proof proof-type-exercise" id="id13">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.5</span>
+        
+    </div><div class="proof-content">
+<p>Compute the 1-year and 10-year moving
+averages for the complete <code class="docutils literal notranslate"><span class="pre">temps</span></code> dataset.
+This will reveal some long-term trends.</p>
+</div></div><p>Thanks to windowed aggregation, we can be detecting seasonal patterns
+(using shortish windows) and general trends (longish windows);
+the former can be revealed by subtracting the latter from the original series.</p>
+<div class="proof proof-type-exercise" id="id14">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.6</span>
+        
+    </div><div class="proof-content">
+<p>Draw the plot of the 1-year moving average
+from which the 10-year average was subtracted.</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*) Other aggregation functions (such as the median,
+min, or max) can be applied in rolling windows too.</p>
+</div>
+<div class="proof proof-type-exercise" id="id15">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.7</span>
+        
+    </div><div class="proof-content">
+<p>(*) Draw, in the same figure,
+the plots of the 1-year moving minimums, medians, and maximums.</p>
+</div></div><div class="proof proof-type-exercise" id="id16">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.8</span>
+        
+    </div><div class="proof-content">
+<p>Compute the 3-, 5-, and 10-day moving average
+averages for the EUR/AUD exchange rates and draw them on a single plot.</p>
+</div></div></div>
+<div class="section" id="imputing-missing-values">
+<h3><span class="section-number">22.3.3. </span>Imputing Missing Values<a class="headerlink" href="#imputing-missing-values" title="Permalink to this headline">¶</a></h3>
+<p>Missing values in time series can use the information
+from the neighbouring non-missing observations.
+After all, it is usually the case that, e.g.,
+today’s weather is “similar” to yesterday’s and tomorrow’s.</p>
+<p>The most straightforward ways for dealing with missing values
+in time series are:</p>
+<ul class="simple">
+<li><p><em>forward-fill</em> – propagate the last non-missing observation,</p></li>
+<li><p><em>backward-fill</em> – get the next non-missing value,</p></li>
+<li><p><em>linearly interpolate between two adjacent non-missing values</em> –
+in particular, a single missing value will be replaced
+by the average of its neighbours.</p></li>
+</ul>
+<div class="proof proof-type-example" id="id17">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 22.9</span>
+        
+    </div><div class="proof-content">
+<p>The classic <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/r/air_quality_1973.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_1973</span></code></a> dataset gives some
+daily air quality measurements in New York, between May and September 1973.
+As an example, let’s impute a first few observations in the
+solar radiation column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/r/air_quality_1973.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Solar.R&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">12</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">original</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+    <span class="n">ffilled</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;ffill&quot;</span><span class="p">),</span>
+    <span class="n">bfilled</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;bfill&quot;</span><span class="p">),</span>
+    <span class="n">interpolated</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+<span class="p">))</span>
+<span class="c1">##     original  ffilled  bfilled  interpolated</span>
+<span class="c1">## 0      190.0    190.0    190.0    190.000000</span>
+<span class="c1">## 1      118.0    118.0    118.0    118.000000</span>
+<span class="c1">## 2      149.0    149.0    149.0    149.000000</span>
+<span class="c1">## 3      313.0    313.0    313.0    313.000000</span>
+<span class="c1">## 4        NaN    313.0    299.0    308.333333</span>
+<span class="c1">## 5        NaN    313.0    299.0    303.666667</span>
+<span class="c1">## 6      299.0    299.0    299.0    299.000000</span>
+<span class="c1">## 7       99.0     99.0     99.0     99.000000</span>
+<span class="c1">## 8       19.0     19.0     19.0     19.000000</span>
+<span class="c1">## 9      194.0    194.0    194.0    194.000000</span>
+<span class="c1">## 10       NaN    194.0    256.0    225.000000</span>
+<span class="c1">## 11     256.0    256.0    256.0    256.000000</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-exercise" id="id18">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.10</span>
+        
+    </div><div class="proof-content">
+<p>(*) With the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
+dataset:</p>
+<ol>
+<li><p>Based on the hourly observations, compute the daily mean PM2.5s for
+Melbourne CBD and Morwell South.</p>
+<p>For Melbourne CBD, if some hourly measurement is missing,
+linearly interpolate between the preceding and following non-missing
+data, e.g., a PM2.5 sequence of <code class="docutils literal notranslate"><span class="pre">[...,</span> <span class="pre">10,</span> <span class="pre">NaN,</span> <span class="pre">NaN,</span> <span class="pre">40,</span> <span class="pre">...]</span></code>
+(you need to manually add the <code class="docutils literal notranslate"><span class="pre">NaN</span></code> rows to the dataset)
+should be transformed to <code class="docutils literal notranslate"><span class="pre">[...,</span> <span class="pre">10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40,</span> <span class="pre">...]</span></code>.</p>
+<p>For Morwell South, impute the reading as an average
+of the records in the nearest air quality
+stations, located in Morwell East, Moe, Churchill, or Traralgon.</p>
+</li>
+<li><p>Present the daily mean PM2.5 measurements for Melbourne CBD
+and Morwell South on a single plot.
+The x-axis labels should be human-readable and intuitive.</p></li>
+<li><p>For the Melbourne data, count on how many days
+the average PM2.5 was greater than in the preceding day.</p></li>
+<li><p>Find 5 most air-polluted days for Melbourne.</p></li>
+</ol>
+</div></div></div>
+</div>
+<div class="section" id="a-note-on-nonuniform-sampling">
+<h2><span class="section-number">22.4. </span>A Note on Nonuniform Sampling (*)<a class="headerlink" href="#a-note-on-nonuniform-sampling" title="Permalink to this headline">¶</a></h2>
+<p>Data do not have to be recorded at equispaced moments in time.
+In fact, our EUR/AUD exchange rates are given only on
+126 out of 161 days in the first half of 2020.</p>
+<div class="proof proof-type-exercise" id="id19">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.11</span>
+        
+    </div><div class="proof-content">
+<p>Load the
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/%5Cteaching_data/master/marek/euraud-20200101-20200630-dates.txt">euraud-20200101-20200630-dates</a>
+dataset and plot the currency rates as a function of now nonequidistant
+time.</p>
+</div></div><div class="section" id="dealing-with-nonequispaced-series">
+<h3><span class="section-number">22.4.1. </span>Dealing with Nonequispaced Series<a class="headerlink" href="#dealing-with-nonequispaced-series" title="Permalink to this headline">¶</a></h3>
+<p>A times series is recorded at unequally spaced points in time
+may complicate our analysis.</p>
+<p>In some contexts, it might be safe to ignore the real event time
+and merely treat them as consecutive samples
+(day 1, day 2, day 3, …, day 126).
+This approach, however, in some contexts can make the results we obtain
+less valid.</p>
+<p>If data are generally equispaced but some measurements are not present,
+we can add them to our dataset,
+mark them as missing values, and use one of the
+imputation techniques that we describe in a different part of our course.</p>
+<p>Otherwise, we can consider creating
+an interpolated version of the original signal
+and resampling it
+at equally spaced intervals, e.g., using a Fourier method
+(<strong class="command">scipy.signal.resample</strong>).</p>
+</div>
+<div class="section" id="modelling-event-times-with-an-exponential-distribution">
+<h3><span class="section-number">22.4.2. </span>Modelling Event Times with an Exponential Distribution (**)<a class="headerlink" href="#modelling-event-times-with-an-exponential-distribution" title="Permalink to this headline">¶</a></h3>
+<p>An <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential distribution</a> is frequently used
+for modelling times between different events (i.e., deltas)
+under the assumption that a system generates on average a constant
+number of events and that they occur independently of each other.</p>
+<p>This may be the case for the times between requests
+to a cloud service during peak hours,
+wait times for the next pedestrian to appear at a crossing near
+the Southern Cross Station in Melbourne, or the amount of time
+it takes a bank teller to interact with a customer
+(note that there is a whole branch of applied mathematics –
+or should we refer to it more fashionably: data science -
+called <a class="reference external" href="https://en.wikipedia.org/wiki/Queueing_theory">queuing theory</a>
+that deals with this type of modelling).</p>
+<p>An exponential family is identified by the scale parameter
+<em>s &gt; 0</em>, being at the same time its expected value (but be careful: some
+textbooks choose the parameter <em>λ=1/s</em> instead; also
+<strong class="program">scipy</strong> uses this convention).</p>
+<p>Here is a pseudorandom sample where there are 5 events per
+minute on average:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">λ</span> <span class="o">=</span> <span class="mi">60</span><span class="o">/</span><span class="mi">5</span>  <span class="c1"># 5 events per 60 seconds on average</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">λ</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">d</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># preview</span>
+<span class="c1">## array([14.307,  4.045,  3.087,  9.617, 15.253,  6.601, 47.412, 13.856])</span>
+</pre></div>
+</div>
+<p>This gave us the wait times between the events (deltas),
+in seconds.</p>
+<p>A natural sample estimator of the scale parameter is of course:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="c1">## 11.839894504211724</span>
+</pre></div>
+</div>
+<p>Which is close to what we <em>expect</em>, i.e., 12 seconds between
+the events.</p>
+<p>We can convert the above to datetime
+(starting at a fixed calendar date), e.g., as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;2022-01-01T00:00:00&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[ms]&quot;</span><span class="p">)</span>
+<span class="n">d_ms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># in milliseconds</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">d_ms</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;timedelta64[ms]&quot;</span><span class="p">)</span>
+<span class="n">t</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># preview</span>
+<span class="c1">## (array([&#39;2022-01-01T00:00:14.307&#39;, &#39;2022-01-01T00:00:18.352&#39;,</span>
+<span class="c1">##        &#39;2022-01-01T00:00:21.439&#39;, &#39;2022-01-01T00:00:31.056&#39;,</span>
+<span class="c1">##        &#39;2022-01-01T00:00:46.309&#39;, &#39;2022-01-01T00:00:52.910&#39;,</span>
+<span class="c1">##        &#39;2022-01-01T00:01:40.322&#39;, &#39;2022-01-01T00:01:54.178&#39;],</span>
+<span class="c1">##       dtype=&#39;datetime64[ms]&#39;), array([&#39;2022-01-01T03:56:45.312&#39;, &#39;2022-01-01T03:56:47.890&#39;],</span>
+<span class="c1">##       dtype=&#39;datetime64[ms]&#39;))</span>
+</pre></div>
+</div>
+<p>Note that we converted the deltas to milliseconds so that we didn’t lose
+precision; <code class="docutils literal notranslate"><span class="pre">datetime64</span></code> is based on integers, not floating-point numbers.</p>
+<p>As an exercise, let’s apply binning and
+count how many events occur in each hour:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
+    <span class="s2">&quot;2022-01-01T00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-01T05:00:00&quot;</span><span class="p">,</span>
+    <span class="mi">1000</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span>  <span class="c1"># number of milliseconds in 1 hour</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[ms]&quot;</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+<span class="c1">## (array([305, 300, 274, 321]), array([&#39;2022-01-01T00:00:00.000&#39;, &#39;2022-01-01T01:00:00.000&#39;,</span>
+<span class="c1">##        &#39;2022-01-01T02:00:00.000&#39;, &#39;2022-01-01T03:00:00.000&#39;,</span>
+<span class="c1">##        &#39;2022-01-01T04:00:00.000&#39;], dtype=&#39;datetime64[ms]&#39;))</span>
+</pre></div>
+</div>
+<p>We expect 5 events per second, hence, 300 of them per hour.
+On a side note, from a course in statistics
+we know that for exponential inter-event times,
+the number of events per unit of time follows a Poisson
+distribution.</p>
+<div class="proof proof-type-exercise" id="id20">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.12</span>
+        
+    </div><div class="proof-content">
+<p>Consider the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/wait_times.txt">wait_times</a> dataset
+that gives the times between consecutive events, in seconds.
+Estimate the event rate per hour. Draw a histogram representing the number
+of events per hour.</p>
+</div></div></div>
+</div>
+<div class="section" id="multidimensional-time-series">
+<h2><span class="section-number">22.5. </span>Multidimensional Time Series<a class="headerlink" href="#multidimensional-time-series" title="Permalink to this headline">¶</a></h2>
+<p>Multidimensional time series stored in form of
+an <em>n</em>-by-<em>m</em> matrix are best viewed as <em>m</em> time series –
+possibly but not necessarily somehow related to each other –
+all sampled at the same <em>n</em> points in time
+(e.g., <em>m</em> different stocks on <em>n</em> consecutive days).</p>
+<p>Let us make a few additions to what we have covered whilst
+discussing the unidimensional case.</p>
+<div class="section" id="basic-plotting">
+<h3><span class="section-number">22.5.1. </span>Basic Plotting<a class="headerlink" href="#basic-plotting" title="Permalink to this headline">¶</a></h3>
+<p>Consider the currency exchange rates
+for the first half of 2020:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eurxxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/eurxxx-20200101-20200630-no-na.csv&quot;</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">eurxxx</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview</span>
+<span class="c1">## array([[1.6006 , 7.7946 , 0.84828, 4.2544 ],</span>
+<span class="c1">##        [1.6031 , 7.7712 , 0.85115, 4.2493 ],</span>
+<span class="c1">##        [1.6119 , 7.8049 , 0.85215, 4.2415 ],</span>
+<span class="c1">##        [1.6251 , 7.7562 , 0.85183, 4.2457 ],</span>
+<span class="c1">##        [1.6195 , 7.7184 , 0.84868, 4.2429 ],</span>
+<span class="c1">##        [1.6193 , 7.7011 , 0.85285, 4.2422 ]])</span>
+</pre></div>
+</div>
+<p>This gives EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN, in this order.
+Let’s draw the four time series, see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 22.5</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/euraud-20200101-20200630-dates.txt&quot;</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AUD&quot;</span><span class="p">,</span> <span class="s2">&quot;CNY&quot;</span><span class="p">,</span> <span class="s2">&quot;GBP&quot;</span><span class="p">,</span> <span class="s2">&quot;PLN&quot;</span><span class="p">]</span>
+<span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="s2">&quot;dotted&quot;</span><span class="p">,</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="s2">&quot;dashdot&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">styles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id21">
+<span id="fig-currency-abs"></span><img alt="../_images/currency-abs-9.png" src="../_images/currency-abs-9.png" />
+<p class="caption"><span class="caption-number">Figure 22.5 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates in the first half of 2020</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
+<p>Unfortunately, they are all on different scales, hence
+the plot is not necessarily readable.</p>
+<div style="margin-top: 1em"></div><p>Let’s draw the currency exchange rates
+<em>relative</em> to the prices on 2020-03-19; see <a class="reference internal" href="#fig-currency-rel"><span class="std std-numref">Figure 22.6</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dates</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2020-03-19&quot;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">eurxxx</span><span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+        <span class="n">ls</span><span class="o">=</span><span class="n">styles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id22">
+<span id="fig-currency-rel"></span><img alt="../_images/currency-rel-11.png" src="../_images/currency-rel-11.png" />
+<p class="caption"><span class="caption-number">Figure 22.6 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on 2020-03-19</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</div>
+<p>This way, e.g., relative
+rate of 1.05 denotes the rate 5% higher than on the reference day.</p>
+<div style="margin-top: 1em"></div><div class="proof proof-type-exercise" id="id23">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.13</span>
+        
+    </div><div class="proof-content">
+<p>Based on EUR/AUD and EUR/PLN rates,
+compute and plot the AUD/PLN as well as PLN/AUD ones.</p>
+</div></div><div class="proof proof-type-exercise" id="id24">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.14</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Draw the EUR/AUD and EUR/GBP rates on a single
+plot, but with each series having
+<a class="reference external" href="https://matplotlib.org/stable/gallery/subplots_axes_and_figures/secondary_axis.html">its own</a>
+<em>y</em> axis.</p>
+</div></div><div class="proof proof-type-exercise" id="id25">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.15</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Draw the EUR/xxx  rates for your favourite currencies over a larger
+period of time. Use
+<a class="reference external" href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html">data</a>
+downloaded from the European Central Bank. Add a few moving averages.
+For each year, identify the lowest and the highest rate.</p>
+</div></div></div>
+<div class="section" id="candlestick-plots">
+<h3><span class="section-number">22.5.2. </span>Candlestick Plots (*)<a class="headerlink" href="#candlestick-plots" title="Permalink to this headline">¶</a></h3>
+<p>Consider the BTC/USD data for 2021:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">btcusd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/btcusd_ohlcv_2021.csv&quot;</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="n">btcusd</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># preview</span>
+<span class="c1">## array([[28994.01 , 29600.627, 28803.586, 29374.152],</span>
+<span class="c1">##        [29376.455, 33155.117, 29091.182, 32127.268],</span>
+<span class="c1">##        [32129.408, 34608.559, 32052.316, 32782.023],</span>
+<span class="c1">##        [32810.949, 33440.219, 28722.756, 31971.914],</span>
+<span class="c1">##        [31977.041, 34437.59 , 30221.188, 33992.43 ],</span>
+<span class="c1">##        [34013.613, 36879.699, 33514.035, 36824.363]])</span>
+</pre></div>
+</div>
+<p>This gives the open, high, low, close prices on the 365
+consecutive days (we skipped the marked volume column for
+readability), which is a common way to summarise daily rates.</p>
+<p>The <a class="reference external" href="https://github.com/matplotlib/mplfinance"><strong class="program">mplfinance</strong></a>
+package (<strong class="program">matplotlib-finance</strong>) features a few functions
+related to the plotting of financial data.
+Here, let us briefly mention the candlestick plot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mplfinance</span> <span class="k">as</span> <span class="nn">mpf</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
+<span class="n">mpf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">btcusd</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Open&quot;</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">,</span> <span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Close&quot;</span><span class="p">,</span> <span class="s2">&quot;Volume&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">31</span><span class="p">,</span> <span class="p">:],</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;candle&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;charles&quot;</span><span class="p">)</span>
+<span class="c1"># plt.show() # not needed...</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id26">
+<span id="fig-candlestick-plot"></span><img alt="../_images/candlestick-plot-13.png" src="../_images/candlestick-plot-13.png" />
+<p class="caption"><span class="caption-number">Figure 22.7 </span><span class="caption-text">Candlestick plot for the BTC/USD exchange rates in January 2021</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</div>
+<p><a class="reference internal" href="#fig-candlestick-plot"><span class="std std-numref">Figure 22.7</span></a> depicts the January 2021 data.
+Note that this is not a box and whisker plot.
+The candlestick body denotes the difference in the market opening
+and the closing price. The wicks (shadows) give the range
+(high to low).</p>
+<p>Green candlesticks represent bullish days – where the
+closing rate is greater than the opening one (uptrend).
+Red candles are bearish (decline)</p>
+<div class="proof proof-type-exercise" id="id27">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.16</span>
+        
+    </div><div class="proof-content">
+<p>Draw the BTC/USD rates for the whole year
+and add the 10-day moving averages.</p>
+</div></div><div class="proof proof-type-exercise" id="id28">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.17</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Draw a candlestick plot manually, without using
+the <strong class="program">mplfinance</strong> package. <strong class="command">matplotlib.pyplot.fill</strong> might
+be helpful.</p>
+</div></div><div class="proof proof-type-exercise" id="id29">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.18</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Using <strong class="command">matplotlib.pyplot.fill_between</strong> add a semi-transparent
+polygon that fills the area bounded between the Low
+and High prices on all the days.</p>
+</div></div></div>
+</div>
+<div class="section" id="notes-on-signal-processing-audio-image-video">
+<span id="sec-image"></span><h2><span class="section-number">22.6. </span>Notes on Signal Processing (Audio, Image, Video) (**)<a class="headerlink" href="#notes-on-signal-processing-audio-image-video" title="Permalink to this headline">¶</a></h2>
+<p>Data science classically deals with
+information that is or can be represented in tabular form
+and where particular observations (which can be multidimensional)
+are usually independent from but still somewhat similar to each other.
+We often treat them as samples from different larger populations
+which we would like to describe or compare at some level
+of generality (think: health data on patients being
+subject to two treatment plans that we wish
+to evaluate).</p>
+<p>From this perspective, time series which we have briefly touched upon above
+are already quite distinct, because there is some dependence
+observed in the time domain: a price of a stock that we observe
+today is influenced by what was happening yesterday.
+There might also be some periodic trends under the hood.
+Still, for data of this kind, employing statistical modelling
+techniques (<em>stochastic processes</em>) still can make sense.</p>
+<div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video, are slightly different,
+because <em>structured randomness</em> does not play dominant role there (unless
+it’s noise that we would like to filter out).
+Instead, what is happening in the frequency (think: perceiving
+pitches when listening to music)
+or spatial (seeing green grass and sky on a photo) domain
+will play key role there.</p>
+<p>Signal processing thus requires a quite distinct
+set of tools,
+e.g., Fourier analysis and finite impulse response (discrete
+convolution) filters. This course obviously cannot be about everything
+(also because it requires some more advanced calculus skills that we
+didn’t assume the reader to have at this time).
+Therefore, see, e.g., <span id="id1">[<a class="reference internal" href="999-bibliography.html#id25">Smi02</a>, <a class="reference internal" href="999-bibliography.html#id24">Ste96</a>]</span>.</p>
+<p>Nevertheless, we should keep in mind that these are not completely
+independent domains. For example,
+we can extract various features of audio
+signals (e.g., overall loudness, timbre, and danceability of each
+recording in a large song database) and then treat them as tabular
+data to be analysed using the techniques described in this
+course.
+Moreover, machine learning (e.g., deep convolutional neural networks)
+algorithms may also be used for tasks such as object detection
+on images or optical character recognition.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some Python packages for signal processing worth inspecting
+include:</p>
+<ul class="simple">
+<li><p><strong class="program">scipy.signal</strong> and <strong class="program">scipy.ndimage</strong>,</p></li>
+<li><p><a class="reference external" href="https://pillow.readthedocs.io"><strong class="program">pillow</strong></a> (<strong class="program">PIL</strong>) ,</p></li>
+<li><p><a class="reference external" href="https://scikit-image.org/"><strong class="program">scikit-image</strong></a>,</p></li>
+<li><p><a class="reference external" href="https://www.opencv.org"><strong class="program">OpenCV</strong></a> (a C++ library
+for image and video processing with Python bindings).</p></li>
+</ul>
+</div>
+<div class="section" id="representing-images">
+<h3><span class="section-number">22.6.1. </span>Representing Images<a class="headerlink" href="#representing-images" title="Permalink to this headline">¶</a></h3>
+<p>In order to demonstrate that signals are <em>some kinds of data</em>
+after all and that – at some basic level – there is nothing particularly
+mysterious behind them, let us briefly discuss how images are usually
+represented.</p>
+<p>The <strong class="program">pillow</strong> package
+provides a number of functions for basic image processing.
+Let’s load the very small example image
+that we can download from our
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/images/grayscale_demo_8x8.png">example data repository</a>
+(the file needs to be fetched manually).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/home/gagolews/Projects/teaching_data/images/grayscale_demo_8x8.png&quot;</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># download it manually</span>
+<span class="n">im</span><span class="o">.</span><span class="n">size</span>
+<span class="c1">## (8, 8)</span>
+</pre></div>
+</div>
+<p>It is a bitmap of height 8 and width 8 pixels.</p>
+<p>Converting to a <strong class="program">numpy</strong> matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">getdata</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">im</span>
+<span class="c1">## array([[255, 255, 255,   0,   0, 255, 255, 255],</span>
+<span class="c1">##        [255, 255, 255, 255, 255, 255, 255, 255],</span>
+<span class="c1">##        [119, 255, 119, 255, 119, 255, 119, 255],</span>
+<span class="c1">##        [255, 119, 255, 119, 255, 119, 255, 119],</span>
+<span class="c1">##        [194, 119, 194, 119, 194, 119, 194, 119],</span>
+<span class="c1">##        [194, 194, 194, 194, 194, 194, 194, 194],</span>
+<span class="c1">##        [255, 255, 255, 255, 255, 255, 255, 255],</span>
+<span class="c1">##        [  0, 255,   0, 255,   0,   0, 255,   0]])</span>
+</pre></div>
+</div>
+<p>The image is in 8-bit greyscale: the values
+represent 256 shades of grey between 0 (black) and 255 (white),
+see <a class="reference internal" href="#fig-bitmap"><span class="std std-numref">Figure 22.8</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id30">
+<span id="fig-bitmap"></span><img alt="../_images/bitmap-15.png" src="../_images/bitmap-15.png" />
+<p class="caption"><span class="caption-number">Figure 22.8 </span><span class="caption-text">Example bitmap</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Machine learning algorithms
+will often be expecting flat vectors on inputs – instead of an 8x8
+matrix, they had rather be fed with a sequence of 64 elements.
+We can call <code class="docutils literal notranslate"><span class="pre">im.flatten()</span></code> to get such a form.</p>
+</div>
+<div class="proof proof-type-exercise" id="id31">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.19</span>
+        
+    </div><div class="proof-content">
+<p>Scale the brightness values from 0-255
+to the <em>[0, 1]</em> interval, which is another common option
+(as we can read from the manual of
+<strong class="command">matplotlib.pyplot.imshow</strong>).</p>
+</div></div><div class="proof proof-type-exercise" id="id32">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.20</span>
+        
+    </div><div class="proof-content">
+<p>(**)
+Write a program that imports
+and visualises chosen example images
+in the famous <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">MNIST</a> and
+<a class="reference external" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a>
+datasets which are frequently used for benchmarking
+classification algorithms.</p>
+</div></div></div>
+<div class="section" id="colour-models">
+<h3><span class="section-number">22.6.2. </span>Colour Models<a class="headerlink" href="#colour-models" title="Permalink to this headline">¶</a></h3>
+<p>There are quite a few
+<a class="reference external" href="https://en.wikipedia.org/wiki/Color_model">colour models</a>
+in use, including:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_model">RBG</a>
+(red-green-blue),</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/RGBA_color_model">RGBA</a>
+(RGB with the alpha channel governing the pixel transparency/opaqueness),</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a>
+(hue-saturation-value),</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/CMY_color_model">CMY</a>
+(cyan-magenta-yellow) – usually used for printing.</p></li>
+</ul>
+<p>They require each pixel be described by 3 (or 4 if the
+alpha channel is included) values.
+Thus, instead of a <em>h</em>×<em>w</em> matrix,
+we well be dealing with three- dimensional arrays
+of size <em>h</em>×<em>w</em>×3 (or 4).</p>
+<div class="proof proof-type-exercise" id="id33">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.21</span>
+        
+    </div><div class="proof-content">
+<p>Load and display some larger PNG or JPEG file
+downloaded from the internet.</p>
+</div></div></div>
+</div>
+<div class="section" id="further-reading">
+<h2><span class="section-number">22.7. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>Note that due to limited spacetime, we merely touched upon the most basic
+methods for dealing with time series. The reader is encouraged to take a look
+at the broad literature concerning statistical analysis of time series
+(e.g., issues in forecasting,
+<span id="id2">[<a class="reference internal" href="999-bibliography.html#id27">HA21</a>]</span>) as well
+as on signal processing (e.g., <span id="id3">[<a class="reference internal" href="999-bibliography.html#id25">Smi02</a>, <a class="reference internal" href="999-bibliography.html#id24">Ste96</a>]</span>);
+their toolkits somewhat overlap.</p>
+<p>For probabilistic modelling, see textbooks on
+stochastic processes, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id26">Tij03</a>]</span>.</p>
+</div>
+<div class="section" id="questions">
+<h2><span class="section-number">22.8. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<div class="proof proof-type-exercise" id="id34">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.22</span>
+        
+    </div><div class="proof-content">
+<p>Let’s say we have a time series with <em>n</em> observations.
+What is a 1- and an <em>n</em>-moving average?
+Which one is smoother, an <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.23</span>
+        
+    </div><div class="proof-content">
+<p>What is the Unix Epoch?</p>
+</div></div><div class="proof proof-type-exercise" id="id36">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.24</span>
+        
+    </div><div class="proof-content">
+<p>How can we recreate the original series
+when we are given its <strong class="command">numpy.diff</strong>-transformed version?</p>
+</div></div><div class="proof proof-type-exercise" id="id37">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.25</span>
+        
+    </div><div class="proof-content">
+<p>(*) In your own words, describe the key elements
+of a candlestick plot.</p>
+</div></div><div class="proof proof-type-exercise" id="id38">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.26</span>
+        
+    </div><div class="proof-content">
+<p>(**)
+What colours do the following
+<a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors">RGB hex triples</a>
+represent? <code class="docutils literal notranslate"><span class="pre">#ff0000</span></code>, <code class="docutils literal notranslate"><span class="pre">#808000</span></code>, <code class="docutils literal notranslate"><span class="pre">#cccccc</span></code>, <code class="docutils literal notranslate"><span class="pre">#00aaff</span></code>?</p>
+</div></div><div class="proof proof-type-exercise" id="id39">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 22.27</span>
+        
+    </div><div class="proof-content">
+<p>(**)
+What are some <a class="reference external" href="https://en.wikipedia.org/wiki/Color_model">other</a>
+popular colour models?</p>
+</div></div></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="998-changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="530-missingness.html" class="btn btn-neutral float-left" title="21. Outliers, Missing, Censored, and Incorrect Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-03-29T16:43:07+1100.
+      </span>
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

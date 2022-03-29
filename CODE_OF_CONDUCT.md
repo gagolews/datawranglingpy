@@ -6,14 +6,9 @@ act of charity to make this world an (even) better place.
 It will most likely pass unnoticed, but if you happen to find it useful,
 informative, amusing, or stimulating, I am happy for you.
 
-Please be civilised, well-mannered, and courteous. Primum non nocere.
-Let us all strive to be better versions of ourselves, exercise forgiveness
-and generosity, and assume good faith in others.
-
-Please reflect on the above before contacting me. Moreover, read this book's
-introductory part for an overview of the philosophy it implements;
-maybe it already addresses your concerns. Also, give yourself some time,
-some ideas might just not be obvious at first glance.
+Please read this book's introductory part for an overview of the philosophy
+it implements; maybe it already addresses your concerns. Also, give
+yourself some time, some ideas might just not be obvious at first glance.
 
 Most likely, if I wrote X, came up with an assumption Y, or made a design
 choice Z, there have been strong reasons for it. Try to find them yourself.
@@ -28,7 +23,5 @@ non-trivial remarks that could lead to the improvement of the presented
 material or my learning something noteworthy. Please use the
 [*Issues*](https://github.com/gagolews/datawranglingpy/issues)
 tracker to notify me about any issues discovered.
-
-Thank you.
 
 Good luck!
