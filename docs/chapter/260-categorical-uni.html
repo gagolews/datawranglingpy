@@ -131,9 +131,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#counting">9.2.1. Counting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#visualising">9.2.2. Visualising</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#bar-plots">9.2.2.1. Bar Plots</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#don-t-let-them-trick-you">9.2.2.2. Don’t Let Them Trick You</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#error-bars">9.2.2.3. Error Bars (**)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pareto-charts">9.2.2.4. Pareto Charts (*)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pie-charts">9.2.2.2. ~~Pie Charts~~</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#don-t-let-them-trick-you">9.2.2.3. Don’t Let Them Trick You</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#error-bars">9.2.2.4. Error Bars (**)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pareto-charts">9.2.2.5. Pareto Charts (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#aggregating">9.2.3. Aggregating</a><ul>
@@ -294,23 +295,30 @@ like F (fail) &lt; P (pass) &lt; C (credit) &lt; D (distinction) &lt; HD (high d
 some questionnaires use
 <a class="reference external" href="https://en.wikipedia.org/wiki/Likert_scale">Likert</a>-type scales such
 as “strongly disagree” &lt; “disagree” &lt; “neutral” &lt; “agree” &lt; “strongly agree”, etc.).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.notebook_repr_html&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># disable &quot;rich&quot; output</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="section" id="representing-categorical-data">
 <h2><span class="section-number">9.1. </span>Representing Categorical Data<a class="headerlink" href="#representing-categorical-data" title="Permalink to this headline">¶</a></h2>
 <p>Two common ways to represent a categorical variable
 with <em>k</em> distinct levels is by storing it as:</p>
 <ul class="simple">
 <li><p>a vector of strings,</p></li>
-<li><p>a vector of integers between 0 (inclusive) and k (exclusive).</p></li>
+<li><p>a vector of integers between 0 (inclusive) and <em>k</em> (exclusive).</p></li>
 </ul>
 <p>These two are easily interchangeable.</p>
 <p>For instance, consider the data on where the top 16 marathoners
 come from:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">countries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_country.txt&quot;</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">countries</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
-<span class="n">x</span>
+<span class="n">cntrs16</span> <span class="o">=</span> <span class="n">cntrs</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">cntrs16</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
 <span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
 </pre></div>
@@ -319,92 +327,102 @@ come from:</p>
 encoded of course as strings (note the <code class="docutils literal notranslate"><span class="pre">dtype=&quot;str&quot;</span></code> argument).</p>
 <p>Calling <strong class="command">numpy.unique</strong> allows us to determine
 the set of distinct categories:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span>
 <span class="c1">## array([&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
 </pre></div>
 </div>
-<p>They have been sorted automatically.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong class="command">numpy.unique</strong> sorts the distinct values automatically.
+In other words, they are not listed in the order of appearance,
+which might be something desirable in certain contexts.</p>
+</div>
 <div class="section" id="encoding-and-decoding-factors">
 <h3><span class="section-number">9.1.1. </span>Encoding and Decoding Factors<a class="headerlink" href="#encoding-and-decoding-factors" title="Permalink to this headline">¶</a></h3>
-<p>In order to <em>encode</em> <code class="docutils literal notranslate"><span class="pre">x</span></code> through a set of consecutive nonnegative
+<p>In order to <em>encode</em> a label vector through a set of consecutive nonnegative
 integers, we pass the <code class="docutils literal notranslate"><span class="pre">return_inverse=True</span></code> argument
 to <strong class="command">numpy.unique</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span><span class="p">,</span> <span class="n">codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">categories</span><span class="p">,</span> <span class="n">codes</span>
-<span class="c1">## (array([&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;), array([2, 2, 2, 0, 2, 2, 0, 3, 4, 4, 1, 4, 2, 2, 4, 4]))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">codes_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cat_cntrs16</span>
+<span class="n">codes_cntrs16</span>
+<span class="c1">## array([&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
+<span class="c1">## array([2, 2, 2, 0, 2, 2, 0, 3, 4, 4, 1, 4, 2, 2, 4, 4])</span>
 </pre></div>
 </div>
 <p>Note that the code sequence 2, 2, 2, 0, …
-corresponds to the 3rd, 3rd, 3rd, 1st, … level in <code class="docutils literal notranslate"><span class="pre">categories</span></code>,
+corresponds to the 3rd, 3rd, 3rd, 1st, … level in <code class="docutils literal notranslate"><span class="pre">cat_cntrs16</span></code>,
 i.e., Kenya, Kenya, Kenya, Ethiopia, ….</p>
-<p>The values between 0 and <em>k-1=4</em> can be used to index a given an array
-of length <em>k=5</em>. Hence, in order to <em>decode</em> our factor, we can write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span><span class="p">[</span><span class="n">codes</span><span class="p">]</span>
+<p>The values between 0 and <em>k</em>-1=4 can be used to index a given an array
+of length <em>k</em>=5. Hence, in order to <em>decode</em> our factor, we can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
 <span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
 </pre></div>
 </div>
 <p>We can use any other set of labels now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;Ethiopia&quot;</span><span class="p">,</span> <span class="s2">&quot;Israel&quot;</span><span class="p">,</span> <span class="s2">&quot;Kenya&quot;</span><span class="p">,</span> <span class="s2">&quot;Morocco&quot;</span><span class="p">,</span> <span class="s2">&quot;Poland&quot;</span><span class="p">])[</span><span class="n">codes</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;Ethiopia&quot;</span><span class="p">,</span> <span class="s2">&quot;Israel&quot;</span><span class="p">,</span> <span class="s2">&quot;Kenya&quot;</span><span class="p">,</span> <span class="s2">&quot;Morocco&quot;</span><span class="p">,</span> <span class="s2">&quot;Poland&quot;</span><span class="p">])[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
 <span class="c1">## array([&#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Ethiopia&#39;, &#39;Kenya&#39;, &#39;Kenya&#39;,</span>
 <span class="c1">##        &#39;Ethiopia&#39;, &#39;Morocco&#39;, &#39;Poland&#39;, &#39;Poland&#39;, &#39;Israel&#39;, &#39;Poland&#39;,</span>
 <span class="c1">##        &#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Poland&#39;, &#39;Poland&#39;], dtype=&#39;&lt;U8&#39;)</span>
 </pre></div>
 </div>
 <p>This is an instance of the <em>recoding</em> of a categorical variable.</p>
-<blockquote>
-<div><p><strong>Important.</strong> Despite the fact that we can
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Despite the fact that we can
 <em>represent</em> a categorical variables using a set of integers,
 it does not make them become instances of a numerical type.
 Arithmetic operations do not make sense on them.</p>
-</div></blockquote>
-<blockquote>
-<div><p>(**) <strong>Exercise.</strong> Determine the set of unique values
-in <code class="docutils literal notranslate"><span class="pre">x</span></code> in the order of appearance (and not sorted lexicographically).
-Then, encode <code class="docutils literal notranslate"><span class="pre">x</span></code> using this level set.
-Hint: check out the <code class="docutils literal notranslate"><span class="pre">return_index</span></code> argument to <strong class="command">numpy.unique</strong>
-and the <strong class="command">numpy.searchsorted</strong> function.</p>
-</div></blockquote>
 </div>
+<div class="proof proof-type-exercise" id="id1">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.1</span>
+        
+    </div><div class="proof-content">
+<p>(**)
+Determine the set of unique values
+in <code class="docutils literal notranslate"><span class="pre">cntrs16</span></code> in the order of appearance (and not sorted lexicographically).
+Then, encode <code class="docutils literal notranslate"><span class="pre">cntrs16</span></code> using this level set.</p>
+<p><em>Hint: check out the <code class="docutils literal notranslate"><span class="pre">return_index</span></code> argument to <strong class="command">numpy.unique</strong>
+and the <strong class="command">numpy.searchsorted</strong> function.</em></p>
+</div></div></div>
 <div class="section" id="binning-numeric-data">
-<h3><span class="section-number">9.1.2. </span>Binning Numeric Data<a class="headerlink" href="#binning-numeric-data" title="Permalink to this headline">¶</a></h3>
+<span id="sec-binning"></span><h3><span class="section-number">9.1.2. </span>Binning Numeric Data<a class="headerlink" href="#binning-numeric-data" title="Permalink to this headline">¶</a></h3>
 <p>Numerical data can be converted to categorical via
 binning (quantisation). This results in information (precision) loss,
 however, it also opens some new possibilities. In fact, this is what we needed
 to do in order to draw a histogram.</p>
 <p>Also, reporting counts instead of raw data enables us to include them
 in printed reports (in form of a table).</p>
-<blockquote>
-<div><p><strong>Note.</strong>
-As strong proponents of openness and transparency,
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As strong proponents of openness and transparency,
 we always encourage all entities (government, research,
 non-for-profits, NGOs, corporations, etc.)
 to share (e.g., under the Creative Commons CC-BY-SA-4.0 license)
 unabridged versions of their datasets to enable public scrutiny
 and getting the most of the possibilities they can bring for
 the public good.</p>
-</div></blockquote>
-<blockquote>
-<div><p><strong>Note.</strong>
-Of course, sometimes the sharing of unprocessed information
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Of course, sometimes the sharing of unprocessed information
 can violate the privacy of the subjects. In such a case,
 it might be a good idea to distribute them
 in binned or otherwise aggregated form.</p>
-</div></blockquote>
+</div>
 <p>Consider the 16 best marathon finish times (in minutes):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_mins.txt&quot;</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">marathon</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
-<span class="n">t</span>
-<span class="c1">## array([129.32, 130.75, 130.97, 134.17, 134.68, 135.97, 139.88, 143.2 ,</span>
-<span class="c1">##        145.22, 145.92, 146.83, 147.8 , 149.65, 149.88, 152.65, 152.88])</span>
+<span class="n">mins16</span> <span class="o">=</span> <span class="n">mins</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
 </pre></div>
 </div>
 <p><strong class="command">numpy.searchsorted</strong> can be used to determine
-the interval where each value in <code class="docutils literal notranslate"><span class="pre">t</span></code> falls.</p>
+the interval where each value in <code class="docutils literal notranslate"><span class="pre">mins</span></code> falls.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">150</span><span class="p">]</span>
-<span class="n">codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">codes</span>
+<span class="n">codes_mins16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">mins16</span><span class="p">)</span>
+<span class="n">codes_mins16</span>
 <span class="c1">## array([0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3])</span>
 </pre></div>
 </div>
@@ -412,22 +430,32 @@ the interval where each value in <code class="docutils literal notranslate"><spa
 <em>a</em>, including <em>b</em>).
 Code 0 corresponds to values less than the first bin bound,
 whereas code 3 – greater than or equal to the last bound:</p>
-<blockquote>
-<div><p>(*) <strong>Exercise.</strong> Check out the <strong class="command">numpy.histogram_bin_edges</strong>
+<div class="proof proof-type-exercise" id="id2">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.2</span>
+        
+    </div><div class="proof-content">
+<p>(*) Check out the <strong class="command">numpy.histogram_bin_edges</strong>
 function which tries to determine some informative
 interval bounds automatically based on a range of
 simple heuristics.
 Also, note that <strong class="command">numpy.linspace</strong> and <strong class="command">numpy.geomspace</strong>
 can be useful for generating equidistant bounds
 on linear and logarithmic scale, respectively.</p>
-</div></blockquote>
+</div></div><div class="proof proof-type-example" id="id3">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 9.3</span>
+        
+    </div><div class="proof-content">
 <p>(*) We can create a set of the corresponding categories,
 for example, as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bins2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span>
-<span class="n">categories</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<span class="n">cat_mins16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">bins2</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">bins2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bins2</span><span class="p">))]</span>
 <span class="p">)</span>
-<span class="n">categories</span>
+<span class="n">cat_mins16</span>
 <span class="c1">## array([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
 <span class="c1">##        &#39;(150.0, inf]&#39;], dtype=&#39;&lt;U14&#39;)</span>
 </pre></div>
@@ -435,7 +463,7 @@ for example, as follows:</p>
 <p>This uses the so-called <em>list comprehension</em> which is a convenient
 substitute for a <strong class="command">for</strong> loop and the <strong class="command">list.append</strong> method.</p>
 <p>And now recoding:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span><span class="p">[</span><span class="n">codes</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_mins16</span><span class="p">[</span><span class="n">codes_mins16</span><span class="p">]</span>
 <span class="c1">## array([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(130.0, 140.0]&#39;,</span>
 <span class="c1">##        &#39;(130.0, 140.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(130.0, 140.0]&#39;,</span>
 <span class="c1">##        &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
@@ -444,7 +472,7 @@ substitute for a <strong class="command">for</strong> loop and the <strong class
 <span class="c1">##       dtype=&#39;&lt;U14&#39;)</span>
 </pre></div>
 </div>
-</div>
+</div></div></div>
 <div class="section" id="generating-pseudorandom-labels">
 <h3><span class="section-number">9.1.3. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this headline">¶</a></h3>
 <p><strong class="command">numpy.random.choice</strong> allows us to create a pseudorandom sample
@@ -469,25 +497,24 @@ to be drawn in 5% of the cases, etc.</p>
 <div class="section" id="counting">
 <h3><span class="section-number">9.2.1. </span>Counting<a class="headerlink" href="#counting" title="Permalink to this headline">¶</a></h3>
 <p>For arbitrary categorical data, we can call:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">countries</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
-<span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">## (array([&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;), array([2, 1, 7, 1, 5]))</span>
 </pre></div>
 </div>
 <p>to get both the set of unique categories and
 the corresponding number of occurrences.
 For instance, there were 7 runners from Kenya amongst the top 16.</p>
-<p>If we already have an array of integer codes between 0 and k-1,
+<p>If we already have an array of integer codes between 0 and <em>k</em>-1,
 <strong class="command">numpy.bincount</strong> will return the number of
 times each code appears therein.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span><span class="p">,</span> <span class="n">codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
-<span class="n">counts</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">codes_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">counts_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">codes_cntrs16</span><span class="p">)</span>
+<span class="n">counts_cntrs16</span>
 <span class="c1">## array([2, 1, 7, 1, 5])</span>
 </pre></div>
 </div>
 <p>We can output a nice <em>frequency table</em> as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">counts_cntrs16</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="si">:</span><span class="s2">4</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1">## ET  :     2</span>
 <span class="c1">## IL  :     1</span>
@@ -498,7 +525,7 @@ times each code appears therein.</p>
 </div>
 <p>Note that a vector of counts can easily be turned into
 a vector of proportions (fractions):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts_cntrs16</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts_cntrs16</span><span class="p">)</span>
 <span class="c1">## array([0.125 , 0.0625, 0.4375, 0.0625, 0.3125])</span>
 </pre></div>
 </div>
@@ -511,72 +538,96 @@ This is merely a helper function: the same result can be obtained
 by means of the more basic
 <strong class="command">numpy.searchsorted</strong>, <strong class="command">numpy.bincount</strong>,
 and <strong class="command">numpy.histogram_bin_edges</strong>.</p>
-<blockquote>
-<div><p><strong>Exercise.</strong> Apply <strong class="command">numpy.histogram</strong>
-on the <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> data.</p>
-</div></blockquote>
-</div>
+<div class="proof proof-type-exercise" id="id4">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.4</span>
+        
+    </div><div class="proof-content">
+<p>Apply <strong class="command">numpy.histogram</strong>
+on the whole <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> dataset.</p>
+</div></div></div>
 <div class="section" id="visualising">
 <h3><span class="section-number">9.2.2. </span>Visualising<a class="headerlink" href="#visualising" title="Permalink to this headline">¶</a></h3>
 <p>Methods for visualising categorical data are by no means
 fascinating (unless we use them as grouping variables in more complex
-datasets, but this is a topic that we cover later).</p>
-<p>First of all, we are definitely not going to be discussing the infamous
-<a class="reference external" href="https://en.wikipedia.org/wiki/Pie_chart">pie charts</a>, because
-their use in data analysis has been widely criticised for a long time
-(it’s difficult to judge the ratios of areas).</p>
+datasets, but this is a topic that we cover in <a class="reference internal" href="440-groupby.html#chap-groupby"><span class="std std-numref">Chapter 17</span></a>).</p>
 <div class="section" id="bar-plots">
 <h4><span class="section-number">9.2.2.1. </span>Bar Plots<a class="headerlink" href="#bar-plots" title="Permalink to this headline">¶</a></h4>
 <p>Bar plots will do the trick most of the time
 (<strong class="command">matplotlib.pyplot.bar</strong>):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">categories</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">counts</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">categories</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_cntrs16</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">counts_cntrs16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">cat_cntrs16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="c1">## &lt;BarContainer object of 5 artists&gt;</span>
-<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7f6029839250&gt;, &lt;matplotlib.axis.XTick object at 0x7f6029839220&gt;, &lt;matplotlib.axis.XTick object at 0x7f602981fdc0&gt;, &lt;matplotlib.axis.XTick object at 0x7f602852b6a0&gt;, &lt;matplotlib.axis.XTick object at 0x7f602852bbb0&gt;], [Text(0, 0, &#39;ET&#39;), Text(1, 0, &#39;IL&#39;), Text(2, 0, &#39;KE&#39;), Text(3, 0, &#39;MA&#39;), Text(4, 0, &#39;PL&#39;)])</span>
+<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7fddd1e184f0&gt;, &lt;matplotlib.axis.XTick object at 0x7fddd1e184c0&gt;, &lt;matplotlib.axis.XTick object at 0x7fdddaddf0a0&gt;, &lt;matplotlib.axis.XTick object at 0x7fddd1deb790&gt;, &lt;matplotlib.axis.XTick object at 0x7fddd1e01040&gt;], [Text(0, 0, &#39;ET&#39;), Text(1, 0, &#39;IL&#39;), Text(2, 0, &#39;KE&#39;), Text(3, 0, &#39;MA&#39;), Text(4, 0, &#39;PL&#39;)])</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id1">
-<span id="fig-260-categorical-uni-15"></span><img alt="../_images/260-categorical-uni-15-1.png" src="../_images/260-categorical-uni-15-1.png" />
-<p class="caption"><span class="caption-number">Figure 9.1 </span><span class="caption-text">plot of chunk 260-categorical-uni-15</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id5">
+<span id="fig-260-categorical-uni-16"></span><img alt="../_images/260-categorical-uni-16-1.png" src="../_images/260-categorical-uni-16-1.png" />
+<p class="caption"><span class="caption-number">Figure 9.1 </span><span class="caption-text">plot of chunk 260-categorical-uni-16</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
-<blockquote>
-<div><p><strong>Exercise.</strong> Assign a different colour to each bar.</p>
-</div></blockquote>
-<blockquote>
-<div><p><strong>Exercise.</strong> Draw a bar plot which features proportions instead
+<p>The <code class="docutils literal notranslate"><span class="pre">ind</span></code> vector gives the x-coordinates of the bars,
+here: consecutive integers. By calling <strong class="command">matplotlib.pyplot.xticks</strong>
+we assign them readable labels.</p>
+<div class="proof proof-type-exercise" id="id6">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.5</span>
+        
+    </div><div class="proof-content">
+<p>Assign a different colour to each bar.</p>
+</div></div><div class="proof proof-type-exercise" id="id7">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.6</span>
+        
+    </div><div class="proof-content">
+<p>Draw a bar plot which features proportions instead
 of counts, so that the total bar height is 100% (or 1).</p>
-</div></blockquote>
-<blockquote>
-<div><p><strong>Exercise.</strong> Print the frequency table
+</div></div><div class="proof proof-type-exercise" id="id8">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.7</span>
+        
+    </div><div class="proof-content">
+<p>Print the frequency table
 and draw a bar plot for all the marathoners’ countries (not just the top 16).</p>
-</div></blockquote>
+</div></div></div>
+<div class="section" id="pie-charts">
+<h4><span class="section-number">9.2.2.2. </span>~~Pie Charts~~<a class="headerlink" href="#pie-charts" title="Permalink to this headline">¶</a></h4>
+<p>We are definitely not going to be discussing the infamous
+<a class="reference external" href="https://en.wikipedia.org/wiki/Pie_chart">pie charts</a>, because
+their use in data analysis has been widely criticised for a long time
+(it’s difficult to judge the ratios of areas).
+Good morning.</p>
 </div>
 <div class="section" id="don-t-let-them-trick-you">
-<h4><span class="section-number">9.2.2.2. </span>Don’t Let Them Trick You<a class="headerlink" href="#don-t-let-them-trick-you" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">9.2.2.3. </span>Don’t Let Them Trick You<a class="headerlink" href="#don-t-let-them-trick-you" title="Permalink to this headline">¶</a></h4>
 <p>Even such a simple plot can be manipulated.
 For example, presidential elections were held in Poland in 2020.
 In the second round, Andrzej Duda had won against
 Rafał Trzaskowski. Here are the official results that might be presented
 by one of the infamous Polish TV conglomerate:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">51.03</span><span class="p">,</span> <span class="mf">48.97</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">51.03</span><span class="p">,</span> <span class="mf">48.97</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Duda&quot;</span><span class="p">,</span> <span class="s2">&quot;Trzaskowski&quot;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">48.9</span><span class="p">,</span> <span class="mf">51.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="c1">## &lt;BarContainer object of 2 artists&gt;</span>
-<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7f60284bc220&gt;, &lt;matplotlib.axis.XTick object at 0x7f60284bc160&gt;], [Text(1, 0, &#39;Duda&#39;), Text(2, 0, &#39;Trzaskowski&#39;)])</span>
+<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7fddd144adf0&gt;, &lt;matplotlib.axis.XTick object at 0x7fddd144ae20&gt;], [Text(1, 0, &#39;Duda&#39;), Text(2, 0, &#39;Trzaskowski&#39;)])</span>
+<span class="c1">## (0.0, 3.0)</span>
 <span class="c1">## (48.9, 51.1)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id2">
-<span id="fig-260-categorical-uni-16"></span><img alt="../_images/260-categorical-uni-16-3.png" src="../_images/260-categorical-uni-16-3.png" />
-<p class="caption"><span class="caption-number">Figure 9.2 </span><span class="caption-text">plot of chunk 260-categorical-uni-16</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id9">
+<span id="fig-260-categorical-uni-17"></span><img alt="../_images/260-categorical-uni-17-3.png" src="../_images/260-categorical-uni-17-3.png" />
+<p class="caption"><span class="caption-number">Figure 9.2 </span><span class="caption-text">plot of chunk 260-categorical-uni-17</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
-<p>Such a great victory! Wait… it was a close vote after all!</p>
+<p>Such a great victory! Wait… it was a close vote after all!
+Just take a look at the y-axis tick marks.</p>
 <p>Another media source could have reported it like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">51.03</span><span class="p">,</span> <span class="mf">48.97</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Duda&quot;</span><span class="p">,</span> <span class="s2">&quot;Trzaskowski&quot;</span><span class="p">])</span>
@@ -585,24 +636,28 @@ by one of the infamous Polish TV conglomerate:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="c1">## &lt;BarContainer object of 2 artists&gt;</span>
-<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7f601bae8e80&gt;, &lt;matplotlib.axis.XTick object at 0x7f601bae8af0&gt;], [Text(1, 0, &#39;Duda&#39;), Text(2, 0, &#39;Trzaskowski&#39;)])</span>
+<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7fddd1e3a460&gt;, &lt;matplotlib.axis.XTick object at 0x7fddd1e3acd0&gt;], [Text(1, 0, &#39;Duda&#39;), Text(2, 0, &#39;Trzaskowski&#39;)])</span>
 <span class="c1">## (0.0, 250.0)</span>
-<span class="c1">## ([&lt;matplotlib.axis.YTick object at 0x7f601ba868b0&gt;, &lt;matplotlib.axis.YTick object at 0x7f601ba864f0&gt;], [Text(0, 0, &#39;&#39;), Text(0, 0, &#39;&#39;)])</span>
+<span class="c1">## ([&lt;matplotlib.axis.YTick object at 0x7fdddc477e50&gt;, &lt;matplotlib.axis.YTick object at 0x7fdddc477b50&gt;], [Text(0, 0, &#39;&#39;), Text(0, 0, &#39;&#39;)])</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id3">
-<span id="fig-260-categorical-uni-17"></span><img alt="../_images/260-categorical-uni-17-5.png" src="../_images/260-categorical-uni-17-5.png" />
-<p class="caption"><span class="caption-number">Figure 9.3 </span><span class="caption-text">plot of chunk 260-categorical-uni-17</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id10">
+<span id="fig-260-categorical-uni-18"></span><img alt="../_images/260-categorical-uni-18-5.png" src="../_images/260-categorical-uni-18-5.png" />
+<p class="caption"><span class="caption-number">Figure 9.3 </span><span class="caption-text">plot of chunk 260-categorical-uni-18</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
-<p>The moral of the story is: always read the axis tick marks.</p>
+<p>The moral of the story is:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Always read the axis tick marks.</p>
+</div>
 </div>
 <div class="section" id="error-bars">
-<h4><span class="section-number">9.2.2.3. </span>Error Bars (**)<a class="headerlink" href="#error-bars" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">9.2.2.4. </span>Error Bars (**)<a class="headerlink" href="#error-bars" title="Permalink to this headline">¶</a></h4>
 <p>Occasionally, the data we have at hand are based on small surveys
 and are supposed to serve as estimates of what might be happening in
 a larger population.</p>
 <p>For instance, one of the pre-election polls
-indicated that 516 out of 1017 people would vote for Duda.
+indicated that <em>c</em>=516 out of <em>n</em>=1017 people would vote for Duda.
 This is ca. 50.74%, but this number is subject to sampling error.</p>
 <p>If we asked a statistician for the error estimates, they could provide
 us with, for example, 95% confidence intervals for the true proportions
@@ -621,12 +676,12 @@ where 20,458,911 valid votes were cast in total.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="c1">## &lt;BarContainer object of 2 artists&gt;</span>
 <span class="c1">## &lt;ErrorbarContainer object of 3 artists&gt;</span>
-<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7f601ba86c10&gt;, &lt;matplotlib.axis.XTick object at 0x7f601ba86a90&gt;], [Text(1, 0, &#39;Duda&#39;), Text(2, 0, &#39;Trzaskowski&#39;)])</span>
+<span class="c1">## ([&lt;matplotlib.axis.XTick object at 0x7fdddaddff40&gt;, &lt;matplotlib.axis.XTick object at 0x7fdddaddfca0&gt;], [Text(1, 0, &#39;Duda&#39;), Text(2, 0, &#39;Trzaskowski&#39;)])</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id4">
-<span id="fig-260-categorical-uni-18"></span><img alt="../_images/260-categorical-uni-18-7.png" src="../_images/260-categorical-uni-18-7.png" />
-<p class="caption"><span class="caption-number">Figure 9.4 </span><span class="caption-text">plot of chunk 260-categorical-uni-18</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id11">
+<span id="fig-260-categorical-uni-19"></span><img alt="../_images/260-categorical-uni-19-7.png" src="../_images/260-categorical-uni-19-7.png" />
+<p class="caption"><span class="caption-number">Figure 9.4 </span><span class="caption-text">plot of chunk 260-categorical-uni-19</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <p>Note that in order to improve the estimate, we would of course have to
 poll more people, e.g., a sample of size 10,000 would give
@@ -634,7 +689,7 @@ errors of ±0.1% (assuming people don’t change their minds
 in the meantime).</p>
 </div>
 <div class="section" id="pareto-charts">
-<h4><span class="section-number">9.2.2.4. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">9.2.2.5. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this headline">¶</a></h4>
 <p>As a general (empirical) rule, it is usually the case
 that most instances of something’s happening (usually 70–90%)
 are due to only few causes (10–30%). This is known as the <em>Pareto rule</em>
@@ -648,21 +703,21 @@ with 10,000 or more inhabitants) is home to as much as
 <p>Here is a <a class="reference external" href="https://www.cec.health.nsw.gov.au/CEC-Academy/quality-improvement-tools/pareto-charts">dataset</a> fabricated by the
 Clinical Excellence Commission in New South Wales, Australia,
 listing the most frequent causes for medication errors:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="s2">&quot;Unauthorised drug&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong IV rate&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong patient&quot;</span><span class="p">,</span> <span class="s2">&quot;Dose missed&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Under dose&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong calculation&quot;</span><span class="p">,</span><span class="s2">&quot;Wrong route&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong drug&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Wrong time&quot;</span><span class="p">,</span> <span class="s2">&quot;Technique error&quot;</span><span class="p">,</span> <span class="s2">&quot;Duplicated drugs&quot;</span><span class="p">,</span> <span class="s2">&quot;Over dose&quot;</span>
 <span class="p">])</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">59</span><span class="p">])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>  <span class="c1"># total number of medication errors</span>
+<span class="n">counts_med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">59</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts_med</span><span class="p">)</span>  <span class="c1"># total number of medication errors</span>
 <span class="c1">## 430</span>
 </pre></div>
 </div>
 <p>Let’s order the dataset with respect to the counts, decreasingly:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">counts</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># ordering permutation (reversed = decreasing)</span>
-<span class="n">categories</span> <span class="o">=</span> <span class="n">categories</span><span class="p">[</span><span class="n">o</span><span class="p">]</span>  <span class="c1"># order categories based on counts</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">o</span><span class="p">]</span>  <span class="c1"># equivalent to np.sort(counts)[::-1]</span>
-<span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">counts_med</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># ordering permutation (decreasing)</span>
+<span class="n">cat_med</span> <span class="o">=</span> <span class="n">cat_med</span><span class="p">[</span><span class="n">o</span><span class="p">]</span>  <span class="c1"># order categories based on counts</span>
+<span class="n">counts_med</span> <span class="o">=</span> <span class="n">counts_med</span><span class="p">[</span><span class="n">o</span><span class="p">]</span>  <span class="c1"># equivalent to np.sort(counts_med)[::-1]</span>
+<span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cat_med</span><span class="p">,</span> <span class="n">counts_med</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="si">:</span><span class="s2">20</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">:</span><span class="s2">2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="c1">## Dose missed         : 92</span>
 <span class="c1">## Wrong time          : 83</span>
@@ -687,15 +742,15 @@ They are based on bar plots, but feature some extras:</p>
 </ul>
 <p>The plotting of the Pareto chart is a little tricky,
 because it involves using two different Y axes:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">categories</span><span class="p">))</span>  <span class="c1"># 0, 1, 2, ...</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="n">counts</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>  <span class="c1"># percentages</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_med</span><span class="p">))</span>  <span class="c1"># 0, 1, 2, ...</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="n">counts_med</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts_med</span><span class="p">)</span>  <span class="c1"># percentages</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">cat_med</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
 
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>  <span class="c1"># this creates a new coordinate system with a shared X axis</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>  <span class="c1"># creates a new coordinate system with a shared x-axis</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="s2">&quot;ro-&quot;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;cumulative %&quot;</span><span class="p">)</span>
@@ -705,15 +760,15 @@ because it involves using two different Y axes:</p>
 <span class="c1">## &lt;BarContainer object of 12 artists&gt;</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id5">
-<span id="fig-260-categorical-uni-21"></span><img alt="../_images/260-categorical-uni-21-9.png" src="../_images/260-categorical-uni-21-9.png" />
-<p class="caption"><span class="caption-number">Figure 9.5 </span><span class="caption-text">plot of chunk 260-categorical-uni-21</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id12">
+<span id="fig-260-categorical-uni-22"></span><img alt="../_images/260-categorical-uni-22-9.png" src="../_images/260-categorical-uni-22-9.png" />
+<p class="caption"><span class="caption-number">Figure 9.5 </span><span class="caption-text">plot of chunk 260-categorical-uni-22</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 <p>As usual, fine-tuning of the figure and studying the manual
 of the <strong class="program">matplotlib</strong> package is left as an exercise.</p>
 <p>From the figure, we can read that 5 causes (less than 40%) correspond
 to ca. 85% of the medication errors:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">cumprob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="mi">1</span><span class="p">)):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">cumprob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cat_med</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="mi">1</span><span class="p">)):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="si">:</span><span class="s2">20</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cumprob</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 <span class="c1">## Dose missed         :  21.4%</span>
 <span class="c1">## Wrong time          :  40.7%</span>
@@ -750,22 +805,24 @@ left is the <em>mode</em>, i.e., the most frequently occurring value.</p>
 <h4><span class="section-number">9.2.3.1. </span>Categorical Data<a class="headerlink" href="#categorical-data" title="Permalink to this headline">¶</a></h4>
 <p>There is one more measure of central tendency worth mentioning.
 Namely, a <em>mode</em> is a most frequently occurring value.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">categories</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">counts</span><span class="p">)]</span>
-<span class="c1">## &#39;PL&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">counts_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">counts_cntrs16</span><span class="p">)]</span>
+<span class="c1">## &#39;KE&#39;</span>
 </pre></div>
 </div>
-<p>Recall that if <code class="docutils literal notranslate"><span class="pre">i</span></code> is <code class="docutils literal notranslate"><span class="pre">argmax(counts)</span></code> (<em>argument maximum</em>),
+<p>Recall that if <code class="docutils literal notranslate"><span class="pre">i</span></code> is <code class="docutils literal notranslate"><span class="pre">argmax(counts)</span></code> (<em>argument maximum</em>, i.e.,
+where is it?),
 then <code class="docutils literal notranslate"><span class="pre">counts[i]</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">max(counts)</span></code>
-and <code class="docutils literal notranslate"><span class="pre">categories[i]</span></code> is the category with the greatest counts.</p>
-<blockquote>
-<div><p><strong>Important.</strong> A mode might be ambiguous.</p>
-</div></blockquote>
+and <code class="docutils literal notranslate"><span class="pre">cat[i]</span></code> is the category with the greatest counts.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A mode might be ambiguous.</p>
+</div>
 <p>For instance, amongst the fastest 22 runners,
 there is a tie between Kenya and Poland – both meet our definition
 of a mode:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">categories2</span><span class="p">,</span> <span class="n">counts2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">countries</span><span class="p">[:</span><span class="mi">22</span><span class="p">],</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">categories2</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">counts2</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">counts2</span><span class="p">))]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs22</span><span class="p">,</span> <span class="n">counts_cntrs22</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs</span><span class="p">[:</span><span class="mi">22</span><span class="p">],</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cat_cntrs22</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">counts_cntrs22</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">counts_cntrs22</span><span class="p">))]</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
 </pre></div>
 </div>
@@ -788,14 +845,17 @@ for example the middle of this interval as the mode.</p>
 on the binning (recall that we can also apply logarithmic binning).
 Thus, the question “what is the most popular income” is overall quite
 difficult to answer.</p>
-<blockquote>
-<div><p><strong>Exercise.</strong>
-Compute some potentially informative modes for
+<div class="proof proof-type-exercise" id="id13">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.8</span>
+        
+    </div><div class="proof-content">
+<p>Compute some potentially informative modes for
 the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/%5Cteaching_data/master/marek/uk_income_simulated_2020.txt">2020 UK income</a> data.
 Play around with different numbers
 of bins for linear and logarithmic binning and see how it affects the mode.</p>
-</div></blockquote>
-</div>
+</div></div></div>
 <div class="section" id="ordinal-data">
 <h4><span class="section-number">9.2.3.3. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this headline">¶</a></h4>
 <p>In case where the categories can be linearly ordered,
@@ -812,8 +872,13 @@ be equal to 3.5.</p>
 labels to consecutive integers is far from optimal – because
 it gives the impression that the “distance” between different
 levels is always equal (linear).</p>
-<blockquote>
-<div><p>(**) <strong>Exercise.</strong>
+<div class="proof proof-type-exercise" id="id14">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.9</span>
+        
+    </div><div class="proof-content">
+<p>(**)
 The <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/grades_results.txt">grades_results</a> represents the grades (F, P, C, D, HD)
 of 100 students attending an imaginary course in a virtual Australian
 university. How would you determine the <em>average</em> grade represented as
@@ -824,8 +889,7 @@ Come up with a pessimistic, optimistic, and a best-shot estimate
 and then compare your result
 to the true corresponding scores listed in the
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/grades_scores.txt">grades_scores</a> dataset.</p>
-</div></blockquote>
-</div>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="binary-data-and-logical-vectors">
@@ -835,12 +899,13 @@ where we only have two categories.</p>
 <p>For convenience, we usually encode the two classes
 as integer 0 (or logical <code class="docutils literal notranslate"><span class="pre">False</span></code>, e.g., healthy/fail/off/non-spam/absent/…)
 and 1 (or <code class="docutils literal notranslate"><span class="pre">True</span></code>, e.g., ill/success/on/spam/present/…).</p>
-<blockquote>
-<div><p><strong>Important.</strong> When converting
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When converting
 logical to numeric, <code class="docutils literal notranslate"><span class="pre">False</span></code> becomes 0 and <code class="docutils literal notranslate"><span class="pre">True</span></code> becomes 1.
 Conversely, 0 is converted to <code class="docutils literal notranslate"><span class="pre">False</span></code> and anything else (including -0.327)
 to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-</div></blockquote>
+</div>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="c1">## array([1, 0, 1, 1, 0])</span>
@@ -853,33 +918,40 @@ to <code class="docutils literal notranslate"><span class="pre">True</span></cod
 <span class="c1">## array([ True,  True,  True, False,  True,  True,  True])</span>
 </pre></div>
 </div>
-<p>Perhaps the most useful arithmetic operation on
+<div style="margin-top: 1em"></div><p>Perhaps the most useful arithmetic operation on
 logical vectors is the sum.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">countries</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
-<span class="n">x</span>  <span class="c1"># recall</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16</span> <span class="o">=</span> <span class="n">cntrs</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">cntrs16</span>  <span class="c1"># recall</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
 <span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;KE&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cntrs16</span> <span class="o">==</span> <span class="s2">&quot;KE&quot;</span><span class="p">)</span>
 <span class="c1">## 7</span>
 </pre></div>
 </div>
-<p>is the number of elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> that are equal to <code class="docutils literal notranslate"><span class="pre">&quot;KE&quot;</span></code>
+<p>is the number of elements in <code class="docutils literal notranslate"><span class="pre">cntrs16</span></code> that are equal to <code class="docutils literal notranslate"><span class="pre">&quot;KE&quot;</span></code>
 (because the sum of 0s and 1s is equal to the number of 1s in the sequence).
-Note that <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">==</span> <span class="pre">&quot;KE&quot;)</span></code> is a logical vector that
+Note that <code class="docutils literal notranslate"><span class="pre">(cntrs16</span> <span class="pre">==</span> <span class="pre">&quot;KE&quot;)</span></code> is a logical vector that
 represents a binary categorical variable
 with levels: not-Kenya (<code class="docutils literal notranslate"><span class="pre">False</span></code>) and Kenya (<code class="docutils literal notranslate"><span class="pre">True</span></code>).</p>
-<p>If we divide the above result by the length of the vector,
+<div style="margin-top: 1em"></div><p>If we divide the above result by the length of the vector,
 we will get the proportion:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;KE&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cntrs16</span> <span class="o">==</span> <span class="s2">&quot;KE&quot;</span><span class="p">)</span>
 <span class="c1">## 0.4375</span>
 </pre></div>
 </div>
 <p>Hence, almost 44% amongst the top 16 runners are from Kenya.</p>
-<blockquote>
-<div><p><strong>Exercise.</strong> What is the meaning of
-<strong class="command">numpy.all</strong>, <strong class="command">numpy.any</strong>, <strong class="command">numpy.min</strong>, <strong class="command">numpy.max</strong>,
-<strong class="command">numpy.cumsum</strong>, and <strong class="command">numpy.cumprod</strong> applied on logical vectors?</p>
-</div></blockquote>
+<div class="proof proof-type-exercise" id="id15">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.10</span>
+        
+    </div><div class="proof-content">
+<p>What is the meaning of
+<strong class="command">numpy.all</strong>, <strong class="command">numpy.any</strong>, <strong class="command">numpy.min</strong>,
+<strong class="command">numpy.max</strong>, <strong class="command">numpy.cumsum</strong>, and
+<strong class="command">numpy.cumprod</strong> applied on logical vectors?</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>(**)  Having the 0/1 (or zero/nonzero) vs <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">True</span></code> correspondence
 allows us to perform some logical operations using
 integer arithmetic.
@@ -897,49 +969,50 @@ and <code class="docutils literal notranslate"><span class="pre">p*q</span> <spa
 <li><p><code class="docutils literal notranslate"><span class="pre">p*a</span> <span class="pre">+</span> <span class="pre">(1-p)*b</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">a</span></code> if <code class="docutils literal notranslate"><span class="pre">p</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and equal to <code class="docutils literal notranslate"><span class="pre">b</span></code> otherwise.</p></li>
 </ul>
 </div>
+</div>
 <div class="section" id="questions">
 <h2><span class="section-number">9.4. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
-<div class="proof proof-type-exercise" id="id6">
+<div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.1</span>
+        <span class="proof-type">Exercise 9.11</span>
         
     </div><div class="proof-content">
 <p>Does it make sense to compute the arithmetic mean of a categorical
 variable?</p>
-</div></div><div class="proof proof-type-exercise" id="id7">
+</div></div><div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.2</span>
+        <span class="proof-type">Exercise 9.12</span>
         
     </div><div class="proof-content">
 <p>Name the basic use cases for categorical data.</p>
-</div></div><div class="proof proof-type-exercise" id="id8">
+</div></div><div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.3</span>
+        <span class="proof-type">Exercise 9.13</span>
         
     </div><div class="proof-content">
 <p>(*) What is a Pareto chart?</p>
-</div></div><div class="proof proof-type-exercise" id="id9">
+</div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.4</span>
+        <span class="proof-type">Exercise 9.14</span>
         
     </div><div class="proof-content">
 <p>How to deal with the case of the mode being nonunique?</p>
-</div></div><div class="proof proof-type-exercise" id="id10">
+</div></div><div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.5</span>
+        <span class="proof-type">Exercise 9.15</span>
         
     </div><div class="proof-content">
 <p>What is the meaning of <strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">((x</span> <span class="pre">&gt;</span> <span class="pre">0)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&lt;</span> <span class="pre">1))</span></code>, where
 <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?</p>
-</div></div><div class="proof proof-type-exercise" id="id11">
+</div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.6</span>
+        <span class="proof-type">Exercise 9.16</span>
         
     </div><div class="proof-content">
 <p>What is the meaning of the sum and mean for binary data (logical vectors)?</p>
@@ -962,7 +1035,7 @@ variable?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-03-29T16:43:07+1100.
+        Last updated on 2022-03-30T18:08:41+1100.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
