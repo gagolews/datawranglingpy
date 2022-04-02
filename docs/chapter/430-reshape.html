@@ -64,7 +64,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1.1]
           
 
           
@@ -117,34 +117,33 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introduction to Vectors in <strong class="program">numpy</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introducing Vectors in <strong class="program">numpy</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregation of Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introduction to Matrices in <strong class="program">numpy</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introduction to Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introducing Data Frames in <strong class="program">pandas</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">13. 🚧 Basic Operations on Data Frames</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">14. 🚧 Reshaping and Fusing Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#sorting">14.1. Sorting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stacking-and-unstacking">14.2. Stacking and Unstacking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-theoretic-operations">14.3. Set-Theoretic Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#joining-merging">14.4. Joining (Merging)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#further-reading">14.5. Further Reading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#questions">14.6. Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">14.5. Questions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="440-categorical.html">15. Handling Categorical Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="450-groupby.html">16. 🚧 Observation Grouping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Database Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-groupby.html">16. Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
@@ -179,7 +178,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1.1]</a>
         
       </nav>
 
@@ -252,7 +251,7 @@ refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <p>In this part we discuss some further ways to transform
 data frames, that benefit from, make sense because of,
 or are possible due to their being able to store
-heterogeneous data.</p>
+data of different types.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.notebook_repr_html&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># disable &quot;rich&quot; output</span>
@@ -353,26 +352,40 @@ with respect to one:</p>
 <span class="c1">## 18  Morwell South      NO2   5.124430</span>
 </pre></div>
 </div>
-<p>Note that in the latter example,
-in each group of identical parameters,
+<p>Note that here, in each group of identical parameters,
 we get a decreasing order with respect to the value.</p>
-<blockquote>
-<div><p>(*) <strong>Exercise.</strong>
+<div class="proof proof-type-exercise" id="id2">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.1</span>
+        
+    </div><div class="proof-content">
+<p>(*)
 Compare the ordering with respect to <code class="docutils literal notranslate"><span class="pre">param_id</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>
 vs <code class="docutils literal notranslate"><span class="pre">value</span></code> and then <code class="docutils literal notranslate"><span class="pre">param_id</span></code>.</p>
-</div></blockquote>
-<blockquote>
-<div><p>(**) <strong>Exercise.</strong> Perform
-identical reorderings but using only
+</div></div><div class="proof proof-type-exercise" id="id3">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.2</span>
+        
+    </div><div class="proof-content">
+<p>(**) Perform identical reorderings but using only
 <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, and <strong class="command">numpy.argsort</strong>.</p>
-</div></blockquote>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*) TODO:
+what is stable sort? sort manually using argsort and 2+ criteria</p>
+<p><strong class="command">DataFrame.sort_values</strong> uses a non-stable algorithm
+by default (a modified quicksort).</p>
+<p>pass <code class="docutils literal notranslate"><span class="pre">kind=&quot;stable&quot;</span></code> to switch to a mergesort-like method (timsort)</p>
+</div>
 </div>
 <div class="section" id="stacking-and-unstacking">
 <h2><span class="section-number">14.2. </span>Stacking and Unstacking<a class="headerlink" href="#stacking-and-unstacking" title="Permalink to this headline">¶</a></h2>
 <p>Note that the above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the so-called <em>long</em> format,
 where all measurements are <em>stacked</em> one after/below another.
 Such a form is quite convenient for the purpose of storing data,
-but not necessarily for all processing tasks.
+but not necessarily for all processing tasks, compare <span id="id1">[<a class="reference internal" href="999-bibliography.html#id31">Wic14</a>]</span>.
 Recall from the matrix part that a more natural way
 would be to have a single <em>observation</em> (e.g.,
 data for a measurement station) in each row.</p>
@@ -535,13 +548,22 @@ is relatively easy:</p>
 </pre></div>
 </div>
 <p>Not that there are no duplicate rows in the output.</p>
-<blockquote>
-<div><p><strong>Exercise.</strong> Determine
+<div class="proof proof-type-exercise" id="id4">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.3</span>
+        
+    </div><div class="proof-content">
+<p>Determine
 <span class="math notranslate nohighlight">\((A\cup B) \setminus (A\cap B) = (A\setminus B)\cup(B\setminus A)\)</span>
 (symmetric difference).</p>
-</div></blockquote>
-<blockquote>
-<div><p>(*) <strong>Exercise.</strong>
+</div></div><div class="proof proof-type-exercise" id="id5">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.4</span>
+        
+    </div><div class="proof-content">
+<p>(*)
 Determine the union, intersection, and difference of the
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_sample1.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample1</span></code></a>
 and
@@ -550,15 +572,20 @@ where there is no column uniquely identifying the observations.
 Hint: consider using
 <strong class="command">pandas.DataFrame.duplicated</strong> or
 <strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
-</div></blockquote>
-</div>
+</div></div></div>
 <div class="section" id="joining-merging">
 <h2><span class="section-number">14.4. </span>Joining (Merging)<a class="headerlink" href="#joining-merging" title="Permalink to this headline">¶</a></h2>
 <p>In database design, it is common to
 <a class="reference external" href="https://en.wikipedia.org/wiki/Database_normalization">normalise</a>
 the datasets in order to avoid the duplication of information
 and pathologies stemming from them.</p>
-<p>For example, the above air quality parameters
+<div class="proof proof-type-example" id="id6">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.5</span>
+        
+    </div><div class="proof-content">
+<p>The above air quality parameters
 are separately described in another data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/air_quality_2018_param.csv&quot;</span><span class="p">,</span>
@@ -583,7 +610,7 @@ but that would be a waste of space.</p>
 we would have to update all the relevant records.</p>
 <p>Instead, we can always look the information up by <code class="docutils literal notranslate"><span class="pre">param_id</span></code>
 and join (merge) the two data frames only if we need it.</p>
-<p>Let us discuss the possible join operations by studying
+</div></div><div style="margin-top: 1em"></div><p>Let us discuss the possible join operations by studying
 the two following data sets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a3&quot;</span><span class="p">],</span>
@@ -611,7 +638,8 @@ the two following data sets:</p>
 </pre></div>
 </div>
 <p>They both have one column somewhat <em>in common</em>, <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
-<p>The inner (natural) join returns the records that have a match in both datasets:</p>
+<p>The <em>inner (natural) join</em> returns the records that have a match in
+both datasets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x   y   z</span>
 <span class="c1">## 0  a0  b0  c0</span>
@@ -619,7 +647,7 @@ the two following data sets:</p>
 <span class="c1">## 2  a2  b2  c2</span>
 </pre></div>
 </div>
-<p>The  left join of <em>A</em> with <em>B</em> guarantees to return all the records from <em>A</em>,
+<p>The  <em>left join</em> of <em>A</em> with <em>B</em> guarantees to return all the records from <em>A</em>,
 even those which are not matched by anything in <em>B</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x   y    z</span>
@@ -630,7 +658,7 @@ even those which are not matched by anything in <em>B</em>.</p>
 <span class="c1">## 4  a3  b3  NaN</span>
 </pre></div>
 </div>
-<p>The right join of <em>A</em> with <em>B</em> is the same as the left join of <em>B</em> with <em>A</em>:</p>
+<p>The <em>right join</em> of <em>A</em> with <em>B</em> is the same as the left join of <em>B</em> with <em>A</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x    y   z</span>
 <span class="c1">## 0  a0   b0  c0</span>
@@ -639,7 +667,7 @@ even those which are not matched by anything in <em>B</em>.</p>
 <span class="c1">## 3  a4  NaN  c3</span>
 </pre></div>
 </div>
-<p>Finally, the full outer join is the set-theoretic
+<p>Finally, the <em>full outer join</em> is the set-theoretic
 union of the left and the right join:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x    y    z</span>
@@ -651,20 +679,33 @@ union of the left and the right join:</p>
 <span class="c1">## 5  a4  NaN   c3</span>
 </pre></div>
 </div>
-<blockquote>
-<div><p><strong>Exercise.</strong> Join
+<div class="proof proof-type-exercise" id="id7">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.6</span>
+        
+    </div><div class="proof-content">
+<p>Join
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_value.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_value</span></code></a>
 with <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_point.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_point</span></code></a>
 and <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_param.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_param</span></code></a>.</p>
-</div></blockquote>
-<blockquote>
-<div><p><strong>Exercise.</strong> Normalise
+</div></div><div class="proof proof-type-exercise" id="id8">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.7</span>
+        
+    </div><div class="proof-content">
+<p>Normalise
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
 yourself so that you get the three data frames mentioned in the previous
 exercise (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">point</span></code>, <code class="docutils literal notranslate"><span class="pre">param</span></code>).</p>
-</div></blockquote>
-<blockquote>
-<div><p>(*) <strong>Exercise.</strong>
+</div></div><div class="proof proof-type-exercise" id="id9">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.8</span>
+        
+    </div><div class="proof-content">
+<p>(*)
 In the National Health and Nutrition Examination Survey
 (NHANES) by the US Centres for Disease Control and Prevention,
 each participant is uniquely identified
@@ -677,51 +718,44 @@ which is mentioned in numerous datasets, including:</p>
 </ul>
 <p>and <a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/continuousnhanes/default.aspx?BeginYear=2017">many more</a>.
 Join a few chosen datasets that are to your liking.</p>
-</div></blockquote>
-</div>
-<div class="section" id="further-reading">
-<h2><span class="section-number">14.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
-<p>McKinney W. <em>Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython</em>, O’Reilly, 2017.</p>
-<p>Wickham H.
-Tidy Data. Journal of Statistical Software, 59 (10):1–23. 2014. https://doi.org/10.18637/jss.v059.i10.</p>
-</div>
+</div></div></div>
 <div class="section" id="questions">
-<h2><span class="section-number">14.6. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
-<div class="proof proof-type-exercise" id="id1">
+<h2><span class="section-number">14.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.1</span>
+        <span class="proof-type">Exercise 14.9</span>
         
     </div><div class="proof-content">
 <p>What is a train/test split and how to perform it using
 <strong class="program">numpy</strong> and <strong class="program">pandas</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id2">
+</div></div><div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.2</span>
+        <span class="proof-type">Exercise 14.10</span>
         
     </div><div class="proof-content">
 <p>What is the difference between stacking and unstacking?
 Which one yields a wide (as opposed to long) format?</p>
-</div></div><div class="proof proof-type-exercise" id="id3">
+</div></div><div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.3</span>
+        <span class="proof-type">Exercise 14.11</span>
         
     </div><div class="proof-content">
 <p>Name different data frame join (merge) operations and explain how
 they work.</p>
-</div></div><div class="proof proof-type-exercise" id="id4">
+</div></div><div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.4</span>
+        <span class="proof-type">Exercise 14.12</span>
         
     </div><div class="proof-content">
 <p>How does sorting with respect to more than one criterion work?</p>
-</div></div><div class="proof proof-type-exercise" id="id5">
+</div></div><div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.5</span>
+        <span class="proof-type">Exercise 14.13</span>
         
     </div><div class="proof-content">
 <p>Name the basic set-theoretic operations on data frames.</p>
@@ -744,7 +778,7 @@ they work.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-01T15:41:11+1100.
+        Last updated on 2022-04-02T21:04:15+1100.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
