@@ -13,7 +13,7 @@ yourself some time, some ideas might just not be obvious at first glance.
 Most likely, if I wrote X, came up with an assumption Y, or made a design
 choice Z, there have been strong reasons for it. Try to find them yourself.
 
-I am generally quite busy and might not have time to reply to queries
+I am generally quite busy and might have no time to reply to queries
 which have been clarified herein or in other easily accessible references;
 seeking answers on your own will help you become more independent;
 this is how we all learn, after all.

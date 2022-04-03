@@ -27,7 +27,7 @@
   
 
   
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/240-transform-uni.html" />
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/240-transform-vector.html" />
 
   
   <!--[if lt IE 9]>
@@ -143,11 +143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#sorting-and-ranking">7.4.1. Sorting and Ranking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes">7.4.2. Searching for Certain Indexes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cumulative-sums-and-iterated-differences">7.4.3. Cumulative Sums and Iterated Differences</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations">7.4.4. Vectorising Scalar Operations (*)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#list-comprehensions">7.4.4.1. List Comprehensions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#numpy-vectorize">7.4.4.2. <strong class="command">numpy.vectorize</strong></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations-with-list-comprehensions">7.4.4. Vectorising Scalar Operations with List Comprehensions (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#questions">7.5. Questions</a></li>
@@ -158,24 +154,23 @@
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">13. 🚧 Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">14. 🚧 Reshaping and Fusing Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-categorical.html">15. Handling Categorical Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="450-groupby.html">16. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">15. Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">18. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">19. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">20. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">21. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -263,7 +258,7 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="transforming-and-filtering-numeric-data">
-<span id="chap-transform-uni"></span><h1><span class="section-number">7. </span>Transforming and Filtering Numeric Data<a class="headerlink" href="#transforming-and-filtering-numeric-data" title="Permalink to this headline">¶</a></h1>
+<span id="chap-transform-vector"></span><h1><span class="section-number">7. </span>Transforming and Filtering Numeric Data<a class="headerlink" href="#transforming-and-filtering-numeric-data" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
 <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
@@ -299,7 +294,7 @@ it is thus time for the two remaining ones.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The same operations we are going to be applying on individual
-data frame columns in <a class="reference internal" href="420-transform-hetero.html#chap-transform-hetero"><span class="std std-numref">Chapter 13</span></a>.</p>
+data frame columns in <a class="reference internal" href="420-transform-df.html#chap-transform-df"><span class="std std-numref">Chapter 13</span></a>.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
@@ -636,8 +631,11 @@ plotting function in fact draws a series of straight line segments.</p>
         <span class="proof-type">Exercise 7.5</span>
         
     </div><div class="proof-content">
-<p>Based on the <code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020.txt</span></code> and
-<code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020.txt</span></code> datasets (discussed in the
+<p>Based on the
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_height_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020</span></code></a>
+and
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a>
+datasets (discussed in the
 part on histograms), using a single line of code,
 compute the vector of BMIs of all persons.</p>
 </div></div></div>
@@ -765,7 +763,9 @@ given vector in place, such as the <code class="docutils literal notranslate"><s
 <span class="c1">## array([1, 4, 2, 5, 6, 3, 7, 9, 8])</span>
 </pre></div>
 </div>
-<p>This sorted every second element in <code class="docutils literal notranslate"><span class="pre">y</span></code> ([6, 8, 1, 2, 7] → [1, 2, 6, 7, 8]).</p>
+<p>This sorted every second element in <code class="docutils literal notranslate"><span class="pre">y</span></code>
+(i.e., <code class="docutils literal notranslate"><span class="pre">[6,</span> <span class="pre">8,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">7]</span></code> was rearranged so as to obtain
+<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8]</span></code>).</p>
 <p>Indexing with an integer or logical vector always returns a copy.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="n">y</span>
@@ -779,7 +779,8 @@ given vector in place, such as the <code class="docutils literal notranslate"><s
 <h2><span class="section-number">7.4. </span>Other Operations<a class="headerlink" href="#other-operations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sorting-and-ranking">
 <h3><span class="section-number">7.4.1. </span>Sorting and Ranking<a class="headerlink" href="#sorting-and-ranking" title="Permalink to this headline">¶</a></h3>
-<p>The <strong class="command">numpy.sort</strong> function returns a sorted copy of the given vector.</p>
+<p>The <strong class="command">numpy.sort</strong> function returns a sorted copy of the given vector,
+i.e., determines the order statistics.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## array([10, 20, 30, 40, 50, 50])</span>
@@ -917,13 +918,11 @@ The resulting vector is 1 element shorter than the input one.</p>
 <div style="margin-top: 1em"></div><p>We often make use of cumulative sums and iterated differences when
 processing time series, e.g., stock exchange data
 (e.g., by how much the price changed since the previous day?;
-<a class="reference internal" href="540-time.html#sec-diff-ts"><span class="std std-numref">Section 21.3.1</span></a>)
+<a class="reference internal" href="540-time.html#sec-diff-ts"><span class="std std-numref">Section 20.3.1</span></a>)
 or cumulative distribution functions (<a class="reference internal" href="220-histogram.html#sec-cumhist"><span class="std std-numref">Section 5.3</span></a>).</p>
 </div>
-<div class="section" id="vectorising-scalar-operations">
-<h3><span class="section-number">7.4.4. </span>Vectorising Scalar Operations (*)<a class="headerlink" href="#vectorising-scalar-operations" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="list-comprehensions">
-<span id="sec-list-comprehension"></span><h4><span class="section-number">7.4.4.1. </span>List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="vectorising-scalar-operations-with-list-comprehensions">
+<span id="sec-list-comprehension"></span><h3><span class="section-number">7.4.4. </span>Vectorising Scalar Operations with List Comprehensions (*)<a class="headerlink" href="#vectorising-scalar-operations-with-list-comprehensions" title="Permalink to this headline">¶</a></h3>
 <p><em>List comprehensions</em> of the form
 <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">expression</span> </code><strong class="command">for</strong><code class="code docutils literal notranslate"> <span class="pre">name</span> </code><strong class="command">in</strong><code class="code docutils literal notranslate"> <span class="pre">iterable</span> <span class="pre">]</span></code>
 are part of base Python.
@@ -977,9 +976,8 @@ using vectorised <strong class="program">numpy</strong> functions.</p>
 using base Python lists,
 the <strong class="command">for</strong> loop and the <strong class="command">list.append</strong> method (start from
 an empty list which will store the result).</p>
-</div></div></div>
-<div class="section" id="numpy-vectorize">
-<h4><span class="section-number">7.4.4.2. </span><strong class="command">numpy.vectorize</strong><a class="headerlink" href="#numpy-vectorize" title="Permalink to this headline">¶</a></h4>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>There is also a tool which vectorises a scalar function
 so that it can be used on <strong class="program">numpy</strong> vectors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clip1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -1076,7 +1074,7 @@ How about <code class="docutils literal notranslate"><span class="pre">x[</span>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-02T21:04:15+1100.
+        Last updated on 2022-04-03T21:04:55+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

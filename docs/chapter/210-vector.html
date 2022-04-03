@@ -133,30 +133,29 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">13. 🚧 Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">14. 🚧 Reshaping and Fusing Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-categorical.html">15. Handling Categorical Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="450-groupby.html">16. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">15. Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">18. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">19. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">20. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">21. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -358,7 +357,7 @@ we have a sequence of integers:</p>
 emojis, mathematical symbols, etc.),
 each of no more than 5 code points in length.
 It is important to know this, because, as we will point out
-in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 18</span></a>, replacing any element with new content will
+in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 17</span></a>, replacing any element with new content will
 result in the too long strings’ truncation. This can be remedied by calling
 <code class="docutils literal notranslate"><span class="pre">x.astype(&quot;&lt;U10&quot;)</span></code>, for example.</p>
 </div>
@@ -425,12 +424,12 @@ for our using the <em>pseudo</em> prefix together with various probability
 distributions in a further part, so let’s now just quickly take
 note of a way to sample from the uniform distribution on the unit interval:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="c1">## array([0.27808649, 0.25451275, 0.45667376, 0.75843743, 0.56171939])</span>
+<span class="c1">## array([0.85709659, 0.87173731, 0.60287663, 0.05011559, 0.587176  ])</span>
 </pre></div>
 </div>
 <p>and picking values from a given set:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">## array([8, 5, 6])</span>
+<span class="c1">## array([8, 7, 2])</span>
 </pre></div>
 </div>
 <p>This gave 3 values from the set <em>{1, 2, …, 9}</em>, without replacement
@@ -525,6 +524,7 @@ and <span class="math notranslate nohighlight">\(x_{(n)}\)</span> is the maximum
 <span class="c1">## (1, 5)</span>
 </pre></div>
 </div>
+<p>We shall sometimes be referring to <span class="math notranslate nohighlight">\(x_{(i)}\)</span> as the <span class="math notranslate nohighlight">\(i\)</span>-th <em>order statistic</em>.</p>
 <p>Also, for to avoid the clutter of notation,
 in certain formulas we will be assuming that
 <span class="math notranslate nohighlight">\(x_{(0)}\)</span> is the same as <span class="math notranslate nohighlight">\(x_{(1)}\)</span>
@@ -582,7 +582,7 @@ over an ordinary Python list? What are the drawbacks?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-02T21:04:15+1100.
+        Last updated on 2022-04-03T21:04:55+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

@@ -140,30 +140,29 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">13. 🚧 Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">14. 🚧 Reshaping and Fusing Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-categorical.html">15. Handling Categorical Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="450-groupby.html">16. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">15. Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">18. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">19. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">20. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">21. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -277,9 +276,9 @@ conducted by the US Centres for Disease Control and Prevention.</p>
 </div>
 <p>Let’s preview a few randomly chosen observations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">## array([163.2, 168.5, 156.7, 152.7, 159.3, 158.6, 162.6, 187.8, 156.2,</span>
-<span class="c1">##        158.4, 158.5, 163.5, 160.4, 168.4, 155.5, 168.1, 171.7, 160.2,</span>
-<span class="c1">##        161.6, 157.5, 164.1, 168.8, 153.1, 173.4])</span>
+<span class="c1">## array([155.8, 160.7, 159.3, 152.8, 158.3, 162.5, 152.4, 167.1, 165.9,</span>
+<span class="c1">##        162.1, 153.9, 160.5, 164.2, 164.8, 169.3, 160. , 161.1, 152.3,</span>
+<span class="c1">##        165.1, 161.3, 162.4, 159.9, 156.2, 157.5])</span>
 </pre></div>
 </div>
 <p>This is an example of <em>quantitative</em> (numeric) data –
@@ -417,16 +416,16 @@ into each bin) instead of plotting them:</p>
 <p>Thus, there are 238 observations both in the
 [15460.95, 25171.9) and [25171.9, 34882.85) intervals.
 We will discuss the topic of manual data binning in greater detail
-in <a class="reference internal" href="440-categorical.html#chap-categorical"><span class="std std-numref">Chapter 15</span></a>.</p>
+in <a class="reference internal" href="430-categorical.html#chap-categorical"><span class="std std-numref">Chapter 14</span></a>.</p>
 </div></div><div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.2</span>
         
     </div><div class="proof-content">
-<p>There is also a
-<code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020.txt</span></code> dataset in the above folder,
-giving weights (in kgs) of the participants.
+<p>There is also the corresponding
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a>
+dataset in our data repository, giving weights (in kgs) of the participants.
 Draw a histogram. Does its shape resemble the
 <code class="docutils literal notranslate"><span class="pre">income</span></code> or <code class="docutils literal notranslate"><span class="pre">heights</span></code> distribution more?</p>
 </div></div></div>
@@ -718,7 +717,7 @@ Now the increases are geometrical: 10,000, 100,000, 1,000,000.</p>
 <p>This is a right-skewed distribution even on the logarithmic scale.
 Many real-world datasets have a similar behaviour,
 for instance, the frequencies of occurrences of words in books.
-In <a class="reference internal" href="440-categorical.html#sec-binning"><span class="std std-numref">Section 15.1.5</span></a> we will discuss the Pareto distribution
+In <a class="reference internal" href="430-categorical.html#sec-binning"><span class="std std-numref">Section 14.1.5</span></a> we will discuss the Pareto distribution
 family which
 yields similar histograms.</p>
 <div class="proof proof-type-exercise" id="id16">
@@ -796,7 +795,7 @@ to create bins of equal lengths on the log-scale.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-02T21:04:15+1100.
+        Last updated on 2022-04-03T21:04:55+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

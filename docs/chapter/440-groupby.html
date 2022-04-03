@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>16. Processing Data in Groups &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>15. Processing Data in Groups &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -27,7 +27,7 @@
   
 
   
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/450-groupby.html" />
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/440-groupby.html" />
 
   
   <!--[if lt IE 9]>
@@ -47,8 +47,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17. Accessing Databases" href="460-sql.html" />
-    <link rel="prev" title="15. Handling Categorical Data" href="440-categorical.html" /> 
+    <link rel="next" title="16. Accessing Databases" href="450-sql.html" />
+    <link rel="prev" title="14. Handling Categorical Data" href="430-categorical.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -118,40 +118,39 @@
 <li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introducing Vectors in <strong class="program">numpy</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">13. 🚧 Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">14. 🚧 Reshaping and Fusing Datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-categorical.html">15. Handling Categorical Data</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">16. Processing Data in Groups</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-groupby-methods">16.1. The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#aggregating-data-in-groups">16.1.1. Aggregating Data in Groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transforming-data-in-groups">16.1.2. Transforming Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">15. Processing Data in Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-groupby-methods">15.1. The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aggregating-data-in-groups">15.1.1. Aggregating Data in Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transforming-data-in-groups">15.1.2. Transforming Data in Groups</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">16.2. Plotting Data in Groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#manual-splitting-into-subgroups">16.3. Manual Splitting Into Subgroups (**)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#questions">16.4. Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">15.2. Plotting Data in Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manual-splitting-into-subgroups">15.3. Manual Splitting Into Subgroups (**)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">15.4. Questions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">18. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">19. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">20. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">21. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -212,7 +211,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">16. </span>Processing Data in Groups</li>
+      <li><span class="section-number">15. </span>Processing Data in Groups</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -226,10 +225,10 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="460-sql.html" class="btn btn-neutral float-right" title="17. Accessing Databases" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="450-sql.html" class="btn btn-neutral float-right" title="16. Accessing Databases" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
-        <a href="440-categorical.html" class="btn btn-neutral float-left" title="15. Handling Categorical Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="430-categorical.html" class="btn btn-neutral float-left" title="14. Handling Categorical Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
       
   </div>
   
@@ -239,7 +238,7 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="processing-data-in-groups">
-<span id="chap-groupby"></span><h1><span class="section-number">16. </span>Processing Data in Groups<a class="headerlink" href="#processing-data-in-groups" title="Permalink to this headline">¶</a></h1>
+<span id="chap-groupby"></span><h1><span class="section-number">15. </span>Processing Data in Groups<a class="headerlink" href="#processing-data-in-groups" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
 <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
@@ -292,11 +291,11 @@ it is likely that data distributions vary across different
 factor levels. This is much like having many data frames stored in one object.</p>
 <p><code class="docutils literal notranslate"><span class="pre">trees</span></code> is thus an example of heterogeneous data at their best.</p>
 <div class="section" id="the-groupby-methods">
-<h2><span class="section-number">16.1. </span>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods<a class="headerlink" href="#the-groupby-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">15.1. </span>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods<a class="headerlink" href="#the-groupby-methods" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are equipped with the <strong class="command">groupby</strong>
 methods, which assist in performing a wide range
 of popular operations in data groups defined by one
-or more data frame columns (compare <span id="id1">[<a class="reference internal" href="999-bibliography.html#id29">Wic11</a>]</span>).</p>
+or more data frame columns (compare <span id="id1">[<a class="reference internal" href="999-bibliography.html#id30">Wic11</a>]</span>).</p>
 <p>They return objects of class <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">))</span>
@@ -316,7 +315,7 @@ in the <strong class="program">pandas</strong> manual.</p>
 <div class="proof proof-type-exercise" id="id2">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.1</span>
+        <span class="proof-type">Exercise 15.1</span>
         
     </div><div class="proof-content">
 <p>Skim through the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/groupby.html">documentation</a> of the said classes.</p>
@@ -363,7 +362,7 @@ standalone columns:</p>
 <div class="proof proof-type-exercise" id="id3">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.2</span>
+        <span class="proof-type">Exercise 15.2</span>
         
     </div><div class="proof-content">
 <p><em>Unstack</em> the above
@@ -371,13 +370,13 @@ data frame (i.e., convert it from the <em>long</em> to the <em>wide</em> format)
 </div></div><div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.3</span>
+        <span class="proof-type">Exercise 15.3</span>
         
     </div><div class="proof-content">
 <p>(*) Note the difference between
 <strong class="command">pandas.GroupBy.count</strong> and <strong class="command">pandas.GroupBy.size</strong> methods.</p>
 </div></div><div class="section" id="aggregating-data-in-groups">
-<h3><span class="section-number">16.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">15.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
 with a number of well-known aggregation functions, for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -444,7 +443,7 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 </div>
 </div>
 <div class="section" id="transforming-data-in-groups">
-<h3><span class="section-number">16.1.2. </span>Transforming Data in Groups<a class="headerlink" href="#transforming-data-in-groups" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">15.1.2. </span>Transforming Data in Groups<a class="headerlink" href="#transforming-data-in-groups" title="Permalink to this headline">¶</a></h3>
 <p>We can easily transform individual columns
 relative to different data groups by means of the <strong class="command">transform</strong> method
 for <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects.</p>
@@ -472,7 +471,7 @@ the true diameter of 9.7 cm.</p>
 <div class="proof proof-type-exercise" id="id5">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.4</span>
+        <span class="proof-type">Exercise 15.4</span>
         
     </div><div class="proof-content">
 <p>Create a data frame comprised of 5 trees of largest diameters
@@ -481,10 +480,10 @@ near a street.</p>
 </div></div></div>
 </div>
 <div class="section" id="plotting-data-in-groups">
-<span id="sec-groupby-plot"></span><h2><span class="section-number">16.2. </span>Plotting Data in Groups<a class="headerlink" href="#plotting-data-in-groups" title="Permalink to this headline">¶</a></h2>
+<span id="sec-groupby-plot"></span><h2><span class="section-number">15.2. </span>Plotting Data in Groups<a class="headerlink" href="#plotting-data-in-groups" title="Permalink to this headline">¶</a></h2>
 <p>The <strong class="program">seaborn</strong> package is particularly convenient for
 plotting grouped data – it’s highly interoperable with <strong class="program">pandas</strong>.</p>
-<p>For example, <a class="reference internal" href="#fig-diameter-species"><span class="std std-numref">Figure 16.1</span></a> depicts a boxplot with four
+<p>For example, <a class="reference internal" href="#fig-diameter-species"><span class="std std-numref">Figure 15.1</span></a> depicts a boxplot with four
 boxes side by side:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">trees</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -492,28 +491,28 @@ boxes side by side:</p>
 </div>
 <div class="figure align-default" id="id6">
 <span id="fig-diameter-species"></span><img alt="../_images/diameter-species-1.png" src="../_images/diameter-species-1.png" />
-<p class="caption"><span class="caption-number">Figure 16.1 </span><span class="caption-text">Diameter at breast height for different tree species</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">Diameter at breast height for different tree species</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>Let us contemplate for a while how easy it is now to compare
 the diameter distributions of each species.</p>
 <div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.5</span>
+        <span class="proof-type">Exercise 15.5</span>
         
     </div><div class="proof-content">
 <p>Create a similar series of violin plots.</p>
 </div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.6</span>
+        <span class="proof-type">Exercise 15.6</span>
         
     </div><div class="proof-content">
 <p>Add the average diameters in each group to the
 above boxplot.</p>
-</div></div><p>In <a class="reference internal" href="#fig-species-location"><span class="std std-numref">Figure 16.2</span></a>, on the other hand,
+</div></div><p>In <a class="reference internal" href="#fig-species-location"><span class="std std-numref">Figure 15.2</span></a>, on the other hand,
 we have a bar plot representing a two way contingency table
-(obtained in a different way than in <a class="reference internal" href="440-categorical.html#chap-categorical"><span class="std std-numref">Chapter 15</span></a>):</p>
+(obtained in a different way than in <a class="reference internal" href="430-categorical.html#chap-categorical"><span class="std std-numref">Chapter 14</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span>
@@ -526,12 +525,12 @@ we have a bar plot representing a two way contingency table
 </div>
 <div class="figure align-default" id="id9">
 <span id="fig-species-location"></span><img alt="../_images/species-location-3.png" src="../_images/species-location-3.png" />
-<p class="caption"><span class="caption-number">Figure 16.2 </span><span class="caption-text">Number of trees for different locations and species</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 15.2 </span><span class="caption-text">Number of trees for different locations and species</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.7</span>
+        <span class="proof-type">Exercise 15.7</span>
         
     </div><div class="proof-content">
 <p>Row-bind (concatenate rowwisely) the
@@ -546,7 +545,7 @@ for a few chosen columns, where a study participant’s sex
 can be distinguished by the corresponding point’s colour.</p>
 </div></div></div>
 <div class="section" id="manual-splitting-into-subgroups">
-<h2><span class="section-number">16.3. </span>Manual Splitting Into Subgroups (**)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">15.3. </span>Manual Splitting Into Subgroups (**)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline">¶</a></h2>
 <p>Let us demonstrate how easily the splitting can be done manually
 without the use of <strong class="command">pandas</strong>, which in some cases
 can be limiting.
@@ -630,7 +629,7 @@ low-level way to perform splitting in case of more ambitious tasks.</p>
 <div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.8</span>
+        <span class="proof-type">Exercise 15.8</span>
         
     </div><div class="proof-content">
 <p>(**) Using <strong class="command">numpy.split</strong> and <strong class="command">matplotlib.pyplot.boxplot</strong>,
@@ -639,7 +638,7 @@ species (four boxes side by side).</p>
 </div></div><div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.9</span>
+        <span class="proof-type">Exercise 15.9</span>
         
     </div><div class="proof-content">
 <p>(**) Using <strong class="command">numpy.split</strong>, compute the z-scores of the <code class="docutils literal notranslate"><span class="pre">Diameter</span></code>
@@ -656,11 +655,11 @@ two criteria).</p>
 </div>
 </div>
 <div class="section" id="questions">
-<h2><span class="section-number">16.4. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">15.4. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
 <div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.10</span>
+        <span class="proof-type">Exercise 15.10</span>
         
     </div><div class="proof-content">
 <p>Name the data type of an object that the <strong class="command">DataFrame.groupby</strong> method
@@ -668,7 +667,7 @@ returns.</p>
 </div></div><div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.11</span>
+        <span class="proof-type">Exercise 15.11</span>
         
     </div><div class="proof-content">
 <p>What is the relationship between <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>,
@@ -676,7 +675,7 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
 </div></div><div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.12</span>
+        <span class="proof-type">Exercise 15.12</span>
         
     </div><div class="proof-content">
 <p>What are relative z-scores and how can we compute them?</p>
@@ -689,8 +688,8 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="460-sql.html" class="btn btn-neutral float-right" title="17. Accessing Databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="440-categorical.html" class="btn btn-neutral float-left" title="15. Handling Categorical Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="450-sql.html" class="btn btn-neutral float-right" title="16. Accessing Databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="430-categorical.html" class="btn btn-neutral float-left" title="14. Handling Categorical Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -699,7 +698,7 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-02T21:04:15+1100.
+        Last updated on 2022-04-03T21:04:55+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

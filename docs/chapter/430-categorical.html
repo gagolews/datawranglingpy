@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>15. Handling Categorical Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>14. Handling Categorical Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -27,7 +27,7 @@
   
 
   
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/440-categorical.html" />
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-categorical.html" />
 
   
   <!--[if lt IE 9]>
@@ -49,8 +49,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="16. Processing Data in Groups" href="450-groupby.html" />
-    <link rel="prev" title="14. 🚧 Reshaping and Fusing Datasets" href="430-reshape.html" /> 
+    <link rel="next" title="15. Processing Data in Groups" href="440-groupby.html" />
+    <link rel="prev" title="13. Basic Operations on Data Frames" href="420-transform-df.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -120,65 +120,64 @@
 <li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introducing Vectors in <strong class="program">numpy</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-uni.html">7. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-multi.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. 🚧 Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-hetero.html">13. 🚧 Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-reshape.html">14. 🚧 Reshaping and Fusing Datasets</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">15. Handling Categorical Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#representing-and-generating-categorical-data">15.1. Representing and Generating Categorical Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#encoding-and-decoding-factors">15.1.1. Encoding and Decoding Factors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#categorical-data-in-pandas">15.1.2. Categorical Data in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binary-data-and-logical-vectors">15.1.3. Binary Data and Logical Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#one-hot-encoding">15.1.4. One-Hot Encoding (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binning-numeric-data">15.1.5. Binning Numeric Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generating-pseudorandom-labels">15.1.6. Generating Pseudorandom Labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">14. Handling Categorical Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#representing-and-generating-categorical-data">14.1. Representing and Generating Categorical Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#encoding-and-decoding-factors">14.1.1. Encoding and Decoding Factors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#categorical-data-in-pandas">14.1.2. Categorical Data in <strong class="program">pandas</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-data-and-logical-vectors">14.1.3. Binary Data and Logical Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#one-hot-encoding">14.1.4. One-Hot Encoding (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binning-numeric-data">14.1.5. Binning Numeric Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generating-pseudorandom-labels">14.1.6. Generating Pseudorandom Labels</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#frequency-distributions">15.2. Frequency Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#counting">15.2.1. Counting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#two-way-contingency-tables-factor-combinations">15.2.2. Two-Way Contingency Tables: Factor Combinations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#combinations-of-even-more-factors">15.2.3. Combinations of Even More Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#frequency-distributions">14.2. Frequency Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#counting">14.2.1. Counting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#two-way-contingency-tables-factor-combinations">14.2.2. Two-Way Contingency Tables: Factor Combinations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combinations-of-even-more-factors">14.2.3. Combinations of Even More Factors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#visualising">15.3. Visualising</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bar-plots">15.3.1. Bar Plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#political-marketing-and-statistics">15.3.2. Political Marketing and Statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#error-bars">15.3.3. Error Bars (**)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pie-cha-don-t-even-trip">15.3.4. Pie Cha… Don’t Even Trip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pareto-charts">15.3.5. Pareto Charts (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#heat-maps">15.3.6. Heat Maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualising">14.3. Visualising</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bar-plots">14.3.1. Bar Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#political-marketing-and-statistics">14.3.2. Political Marketing and Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#error-bars">14.3.3. Error Bars (**)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pie-cha-don-t-even-trip">14.3.4. Pie Cha… Don’t Even Trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pareto-charts">14.3.5. Pareto Charts (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#heat-maps">14.3.6. Heat Maps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#aggregating">15.4. Aggregating</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#categorical-data">15.4.1. Categorical Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binary-data-as-logical-vectors">15.4.2. Binary Data as Logical Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binned-numeric-data">15.4.3. Binned Numeric Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ordinal-data">15.4.4. Ordinal Data (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#measuring-association">15.4.5. Measuring Association (*)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregating">14.4. Aggregating</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#categorical-data">14.4.1. Categorical Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-data-as-logical-vectors">14.4.2. Binary Data as Logical Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binned-numeric-data">14.4.3. Binned Numeric Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ordinal-data">14.4.4. Ordinal Data (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#measuring-association">14.4.5. Measuring Association (*)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#questions">15.5. Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">14.5. Questions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="450-groupby.html">16. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="460-sql.html">17. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">15. Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">18. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">19. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">20. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">21. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -239,7 +238,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">15. </span>Handling Categorical Data</li>
+      <li><span class="section-number">14. </span>Handling Categorical Data</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -253,10 +252,10 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="450-groupby.html" class="btn btn-neutral float-right" title="16. Processing Data in Groups" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="440-groupby.html" class="btn btn-neutral float-right" title="15. Processing Data in Groups" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
-        <a href="430-reshape.html" class="btn btn-neutral float-left" title="14. 🚧 Reshaping and Fusing Datasets" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="420-transform-df.html" class="btn btn-neutral float-left" title="13. Basic Operations on Data Frames" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
       
   </div>
   
@@ -266,7 +265,7 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="handling-categorical-data">
-<span id="chap-categorical"></span><h1><span class="section-number">15. </span>Handling Categorical Data<a class="headerlink" href="#handling-categorical-data" title="Permalink to this headline">¶</a></h1>
+<span id="chap-categorical"></span><h1><span class="section-number">14. </span>Handling Categorical Data<a class="headerlink" href="#handling-categorical-data" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
 <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
@@ -290,7 +289,7 @@ Usually, we can only determine
 where two entities are equal to each other or not (think: eye colour,
 blood type, or a flag whether a patient is ill).</p>
 <p>In datasets involving many features, which we shall cover
-in <a class="reference internal" href="450-groupby.html#chap-groupby"><span class="std std-numref">Chapter 16</span></a>, categorical variables
+in <a class="reference internal" href="440-groupby.html#chap-groupby"><span class="std std-numref">Chapter 15</span></a>, categorical variables
 are often used for observation <em>grouping</em> (e.g., so that
 we can compute the best and average time for marathoners in
 each age category or draw boxplots for finish times of
@@ -312,7 +311,7 @@ as “strongly disagree” &lt; “disagree” &lt; “neutral” &lt; “agree�
 </pre></div>
 </div>
 <div class="section" id="representing-and-generating-categorical-data">
-<h2><span class="section-number">15.1. </span>Representing and Generating Categorical Data<a class="headerlink" href="#representing-and-generating-categorical-data" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.1. </span>Representing and Generating Categorical Data<a class="headerlink" href="#representing-and-generating-categorical-data" title="Permalink to this headline">¶</a></h2>
 <p>Common ways to represent a categorical variable
 with <em>k</em> distinct levels is by storing it as:</p>
 <ul class="simple">
@@ -355,7 +354,7 @@ In other words, they are not listed in the order of appearance,
 which might be something desirable in certain contexts.</p>
 </div>
 <div class="section" id="encoding-and-decoding-factors">
-<h3><span class="section-number">15.1.1. </span>Encoding and Decoding Factors<a class="headerlink" href="#encoding-and-decoding-factors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.1.1. </span>Encoding and Decoding Factors<a class="headerlink" href="#encoding-and-decoding-factors" title="Permalink to this headline">¶</a></h3>
 <p>In order to <em>encode</em> a label vector through a set of consecutive nonnegative
 integers, we pass the <code class="docutils literal notranslate"><span class="pre">return_inverse=True</span></code> argument
 to <strong class="command">numpy.unique</strong>:</p>
@@ -401,7 +400,7 @@ indicate that there were no runners from Australia in the top 16.</p>
 <div class="proof proof-type-exercise" id="id1">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.1</span>
+        <span class="proof-type">Exercise 14.1</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -412,7 +411,7 @@ Then, encode <code class="docutils literal notranslate"><span class="pre">cntrs1
 and the <strong class="command">numpy.searchsorted</strong> function.</em></p>
 </div></div></div>
 <div class="section" id="categorical-data-in-pandas">
-<h3><span class="section-number">15.1.2. </span>Categorical Data in <strong class="program">pandas</strong><a class="headerlink" href="#categorical-data-in-pandas" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.1.2. </span>Categorical Data in <strong class="program">pandas</strong><a class="headerlink" href="#categorical-data-in-pandas" title="Permalink to this headline">¶</a></h3>
 <p><strong class="program">pandas</strong> <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/categorical.html">includes</a>
 a special <code class="docutils literal notranslate"><span class="pre">dtype</span></code> for storing categorical data.
 Namely, we can write:</p>
@@ -453,7 +452,7 @@ Most often, however, categorical data in data frames will be stored
 as ordinary strings.</p>
 </div>
 <div class="section" id="binary-data-and-logical-vectors">
-<span id="sec-binary-logical"></span><h3><span class="section-number">15.1.3. </span>Binary Data and Logical Vectors<a class="headerlink" href="#binary-data-and-logical-vectors" title="Permalink to this headline">¶</a></h3>
+<span id="sec-binary-logical"></span><h3><span class="section-number">14.1.3. </span>Binary Data and Logical Vectors<a class="headerlink" href="#binary-data-and-logical-vectors" title="Permalink to this headline">¶</a></h3>
 <p><em>Binary data</em> is a special case of the qualitative setting,
 where we only have two categories.</p>
 <p>For convenience, we usually encode the two classes
@@ -486,7 +485,7 @@ to <code class="docutils literal notranslate"><span class="pre">True</span></cod
 </div>
 </div>
 <div class="section" id="one-hot-encoding">
-<h3><span class="section-number">15.1.4. </span>One-Hot Encoding (*)<a class="headerlink" href="#one-hot-encoding" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.1.4. </span>One-Hot Encoding (*)<a class="headerlink" href="#one-hot-encoding" title="Permalink to this headline">¶</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> be vector of <em>n</em> integers in <span class="math notranslate nohighlight">\(\{0,...,k-1\}\)</span>.
 Its <em>one-hot</em> encoded version is a 0-1 (or, equivalently, logical)
 matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> of shape  <em>n</em> by <em>k</em>
@@ -513,20 +512,20 @@ in telling whether what it encounters is a given food or something else.</p>
 <div class="proof proof-type-example" id="id2">
 
     <div class="proof-title">
-        <span class="proof-type">Example 15.2</span>
+        <span class="proof-type">Example 14.2</span>
         
     </div><div class="proof-content">
 <p>Write a function to one-hot encode a given categorical vector.</p>
 </div></div><div class="proof proof-type-example" id="id3">
 
     <div class="proof-title">
-        <span class="proof-type">Example 15.3</span>
+        <span class="proof-type">Example 14.3</span>
         
     </div><div class="proof-content">
 <p>Write a function to decode a one-hot encoded matrix.</p>
 </div></div></div>
 <div class="section" id="binning-numeric-data">
-<span id="sec-binning"></span><h3><span class="section-number">15.1.5. </span>Binning Numeric Data<a class="headerlink" href="#binning-numeric-data" title="Permalink to this headline">¶</a></h3>
+<span id="sec-binning"></span><h3><span class="section-number">14.1.5. </span>Binning Numeric Data<a class="headerlink" href="#binning-numeric-data" title="Permalink to this headline">¶</a></h3>
 <p>Numerical data can be converted to categorical via
 binning (quantisation). This results in information (precision) loss,
 however, it also opens some new possibilities. In fact, this is what we needed
@@ -570,7 +569,7 @@ whereas code 3 – greater than or equal to the last bound:</p>
 <p><strong class="command">pandas.cut</strong> us another interface to the same binning method.
 It returns a vector-like object of <code class="docutils literal notranslate"><span class="pre">dtype</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;category&quot;</span></code>,
 with very readable labels generated automatically
-(and ordered, see <a class="reference internal" href="#sec-ordinal-data"><span class="std std-numref">Section 15.4.4</span></a>):</p>
+(and ordered, see <a class="reference internal" href="#sec-ordinal-data"><span class="std std-numref">Section 14.4.4</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cut_mins16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">mins16</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]))</span>
 <span class="n">cut_mins16</span>
 <span class="c1">## 0      (-inf, 130.0]</span>
@@ -599,7 +598,7 @@ with very readable labels generated automatically
 <div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.4</span>
+        <span class="proof-type">Exercise 14.4</span>
         
     </div><div class="proof-content">
 <p>(*) Check out the <strong class="command">numpy.histogram_bin_edges</strong>
@@ -613,7 +612,7 @@ on linear and logarithmic scale, respectively.</p>
 </div></div><div class="proof proof-type-example" id="id5">
 
     <div class="proof-title">
-        <span class="proof-type">Example 15.5</span>
+        <span class="proof-type">Example 14.5</span>
         
     </div><div class="proof-content">
 <p>(**) We can create a set of the corresponding categories manually,
@@ -627,7 +626,7 @@ for example, as follows:</p>
 <span class="c1">##        &#39;(150.0, inf]&#39;], dtype=&#39;&lt;U14&#39;)</span>
 </pre></div>
 </div>
-<p>Recall from <a class="reference internal" href="240-transform-uni.html#sec-list-comprehension"><span class="std std-numref">Section 7.4.4.1</span></a> that
+<p>Recall from <a class="reference internal" href="240-transform-vector.html#sec-list-comprehension"><span class="std std-numref">Section 7.4.4</span></a> that
 list comprehensions
 are a convenient substitute for a <strong class="command">for</strong> loop and
 the <strong class="command">list.append</strong> method. Recoding based on the above yields:</p>
@@ -642,7 +641,7 @@ the <strong class="command">list.append</strong> method. Recoding based on the a
 </div>
 </div></div></div>
 <div class="section" id="generating-pseudorandom-labels">
-<h3><span class="section-number">15.1.6. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.1.6. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this headline">¶</a></h3>
 <p>It is worth knowing that
 <strong class="command">numpy.random.choice</strong> allows us to create a pseudorandom sample
 of with categories picked with any probabilities:</p>
@@ -664,9 +663,9 @@ to be drawn in 5% of the cases, etc.</p>
 </div>
 </div>
 <div class="section" id="frequency-distributions">
-<h2><span class="section-number">15.2. </span>Frequency Distributions<a class="headerlink" href="#frequency-distributions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.2. </span>Frequency Distributions<a class="headerlink" href="#frequency-distributions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="counting">
-<h3><span class="section-number">15.2.1. </span>Counting<a class="headerlink" href="#counting" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.2.1. </span>Counting<a class="headerlink" href="#counting" title="Permalink to this headline">¶</a></h3>
 <p>For arbitrary categorical data, we can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">counts_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">counts_cntrs16</span>
@@ -712,11 +711,11 @@ vector of row labels):</p>
 <div class="proof proof-type-example" id="id6">
 
     <div class="proof-title">
-        <span class="proof-type">Example 15.6</span>
+        <span class="proof-type">Example 14.6</span>
         
     </div><div class="proof-content">
 <p>(*)
-In <a class="reference internal" href="510-text.html#sec-format-output"><span class="std std-numref">Section 18.5</span></a> we will discuss
+In <a class="reference internal" href="510-text.html#sec-format-output"><span class="std std-numref">Section 17.5</span></a> we will discuss
 <strong class="command">IPython.display.Markdown</strong> as a means to
 embed arbitrary Markdown code inside IPython/Jupyter reports.
 In the meantime, let us just note that nicely formatted
@@ -766,7 +765,7 @@ decreasingly.</p>
 <div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.7</span>
+        <span class="proof-type">Exercise 14.7</span>
         
     </div><div class="proof-content">
 <p>In <a class="reference internal" href="220-histogram.html#chap-histogram"><span class="std std-numref">Chapter 5</span></a>
@@ -782,7 +781,7 @@ on the whole <code class="docutils literal notranslate"><span class="pre">37_pzu
 </div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.8</span>
+        <span class="proof-type">Exercise 14.8</span>
         
     </div><div class="proof-content">
 <p>Using <strong class="command">numpy.argsort</strong>, sort
@@ -790,7 +789,7 @@ on the whole <code class="docutils literal notranslate"><span class="pre">37_pzu
 together with the corresponding items in <code class="docutils literal notranslate"><span class="pre">cat_cntrs16</span></code>.</p>
 </div></div></div>
 <div class="section" id="two-way-contingency-tables-factor-combinations">
-<h3><span class="section-number">15.2.2. </span>Two-Way Contingency Tables: Factor Combinations<a class="headerlink" href="#two-way-contingency-tables-factor-combinations" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.2.2. </span>Two-Way Contingency Tables: Factor Combinations<a class="headerlink" href="#two-way-contingency-tables-factor-combinations" title="Permalink to this headline">¶</a></h3>
 <p>Some datasets may feature many categorical columns,
 each having possibly different levels.
 Let us now consider a different slice of the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset,
@@ -851,7 +850,7 @@ can be recreated by computing the rowwise and columnwise sums.</p>
 </div>
 </div>
 <div class="section" id="combinations-of-even-more-factors">
-<h3><span class="section-number">15.2.3. </span>Combinations of Even More Factors<a class="headerlink" href="#combinations-of-even-more-factors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.2.3. </span>Combinations of Even More Factors<a class="headerlink" href="#combinations-of-even-more-factors" title="Permalink to this headline">¶</a></h3>
 <p><strong class="command">pandas.DataFrame.value_counts</strong> can also be used
 with a combination of more than 2 categorical variables:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span>\
@@ -873,19 +872,19 @@ with a combination of more than 2 categorical variables:</p>
 </pre></div>
 </div>
 <p>Of course, the display will be in the <em>long</em> format
-(compare <a class="reference internal" href="430-reshape.html#chap-reshape"><span class="std std-numref">Chapter 14</span></a>) here, as high-dimensional
+(compare <a class="reference internal" href="420-transform-df.html#sec-stack"><span class="std std-numref">Section 13.5</span></a>) here, as high-dimensional
 arrays are not nicely printable.</p>
 </div>
 </div>
 <div class="section" id="visualising">
-<h2><span class="section-number">15.3. </span>Visualising<a class="headerlink" href="#visualising" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.3. </span>Visualising<a class="headerlink" href="#visualising" title="Permalink to this headline">¶</a></h2>
 <p>Methods for visualising categorical data are by no means
 fascinating (unless we use them as grouping variables in more complex
-datasets, but this is a topic that we cover in <a class="reference internal" href="450-groupby.html#chap-groupby"><span class="std std-numref">Chapter 16</span></a>).</p>
+datasets, but this is a topic that we cover in <a class="reference internal" href="440-groupby.html#chap-groupby"><span class="std std-numref">Chapter 15</span></a>).</p>
 <div class="section" id="bar-plots">
-<h3><span class="section-number">15.3.1. </span>Bar Plots<a class="headerlink" href="#bar-plots" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.1. </span>Bar Plots<a class="headerlink" href="#bar-plots" title="Permalink to this headline">¶</a></h3>
 <p>Bar plots are self-explanatory and hence
-will do the trick most of the time, see <a class="reference internal" href="#fig-bar-country"><span class="std std-numref">Figure 15.1</span></a>.</p>
+will do the trick most of the time, see <a class="reference internal" href="#fig-bar-country"><span class="std std-numref">Figure 14.1</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat_cntrs16</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">counts_cntrs16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">cat_cntrs16</span><span class="p">)</span>
@@ -894,7 +893,7 @@ will do the trick most of the time, see <a class="reference internal" href="#fig
 </div>
 <div class="figure align-default" id="id9">
 <span id="fig-bar-country"></span><img alt="../_images/bar-country-1.png" src="../_images/bar-country-1.png" />
-<p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">Bar plot for the top 16 marathoners’ countries</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.1 </span><span class="caption-text">Bar plot for the top 16 marathoners’ countries</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">ind</span></code> vector gives the x-coordinates of the bars,
 here: consecutive integers.
@@ -903,14 +902,14 @@ we assign them readable labels.</p>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.9</span>
+        <span class="proof-type">Exercise 14.9</span>
         
     </div><div class="proof-content">
 <p>Assign a different colour to each bar.</p>
 </div></div><div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.10</span>
+        <span class="proof-type">Exercise 14.10</span>
         
     </div><div class="proof-content">
 <p>Draw a bar plot which features percentages instead
@@ -918,14 +917,14 @@ of counts, so that the total bar height is 100%.</p>
 </div></div><div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.11</span>
+        <span class="proof-type">Exercise 14.11</span>
         
     </div><div class="proof-content">
 <p>Print the frequency table and draw a bar plot for the top 100 marathoners’ countries.</p>
 </div></div><div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.12</span>
+        <span class="proof-type">Exercise 14.12</span>
         
     </div><div class="proof-content">
 <p>(*) Print the frequency table and draw a bar plot all the marathoners
@@ -934,7 +933,7 @@ There will be too many bars, therefore replace the few last bars
 with a single one, labelled “All other”.</p>
 </div></div><div style="margin-top: 1em"></div><p>A bar plot is a versatile tool for visualising
 the counts also in the two-variable case, see
-<a class="reference internal" href="#fig-bar-age-sex"><span class="std std-numref">Figure 15.2</span></a>:</p>
+<a class="reference internal" href="#fig-bar-age-sex"><span class="std std-numref">Figure 14.2</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span>\
     <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
@@ -943,36 +942,36 @@ the counts also in the two-variable case, see
 </div>
 <div class="figure align-default" id="id14">
 <span id="fig-bar-age-sex"></span><img alt="../_images/bar-age-sex-3.png" src="../_images/bar-age-sex-3.png" />
-<p class="caption"><span class="caption-number">Figure 15.2 </span><span class="caption-text">Number of runners by age category and sex in the top 1000</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.2 </span><span class="caption-text">Number of runners by age category and sex in the top 1000</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.13</span>
+        <span class="proof-type">Exercise 14.13</span>
         
     </div><div class="proof-content">
 <p>(*) Draw a similar chart using <strong class="command">matplotlib.pyplot.bar</strong>.</p>
 </div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.14</span>
+        <span class="proof-type">Exercise 14.14</span>
         
     </div><div class="proof-content">
 <p>(**)
 Create a stacked bar plot similar to the one
-in <a class="reference internal" href="#fig-stacked-bar"><span class="std std-numref">Figure 15.3</span></a>, where we have horizontal bars for
+in <a class="reference internal" href="#fig-stacked-bar"><span class="std std-numref">Figure 14.3</span></a>, where we have horizontal bars for
 data that have been normalised so that for each sex they sum to 100%.</p>
 <div class="figure align-default" id="id17">
 <span id="fig-stacked-bar"></span><img alt="../_images/stacked-bar-5.png" src="../_images/stacked-bar-5.png" />
-<p class="caption"><span class="caption-number">Figure 15.3 </span><span class="caption-text">Example stacked bar plot: Age distribution for different sexes amongst the top 1000 runners</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.3 </span><span class="caption-text">Example stacked bar plot: Age distribution for different sexes amongst the top 1000 runners</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 </div></div></div>
 <div class="section" id="political-marketing-and-statistics">
-<h3><span class="section-number">15.3.2. </span>Political Marketing and Statistics<a class="headerlink" href="#political-marketing-and-statistics" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.2. </span>Political Marketing and Statistics<a class="headerlink" href="#political-marketing-and-statistics" title="Permalink to this headline">¶</a></h3>
 <p>Even such a simple plot can be manipulated.
 For example, presidential elections were held in Poland in 2020.
 In the second round, Andrzej Duda had won against
-Rafał Trzaskowski. In <a class="reference internal" href="#fig-wybory1"><span class="std std-numref">Figure 15.4</span></a> we have the official results
+Rafał Trzaskowski. In <a class="reference internal" href="#fig-wybory1"><span class="std std-numref">Figure 14.4</span></a> we have the official results
 that might be presented
 by one of the infamous Polish TV conglomerate:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">51.03</span><span class="p">,</span> <span class="mf">48.97</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
@@ -985,11 +984,11 @@ by one of the infamous Polish TV conglomerate:</p>
 </div>
 <div class="figure align-default" id="id18">
 <span id="fig-wybory1"></span><img alt="../_images/wybory1-7.png" src="../_images/wybory1-7.png" />
-<p class="caption"><span class="caption-number">Figure 15.4 </span><span class="caption-text">Flawless victory!</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.4 </span><span class="caption-text">Flawless victory!</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 <p>Such a great victory! Wait… it was a close vote after all!
 We should just take a look at the y-axis tick marks.</p>
-<p>Another media outlet could have reported it like in <a class="reference internal" href="#fig-wybory2"><span class="std std-numref">Figure 15.5</span></a>:</p>
+<p>Another media outlet could have reported it like in <a class="reference internal" href="#fig-wybory2"><span class="std std-numref">Figure 14.5</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">51.03</span><span class="p">,</span> <span class="mf">48.97</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Duda&quot;</span><span class="p">,</span> <span class="s2">&quot;Trzaskowski&quot;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
@@ -1001,7 +1000,7 @@ We should just take a look at the y-axis tick marks.</p>
 </div>
 <div class="figure align-default" id="id19">
 <span id="fig-wybory2"></span><img alt="../_images/wybory2-9.png" src="../_images/wybory2-9.png" />
-<p class="caption"><span class="caption-number">Figure 15.5 </span><span class="caption-text">It was a draw, so close!</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.5 </span><span class="caption-text">It was a draw, so close!</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </div>
 <p>The moral of the story is:</p>
 <div class="admonition important">
@@ -1012,7 +1011,7 @@ this is unethical.</p>
 </div>
 </div>
 <div class="section" id="error-bars">
-<h3><span class="section-number">15.3.3. </span>Error Bars (**)<a class="headerlink" href="#error-bars" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.3. </span>Error Bars (**)<a class="headerlink" href="#error-bars" title="Permalink to this headline">¶</a></h3>
 <p>Occasionally, the data we have at hand are based on small surveys
 and are supposed to serve as estimates of what might be happening in
 a larger population.</p>
@@ -1025,7 +1024,7 @@ us with, for example, 95% confidence intervals for the true proportions
 For both candidates, they are within ca. ±3.1% from the
 sample estimates. It would be nice to inform the reader of the
 figure that we are uncertain about the truth. <em>Error bars</em>
-can serve this purpose, see <a class="reference internal" href="#fig-wybory3"><span class="std std-numref">Figure 15.6</span></a>.</p>
+can serve this purpose, see <a class="reference internal" href="#fig-wybory3"><span class="std std-numref">Figure 14.6</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">516</span><span class="p">,</span> <span class="mi">1017</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="o">*</span><span class="n">c</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Polls&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="o">*</span><span class="n">c</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="mf">3.1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
@@ -1039,7 +1038,7 @@ can serve this purpose, see <a class="reference internal" href="#fig-wybory3"><s
 </div>
 <div class="figure align-default" id="id20">
 <span id="fig-wybory3"></span><img alt="../_images/wybory3-11.png" src="../_images/wybory3-11.png" />
-<p class="caption"><span class="caption-number">Figure 15.6 </span><span class="caption-text">Pre-election polls, 50.74% wanted to vote for Duda (<em>c</em>=516 out of <em>n</em>=1017, with error ±3.1%)</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.6 </span><span class="caption-text">Pre-election polls, 50.74% wanted to vote for Duda (<em>c</em>=516 out of <em>n</em>=1017, with error ±3.1%)</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </div>
 <p>In order to improve the uncertainty of the estimates,
 we should of course have to gather more responses,
@@ -1052,7 +1051,7 @@ Therefore, in this case, the cited poll was very representative,
 but the final result could turn the other way.</p>
 </div>
 <div class="section" id="pie-cha-don-t-even-trip">
-<h3><span class="section-number">15.3.4. </span>Pie Cha… Don’t Even Trip<a class="headerlink" href="#pie-cha-don-t-even-trip" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.4. </span>Pie Cha… Don’t Even Trip<a class="headerlink" href="#pie-cha-don-t-even-trip" title="Permalink to this headline">¶</a></h3>
 <p>We are definitely not going to discuss the infamous
 pie charts, because
 their use in data analysis has been widely criticised for a long time
@@ -1061,7 +1060,7 @@ Case closed.
 Good morning.</p>
 </div>
 <div class="section" id="pareto-charts">
-<h3><span class="section-number">15.3.5. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.5. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this headline">¶</a></h3>
 <p>As a general (empirical) rule, it is usually the case
 that most instances of something’s happening (usually 70–90%)
 are due to only few causes (10–30%). This is known as the <em>Pareto rule</em>
@@ -1069,7 +1068,7 @@ are due to only few causes (10–30%). This is known as the <em>Pareto rule</em>
 <div class="proof proof-type-example" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Example 15.15</span>
+        <span class="proof-type">Example 14.15</span>
         
     </div><div class="proof-content">
 <p>In <a class="reference internal" href="250-distribution-uni.html#chap-distribution-uni"><span class="std std-numref">Chapter 8</span></a> we modelled
@@ -1144,9 +1143,9 @@ of the <strong class="program">matplotlib</strong> package is left as an exercis
 </div>
 <div class="figure align-default" id="id22">
 <span id="fig-pareto-chart"></span><img alt="../_images/pareto-chart-13.png" src="../_images/pareto-chart-13.png" />
-<p class="caption"><span class="caption-number">Figure 15.7 </span><span class="caption-text">The most frequent causes for medication errors</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.7 </span><span class="caption-text">The most frequent causes for medication errors</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </div>
-<p>From <a class="reference internal" href="#fig-pareto-chart"><span class="std std-numref">Figure 15.7</span></a>, we can read that 5 causes
+<p>From <a class="reference internal" href="#fig-pareto-chart"><span class="std std-numref">Figure 14.7</span></a>, we can read that 5 causes
 (less than 40%) correspond to ca. 85% of the medication errors.
 More precisely,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
@@ -1179,10 +1178,10 @@ they do, there is a hint above. However, coming up with something
 more effective yet so simple at the same time requires much more effort.</p>
 </div>
 <div class="section" id="heat-maps">
-<h3><span class="section-number">15.3.6. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.6. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline">¶</a></h3>
 <p>Two-way contingency tables can be depicted by means of a heatmap,
 where each count affects the corresponding cell’s colour intensity,
-see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std std-numref">Figure 15.8</span></a>.</p>
+see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std std-numref">Figure 14.8</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 <span class="n">v</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">))</span>
@@ -1191,12 +1190,12 @@ see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std
 </div>
 <div class="figure align-default" id="id23">
 <span id="fig-heat-map-marathon"></span><img alt="../_images/heat-map-marathon-15.png" src="../_images/heat-map-marathon-15.png" />
-<p class="caption"><span class="caption-number">Figure 15.8 </span><span class="caption-text">Heatmap for the top 1000 marathoners’ sex and age category</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 14.8 </span><span class="caption-text">Heatmap for the top 1000 marathoners’ sex and age category</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
 <div class="section" id="aggregating">
-<h2><span class="section-number">15.4. </span>Aggregating<a class="headerlink" href="#aggregating" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.4. </span>Aggregating<a class="headerlink" href="#aggregating" title="Permalink to this headline">¶</a></h2>
 <p>As we have already said, the only operation on categorical data
 that we can rely on is counting (because we have
 an equivalence relation on the set of labels and nothing more).
@@ -1204,7 +1203,7 @@ Therefore, as far as qualitative data aggregation is concerned,
 what we are with left is the <em>mode</em>, i.e., the most frequently
 occurring value.</p>
 <div class="section" id="categorical-data">
-<h3><span class="section-number">15.4.1. </span>Categorical Data<a class="headerlink" href="#categorical-data" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.4.1. </span>Categorical Data<a class="headerlink" href="#categorical-data" title="Permalink to this headline">¶</a></h3>
 <p>There is one more measure of central tendency worth mentioning.
 Namely, a <em>mode</em> is a most frequently occurring value.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">,</span> <span class="n">counts_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1234,7 +1233,7 @@ Alternatively, we can pick one
 at random (calling <strong class="command">numpy.random.choice</strong>).</p>
 </div>
 <div class="section" id="binary-data-as-logical-vectors">
-<h3><span class="section-number">15.4.2. </span>Binary Data as Logical Vectors<a class="headerlink" href="#binary-data-as-logical-vectors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.4.2. </span>Binary Data as Logical Vectors<a class="headerlink" href="#binary-data-as-logical-vectors" title="Permalink to this headline">¶</a></h3>
 <p>Perhaps the most useful arithmetic operation on
 logical vectors is the sum.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16</span> <span class="o">=</span> <span class="n">cntrs</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
@@ -1260,7 +1259,7 @@ we will get the proportion:</p>
 <div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.16</span>
+        <span class="proof-type">Exercise 14.16</span>
         
     </div><div class="proof-content">
 <p>What is the meaning of
@@ -1288,7 +1287,7 @@ and <code class="docutils literal notranslate"><span class="pre">p*q</span> <spa
 </div>
 </div>
 <div class="section" id="binned-numeric-data">
-<h3><span class="section-number">15.4.3. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.4.3. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this headline">¶</a></h3>
 <p>Note that generally modes do not work for continuous data,
 where repeated values are – at least theoretically – highly unlikely
 (unless someone does not report them with full digit precision).
@@ -1304,7 +1303,7 @@ difficult to answer.</p>
 <div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.17</span>
+        <span class="proof-type">Exercise 14.17</span>
         
     </div><div class="proof-content">
 <p>Compute some potentially informative modes for
@@ -1313,10 +1312,11 @@ Play around with different numbers
 of bins for linear and logarithmic binning and see how it affects the mode.</p>
 </div></div></div>
 <div class="section" id="ordinal-data">
-<span id="sec-ordinal-data"></span><h3><span class="section-number">15.4.4. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this headline">¶</a></h3>
+<span id="sec-ordinal-data"></span><h3><span class="section-number">14.4.4. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this headline">¶</a></h3>
 <p>The case where the categories can be linearly ordered,
 is called <em>ordinal data</em>.
 This gives a few more options as except for the mode,
+thanks to the existence of order statistics,
 we can also easily define sample quantiles.
 However, the standard methods for resolving ties will not work,
 hence we need to be careful.</p>
@@ -1334,7 +1334,7 @@ levels is always equal (linear).</p>
 <div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.18</span>
+        <span class="proof-type">Exercise 14.18</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -1372,7 +1372,7 @@ to the true corresponding scores listed in the
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/grades_scores.txt">grades_scores</a> dataset.</p>
 </div></div></div>
 <div class="section" id="measuring-association">
-<h3><span class="section-number">15.4.5. </span>Measuring Association (*)<a class="headerlink" href="#measuring-association" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.4.5. </span>Measuring Association (*)<a class="headerlink" href="#measuring-association" title="Permalink to this headline">¶</a></h3>
 <p>Let us consider Australian Bureau of Statistics’
 <a class="reference external" href="https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-first-results/2017-18">National Health Survey 2018</a>
 data on the prevalence of certain conditions
@@ -1445,7 +1445,7 @@ if the two variables were independent.</p>
 <div class="proof proof-type-example" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Example 15.19</span>
+        <span class="proof-type">Example 14.19</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1460,7 +1460,7 @@ Here is a way to compute Cramer’s <em>V</em> manually:</p>
 </div></div><div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.20</span>
+        <span class="proof-type">Exercise 14.20</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1473,11 +1473,11 @@ data grouped by sex and age).</p>
 </div></div></div>
 </div>
 <div class="section" id="questions">
-<h2><span class="section-number">15.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
 <div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.21</span>
+        <span class="proof-type">Exercise 14.21</span>
         
     </div><div class="proof-content">
 <p>Does it make sense to compute the arithmetic mean of a categorical
@@ -1485,28 +1485,28 @@ variable?</p>
 </div></div><div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.22</span>
+        <span class="proof-type">Exercise 14.22</span>
         
     </div><div class="proof-content">
 <p>Name the basic use cases for categorical data.</p>
 </div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.23</span>
+        <span class="proof-type">Exercise 14.23</span>
         
     </div><div class="proof-content">
 <p>(*) What is a Pareto chart?</p>
 </div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.24</span>
+        <span class="proof-type">Exercise 14.24</span>
         
     </div><div class="proof-content">
 <p>How to deal with the case of the mode being nonunique?</p>
 </div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.25</span>
+        <span class="proof-type">Exercise 14.25</span>
         
     </div><div class="proof-content">
 <p>What is the meaning of <strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">((x</span> <span class="pre">&gt;</span> <span class="pre">0)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&lt;</span> <span class="pre">1))</span></code>, where
@@ -1514,21 +1514,21 @@ variable?</p>
 </div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.26</span>
+        <span class="proof-type">Exercise 14.26</span>
         
     </div><div class="proof-content">
 <p>What is the meaning of the sum and mean for binary data (logical vectors)?</p>
 </div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.27</span>
+        <span class="proof-type">Exercise 14.27</span>
         
     </div><div class="proof-content">
 <p>List some ways to visualise multidimensional categorical data.</p>
 </div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.28</span>
+        <span class="proof-type">Exercise 14.28</span>
         
     </div><div class="proof-content">
 <p>(*) How is Cramer’s <em>V</em> defined and what values does it take?</p>
@@ -1541,8 +1541,8 @@ variable?</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="450-groupby.html" class="btn btn-neutral float-right" title="16. Processing Data in Groups" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="430-reshape.html" class="btn btn-neutral float-left" title="14. 🚧 Reshaping and Fusing Datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="440-groupby.html" class="btn btn-neutral float-right" title="15. Processing Data in Groups" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="420-transform-df.html" class="btn btn-neutral float-left" title="13. Basic Operations on Data Frames" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -1551,7 +1551,7 @@ variable?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-02T21:04:15+1100.
+        Last updated on 2022-04-03T21:04:55+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
