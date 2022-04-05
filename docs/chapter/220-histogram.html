@@ -136,12 +136,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#log-scale-and-heavy-tailed-distributions">5.4. Log-scale and Heavy-Tailed Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#questions">5.5. Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">5.5. Exercises</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (*)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
@@ -260,13 +260,13 @@ are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
-<p>Let’s assume that we have dozens of data points
-at hand, representing some measurements, such as heights or weights
-of patients in a clinic, salaries of employees, sizes of cities, etc.</p>
+<p>Let’s assume that we have dozens of data points at hand, representing some
+measurements, such as sensor readings for some industrial processes,
+body measures for patients in a clinic, salaries of employees,
+sizes of cities, etc.</p>
 <p>For instance, consider the heights of adult females (&gt;= 18 years old, in cm)
-in the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Longitudinal_study">longitudinal study</a> called
-National Health and Nutrition Examination Survey
+in the longitudinal study
+called National Health and Nutrition Examination Survey
 (<a class="reference external" href="https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx">NHANES</a>)
 conducted by the US Centres for Disease Control and Prevention.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -276,27 +276,26 @@ conducted by the US Centres for Disease Control and Prevention.</p>
 </div>
 <p>Let’s preview a few randomly chosen observations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">## array([155.8, 160.7, 159.3, 152.8, 158.3, 162.5, 152.4, 167.1, 165.9,</span>
-<span class="c1">##        162.1, 153.9, 160.5, 164.2, 164.8, 169.3, 160. , 161.1, 152.3,</span>
-<span class="c1">##        165.1, 161.3, 162.4, 159.9, 156.2, 157.5])</span>
+<span class="c1">## array([151.9, 153.4, 153.8, 165.5, 168.2, 153.8, 160.2, 164.4, 151.4,</span>
+<span class="c1">##        168.5, 166.9, 145.7, 156.2, 162.5, 155.1, 156.6, 157.5, 154.1,</span>
+<span class="c1">##        165. , 167.6, 161.8, 162. , 152. , 156. ])</span>
 </pre></div>
 </div>
-<p>This is an example of <em>quantitative</em> (numeric) data –
-as opposed to, e.g., <em>qualitative</em> (<em>categorical</em>) data
-which we shall cover later
-– we are dealing with a series of numbers on which it makes sense
-to apply various mathematical operations, such as subtraction,
-taking logarithms, etc.</p>
-<p>Looking at the numbers themselves (luckily there are not that many of them)
-tells us nothing. They’re gibberish. Thus, we yearn for methods that
-could extract some meaning from them.</p>
+<p>This is an example of <em>quantitative</em> (numeric) data
+in form of a series of numbers on which it makes sense
+to apply various mathematical operations such as subtraction,
+division, taking logarithms, comparing which one is greater than the other,
+and so forth.</p>
+<p>However, merely looking at the numbers themselves tells us nothing.
+There are too many of them. Thus, we yearn for methods that
+could help us find some structure therein.</p>
 <div class="section" id="histograms">
 <h2><span class="section-number">5.1. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://seaborn.pydata.org"><strong class="program">seaborn</strong></a> is a nice package
-for data visualisation written by Michael Waskom.
-It is build on top of <a class="reference external" href="https://matplotlib.org/"><strong class="program">matplotlib</strong></a>,
-which we will be using frequently.</p>
-<p>Let’s import both packages and set its traditional aliases:</p>
+<p><a class="reference external" href="https://seaborn.pydata.org"><strong class="program">seaborn</strong></a> is a package
+for statistical data visualisation written by Michael Waskom.
+It is build on top of the classic plotting library
+<a class="reference external" href="https://matplotlib.org/"><strong class="program">matplotlib</strong></a>.
+Let’s import both packages and set their traditional aliases:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
@@ -304,6 +303,11 @@ which we will be using frequently.</p>
 <span class="c1">## &#39;0.11.2&#39;</span>
 </pre></div>
 </div>
+<p>In the sequel, we will frequently be calling a single
+function from <strong class="program">seaborn</strong> and then performing a series
+of additional calls to <strong class="program">matplotlib</strong> to tweak the
+display details. It is important to remember that the former
+uses the latter to achieve its goals, not the other way around.</p>
 <div class="section" id="heights-a-bell-shaped-distribution">
 <h3><span class="section-number">5.1.1. </span><code class="docutils literal notranslate"><span class="pre">heights</span></code> – A Bell-Shaped Distribution<a class="headerlink" href="#heights-a-bell-shaped-distribution" title="Permalink to this headline">¶</a></h3>
 <p>A histogram is one of the most
@@ -635,12 +639,13 @@ ca. 162 cm tall (or that 40% are taller).</p>
 <div class="section" id="empirical-cumulative-distribution-function">
 <span id="sec-ecdf"></span><h3><span class="section-number">5.3.1. </span>Empirical Cumulative Distribution Function (*)<a class="headerlink" href="#empirical-cumulative-distribution-function" title="Permalink to this headline">¶</a></h3>
 <p>Very similar is the plot of the <em>empirical cumulative
-distribution function</em> (ECDF), which we denote as <span class="math notranslate nohighlight">\(\hat{F}_n\)</span>:</p>
+distribution function</em> (ECDF), which for a sample
+<span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> we denote as <span class="math notranslate nohighlight">\(\hat{F}_n\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">heights_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">heights_sorted</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s2">&quot;steps-post&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">hat</span><span class="si">{F}</span><span class="s2">_n(x)$, i.e., Prob(height $</span><span class="se">\\</span><span class="s2">leq$ x)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$t$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">hat</span><span class="si">{F}</span><span class="s2">_n(t)$, i.e., Prob(height $</span><span class="se">\\</span><span class="s2">leq$ t)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -648,19 +653,39 @@ distribution function</em> (ECDF), which we denote as <span class="math notransl
 <span id="fig-heights-ecdf"></span><img alt="../_images/heights-ecdf-15.png" src="../_images/heights-ecdf-15.png" />
 <p class="caption"><span class="caption-number">Figure 5.8 </span><span class="caption-text">Empirical cumulative distribution function for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
-<p>At any given point <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\hat{F}_n(x)\)</span> is a step function
+<p>At any given point <span class="math notranslate nohighlight">\(t\in\mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\hat{F}_n(t)\)</span> is a step function
 (we cannot see the steps in <a class="reference internal" href="#fig-heights-ecdf"><span class="std std-numref">Figure 5.8</span></a>,
 because the points are too plentiful) that
 gives the <em>proportion of observations in our sample that are not greater
-than <span class="math notranslate nohighlight">\(x\)</span></em>.</p>
+than <span class="math notranslate nohighlight">\(t\)</span></em>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{F}_n(t) = \frac{| i: x_i\le t |}{n}
+\]</div>
+<p>(read <span class="math notranslate nohighlight">\(| i: x_i\le t |\)</span> as the number of <span class="math notranslate nohighlight">\(i\)</span>s such that
+the corresponding <span class="math notranslate nohighlight">\(x_i\)</span> is greater than or equal to <span class="math notranslate nohighlight">\(t\)</span>)</p>
+<p>Given ordered inputs, <span class="math notranslate nohighlight">\(x_{(1)}\le x_{(2)}\le \dots\le x_{(n)}\)</span>,
+we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{F}_n(t) = \left\{
+\begin{array}{ll}
+0 &amp; \text{for }t&lt;x_{(1)}, \\
+k/n &amp; \text{for }x_{(k)} \le t&lt;x_{(k+1)}, \\
+1 &amp; \text{for }t\ge x_{(n)}. \\
+\end{array}
+\right.
+\end{split}\]</div>
 <p>Note that drawing the ECDF does not involve binning – we only need
 to arrange the observations in an ascending order.
-Then, the arithmetic progression <em>1/n, 2/n, … n</em> is plotted
+Then, assuming that all observations are unique (there are no ties),
+the arithmetic progression <em>1/n, 2/n, … n</em> is plotted
 against them.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(*) Quantiles that we introduce in <a class="reference internal" href="230-aggregate.html#sec-quantiles"><span class="std std-numref">Section 6.1.3</span></a> can be considered
-a generalised inverse of the (discontinuous!) ECDF.</p>
+<p>(*) Quantiles that we introduce in <a class="reference internal" href="230-aggregate.html#sec-quantiles"><span class="std std-numref">Section 6.1.3</span></a>
+can be considered a generalised inverse of the
+ECDF.</p>
 </div>
 </div>
 </div>
@@ -739,8 +764,8 @@ Use <strong class="command">numpy.geomspace</strong> and <strong class="command"
 logarithmic binning of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset manually, i.e.,
 to create bins of equal lengths on the log-scale.</p>
 </div></div></div>
-<div class="section" id="questions">
-<h2><span class="section-number">5.5. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exercises">
+<h2><span class="section-number">5.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
@@ -795,7 +820,7 @@ to create bins of equal lengths on the log-scale.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-03T21:04:55+1000.
+        Last updated on 2022-04-05T18:00:49+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

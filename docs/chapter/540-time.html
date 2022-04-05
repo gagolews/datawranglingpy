@@ -121,7 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. 🚧 Continuous Probability Distributions (**)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (*)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
@@ -166,7 +166,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#further-reading">20.5. Further Reading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#questions">20.6. Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">20.6. Exercises</a></li>
 </ul>
 </li>
 </ul>
@@ -371,14 +371,14 @@ Usually, we’ll be creating dates from strings, for instance:</p>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-04-03&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-04-05&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-04-03T10:56:57&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-04-05T08:00:02&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -390,9 +390,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let’s verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19085.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19087.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.64898342e+09])</span>
+<span class="c1">## array([7.2650000e+03, 1.6491456e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
@@ -402,10 +402,10 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-04-02&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-04-04&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-04-03T22:56:57&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-04-05T20:00:02&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -518,7 +518,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;MM/DD/Y
 <code class="docutils literal notranslate"><span class="pre">datetime64</span></code>.</p>
 </div></div></div>
 <div class="section" id="modelling-event-times-with-an-exponential-distribution">
-<h3><span class="section-number">20.2.4. </span>Modelling Event Times with an Exponential Distribution (**)<a class="headerlink" href="#modelling-event-times-with-an-exponential-distribution" title="Permalink to this headline">¶</a></h3>
+<span id="sec-exp-distrib"></span><h3><span class="section-number">20.2.4. </span>Modelling Event Times with an Exponential Distribution (**)<a class="headerlink" href="#modelling-event-times-with-an-exponential-distribution" title="Permalink to this headline">¶</a></h3>
 <p>The exponential distribution family is frequently used
 for modelling times between different events (i.e., deltas)
 under the assumption that a system generates on average a constant
@@ -531,11 +531,17 @@ it takes a bank teller to interact with a customer
 (note that there is a whole branch of applied mathematics –
 or should we refer to it more fashionably: data science –
 called queuing theory that deals with this type of modelling).</p>
-<p>An exponential family is identified by the scale parameter
-<em>s &gt; 0</em>, being at the same time its expected value (but be careful: some
-textbooks choose the parameter <em>λ=1/s</em> instead; also
-<strong class="program">scipy</strong> uses this convention).</p>
-<p>Here is a pseudorandom sample where there are 5 events per
+<div style="margin-top: 1em"></div><p>An exponential family is identified by the scale parameter
+<span class="math notranslate nohighlight">\(s &gt; 0\)</span>, being at the same time its expected value.
+The probability density function of Exp(<em>s</em>) is given by</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = \tfrac{1}{s} e^{-x/s}
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(x\ge 0\)</span> and <span class="math notranslate nohighlight">\(f(x)=0\)</span> otherwise.
+We should be careful: some textbooks choose the parametrisation by
+<span class="math notranslate nohighlight">\(\lambda=1/s\)</span> instead of <span class="math notranslate nohighlight">\(s\)</span>; also <strong class="program">scipy</strong> uses this convention.</p>
+<div style="margin-top: 1em"></div><p>Here is a pseudorandom sample where there are 5 events per
 minute on average:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
@@ -605,7 +611,8 @@ of events per hour.</p>
 <h2><span class="section-number">20.3. </span>Basic Operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="iterative-differences-and-cumulative-sums-revisited">
 <span id="sec-diff-ts"></span><h3><span class="section-number">20.3.1. </span>Iterative Differences and Cumulative Sums Revisited<a class="headerlink" href="#iterative-differences-and-cumulative-sums-revisited" title="Permalink to this headline">¶</a></h3>
-<p>Recall the <strong class="command">numpy.diff</strong> function and its almost-inverse, <strong class="command">numpy.cumsum</strong>.
+<p>Recall the <strong class="command">numpy.diff</strong> function and its almost-inverse,
+<strong class="command">numpy.cumsum</strong>.
 The former can turn a time series into a vector of <em>relative changes</em>
 (also called <em>deltas</em>, <span class="math notranslate nohighlight">\(\Delta_i=x_{i+1}-x_i\)</span>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">temps</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:]</span>  <span class="c1"># last 7 days</span>
@@ -765,9 +772,10 @@ the 2nd day.</p>
 </div>
 <div style="margin-top: 1em"></div><p>Applying the moving average has the nice effect of
 <em>smoothing</em> out all kinds of broadly-conceived noise.
-To illustrate this, consider
-the temperature data for the last 5 years,
-see <a class="reference internal" href="#fig-spokane-ma-linechart"><span class="std std-numref">Figure 20.5</span></a>.</p>
+To illustrate this, compare
+the temperature data for the last 5 years
+in <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 20.3</span></a> and in
+<a class="reference internal" href="#fig-spokane-ma-linechart"><span class="std std-numref">Figure 20.5</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span>
 <span class="n">x30</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">x100</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1236,8 +1244,8 @@ their toolkits somewhat overlap.</p>
 <p>For probabilistic modelling, see textbooks on
 stochastic processes, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id27">Tij03</a>]</span>.</p>
 </div>
-<div class="section" id="questions">
-<h2><span class="section-number">20.6. </span>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exercises">
+<h2><span class="section-number">20.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
@@ -1308,7 +1316,7 @@ popular colour models?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-03T21:04:55+1000.
+        Last updated on 2022-04-05T18:00:49+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
