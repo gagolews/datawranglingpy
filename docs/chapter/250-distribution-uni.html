@@ -858,6 +858,7 @@ with what we see in <a class="reference internal" href="#fig-fit-pareto"><span c
     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PDF of P(</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -874,7 +875,7 @@ a double-logarithmic scale.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">cities_sorted</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">quantiles</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">cities_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Quantiles of P(</span><span class="si">{alpha:.3f}</span><span class="s2">, </span><span class="si">{s}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Quantiles of P(</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sample quantiles&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
@@ -883,18 +884,48 @@ a double-logarithmic scale.</p>
 </div>
 <div class="figure align-default" id="id19">
 <span id="fig-qq-pareto"></span><img alt="../_images/qq-pareto-15.png" src="../_images/qq-pareto-15.png" />
-<p class="caption"><span class="caption-number">Figure 8.8 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 8.8 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">large_cites</span></code> dataset vs the fitted Paretian model</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </div>
 <p>We see that the populations of the largest cities are overestimated.
-It could be better, but the cities are still growing, right?</p>
-<div class="proof proof-type-exercise" id="id20">
+The model could be better, but the cities are still growing, right?</p>
+<div class="proof proof-type-example" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.4</span>
+        <span class="proof-type">Example 8.4</span>
         
     </div><div class="proof-content">
-<p>Compare the empirical and theoretical CDFs
-for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and its Paretian model.</p>
+<p>(*) It might also be interesting to see how well can we predict the
+probability of a randomly selected city being at least a given size.
+Let us thus denote with <span class="math notranslate nohighlight">\(S(x)=1-F(x)\)</span> the <em>complementary
+cumulative distribution function</em> (CCDF; sometimes referred to as
+the survival function)
+and with <span class="math notranslate nohighlight">\(\hat{S}_n(x)=1-\hat{F}_n(x)\)</span> its empirical version.
+<a class="reference internal" href="#fig-ccdf-pareto"><span class="std std-numref">Figure 8.9</span></a> compares the empirical and the fitted CCDFs
+with probabilities on the linear- and log-scale.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">1001</span><span class="p">)</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">probs</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;CCDF of P(</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cities_sorted</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">,</span>
+        <span class="n">drawstyle</span><span class="o">=</span><span class="s2">&quot;steps-post&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Empirical Complementary CDF&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">([</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Prob(city size &gt; x)&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id21">
+<span id="fig-ccdf-pareto"></span><img alt="../_images/ccdf-pareto-17.png" src="../_images/ccdf-pareto-17.png" />
+<p class="caption"><span class="caption-number">Figure 8.9 </span><span class="caption-text">Empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
+<p>In terms of the maximal absolute distance between the two functions,
+<span class="math notranslate nohighlight">\(D_n\)</span>, the fit is actually pretty good (this can be seen on the left plot,
+note that the log-scale overemphasises the relatively small differences
+in the right tail and should not be used for judging the value of <span class="math notranslate nohighlight">\(D_n\)</span>).</p>
 </div></div></div>
 <div class="section" id="uniform-distribution">
 <h3><span class="section-number">8.3.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline">¶</a></h3>
@@ -939,15 +970,15 @@ an outcome like <em>49.1253</em> as representing the 49th ball
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id21">
-<span id="fig-lotto"></span><img alt="../_images/lotto-17.png" src="../_images/lotto-17.png" />
-<p class="caption"><span class="caption-number">Figure 8.9 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id22">
+<span id="fig-lotto"></span><img alt="../_images/lotto-19.png" src="../_images/lotto-19.png" />
+<p class="caption"><span class="caption-number">Figure 8.10 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </div>
-<p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 8.9</span></a>, this model makes much sense, but again,
+<p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 8.10</span></a>, this model makes much sense, but again,
 some more rigorous statistical testing would be required to determine
 if someone hasn’t been tampering with the lottery results, i.e.,
 if data does not deviate from the uniform distribution significantly.</p>
-<div class="proof proof-type-exercise" id="id22">
+<div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.5</span>
@@ -1002,7 +1033,7 @@ pedestrian count peaks. This yields the PDF</p>
 f(x) = w_1 f_1(x) + w_2 f_2(x) + w_3 f_3(x)
 \]</div>
 <p>for some coefficients <span class="math notranslate nohighlight">\(w_1,w_2,w_3\ge 0\)</span> such that <span class="math notranslate nohighlight">\(w_1+w_2+w_3=1\)</span>.</p>
-<p><a class="reference internal" href="#fig-mixture"><span class="std std-numref">Figure 8.10</span></a> depicts a mixture of N(8, 1), N(12, 1), and N(17, 2)
+<p><a class="reference internal" href="#fig-mixture"><span class="std std-numref">Figure 8.11</span></a> depicts a mixture of N(8, 1), N(12, 1), and N(17, 2)
 with the corresponding weights of 0.35, 0.1, and 0.55.
 This particular data set is quite coarse-grained
 (we only have 24 bar heights at our disposal), therefore
@@ -1019,9 +1050,9 @@ with a pinch of chilli pepper.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id23">
-<span id="fig-mixture"></span><img alt="../_images/mixture-19.png" src="../_images/mixture-19.png" />
-<p class="caption"><span class="caption-number">Figure 8.10 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id24">
+<span id="fig-mixture"></span><img alt="../_images/mixture-21.png" src="../_images/mixture-21.png" />
+<p class="caption"><span class="caption-number">Figure 8.11 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1054,7 +1085,7 @@ independent (not related to each other) observations.</p>
 <p>When most people say <em>random</em>, they implicitly mean
 <em>uniformly distributed</em>. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="c1">## array([0.41903331, 0.74660597, 0.0743462 , 0.71079643, 0.08952946])</span>
+<span class="c1">## array([0.15480329, 0.96178346, 0.12136124, 0.10212563, 0.9191449 ])</span>
 </pre></div>
 </div>
 <p>gives 5 observations sampled independently
@@ -1062,7 +1093,7 @@ from the uniform distribution on the unit interval, i.e., U(0, 1).</p>
 <p>The same with <strong class="program">scipy</strong>, but this time the support will be
 <em>(-10, 15)</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># from -10 to -10+25</span>
-<span class="c1">## array([-3.23438272,  5.23331968, -0.79551626, -4.91133214, 13.17584692])</span>
+<span class="c1">## array([12.95982291, 14.99006346,  1.35955765, -0.53488358, 10.50205409])</span>
 </pre></div>
 </div>
 <p>Which we could as well have generated by manually shifting
@@ -1136,7 +1167,7 @@ of the 3σ rule).</p>
 e.g., <code class="docutils literal notranslate"><span class="pre">123</span></code>, or – when performing simulations – setting
 consecutive seeds for each iteration, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, …</p>
 </div>
-<div class="proof proof-type-exercise" id="id24">
+<div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.6</span>
@@ -1160,7 +1191,7 @@ function <span class="math notranslate nohighlight">\(F\)</span> can be construc
 </ol>
 <p>For more topics on random number generation, see <span id="id6">[<a class="reference internal" href="999-bibliography.html#id40">Gen03</a>, <a class="reference internal" href="999-bibliography.html#id42">RC04</a>]</span>.</p>
 </div>
-<div class="proof proof-type-exercise" id="id25">
+<div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.7</span>
@@ -1168,7 +1199,7 @@ function <span class="math notranslate nohighlight">\(F\)</span> can be construc
     </div><div class="proof-content">
 <p>(*) Generate 1000 pseudorandom numbers from the log-normal
 distribution using inverse transform sampling.</p>
-</div></div><div class="proof proof-type-exercise" id="id26">
+</div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.8</span>
@@ -1183,7 +1214,7 @@ mixture discussed in <a class="reference internal" href="#sec-mixtures"><span cl
 specific distribution will deviate from it, sometimes considerably.
 Such effects usually disappear<a class="footnote-reference brackets" href="#footfts" id="id7">2</a> when the the availability of data increases, but definitely will be visible
 for small sample sizes.</p>
-<p>For example, <a class="reference internal" href="#fig-natural-variability"><span class="std std-numref">Figure 8.11</span></a>
+<p>For example, <a class="reference internal" href="#fig-natural-variability"><span class="std std-numref">Figure 8.12</span></a>
 depicts the histogram of 9 different
 samples of size 100, all drawn independently from the normal distribution
 N(0, 1).</p>
@@ -1201,9 +1232,9 @@ N(0, 1).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id27">
-<span id="fig-natural-variability"></span><img alt="../_images/natural-variability-21.png" src="../_images/natural-variability-21.png" />
-<p class="caption"><span class="caption-number">Figure 8.11 </span><span class="caption-text">All samples are normally distributed!</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+<div class="figure align-default" id="id28">
+<span id="fig-natural-variability"></span><img alt="../_images/natural-variability-23.png" src="../_images/natural-variability-23.png" />
+<p class="caption"><span class="caption-number">Figure 8.12 </span><span class="caption-text">All samples are normally distributed!</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
 </div>
 <p>These is some ruggedness in the bars’ sizes that a naïve observer
 might try to interpret as something meaningful;
@@ -1214,7 +1245,7 @@ their eye to ignore such impurities that are only due to random effects
 enable us to tell if the deviation from the theoretical distribution
 is statistically significant or not. This is why, after finishing this
 introductory course, we should be yearning for more maths.</p>
-<div class="proof proof-type-exercise" id="id28">
+<div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.9</span>
@@ -1225,14 +1256,14 @@ introductory course, we should be yearning for more maths.</p>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">8.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
-<div class="proof proof-type-exercise" id="id29">
+<div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.10</span>
         
     </div><div class="proof-content">
 <p>Why is the notion of the mean income confusing the general public?</p>
-</div></div><div class="proof proof-type-exercise" id="id30">
+</div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.11</span>
@@ -1240,7 +1271,7 @@ introductory course, we should be yearning for more maths.</p>
     </div><div class="proof-content">
 <p>When manually setting the seed of a random number generator
 makes sense?</p>
-</div></div><div class="proof proof-type-exercise" id="id31">
+</div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.12</span>
@@ -1248,7 +1279,7 @@ makes sense?</p>
     </div><div class="proof-content">
 <p>Given a log-normally distributed sample <code class="docutils literal notranslate"><span class="pre">x</span></code>, how  can we turn it
 to a normally distributed one, i.e., <code class="docutils literal notranslate"><span class="pre">y=</span></code><strong class="command">f</strong><code class="code docutils literal notranslate"><span class="pre">(x)</span></code>, with <strong class="command">f</strong> being… what?</p>
-</div></div><div class="proof proof-type-exercise" id="id32">
+</div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.13</span>
@@ -1287,7 +1318,7 @@ a.k.a. the Glivenko–Cantelli theorem.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-05T18:00:49+1000.
+        Last updated on 2022-04-06T18:03:41+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

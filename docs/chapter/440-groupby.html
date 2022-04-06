@@ -138,7 +138,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#transforming-data-in-groups">15.1.2. Transforming Data in Groups</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">15.2. Plotting Data in Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">15.2. Plotting Data in Groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#series-of-box-plots">15.2.1. Series of Box Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#series-of-bar-plots">15.2.2. Series of Bar Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scatterplots-with-group-information">15.2.3. Scatterplots with Group Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grid-trellis-plots">15.2.4. Grid (Trellis) Plots</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#manual-splitting-into-subgroups">15.3. Manual Splitting Into Subgroups (**)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exercises">15.4. Exercises</a></li>
 </ul>
@@ -257,39 +263,65 @@ refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Consider a small subset of the
-<a class="reference external" href="https://data.melbourne.vic.gov.au/Environment/Trees-with-species-and-dimensions-Urban-Forest-/fp38-wiyy">Urban Forest</a>
-dataset which originally includes information on over 77,000 trees
-in Melbourne, VIC, Australia.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching_data/master/marek/urban_forest_subset2.csv&quot;</span><span class="p">,</span>
+<p>Let’s consider (again) a subset of the US Centers for Disease Control and
+Prevention National Health and Nutrition Examination Survey data,
+this time featuring some body measures
+(<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">P_BMX</a>) and
+demographics
+(<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_DEMO.htm">P_DEMO</a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">trees</span> <span class="o">=</span> <span class="n">trees</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span>
-    <span class="s2">&quot;Common Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Species&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Diameter Breast Height&quot;</span><span class="p">:</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Year Planted&quot;</span><span class="p">:</span> <span class="s2">&quot;Year&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Located In&quot;</span><span class="p">:</span> <span class="s2">&quot;Location&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Age Description&quot;</span><span class="p">:</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span>
-<span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="s2">&quot;Location&quot;</span><span class="p">,</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]]</span>
-<span class="n">trees</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="c1">##              Species Location          Age  Diameter  Year</span>
-<span class="c1">## 0       London Plane   Street     Juvenile        16  2009</span>
-<span class="c1">## 1   Japanese Zelkova   Street  Semi-Mature        12  2008</span>
-<span class="c1">## 2  Lemon Scented Gum   Street     Juvenile         8  2009</span>
-<span class="c1">## 3   Japanese Zelkova   Street  Semi-Mature        20  2008</span>
-<span class="c1">## 4   Japanese Zelkova   Street  Semi-Mature        18  2006</span>
+<span class="n">nhanes</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">nhanes</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">),</span>
+        <span class="p">[</span><span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXWT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXBMI&quot;</span><span class="p">,</span> <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">,</span> <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">({</span>
+        <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">:</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BMXWT&quot;</span><span class="p">:</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BMXHT&quot;</span><span class="p">:</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BMXBMI&quot;</span><span class="p">:</span> <span class="s2">&quot;bmival&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">:</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">:</span> <span class="s2">&quot;usborn&quot;</span>
+    <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+
+<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;male&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+
+<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;bmival&quot;</span><span class="p">],</span>
+    <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;underweight&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;overweight&quot;</span><span class="p">,</span> <span class="s2">&quot;obese&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">##    age  weight  height  bmival  gender usborn      bmicat</span>
+<span class="c1">## 0   29    97.1   160.2    37.8  female     no       obese</span>
+<span class="c1">## 1   49    98.8   182.3    29.7    male    yes  overweight</span>
+<span class="c1">## 2   36    74.3   184.2    21.9    male    yes      normal</span>
+<span class="c1">## 3   68   103.7   185.3    30.2    male    yes       obese</span>
+<span class="c1">## 4   76    83.3   177.1    26.6    male    yes  overweight</span>
 </pre></div>
 </div>
-<p>We have a mix of categorical (species, location, age) and numerical
-(diameter, year) variables.
+<p>We consider only the adult (at least 18 years old) participants,
+whose country of birth (the US or not) is well-defined.</p>
+<p>We have a mix of categorical (gender, US born-ness, BMI category)
+and numerical (age, weight, height, BMI) variables.
 Unless we had encoded qualitative variables as integers,
 this would not be possible with plain matrices.</p>
 <p>In this section, we will treat the qualitative columns
 as grouping variables, so that we can, e.g., summarise
 or visualise the data <em>in each group</em> separately, because
-it is likely that data distributions vary across different
-factor levels. This is much like having many data frames stored in one object.</p>
-<p><code class="docutils literal notranslate"><span class="pre">trees</span></code> is thus an example of heterogeneous data at their best.</p>
+it is likely that data distributions vary across different factor levels.
+This is much like having many data frames stored in one object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nhanes</span></code> is thus an example of heterogeneous data at their best.</p>
 <div class="section" id="the-groupby-methods">
 <h2><span class="section-number">15.1. </span>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods<a class="headerlink" href="#the-groupby-methods" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are equipped with the <strong class="command">groupby</strong>
@@ -298,9 +330,9 @@ of popular operations in data groups defined by one
 or more data frame columns (compare <span id="id1">[<a class="reference internal" href="999-bibliography.html#id30">Wic11</a>]</span>).</p>
 <p>They return objects of class <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">))</span>
 <span class="c1">## &lt;class &#39;pandas.core.groupby.generic.DataFrameGroupBy&#39;&gt;</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">)[</span><span class="s2">&quot;Diameter&quot;</span><span class="p">])</span>  <span class="c1"># or (...).Diameter</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)[</span><span class="s2">&quot;height&quot;</span><span class="p">])</span>  <span class="c1"># or (...).height</span>
 <span class="c1">## &lt;class &#39;pandas.core.groupby.generic.SeriesGroupBy&#39;&gt;</span>
 </pre></div>
 </div>
@@ -318,45 +350,47 @@ in the <strong class="program">pandas</strong> manual.</p>
         <span class="proof-type">Exercise 15.1</span>
         
     </div><div class="proof-content">
-<p>Skim through the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/groupby.html">documentation</a> of the said classes.</p>
+<p>Skim through the
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/groupby.html">documentation</a>
+of the said classes.</p>
 </div></div><p>For example, the <code class="docutils literal notranslate"><span class="pre">size</span></code> method determines the number of
 observations in each group:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-<span class="c1">## Location</span>
-<span class="c1">## Park      27</span>
-<span class="c1">## Street    73</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="c1">## gender</span>
+<span class="c1">## female    4514</span>
+<span class="c1">## male      4271</span>
 <span class="c1">## dtype: int64</span>
 </pre></div>
 </div>
 <p>This returns an object of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
 <p>Another example, this time with the result converted to a neat
 data frame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="s2">&quot;Location&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span>
-<span class="c1">## Species            Location</span>
-<span class="c1">## Japanese Zelkova   Park         2</span>
-<span class="c1">##                    Street      26</span>
-<span class="c1">## Lemon Scented Gum  Park        11</span>
-<span class="c1">##                    Street      14</span>
-<span class="c1">## London Plane       Park         3</span>
-<span class="c1">##                    Street      30</span>
-<span class="c1">## Peppercorn Tree    Park        11</span>
-<span class="c1">##                    Street       3</span>
-<span class="c1">## Name: Counts, dtype: int64</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span>
+<span class="c1">## gender  bmicat     </span>
+<span class="c1">## female  underweight      93</span>
+<span class="c1">##         normal         1161</span>
+<span class="c1">##         overweight     1245</span>
+<span class="c1">##         obese          2015</span>
+<span class="c1">## male    underweight      65</span>
+<span class="c1">##         normal         1074</span>
+<span class="c1">##         overweight     1513</span>
+<span class="c1">##         obese          1619</span>
+<span class="c1">## Name: counts, dtype: int64</span>
 </pre></div>
 </div>
 <p>This yielded a hierarchical index (row labels).
 We can always use <strong class="command">reset_index</strong> to convert it to
 standalone columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="s2">&quot;Location&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##              Species Location  Counts</span>
-<span class="c1">## 0   Japanese Zelkova     Park       2</span>
-<span class="c1">## 1   Japanese Zelkova   Street      26</span>
-<span class="c1">## 2  Lemon Scented Gum     Park      11</span>
-<span class="c1">## 3  Lemon Scented Gum   Street      14</span>
-<span class="c1">## 4       London Plane     Park       3</span>
-<span class="c1">## 5       London Plane   Street      30</span>
-<span class="c1">## 6    Peppercorn Tree     Park      11</span>
-<span class="c1">## 7    Peppercorn Tree   Street       3</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1">##    gender       bmicat  counts</span>
+<span class="c1">## 0  female  underweight      93</span>
+<span class="c1">## 1  female       normal    1161</span>
+<span class="c1">## 2  female   overweight    1245</span>
+<span class="c1">## 3  female        obese    2015</span>
+<span class="c1">## 4    male  underweight      65</span>
+<span class="c1">## 5    male       normal    1074</span>
+<span class="c1">## 6    male   overweight    1513</span>
+<span class="c1">## 7    male        obese    1619</span>
 </pre></div>
 </div>
 <div class="proof proof-type-exercise" id="id3">
@@ -379,30 +413,28 @@ data frame (i.e., convert it from the <em>long</em> to the <em>wide</em> format)
 <h3><span class="section-number">15.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
 with a number of well-known aggregation functions, for example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##   Location   Diameter         Year</span>
-<span class="c1">## 0     Park  22.629630  2008.185185</span>
-<span class="c1">## 1   Street  15.465753  2007.575342</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1">##    gender        age     weight      height     bmival</span>
+<span class="c1">## 0  female  48.956580  78.351839  160.089189  30.489189</span>
+<span class="c1">## 1    male  49.653477  88.589932  173.759541  29.243620</span>
 </pre></div>
 </div>
 <p>Note that the arithmetic mean was computed only
 on numeric columns.
 Further, a few common aggregates are generated by <strong class="command">describe</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">)[</span><span class="s2">&quot;Diameter&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##   Location  count       mean        std  min  25%   50%   75%    max</span>
-<span class="c1">## 0     Park   27.0  22.629630  26.029788  2.0  4.0  18.0  26.5  114.0</span>
-<span class="c1">## 1   Street   73.0  15.465753  11.530253  1.0  8.0  13.0  20.0   70.0</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1">##    gender   count        mean       std    min    25%    50%    75%    max</span>
+<span class="c1">## 0  female  4514.0  160.089189  7.035483  131.1  155.3  160.0  164.8  189.3</span>
+<span class="c1">## 1    male  4271.0  173.759541  7.702224  144.6  168.5  173.8  178.9  199.6</span>
 </pre></div>
 </div>
 <p>But we can always apply a custom set of functions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
-<span class="c1">##            Age   Diameter                Year        </span>
-<span class="c1">##                      mean median         mean  median</span>
-<span class="c1">## 0     Juvenile   9.428571    9.0  2007.464286  2008.0</span>
-<span class="c1">## 1       Mature  75.600000   70.0  2007.600000  2008.0</span>
-<span class="c1">## 2          New   3.411765    3.0  2009.588235  2010.0</span>
-<span class="c1">## 3  Semi-Mature  20.800000   20.0  2007.280000  2007.5</span>
+<span class="c1">##    gender      height            weight       </span>
+<span class="c1">##                  mean median       mean median</span>
+<span class="c1">## 0  female  160.089189  160.0  78.351839   74.1</span>
+<span class="c1">## 1    male  173.759541  173.8  88.589932   85.0</span>
 </pre></div>
 </div>
 <p>Note that the result’s <code class="docutils literal notranslate"><span class="pre">columns</span></code> slot is a hierarchical index.</p>
@@ -410,14 +442,12 @@ Further, a few common aggregates are generated by <strong class="command">descri
 <p class="admonition-title">Note</p>
 <p>(*) Custom (anonymous) functions can be generated on the fly
 using the so-called <em>lambda expressions</em>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
-<span class="c1">##            Age  Diameter  Year</span>
-<span class="c1">## 0     Juvenile       6.5   2.0</span>
-<span class="c1">## 1       Mature      31.5   1.0</span>
-<span class="c1">## 2          New       2.5   1.0</span>
-<span class="c1">## 3  Semi-Mature      14.5   1.5</span>
+<span class="c1">##    gender  height  weight</span>
+<span class="c1">## 0  female    29.1  110.85</span>
+<span class="c1">## 1    male    27.5  102.90</span>
 </pre></div>
 </div>
 <p>Note that the syntax is
@@ -430,14 +460,12 @@ are generated by reading the applied functions’ <code class="docutils literal 
 see, e.g., <strong class="command">print</strong><code class="code docutils literal notranslate"><span class="pre">(np.mean.__name__)</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mr</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
 <span class="n">mr</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;midrange&quot;</span>
-<span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">mr</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
-<span class="c1">##            Age   Diameter                  Year         </span>
-<span class="c1">##                      mean midrange         mean midrange</span>
-<span class="c1">## 0     Juvenile   9.428571      6.5  2007.464286      2.0</span>
-<span class="c1">## 1       Mature  75.600000     31.5  2007.600000      1.0</span>
-<span class="c1">## 2          New   3.411765      2.5  2009.588235      1.0</span>
-<span class="c1">## 3  Semi-Mature  20.800000     14.5  2007.280000      1.5</span>
+<span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">mr</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+<span class="c1">##    gender      height              weight         </span>
+<span class="c1">##                  mean midrange       mean midrange</span>
+<span class="c1">## 0  female  160.089189     29.1  78.351839   110.85</span>
+<span class="c1">## 1    male  173.759541     27.5  88.589932   102.90</span>
 </pre></div>
 </div>
 </div>
@@ -448,53 +476,54 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 relative to different data groups by means of the <strong class="command">transform</strong> method
 for <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">trees</span><span class="p">[</span><span class="s2">&quot;Diameter_Species_Std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardise</span><span class="p">))</span>
-<span class="p">(</span><span class="n">trees</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;Diameter_Species_Std&quot;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">]))</span>
-<span class="c1">##                     Diameter            Diameter_Species_Std          </span>
-<span class="c1">##                         mean        std                 mean       std</span>
-<span class="c1">## Species                                                               </span>
-<span class="c1">## Japanese Zelkova   11.214286   7.847421         9.516197e-17  1.018350</span>
-<span class="c1">## Lemon Scented Gum   9.680000   6.606310         3.663736e-17  1.020621</span>
-<span class="c1">## London Plane       21.393939  16.813201        -2.691450e-17  1.015505</span>
-<span class="c1">## Peppercorn Tree    34.142857  26.935413        -1.110223e-16  1.037749</span>
+<span class="n">nhanes</span><span class="p">[</span><span class="s2">&quot;height_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">standardise</span><span class="p">))</span>
+<span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">]))</span>
+<span class="c1">##             height              height_std     </span>
+<span class="c1">##               mean       std          mean  std</span>
+<span class="c1">## gender                                         </span>
+<span class="c1">## female  160.089189  7.035483 -1.353518e-15  1.0</span>
+<span class="c1">## male    173.759541  7.702224  3.155726e-16  1.0</span>
 </pre></div>
 </div>
 <p>The new column gives the <em>relative</em> z-scores:
-a London plane tree with relative z-score of 0
-has the diameter at breast height of 21.4 cm, whereas
-a lemon scented gum tree with the same z-score has
-the true diameter of 9.7 cm.</p>
+a woman with relative z-score of 0
+has height of 160.1 cm, whereas
+a man with the same z-score has
+height of 173.8 cm.</p>
 <div class="proof proof-type-exercise" id="id5">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 15.4</span>
         
     </div><div class="proof-content">
-<p>Create a data frame comprised of 5 trees of largest diameters
-located in a park, and 5 trees of largest diameters growing
-near a street.</p>
+<p>Create a data frame comprised of 5 tallest men
+and 5 tallest women.</p>
 </div></div></div>
 </div>
 <div class="section" id="plotting-data-in-groups">
 <span id="sec-groupby-plot"></span><h2><span class="section-number">15.2. </span>Plotting Data in Groups<a class="headerlink" href="#plotting-data-in-groups" title="Permalink to this headline">¶</a></h2>
 <p>The <strong class="program">seaborn</strong> package is particularly convenient for
 plotting grouped data – it’s highly interoperable with <strong class="program">pandas</strong>.</p>
-<p>For example, <a class="reference internal" href="#fig-diameter-species"><span class="std std-numref">Figure 15.1</span></a> depicts a boxplot with four
+<div class="section" id="series-of-box-plots">
+<h3><span class="section-number">15.2.1. </span>Series of Box Plots<a class="headerlink" href="#series-of-box-plots" title="Permalink to this headline">¶</a></h3>
+<p>For example, <a class="reference internal" href="#fig-gender-usborn-bmi"><span class="std std-numref">Figure 15.1</span></a> depicts a boxplot with four
 boxes side by side:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Diameter&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">trees</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;bmival&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="figure align-default" id="id6">
-<span id="fig-diameter-species"></span><img alt="../_images/diameter-species-1.png" src="../_images/diameter-species-1.png" />
-<p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">Diameter at breast height for different tree species</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<span id="fig-gender-usborn-bmi"></span><img alt="../_images/gender-usborn-bmi-1.png" src="../_images/gender-usborn-bmi-1.png" />
+<p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">The distribution of BMIs for different genders and countries of birth</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>Let us contemplate for a while how easy it is now to compare
-the diameter distributions of each species.</p>
+the BMI distribution in different groups.
+Note that we have two grouping variables, as specified
+by the <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">hue</span></code> arguments.</p>
 <div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
@@ -508,24 +537,27 @@ the diameter distributions of each species.</p>
         <span class="proof-type">Exercise 15.6</span>
         
     </div><div class="proof-content">
-<p>Add the average diameters in each group to the
+<p>Add the average BMIs in each group to the
 above boxplot.</p>
-</div></div><p>In <a class="reference internal" href="#fig-species-location"><span class="std std-numref">Figure 15.2</span></a>, on the other hand,
+</div></div></div>
+<div class="section" id="series-of-bar-plots">
+<h3><span class="section-number">15.2.2. </span>Series of Bar Plots<a class="headerlink" href="#series-of-bar-plots" title="Permalink to this headline">¶</a></h3>
+<p>In <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 15.2</span></a>, on the other hand,
 we have a bar plot representing a two way contingency table
 (obtained in a different way than in <a class="reference internal" href="430-categorical.html#chap-categorical"><span class="std std-numref">Chapter 14</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
-    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span>
-    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span>
-    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Location&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">trees</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Species&quot;</span><span class="p">,</span> <span class="s2">&quot;Location&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span>\
-        <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;counts&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bmicat&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span>\
+        <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="figure align-default" id="id9">
-<span id="fig-species-location"></span><img alt="../_images/species-location-3.png" src="../_images/species-location-3.png" />
-<p class="caption"><span class="caption-number">Figure 15.2 </span><span class="caption-text">Number of trees for different locations and species</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<span id="fig-gender-bmicat"></span><img alt="../_images/gender-bmicat-3.png" src="../_images/gender-bmicat-3.png" />
+<p class="caption"><span class="caption-number">Figure 15.2 </span><span class="caption-text">Number of persons for each gender and BMI category</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <div class="proof proof-type-exercise" id="id10">
 
@@ -533,21 +565,68 @@ we have a bar plot representing a two way contingency table
         <span class="proof-type">Exercise 15.7</span>
         
     </div><div class="proof-content">
-<p>Row-bind (concatenate rowwisely) the
-two datasets
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_bmx_2020.csv"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_bmx_2020</span></code></a>
-and
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_male_bmx_2020.csv"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_male_bmx_2020</span></code></a>
-to a single data frame
-equipped additionally with the <code class="docutils literal notranslate"><span class="pre">sex</span></code> column.
-Using <strong class="command">seaborn.scatterplot</strong>, draw a scatterplot matrix (pairplot)
-for a few chosen columns, where a study participant’s sex
-can be distinguished by the corresponding point’s colour.</p>
+<p>Draw a similar bar plot where the bar heights sum to 100%
+for each gender.</p>
 </div></div></div>
+<div class="section" id="scatterplots-with-group-information">
+<h3><span class="section-number">15.2.3. </span>Scatterplots with Group Information<a class="headerlink" href="#scatterplots-with-group-information" title="Permalink to this headline">¶</a></h3>
+<p>Scatterplots for grouped data can display category information
+using points of different shapes or colours, compare
+<a class="reference internal" href="#fig-height-weight-gender"><span class="std std-numref">Figure 15.3</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id11">
+<span id="fig-height-weight-gender"></span><img alt="../_images/height-weight-gender-5.png" src="../_images/height-weight-gender-5.png" />
+<p class="caption"><span class="caption-number">Figure 15.3 </span><span class="caption-text">Weight vs height grouped by gender</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="grid-trellis-plots">
+<h3><span class="section-number">15.2.4. </span>Grid (Trellis) Plots<a class="headerlink" href="#grid-trellis-plots" title="Permalink to this headline">¶</a></h3>
+<p>Grid plot (also known as trellis, panel, or lattice plots)
+are a way to visualise data separately for each factor level.
+All the plots share the same coordinate ranges which makes them easily
+comparable.
+For instance, <a class="reference internal" href="#fig-grid-weight"><span class="std std-numref">Figure 15.4</span></a> depicts a series
+of histograms for weights grouped by a combination of two
+categorical variables.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">)</span>
+<span class="c1"># plt.show()  # not required...</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id12">
+<span id="fig-grid-weight"></span><img alt="../_images/grid-weight-7.png" src="../_images/grid-weight-7.png" />
+<p class="caption"><span class="caption-number">Figure 15.4 </span><span class="caption-text">Distribution of weights for different genders and countries of birth</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+<div class="proof proof-type-exercise" id="id13">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 15.8</span>
+        
+    </div><div class="proof-content">
+<p>Pass <code class="docutils literal notranslate"><span class="pre">hue=&quot;bmicat&quot;</span></code> additionally to <strong class="command">seaborn.FacetGrid</strong>.</p>
+</div></div><div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Grid plots can feature any kind of data visualisation
+we have discussed so far
+(e.g., histograms, bar plots, scatterplots).</p>
+</div>
+<div class="proof proof-type-exercise" id="id14">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 15.9</span>
+        
+    </div><div class="proof-content">
+<p>Draw a trellis plot featuring scatterplots of weight vs height
+grouped by BMI category and gender.</p>
+</div></div></div>
+</div>
 <div class="section" id="manual-splitting-into-subgroups">
 <h2><span class="section-number">15.3. </span>Manual Splitting Into Subgroups (**)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline">¶</a></h2>
 <p>Let us demonstrate how easily the splitting can be done manually
-without the use of <strong class="command">pandas</strong>, which in some cases
+without the use of <strong class="program">pandas</strong>, which in some cases
 can be limiting.
 Calling <strong class="command">numpy.split</strong><code class="code docutils literal notranslate"><span class="pre">(arr,</span> <span class="pre">ind)</span></code> returns a list
 with <code class="docutils literal notranslate"><span class="pre">arr</span></code> (being an array-like object, e.g., a matrix, a vector, or a data
@@ -560,59 +639,59 @@ given by <code class="docutils literal notranslate"><span class="pre">ind</span>
 </div>
 <p>To split a data frame into groups defined by a categorical column,
 we can first sort it with respect to the criterion of interest,
-for instance, the <code class="docutils literal notranslate"><span class="pre">Location</span></code> data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees_srt</span> <span class="o">=</span> <span class="n">trees</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
+for instance, the <code class="docutils literal notranslate"><span class="pre">gender</span></code> data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_srt</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then, we can use <strong class="command">numpy.unique</strong> to fetch the indices of
 first occurrences of each series of identical labels:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">trees_srt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Location&quot;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">nhanes_srt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">levels</span><span class="p">,</span> <span class="n">where</span>
-<span class="c1">## (array([&#39;Park&#39;, &#39;Street&#39;], dtype=object), array([ 0, 27]))</span>
+<span class="c1">## (array([&#39;female&#39;, &#39;male&#39;], dtype=object), array([   0, 4514]))</span>
 </pre></div>
 </div>
 <p>This can now be used for dividing the sorted data frame into chunks:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees_grp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">trees_srt</span><span class="p">,</span> <span class="n">where</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_grp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">nhanes_srt</span><span class="p">,</span> <span class="n">where</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 </pre></div>
 </div>
 <p>We obtained a list of data frames split at rows specified by <code class="docutils literal notranslate"><span class="pre">where[1:]</span></code>.
 Here is a preview of the first and the last row in each chunk:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;level=&#39;</span><span class="si">{</span><span class="n">levels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;; preview:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">trees_grp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">:</span> <span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">nhanes_grp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">:</span> <span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="c1">## level=&#39;Park&#39;; preview:</span>
-<span class="c1">##             Species Location          Age  Diameter  Year  Diameter_Species_Std</span>
-<span class="c1">## 12  Peppercorn Tree     Park  Semi-Mature        21  2009             -0.506359</span>
-<span class="c1">## 99  Peppercorn Tree     Park  Semi-Mature        40  2008              0.225660</span>
+<span class="c1">## level=&#39;female&#39;; preview:</span>
+<span class="c1">##       age  weight  height  bmival  gender usborn bmicat  height_std</span>
+<span class="c1">## 0      29    97.1   160.2    37.8  female     no  obese    0.015750</span>
+<span class="c1">## 8781   67    82.8   147.8    37.9  female     no  obese   -1.746744</span>
 <span class="c1">## </span>
-<span class="c1">## level=&#39;Street&#39;; preview:</span>
-<span class="c1">##              Species Location          Age  Diameter  Year  Diameter_Species_Std</span>
-<span class="c1">## 0       London Plane   Street     Juvenile        16  2009             -0.325790</span>
-<span class="c1">## 98  Japanese Zelkova   Street  Semi-Mature        19  2008              1.010343</span>
+<span class="c1">## level=&#39;male&#39;; preview:</span>
+<span class="c1">##       age  weight  height  bmival gender usborn      bmicat  height_std</span>
+<span class="c1">## 1      49    98.8   182.3    29.7   male    yes  overweight    1.108830</span>
+<span class="c1">## 8784   74    59.7   167.5    21.3   male     no      normal   -0.812693</span>
 </pre></div>
 </div>
 <p>We can apply any operation on each subgroup we have learned
 so far, our imagination is the only limiting factor,
-e.g., aggregate the two numeric columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trees_agg</span> <span class="o">=</span> <span class="p">[</span>
+e.g., aggregate some columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_agg</span> <span class="o">=</span> <span class="p">[</span>
     <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">level</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Location&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="n">diam_mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Diameter&quot;</span><span class="p">]),</span>
-        <span class="n">year_mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Year&quot;</span><span class="p">])</span>
+        <span class="n">level</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">height_mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;height&quot;</span><span class="p">]),</span>
+        <span class="n">weight_mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;weight&quot;</span><span class="p">])</span>
     <span class="p">)</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees_grp</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nhanes_grp</span>
 <span class="p">]</span>
-<span class="n">trees_agg</span>
-<span class="c1">## [{&#39;level&#39;: &#39;Park&#39;, &#39;diam_mean&#39;: 22.62962962962963, &#39;year_mean&#39;: 2008.1851851851852}, {&#39;level&#39;: &#39;Street&#39;, &#39;diam_mean&#39;: 15.465753424657533, &#39;year_mean&#39;: 2007.5753424657535}]</span>
+<span class="n">nhanes_agg</span>
+<span class="c1">## [{&#39;level&#39;: &#39;female&#39;, &#39;height_mean&#39;: 160.0891891891892, &#39;weight_mean&#39;: 78.35183872396988}, {&#39;level&#39;: &#39;male&#39;, &#39;height_mean&#39;: 173.75954109107937, &#39;weight_mean&#39;: 88.58993210021072}]</span>
 </pre></div>
 </div>
 <p>Finally, the results may be combined, e.g.,
 to form a data frame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">trees_agg</span><span class="p">)</span>
-<span class="c1">##     level  diam_mean    year_mean</span>
-<span class="c1">## 0    Park  22.629630  2008.185185</span>
-<span class="c1">## 1  Street  15.465753  2007.575342</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nhanes_agg</span><span class="p">)</span>
+<span class="c1">##     level  height_mean  weight_mean</span>
+<span class="c1">## 0  female   160.089189    78.351839</span>
+<span class="c1">## 1    male   173.759541    88.589932</span>
 </pre></div>
 </div>
 <p>We see that manual splitting is very powerful but quite tedious in case
@@ -626,56 +705,56 @@ the <strong class="command">pandas.DataFrame.groupby</strong>
 and <strong class="command">pandas.Series.groupby</strong> methods and the <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code> classes. However, it is still worth knowing the
 low-level way to perform splitting in case of more ambitious tasks.</p>
-<div class="proof proof-type-exercise" id="id11">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 15.8</span>
-        
-    </div><div class="proof-content">
-<p>(**) Using <strong class="command">numpy.split</strong> and <strong class="command">matplotlib.pyplot.boxplot</strong>,
-draw a box-and-whisker plot of tree diameters grouped by
-species (four boxes side by side).</p>
-</div></div><div class="proof proof-type-exercise" id="id12">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 15.9</span>
-        
-    </div><div class="proof-content">
-<p>(**) Using <strong class="command">numpy.split</strong>, compute the z-scores of the <code class="docutils literal notranslate"><span class="pre">Diameter</span></code>
-column separately for each <code class="docutils literal notranslate"><span class="pre">Location</span></code>, e.g., standardise the park
-and street tree diameters separately.</p>
-</div></div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>(**) A simple trick to allow grouping with respect to more than
-one column is to apply <strong class="command">numpy.unique</strong> on a string vector
-that combines the levels of the grouping variables, e.g.,
-by concatenating them like <code class="docutils literal notranslate"><span class="pre">trees_srt.Location</span> <span class="pre">+</span> <span class="pre">&quot;___&quot;</span> <span class="pre">+</span> <span class="pre">trees_srt.Species</span></code>
-(assuming that <code class="docutils literal notranslate"><span class="pre">trees_srt</span></code> is ordered with respect to these
-two criteria).</p>
-</div>
-</div>
-<div class="section" id="exercises">
-<h2><span class="section-number">15.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
-<div class="proof proof-type-exercise" id="id13">
+<div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 15.10</span>
         
     </div><div class="proof-content">
-<p>Name the data type of an object that the <strong class="command">DataFrame.groupby</strong> method
-returns.</p>
-</div></div><div class="proof proof-type-exercise" id="id14">
+<p>(**) Using <strong class="command">numpy.split</strong> and <strong class="command">matplotlib.pyplot.boxplot</strong>,
+draw a box-and-whisker plot of heights grouped by BMI category
+(four boxes side by side).</p>
+</div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 15.11</span>
         
     </div><div class="proof-content">
-<p>What is the relationship between <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>,
-and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id15">
+<p>(**) Using <strong class="command">numpy.split</strong>,
+compute the relative z-scores of the height
+column separately for each BMI category.</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(**) A simple trick to allow grouping with respect to more than
+one column is to apply <strong class="command">numpy.unique</strong> on a string vector
+that combines the levels of the grouping variables, e.g.,
+by concatenating them like <code class="docutils literal notranslate"><span class="pre">nhanes_srt.gender</span> <span class="pre">+</span> <span class="pre">&quot;___&quot;</span> <span class="pre">+</span> <span class="pre">nhanes_srt.bmicat</span></code>
+(assuming that <code class="docutils literal notranslate"><span class="pre">nhanes_srt</span></code> is ordered with respect to these
+two criteria).</p>
+</div>
+</div>
+<div class="section" id="exercises">
+<h2><span class="section-number">15.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 15.12</span>
+        
+    </div><div class="proof-content">
+<p>Name the data type of an object that the <strong class="command">DataFrame.groupby</strong> method
+returns.</p>
+</div></div><div class="proof proof-type-exercise" id="id18">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 15.13</span>
+        
+    </div><div class="proof-content">
+<p>What is the relationship between <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code>?</p>
+</div></div><div class="proof proof-type-exercise" id="id19">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 15.14</span>
         
     </div><div class="proof-content">
 <p>What are relative z-scores and how can we compute them?</p>
@@ -698,7 +777,7 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-05T18:00:49+1000.
+        Last updated on 2022-04-06T18:03:41+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
