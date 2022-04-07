@@ -121,8 +121,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#markdown-cells">1.2.5. Markdown Cells</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#further-reading">1.3. Further Reading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">1.4. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initialising-each-session">1.3. Initialising Each Session (!)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">1.4. Further Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">1.5. Exercises</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
@@ -256,8 +257,8 @@ refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <div class="section" id="installing-python">
 <h2><span class="section-number">1.1. </span>Installing Python<a class="headerlink" href="#installing-python" title="Permalink to this headline">¶</a></h2>
 <p>We will be using the reference implementation of the Python
-language (called <a class="reference external" href="https://www.python.org">CPython</a>).
-Python 3.8 (not: 2.x!) or later will be required.</p>
+language (called <a class="reference external" href="https://www.python.org">CPython</a>),
+version 3.8 (not: 2.x!).</p>
 <p>A convenient way to start with Python is by installing
 a data science-oriented distribution called Anaconda,
 which features the language interpreter, the <strong class="program">conda</strong>
@@ -279,7 +280,7 @@ any troubles, consult the official product
 <p class="admonition-title">Note</p>
 <p>The users of Unix-like operating systems
 (GNU/Linux, FreeBSD, etc.), just like yours truly,
-might prefer downloading Python via their native package manager
+should prefer downloading Python via their native package manager
 (e.g., <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">python3</span></code> in Debian and Ubuntu).
 Then, <a class="reference external" href="https://packaging.python.org/en/latest/tutorials/installing-packages/">installing</a>
 additional Python packages can either be installed
@@ -531,8 +532,68 @@ Before and after each code cell, explain (in your own words)
 what we are about to do and how to interpret the obtained results.</p>
 </div></div></div>
 </div>
+<div class="section" id="initialising-each-session">
+<h2><span class="section-number">1.3. </span>Initialising Each Session (!)<a class="headerlink" href="#initialising-each-session" title="Permalink to this headline">¶</a></h2>
+<p>From now on, we assume that at the beginning of each session,
+the following commands have been issued:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">)</span>  <span class="c1"># plot style</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.notebook_repr_html&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># disable &quot;rich&quot; output</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># initialise the pseudorandom number generator</span>
+</pre></div>
+</div>
+<p>This imports the most frequently used packages (together
+with their common aliases, we’ll get to that later)
+and sets up some further options that we particularly like.
+For the discussion on reproducible pseudorandom number generation,
+see <a class="reference internal" href="250-distribution-uni.html#sec-seed"><span class="std std-numref">Section 8.4.2</span></a>.</p>
+<p>The software we use receives feature upgrades,
+API changes, and bug fixes on a regular basis, therefore it
+is good to know which version of the Python environment
+was used to evaluate all the code included therein:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+<span class="c1">## 3.9.7 (default, Sep 10 2021, 14:59:43) </span>
+<span class="c1">## [GCC 11.2.0]</span>
+</pre></div>
+</div>
+<p>The versions of the packages that we use in this course
+are given below. On a side note, they can be fetched by querying,
+for example, <code class="docutils literal notranslate"><span class="pre">np.__version__</span></code>, etc.</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong class="program">numpy</strong></p></td>
+<td><p>1.22.2</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong class="program">scipy</strong></p></td>
+<td><p>1.7.3</p></td>
+</tr>
+<tr class="row-even"><td><p><strong class="program">pandas</strong></p></td>
+<td><p>1.4.1</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong class="program">matplotlib</strong></p></td>
+<td><p>3.5.1</p></td>
+</tr>
+<tr class="row-even"><td><p><strong class="program">seaborn</strong></p></td>
+<td><p>0.11.2</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong class="program">sklearn</strong></p></td>
+<td><p>0.24.1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="further-reading">
-<h2><span class="section-number">1.3. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.4. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <p>Markdown is one of many markup languages.
 Other learn-worthy ones include HTML (for the Web)
 and LaTeX (especially for beautiful
@@ -548,7 +609,7 @@ primitive) Markdown and the said LaTeX and HTML.
 Also, it can be used for preparing presentations.</p>
 </div>
 <div class="section" id="exercises">
-<h2><span class="section-number">1.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
@@ -590,7 +651,7 @@ in Jupyter?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-06T18:03:41+1000.
+        Last updated on 2022-04-07T19:16:09+1000.
       </span>
     Built with <a href="http://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
