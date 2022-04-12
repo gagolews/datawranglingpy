@@ -2,14 +2,19 @@
 
 
 <html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+<!-- Copyright (C) 2020-2022, Marek Gagolewski <https://www.gagolewski.com> -->
 
 <head>
   <meta charset="utf-8" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>16. Accessing Databases &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>14. Accessing Databases &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   
 
   
@@ -27,7 +32,7 @@
   
 
   
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/450-sql.html" />
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/440-sql.html" />
 
   
   <!--[if lt IE 9]>
@@ -47,8 +52,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="17. Working with Text Data" href="510-text.html" />
-    <link rel="prev" title="15. Processing Data in Groups" href="440-groupby.html" /> 
+    <link rel="next" title="15. Working with Text Data" href="510-text.html" />
+    <link rel="prev" title="13. 🚧 Processing Data in Groups" href="430-groupby.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +67,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.1]
           
 
           
@@ -109,58 +114,56 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="110-setup.html">1. Getting Started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types and Control Structures in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introducing Vectors in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-aggregate.html">5. Aggregating Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-transform-vector.html">6. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-distribution-uni.html">7. Continuous Probability Distributions (*)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">8. Multidimensional Numeric Data at a Glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">9. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-corelation.html">10. 🚧 Exploring Relationships Between Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">15. Processing Data in Groups</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">16. Accessing Databases</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example-database">16.1. Example Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exporting-data">16.2. Exporting Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises-on-sql-vs-pandas">16.3. Exercises on SQL vs <strong class="program">pandas</strong></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#filtering">16.3.1. Filtering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ordering">16.3.2. Ordering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#removing-duplicates">16.3.3. Removing Duplicates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#grouping-and-aggregating">16.3.4. Grouping and Aggregating</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#joining">16.3.5. Joining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">11. Introducing Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-categorical.html">12. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-groupby.html">13. 🚧 Processing Data in Groups</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">14. Accessing Databases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-database">14.1. Example Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-data">14.2. Exporting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-on-sql-vs-pandas">14.3. Exercises on SQL vs <strong class="program">pandas</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filtering">14.3.1. Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ordering">14.3.2. Ordering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removing-duplicates">14.3.3. Removing Duplicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grouping-and-aggregating">14.3.4. Grouping and Aggregating</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joining">14.3.5. Joining</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#closing-the-database-connection">16.4. Closing the Database Connection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#common-data-serialisation-formats-for-the-web">16.5. Common Data Serialisation Formats for the Web</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#working-with-many-files">16.6. Working with Many Files</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#file-paths">16.6.1. File Paths</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#file-search">16.6.2. File Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closing-the-database-connection">14.4. Closing the Database Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-data-serialisation-formats-for-the-web">14.5. Common Data Serialisation Formats for the Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-many-files">14.6. Working with Many Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#file-paths">14.6.1. File Paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-search">14.6.2. File Search</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">16.7. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">14.7. Exercises</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">15. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">16. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">17. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">18. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -188,7 +191,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.1]</a>
         
       </nav>
 
@@ -215,18 +218,25 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">16. </span>Accessing Databases</li>
+      <li><span class="section-number">14. </span>Accessing Databases</li>
     
     
       <li class="wy-breadcrumbs-aside">
+
         
-          
+        
+        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
+        
+
+
         
       </li>
     
@@ -235,10 +245,10 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="510-text.html" class="btn btn-neutral float-right" title="17. Working with Text Data" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="510-text.html" class="btn btn-neutral float-right" title="15. Working with Text Data" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
-        <a href="440-groupby.html" class="btn btn-neutral float-left" title="15. Processing Data in Groups" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="430-groupby.html" class="btn btn-neutral float-left" title="13. 🚧 Processing Data in Groups" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
       
   </div>
   
@@ -248,11 +258,11 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="accessing-databases">
-<span id="chap-sql"></span><h1><span class="section-number">16. </span>Accessing Databases<a class="headerlink" href="#accessing-databases" title="Permalink to this headline">¶</a></h1>
+<span id="chap-sql"></span><h1><span class="section-number">14. </span>Accessing Databases<a class="headerlink" href="#accessing-databases" title="Permalink to this headline"></a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
-in the hope that it will be useful. Any
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
+in the hope that it’ll be useful. Any
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
@@ -285,7 +295,7 @@ not to write our own. The latter should be covered by a separate
 course on databases.</p>
 </div>
 <div class="section" id="example-database">
-<h2><span class="section-number">16.1. </span>Example Database<a class="headerlink" href="#example-database" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.1. </span>Example Database<a class="headerlink" href="#example-database" title="Permalink to this headline"></a></h2>
 <p>In the course of this section, we will be working with a simplified data dump
 of the Q&amp;A site <a class="reference external" href="http://travel.stackexchange.com">Travel Stack Exchange</a>,
 which we have <a class="reference external" href="https://archive.org/details/stackexchange">downloaded</a>
@@ -293,7 +303,7 @@ on 2017-10-31.</p>
 <div class="proof proof-type-exercise" id="id3">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.1</span>
+        <span class="proof-type">Exercise 14.1</span>
         
     </div><div class="proof-content">
 <p>Before continuing, make yourself familiar with the
@@ -354,7 +364,7 @@ don’t have <code class="docutils literal notranslate"><span class="pre">Parent
 <p><code class="docutils literal notranslate"><span class="pre">Votes</span></code> list all the up-votes (<code class="docutils literal notranslate"><span class="pre">VoteTypeId</span></code> equal to 2)
 and down-votes (<code class="docutils literal notranslate"><span class="pre">VoteTypeId</span></code> of 3)
 to all the posts. For privacy reasons, all <code class="docutils literal notranslate"><span class="pre">UserId</span></code>s are missing
-(which is encoded with a not-a-number, compare <a class="reference internal" href="530-missingness.html#chap-missingness"><span class="std std-numref">Chapter 19</span></a>).</p>
+(which is encoded with a not-a-number, compare <a class="reference internal" href="530-missingness.html#chap-missingness"><span class="std std-numref">Chapter 17</span></a>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Votes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/travel_stackexchange_com_2017/Votes.csv.gz&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
@@ -368,7 +378,7 @@ to all the posts. For privacy reasons, all <code class="docutils literal notrans
 <div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.2</span>
+        <span class="proof-type">Exercise 14.2</span>
         
     </div><div class="proof-content">
 <p>See the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/travel_stackexchange_com/README.md"><code class="docutils literal notranslate"><span class="pre">README</span></code></a>
@@ -376,7 +386,7 @@ file for the detailed description
 of each column.</p>
 </div></div></div>
 <div class="section" id="exporting-data">
-<h2><span class="section-number">16.2. </span>Exporting Data<a class="headerlink" href="#exporting-data" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.2. </span>Exporting Data<a class="headerlink" href="#exporting-data" title="Permalink to this headline"></a></h2>
 <p>Let us establish a connection with the to-be
 SQLite database. In our case,
 that will be an ordinary file stored on the computer’s disk
@@ -384,7 +394,7 @@ that will be an ordinary file stored on the computer’s disk
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
 <span class="n">dbfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;travel.db&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dbfile</span><span class="p">)</span>
-<span class="c1">## /tmp/tmp_a_w_f5w/travel.db</span>
+<span class="c1">## /tmp/tmp6hl5f4yt/travel.db</span>
 </pre></div>
 </div>
 <p>And now:</p>
@@ -422,7 +432,7 @@ lets us read a number of rows from a file buffer; see
 be used to append new rows to an existing table.</p>
 <p>Exporting data can of course be done without <strong class="program">pandas</strong> as well,
 e.g., when they are to be fetched from XML or JSON files
-(compare <a class="reference internal" href="#sec-json-xml"><span class="std std-numref">Section 16.5</span></a>) and processed manually, row by row.
+(compare <a class="reference internal" href="#sec-json-xml"><span class="std std-numref">Section 14.5</span></a>) and processed manually, row by row.
 Intermediate-level SQL users can call <code class="docutils literal notranslate"><span class="pre">conn.execute(&quot;CREATE</span> <span class="pre">TABLE</span> <span class="pre">t...&quot;)</span></code>,
 <code class="docutils literal notranslate"><span class="pre">conn.executemany(&quot;INSERT</span> <span class="pre">INTO</span> <span class="pre">t</span> <span class="pre">VALUES(?,</span> <span class="pre">?,</span> <span class="pre">?)&quot;,</span> <span class="pre">l)</span></code> followed by
 <code class="docutils literal notranslate"><span class="pre">conn.commit()</span></code> to create a new table (here: named <code class="docutils literal notranslate"><span class="pre">t</span></code>) populated
@@ -433,7 +443,7 @@ of the <strong class="program">sqlite3</strong> package.</p>
 </div>
 </div>
 <div class="section" id="exercises-on-sql-vs-pandas">
-<h2><span class="section-number">16.3. </span>Exercises on SQL vs <strong class="program">pandas</strong><a class="headerlink" href="#exercises-on-sql-vs-pandas" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.3. </span>Exercises on SQL vs <strong class="program">pandas</strong><a class="headerlink" href="#exercises-on-sql-vs-pandas" title="Permalink to this headline"></a></h2>
 <p>We can use <strong class="program">pandas</strong> to fetch the results generated
 by executing any SQL query, for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -450,7 +460,7 @@ the first 3 rows (<code class="docutils literal notranslate"><span class="pre">L
 <div class="proof proof-type-exercise" id="id5">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.3</span>
+        <span class="proof-type">Exercise 14.3</span>
         
     </div><div class="proof-content">
 <p>For the above and all the following SQL queries,
@@ -464,7 +474,7 @@ refer to the <a class="reference external" href="https://sqlite.org/lang.html">m
 </div></div><div class="proof proof-type-example" id="id6">
 
     <div class="proof-title">
-        <span class="proof-type">Example 16.4</span>
+        <span class="proof-type">Example 14.4</span>
         
     </div><div class="proof-content">
 <p>For instance, here is the reference result:</p>
@@ -487,13 +497,16 @@ might look like:</p>
 will be the same up to the reordering of rows. In such a case,
 before calling <strong class="command">DataFrame.equals</strong>,
 it might thus be a good idea to call <code class="docutils literal notranslate"><span class="pre">DataFrame.sort_values</span></code> on both
-data frames to sort them with respect to 1 or 2 chosen columns.</p>
+data frames to sort them with respect to 1 or 2 chosen columns.
+Also, some operations might introduce a small round-off error,
+therefore rounding chosen columns to a few decimal digits
+might be necessary.</p>
 </div></div><div class="section" id="filtering">
-<h3><span class="section-number">16.3.1. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.1. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline"></a></h3>
 <div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.5</span>
+        <span class="proof-type">Exercise 14.5</span>
         
     </div><div class="proof-content">
 <p>Fetch all tag data for tags whose name contain <code class="docutils literal notranslate"><span class="pre">&quot;europe&quot;</span></code> as substring:</p>
@@ -513,7 +526,7 @@ same result with <strong class="program">pandas</strong></em>.</p>
 </div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.6</span>
+        <span class="proof-type">Exercise 14.6</span>
         
     </div><div class="proof-content">
 <p>From <code class="docutils literal notranslate"><span class="pre">Tags</span></code>, select two columns <code class="docutils literal notranslate"><span class="pre">TagName</span></code> and <code class="docutils literal notranslate"><span class="pre">Count</span></code>
@@ -533,7 +546,7 @@ and rows for which <code class="docutils literal notranslate"><span class="pre">
 </div></div><div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.7</span>
+        <span class="proof-type">Exercise 14.7</span>
         
     </div><div class="proof-content">
 <p>Select a number of columns from <code class="docutils literal notranslate"><span class="pre">Posts</span></code>
@@ -559,11 +572,11 @@ whose rows fulfil given conditions:</p>
 </div>
 </div></div></div>
 <div class="section" id="ordering">
-<h3><span class="section-number">16.3.2. </span>Ordering<a class="headerlink" href="#ordering" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.2. </span>Ordering<a class="headerlink" href="#ordering" title="Permalink to this headline"></a></h3>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.8</span>
+        <span class="proof-type">Exercise 14.8</span>
         
     </div><div class="proof-content">
 <p>Select the <code class="docutils literal notranslate"><span class="pre">Title</span></code> and <code class="docutils literal notranslate"><span class="pre">Score</span></code> columns from <code class="docutils literal notranslate"><span class="pre">Posts</span></code>
@@ -591,11 +604,11 @@ top 5 scoring questions):</p>
 <strong class="command">numpy.isnan</strong> or <strong class="command">pandas.isnull</strong>.</em></p>
 </div></div></div>
 <div class="section" id="removing-duplicates">
-<h3><span class="section-number">16.3.3. </span>Removing Duplicates<a class="headerlink" href="#removing-duplicates" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.3. </span>Removing Duplicates<a class="headerlink" href="#removing-duplicates" title="Permalink to this headline"></a></h3>
 <div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.9</span>
+        <span class="proof-type">Exercise 14.9</span>
         
     </div><div class="proof-content">
 <p>Get all unique badge names for the user with <code class="docutils literal notranslate"><span class="pre">Id=23</span></code>.</p>
@@ -623,7 +636,7 @@ top 5 scoring questions):</p>
 </div></div><div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.10</span>
+        <span class="proof-type">Exercise 14.10</span>
         
     </div><div class="proof-content">
 <p>For each badge given to the user with <code class="docutils literal notranslate"><span class="pre">Id=23</span></code>,
@@ -657,11 +670,11 @@ Then, select are unique pairs <code class="docutils literal notranslate"><span c
 <p><em>Hint: use <code class="docutils literal notranslate"><span class="pre">Badges.Date.astype(&quot;datetime64&quot;).dt.strftime(&quot;%Y&quot;)</span></code>.</em></p>
 </div></div></div>
 <div class="section" id="grouping-and-aggregating">
-<h3><span class="section-number">16.3.4. </span>Grouping and Aggregating<a class="headerlink" href="#grouping-and-aggregating" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.4. </span>Grouping and Aggregating<a class="headerlink" href="#grouping-and-aggregating" title="Permalink to this headline"></a></h3>
 <div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.11</span>
+        <span class="proof-type">Exercise 14.11</span>
         
     </div><div class="proof-content">
 <p>Count how many badges of each type the user with <code class="docutils literal notranslate"><span class="pre">Id=23</span></code> has received.
@@ -691,7 +704,7 @@ Return only the top 4 badges (with respect to the counts).</p>
 </div></div><div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.12</span>
+        <span class="proof-type">Exercise 14.12</span>
         
     </div><div class="proof-content">
 <p>Similarly to the above, but now count how many
@@ -718,11 +731,11 @@ and order the results by <code class="docutils literal notranslate"><span class=
 is applied thereafter.</p>
 </div></div></div>
 <div class="section" id="joining">
-<h3><span class="section-number">16.3.5. </span>Joining<a class="headerlink" href="#joining" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.3.5. </span>Joining<a class="headerlink" href="#joining" title="Permalink to this headline"></a></h3>
 <div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.13</span>
+        <span class="proof-type">Exercise 14.13</span>
         
     </div><div class="proof-content">
 <p>Join (merge) <code class="docutils literal notranslate"><span class="pre">Tags</span></code>, <code class="docutils literal notranslate"><span class="pre">Posts</span></code>, and <code class="docutils literal notranslate"><span class="pre">Users</span></code>
@@ -749,7 +762,7 @@ Return the top 5 records with respect to <code class="docutils literal notransla
 </div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.14</span>
+        <span class="proof-type">Exercise 14.14</span>
         
     </div><div class="proof-content">
 <p>First, create an auxiliary (temporary) table named <code class="docutils literal notranslate"><span class="pre">UpVotesTab</span></code>,
@@ -781,7 +794,7 @@ with the most up-votes:</p>
 </div></div></div>
 </div>
 <div class="section" id="closing-the-database-connection">
-<h2><span class="section-number">16.4. </span>Closing the Database Connection<a class="headerlink" href="#closing-the-database-connection" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.4. </span>Closing the Database Connection<a class="headerlink" href="#closing-the-database-connection" title="Permalink to this headline"></a></h2>
 <p>We have said we should not forget about:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -789,7 +802,7 @@ with the most up-votes:</p>
 <p>This gives some sense of closure. Such a relief.</p>
 </div>
 <div class="section" id="common-data-serialisation-formats-for-the-web">
-<span id="sec-json-xml"></span><h2><span class="section-number">16.5. </span>Common Data Serialisation Formats for the Web<a class="headerlink" href="#common-data-serialisation-formats-for-the-web" title="Permalink to this headline">¶</a></h2>
+<span id="sec-json-xml"></span><h2><span class="section-number">14.5. </span>Common Data Serialisation Formats for the Web<a class="headerlink" href="#common-data-serialisation-formats-for-the-web" title="Permalink to this headline"></a></h2>
 <p>CSV files are an all-round way to exchange <em>tabular</em> data between
 different programming and data analysis environments.</p>
 <p>For unstructured or non-tabularly-structured data,
@@ -806,7 +819,7 @@ Good luck.</p>
 <div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.15</span>
+        <span class="proof-type">Exercise 14.15</span>
         
     </div><div class="proof-content">
 <p>Consider the Web API for <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">accessing</a> the on-street parking bay
@@ -816,7 +829,7 @@ to a <strong class="program">pandas</strong> data frame.</p>
 </div></div><div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.16</span>
+        <span class="proof-type">Exercise 14.16</span>
         
     </div><div class="proof-content">
 <p>Australian Radiation Protection and Nuclear Safety Agency
@@ -827,7 +840,7 @@ to a <strong class="program">pandas</strong> data frame.</p>
 </div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.17</span>
+        <span class="proof-type">Exercise 14.17</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -838,7 +851,7 @@ included therein to a data frame.</p>
 </div></div><div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.18</span>
+        <span class="proof-type">Exercise 14.18</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -850,7 +863,7 @@ to a list of strings.</p>
 </div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.19</span>
+        <span class="proof-type">Exercise 14.19</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -862,7 +875,7 @@ You can find the relevant data dumps
 </div></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.20</span>
+        <span class="proof-type">Exercise 14.20</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -873,13 +886,13 @@ and then import an archived version of one of the wikis hosted by the
 so that it can be stored in an SQLite database.</p>
 </div></div></div>
 <div class="section" id="working-with-many-files">
-<h2><span class="section-number">16.6. </span>Working with Many Files<a class="headerlink" href="#working-with-many-files" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.6. </span>Working with Many Files<a class="headerlink" href="#working-with-many-files" title="Permalink to this headline"></a></h2>
 <p>For the mass-processing of many files, it is worth knowing <em>of</em>
 the most basic functions for dealing with file paths, searching for files,
 etc. Usually we will be looking up ways to complete specific
 tasks at hand, e.g., how to read data from a ZIP archive, on the internet.</p>
 <div class="section" id="file-paths">
-<h3><span class="section-number">16.6.1. </span>File Paths<a class="headerlink" href="#file-paths" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.6.1. </span>File Paths<a class="headerlink" href="#file-paths" title="Permalink to this headline"></a></h3>
 <p>UNIX-like operating systems, including GNU/Linux and macOS,
 use slashes, `<code class="docutils literal notranslate"><span class="pre">/</span></code>`, as path separators, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;/home/marek/file.csv&quot;</span></code>.
 Windows, however, uses backslashes, `<code class="docutils literal notranslate"><span class="pre">\</span></code>`, which have a special meaning
@@ -904,7 +917,7 @@ This can be read by calling <strong class="command">os.getcwd</strong>.</p>
 we can use <strong class="command">tempfile.mkdtemp</strong>.</p>
 </div>
 <div class="section" id="file-search">
-<h3><span class="section-number">16.6.2. </span>File Search<a class="headerlink" href="#file-search" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">14.6.2. </span>File Search<a class="headerlink" href="#file-search" title="Permalink to this headline"></a></h3>
 <p><strong class="command">glob.glob</strong> and <strong class="command">os.listdir</strong> can generate a list of files in
 a given directory (and possibly all its subdirectories).</p>
 <p><strong class="command">os.path.isdir</strong> and <strong class="command">os.path.isfile</strong> can be used to determine
@@ -912,7 +925,7 @@ the type of a given object in the file system.</p>
 <div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.21</span>
+        <span class="proof-type">Exercise 14.21</span>
         
     </div><div class="proof-content">
 <p>Write a function that computes the total
@@ -920,11 +933,11 @@ size of all the files in a given directory and all its subdirectories.</p>
 </div></div></div>
 </div>
 <div class="section" id="exercises">
-<h2><span class="section-number">16.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">14.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
 <div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.22</span>
+        <span class="proof-type">Exercise 14.22</span>
         
     </div><div class="proof-content">
 <p>Find an example of an XML and JSON file. Which
@@ -932,7 +945,7 @@ one is more human-readable? Do they differ in terms of capabilities?</p>
 </div></div><div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.23</span>
+        <span class="proof-type">Exercise 14.23</span>
         
     </div><div class="proof-content">
 <p>What is wrong with constructing file paths like
@@ -940,7 +953,7 @@ one is more human-readable? Do they differ in terms of capabilities?</p>
 </div></div><div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.24</span>
+        <span class="proof-type">Exercise 14.24</span>
         
     </div><div class="proof-content">
 <p>What are the benefits of using a SQL-supporting relational
@@ -948,7 +961,7 @@ database management system in data science activities?</p>
 </div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 16.25</span>
+        <span class="proof-type">Exercise 14.25</span>
         
     </div><div class="proof-content">
 <p>(**) How to populate a database with gigabytes of data
@@ -962,8 +975,8 @@ read from many CSV files?</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="510-text.html" class="btn btn-neutral float-right" title="17. Working with Text Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="440-groupby.html" class="btn btn-neutral float-left" title="15. Processing Data in Groups" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="510-text.html" class="btn btn-neutral float-right" title="15. Working with Text Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="430-groupby.html" class="btn btn-neutral float-left" title="13. 🚧 Processing Data in Groups" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -972,9 +985,9 @@ read from many CSV files?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-07T19:16:09+1000.
+        Last updated on 2022-04-12T17:31:13+1000.
       </span>
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
     </p>
   </div> 

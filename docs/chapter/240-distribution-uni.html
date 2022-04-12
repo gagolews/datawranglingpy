@@ -2,14 +2,19 @@
 
 
 <html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+<!-- Copyright (C) 2020-2022, Marek Gagolewski <https://www.gagolewski.com> -->
 
 <head>
   <meta charset="utf-8" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8. Continuous Probability Distributions (*) &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>7. Continuous Probability Distributions (*) &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   
 
   
@@ -27,7 +32,7 @@
   
 
   
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/250-distribution-uni.html" />
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/240-distribution-uni.html" />
 
   
   <!--[if lt IE 9]>
@@ -41,16 +46,16 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/proof.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Introducing Matrices in numpy" href="310-matrix.html" />
-    <link rel="prev" title="7. Transforming and Filtering Numeric Data" href="240-transform-vector.html" /> 
+    <link rel="next" title="8. Multidimensional Numeric Data at a Glance" href="310-matrix.html" />
+    <link rel="prev" title="6. Transforming and Filtering Numeric Data" href="230-transform-vector.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.1]
           
 
           
@@ -111,65 +116,63 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="110-setup.html">1. Getting Started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types and Control Structures in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introducing Vectors in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Continuous Probability Distributions (*)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#normal-distribution">8.1. Normal Distribution</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#estimating-parameters">8.1.1. Estimating Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-models-are-useful">8.1.2. Data Models Are Useful</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-aggregate.html">5. Aggregating Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-transform-vector.html">6. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Continuous Probability Distributions (*)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#normal-distribution">7.1. Normal Distribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estimating-parameters">7.1.1. Estimating Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-models-are-useful">7.1.2. Data Models Are Useful</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#assessing-goodness-of-fit">8.2. Assessing Goodness of Fit</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#comparing-cumulative-distribution-functions">8.2.1. Comparing Cumulative Distribution Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#comparing-quantiles">8.2.2. Comparing Quantiles (*)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assessing-goodness-of-fit">7.2. Assessing Goodness of Fit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-cumulative-distribution-functions">7.2.1. Comparing Cumulative Distribution Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-quantiles">7.2.2. Comparing Quantiles (*)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#other-noteworthy-distributions">8.3. Other Noteworthy Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#log-normal-distribution">8.3.1. Log-normal Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pareto-distribution">8.3.2. Pareto Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#uniform-distribution">8.3.3. Uniform Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#distribution-mixtures">8.3.4. Distribution Mixtures (**)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-noteworthy-distributions">7.3. Other Noteworthy Distributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#log-normal-distribution">7.3.1. Log-normal Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pareto-distribution">7.3.2. Pareto Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uniform-distribution">7.3.3. Uniform Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distribution-mixtures">7.3.4. Distribution Mixtures (**)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#generating-pseudorandom-numbers">8.4. Generating Pseudorandom Numbers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">8.4.1. Uniform Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#not-exactly-random">8.4.2. Not Exactly Random</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sampling-from-other-distributions">8.4.3. Sampling from Other Distributions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#natural-variability">8.4.4. Natural Variability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-pseudorandom-numbers">7.4. Generating Pseudorandom Numbers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">7.4.1. Uniform Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#not-exactly-random">7.4.2. Not Exactly Random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sampling-from-other-distributions">7.4.3. Sampling from Other Distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#natural-variability">7.4.4. Natural Variability</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">8.5. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">7.5. Exercises</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">8. Multidimensional Numeric Data at a Glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">9. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-corelation.html">10. 🚧 Exploring Relationships Between Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-groupby.html">15. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">11. Introducing Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-categorical.html">12. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-groupby.html">13. 🚧 Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">14. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">15. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">16. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">17. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">18. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -197,7 +200,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.1]</a>
         
       </nav>
 
@@ -224,18 +227,25 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">8. </span>Continuous Probability Distributions (*)</li>
+      <li><span class="section-number">7. </span>Continuous Probability Distributions (*)</li>
     
     
       <li class="wy-breadcrumbs-aside">
+
         
-          
+        
+        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
+        
+
+
         
       </li>
     
@@ -244,10 +254,10 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="310-matrix.html" class="btn btn-neutral float-right" title="9. Introducing Matrices in numpy" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="310-matrix.html" class="btn btn-neutral float-right" title="8. Multidimensional Numeric Data at a Glance" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
-        <a href="240-transform-vector.html" class="btn btn-neutral float-left" title="7. Transforming and Filtering Numeric Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="230-transform-vector.html" class="btn btn-neutral float-left" title="6. Transforming and Filtering Numeric Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
       
   </div>
   
@@ -257,11 +267,11 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="continuous-probability-distributions">
-<span id="chap-distribution-uni"></span><h1><span class="section-number">8. </span>Continuous Probability Distributions (*)<a class="headerlink" href="#continuous-probability-distributions" title="Permalink to this headline">¶</a></h1>
+<span id="chap-distribution-uni"></span><h1><span class="section-number">7. </span>Continuous Probability Distributions (*)<a class="headerlink" href="#continuous-probability-distributions" title="Permalink to this headline"></a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
-in the hope that it will be useful. Any
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
+in the hope that it’ll be useful. Any
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
@@ -311,9 +321,9 @@ and fit empirical data or parts thereof particularly well
 they serve as their good-enough approximations).
 Let us thus review a few noteworthy probability distributions:
 the normal, log-normal, Pareto, and uniform families
-(in <a class="reference internal" href="540-time.html#sec-exp-distrib"><span class="std std-numref">Section 20.2.4</span></a> we also mention the exponential one).</p>
+(in <a class="reference internal" href="540-time.html#sec-exp-distrib"><span class="std std-numref">Section 18.2.4</span></a> we also mention the exponential one).</p>
 <div class="section" id="normal-distribution">
-<h2><span class="section-number">8.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline"></a></h2>
 <p>A <em>normal distribution</em> is the one that has a prototypical,
 nicely symmetric, bell-shaped density.
 It is described by two parameters:
@@ -327,7 +337,7 @@ f(x) = \frac{1}{\sqrt{2\pi \sigma^2}}
 \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right).
 \]</div>
 <div class="section" id="estimating-parameters">
-<h3><span class="section-number">8.1.1. </span>Estimating Parameters<a class="headerlink" href="#estimating-parameters" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.1. </span>Estimating Parameters<a class="headerlink" href="#estimating-parameters" title="Permalink to this headline"></a></h3>
 <p>A course in statistics (which, again, this one is not,
 we are merely making an illustration here), may tell us
 that the sample arithmetic mean and standard deviation are natural,
@@ -338,14 +348,14 @@ to, more or less, μ and σ (the larger the sample size,
 the smaller the error).</p>
 <p>Recall the <code class="docutils literal notranslate"><span class="pre">heights</span></code> (females from the NHANES study)
 dataset and its bell-shaped histogram
-in <a class="reference internal" href="220-histogram.html#fig-heights-histogram-bins11"><span class="std std-numref">Figure 5.1</span></a>.
+in <a class="reference internal" href="210-vector.html#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>.
 Let’s estimate these parameters for this sample:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
-<span class="c1">## (160.08245186988268, 7.03601747642589)</span>
+<span class="c1">## (160.13679222932953, 7.062858532891359)</span>
 </pre></div>
 </div>
 <p>Mathematically, we will denote these two with
@@ -354,8 +364,8 @@ they are merely guesstimates of the unknown respective parameters
 <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>. On a side note, we use <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> in the latter case,
 because this estimator has slightly better
 statistical properties.</p>
-<p>Let’s draw the fitted density function, i.e., the PDF of N(160.1, 7.04),
-on top of the histogram, see <a class="reference internal" href="#fig-heights-normal"><span class="std std-numref">Figure 8.1</span></a>.
+<p>Let’s draw the fitted density function, i.e., the PDF of N(160.1, 7.06),
+on top of the histogram, see <a class="reference internal" href="#fig-heights-normal"><span class="std std-numref">Figure 7.1</span></a>.
 We pass <code class="docutils literal notranslate"><span class="pre">stat=&quot;density&quot;</span></code> to <strong class="command">seaborn.histplot</strong>
 so that the histogram bars are normalised
 (i.e., the total area of these rectangles sums to 1).</p>
@@ -369,7 +379,7 @@ so that the histogram bars are normalised
 </div>
 <div class="figure align-default" id="id9">
 <span id="fig-heights-normal"></span><img alt="../_images/heights-normal-1.png" src="../_images/heights-normal-1.png" />
-<p class="caption"><span class="caption-number">Figure 8.1 </span><span class="caption-text">A histogram and the probability density function of the fitted normal distribution for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.1 </span><span class="caption-text">A histogram and the probability density function of the fitted normal distribution for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </div>
 <p>At a first glance, this is a very nice match.
 Before proceeding with some ways of assessing the goodness of fit slightly
@@ -400,7 +410,7 @@ the sample median and <span class="math notranslate nohighlight">\(\mathrm{IQR}/
 </div>
 </div>
 <div class="section" id="data-models-are-useful">
-<h3><span class="section-number">8.1.2. </span>Data Models Are Useful<a class="headerlink" href="#data-models-are-useful" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.1.2. </span>Data Models Are Useful<a class="headerlink" href="#data-models-are-useful" title="Permalink to this headline"></a></h3>
 <p><em>If</em> (provided that, assuming that, on condition that)
 our sample is a realisation of independent random variables
 following a given distribution,
@@ -409,7 +419,7 @@ justified, then we have a set of many numbers <em>reduced</em> to merely few
 parameters.</p>
 <p>In the above case, we might want to risk the statement
 that data follow the normal distribution (assumption 1)
-with parameters <span class="math notranslate nohighlight">\(\mu=160.1\)</span> and <span class="math notranslate nohighlight">\(\sigma=7.04\)</span> (assumption 2).
+with parameters <span class="math notranslate nohighlight">\(\mu=160.1\)</span> and <span class="math notranslate nohighlight">\(\sigma=7.06\)</span> (assumption 2).
 Note that the choice of the distribution family is one thing,
 and the way we estimate the underlying parameters
 (in our case, we use <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> and <span class="math notranslate nohighlight">\(\hat{\sigma}\)</span>)
@@ -436,7 +446,7 @@ So many options.</p>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.1</span>
+        <span class="proof-type">Exercise 7.1</span>
         
     </div><div class="proof-content">
 <p>How different manufacturing industries can make use of such knowledge?
@@ -445,13 +455,13 @@ What are the alternatives?</p>
 </div></div></div>
 </div>
 <div class="section" id="assessing-goodness-of-fit">
-<h2><span class="section-number">8.2. </span>Assessing Goodness of Fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2. </span>Assessing Goodness of Fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Permalink to this headline"></a></h2>
 <div class="section" id="comparing-cumulative-distribution-functions">
-<h3><span class="section-number">8.2.1. </span>Comparing Cumulative Distribution Functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.2.1. </span>Comparing Cumulative Distribution Functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Permalink to this headline"></a></h3>
 <p>A better way of assessing the extent to which
 a sample deviates from a hypothesised distribution,
 is by comparing the theoretical <em>cumulative distribution function</em> (CDF)
-and the empirical one (<span class="math notranslate nohighlight">\(\hat{F}_n\)</span>, see <a class="reference internal" href="220-histogram.html#sec-ecdf"><span class="std std-numref">Section 5.3.1</span></a>).</p>
+and the empirical one (<span class="math notranslate nohighlight">\(\hat{F}_n\)</span>, see <a class="reference internal" href="210-vector.html#sec-ecdf"><span class="std std-numref">Section 4.4</span></a>).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If <span class="math notranslate nohighlight">\(f\)</span> is a density function, then the corresponding
@@ -461,7 +471,7 @@ taking a value not greater than <span class="math notranslate nohighlight">\(x\)
 </div>
 <p>For the normal distribution family,
 the values of the theoretical CDF can be computed by calling <strong class="command">scipy.stats.norm.cdf</strong>;
-see <a class="reference internal" href="#fig-heights-cdf"><span class="std std-numref">Figure 8.2</span></a>.</p>
+see <a class="reference internal" href="#fig-heights-cdf"><span class="std std-numref">Figure 7.2</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">probs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>  <span class="c1"># sample the CDF at many points</span>
@@ -477,7 +487,7 @@ see <a class="reference internal" href="#fig-heights-cdf"><span class="std std-n
 </div>
 <div class="figure align-default" id="id11">
 <span id="fig-heights-cdf"></span><img alt="../_images/heights-cdf-3.png" src="../_images/heights-cdf-3.png" />
-<p class="caption"><span class="caption-number">Figure 8.2 </span><span class="caption-text">The empirical CDF and the fitted normal CDF for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.2 </span><span class="caption-text">The empirical CDF and the fitted normal CDF for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
 </div>
 <p>This looks like a superb match.</p>
 <div class="admonition important">
@@ -521,7 +531,7 @@ input sample.</p>
 <span class="n">Dn2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="n">n</span> <span class="o">-</span> <span class="n">Fx</span><span class="p">))</span>
 <span class="n">Dn</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Dn1</span><span class="p">,</span> <span class="n">Dn2</span><span class="p">)</span>
 <span class="n">Dn</span>
-<span class="c1">## 0.010404276788917033</span>
+<span class="c1">## 0.010470976524201148</span>
 </pre></div>
 </div>
 <p>If the difference is <em>sufficiently small</em> (the larger the sample
@@ -543,13 +553,13 @@ with some deeper understanding of what p-values are, might be curious
 to know that the said test suggests not to reject the hypothesis
 of normality of data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">,</span> <span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">))</span>
-<span class="c1">## KstestResult(statistic=0.010404276788917033, pvalue=0.7081150691175591)</span>
+<span class="c1">## KstestResult(statistic=0.010470976524201148, pvalue=0.7395860276984034)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="comparing-quantiles">
-<h3><span class="section-number">8.2.2. </span>Comparing Quantiles (*)<a class="headerlink" href="#comparing-quantiles" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.2.2. </span>Comparing Quantiles (*)<a class="headerlink" href="#comparing-quantiles" title="Permalink to this headline"></a></h3>
 <p>A Q-Q (quantile-quantile) plot is another graphical method
 for comparing two distributions.
 This time, instead of working with a cumulative distribution function <span class="math notranslate nohighlight">\(F\)</span>,
@@ -573,15 +583,15 @@ all <span class="math notranslate nohighlight">\(p\in(0, 1)\)</span>.</p>
 by the <strong class="command">scipy.stats.norm.ppf</strong> function.
 Here, <em>ppf</em> stands for the percent point function which is another
 (yet quite esoteric) name for the above <span class="math notranslate nohighlight">\(Q\)</span>.</p>
-<p>For instance, given our N(160.1, 7.04)-distributed NHANES dataset,
+<p>For instance, given our N(160.1, 7.06)-distributed NHANES dataset,
 <span class="math notranslate nohighlight">\(Q(0.9)\)</span> is the height not exceeded by 90% of female population.
 In other words, only 10% of American women are taller than:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
-<span class="c1">## 169.09947108199543</span>
+<span class="c1">## 169.18820963937648</span>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>The sample quantiles that we have introduced
-in <a class="reference internal" href="230-aggregate.html#sec-quantiles"><span class="std std-numref">Section 6.1.3</span></a> are natural estimators
+in <a class="reference internal" href="220-aggregate.html#sec-quantiles"><span class="std std-numref">Section 5.1.3</span></a> are natural estimators
 of the theoretical quantile function.
 However, we have also mentioned that there are quite a few possible
 definitions thereof in the literature, compare <span id="id3">[<a class="reference internal" href="999-bibliography.html#id5">HF96</a>]</span>.</p>
@@ -610,9 +620,9 @@ the normal distribution family).</p>
 </div>
 <div class="figure align-default" id="id12">
 <span id="fig-qq-heights"></span><img alt="../_images/qq-heights-5.png" src="../_images/qq-heights-5.png" />
-<p class="caption"><span class="caption-number">Figure 8.3 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.3 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
 </div>
-<p><a class="reference internal" href="#fig-qq-heights"><span class="std std-numref">Figure 8.3</span></a> depicts the Q-Q plot for our example dataset.</p>
+<p><a class="reference internal" href="#fig-qq-heights"><span class="std std-numref">Figure 7.3</span></a> depicts the Q-Q plot for our example dataset.</p>
 <p>Ideally, the points should be arranged on the <span class="math notranslate nohighlight">\(y=x\)</span> line
 (which was added for readability). This happens if
 the sample quantiles match the theoretical ones perfectly.</p>
@@ -625,9 +635,9 @@ and certain distribution families</p>
 </div>
 </div>
 <div class="section" id="other-noteworthy-distributions">
-<h2><span class="section-number">8.3. </span>Other Noteworthy Distributions<a class="headerlink" href="#other-noteworthy-distributions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.3. </span>Other Noteworthy Distributions<a class="headerlink" href="#other-noteworthy-distributions" title="Permalink to this headline"></a></h2>
 <div class="section" id="log-normal-distribution">
-<h3><span class="section-number">8.3.1. </span>Log-normal Distribution<a class="headerlink" href="#log-normal-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.1. </span>Log-normal Distribution<a class="headerlink" href="#log-normal-distribution" title="Permalink to this headline"></a></h3>
 <p>We say that a sample is <em>log-normally distributed</em>,
 if its logarithm is normally distributed.</p>
 <p>In particular, it is sometimes observed that the income of most individuals
@@ -649,7 +659,7 @@ we the compute mean and standard deviation based on the logarithms of data:</p>
 <span class="c1">## (10.314409794364623, 0.5816585197803816)</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="#fig-heights-lognormal"><span class="std std-numref">Figure 8.4</span></a> depicts the fitted probability density
+<p><a class="reference internal" href="#fig-heights-lognormal"><span class="std std-numref">Figure 7.4</span></a> depicts the fitted probability density
 function  together with the histograms on the log- and original scale.
 When creating this plot, there are two pitfalls, though.
 Firstly, <strong class="command">scipy.stats.lognorm</strong>
@@ -684,7 +694,7 @@ on the logarithmic scale (via <strong class="command">numpy.geomspace</strong>).
 </div>
 <div class="figure align-default" id="id13">
 <span id="fig-heights-lognormal"></span><img alt="../_images/heights-lognormal-7.png" src="../_images/heights-lognormal-7.png" />
-<p class="caption"><span class="caption-number">Figure 8.4 </span><span class="caption-text">A histogram and the probability density function of the fitted log-normal distribution for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset, on log- (left) and original (right) scale</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.4 </span><span class="caption-text">A histogram and the probability density function of the fitted log-normal distribution for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset, on log- (left) and original (right) scale</span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
 </div>
 <p>Overall, this fit is not too bad.
 Note that we deal with only a sample of 1000 households here;
@@ -694,12 +704,12 @@ but it’s beyond the scope of our simple exercise.</p>
 <div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.2</span>
+        <span class="proof-type">Exercise 7.2</span>
         
     </div><div class="proof-content">
 <p>Compare the empirical CDF for <code class="docutils literal notranslate"><span class="pre">income</span></code>
 and the theoretical CDF of LN(10.3, 0.58).</p>
-</div></div><p>Furthermore, <a class="reference internal" href="#fig-qq-income"><span class="std std-numref">Figure 8.5</span></a> gives the quantile-quantile plot on a
+</div></div><p>Furthermore, <a class="reference internal" href="#fig-qq-income"><span class="std std-numref">Figure 7.5</span></a> gives the quantile-quantile plot on a
 double-logarithmic scale for the above log-normal model.
 Additionally, we (empirically) verify the hypothesis
 of normality (using a “normal” normal distribution, not it’s “log”
@@ -732,7 +742,7 @@ version).</p>
 </div>
 <div class="figure align-default" id="id15">
 <span id="fig-qq-income"></span><img alt="../_images/qq-income-9.png" src="../_images/qq-income-9.png" />
-<p class="caption"><span class="caption-number">Figure 8.5 </span><span class="caption-text">Q-Q plots for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset vs a fitted log-normal (good fit; left) and normal (bad fit; right) distribution</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.5 </span><span class="caption-text">Q-Q plots for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset vs a fitted log-normal (good fit; left) and normal (bad fit; right) distribution</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
 </div>
 <p>We see that definitely the hypothesis that our data follow
 a normal distribution (the right subplot) is most likely false.</p>
@@ -766,14 +776,14 @@ symmetric around μ.</p>
 <div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.3</span>
+        <span class="proof-type">Exercise 7.3</span>
         
     </div><div class="proof-content">
 <p>(*) What is the fraction of people with earnings
 below the mean in our LN(10.3, 0.58) model?</p>
 </div></div></div>
 <div class="section" id="pareto-distribution">
-<h3><span class="section-number">8.3.2. </span>Pareto Distribution<a class="headerlink" href="#pareto-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.2. </span>Pareto Distribution<a class="headerlink" href="#pareto-distribution" title="Permalink to this headline"></a></h3>
 <p>Consider again the <a class="reference external" href="https://arxiv.org/abs/0706.1062v2">dataset</a>
 on the populations of the US cities in the 2000 US Census:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -782,7 +792,7 @@ on the populations of the US cities in the 2000 US Census:</p>
 <span class="c1">## (19447, 175062893.0)</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="#fig-hist-cities"><span class="std std-numref">Figure 8.6</span></a> gives the histogram
+<p><a class="reference internal" href="#fig-hist-cities"><span class="std std-numref">Figure 7.6</span></a> gives the histogram
 of the city sizes with the populations on the log-scale.
 It kind-of looks like a log-normal distribution again,
 which the reader can inspect themself when they are feeling playful.</p>
@@ -792,7 +802,7 @@ which the reader can inspect themself when they are feeling playful.</p>
 </div>
 <div class="figure align-default" id="id17">
 <span id="fig-hist-cities"></span><img alt="../_images/hist-cities-11.png" src="../_images/hist-cities-11.png" />
-<p class="caption"><span class="caption-number">Figure 8.6 </span><span class="caption-text">Histogram for the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.6 </span><span class="caption-text">Histogram for the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset</span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
 </div>
 <p>We, however, this time will be interested in not what’s <em>typical</em>,
 but what’s in some sense <em>anomalous</em> or <em>extreme</em>.
@@ -809,7 +819,7 @@ we will only study the right tail the original data:</p>
 can be performed by passing <code class="docutils literal notranslate"><span class="pre">log_scale=(True,</span> <span class="pre">True)</span></code>
 to <strong class="command">seaborn.histplot</strong>, which is left as an exercise.
 Anyway, doing so will lead to a similar picture
-as in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 8.7</span></a>.
+as in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 7.7</span></a>.
 This reveals something very interesting: the bar tops on the
 double-log-scale are arranged more or less on a straight line.
 There are many datasets
@@ -842,7 +852,7 @@ the mean of the scaled logarithms of our observations:</p>
 densities and an empirical histogram on a log-scale is quite problematic
 with <strong class="command">seaborn</strong>, therefore we again must apply
 logarithmic binning manually in order to come up
-with what we see in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 8.7</span></a>.</p>
+with what we see in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 7.7</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">21</span><span class="p">)</span>  <span class="c1"># bins&#39; boundaries</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">),</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span>
@@ -855,9 +865,9 @@ with what we see in <a class="reference internal" href="#fig-fit-pareto"><span c
 </div>
 <div class="figure align-default" id="id18">
 <span id="fig-fit-pareto"></span><img alt="../_images/fit-pareto-13.png" src="../_images/fit-pareto-13.png" />
-<p class="caption"><span class="caption-number">Figure 8.7 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and the fitted density on a double log-scale</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.7 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and the fitted density on a double log-scale</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
 </div>
-<p><a class="reference internal" href="#fig-qq-pareto"><span class="std std-numref">Figure 8.8</span></a> gives the corresponding Q-Q plot on
+<p><a class="reference internal" href="#fig-qq-pareto"><span class="std std-numref">Figure 7.8</span></a> gives the corresponding Q-Q plot on
 a double-logarithmic scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">large_cities</span><span class="p">)</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
@@ -875,14 +885,14 @@ a double-logarithmic scale.</p>
 </div>
 <div class="figure align-default" id="id19">
 <span id="fig-qq-pareto"></span><img alt="../_images/qq-pareto-15.png" src="../_images/qq-pareto-15.png" />
-<p class="caption"><span class="caption-number">Figure 8.8 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">large_cites</span></code> dataset vs the fitted Paretian model</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.8 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">large_cites</span></code> dataset vs the fitted Paretian model</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
 </div>
 <p>We see that the populations of the largest cities are overestimated.
 The model could be better, but the cities are still growing, right?</p>
 <div class="proof proof-type-example" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Example 8.4</span>
+        <span class="proof-type">Example 7.4</span>
         
     </div><div class="proof-content">
 <p>(*) It might also be interesting to see how well can we predict the
@@ -891,7 +901,7 @@ Let us thus denote with <span class="math notranslate nohighlight">\(S(x)=1-F(x)
 cumulative distribution function</em> (CCDF; sometimes referred to as
 the survival function)
 and with <span class="math notranslate nohighlight">\(\hat{S}_n(x)=1-\hat{F}_n(x)\)</span> its empirical version.
-<a class="reference internal" href="#fig-ccdf-pareto"><span class="std std-numref">Figure 8.9</span></a> compares the empirical and the fitted CCDFs
+<a class="reference internal" href="#fig-ccdf-pareto"><span class="std std-numref">Figure 7.9</span></a> compares the empirical and the fitted CCDFs
 with probabilities on the linear- and log-scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">probs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
@@ -911,7 +921,7 @@ with probabilities on the linear- and log-scale.</p>
 </div>
 <div class="figure align-default" id="id21">
 <span id="fig-ccdf-pareto"></span><img alt="../_images/ccdf-pareto-17.png" src="../_images/ccdf-pareto-17.png" />
-<p class="caption"><span class="caption-number">Figure 8.9 </span><span class="caption-text">Empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.9 </span><span class="caption-text">Empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
 </div>
 <p>In terms of the maximal absolute distance between the two functions,
 <span class="math notranslate nohighlight">\(D_n\)</span>, the fit is actually pretty good (this can be seen on the left plot,
@@ -919,7 +929,7 @@ note that the log-scale overemphasises the relatively small differences
 in the right tail and should not be used for judging the value of <span class="math notranslate nohighlight">\(D_n\)</span>).</p>
 </div></div></div>
 <div class="section" id="uniform-distribution">
-<h3><span class="section-number">8.3.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.3.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline"></a></h3>
 <p>Consider the Polish <em>Lotto</em> lottery, where 6 numbered balls
 <span class="math notranslate nohighlight">\(\{1,2,\dots,49\}\)</span> are drawn without replacement from an urn.
 We have a data set that summarises the number of times
@@ -963,16 +973,16 @@ an outcome like <em>49.1253</em> as representing the 49th ball
 </div>
 <div class="figure align-default" id="id22">
 <span id="fig-lotto"></span><img alt="../_images/lotto-19.png" src="../_images/lotto-19.png" />
-<p class="caption"><span class="caption-number">Figure 8.10 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.10 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
 </div>
-<p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 8.10</span></a>, this model makes much sense, but again,
+<p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 7.10</span></a>, this model makes much sense, but again,
 some more rigorous statistical testing would be required to determine
 if someone hasn’t been tampering with the lottery results, i.e.,
 if data does not deviate from the uniform distribution significantly.</p>
 <div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.5</span>
+        <span class="proof-type">Exercise 7.5</span>
         
     </div><div class="proof-content">
 <p>Does playing <a class="reference external" href="https://en.wikipedia.org/wiki/Lottery">lotteries</a>
@@ -996,7 +1006,7 @@ when they go for their next stroll (or millions thereof) in the park.</p>
 </div>
 </div>
 <div class="section" id="distribution-mixtures">
-<span id="sec-mixtures"></span><h3><span class="section-number">8.3.4. </span>Distribution Mixtures (**)<a class="headerlink" href="#distribution-mixtures" title="Permalink to this headline">¶</a></h3>
+<span id="sec-mixtures"></span><h3><span class="section-number">7.3.4. </span>Distribution Mixtures (**)<a class="headerlink" href="#distribution-mixtures" title="Permalink to this headline"></a></h3>
 <p>Some datasets may fail to fit into simple models such as the ones
 describe above. It may sometimes be due to their non-random behaviour:
 statistics gives just one means to create data idealisations,
@@ -1009,7 +1019,7 @@ which might be worth giving a study (and then try).</p>
 <a class="reference external" href="http://www.pedestrian.melbourne.vic.gov.au/">pedestrian counts</a>
 near the Southern Cross Station in Melbourne
 might be a good instance of such a scenario,
-compare <a class="reference internal" href="220-histogram.html#fig-peds-histogram"><span class="std std-numref">Figure 5.5</span></a>.</p>
+compare <a class="reference internal" href="210-vector.html#fig-peds-histogram"><span class="std std-numref">Figure 4.6</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/southern_cross_station_peds_2019_dec.txt&quot;</span><span class="p">)</span>
 </pre></div>
@@ -1024,7 +1034,7 @@ pedestrian count peaks. This yields the PDF</p>
 f(x) = w_1 f_1(x) + w_2 f_2(x) + w_3 f_3(x)
 \]</div>
 <p>for some coefficients <span class="math notranslate nohighlight">\(w_1,w_2,w_3\ge 0\)</span> such that <span class="math notranslate nohighlight">\(w_1+w_2+w_3=1\)</span>.</p>
-<p><a class="reference internal" href="#fig-mixture"><span class="std std-numref">Figure 8.11</span></a> depicts a mixture of N(8, 1), N(12, 1), and N(17, 2)
+<p><a class="reference internal" href="#fig-mixture"><span class="std std-numref">Figure 7.11</span></a> depicts a mixture of N(8, 1), N(12, 1), and N(17, 2)
 with the corresponding weights of 0.35, 0.1, and 0.55.
 This particular data set is quite coarse-grained
 (we only have 24 bar heights at our disposal), therefore
@@ -1043,7 +1053,7 @@ with a pinch of chilli pepper.</p>
 </div>
 <div class="figure align-default" id="id24">
 <span id="fig-mixture"></span><img alt="../_images/mixture-21.png" src="../_images/mixture-21.png" />
-<p class="caption"><span class="caption-number">Figure 8.11 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.11 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1064,7 +1074,7 @@ corresponding to different mixture components.</p>
 </div>
 </div>
 <div class="section" id="generating-pseudorandom-numbers">
-<h2><span class="section-number">8.4. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.4. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this headline"></a></h2>
 <p>A probability distribution is useful not only for describing a dataset.
 It also enables us to perform many experiments on data that we don’t
 currently have, but we might obtain in the future,
@@ -1072,7 +1082,7 @@ to test various scenarios and hypotheses.</p>
 <p>To do this, we can generate a random sample of
 independent (not related to each other) observations.</p>
 <div class="section" id="id5">
-<h3><span class="section-number">8.4.1. </span>Uniform Distribution<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.4.1. </span>Uniform Distribution<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <p>When most people say <em>random</em>, they implicitly mean
 <em>uniformly distributed</em>. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1092,7 +1102,7 @@ and scaling the output the random number generator
 on the unit interval using the formula <code class="docutils literal notranslate"><span class="pre">np.random.rand(5)*25-10</span></code>.</p>
 </div>
 <div class="section" id="not-exactly-random">
-<span id="sec-seed"></span><h3><span class="section-number">8.4.2. </span>Not Exactly Random<a class="headerlink" href="#not-exactly-random" title="Permalink to this headline">¶</a></h3>
+<span id="sec-seed"></span><h3><span class="section-number">7.4.2. </span>Not Exactly Random<a class="headerlink" href="#not-exactly-random" title="Permalink to this headline"></a></h3>
 <p>Actually, we are generating numbers using a computer, which is purely
 deterministic, hence we shall refer to them as <em>pseudorandom</em>
 or random-like ones (albeit they are non-distinguishable from truly random,
@@ -1136,7 +1146,7 @@ call to that function). For instance:</p>
 <p>This gives the same sequence as above.</p>
 </div>
 <div class="section" id="sampling-from-other-distributions">
-<h3><span class="section-number">8.4.3. </span>Sampling from Other Distributions<a class="headerlink" href="#sampling-from-other-distributions" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.4.3. </span>Sampling from Other Distributions<a class="headerlink" href="#sampling-from-other-distributions" title="Permalink to this headline"></a></h3>
 <p>Of course, generating data from other distributions is possible too;
 there are many <strong class="command">rvs</strong> methods implemented
 in <strong class="program">scipy.stats</strong>.
@@ -1161,7 +1171,7 @@ consecutive seeds for each iteration, <code class="docutils literal notranslate"
 <div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.6</span>
+        <span class="proof-type">Exercise 7.6</span>
         
     </div><div class="proof-content">
 <p>Generate 1000 pseudorandom numbers from the log-normal
@@ -1185,7 +1195,7 @@ function <span class="math notranslate nohighlight">\(F\)</span> can be construc
 <div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.7</span>
+        <span class="proof-type">Exercise 7.7</span>
         
     </div><div class="proof-content">
 <p>(*) Generate 1000 pseudorandom numbers from the log-normal
@@ -1193,19 +1203,19 @@ distribution using inverse transform sampling.</p>
 </div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.8</span>
+        <span class="proof-type">Exercise 7.8</span>
         
     </div><div class="proof-content">
 <p>(**) Generate 1000 pseudorandom numbers from the distribution
-mixture discussed in <a class="reference internal" href="#sec-mixtures"><span class="std std-numref">Section 8.3.4</span></a>.</p>
+mixture discussed in <a class="reference internal" href="#sec-mixtures"><span class="std std-numref">Section 7.3.4</span></a>.</p>
 </div></div></div>
 <div class="section" id="natural-variability">
-<h3><span class="section-number">8.4.4. </span>Natural Variability<a class="headerlink" href="#natural-variability" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">7.4.4. </span>Natural Variability<a class="headerlink" href="#natural-variability" title="Permalink to this headline"></a></h3>
 <p>Note that even a sample which we know that was generated from a
 specific distribution will deviate from it, sometimes considerably.
 Such effects usually disappear<a class="footnote-reference brackets" href="#footfts" id="id7">2</a> when the the availability of data increases, but definitely will be visible
 for small sample sizes.</p>
-<p>For example, <a class="reference internal" href="#fig-natural-variability"><span class="std std-numref">Figure 8.12</span></a>
+<p>For example, <a class="reference internal" href="#fig-natural-variability"><span class="std std-numref">Figure 7.12</span></a>
 depicts the histogram of 9 different
 samples of size 100, all drawn independently from the normal distribution
 N(0, 1).</p>
@@ -1225,7 +1235,7 @@ N(0, 1).</p>
 </div>
 <div class="figure align-default" id="id28">
 <span id="fig-natural-variability"></span><img alt="../_images/natural-variability-23.png" src="../_images/natural-variability-23.png" />
-<p class="caption"><span class="caption-number">Figure 8.12 </span><span class="caption-text">All samples are normally distributed!</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 7.12 </span><span class="caption-text">All samples are normally distributed!</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
 </div>
 <p>These is some ruggedness in the bars’ sizes that a naïve observer
 might try to interpret as something meaningful;
@@ -1239,25 +1249,25 @@ introductory course, we should be yearning for more maths.</p>
 <div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.9</span>
+        <span class="proof-type">Exercise 7.9</span>
         
     </div><div class="proof-content">
 <p>Repeat the above experiment for samples of size 10, 1000, and 10000.</p>
 </div></div></div>
 </div>
 <div class="section" id="exercises">
-<h2><span class="section-number">8.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
 <div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.10</span>
+        <span class="proof-type">Exercise 7.10</span>
         
     </div><div class="proof-content">
 <p>Why is the notion of the mean income confusing the general public?</p>
 </div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.11</span>
+        <span class="proof-type">Exercise 7.11</span>
         
     </div><div class="proof-content">
 <p>When manually setting the seed of a random number generator
@@ -1265,7 +1275,7 @@ makes sense?</p>
 </div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.12</span>
+        <span class="proof-type">Exercise 7.12</span>
         
     </div><div class="proof-content">
 <p>Given a log-normally distributed sample <code class="docutils literal notranslate"><span class="pre">x</span></code>, how  can we turn it
@@ -1273,7 +1283,7 @@ to a normally distributed one, i.e., <code class="docutils literal notranslate">
 </div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 8.13</span>
+        <span class="proof-type">Exercise 7.13</span>
         
     </div><div class="proof-content">
 <p>What is the 3σ rule for normally distributed data?</p>
@@ -1299,8 +1309,8 @@ a.k.a. the Glivenko–Cantelli theorem.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="310-matrix.html" class="btn btn-neutral float-right" title="9. Introducing Matrices in numpy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="240-transform-vector.html" class="btn btn-neutral float-left" title="7. Transforming and Filtering Numeric Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="310-matrix.html" class="btn btn-neutral float-right" title="8. Multidimensional Numeric Data at a Glance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="230-transform-vector.html" class="btn btn-neutral float-left" title="6. Transforming and Filtering Numeric Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -1309,9 +1319,9 @@ a.k.a. the Glivenko–Cantelli theorem.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-07T19:16:09+1000.
+        Last updated on 2022-04-12T17:31:13+1000.
       </span>
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
     </p>
   </div> 

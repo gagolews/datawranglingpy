@@ -2,14 +2,19 @@
 
 
 <html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2021, Marek Gagolewski <https://www.gagolewski.com> -->
+<!-- Copyright (C) 2020-2022, Marek Gagolewski <https://www.gagolewski.com> -->
 
 <head>
   <meta charset="utf-8" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>15. Processing Data in Groups &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>13. 🚧 Processing Data in Groups &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   
 
   
@@ -27,7 +32,7 @@
   
 
   
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/440-groupby.html" />
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-groupby.html" />
 
   
   <!--[if lt IE 9]>
@@ -47,8 +52,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="16. Accessing Databases" href="450-sql.html" />
-    <link rel="prev" title="14. Handling Categorical Data" href="430-categorical.html" /> 
+    <link rel="next" title="14. Accessing Databases" href="440-sql.html" />
+    <link rel="prev" title="12. Handling Categorical Data" href="420-categorical.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +67,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.1.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.1]
           
 
           
@@ -109,54 +114,52 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="110-jupyter.html">1. Getting Started with Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="110-setup.html">1. Getting Started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types and Control Structures in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Introducing Vectors in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="220-histogram.html">5. Inspecting the Distribution of Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="230-aggregate.html">6. Aggregating Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="240-transform-vector.html">7. Transforming and Filtering Numeric Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="250-distribution-uni.html">8. Continuous Probability Distributions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="220-aggregate.html">5. Aggregating Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="230-transform-vector.html">6. Transforming and Filtering Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="240-distribution-uni.html">7. Continuous Probability Distributions (*)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">9. Introducing Matrices in <strong class="program">numpy</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">10. 🚧 Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="330-visualise-multi.html">11. 🚧 Visualising Multidimensional Data and Measuring Correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">8. Multidimensional Numeric Data at a Glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">9. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-corelation.html">10. 🚧 Exploring Relationships Between Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">12. Introducing Data Frames in <strong class="program">pandas</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="420-transform-df.html">13. Basic Operations on Data Frames</a></li>
-<li class="toctree-l1"><a class="reference internal" href="430-categorical.html">14. Handling Categorical Data</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">15. Processing Data in Groups</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-groupby-methods">15.1. The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#aggregating-data-in-groups">15.1.1. Aggregating Data in Groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transforming-data-in-groups">15.1.2. Transforming Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="410-dataframe.html">11. Introducing Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-categorical.html">12. Handling Categorical Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">13. 🚧 Processing Data in Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-groupby-methods">13.1. The <strong class="command">groupby</strong> Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aggregating-data-in-groups">13.1.1. Aggregating Data in Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transforming-data-in-groups">13.1.2. Transforming Data in Groups</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">15.2. Plotting Data in Groups</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#series-of-box-plots">15.2.1. Series of Box Plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#series-of-bar-plots">15.2.2. Series of Bar Plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scatterplots-with-group-information">15.2.3. Scatterplots with Group Information</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#grid-trellis-plots">15.2.4. Grid (Trellis) Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">13.2. Plotting Data in Groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#series-of-box-plots">13.2.1. Series of Box Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#series-of-bar-plots">13.2.2. Series of Bar Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scatterplots-with-group-information">13.2.3. Scatterplots with Group Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grid-trellis-plots">13.2.4. Grid (Trellis) Plots</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#manual-splitting-into-subgroups">15.3. Manual Splitting Into Subgroups (**)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">15.4. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manual-splitting-into-subgroups">13.3. Manual Splitting Into Subgroups (**)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">13.4. Exercises</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="450-sql.html">16. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">14. Accessing Databases</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Text and Other Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="510-text.html">17. Working with Text Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="520-regex.html">18. Regular Expressions (*)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">19. Outliers, Missing, Censored, and Incorrect Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="540-time.html">20. Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">15. Working with Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-regex.html">16. Regular Expressions (*)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-missingness.html">17. Outliers, Missing, Censored, and Incorrect Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="540-time.html">18. Time Series</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -184,7 +187,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.1.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.1]</a>
         
       </nav>
 
@@ -211,18 +214,25 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">15. </span>Processing Data in Groups</li>
+      <li><span class="section-number">13. </span>🚧 Processing Data in Groups</li>
     
     
       <li class="wy-breadcrumbs-aside">
+
         
-          
+        
+        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
+        
+
+
         
       </li>
     
@@ -231,10 +241,10 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="450-sql.html" class="btn btn-neutral float-right" title="16. Accessing Databases" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="440-sql.html" class="btn btn-neutral float-right" title="14. Accessing Databases" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
-        <a href="430-categorical.html" class="btn btn-neutral float-left" title="14. Handling Categorical Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="420-categorical.html" class="btn btn-neutral float-left" title="12. Handling Categorical Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
       
   </div>
   
@@ -244,17 +254,29 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="processing-data-in-groups">
-<span id="chap-groupby"></span><h1><span class="section-number">15. </span>Processing Data in Groups<a class="headerlink" href="#processing-data-in-groups" title="Permalink to this headline">¶</a></h1>
+<span id="chap-groupby"></span><h1><span class="section-number">13. </span>🚧 Processing Data in Groups<a class="headerlink" href="#processing-data-in-groups" title="Permalink to this headline"></a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It is distributed
-in the hope that it will be useful. Any
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
+in the hope that it’ll be useful. Any
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
-<p>Let’s consider (again) a subset of the US Centers for Disease Control and
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>🚧
+This part is going to be significantly extended and
+more chapters will follow in the future.</p>
+<p>In particular, we will introduce some basic methods related to:</p>
+<ul class="simple">
+<li><p>clustering,</p></li>
+<li><p>classification (predictive modelling with a categorical variable
+being the target one).</p></li>
+</ul>
+</div>
+<p>Let’s consider (again) a subset of the US Centres for Disease Control and
 Prevention National Health and Nutrition Examination Survey data,
 this time featuring some body measures
 (<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">P_BMX</a>) and
@@ -314,7 +336,7 @@ it is likely that data distributions vary across different factor levels.
 This is much like having many data frames stored in one object.</p>
 <p><code class="docutils literal notranslate"><span class="pre">nhanes</span></code> is thus an example of heterogeneous data at their best.</p>
 <div class="section" id="the-groupby-methods">
-<h2><span class="section-number">15.1. </span>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> Methods<a class="headerlink" href="#the-groupby-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">13.1. </span>The <strong class="command">groupby</strong> Methods<a class="headerlink" href="#the-groupby-methods" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are equipped with the <strong class="command">groupby</strong>
 methods, which assist in performing a wide range
 of popular operations in data groups defined by one
@@ -338,7 +360,7 @@ in the <strong class="program">pandas</strong> manual.</p>
 <div class="proof proof-type-exercise" id="id2">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.1</span>
+        <span class="proof-type">Exercise 13.1</span>
         
     </div><div class="proof-content">
 <p>Skim through the
@@ -387,7 +409,7 @@ standalone columns:</p>
 <div class="proof proof-type-exercise" id="id3">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.2</span>
+        <span class="proof-type">Exercise 13.2</span>
         
     </div><div class="proof-content">
 <p><em>Unstack</em> the above
@@ -395,13 +417,13 @@ data frame (i.e., convert it from the <em>long</em> to the <em>wide</em> format)
 </div></div><div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.3</span>
+        <span class="proof-type">Exercise 13.3</span>
         
     </div><div class="proof-content">
 <p>(*) Note the difference between
 <strong class="command">pandas.GroupBy.count</strong> and <strong class="command">pandas.GroupBy.size</strong> methods.</p>
 </div></div><div class="section" id="aggregating-data-in-groups">
-<h3><span class="section-number">15.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">13.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
 with a number of well-known aggregation functions, for example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -462,7 +484,7 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 </div>
 </div>
 <div class="section" id="transforming-data-in-groups">
-<h3><span class="section-number">15.1.2. </span>Transforming Data in Groups<a class="headerlink" href="#transforming-data-in-groups" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">13.1.2. </span>Transforming Data in Groups<a class="headerlink" href="#transforming-data-in-groups" title="Permalink to this headline"></a></h3>
 <p>We can easily transform individual columns
 relative to different data groups by means of the <strong class="command">transform</strong> method
 for <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects.</p>
@@ -488,7 +510,7 @@ height of 173.8 cm.</p>
 <div class="proof proof-type-exercise" id="id5">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.4</span>
+        <span class="proof-type">Exercise 13.4</span>
         
     </div><div class="proof-content">
 <p>Create a data frame comprised of 5 tallest men
@@ -496,12 +518,12 @@ and 5 tallest women.</p>
 </div></div></div>
 </div>
 <div class="section" id="plotting-data-in-groups">
-<span id="sec-groupby-plot"></span><h2><span class="section-number">15.2. </span>Plotting Data in Groups<a class="headerlink" href="#plotting-data-in-groups" title="Permalink to this headline">¶</a></h2>
+<span id="sec-groupby-plot"></span><h2><span class="section-number">13.2. </span>Plotting Data in Groups<a class="headerlink" href="#plotting-data-in-groups" title="Permalink to this headline"></a></h2>
 <p>The <strong class="program">seaborn</strong> package is particularly convenient for
 plotting grouped data – it’s highly interoperable with <strong class="program">pandas</strong>.</p>
 <div class="section" id="series-of-box-plots">
-<h3><span class="section-number">15.2.1. </span>Series of Box Plots<a class="headerlink" href="#series-of-box-plots" title="Permalink to this headline">¶</a></h3>
-<p>For example, <a class="reference internal" href="#fig-gender-usborn-bmi"><span class="std std-numref">Figure 15.1</span></a> depicts a boxplot with four
+<h3><span class="section-number">13.2.1. </span>Series of Box Plots<a class="headerlink" href="#series-of-box-plots" title="Permalink to this headline"></a></h3>
+<p>For example, <a class="reference internal" href="#fig-gender-usborn-bmi"><span class="std std-numref">Figure 13.1</span></a> depicts a boxplot with four
 boxes side by side:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;bmival&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -509,7 +531,7 @@ boxes side by side:</p>
 </div>
 <div class="figure align-default" id="id6">
 <span id="fig-gender-usborn-bmi"></span><img alt="../_images/gender-usborn-bmi-1.png" src="../_images/gender-usborn-bmi-1.png" />
-<p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">The distribution of BMIs for different genders and countries of birth</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 13.1 </span><span class="caption-text">The distribution of BMIs for different genders and countries of birth</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
 </div>
 <p>Let us contemplate for a while how easy it is now to compare
 the BMI distribution in different groups.
@@ -518,24 +540,24 @@ by the <code class="docutils literal notranslate"><span class="pre">y</span></co
 <div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.5</span>
+        <span class="proof-type">Exercise 13.5</span>
         
     </div><div class="proof-content">
 <p>Create a similar series of violin plots.</p>
 </div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.6</span>
+        <span class="proof-type">Exercise 13.6</span>
         
     </div><div class="proof-content">
 <p>Add the average BMIs in each group to the
 above boxplot.</p>
 </div></div></div>
 <div class="section" id="series-of-bar-plots">
-<h3><span class="section-number">15.2.2. </span>Series of Bar Plots<a class="headerlink" href="#series-of-bar-plots" title="Permalink to this headline">¶</a></h3>
-<p>In <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 15.2</span></a>, on the other hand,
+<h3><span class="section-number">13.2.2. </span>Series of Bar Plots<a class="headerlink" href="#series-of-bar-plots" title="Permalink to this headline"></a></h3>
+<p>In <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 13.2</span></a>, on the other hand,
 we have a bar plot representing a two way contingency table
-(obtained in a different way than in <a class="reference internal" href="430-categorical.html#chap-categorical"><span class="std std-numref">Chapter 14</span></a>):</p>
+(obtained in a different way than in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 12</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;counts&quot;</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span>
@@ -548,38 +570,38 @@ we have a bar plot representing a two way contingency table
 </div>
 <div class="figure align-default" id="id9">
 <span id="fig-gender-bmicat"></span><img alt="../_images/gender-bmicat-3.png" src="../_images/gender-bmicat-3.png" />
-<p class="caption"><span class="caption-number">Figure 15.2 </span><span class="caption-text">Number of persons for each gender and BMI category</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 13.2 </span><span class="caption-text">Number of persons for each gender and BMI category</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </div>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.7</span>
+        <span class="proof-type">Exercise 13.7</span>
         
     </div><div class="proof-content">
 <p>Draw a similar bar plot where the bar heights sum to 100%
 for each gender.</p>
 </div></div></div>
 <div class="section" id="scatterplots-with-group-information">
-<h3><span class="section-number">15.2.3. </span>Scatterplots with Group Information<a class="headerlink" href="#scatterplots-with-group-information" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">13.2.3. </span>Scatterplots with Group Information<a class="headerlink" href="#scatterplots-with-group-information" title="Permalink to this headline"></a></h3>
 <p>Scatterplots for grouped data can display category information
 using points of different shapes or colours, compare
-<a class="reference internal" href="#fig-height-weight-gender"><span class="std std-numref">Figure 15.3</span></a>.</p>
+<a class="reference internal" href="#fig-height-weight-gender"><span class="std std-numref">Figure 13.3</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="figure align-default" id="id11">
 <span id="fig-height-weight-gender"></span><img alt="../_images/height-weight-gender-5.png" src="../_images/height-weight-gender-5.png" />
-<p class="caption"><span class="caption-number">Figure 15.3 </span><span class="caption-text">Weight vs height grouped by gender</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 13.3 </span><span class="caption-text">Weight vs height grouped by gender</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
 </div>
 </div>
 <div class="section" id="grid-trellis-plots">
-<h3><span class="section-number">15.2.4. </span>Grid (Trellis) Plots<a class="headerlink" href="#grid-trellis-plots" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">13.2.4. </span>Grid (Trellis) Plots<a class="headerlink" href="#grid-trellis-plots" title="Permalink to this headline"></a></h3>
 <p>Grid plot (also known as trellis, panel, or lattice plots)
 are a way to visualise data separately for each factor level.
 All the plots share the same coordinate ranges which makes them easily
 comparable.
-For instance, <a class="reference internal" href="#fig-grid-weight"><span class="std std-numref">Figure 15.4</span></a> depicts a series
+For instance, <a class="reference internal" href="#fig-grid-weight"><span class="std std-numref">Figure 13.4</span></a> depicts a series
 of histograms for weights grouped by a combination of two
 categorical variables.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span>
@@ -589,12 +611,12 @@ categorical variables.</p>
 </div>
 <div class="figure align-default" id="id12">
 <span id="fig-grid-weight"></span><img alt="../_images/grid-weight-7.png" src="../_images/grid-weight-7.png" />
-<p class="caption"><span class="caption-number">Figure 15.4 </span><span class="caption-text">Distribution of weights for different genders and countries of birth</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 13.4 </span><span class="caption-text">Distribution of weights for different genders and countries of birth</span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
 </div>
 <div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.8</span>
+        <span class="proof-type">Exercise 13.8</span>
         
     </div><div class="proof-content">
 <p>Pass <code class="docutils literal notranslate"><span class="pre">hue=&quot;bmicat&quot;</span></code> additionally to <strong class="command">seaborn.FacetGrid</strong>.</p>
@@ -607,7 +629,7 @@ we have discussed so far
 <div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.9</span>
+        <span class="proof-type">Exercise 13.9</span>
         
     </div><div class="proof-content">
 <p>Draw a trellis plot featuring scatterplots of weight vs height
@@ -615,7 +637,7 @@ grouped by BMI category and gender.</p>
 </div></div></div>
 </div>
 <div class="section" id="manual-splitting-into-subgroups">
-<h2><span class="section-number">15.3. </span>Manual Splitting Into Subgroups (**)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">13.3. </span>Manual Splitting Into Subgroups (**)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline"></a></h2>
 <p>Let us demonstrate how easily the splitting can be done manually
 without the use of <strong class="program">pandas</strong>, which in some cases
 can be limiting.
@@ -699,7 +721,7 @@ low-level way to perform splitting in case of more ambitious tasks.</p>
 <div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.10</span>
+        <span class="proof-type">Exercise 13.10</span>
         
     </div><div class="proof-content">
 <p>(**) Using <strong class="command">numpy.split</strong> and <strong class="command">matplotlib.pyplot.boxplot</strong>,
@@ -708,7 +730,7 @@ draw a box-and-whisker plot of heights grouped by BMI category
 </div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.11</span>
+        <span class="proof-type">Exercise 13.11</span>
         
     </div><div class="proof-content">
 <p>(**) Using <strong class="command">numpy.split</strong>,
@@ -725,11 +747,11 @@ two criteria).</p>
 </div>
 </div>
 <div class="section" id="exercises">
-<h2><span class="section-number">15.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">13.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
 <div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.12</span>
+        <span class="proof-type">Exercise 13.12</span>
         
     </div><div class="proof-content">
 <p>Name the data type of an object that the <strong class="command">DataFrame.groupby</strong> method
@@ -737,7 +759,7 @@ returns.</p>
 </div></div><div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.13</span>
+        <span class="proof-type">Exercise 13.13</span>
         
     </div><div class="proof-content">
 <p>What is the relationship between <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>,
@@ -745,7 +767,7 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
 </div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 15.14</span>
+        <span class="proof-type">Exercise 13.14</span>
         
     </div><div class="proof-content">
 <p>What are relative z-scores and how can we compute them?</p>
@@ -758,8 +780,8 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="450-sql.html" class="btn btn-neutral float-right" title="16. Accessing Databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="430-categorical.html" class="btn btn-neutral float-left" title="14. Handling Categorical Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="440-sql.html" class="btn btn-neutral float-right" title="14. Accessing Databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="420-categorical.html" class="btn btn-neutral float-left" title="12. Handling Categorical Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -768,9 +790,9 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-07T19:16:09+1000.
+        Last updated on 2022-04-12T17:31:13+1000.
       </span>
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
     </p>
   </div> 
