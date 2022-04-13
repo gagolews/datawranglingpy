@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.2]
           
 
           
@@ -201,7 +201,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.2]</a>
         
       </nav>
 
@@ -307,7 +307,7 @@ it is thus time for the two remaining ones.</p>
 data frame columns in <a class="reference internal" href="410-dataframe.html#chap-dataframe"><span class="std std-numref">Chapter 11</span></a>.</p>
 </div>
 <div class="section" id="vectorised-mathematical-functions">
-<h2><span class="section-number">6.1. </span>Vectorised Mathematical Functions<a class="headerlink" href="#vectorised-mathematical-functions" title="Permalink to this headline"></a></h2>
+<span id="sec-vecfun"></span><h2><span class="section-number">6.1. </span>Vectorised Mathematical Functions<a class="headerlink" href="#vectorised-mathematical-functions" title="Permalink to this headline"></a></h2>
 <p><em>Numpy</em>, just like any other comprehensive numerical computing
 package, library, or environment (e.g., R and Julia),
 defines many basic mathematical functions:</p>
@@ -324,12 +324,18 @@ defines many basic mathematical functions:</p>
 (when in doubt about their definitions,
 we should, as usual, refer to the official manual).</p></li>
 </ul>
-<p>All these functions are <em>vectorised</em>: if we apply them on a vector of
-length <em>n</em>, they return a sequence of the same size,
-with all elements transformed.</p>
-<p>Thanks to this, our code can not only be more readable, but it runs faster –
-as otherwise we would have to employ a <strong class="command">while</strong> or <strong class="command">for</strong> loop
-to traverse through each element in a given sequence.</p>
+<p>Each of these functions is <em>vectorised</em>: if we apply, say, <span class="math notranslate nohighlight">\(f\)</span>,
+on a vector like <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>, we
+obtain a sequence of the same size
+with all elements appropriately transformed:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\boldsymbol{x}) = (f(x_1), f(x_2), \dots, f(x_n)).
+\]</div>
+<p>We will frequently be using such operations for adjusting the data,
+e.g., as in <a class="reference internal" href="240-distribution-uni.html#fig-heights-lognormal"><span class="std std-numref">Figure 7.4</span></a> where
+we note that the <em>logarithm</em> of the UK incomes
+has a bell-shaped distribution.</p>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="c1">## array([2, 1, 0, 1, 2, 3])</span>
@@ -344,6 +350,10 @@ to traverse through each element in a given sequence.</p>
 </pre></div>
 </div>
 <p>and so forth.</p>
+<p>Thanks to the vectorised functions, our code is not only more
+readable, but also it runs faster – as otherwise we would have to employ
+a <strong class="command">while</strong> or <strong class="command">for</strong> loop
+to traverse through each element in a given sequence.</p>
 </div>
 <div class="section" id="arithmetic-operators">
 <h2><span class="section-number">6.2. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline"></a></h2>
@@ -366,8 +376,16 @@ value, for example:</p>
 <p>In such a case, each element in the vector is being
 operated upon (e.g., squared, divided by 5)
 and we get a vector of the same length in return.
-Hence, this use case behaves just like the vectorised mathematical functions
-discussed above.</p>
+Hence, in this case the operators behave just like the vectorised
+mathematical functions discussed above.</p>
+<p>Mathematically, it is common to assume that
+scalar multiplication (and division)
+is performed this way (but less common with respect to other
+operators).</p>
+<div class="math notranslate nohighlight">
+\[
+s \boldsymbol{x} = (sx_1, sx_2, \dots, sx_n).
+\]</div>
 </div>
 <div class="section" id="application-feature-scaling">
 <h3><span class="section-number">6.2.2. </span>Application: Feature Scaling<a class="headerlink" href="#application-feature-scaling" title="Permalink to this headline"></a></h3>
@@ -510,7 +528,7 @@ minimum and maximum functions.</p>
 <h4><span class="section-number">6.2.2.3. </span>Normalisation (*)<a class="headerlink" href="#normalisation" title="Permalink to this headline"></a></h4>
 <p><em>Normalisation</em> is the scaling of a given vector so that it is of
 <em>unit length</em>. Usually, by <em>length</em> we mean the square root of the sum of
-squares, i.e., the Euclidean norm:</p>
+squares, i.e., the Euclidean (<span class="math notranslate nohighlight">\(l^2\)</span>) norm:</p>
 <div class="math notranslate nohighlight">
 \[
 \| (x_1,\dots,x_n) \| = \sqrt{
@@ -519,23 +537,37 @@ x_1^2 + x_2^2 + \dots + x_n^2
 \sum_{i=1}^n x_i^2
 },
 \]</div>
-<p>whose special case for <em>n=2</em> we know well from high school:
+<p>Its special case for <em>n=2</em> we know well from high school:
 the length of a vector <span class="math notranslate nohighlight">\((a,b)\)</span>
-is <span class="math notranslate nohighlight">\(\sqrt{a^2+b^2}\)</span>, e.g., <span class="math notranslate nohighlight">\(\|(1, 2)\| = \sqrt{5} \simeq 2.236\)</span>.</p>
+is <span class="math notranslate nohighlight">\(\sqrt{a^2+b^2}\)</span>, e.g., <span class="math notranslate nohighlight">\(\|(1, 2)\| = \sqrt{5} \simeq 2.236\)</span>.
+Also, it’s good to program our brains so that when
+next time we see <span class="math notranslate nohighlight">\(\| \boldsymbol{x} \|^2\)</span>, we immediately
+think of the <em>sum of squares</em>.</p>
 <p>We can thus write:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
 <span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># x divided by the Euclidean norm of x</span>
 <span class="c1">## array([ 0.13834289,  0.69171446, -0.55337157,  0.27668579,  0.34585723])</span>
 </pre></div>
 </div>
+<p>to mean the normalised vector</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\boldsymbol{x}}{\| \boldsymbol{x} \|} =
+\left(
+\frac{x_1}{\| \boldsymbol{x} \|},
+\frac{x_2}{\| \boldsymbol{x} \|},
+\dots,
+\frac{x_n}{\| \boldsymbol{x} \|}
+\right).
+\]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Note that normalisation is pretty similar to
 standardisation if data are already centred (when mean was subtracted).
 Actually, we can obtain one from the other
-by scaling by <span class="math notranslate nohighlight">\(\sqrt{n-1}\)</span>.</p>
+via scaling by <span class="math notranslate nohighlight">\(\sqrt{n}\)</span>.</p>
 </div>
-<p>At other times, by <em>length</em> we can also mean the Manhattan
+<p>At other times, by <em>length</em> we can also mean the Manhattan (<span class="math notranslate nohighlight">\(l^1\)</span>)
 norm,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -546,9 +578,8 @@ norm,</p>
 <span class="c1">## array([ 0.06896552,  0.34482759, -0.27586207,  0.13793103,  0.17241379])</span>
 </pre></div>
 </div>
-<p>This is frequently applied on vectors of nonnegative values,
-whose normalised versions can
-be interpreted as <em>probabilities</em>:
+<p><span class="math notranslate nohighlight">\(l_1\)</span> normalisation is frequently applied on vectors of nonnegative values,
+whose normalised versions can be interpreted as <em>probabilities</em>:
 values between 0 and 1 which additionally
 add up to 1 (or, equivalently, 100%).
 In particular, on binned data:</p>
@@ -581,6 +612,18 @@ and combining it with the <em>corresponding</em> element from the second argumen
 <p>We see that the first element in the left operand (2)
 was multiplied by the first element in the right operand (10).
 Then, we computed 3*100 (the second elements), and so forth.</p>
+<p>Such a behaviour of the binary operators
+is inspired by the usual convention in vector algebra
+where applying <span class="math notranslate nohighlight">\(+\)</span> (or <span class="math notranslate nohighlight">\(-\)</span>) on <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>
+and <span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span> means exactly:</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{x}+\boldsymbol{y} = (x_1+y_1, x_2+y_2, \dots, x_n+y_n).
+\]</div>
+<p>Using other operators this way (elementwisely)
+is less standard in mathematics (for instance multiplication
+might denote the dot product), but in <strong class="program">numpy</strong>
+it is really convenient.</p>
 <div class="proof proof-type-example" id="id3">
 
     <div class="proof-title">
@@ -594,8 +637,8 @@ Then, we computed 3*100 (the second elements), and so forth.</p>
 </pre></div>
 </div>
 <p>computes the value of the expression
-<span class="math notranslate nohighlight">\(h = - (p_1\, \log p_1 + p_2\, \log p_2 + \dots + p_n\, \log p_n) =
--\sum_{i=1}^n p_i\, \log p_i\)</span>.
+<span class="math notranslate nohighlight">\(h = - (p_1\, \log p_1 + \dots + p_n\, \log p_n)\)</span>,
+i.e., <span class="math notranslate nohighlight">\(h=-\sum_{i=1}^n p_i\, \log p_i\)</span>.
 Note that it involves the use of a unary vectorised
 minus (change sign), an aggregation function (sum),
 a vectorised mathematical function (log),
@@ -606,14 +649,15 @@ and an elementwise multiplication.</p>
         <span class="proof-type">Example 6.4</span>
         
     </div><div class="proof-content">
-<p>Let’s say we would like to plot two mathematical functions:
+<p>Let’s say that for some reason we would like to plot two mathematical
+functions:
 <span class="math notranslate nohighlight">\(f(x)= \sin x\, \cos^2 \frac{x}{3}\)</span>
 and
 <span class="math notranslate nohighlight">\(g(x) = \frac{\sin (-2x)}{x^2+1}\)</span>
 for <span class="math notranslate nohighlight">\(x\)</span> in the interval <span class="math notranslate nohighlight">\([-2\pi, 4\pi]\)</span>.</p>
 <p>To do this, we can probe the values of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> at sufficiently many points
 using the vectorised operations discussed so far
-and then use the <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot</span></code> function
+and then use the <strong class="command">matplotlib.pyplot.plot</strong> function
 to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"><span class="std std-numref">Figure 6.1</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>  <span class="c1"># many points in the said interval</span>
 <span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
@@ -738,9 +782,7 @@ Therefore, the bracketing of the comparisons is obligatory.</p>
         <span class="proof-type">Exercise 6.6</span>
         
     </div><div class="proof-content">
-<p>Based on the <code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020.txt</span></code> and
-<code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020.txt</span></code> datasets,
-compute the BMIs of the persons only whose
+<p>Compute the BMIs only of the persons whose
 height is between 150 and 170 cm.</p>
 </div></div></div>
 <div class="section" id="slicing">
@@ -1078,7 +1120,7 @@ How about <code class="docutils literal notranslate"><span class="pre">x[</span>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-12T17:31:13+1000.
+        Last updated on 2022-04-13T15:58:00+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.2]
           
 
           
@@ -200,7 +200,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.2]</a>
         
       </nav>
 
@@ -308,9 +308,11 @@ the following characterisation.</p>
 <p class="admonition-title">Important</p>
 <p>(**) We call an integrable function <span class="math notranslate nohighlight">\(f:\mathbb{R}\to\mathbb{R}\)</span>
 a <em>probability density function</em> (PDF)
-if <span class="math notranslate nohighlight">\(f(x)\ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\int_{-\infty}^\infty f(x)\,dx=1\)</span>.</p>
-<p>For any <span class="math notranslate nohighlight">\(a &lt; b\)</span>, we treat the total area under the <span class="math notranslate nohighlight">\(f(x)\)</span> curve
-for <span class="math notranslate nohighlight">\(x\)</span> between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, i.e., <span class="math notranslate nohighlight">\(\int_a^b f(x)\,dx\)</span>,
+if <span class="math notranslate nohighlight">\(f(x)\ge 0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\int_{-\infty}^\infty f(x)\,dx=1\)</span>,
+i.e., it is nonnegative and normalised in such a way that
+the total area under the whole curve is 1.</p>
+<p>For any <span class="math notranslate nohighlight">\(a &lt; b\)</span>, we treat the area under the fragment of
+the <span class="math notranslate nohighlight">\(f(x)\)</span> curve for <span class="math notranslate nohighlight">\(x\)</span> between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>, i.e., <span class="math notranslate nohighlight">\(\int_a^b f(x)\,dx\)</span>,
 as the probability of the underlying real-valued
 random variable (theoretical data generating process)
 falling into the <span class="math notranslate nohighlight">\([a, b]\)</span> interval.</p>
@@ -648,11 +650,15 @@ Let us investigate whether this is the case for the UK taxpayers.</p>
 </pre></div>
 </div>
 <p>The plotting of the histogram for the logarithm of
-income is left as an exercise (we should pass <code class="docutils literal notranslate"><span class="pre">log_scale=True</span></code>
-to <strong class="command">seaborn.histplot</strong>). We proceed directly with the
+income is left as an exercise (we can pass <code class="docutils literal notranslate"><span class="pre">log_scale=True</span></code>
+to <strong class="command">seaborn.histplot</strong>; we’ll plot it soon anyway
+in a different way).
+We proceed directly with the
 fitting of a log-normal model, LN(μ, σ).
 The fitting process is similar to the normal case, but this time
-we the compute mean and standard deviation based on the logarithms of data:</p>
+we determine the mean and standard deviation based on the logarithms of data,
+which we can compute using a vectorised mathematical function
+discussed in <a class="reference internal" href="230-transform-vector.html#sec-vecfun"><span class="std std-numref">Section 6.1</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lmu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">income</span><span class="p">))</span>
 <span class="n">lsigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">lmu</span><span class="p">,</span> <span class="n">lsigma</span>
@@ -1070,6 +1076,10 @@ studying the <em>fundamentals</em>.</p>
 later in this course)
 could be used to split a data sample into disjoint chunks
 corresponding to different mixture components.</p>
+<p>Also, it might be the case that the mixture components can
+in fact be explained by another categorical variable which
+divides the dataset into natural groups, compare
+<a class="reference internal" href="430-groupby.html#chap-groupby"><span class="std std-numref">Chapter 13</span></a>.</p>
 </div>
 </div>
 </div>
@@ -1319,7 +1329,7 @@ a.k.a. the Glivenko–Cantelli theorem.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-12T17:31:13+1000.
+        Last updated on 2022-04-13T15:58:00+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

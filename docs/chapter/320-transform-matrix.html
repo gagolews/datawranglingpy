@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.2]
           
 
           
@@ -194,7 +194,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.2]</a>
         
       </nav>
 
@@ -299,6 +299,19 @@ transformed accordingly.</p>
 </pre></div>
 </div>
 <p>takes the square of every element.</p>
+<p>More generally, using mathematical notation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f(\mathbf{X})=
+\left[
+\begin{array}{cccc}
+f(x_{1,1}) &amp; f(x_{1,2}) &amp; \cdots &amp; f(x_{1,m}) \\
+f(x_{2,1}) &amp; f(x_{2,2}) &amp; \cdots &amp; f(x_{2,m}) \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+f(x_{n,1}) &amp; f(x_{n,2}) &amp; \cdots &amp; f(x_{n,m}) \\
+\end{array}
+\right].
+\end{split}\]</div>
 </div>
 <div class="section" id="aggregation-functions">
 <h2><span class="section-number">9.2. </span>Aggregation Functions<a class="headerlink" href="#aggregation-functions" title="Permalink to this headline"></a></h2>
@@ -306,8 +319,8 @@ transformed accordingly.</p>
 can summarise:</p>
 <ul class="simple">
 <li><p>all data into a single number (<code class="docutils literal notranslate"><span class="pre">axis=None</span></code>, being the default),</p></li>
-<li><p>data in each column (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>),</p></li>
-<li><p>data in each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>).</p></li>
+<li><p>data in each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>),</p></li>
+<li><p>data in each column (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>).</p></li>
 </ul>
 <p>Here are the examples corresponding to the above cases:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -377,21 +390,37 @@ over all matrix elements, for example:</p>
 </pre></div>
 </div>
 <p>And now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">**</span><span class="mi">2</span>
-<span class="c1">## array([[0.04, 0.36, 0.16, 0.16],</span>
-<span class="c1">##        [0.  , 0.04, 0.16, 0.49],</span>
-<span class="c1">##        [0.64, 0.64, 0.04, 0.01]])</span>
-</pre></div>
-</div>
-<p>takes the square of each element.</p>
-<p>Furthermore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">A</span>
 <span class="c1">## array([[-0.2, -0.6, -0.4, -0.4],</span>
 <span class="c1">##        [-0. , -0.2, -0.4, -0.7],</span>
 <span class="c1">##        [-0.8, -0.8, -0.2, -0.1]])</span>
 </pre></div>
 </div>
-<p>changes the sign of every element.</p>
+<p>changes the sign of every element, which is,
+mathematically,
+an instance of multiplying a matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> by a scalar <span class="math notranslate nohighlight">\(c\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+c\mathbf{X}=
+\left[
+\begin{array}{cccc}
+cx_{1,1} &amp; cx_{1,2} &amp; \cdots &amp; cx_{1,m} \\
+cx_{2,1} &amp; cx_{2,2} &amp; \cdots &amp; cx_{2,m} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+cx_{n,1} &amp; cx_{n,2} &amp; \cdots &amp; cx_{n,m} \\
+\end{array}
+\right].
+\end{split}\]</div>
+<p>Furthermore:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">**</span><span class="mi">2</span>
+<span class="c1">## array([[0.04, 0.36, 0.16, 0.16],</span>
+<span class="c1">##        [0.  , 0.04, 0.16, 0.49],</span>
+<span class="c1">##        [0.64, 0.64, 0.04, 0.01]])</span>
+</pre></div>
+</div>
+<p>takes the square of each element
+(this is not the same as matrix-multiply by itself
+which we cover in the matrix algebra section).</p>
 <p>Also:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">&gt;=</span> <span class="mf">0.25</span>
 <span class="c1">## array([[False,  True,  True,  True],</span>
@@ -420,7 +449,22 @@ acting on the corresponding elements:</p>
 </pre></div>
 </div>
 <p>multiplies each <span class="math notranslate nohighlight">\(a_{i,j}\)</span> by the corresponding <span class="math notranslate nohighlight">\(b_{i,j}\)</span>.</p>
-<p>Thanks to this and the matrix-scalar operations
+<p>This extends on the idea from algebra that given
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> with <em>n</em> rows and <em>m</em> columns each,
+the result of <span class="math notranslate nohighlight">\(+\)</span> (or <span class="math notranslate nohighlight">\(-\)</span>) would be for instance:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A} + \mathbf{B}=
+\left[
+\begin{array}{cccc}
+a_{1,1}+b_{1,1} &amp; a_{1,2}+b_{1,2} &amp; \cdots &amp; a_{1,m}+b_{1,m} \\
+a_{2,1}+b_{2,1} &amp; a_{2,2}+b_{1,2} &amp; \cdots &amp; a_{2,m}+b_{2,m} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{n,1}+b_{n,1} &amp; a_{n,2}+b_{n,2} &amp; \cdots &amp; a_{n,m}+b_{n,m} \\
+\end{array}
+\right].
+\end{split}\]</div>
+<p>Thanks to the matrix-matrix and matrix-scalar operations
 we can perform various tests on an per-element basis, e.g.,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">A</span> <span class="o">&gt;=</span> <span class="mf">0.25</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">A</span> <span class="o">&lt;=</span> <span class="mf">0.75</span><span class="p">)</span>  <span class="c1"># logical matrix &amp; logical matrix</span>
 <span class="c1">## array([[False,  True,  True,  True],</span>
@@ -514,7 +558,7 @@ for example:</p>
 <span class="c1">##        [0.1, 0.2, 0.8, 0.8]])</span>
 </pre></div>
 </div>
-<p>sorts every row. Moreover:</p>
+<p>sorts every row (separately). Moreover:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## array([[2. , 2. , 2.5, 2. ],</span>
 <span class="c1">##        [1. , 1. , 2.5, 3. ],</span>
@@ -666,7 +710,15 @@ are greater than 0.1.</p>
 <span class="c1">##        [0.8, 0.8, 0.2, 0.1]])</span>
 </pre></div>
 </div>
-<p>selects the  rows whose mean is greater than 0.35.</p>
+<p>selects the rows whose mean is greater than 0.35.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="p">:</span> <span class="p">]</span>
+<span class="c1">## array([[0. , 0.2, 0.4, 0.7],</span>
+<span class="c1">##        [0.2, 0.6, 0.4, 0.4],</span>
+<span class="c1">##        [0.8, 0.8, 0.2, 0.1]])</span>
+</pre></div>
+</div>
+<p>orders the matrix with respect to the values in the first
+row (all rows permuted in the same way, together).</p>
 <div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
@@ -810,7 +862,7 @@ the first and the last row and the first and the last column?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-12T17:31:13+1000.
+        Last updated on 2022-04-13T15:58:00+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
