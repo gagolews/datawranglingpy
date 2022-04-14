@@ -14,8 +14,6 @@
 
   
   
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -241,8 +239,6 @@
 
         
         
-        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
-        
 
 
         
@@ -373,14 +369,14 @@ Usually, we’ll be creating dates from strings, for instance:</p>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-04-13&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-04-14&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-04-13T05:02:27&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-04-14T08:42:15&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -392,9 +388,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let’s verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19095.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19096.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.64982615e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.64992574e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
@@ -404,10 +400,10 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-04-12&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-04-13&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-04-13T17:02:27&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-04-14T20:42:15&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -831,6 +827,32 @@ e.g., using a 1-year moving average:</p>
 <span id="fig-spokane-ma-trends"></span><img alt="../_images/spokane-ma-trends-11.png" src="../_images/spokane-ma-trends-11.png" />
 <p class="caption"><span class="caption-number">Figure 18.6 </span><span class="caption-text">Trend and seasonal pattern for the Spokane temperatures in recent years</span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
 </div>
+<p>Also, if we know the length of the seasonal pattern
+(in our case, 365-ish days), we can draw
+a seasonal plot, where we have a separate curve for each
+season (here: year)
+and all series share the same x-axis (here: day of year),
+see <a class="reference internal" href="#fig-spokane-seasonal"><span class="std std-numref">Figure 18.7</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">2022</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">year</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day_of_year</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">temp</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">cmap</span><span class="p">((</span><span class="n">year</span><span class="o">-</span><span class="mi">1970</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2021</span><span class="o">-</span><span class="mi">1970</span><span class="p">)),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">year</span> <span class="k">if</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">avex</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day_of_year</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">avex</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">avex</span><span class="p">,</span> <span class="s2">&quot;g-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Average&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Day of year&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id17">
+<span id="fig-spokane-seasonal"></span><img alt="../_images/spokane-seasonal-13.png" src="../_images/spokane-seasonal-13.png" />
+<p class="caption"><span class="caption-number">Figure 18.7 </span><span class="caption-text">An example seasonal plot: Spokane temperatures vs day of year between 1970 and 2021</span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
+</div>
 </div>
 <div class="section" id="imputing-missing-values">
 <h3><span class="section-number">18.3.4. </span>Imputing Missing Values<a class="headerlink" href="#imputing-missing-values" title="Permalink to this headline"></a></h3>
@@ -847,7 +869,7 @@ in time series are:</p>
 in particular, a single missing value will be replaced
 by the average of its neighbours.</p></li>
 </ul>
-<div class="proof proof-type-example" id="id17">
+<div class="proof proof-type-example" id="id18">
 
     <div class="proof-title">
         <span class="proof-type">Example 18.7</span>
@@ -882,7 +904,7 @@ solar radiation column:</p>
 <span class="c1">## 11     256.0    256.0    256.0    256.000000</span>
 </pre></div>
 </div>
-</div></div><div class="proof proof-type-exercise" id="id18">
+</div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.8</span>
@@ -931,8 +953,11 @@ for the first half of 2020:</p>
 <span class="c1">##        [1.6193 , 7.7011 , 0.85285, 4.2422 ]])</span>
 </pre></div>
 </div>
-<p>This gives EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN, in this order.
-Let’s draw the four time series, see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 18.7</span></a>.</p>
+<p>This gives EUR/AUD
+(how many Australian Dollars we pay for 1 Euro),
+EUR/CNY (Chinese Yuans), EUR/GBP (British Pounds),
+and EUR/PLN (Polish Złotys), in this order.
+Let’s draw the four time series, see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 18.8</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/euraud-20200101-20200630-dates.txt&quot;</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
@@ -944,9 +969,9 @@ Let’s draw the four time series, see <a class="reference internal" href="#fig-
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id19">
-<span id="fig-currency-abs"></span><img alt="../_images/currency-abs-13.png" src="../_images/currency-abs-13.png" />
-<p class="caption"><span class="caption-number">Figure 18.7 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates in the first half of 2020</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id20">
+<span id="fig-currency-abs"></span><img alt="../_images/currency-abs-15.png" src="../_images/currency-abs-15.png" />
+<p class="caption"><span class="caption-number">Figure 18.8 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates in the first half of 2020</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
 </div>
 <p>Unfortunately, they are all on different scales, hence
 the plot is not necessarily readable.
@@ -954,23 +979,25 @@ It would be better to draw these time series on 4 separate plots
 (compare the trellis plots in <a class="reference internal" href="430-groupby.html#sec-trellis"><span class="std std-numref">Section 13.2.4</span></a>).</p>
 <p>Another idea is to depict the currency exchange rates
 <em>relative</em> to the prices on some day,
-say, the first one, the last one, or 2020-03-19;
-see <a class="reference internal" href="#fig-currency-rel"><span class="std std-numref">Figure 18.8</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dates</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2020-03-19&quot;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">eurxxx</span><span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
+say, the first one;
+see <a class="reference internal" href="#fig-currency-rel"><span class="std std-numref">Figure 18.9</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">eurxxx</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span>
         <span class="n">ls</span><span class="o">=</span><span class="n">styles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id20">
-<span id="fig-currency-rel"></span><img alt="../_images/currency-rel-15.png" src="../_images/currency-rel-15.png" />
-<p class="caption"><span class="caption-number">Figure 18.8 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on 2020-03-19</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id21">
+<span id="fig-currency-rel"></span><img alt="../_images/currency-rel-17.png" src="../_images/currency-rel-17.png" />
+<p class="caption"><span class="caption-number">Figure 18.9 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on the first day</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
 </div>
-<p>This way, e.g., relative
-rate of 1.05 denotes the rate 5% higher than on the reference day.</p>
-<div style="margin-top: 1em"></div><div class="proof proof-type-exercise" id="id21">
+<p>This way, e.g., relative EUR/AUD rate of ca. 1.15
+in mid-March denotes means that if an Australian bought some
+Euros on the first day and then sold them three-ish months later,
+they would have 15% more currency
+(the Euro become 15% stronger relative to AUD).</p>
+<div style="margin-top: 1em"></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.9</span>
@@ -978,7 +1005,7 @@ rate of 1.05 denotes the rate 5% higher than on the reference day.</p>
     </div><div class="proof-content">
 <p>Based on EUR/AUD and EUR/PLN rates,
 compute and plot the AUD/PLN as well as PLN/AUD ones.</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
+</div></div><div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.10</span>
@@ -989,7 +1016,7 @@ Draw the EUR/AUD and EUR/GBP rates on a single
 plot, but with each series having
 <a class="reference external" href="https://matplotlib.org/stable/gallery/subplots_axes_and_figures/secondary_axis.html">its own</a>
 <em>y</em> axis.</p>
-</div></div><div class="proof proof-type-exercise" id="id23">
+</div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.11</span>
@@ -1033,11 +1060,11 @@ Here, let us briefly mention the candlestick plot.</p>
 <span class="c1"># plt.show() # not needed...</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id24">
-<span id="fig-candlestick-plot"></span><img alt="../_images/candlestick-plot-17.png" src="../_images/candlestick-plot-17.png" />
-<p class="caption"><span class="caption-number">Figure 18.9 </span><span class="caption-text">Candlestick plot for the BTC/USD exchange rates in January 2021</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id25">
+<span id="fig-candlestick-plot"></span><img alt="../_images/candlestick-plot-19.png" src="../_images/candlestick-plot-19.png" />
+<p class="caption"><span class="caption-number">Figure 18.10 </span><span class="caption-text">Candlestick plot for the BTC/USD exchange rates in January 2021</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
 </div>
-<p><a class="reference internal" href="#fig-candlestick-plot"><span class="std std-numref">Figure 18.9</span></a> depicts the January 2021 data.
+<p><a class="reference internal" href="#fig-candlestick-plot"><span class="std std-numref">Figure 18.10</span></a> depicts the January 2021 data.
 Note that this is not a box and whisker plot.
 The candlestick body denotes the difference in the market opening
 and the closing price. The wicks (shadows) give the range
@@ -1045,7 +1072,7 @@ and the closing price. The wicks (shadows) give the range
 <p>Green candlesticks represent bullish days – where the
 closing rate is greater than the opening one (uptrend).
 Red candles are bearish (decline)</p>
-<div class="proof proof-type-exercise" id="id25">
+<div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.12</span>
@@ -1053,7 +1080,7 @@ Red candles are bearish (decline)</p>
     </div><div class="proof-content">
 <p>Draw the BTC/USD rates for the whole year
 and add the 10-day moving averages.</p>
-</div></div><div class="proof proof-type-exercise" id="id26">
+</div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.13</span>
@@ -1063,7 +1090,7 @@ and add the 10-day moving averages.</p>
 Draw a candlestick plot manually, without using
 the <strong class="program">mplfinance</strong> package. <strong class="command">matplotlib.pyplot.fill</strong> might
 be helpful.</p>
-</div></div><div class="proof proof-type-exercise" id="id27">
+</div></div><div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.14</span>
@@ -1164,16 +1191,16 @@ that we can download from our
 </div>
 <p>The image is in 8-bit greyscale: the values
 represent 256 shades of grey between 0 (black) and 255 (white),
-see <a class="reference internal" href="#fig-bitmap"><span class="std std-numref">Figure 18.10</span></a>.</p>
+see <a class="reference internal" href="#fig-bitmap"><span class="std std-numref">Figure 18.11</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id28">
-<span id="fig-bitmap"></span><img alt="../_images/bitmap-19.png" src="../_images/bitmap-19.png" />
-<p class="caption"><span class="caption-number">Figure 18.10 </span><span class="caption-text">Example bitmap</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id29">
+<span id="fig-bitmap"></span><img alt="../_images/bitmap-21.png" src="../_images/bitmap-21.png" />
+<p class="caption"><span class="caption-number">Figure 18.11 </span><span class="caption-text">Example bitmap</span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1182,7 +1209,7 @@ will often be expecting flat vectors on inputs – instead of an 8x8
 matrix, they had rather be fed with a sequence of 64 elements.
 We can call <code class="docutils literal notranslate"><span class="pre">im.flatten()</span></code> to get such a form.</p>
 </div>
-<div class="proof proof-type-exercise" id="id29">
+<div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.15</span>
@@ -1192,7 +1219,7 @@ We can call <code class="docutils literal notranslate"><span class="pre">im.flat
 to the <em>[0, 1]</em> interval, which is another common option
 (as we can read from the manual of
 <strong class="command">matplotlib.pyplot.imshow</strong>).</p>
-</div></div><div class="proof proof-type-exercise" id="id30">
+</div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.16</span>
@@ -1226,7 +1253,7 @@ alpha channel is included) values.
 Thus, instead of a <em>h</em>×<em>w</em> matrix,
 we well be dealing with three- dimensional arrays
 of size <em>h</em>×<em>w</em>×3 (or 4).</p>
-<div class="proof proof-type-exercise" id="id31">
+<div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.17</span>
@@ -1250,7 +1277,7 @@ stochastic processes, e.g., <span id="id4">[<a class="reference internal" href="
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">18.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id32">
+<div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.18</span>
@@ -1259,14 +1286,14 @@ stochastic processes, e.g., <span id="id4">[<a class="reference internal" href="
 <p>Let’s say we have a time series with <em>n</em> observations.
 What is a 1- and an <em>n</em>-moving average?
 Which one is smoother, an <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
-</div></div><div class="proof proof-type-exercise" id="id33">
+</div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.19</span>
         
     </div><div class="proof-content">
 <p>What is the Unix Epoch?</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+</div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.20</span>
@@ -1274,7 +1301,7 @@ Which one is smoother, an <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
     </div><div class="proof-content">
 <p>How can we recreate the original series
 when we are given its <strong class="command">numpy.diff</strong>-transformed version?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.21</span>
@@ -1282,7 +1309,7 @@ when we are given its <strong class="command">numpy.diff</strong>-transformed ve
     </div><div class="proof-content">
 <p>(*) In your own words, describe the key elements
 of a candlestick plot.</p>
-</div></div><div class="proof proof-type-exercise" id="id36">
+</div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.22</span>
@@ -1292,7 +1319,7 @@ of a candlestick plot.</p>
 What colours do the following
 <a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors">RGB hex triples</a>
 represent? <code class="docutils literal notranslate"><span class="pre">#ff0000</span></code>, <code class="docutils literal notranslate"><span class="pre">#808000</span></code>, <code class="docutils literal notranslate"><span class="pre">#cccccc</span></code>, <code class="docutils literal notranslate"><span class="pre">#00aaff</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id37">
+</div></div><div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.23</span>
@@ -1320,7 +1347,7 @@ popular colour models?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-13T15:58:00+1000.
+        Last updated on 2022-04-14T19:22:15+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

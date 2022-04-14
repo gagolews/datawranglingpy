@@ -14,8 +14,6 @@
 
   
   
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -226,8 +224,6 @@
 
         
         
-        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
-        
 
 
         
@@ -373,13 +369,26 @@ it by then):</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>
 (symmetric);</p></li>
-<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})\)</span> is always between -1 and 1
-(bounded from below and above);</p></li>
+<li><p><span class="math notranslate nohighlight">\(|r(\boldsymbol{x}, \boldsymbol{y})| \le 1\)</span>
+(bounded from below by -1 and from above by 1);</p></li>
 <li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=1\)</span> if and only if
-<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&gt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span>;</p></li>
-<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=-1\)</span> if and only if
-<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&lt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span>;</p></li>
+<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&gt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span>,
+(reaches the maximum when one variable is an increasing
+linear function of the other one);</p></li>
+<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, -\boldsymbol{y})=-r(\boldsymbol{x}, \boldsymbol{y})\)</span>
+(negative scaling (reflection) of one variable changes the sign of the
+coefficient);</p></li>
+<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, a\boldsymbol{y}+b)=r(\boldsymbol{x}, \boldsymbol{y})\)</span>
+for any <span class="math notranslate nohighlight">\(a&gt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span> (invariant to translation and scaling of inputs
+that does not change the sign of elements).</p></li>
 </ol>
+<p>Note that the above implies that
+<span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=-1\)</span> if and only if
+<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&lt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span>
+(reaches the minimum when one variable is
+a decreasing linear function of the other one)
+Furthermore, a variable is trivially
+perfectly correlated with itself <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{x})=1\)</span>.</p>
 <div style="margin-top: 1em"></div><p>Hence, we get perfect <em>linear correlation</em> (-1 or 1) when
 one variable is a scaled and shifted version (linear function)
 of the other variable, see <a class="reference internal" href="#fig-corr-ex-0"><span class="std std-numref">Figure 10.1</span></a>.</p>
@@ -434,8 +443,18 @@ quite high positive degree of linear correlation.</p>
     </div><div class="proof-content">
 <p>Draw a  series of similar plots but
 for the case of negatively correlated point pairs.</p>
-</div></div><p>We should stress that correlation close to 0 does not necessarily
-mean that two variables are not related to each other.
+</div></div><div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>As a rule of thumb, linear correlation degree of
+0.9 or greater (or -0.9 or smaller) is quite decent.
+Between -0.8 and 0.8 we probably shouldn’t be talking about two variables
+being linearly correlated at all.
+Some textbooks are more lenient, but we have higher standards.</p>
+</div>
+<p>We should stress that correlation close to 0 does not necessarily
+mean that two variables are not related to each other,
+although definitely for two independent variables
+we expect the correlation coefficient be approximately equal to 0.
 It is a <em>linear</em> correlation coefficient, so we
 are only quantifying these types of relationships.
 See <a class="reference internal" href="#fig-corr-ex-2"><span class="std std-numref">Figure 10.3</span></a> for an illustration of this fact.</p>
@@ -558,7 +577,36 @@ is trivially correlated with itself.
 Also, note that this heatmap is symmetric
 which is due to the property
 <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>.</p>
+<div class="proof proof-type-example" id="id8">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 10.3</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+To fetch the row and column index of the most correlated pair of
+variables (either positively or negatively),
+we should first take the upper (or lower)
+triangle of the correlation matrix to ignore the irrelevant
+and repeating items:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Cu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">C</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Cu</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1">## array([[0.  , 0.35, 0.55, 0.19, 0.91, 0.95, 0.9 ],</span>
+<span class="c1">##        [0.  , 0.  , 0.67, 0.66, 0.15, 0.2 , 0.13],</span>
+<span class="c1">##        [0.  , 0.  , 0.  , 0.48, 0.45, 0.46, 0.43],</span>
+<span class="c1">##        [0.  , 0.  , 0.  , 0.  , 0.08, 0.1 , 0.03],</span>
+<span class="c1">##        [0.  , 0.  , 0.  , 0.  , 0.  , 0.87, 0.85],</span>
+<span class="c1">##        [0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.9 ],</span>
+<span class="c1">##        [0.  , 0.  , 0.  , 0.  , 0.  , 0.  , 0.  ]])</span>
+</pre></div>
 </div>
+<p>and then find the location of the maximum:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Cu</span><span class="p">),</span> <span class="n">Cu</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1">## (0, 5)</span>
+</pre></div>
+</div>
+<p>Thus, weight and hip circumference is the most strongly correlated.</p>
+</div></div></div>
 <div class="section" id="linear-correlation-coefficients-on-transformed-data">
 <h3><span class="section-number">10.1.3. </span>Linear Correlation Coefficients on Transformed Data<a class="headerlink" href="#linear-correlation-coefficients-on-transformed-data" title="Permalink to this headline"></a></h3>
 <p>Pearson’s coefficient can of course also be applied
@@ -597,9 +645,9 @@ a scatterplot.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id8">
+<div class="figure align-default" id="id9">
 <span id="fig-worldfactbook-gdp-life"></span><img alt="../_images/WorldFactbook-gdp-life-11.png" src="../_images/WorldFactbook-gdp-life-11.png" />
-<p class="caption"><span class="caption-number">Figure 10.6 </span><span class="caption-text">Scatterplots for life expectancy vs gross domestic product (purchasing power parity) on linear (left-) and log-scale (righthand side)</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 10.6 </span><span class="caption-text">Scatterplots for life expectancy vs gross domestic product (purchasing power parity) on linear (left-) and log-scale (righthand side)</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </div>
 <p>Computing Pearson’s <em>r</em>
 between these two indicates a quite weak linear correlation:</p>
@@ -651,19 +699,29 @@ monotone transformations of the input variables
 <span class="c1">## -0.8275220380818622</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.3</span>
+        <span class="proof-type">Exercise 10.4</span>
         
     </div><div class="proof-content">
 <p>We have included the <em>ρ</em>s in all the outputs generated
 by our <strong class="command">plot_corr</strong> functions. Review all the figures listed
 above.</p>
-</div></div><div class="proof proof-type-exercise" id="id10">
+</div></div><div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.4</span>
+        <span class="proof-type">Exercise 10.5</span>
+        
+    </div><div class="proof-content">
+<p>Apply <strong class="command">numpy.corrcoef</strong>
+and <strong class="command">scipy.stats.rankdata</strong> (with an appropriate <code class="docutils literal notranslate"><span class="pre">axis</span></code> argument)
+to compute the Spearman correlation matrix for all the variable
+pairs in <code class="docutils literal notranslate"><span class="pre">body</span></code>. Draw it on a heatmap.</p>
+</div></div><div class="proof proof-type-exercise" id="id12">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.6</span>
         
     </div><div class="proof-content">
 <p>(*) Draw the scatterplots of the ranks of columns
@@ -677,53 +735,53 @@ is another interesting rank correlation coefficient.</p>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">10.3. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id11">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.5</span>
-        
-    </div><div class="proof-content">
-<p>Give some ways to visualise 3-dimensional data.</p>
-</div></div><div class="proof proof-type-exercise" id="id12">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.6</span>
-        
-    </div><div class="proof-content">
-<p>How to and why set point opaqueness/transparency when drawing
-a scatter plot?</p>
-</div></div><div class="proof proof-type-exercise" id="id13">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.7</span>
         
     </div><div class="proof-content">
-<p>What does “correlation is not causation” mean?</p>
+<p>Give some ways to visualise 3-dimensional data.</p>
 </div></div><div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.8</span>
         
     </div><div class="proof-content">
-<p>What does linear correlation of 0.9 mean?</p>
+<p>How to and why set point opaqueness/transparency when drawing
+a scatter plot?</p>
 </div></div><div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.9</span>
         
     </div><div class="proof-content">
-<p>What does rank correlation of 0.9 mean?</p>
+<p>What does “correlation is not causation” mean?</p>
 </div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.10</span>
         
     </div><div class="proof-content">
-<p>What does linear correlation of 0.0 mean?</p>
+<p>What does linear correlation of 0.9 mean?</p>
 </div></div><div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.11</span>
+        
+    </div><div class="proof-content">
+<p>What does rank correlation of 0.9 mean?</p>
+</div></div><div class="proof proof-type-exercise" id="id18">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.12</span>
+        
+    </div><div class="proof-content">
+<p>What does linear correlation of 0.0 mean?</p>
+</div></div><div class="proof proof-type-exercise" id="id19">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.13</span>
         
     </div><div class="proof-content">
 <p>How is the Spearman’s coefficient related to the Pearson’s one?</p>
@@ -746,7 +804,7 @@ a scatter plot?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-13T15:58:00+1000.
+        Last updated on 2022-04-14T19:22:15+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

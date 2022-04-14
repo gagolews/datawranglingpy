@@ -14,8 +14,6 @@
 
   
   
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
@@ -141,12 +139,13 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#other-row-and-column-transforms">9.4. Other Row and Column Transforms (*)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#filtering">9.5. Filtering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#matrix-indexing">9.5. Matrix Indexing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#slice-based-indexing">9.5.1. Slice-Based Indexing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scalar-based-indexing">9.5.2. Scalar-Based Indexing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mixing-vectors-with-scalars-or-slices">9.5.3. Mixing Vectors with Scalars or Slices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mixed-boolean-integer-vector-and-scalar-slice-indexers">9.5.3. Mixed Boolean/Integer Vector and Scalar/Slice Indexers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#two-vectors-as-indexers">9.5.4. Two Vectors as Indexers (*)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#views-on-existing-arrays">9.5.5. Views on Existing Arrays (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-and-modifying-rows-or-columns">9.5.6. Adding and Modifying Rows or Columns</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#exercises">9.6. Exercises</a></li>
@@ -235,8 +234,6 @@
       <li class="wy-breadcrumbs-aside">
 
         
-        
-        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
         
 
 
@@ -602,8 +599,8 @@ exercise?) way to compute the column z-scores:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="filtering">
-<span id="sec-matrix-indexing"></span><h2><span class="section-number">9.5. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline"></a></h2>
+<div class="section" id="matrix-indexing">
+<span id="sec-matrix-indexing"></span><h2><span class="section-number">9.5. </span>Matrix Indexing<a class="headerlink" href="#matrix-indexing" title="Permalink to this headline"></a></h2>
 <p>Recall that for 1-dimensional arrays we have
 4 possible choices of an indexer
 (i.e., where performing filtering like <code class="docutils literal notranslate"><span class="pre">x[i]</span></code>):</p>
@@ -684,8 +681,8 @@ reducing the dimensionality of the output object.</p>
 <p>However, we can always use the <strong class="command">reshape</strong> method to
 convert the resulting object back to a matrix.</p>
 </div>
-<div class="section" id="mixing-vectors-with-scalars-or-slices">
-<h3><span class="section-number">9.5.3. </span>Mixing Vectors with Scalars or Slices<a class="headerlink" href="#mixing-vectors-with-scalars-or-slices" title="Permalink to this headline"></a></h3>
+<div class="section" id="mixed-boolean-integer-vector-and-scalar-slice-indexers">
+<h3><span class="section-number">9.5.3. </span>Mixed Boolean/Integer Vector and Scalar/Slice Indexers<a class="headerlink" href="#mixed-boolean-integer-vector-and-scalar-slice-indexers" title="Permalink to this headline"></a></h3>
 <p>A logical and integer vector-like object can also be used
 for element selection.
 If the other indexer is a slice or a scalar, the result is
@@ -801,6 +798,28 @@ in-place, e.g.,</p>
 might lead to some unexpected results if we are not
 focused enough. We have been warned.</p>
 </div>
+<div class="section" id="adding-and-modifying-rows-or-columns">
+<h3><span class="section-number">9.5.6. </span>Adding and Modifying Rows or Columns<a class="headerlink" href="#adding-and-modifying-rows-or-columns" title="Permalink to this headline"></a></h3>
+<p>With slice/scalar-based indexers,
+rows/columns/individual elements can be replaced by
+new content in a natural way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>With <strong class="command">numpy</strong> arrays, however, brand new rows or columns cannot
+be added using the index operator. Instead, the whole array needs to
+be created from scratch using, for example, one
+of the functions discussed in <a class="reference internal" href="310-matrix.html#sec-stacking-array"><span class="std std-numref">Section 8.1.4</span></a>.</p>
+<p>Here is an example where we add a new column to the <code class="docutils literal notranslate"><span class="pre">A</span></code> matrix
+being a function of the first column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])))</span>
+<span class="n">A</span>
+<span class="c1">## array([[ 0.04,  0.6 , -0.4 ,  0.4 ,  0.2 ],</span>
+<span class="c1">##        [ 0.  ,  0.2 , -0.4 ,  0.7 ,  0.  ],</span>
+<span class="c1">##        [ 0.64,  0.8 , -0.2 ,  0.1 ,  0.8 ]])</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">9.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
@@ -862,7 +881,7 @@ the first and the last row and the first and the last column?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-13T15:58:00+1000.
+        Last updated on 2022-04-14T19:22:15+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
