@@ -143,6 +143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#removing-duplicates">14.3.3. Removing Duplicates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#grouping-and-aggregating">14.3.4. Grouping and Aggregating</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#joining">14.3.5. Joining</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solutions-to-exercises">14.3.6. Solutions to Exercises</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#closing-the-database-connection">14.4. Closing the Database Connection</a></li>
@@ -390,7 +391,7 @@ that will be an ordinary file stored on the computer’s disk
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
 <span class="n">dbfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;travel.db&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dbfile</span><span class="p">)</span>
-<span class="c1">## /tmp/tmp6hl5f4yt/travel.db</span>
+<span class="c1">## /tmp/tmpbvslyei8/travel.db</span>
 </pre></div>
 </div>
 <p>And now:</p>
@@ -467,6 +468,7 @@ more than one equally fine solution.</p>
 no explanations should be necessary for the queries below.
 In case of any doubt, though,
 refer to the <a class="reference external" href="https://sqlite.org/lang.html">manual</a>.</p>
+<p>Example solutions are provided at the end of this section.</p>
 </div></div><div class="proof proof-type-example" id="id6">
 
     <div class="proof-title">
@@ -496,7 +498,9 @@ it might thus be a good idea to call <code class="docutils literal notranslate">
 data frames to sort them with respect to 1 or 2 chosen columns.
 Also, some operations might introduce a small round-off error,
 therefore rounding chosen columns to a few decimal digits
-might be necessary.</p>
+might be necessary.
+Alternatively, we can check out the
+<strong class="command">pandas.testing.assert_frame_equal</strong> function.</p>
 </div></div><div class="section" id="filtering">
 <h3><span class="section-number">14.3.1. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline"></a></h3>
 <div class="proof proof-type-exercise" id="id7">
@@ -506,9 +510,10 @@ might be necessary.</p>
         
     </div><div class="proof-content">
 <p>Fetch all tag data for tags whose name contain <code class="docutils literal notranslate"><span class="pre">&quot;europe&quot;</span></code> as substring:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res2a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT * FROM Tags WHERE TagName LIKE &#39;</span><span class="si">%e</span><span class="s2">urope%&#39;</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res2a</span>
 <span class="c1">##    Count  ExcerptPostId    Id           TagName  WikiPostId</span>
 <span class="c1">## 0    681          286.0    30            europe       285.0</span>
 <span class="c1">## 1     27         2384.0   174    eastern-europe      2383.0</span>
@@ -517,8 +522,8 @@ might be necessary.</p>
 <span class="c1">## 4     36        16392.0  1950    western-europe     16391.0</span>
 </pre></div>
 </div>
-<p><em>Hint: use <code class="docutils literal notranslate"><span class="pre">Tags.TagName.str.contains(&quot;europe&quot;)</span></code> to obtain the
-same result with <strong class="program">pandas</strong></em>.</p>
+<p>Hint: use <code class="docutils literal notranslate"><span class="pre">Tags.TagName.str.contains(&quot;europe&quot;)</span></code> to obtain the
+same result with <strong class="program">pandas</strong>.</p>
 </div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
@@ -527,18 +532,19 @@ same result with <strong class="program">pandas</strong></em>.</p>
     </div><div class="proof-content">
 <p>From <code class="docutils literal notranslate"><span class="pre">Tags</span></code>, select two columns <code class="docutils literal notranslate"><span class="pre">TagName</span></code> and <code class="docutils literal notranslate"><span class="pre">Count</span></code>
 and rows for which <code class="docutils literal notranslate"><span class="pre">TagName</span></code> is equal to one of the three choices provided.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res3a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT TagName, Count</span>
 <span class="s2">    FROM Tags</span>
 <span class="s2">    WHERE TagName IN (&#39;poland&#39;, &#39;australia&#39;, &#39;china&#39;)</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res3a</span>
 <span class="c1">##      TagName  Count</span>
 <span class="c1">## 0      china    443</span>
 <span class="c1">## 1  australia    411</span>
 <span class="c1">## 2     poland    139</span>
 </pre></div>
 </div>
-<p><em>Hint: use <code class="docutils literal notranslate"><span class="pre">Tags.TagName.isin</span></code>.</em></p>
+<p>Hint: use <strong class="command">pandas.Series.isin</strong>.</p>
 </div></div><div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
@@ -547,13 +553,14 @@ and rows for which <code class="docutils literal notranslate"><span class="pre">
     </div><div class="proof-content">
 <p>Select a number of columns from <code class="docutils literal notranslate"><span class="pre">Posts</span></code>
 whose rows fulfil given conditions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res4a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT Title, Score, ViewCount, FavoriteCount</span>
 <span class="s2">    FROM Posts</span>
 <span class="s2">    WHERE PostTypeId=1 AND</span>
 <span class="s2">        ViewCount&gt;=10000 AND</span>
 <span class="s2">        FavoriteCount BETWEEN 35 AND 100</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res4a</span>
 <span class="c1">##                                                Title  Score  ViewCount  FavoriteCount</span>
 <span class="c1">## 0  When traveling to a country with a different c...    136    16838.0           35.0</span>
 <span class="c1">## 1         How can I do a &quot;broad&quot; search for flights?     95    33554.0           49.0</span>
@@ -581,13 +588,14 @@ and <code class="docutils literal notranslate"><span class="pre">Title</span></c
 then, sort the result by the <code class="docutils literal notranslate"><span class="pre">Score</span></code> column, decreasingly
 (descending order); finally, return only first 5 rows (e.g.,
 top 5 scoring questions):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res5a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT Title, Score</span>
 <span class="s2">    FROM Posts</span>
 <span class="s2">    WHERE ParentId IS NULL AND Title IS NOT NULL</span>
 <span class="s2">    ORDER BY Score DESC</span>
 <span class="s2">    LIMIT 5</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res5a</span>
 <span class="c1">##                                                Title  Score</span>
 <span class="c1">## 0  OK we&#39;re all adults here, so really, how on ea...    306</span>
 <span class="c1">## 1  How do you know if Americans genuinely/literal...    254</span>
@@ -596,8 +604,8 @@ top 5 scoring questions):</p>
 <span class="c1">## 4                       Why prohibit engine braking?    178</span>
 </pre></div>
 </div>
-<p><em>Hint: use <code class="docutils literal notranslate"><span class="pre">Posts.sort_values</span></code> and
-<strong class="command">numpy.isnan</strong> or <strong class="command">pandas.isnull</strong>.</em></p>
+<p>Hint: use <strong class="command">pandas.DataFrame.sort_values</strong> and
+<strong class="command">numpy.isnan</strong> or <strong class="command">pandas.isnull</strong>.</p>
 </div></div></div>
 <div class="section" id="removing-duplicates">
 <h3><span class="section-number">14.3.3. </span>Removing Duplicates<a class="headerlink" href="#removing-duplicates" title="Permalink to this headline"></a></h3>
@@ -608,11 +616,12 @@ top 5 scoring questions):</p>
         
     </div><div class="proof-content">
 <p>Get all unique badge names for the user with <code class="docutils literal notranslate"><span class="pre">Id=23</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res6a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT DISTINCT Name</span>
 <span class="s2">    FROM Badges</span>
 <span class="s2">    WHERE UserId=23</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res6a</span>
 <span class="c1">##                 Name</span>
 <span class="c1">## 0          Supporter</span>
 <span class="c1">## 1            Student</span>
@@ -628,7 +637,7 @@ top 5 scoring questions):</p>
 <span class="c1">## 11  Notable Question</span>
 </pre></div>
 </div>
-<p><em>Hint: use <code class="docutils literal notranslate"><span class="pre">Posts.drop_duplicates</span></code>.</em></p>
+<p>Hint: use <strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
 </div></div><div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
@@ -638,32 +647,36 @@ top 5 scoring questions):</p>
 <p>For each badge given to the user with <code class="docutils literal notranslate"><span class="pre">Id=23</span></code>,
 get the year it was given and store it in a new column named <code class="docutils literal notranslate"><span class="pre">Year</span></code>.
 Then, select are unique pairs <code class="docutils literal notranslate"><span class="pre">(Name,</span> <span class="pre">Year)</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    SELECT DISTINCT Name, strftime(&#39;%Y&#39;, Date) AS Year</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res7a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT DISTINCT</span>
+<span class="s2">        Name,</span>
+<span class="s2">        CAST(strftime(&#39;%Y&#39;, Date) AS FLOAT) AS Year</span>
 <span class="s2">    FROM Badges</span>
 <span class="s2">    WHERE UserId=23</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
-<span class="c1">##                 Name  Year</span>
-<span class="c1">## 0          Supporter  2011</span>
-<span class="c1">## 1            Student  2011</span>
-<span class="c1">## 2            Teacher  2011</span>
-<span class="c1">## 3            Scholar  2011</span>
-<span class="c1">## 4               Beta  2011</span>
-<span class="c1">## 5      Nice Question  2011</span>
-<span class="c1">## 6             Editor  2012</span>
-<span class="c1">## 7        Nice Answer  2012</span>
-<span class="c1">## 8           Yearling  2012</span>
-<span class="c1">## 9      Nice Question  2012</span>
-<span class="c1">## 10     Nice Question  2013</span>
-<span class="c1">## 11          Yearling  2013</span>
-<span class="c1">## 12  Popular Question  2014</span>
-<span class="c1">## 13          Yearling  2014</span>
-<span class="c1">## 14        Taxonomist  2014</span>
-<span class="c1">## 15  Notable Question  2015</span>
-<span class="c1">## 16     Nice Question  2017</span>
+<span class="n">res7a</span>
+<span class="c1">##                 Name    Year</span>
+<span class="c1">## 0          Supporter  2011.0</span>
+<span class="c1">## 1            Student  2011.0</span>
+<span class="c1">## 2            Teacher  2011.0</span>
+<span class="c1">## 3            Scholar  2011.0</span>
+<span class="c1">## 4               Beta  2011.0</span>
+<span class="c1">## 5      Nice Question  2011.0</span>
+<span class="c1">## 6             Editor  2012.0</span>
+<span class="c1">## 7        Nice Answer  2012.0</span>
+<span class="c1">## 8           Yearling  2012.0</span>
+<span class="c1">## 9      Nice Question  2012.0</span>
+<span class="c1">## 10     Nice Question  2013.0</span>
+<span class="c1">## 11          Yearling  2013.0</span>
+<span class="c1">## 12  Popular Question  2014.0</span>
+<span class="c1">## 13          Yearling  2014.0</span>
+<span class="c1">## 14        Taxonomist  2014.0</span>
+<span class="c1">## 15  Notable Question  2015.0</span>
+<span class="c1">## 16     Nice Question  2017.0</span>
 </pre></div>
 </div>
-<p><em>Hint: use <code class="docutils literal notranslate"><span class="pre">Badges.Date.astype(&quot;datetime64&quot;).dt.strftime(&quot;%Y&quot;)</span></code>.</em></p>
+<p>Hint: use
+<code class="docutils literal notranslate"><span class="pre">Badges.Date.astype(&quot;datetime64&quot;).dt.strftime(&quot;%Y&quot;).astype(&quot;float&quot;)</span></code>.</p>
 </div></div></div>
 <div class="section" id="grouping-and-aggregating">
 <h3><span class="section-number">14.3.4. </span>Grouping and Aggregating<a class="headerlink" href="#grouping-and-aggregating" title="Permalink to this headline"></a></h3>
@@ -677,24 +690,25 @@ Then, select are unique pairs <code class="docutils literal notranslate"><span c
 Also, for each badge type, return the minimal, average, and maximal
 receiving year.
 Return only the top 4 badges (with respect to the counts).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res8a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT</span>
 <span class="s2">        Name,</span>
 <span class="s2">        COUNT(*) AS Count,</span>
-<span class="s2">        MIN(strftime(&#39;%Y&#39;, Date)) AS MinYear,</span>
-<span class="s2">        AVG(strftime(&#39;%Y&#39;, Date)) AS MeanYear,</span>
-<span class="s2">        MAX(strftime(&#39;%Y&#39;, Date)) AS MaxYear</span>
+<span class="s2">        MIN(CAST(strftime(&#39;%Y&#39;, Date) AS FLOAT)) AS MinYear,</span>
+<span class="s2">        AVG(CAST(strftime(&#39;%Y&#39;, Date) AS FLOAT)) AS MeanYear,</span>
+<span class="s2">        MAX(CAST(strftime(&#39;%Y&#39;, Date) AS FLOAT)) AS MaxYear</span>
 <span class="s2">    FROM Badges</span>
 <span class="s2">    WHERE UserId=23</span>
 <span class="s2">    GROUP BY Name</span>
-<span class="s2">    ORDER BY Count DESC</span>
+<span class="s2">    ORDER BY Count DESC, MeanYear ASC</span>
 <span class="s2">    LIMIT 4</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
-<span class="c1">##                Name  Count MinYear  MeanYear MaxYear</span>
-<span class="c1">## 0     Nice Question      4    2011   2013.25    2017</span>
-<span class="c1">## 1          Yearling      3    2012   2013.00    2014</span>
-<span class="c1">## 2  Popular Question      3    2014   2014.00    2014</span>
-<span class="c1">## 3  Notable Question      2    2015   2015.00    2015</span>
+<span class="n">res8a</span>
+<span class="c1">##                Name  Count  MinYear  MeanYear  MaxYear</span>
+<span class="c1">## 0     Nice Question      4   2011.0   2013.25   2017.0</span>
+<span class="c1">## 1          Yearling      3   2012.0   2013.00   2014.0</span>
+<span class="c1">## 2  Popular Question      3   2014.0   2014.00   2014.0</span>
+<span class="c1">## 3  Notable Question      2   2015.0   2015.00   2015.0</span>
 </pre></div>
 </div>
 </div></div><div class="proof proof-type-exercise" id="id14">
@@ -707,10 +721,10 @@ Return only the top 4 badges (with respect to the counts).</p>
 unique combinations of pairs <code class="docutils literal notranslate"><span class="pre">(Name,</span> <span class="pre">Date</span></code>) are there;
 then, return only the rows having <code class="docutils literal notranslate"><span class="pre">Count</span></code> greater than 1
 and order the results by <code class="docutils literal notranslate"><span class="pre">Count</span></code> decreasingly.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res9a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT</span>
 <span class="s2">        Name,</span>
-<span class="s2">        strftime(&#39;%Y&#39;, Date) AS Year,</span>
+<span class="s2">        CAST(strftime(&#39;%Y&#39;, Date) AS FLOAT) AS Year,</span>
 <span class="s2">        COUNT(*) AS Count</span>
 <span class="s2">    FROM Badges</span>
 <span class="s2">    WHERE UserId=23</span>
@@ -718,9 +732,10 @@ and order the results by <code class="docutils literal notranslate"><span class=
 <span class="s2">    HAVING Count &gt; 1</span>
 <span class="s2">    ORDER BY Count DESC</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
-<span class="c1">##                Name  Year  Count</span>
-<span class="c1">## 0  Popular Question  2014      3</span>
-<span class="c1">## 1  Notable Question  2015      2</span>
+<span class="n">res9a</span>
+<span class="c1">##                Name    Year  Count</span>
+<span class="c1">## 0  Popular Question  2014.0      3</span>
+<span class="c1">## 1  Notable Question  2015.0      2</span>
 </pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> is performed before <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code>, and <code class="docutils literal notranslate"><span class="pre">HAVING</span></code>
@@ -737,22 +752,25 @@ is applied thereafter.</p>
 <p>Join (merge) <code class="docutils literal notranslate"><span class="pre">Tags</span></code>, <code class="docutils literal notranslate"><span class="pre">Posts</span></code>, and <code class="docutils literal notranslate"><span class="pre">Users</span></code>
 for all posts with <code class="docutils literal notranslate"><span class="pre">OwnerUserId</span></code> not equal to <code class="docutils literal notranslate"><span class="pre">-1</span></code> (i.e.,
 the tags which were created by “alive” users).
-Return the top 5 records with respect to <code class="docutils literal notranslate"><span class="pre">Tags.Count</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+Return the top 6 records with respect to <code class="docutils literal notranslate"><span class="pre">Tags.Count</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res10a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT Tags.TagName, Tags.Count, Posts.OwnerUserId,</span>
 <span class="s2">        Users.Age, Users.Location, Users.DisplayName</span>
 <span class="s2">    FROM Tags</span>
 <span class="s2">    JOIN Posts ON Posts.Id=Tags.WikiPostId</span>
 <span class="s2">    JOIN Users ON Users.AccountId=Posts.OwnerUserId</span>
 <span class="s2">    WHERE OwnerUserId != -1</span>
-<span class="s2">    ORDER BY Tags.Count DESC LIMIT 5</span>
+<span class="s2">    ORDER BY Tags.Count DESC, Tags.TagName ASC</span>
+<span class="s2">    LIMIT 6</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res10a</span>
 <span class="c1">##          TagName  Count  OwnerUserId   Age          Location       DisplayName</span>
 <span class="c1">## 0         canada    802        101.0  34.0     Mumbai, India             hitec</span>
 <span class="c1">## 1         europe    681        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
 <span class="c1">## 2  visa-refusals    554       1737.0  34.0      New York, NY  Benjamin Pollack</span>
 <span class="c1">## 3      australia    411        101.0  34.0     Mumbai, India             hitec</span>
-<span class="c1">## 4  new-york-city    204        101.0  34.0     Mumbai, India             hitec</span>
+<span class="c1">## 4             eu    204        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 5  new-york-city    204        101.0  34.0     Mumbai, India             hitec</span>
 </pre></div>
 </div>
 </div></div><div class="proof proof-type-exercise" id="id16">
@@ -767,7 +785,7 @@ where we store the information about the number of up-votes
 Then, join (merge) this table with <code class="docutils literal notranslate"><span class="pre">Posts</span></code>
 and fetch some details about the 5 questions (<code class="docutils literal notranslate"><span class="pre">PostTypeId=1</span></code>)
 with the most up-votes:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res11a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    SELECT UpVotesTab.*, Posts.Title FROM</span>
 <span class="s2">    (</span>
 <span class="s2">        SELECT PostId, COUNT(*) AS UpVotes</span>
@@ -779,12 +797,329 @@ with the most up-votes:</p>
 <span class="s2">    WHERE Posts.PostTypeId=1</span>
 <span class="s2">    ORDER BY UpVotesTab.UpVotes DESC LIMIT 5</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">res11a</span>
 <span class="c1">##    PostId  UpVotes                                              Title</span>
 <span class="c1">## 0    3080      307  OK we&#39;re all adults here, so really, how on ea...</span>
 <span class="c1">## 1   38177      254  How do you know if Americans genuinely/literal...</span>
 <span class="c1">## 2   24540      221  How to intentionally get denied entry to the U...</span>
 <span class="c1">## 3   20207      211  Why are airline passengers asked to lift up wi...</span>
 <span class="c1">## 4   96447      178                       Why prohibit engine braking?</span>
+</pre></div>
+</div>
+</div></div></div>
+<div class="section" id="solutions-to-exercises">
+<h3><span class="section-number">14.3.6. </span>Solutions to Exercises<a class="headerlink" href="#solutions-to-exercises" title="Permalink to this headline"></a></h3>
+<p>Below are example solutions to the above exercises.</p>
+<div class="proof proof-type-example" id="id17">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.15</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res2b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Tags</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">Tags</span><span class="o">.</span><span class="n">TagName</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;europe&quot;</span><span class="p">),</span> <span class="p">:]</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res2b</span>
+<span class="c1">##    Count  ExcerptPostId    Id           TagName  WikiPostId</span>
+<span class="c1">## 0    681          286.0    30            europe       285.0</span>
+<span class="c1">## 1     27         2384.0   174    eastern-europe      2383.0</span>
+<span class="c1">## 2     12         6403.0   512  southeast-europe      6402.0</span>
+<span class="c1">## 3     20         4513.0   669    central-europe      4512.0</span>
+<span class="c1">## 4     36        16392.0  1950    western-europe     16391.0</span>
+<span class="n">res2a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res2b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id18">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.16</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res3b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Tags</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span>
+        <span class="n">Tags</span><span class="o">.</span><span class="n">TagName</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;poland&quot;</span><span class="p">,</span> <span class="s2">&quot;australia&quot;</span><span class="p">,</span> <span class="s2">&quot;china&quot;</span><span class="p">]),</span>
+        <span class="p">[</span><span class="s2">&quot;TagName&quot;</span><span class="p">,</span> <span class="s2">&quot;Count&quot;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res3b</span>
+<span class="c1">##      TagName  Count</span>
+<span class="c1">## 0      china    443</span>
+<span class="c1">## 1  australia    411</span>
+<span class="c1">## 2     poland    139</span>
+<span class="n">res3a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res3b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id19">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.17</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res4b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Posts</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">Posts</span><span class="o">.</span><span class="n">PostTypeId</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Posts</span><span class="o">.</span><span class="n">ViewCount</span> <span class="o">&gt;=</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">Posts</span><span class="o">.</span><span class="n">FavoriteCount</span> <span class="o">&gt;=</span> <span class="mi">35</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Posts</span><span class="o">.</span><span class="n">FavoriteCount</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="p">[</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="s2">&quot;Score&quot;</span><span class="p">,</span> <span class="s2">&quot;ViewCount&quot;</span><span class="p">,</span> <span class="s2">&quot;FavoriteCount&quot;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res4b</span>
+<span class="c1">##                                                Title  Score  ViewCount  FavoriteCount</span>
+<span class="c1">## 0  When traveling to a country with a different c...    136    16838.0           35.0</span>
+<span class="c1">## 1         How can I do a &quot;broad&quot; search for flights?     95    33554.0           49.0</span>
+<span class="c1">## 2  Tactics to avoid getting harassed by corrupt p...    156    13220.0           42.0</span>
+<span class="c1">## 3  Flight tickets: buy two weeks before even duri...    109    49440.0           36.0</span>
+<span class="c1">## 4  OK we&#39;re all adults here, so really, how on ea...    306    73808.0           79.0</span>
+<span class="c1">## 5  How to intentionally get denied entry to the U...    219    63873.0           53.0</span>
+<span class="c1">## 6  How do you know if Americans genuinely/literal...    254    30312.0           79.0</span>
+<span class="c1">## 7  OK, we are all adults here, so what is a bidet...    140    52265.0           38.0</span>
+<span class="c1">## 8          How to cope with too slow Wi-Fi at hotel?     82    16380.0           41.0</span>
+<span class="n">res4a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res4b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id20">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.18</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res5b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Posts</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span>
+        <span class="n">Posts</span><span class="o">.</span><span class="n">ParentId</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">Posts</span><span class="o">.</span><span class="n">Title</span><span class="o">.</span><span class="n">isna</span><span class="p">()),</span>
+        <span class="p">[</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="s2">&quot;Score&quot;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span>
+    <span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res5b</span>
+<span class="c1">##                                                Title  Score</span>
+<span class="c1">## 0  OK we&#39;re all adults here, so really, how on ea...    306</span>
+<span class="c1">## 1  How do you know if Americans genuinely/literal...    254</span>
+<span class="c1">## 2  How to intentionally get denied entry to the U...    219</span>
+<span class="c1">## 3  Why are airline passengers asked to lift up wi...    210</span>
+<span class="c1">## 4                       Why prohibit engine braking?    178</span>
+<span class="n">res5a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res5b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id21">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.19</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res6b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">Badges</span><span class="o">.</span><span class="n">UserId</span> <span class="o">==</span> <span class="mi">23</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res6b</span>
+<span class="c1">##                 Name</span>
+<span class="c1">## 0          Supporter</span>
+<span class="c1">## 1            Student</span>
+<span class="c1">## 2            Teacher</span>
+<span class="c1">## 3            Scholar</span>
+<span class="c1">## 4               Beta</span>
+<span class="c1">## 5      Nice Question</span>
+<span class="c1">## 6             Editor</span>
+<span class="c1">## 7        Nice Answer</span>
+<span class="c1">## 8           Yearling</span>
+<span class="c1">## 9   Popular Question</span>
+<span class="c1">## 10        Taxonomist</span>
+<span class="c1">## 11  Notable Question</span>
+<span class="n">res6a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res6b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id22">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.20</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Badges2</span> <span class="o">=</span> <span class="n">Badges</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Badges2</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res7b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges2</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">Badges2</span><span class="o">.</span><span class="n">UserId</span> <span class="o">==</span> <span class="mi">23</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res7b</span>
+<span class="c1">##                 Name    Year</span>
+<span class="c1">## 0          Supporter  2011.0</span>
+<span class="c1">## 1            Student  2011.0</span>
+<span class="c1">## 2            Teacher  2011.0</span>
+<span class="c1">## 3            Scholar  2011.0</span>
+<span class="c1">## 4               Beta  2011.0</span>
+<span class="c1">## 5      Nice Question  2011.0</span>
+<span class="c1">## 6             Editor  2012.0</span>
+<span class="c1">## 7        Nice Answer  2012.0</span>
+<span class="c1">## 8           Yearling  2012.0</span>
+<span class="c1">## 9      Nice Question  2012.0</span>
+<span class="c1">## 10     Nice Question  2013.0</span>
+<span class="c1">## 11          Yearling  2013.0</span>
+<span class="c1">## 12  Popular Question  2014.0</span>
+<span class="c1">## 13          Yearling  2014.0</span>
+<span class="c1">## 14        Taxonomist  2014.0</span>
+<span class="c1">## 15  Notable Question  2015.0</span>
+<span class="c1">## 16     Nice Question  2017.0</span>
+<span class="n">res7a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res7b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id23">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.21</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Badges2</span> <span class="o">=</span> <span class="n">Badges</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Badges2</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res8b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges2</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">Badges2</span><span class="o">.</span><span class="n">UserId</span> <span class="o">==</span> <span class="mi">23</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span><span class="o">.</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="nb">len</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;len&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">res8b</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Count&quot;</span><span class="p">,</span> <span class="s2">&quot;MinYear&quot;</span><span class="p">,</span> <span class="s2">&quot;MeanYear&quot;</span><span class="p">,</span> <span class="s2">&quot;MaxYear&quot;</span><span class="p">]</span>
+<span class="n">res8b</span>
+<span class="c1">##                Name  Count  MinYear  MeanYear  MaxYear</span>
+<span class="c1">## 0     Nice Question      4   2011.0   2013.25   2017.0</span>
+<span class="c1">## 1          Yearling      3   2012.0   2013.00   2014.0</span>
+<span class="c1">## 2  Popular Question      3   2014.0   2014.00   2014.0</span>
+<span class="c1">## 3  Notable Question      2   2015.0   2015.00   2015.0</span>
+</pre></div>
+</div>
+<p>Note that had we not converted <code class="docutils literal notranslate"><span class="pre">Year</span></code> to <code class="docutils literal notranslate"><span class="pre">float</span></code>, we would obtain
+meaningless average year, without any warning.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res8a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res8b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id24">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.22</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Badges2</span> <span class="o">=</span> <span class="n">Badges</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Badges2</span><span class="p">[</span><span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res9b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Badges2</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span> <span class="n">Badges2</span><span class="o">.</span><span class="n">UserId</span> <span class="o">==</span> <span class="mi">23</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="p">]</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Year&quot;</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">size</span><span class="p">()</span><span class="o">.</span>
+    <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">res9b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">res9b</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span> <span class="n">res9b</span><span class="o">.</span><span class="n">Count</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span> <span class="p">]</span><span class="o">.</span>
+    <span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res9b</span>
+<span class="c1">##                Name    Year  Count</span>
+<span class="c1">## 0  Popular Question  2014.0      3</span>
+<span class="c1">## 1  Notable Question  2015.0      2</span>
+</pre></div>
+</div>
+<p>Note that the HAVING part is performed after WHERE
+and GROUP BY.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res9a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res9b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id25">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.23</span>
+        
+    </div><div class="proof-content">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res10b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">Posts</span><span class="p">,</span> <span class="n">Tags</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;Id&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;WikiPostId&quot;</span><span class="p">)</span>
+<span class="n">res10b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">Users</span><span class="p">,</span> <span class="n">res10b</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;AccountId&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;OwnerUserId&quot;</span><span class="p">)</span>
+<span class="n">res10b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">res10b</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">res10b</span><span class="o">.</span><span class="n">OwnerUserId</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">res10b</span><span class="o">.</span><span class="n">OwnerUserId</span><span class="o">.</span><span class="n">isna</span><span class="p">()),</span>
+        <span class="p">[</span><span class="s2">&quot;TagName&quot;</span><span class="p">,</span> <span class="s2">&quot;Count&quot;</span><span class="p">,</span> <span class="s2">&quot;OwnerUserId&quot;</span><span class="p">,</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Location&quot;</span><span class="p">,</span> <span class="s2">&quot;DisplayName&quot;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span>
+    <span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;Count&quot;</span><span class="p">,</span> <span class="s2">&quot;TagName&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">head</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res10b</span>
+<span class="c1">##          TagName  Count  OwnerUserId   Age          Location       DisplayName</span>
+<span class="c1">## 0         canada    802        101.0  34.0     Mumbai, India             hitec</span>
+<span class="c1">## 1         europe    681        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 2  visa-refusals    554       1737.0  34.0      New York, NY  Benjamin Pollack</span>
+<span class="c1">## 3      australia    411        101.0  34.0     Mumbai, India             hitec</span>
+<span class="c1">## 4             eu    204        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 5  new-york-city    204        101.0  34.0     Mumbai, India             hitec</span>
+</pre></div>
+</div>
+<p>Note that in SQL, “not equals to -1” implies that “IS NOT NULL”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res10a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res10b</span><span class="p">)</span>
+<span class="c1">## True</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-example" id="id26">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 14.24</span>
+        
+    </div><div class="proof-content">
+<p>To obtain <code class="docutils literal notranslate"><span class="pre">res11b</span></code>, we first create an auxiliary data frame
+that corresponds to the subquery.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">UpVotesTab</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Votes</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">Votes</span><span class="o">.</span><span class="n">VoteTypeId</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;PostId&quot;</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">size</span><span class="p">()</span><span class="o">.</span>
+    <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;UpVotes&quot;</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>And now:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res11b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">UpVotesTab</span><span class="p">,</span> <span class="n">Posts</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;PostId&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Id&quot;</span><span class="p">)</span>
+<span class="n">res11b</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">res11b</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">res11b</span><span class="o">.</span><span class="n">PostTypeId</span><span class="o">==</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;PostId&quot;</span><span class="p">,</span> <span class="s2">&quot;UpVotes&quot;</span><span class="p">,</span> <span class="s2">&quot;Title&quot;</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;UpVotes&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">res11b</span>
+<span class="c1">##    PostId  UpVotes                                              Title</span>
+<span class="c1">## 0    3080      307  OK we&#39;re all adults here, so really, how on ea...</span>
+<span class="c1">## 1   38177      254  How do you know if Americans genuinely/literal...</span>
+<span class="c1">## 2   24540      221  How to intentionally get denied entry to the U...</span>
+<span class="c1">## 3   20207      211  Why are airline passengers asked to lift up wi...</span>
+<span class="c1">## 4   96447      178                       Why prohibit engine braking?</span>
+<span class="n">res11a</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">res11b</span><span class="p">)</span>
+<span class="c1">## True</span>
 </pre></div>
 </div>
 </div></div></div>
@@ -812,20 +1147,20 @@ Warning: often, this will quite tedious labour, neither art nor science;
 see also <span id="id1">[<a class="reference internal" href="999-bibliography.html#id11">vdLdJ18</a>]</span> and <span id="id2">[<a class="reference internal" href="999-bibliography.html#id12">DJ03</a>]</span>.
 Good luck.</p>
 </div>
-<div class="proof proof-type-exercise" id="id17">
+<div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.15</span>
+        <span class="proof-type">Exercise 14.25</span>
         
     </div><div class="proof-content">
 <p>Consider the Web API for <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">accessing</a> the on-street parking bay
 sensor data in Melbourne, VIC, Australia.
 Using, for example, the <strong class="program">json</strong> package, convert the <a class="reference external" href="https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json">data</a> in the JSON format
 to a <strong class="program">pandas</strong> data frame.</p>
-</div></div><div class="proof proof-type-exercise" id="id18">
+</div></div><div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.16</span>
+        <span class="proof-type">Exercise 14.26</span>
         
     </div><div class="proof-content">
 <p>Australian Radiation Protection and Nuclear Safety Agency
@@ -833,10 +1168,10 @@ to a <strong class="program">pandas</strong> data frame.</p>
 Using, for example, the <strong class="program">xml</strong> package,
 convert <a class="reference external" href="https://uvdata.arpansa.gov.au/xml/uvvalues.xml">this XML dataset</a>
 to a <strong class="program">pandas</strong> data frame.</p>
-</div></div><div class="proof proof-type-exercise" id="id19">
+</div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.17</span>
+        <span class="proof-type">Exercise 14.27</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -844,10 +1179,10 @@ Check out the English Wikipedia article featuring
 a <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_20th-century_classical_composers">list of 20th-century classical composers</a>.
 Using <strong class="command">pandas.read_html</strong>, convert the <em>Climate Data</em> table
 included therein to a data frame.</p>
-</div></div><div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.18</span>
+        <span class="proof-type">Exercise 14.28</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -856,10 +1191,10 @@ write a function that converts each bullet list
 featured in a given Wikipedia article (e.g.,
 <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Fr%C3%A9d%C3%A9ric_Chopin">this one</a>),
 to a list of strings.</p>
-</div></div><div class="proof proof-type-exercise" id="id21">
+</div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.19</span>
+        <span class="proof-type">Exercise 14.29</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -868,10 +1203,10 @@ Import an archived version of a
 and store it in an SQLite database.
 You can find the relevant data dumps
 <a class="reference external" href="https://archive.org/details/stackexchange">here</a>.</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
+</div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.20</span>
+        <span class="proof-type">Exercise 14.30</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -918,10 +1253,10 @@ we can use <strong class="command">tempfile.mkdtemp</strong>.</p>
 a given directory (and possibly all its subdirectories).</p>
 <p><strong class="command">os.path.isdir</strong> and <strong class="command">os.path.isfile</strong> can be used to determine
 the type of a given object in the file system.</p>
-<div class="proof proof-type-exercise" id="id23">
+<div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.21</span>
+        <span class="proof-type">Exercise 14.31</span>
         
     </div><div class="proof-content">
 <p>Write a function that computes the total
@@ -930,34 +1265,34 @@ size of all the files in a given directory and all its subdirectories.</p>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">14.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id24">
+<div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.22</span>
+        <span class="proof-type">Exercise 14.32</span>
         
     </div><div class="proof-content">
 <p>Find an example of an XML and JSON file. Which
 one is more human-readable? Do they differ in terms of capabilities?</p>
-</div></div><div class="proof proof-type-exercise" id="id25">
+</div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.23</span>
+        <span class="proof-type">Exercise 14.33</span>
         
     </div><div class="proof-content">
 <p>What is wrong with constructing file paths like
 <code class="docutils literal notranslate"><span class="pre">&quot;~&quot;</span> <span class="pre">+</span> <span class="pre">&quot;\\&quot;</span> <span class="pre">+</span> <span class="pre">&quot;filename.csv&quot;</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id26">
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.24</span>
+        <span class="proof-type">Exercise 14.34</span>
         
     </div><div class="proof-content">
 <p>What are the benefits of using a SQL-supporting relational
 database management system in data science activities?</p>
-</div></div><div class="proof proof-type-exercise" id="id27">
+</div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.25</span>
+        <span class="proof-type">Exercise 14.35</span>
         
     </div><div class="proof-content">
 <p>(**) How to populate a database with gigabytes of data
@@ -981,7 +1316,7 @@ read from many CSV files?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-04-14T19:22:15+1000.
+        Last updated on 2022-05-04T14:51:14+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
