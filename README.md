@@ -20,27 +20,19 @@ You can browse them at:
 
 ## About the Author
 
-I, [Marek Gagolewski][1] (pronounced like Mark Gaggle-Eve-Ski),
-am currently a Senior Lecturer in Applied
-AI at Deakin University in Melbourne, VIC, Australia
-and an Associate Professor in Data Science (on long-term leave)
-at Faculty of Mathematics and Information Science, Warsaw University
-of Technology, Poland.
+[Marek Gagolewski][1]
+is currently a Senior Lecturer in Applied AI at Deakin University
+in Melbourne, VIC, Australia and an Associate Professor in Data Science
+(on long-term leave) at the Faculty of Mathematics and Information Science,
+Warsaw University of Technology, Poland and Systems Research Institute
+of the Polish Academy of Sciences.
 
-I'm actively involved in developing *usable* free (libre) and open source
-software, with particular focus on data science and machine learning.
-I'm the main author and maintainer of [stringi][3] – one of the most often
-downloaded R packages that aims at natural
-language and string processing as well as the Python and R package
-[genieclust][4] implementing the fast and robust hierarchical clustering
-algorithm *Genie* with noise point detection.
-
-I'm an author of over 80 publications on machine learning and
-optimisation algorithms, data aggregation and clustering, statistical
-modelling, and scientific computing. Moreover, I taught various courses
-related to R and Python programming, algorithms, data science,
-and machine learning in Australia, Poland, and Germany
-(e.g., at [Data Science Retreat](https://datascienceretreat.com)).
+His research interests include machine learning, data aggregation
+and clustering, computational statistics, mathematical modelling
+(science of science, sport, economics, etc.), and free (libre) data
+analysis software ([stringi](https://stringi.gagolewski.com),
+[genieclust](https://genieclust.gagolewski.com),
+among [others](https://github.com/gagolews)).
 
 
 --------------------------------------------------------------------------------
@@ -53,5 +45,3 @@ This material is licensed under the Creative Commons
 
 [1]: https://www.gagolewski.com
 [2]: https://creativecommons.org/licenses/by-nc-nd/4.0/
-[3]: https://stringi.gagolewski.com
-[4]: https://genieclust.gagolewski.com
