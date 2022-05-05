@@ -435,7 +435,7 @@ hence we can feel quite at home with them.</p>
 <h3><span class="section-number">11.1.2. </span><code class="docutils literal notranslate"><span class="pre">Series</span></code><a class="headerlink" href="#series" title="Permalink to this headline"></a></h3>
 <p>There is a separate class for storing individual data frame
 columns: it is called <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>  <span class="c1"># extract the `u` column</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>  <span class="c1"># extract the `u` column; alternatively: d.u</span>
 <span class="n">s</span>
 <span class="c1">## 0    0.70</span>
 <span class="c1">## 1    0.29</span>
@@ -1062,10 +1062,19 @@ returns all columns between <code class="docutils literal notranslate"><span cla
 </div>
 <p>fetches the first 3 rows (by position – <code class="docutils literal notranslate"><span class="pre">iloc</span></code> is necessary)
 and then selects two indicated columns.</p>
-<p>On a side note, we can write
-<code class="docutils literal notranslate"><span class="pre">d.u</span></code> as a shorter version of <code class="docutils literal notranslate"><span class="pre">d.loc[:,</span> <span class="pre">&quot;u&quot;]</span></code>,
-but this accessor is not universal: we can check this out by
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>We can write <code class="docutils literal notranslate"><span class="pre">d.u</span></code> as a shorter version of <code class="docutils literal notranslate"><span class="pre">d.loc[:,</span> <span class="pre">&quot;u&quot;]</span></code>.
+This improves the readability in contexts such as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">d</span><span class="o">.</span><span class="n">u</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">u</span> <span class="o">&lt;=</span> <span class="mf">0.7</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>
+<span class="c1">##       u     w</span>
+<span class="c1">## a  0.70  spam</span>
+<span class="c1">## d  0.55  eggs</span>
+</pre></div>
+</div>
+<p>However, this accessor is not universal: we can check this out by
 considering a data frame featuring a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p>
+</div>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
@@ -1098,7 +1107,7 @@ $5 from <code class="docutils literal notranslate"><span class="pre">tips</span>
 <h3><span class="section-number">11.5.2. </span>Adding Rows and Columns<a class="headerlink" href="#adding-rows-and-columns" title="Permalink to this headline"></a></h3>
 <p><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> can also used to add new columns to an existing
 data frame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># or d.loc[:, &quot;y&quot;] = d.u**2</span>
 <span class="n">d</span>
 <span class="c1">##       u     v        w      x       y</span>
 <span class="c1">## a  0.70  0.32     spam   True  0.4900</span>
@@ -1108,6 +1117,10 @@ data frame:</p>
 <span class="c1">## e  0.72 -1.62  sausage   True  0.5184</span>
 </pre></div>
 </div>
+<p>Note that notation like
+“<code class="docutils literal notranslate"><span class="pre">d.new_column</span> <span class="pre">=</span> <span class="pre">...</span></code>” will not work.
+As we have said, <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> are universal, other
+accessors – not so much.</p>
 <div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
@@ -1993,7 +2006,7 @@ of the S language <span id="id4">[<a class="reference internal" href="999-biblio
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-04T14:51:14+1000.
+        Last updated on 2022-05-05T16:57:43+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
