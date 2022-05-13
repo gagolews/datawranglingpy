@@ -791,7 +791,9 @@ on the pairs of elements having <em>identical labels</em>
 Still, if we are transforming the columns
 that come from the same data frame
 (and thus having identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slots;
-this is the most common scenario), there will be no surprises:</p>
+this is the most common scenario), there will be no surprises,
+because this is equivalent to elementwise action.
+For instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">]</span>
 <span class="c1">## a     True</span>
 <span class="c1">## b     True</span>
@@ -828,9 +830,23 @@ which invokes a given function on each column separately:</p>
 <span class="c1">## e  1.088759 -1.478987</span>
 </pre></div>
 </div>
-<p>Note that, in both cases, we can then write
-<code class="docutils literal notranslate"><span class="pre">d.loc[:,</span> <span class="pre">[&quot;u&quot;,</span> <span class="pre">&quot;v&quot;]]</span> <span class="pre">=</span> <span class="pre">uv</span></code>
-to replace the old content with the transformed one.</p>
+<p>Note that, in both cases, we can then write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">uv</span>
+</pre></div>
+</div>
+<p>to replace the old content with the transformed one.</p>
+<p>Also, new columns can be added based on transformed
+versions of the existing ones:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;uv_squared&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">d</span>
+<span class="c1">##           u         v        w  uv_squared</span>
+<span class="c1">## a  0.990672  0.202862     spam    0.040389</span>
+<span class="c1">## b -1.020098 -0.117903    bacon    0.014465</span>
+<span class="c1">## c -1.314357 -0.247943     spam    0.106201</span>
+<span class="c1">## d  0.255025  1.641971     eggs    0.175346</span>
+<span class="c1">## e  1.088759 -1.478987  sausage    2.592938</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="filtering-series-objects">
 <span id="sec-series-indexing"></span><h2><span class="section-number">11.4. </span>Filtering <code class="docutils literal notranslate"><span class="pre">Series</span></code> Objects<a class="headerlink" href="#filtering-series-objects" title="Permalink to this headline"></a></h2>
@@ -2008,7 +2024,7 @@ of the S language <span id="id4">[<a class="reference internal" href="999-biblio
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-11T11:48:32+1000.
+        Last updated on 2022-05-13T15:14:17+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
