@@ -369,14 +369,14 @@ Usually, we’ll be creating dates from strings, for instance:</p>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-05-13&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-05-20&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-05-13T05:08:23&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-05-20T02:20:41&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -388,22 +388,31 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let’s verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19125.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19132.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.2650000e+03, 1.6524185e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.65301324e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
-</div>
+<div class="proof proof-type-exercise" id="id7">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 18.1</span>
+        
+    </div><div class="proof-content">
+<p>Write a regular expression that extract
+all dates in the YYYY-MM-DD format from a
+(possibly long) string and converts them to datetime64.</p>
+</div></div></div>
 <div class="section" id="time-differences">
 <h3><span class="section-number">18.2.2. </span>Time Differences<a class="headerlink" href="#time-differences" title="Permalink to this headline"></a></h3>
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-05-12&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-05-19&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-05-13T17:08:23&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-05-20T14:20:41&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -451,10 +460,10 @@ with <strong class="command">loc</strong><code class="code docutils literal notr
 <span class="c1">## 6 2021-12-31 -11.4</span>
 </pre></div>
 </div>
-<div class="proof proof-type-example" id="id7">
+<div class="proof proof-type-example" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Example 18.1</span>
+        <span class="proof-type">Example 18.2</span>
         
     </div><div class="proof-content">
 <p>Based on the above, we can plot the data for the last 5 years quite easily,
@@ -464,9 +473,9 @@ see <a class="reference internal" href="#fig-spokane-5-linechart"><span class="s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id8">
+<div class="figure align-default" id="id9">
 <span id="fig-spokane-5-linechart"></span><img alt="../_images/spokane-5-linechart-5.png" src="../_images/spokane-5-linechart-5.png" />
-<p class="caption"><span class="caption-number">Figure 18.3 </span><span class="caption-text">Line chart of midrange daily temperatures in Spokane for 2017–2021</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.3 </span><span class="caption-text">Line chart of midrange daily temperatures in Spokane for 2017–2021</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </div>
 <p>Note that now the x-axis labels have been generated automatically.</p>
 </div></div><p>Note that <strong class="command">pandas.to_datetime</strong> can be used to convert strings
@@ -480,10 +489,10 @@ to datetime objects:</p>
 <span class="c1">## dtype: datetime64[ns]</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.2</span>
+        <span class="proof-type">Exercise 18.3</span>
         
     </div><div class="proof-content">
 <p>From the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less that 18 years old
@@ -498,9 +507,9 @@ be referred to via the <strong class="command">pandas.Series.dt</strong> accesso
 In particular, they are are a convenient means for extracting different
 date or time fields, such as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates_ymd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
-        <span class="n">year</span>  <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
-        <span class="n">month</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
-        <span class="n">day</span>   <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+    <span class="n">year</span>  <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+    <span class="n">day</span>   <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
 <span class="p">))</span>
 <span class="n">dates_ymd</span>
 <span class="c1">##    year  month  day</span>
@@ -520,10 +529,10 @@ objects directly:</p>
 <span class="c1">## dtype: datetime64[ns]</span>
 </pre></div>
 </div>
-<div class="proof proof-type-example" id="id10">
+<div class="proof proof-type-example" id="id11">
 
     <div class="proof-title">
-        <span class="proof-type">Example 18.3</span>
+        <span class="proof-type">Example 18.4</span>
         
     </div><div class="proof-content">
 <p>For instance, we can extract the month and year parts of dates
@@ -549,9 +558,9 @@ it the last 50-ish years:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id11">
+<div class="figure align-default" id="id12">
 <span id="fig-mean-monthly-temps"></span><img alt="../_images/mean-monthly-temps-7.png" src="../_images/mean-monthly-temps-7.png" />
-<p class="caption"><span class="caption-number">Figure 18.4 </span><span class="caption-text">Average monthly temperatures</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.4 </span><span class="caption-text">Average monthly temperatures</span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
 </div>
 <p>Again we discover the ultimate truth that
 winters are cold, whereas in the summertime the living is easy,
@@ -633,10 +642,10 @@ On a side note, from a course in statistics
 we know that for exponential inter-event times,
 the number of events per unit of time follows a Poisson
 distribution.</p>
-<div class="proof proof-type-exercise" id="id12">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.4</span>
+        <span class="proof-type">Exercise 18.5</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -679,10 +688,10 @@ to restore the dataset in full.</p>
 <span class="c1">## array([ -1.4,  -5. ,  -9.4, -12.8, -12.2, -11.4, -11.4])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id13">
+<div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.5</span>
+        <span class="proof-type">Exercise 18.6</span>
         
     </div><div class="proof-content">
 <p>Consider the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/euraud-20200101-20200630-no-na.txt">euraud-20200101-20200630-no-na</a> dataset
@@ -690,10 +699,10 @@ which lists daily EUR/AUD exchange rates in the first half of 2020 (remember
 COVID-19?), with missing observations removed. Using <strong class="command">numpy.diff</strong>,
 compute the minimal, median, average, and maximal daily price <em>changes</em>.
 Also, draw a box and whisker plot for these deltas.</p>
-</div></div><div class="proof proof-type-exercise" id="id14">
+</div></div><div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.6</span>
+        <span class="proof-type">Exercise 18.7</span>
         
     </div><div class="proof-content">
 <p>(*) Consider the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/btcusd_ohlcv_2021_dates.csv"><code class="docutils literal notranslate"><span class="pre">btcusd_ohlcv_2021_dates</span></code></a>
@@ -824,14 +833,14 @@ in <a class="reference internal" href="#fig-spokane-5-linechart"><span class="st
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id16">
 <span id="fig-spokane-ma-linechart"></span><img alt="../_images/spokane-ma-linechart-9.png" src="../_images/spokane-ma-linechart-9.png" />
-<p class="caption"><span class="caption-number">Figure 18.5 </span><span class="caption-text">Line chart of 30- and 100-moving averages of the midrange daily temperatures in Spokane for 2017-2021</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.5 </span><span class="caption-text">Line chart of 30- and 100-moving averages of the midrange daily temperatures in Spokane for 2017-2021</span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
 </div>
-<div class="proof proof-type-exercise" id="id16">
+<div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.7</span>
+        <span class="proof-type">Exercise 18.8</span>
         
     </div><div class="proof-content">
 <p>(*) Other aggregation functions can be applied in rolling windows too.
@@ -865,9 +874,9 @@ e.g., using a 1-year moving average:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id17">
+<div class="figure align-default" id="id18">
 <span id="fig-spokane-ma-trends"></span><img alt="../_images/spokane-ma-trends-11.png" src="../_images/spokane-ma-trends-11.png" />
-<p class="caption"><span class="caption-number">Figure 18.6 </span><span class="caption-text">Trend and seasonal pattern for the Spokane temperatures in recent years</span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.6 </span><span class="caption-text">Trend and seasonal pattern for the Spokane temperatures in recent years</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
 </div>
 <p>Also, if we know the length of the seasonal pattern
 (in our case, 365-ish days), we can draw
@@ -891,9 +900,9 @@ see <a class="reference internal" href="#fig-spokane-seasonal"><span class="std 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id18">
+<div class="figure align-default" id="id19">
 <span id="fig-spokane-seasonal"></span><img alt="../_images/spokane-seasonal-13.png" src="../_images/spokane-seasonal-13.png" />
-<p class="caption"><span class="caption-number">Figure 18.7 </span><span class="caption-text">An example seasonal plot: Spokane temperatures vs day of year between 1970 and 2021</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.7 </span><span class="caption-text">An example seasonal plot: Spokane temperatures vs day of year between 1970 and 2021</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
 </div>
 </div>
 <div class="section" id="imputing-missing-values">
@@ -911,10 +920,10 @@ in time series are:</p>
 in particular, a single missing value will be replaced
 by the average of its neighbours.</p></li>
 </ul>
-<div class="proof proof-type-example" id="id19">
+<div class="proof proof-type-example" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Example 18.8</span>
+        <span class="proof-type">Example 18.9</span>
         
     </div><div class="proof-content">
 <p>The classic <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/r/air_quality_1973.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_1973</span></code></a> dataset gives some
@@ -946,10 +955,10 @@ solar radiation column:</p>
 <span class="c1">## 11     256.0    256.0    256.0    256.000000</span>
 </pre></div>
 </div>
-</div></div><div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.9</span>
+        <span class="proof-type">Exercise 18.10</span>
         
     </div><div class="proof-content">
 <p>(*) With the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
@@ -1011,9 +1020,9 @@ Let’s draw the four time series, see <a class="reference internal" href="#fig-
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id21">
+<div class="figure align-default" id="id22">
 <span id="fig-currency-abs"></span><img alt="../_images/currency-abs-15.png" src="../_images/currency-abs-15.png" />
-<p class="caption"><span class="caption-number">Figure 18.8 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates in the first half of 2020</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.8 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates in the first half of 2020</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
 </div>
 <p>Unfortunately, they are all on different scales, hence
 the plot is not necessarily readable.
@@ -1030,27 +1039,27 @@ see <a class="reference internal" href="#fig-currency-rel"><span class="std std-
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id22">
+<div class="figure align-default" id="id23">
 <span id="fig-currency-rel"></span><img alt="../_images/currency-rel-17.png" src="../_images/currency-rel-17.png" />
-<p class="caption"><span class="caption-number">Figure 18.9 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on the first day</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.9 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on the first day</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
 </div>
 <p>This way, e.g., relative EUR/AUD rate of ca. 1.15
 in mid-March denotes means that if an Australian bought some
 Euros on the first day and then sold them three-ish months later,
 they would have 15% more currency
 (the Euro become 15% stronger relative to AUD).</p>
-<div style="margin-top: 1em"></div><div class="proof proof-type-exercise" id="id23">
+<div style="margin-top: 1em"></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.10</span>
+        <span class="proof-type">Exercise 18.11</span>
         
     </div><div class="proof-content">
 <p>Based on EUR/AUD and EUR/PLN rates,
 compute and plot the AUD/PLN as well as PLN/AUD ones.</p>
-</div></div><div class="proof proof-type-exercise" id="id24">
+</div></div><div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.11</span>
+        <span class="proof-type">Exercise 18.12</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1058,10 +1067,10 @@ Draw the EUR/AUD and EUR/GBP rates on a single
 plot, but with each series having
 <a class="reference external" href="https://matplotlib.org/stable/gallery/subplots_axes_and_figures/secondary_axis.html">its own</a>
 <em>y</em> axis.</p>
-</div></div><div class="proof proof-type-exercise" id="id25">
+</div></div><div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.12</span>
+        <span class="proof-type">Exercise 18.13</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1102,9 +1111,9 @@ Here, let us briefly mention the candlestick plot.</p>
 <span class="c1"># plt.show() # not needed...</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id26">
+<div class="figure align-default" id="id27">
 <span id="fig-candlestick-plot"></span><img alt="../_images/candlestick-plot-19.png" src="../_images/candlestick-plot-19.png" />
-<p class="caption"><span class="caption-number">Figure 18.10 </span><span class="caption-text">Candlestick plot for the BTC/USD exchange rates in January 2021</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.10 </span><span class="caption-text">Candlestick plot for the BTC/USD exchange rates in January 2021</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
 </div>
 <p><a class="reference internal" href="#fig-candlestick-plot"><span class="std std-numref">Figure 18.10</span></a> depicts the January 2021 data.
 Note that this is not a box and whisker plot.
@@ -1114,28 +1123,28 @@ and the closing price. The wicks (shadows) give the range
 <p>Green candlesticks represent bullish days – where the
 closing rate is greater than the opening one (uptrend).
 Red candles are bearish (decline)</p>
-<div class="proof proof-type-exercise" id="id27">
+<div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.13</span>
+        <span class="proof-type">Exercise 18.14</span>
         
     </div><div class="proof-content">
 <p>Draw the BTC/USD rates for the whole year
 and add the 10-day moving averages.</p>
-</div></div><div class="proof proof-type-exercise" id="id28">
+</div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.14</span>
+        <span class="proof-type">Exercise 18.15</span>
         
     </div><div class="proof-content">
 <p>(*)
 Draw a candlestick plot manually, without using
 the <strong class="program">mplfinance</strong> package. <strong class="command">matplotlib.pyplot.fill</strong> might
 be helpful.</p>
-</div></div><div class="proof proof-type-exercise" id="id29">
+</div></div><div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.15</span>
+        <span class="proof-type">Exercise 18.16</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1169,20 +1178,17 @@ Instead, what is happening in the frequency (think: perceiving
 pitches when listening to music)
 or spatial (seeing green grass and sky on a photo) domain
 will play key role there.</p>
-<p>Signal processing thus requires a quite distinct
-set of tools,
+<p>Signal processing thus requires a quite distinct set of tools,
 e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
 (also because it requires some more advanced calculus skills that we
 didn’t assume the reader to have at this time).
 Therefore, see, e.g., <span id="id1">[<a class="reference internal" href="999-bibliography.html#id26">Smi02</a>, <a class="reference internal" href="999-bibliography.html#id25">Ste96</a>]</span>.</p>
 <p>Nevertheless, we should keep in mind that these are not completely
-independent domains. For example,
-we can extract various features of audio
+independent domains. For example, we can extract various features of audio
 signals (e.g., overall loudness, timbre, and danceability of each
 recording in a large song database) and then treat them as tabular
-data to be analysed using the techniques described in this
-course.
+data to be analysed using the techniques described in this course.
 Moreover, machine learning (e.g., deep convolutional neural networks)
 algorithms may also be used for tasks such as object detection
 on images or optical character recognition.</p>
@@ -1240,9 +1246,9 @@ see <a class="reference internal" href="#fig-bitmap"><span class="std std-numref
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id30">
+<div class="figure align-default" id="id31">
 <span id="fig-bitmap"></span><img alt="../_images/bitmap-21.png" src="../_images/bitmap-21.png" />
-<p class="caption"><span class="caption-number">Figure 18.11 </span><span class="caption-text">Example bitmap</span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 18.11 </span><span class="caption-text">Example bitmap</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1251,20 +1257,20 @@ will often be expecting flat vectors on inputs – instead of an 8x8
 matrix, they had rather be fed with a sequence of 64 elements.
 We can call <code class="docutils literal notranslate"><span class="pre">im.flatten()</span></code> to get such a form.</p>
 </div>
-<div class="proof proof-type-exercise" id="id31">
+<div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.16</span>
+        <span class="proof-type">Exercise 18.17</span>
         
     </div><div class="proof-content">
 <p>Scale the brightness values from 0-255
 to the <em>[0, 1]</em> interval, which is another common option
 (as we can read from the manual of
 <strong class="command">matplotlib.pyplot.imshow</strong>).</p>
-</div></div><div class="proof proof-type-exercise" id="id32">
+</div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.17</span>
+        <span class="proof-type">Exercise 18.18</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -1281,24 +1287,21 @@ classification algorithms.</p>
 <a class="reference external" href="https://en.wikipedia.org/wiki/Color_model">colour models</a>
 in use, including:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_model">RBG</a>
-(red-green-blue),</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/RGBA_color_model">RGBA</a>
-(RGB with the alpha channel governing the pixel transparency/opaqueness),</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a>
-(hue-saturation-value),</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/CMY_color_model">CMY</a>
-(cyan-magenta-yellow) – usually used for printing.</p></li>
+<li><p>RBG (red-green-blue),</p></li>
+<li><p>RGBA (RGB with the alpha channel governing the
+pixel transparency/opaqueness),</p></li>
+<li><p>HSV (hue-saturation-value),</p></li>
+<li><p>CMY (cyan-magenta-yellow) – usually used for printing.</p></li>
 </ul>
 <p>They require each pixel be described by 3 (or 4 if the
 alpha channel is included) values.
 Thus, instead of a <em>h</em>×<em>w</em> matrix,
 we well be dealing with three- dimensional arrays
 of size <em>h</em>×<em>w</em>×3 (or 4).</p>
-<div class="proof proof-type-exercise" id="id33">
+<div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 18.18</span>
+        <span class="proof-type">Exercise 18.19</span>
         
     </div><div class="proof-content">
 <p>Load and display some larger PNG or JPEG file
@@ -1319,52 +1322,52 @@ stochastic processes, e.g., <span id="id4">[<a class="reference internal" href="
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">18.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id34">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 18.19</span>
-        
-    </div><div class="proof-content">
-<p>Let’s say we have a time series with <em>n</em> observations.
-What is a 1- and an <em>n</em>-moving average?
-Which one is smoother, an <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+<div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.20</span>
         
     </div><div class="proof-content">
-<p>What is the Unix Epoch?</p>
+<p>Let’s say we have a time series with <em>n</em> observations.
+What is a 1- and an <em>n</em>-moving average?
+Which one is smoother, an <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
 </div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.21</span>
         
     </div><div class="proof-content">
-<p>How can we recreate the original series
-when we are given its <strong class="command">numpy.diff</strong>-transformed version?</p>
+<p>What is the Unix Epoch?</p>
 </div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.22</span>
         
     </div><div class="proof-content">
-<p>(*) In your own words, describe the key elements
-of a candlestick plot.</p>
+<p>How can we recreate the original series
+when we are given its <strong class="command">numpy.diff</strong>-transformed version?</p>
 </div></div><div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.23</span>
         
     </div><div class="proof-content">
-<p>(**)
-What colours do the following
-<a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors">RGB hex triples</a>
-represent? <code class="docutils literal notranslate"><span class="pre">#ff0000</span></code>, <code class="docutils literal notranslate"><span class="pre">#808000</span></code>, <code class="docutils literal notranslate"><span class="pre">#cccccc</span></code>, <code class="docutils literal notranslate"><span class="pre">#00aaff</span></code>?</p>
+<p>(*) In your own words, describe the key elements
+of a candlestick plot.</p>
 </div></div><div class="proof proof-type-exercise" id="id39">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 18.24</span>
+        
+    </div><div class="proof-content">
+<p>(**)
+What colours do the following
+<a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors">RGB hex triples</a>
+represent? <code class="docutils literal notranslate"><span class="pre">#ff0000</span></code>, <code class="docutils literal notranslate"><span class="pre">#808000</span></code>, <code class="docutils literal notranslate"><span class="pre">#cccccc</span></code>, <code class="docutils literal notranslate"><span class="pre">#00aaff</span></code>?</p>
+</div></div><div class="proof proof-type-exercise" id="id40">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 18.25</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -1389,7 +1392,7 @@ popular colour models?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-13T15:14:17+1000.
+        Last updated on 2022-05-20T12:47:44+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

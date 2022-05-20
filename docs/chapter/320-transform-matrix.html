@@ -130,7 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">8. Multidimensional Numeric Data at a Glance</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">9. Transforming, Aggregating, and Filtering Multidimensional Data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#vectorised-mathematical-functions">9.1. Vectorised Mathematical Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#aggregation-functions">9.2. Aggregation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregation-functions-componentwise">9.2. Aggregation Functions (Componentwise)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#arithmetic-logical-and-comparison-operations">9.3. Arithmetic, Logical, and Comparison Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#matrix-vs-scalar">9.3.1. Matrix vs Scalar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#matrix-vs-matrix">9.3.2. Matrix vs Matrix</a></li>
@@ -296,7 +296,7 @@ transformed accordingly.</p>
 </pre></div>
 </div>
 <p>takes the square of every element.</p>
-<p>More generally, using mathematical notation:</p>
+<p>More generally, we will be denoting such operations with:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 f(\mathbf{X})=
@@ -310,8 +310,8 @@ f(x_{n,1}) &amp; f(x_{n,2}) &amp; \cdots &amp; f(x_{n,m}) \\
 \right].
 \end{split}\]</div>
 </div>
-<div class="section" id="aggregation-functions">
-<h2><span class="section-number">9.2. </span>Aggregation Functions<a class="headerlink" href="#aggregation-functions" title="Permalink to this headline"></a></h2>
+<div class="section" id="aggregation-functions-componentwise">
+<h2><span class="section-number">9.2. </span>Aggregation Functions (Componentwise)<a class="headerlink" href="#aggregation-functions-componentwise" title="Permalink to this headline"></a></h2>
 <p>Aggregation functions (e.g., <strong class="command">numpy.mean</strong>, <strong class="command">numpy.quantile</strong>)
 can summarise:</p>
 <ul class="simple">
@@ -499,6 +499,23 @@ an <em>n×1</em> column vector:</p>
 </div>
 <p>This resulted in each column mean’s being 0. An explicit <code class="docutils literal notranslate"><span class="pre">.reshape(1,</span> <span class="pre">-1)</span></code>
 was not necessary.</p>
+<p>Mathematically, although it is not necessarily a standard
+notation, we will allow adding and subtracting row vectors
+from matrices of compatible sizes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{X}+\mathbf{t}=
+\left[
+\begin{array}{cccc}
+x_{1,1} + t_1 &amp; x_{1,2} + t_2 &amp; \dots &amp; x_{1,m} + t_m \\
+x_{2,1} + t_1 &amp; x_{2,2} + t_2 &amp; \dots &amp; x_{2,m} + t_m \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{n,1} + t_1 &amp; x_{n,2} + t_2 &amp; \dots &amp; x_{n,m} + t_m \\
+\end{array}
+\right].
+\end{split}\]</div>
+<p>This corresponds to shifting (translating) every row
+in the matrix.</p>
 <p>However, subtracting the row means already requires
 some extra labour:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -881,7 +898,7 @@ the first and the last row and the first and the last column?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-13T15:14:17+1000.
+        Last updated on 2022-05-20T12:47:44+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

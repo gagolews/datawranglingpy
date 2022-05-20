@@ -326,7 +326,7 @@ concatenation operator:</p>
 <div class="section" id="unicode-as-the-universal-encoding">
 <h3><span class="section-number">15.1.1. </span>Unicode as the Universal Encoding<a class="headerlink" href="#unicode-as-the-universal-encoding" title="Permalink to this headline"></a></h3>
 <p>It is worth knowing that all strings in Python (from version 3.0)
-use <a class="reference external" href="https://en.wikipedia.org/wiki/Unicode">Unicode</a>,
+use Unicode(https://www.unicode.org/charts/),
 which is a universal encoding capable of representing
 ca. 150,000 characters covering letters and numbers in
 contemporary and historic alphabets/scripts,
@@ -345,7 +345,7 @@ and are processed correctly if string functions are applied thereon.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(**) More precisely, Python strings
-are <a class="reference external" href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a>-encoded.
+are <a class="reference external" href="https://www.ietf.org/rfc/rfc3629.txt">UTF-8</a>-encoded.
 Most web pages and API data are nowadays served in UTF-8.
 However, occasionally we can encounter files encoded in
 ISO-8859-1 (Western Europe),
@@ -458,8 +458,8 @@ data chunks (numbers, URLs, email addresses, IDs) from within strings.</p>
 </div>
 <div class="section" id="locale-aware-services-in-icu">
 <h3><span class="section-number">15.1.4. </span>Locale-Aware Services in <strong class="program">ICU</strong> (**)<a class="headerlink" href="#locale-aware-services-in-icu" title="Permalink to this headline"></a></h3>
-<p>Recall that relational operators such
-as `<strong class="command">&lt;</strong>` and `{command}`&gt;=`` allow for the lexicographic comparing of strings:</p>
+<p>Recall that relational operators such as `<strong class="command">&lt;</strong>` and
+`<strong class="command">&gt;=</strong> perform lexicographic comparing of strings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam&quot;</span> <span class="o">&gt;</span> <span class="s2">&quot;egg&quot;</span>
 <span class="c1">## True</span>
 </pre></div>
@@ -474,7 +474,8 @@ featuring numerals:</p>
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<p>Also, it only takes into account the <a class="reference external" href="https://www.unicode.org/charts/">numeric codes</a>
+<p>Also, it only takes into account the
+<a class="reference external" href="https://www.unicode.org/charts/">numeric codes</a>
 corresponding to each Unicode character, therefore does not work well
 with non-English alphabets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;MIELONECZKĄ&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;MIELONECZKI&quot;</span>
@@ -503,13 +504,13 @@ treated as a single entity and are sorted after <code class="docutils literal no
 <span class="c1">## 1</span>
 </pre></div>
 </div>
-<p>i.e., we have <code class="docutils literal notranslate"><span class="pre">&quot;chladný&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;hladný&quot;</span></code> (the 2nd argument is greater
-than the 1st). Compare the above to something similar in Polish:</p>
+<p>i.e., we have <code class="docutils literal notranslate"><span class="pre">&quot;chladný&quot;</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">&quot;hladný&quot;</span></code> (the 1st argument is greater
+than the 2nd one). Compare the above to something similar in Polish:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">icu</span><span class="o">.</span><span class="n">Collator</span><span class="o">.</span><span class="n">createInstance</span><span class="p">(</span><span class="n">icu</span><span class="o">.</span><span class="n">Locale</span><span class="p">(</span><span class="s2">&quot;pl_PL&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="s2">&quot;chłodny&quot;</span><span class="p">,</span> <span class="s2">&quot;hardy&quot;</span><span class="p">)</span>
 <span class="c1">## -1</span>
 </pre></div>
 </div>
-<p>i.e., <code class="docutils literal notranslate"><span class="pre">&quot;chłodny&quot;</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">&quot;hardy&quot;</span></code> (the first argument is greater than
+<p>i.e., <code class="docutils literal notranslate"><span class="pre">&quot;chłodny&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;hardy&quot;</span></code> (the first argument is less than
 the 2nd one).</p>
 <div style="margin-top: 1em"></div><p>Also, with <strong class="program">ICU</strong>, numeric collation is possible:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">icu</span><span class="o">.</span><span class="n">Collator</span><span class="o">.</span><span class="n">createInstance</span><span class="p">()</span>
@@ -518,8 +519,8 @@ the 2nd one).</p>
 <span class="c1">## -1</span>
 </pre></div>
 </div>
-<p>Which is the correct result (compare the above example
-using `<strong class="command">&lt;</strong>`).</p>
+<p>Which is the correct result: <code class="docutils literal notranslate"><span class="pre">&quot;a9&quot;</span></code> is less than <code class="docutils literal notranslate"><span class="pre">&quot;a123&quot;</span></code>
+(compare the above to the example which was using using `<strong class="command">&lt;</strong>`).</p>
 </div>
 </div>
 <div class="section" id="string-operations-in-pandas">
@@ -995,7 +996,7 @@ using <strong class="command">pandas.DataFrame.to_markdown</strong>.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-13T15:14:17+1000.
+        Last updated on 2022-05-20T12:47:44+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

@@ -545,7 +545,7 @@ backslash or a square bracket.</p>
 </div>
 <div class="section" id="complementing-sets">
 <h3><span class="section-number">16.3.3. </span>Complementing Sets<a class="headerlink" href="#complementing-sets" title="Permalink to this headline"></a></h3>
-<p>Including “<code class="docutils literal notranslate"><span class="pre">^</span></code>” after the opening square bracket denotes the set
+<p>Including “<code class="docutils literal notranslate"><span class="pre">^</span></code>” (the caret) after the opening square bracket denotes the set
 complement. Hence, “<code class="docutils literal notranslate"><span class="pre">[^abc]</span></code>” matches any code point except “<code class="docutils literal notranslate"><span class="pre">a</span></code>”,
 “<code class="docutils literal notranslate"><span class="pre">b</span></code>”, and “<code class="docutils literal notranslate"><span class="pre">c</span></code>”. Here is an example where we seek any substring that
 consists of 3 non-spaces.</p>
@@ -604,25 +604,25 @@ denotes its complement.</p>
 <h2><span class="section-number">16.4. </span>Alternating and Grouping Subexpressions<a class="headerlink" href="#alternating-and-grouping-subexpressions" title="Permalink to this headline"></a></h2>
 <div class="section" id="alternation-operator">
 <h3><span class="section-number">16.4.1. </span>Alternation Operator<a class="headerlink" href="#alternation-operator" title="Permalink to this headline"></a></h3>
-<p>The alternation operator, “<code class="docutils literal notranslate"><span class="pre">|</span></code>”, matches either its left or its right
-branch, for instance:</p>
+<p>The alternation operator, “<code class="docutils literal notranslate"><span class="pre">|</span></code>” (the pipe or bar),
+matches either its left or its right branch, for instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;spam, egg, ham, jam, algae, and an amalgam of spam, all al dente&quot;</span>
 <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;spam|ham&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="c1">## [&#39;spam&#39;, &#39;ham&#39;, &#39;spam&#39;]</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="grouping-subexpressions">
+<h3><span class="section-number">16.4.2. </span>Grouping Subexpressions<a class="headerlink" href="#grouping-subexpressions" title="Permalink to this headline"></a></h3>
 <p>“<code class="docutils literal notranslate"><span class="pre">|</span></code>” has a very low precedence. Therefore, if we wish to introduce an
-alternative of subexpressions, we need to group them
-using the “<code class="docutils literal notranslate"><span class="pre">(?:...)</span></code>” syntax. For instance, “<code class="docutils literal notranslate"><span class="pre">(?:sp|h)am</span></code>” matches either “<code class="docutils literal notranslate"><span class="pre">spam</span></code>”
+alternative of subexpressions, we need to group them using the
+“<code class="docutils literal notranslate"><span class="pre">(?:...)</span></code>” syntax. For instance, “<code class="docutils literal notranslate"><span class="pre">(?:sp|h)am</span></code>” matches either “<code class="docutils literal notranslate"><span class="pre">spam</span></code>”
 or “<code class="docutils literal notranslate"><span class="pre">ham</span></code>”.</p>
 <p>Note that the bare use of the round brackets, <code class="docutils literal notranslate"><span class="pre">&quot;(...)&quot;</span></code>
 (i.e., without the <code class="docutils literal notranslate"><span class="pre">&quot;?:&quot;</span></code>) part, has the side-effect of creating new
 capturing groups, see below for more details.</p>
-</div>
-<div class="section" id="grouping-subexpressions">
-<h3><span class="section-number">16.4.2. </span>Grouping Subexpressions<a class="headerlink" href="#grouping-subexpressions" title="Permalink to this headline"></a></h3>
 <p>Also, matching is always done left-to-right, on a first-come,
-first-served basis. So, if the left branch is a subset of the right
+first-served basis. Hence, if the left branch is a subset of the right
 one, the latter will never be matched. In particular,
 “<code class="docutils literal notranslate"><span class="pre">(?:al|alga|algae)</span></code>” can only match “<code class="docutils literal notranslate"><span class="pre">al</span></code>”. To fix this, we can write
 “<code class="docutils literal notranslate"><span class="pre">(?:algae|alga|al)</span></code>”.</p>
@@ -674,9 +674,8 @@ optional. This can be achieved by means of the following quantifiers:</p>
 <li><p>“<code class="docutils literal notranslate"><span class="pre">{n}</span></code>” matches exactly <code class="docutils literal notranslate"><span class="pre">n</span></code> times.</p></li>
 </ul>
 <p>These operators are applied onto the directly preceding atoms.
-For example, “<code class="docutils literal notranslate"><span class="pre">ba+</span></code>”
-captures <code class="docutils literal notranslate"><span class="pre">&quot;ba&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;baa&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;baaa&quot;</span></code>, etc., but neither <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> alone
-nor <code class="docutils literal notranslate"><span class="pre">&quot;bababa&quot;</span></code> altogether.</p>
+For example, “<code class="docutils literal notranslate"><span class="pre">ni+</span></code>” captures <code class="docutils literal notranslate"><span class="pre">&quot;ni&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nii&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;niii&quot;</span></code>, etc.,
+but neither <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code> alone nor <code class="docutils literal notranslate"><span class="pre">&quot;ninini&quot;</span></code> altogether.</p>
 <p>By default, the quantifiers are greedy – they match the repeated
 subexpression as many times as possible. The “<code class="docutils literal notranslate"><span class="pre">?</span></code>” suffix (hence,
 quantifiers such as “<code class="docutils literal notranslate"><span class="pre">??</span></code>”, “<code class="docutils literal notranslate"><span class="pre">*?</span></code>”, “<code class="docutils literal notranslate"><span class="pre">+?</span></code>”, and so forth) tries with as
@@ -1021,7 +1020,7 @@ thereto in <strong class="command">re.sub</strong>?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-13T15:14:17+1000.
+        Last updated on 2022-05-20T12:47:44+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

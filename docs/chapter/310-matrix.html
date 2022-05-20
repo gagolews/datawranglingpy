@@ -137,7 +137,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#reshaping-matrices">8.2. Reshaping Matrices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mathematical-notion">8.3. Mathematical Notion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-notion">8.3. Mathematical Notion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#row-and-column-vectors">8.3.1. Row and Column Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transpose">8.3.2. Transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identity-and-other-diagonal-matrices">8.3.3. Identity and Other Diagonal Matrices</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#visualising-multidimensional-data">8.4. Visualising Multidimensional Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#d-data">8.4.1. 2D Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#d-data-and-beyond">8.4.2. 3D Data and Beyond</a></li>
@@ -724,6 +729,8 @@ automatically discovered topics
 80% travel literature, 70% comedy,
 and 50% heroic fantasy, but let’s not take it for granted).</p>
 </div>
+<div class="section" id="row-and-column-vectors">
+<h3><span class="section-number">8.3.1. </span>Row and Column Vectors<a class="headerlink" href="#row-and-column-vectors" title="Permalink to this headline"></a></h3>
 <p>Additionally, will sometimes use the following notation to emphasise
 that <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> consists of <span class="math notranslate nohighlight">\(n\)</span> rows:</p>
 <div class="math notranslate nohighlight">
@@ -752,7 +759,21 @@ x_{i,m} \\
 \end{array}
 \right].
 \end{split}\]</div>
-<p>Alternatively, we can specify the <span class="math notranslate nohighlight">\(m\)</span> columns</p>
+<p>Also, recall that we are used to denoting
+a <em>vector</em> of length <span class="math notranslate nohighlight">\(m\)</span> with <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1, \dots, x_m)\)</span>.
+A vector is a 1-dimensional array (not a 2-dimensional one),
+hence a slightly different notation in the case where ambiguity
+can lead to some trouble.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In <a class="reference internal" href="320-transform-matrix.html#chap-transform-matrix"><span class="std std-numref">Chapter 9</span></a>
+we will see that often <strong class="program">numpy</strong> automatically
+treats length-<em>m</em> vectors as if they were row vectors,
+i.e., matrices of size <em>1×m</em>.
+For the column vector behaviour, we will need to reshape them
+manually.</p>
+</div>
+<div style="margin-top: 1em"></div><p>Alternatively, we can specify the <span class="math notranslate nohighlight">\(m\)</span> columns</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{X}
@@ -789,7 +810,10 @@ x_{n,j} \\
 <p>where <span class="math notranslate nohighlight">\(\cdot^T\)</span> denotes the transpose of a given matrix
 (thanks to which we can save some vertical space, we don’t
 want this book be 1000 pages long, do we?).</p>
-<div style="margin-top: 1em"></div><p>More generally, the <em>transpose</em> of a matrix
+</div>
+<div class="section" id="transpose">
+<h3><span class="section-number">8.3.2. </span>Transpose<a class="headerlink" href="#transpose" title="Permalink to this headline"></a></h3>
+<p>More generally, the <em>transpose</em> of a matrix
 <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
 is an <span class="math notranslate nohighlight">\((m\times n)\)</span>-matrix <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> given by:</p>
 <div class="math notranslate nohighlight">
@@ -814,19 +838,32 @@ x_{1,n} &amp; x_{2,n} &amp; \cdots &amp; x_{m,n} \\
     </div><div class="proof-content">
 <p>Compare the display of an example matrix
 <code class="docutils literal notranslate"><span class="pre">A</span></code> and its transpose <code class="docutils literal notranslate"><span class="pre">A.T</span></code> above.</p>
-</div></div><div style="margin-top: 1em"></div><p>Also, recall that we are used to denoting
-a <em>vector</em> of length <span class="math notranslate nohighlight">\(m\)</span> with <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1, \dots, x_m)\)</span>.
-A vector is a 1-dimensional array (not a 2-dimensional one),
-hence a slightly different notation in the case where ambiguity
-can lead to some trouble.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>In <a class="reference internal" href="320-transform-matrix.html#chap-transform-matrix"><span class="std std-numref">Chapter 9</span></a>
-we will see that often <strong class="program">numpy</strong> automatically
-treats length-<em>m</em> vectors as if they were row vectors,
-i.e., matrices of size <em>1×m</em>.
-For the column vector behaviour, we will need to reshape them
-manually.</p>
+</div></div></div>
+<div class="section" id="identity-and-other-diagonal-matrices">
+<h3><span class="section-number">8.3.3. </span>Identity and Other Diagonal Matrices<a class="headerlink" href="#identity-and-other-diagonal-matrices" title="Permalink to this headline"></a></h3>
+<p><span class="math notranslate nohighlight">\(\mathbf{I}\)</span> denotes the <em>identity matrix</em>,
+being a square <span class="math notranslate nohighlight">\(n\times n\)</span> (with <span class="math notranslate nohighlight">\(n\)</span> most often clear from the context)
+matrix with 0s everywhere except on the main diagonal,
+where 1s lie.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">## array([[1., 0., 0., 0., 0.],</span>
+<span class="c1">##        [0., 1., 0., 0., 0.],</span>
+<span class="c1">##        [0., 0., 1., 0., 0.],</span>
+<span class="c1">##        [0., 0., 0., 1., 0.],</span>
+<span class="c1">##        [0., 0., 0., 0., 1.]])</span>
+</pre></div>
+</div>
+<p>The identity matrix is a neutral element of matrix multiplication.</p>
+<p>More generally, any diagonal matrix,
+<span class="math notranslate nohighlight">\(\mathrm{diag}(a_1,\dots,a_n)\)</span>,
+can be constructed from a given sequence of elements by calling:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="c1">## array([[1, 0, 0, 0],</span>
+<span class="c1">##        [0, 2, 0, 0],</span>
+<span class="c1">##        [0, 0, 3, 0],</span>
+<span class="c1">##        [0, 0, 0, 4]])</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="visualising-multidimensional-data">
@@ -1141,7 +1178,7 @@ what is the meaning of:
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-13T15:14:17+1000.
+        Last updated on 2022-05-20T12:47:44+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
