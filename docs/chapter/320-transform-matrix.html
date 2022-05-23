@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9. Transforming, Aggregating, and Filtering Multidimensional Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>9. Transforming and Filtering Multidimensional Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -67,7 +67,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.2]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.3.1]
           
 
           
@@ -128,9 +128,9 @@
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">8. Multidimensional Numeric Data at a Glance</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Transforming, Aggregating, and Filtering Multidimensional Data</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Transforming and Filtering Multidimensional Data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#vectorised-mathematical-functions">9.1. Vectorised Mathematical Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#aggregation-functions-componentwise">9.2. Aggregation Functions (Componentwise)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#componentwise-aggregation">9.2. Componentwise Aggregation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#arithmetic-logical-and-comparison-operations">9.3. Arithmetic, Logical, and Comparison Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#matrix-vs-scalar">9.3.1. Matrix vs Scalar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#matrix-vs-matrix">9.3.2. Matrix vs Matrix</a></li>
@@ -193,7 +193,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.2]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.3.1]</a>
         
       </nav>
 
@@ -228,7 +228,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">9. </span>Transforming, Aggregating, and Filtering Multidimensional Data</li>
+      <li><span class="section-number">9. </span>Transforming and Filtering Multidimensional Data</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -257,8 +257,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="tex2jax_ignore mathjax_ignore section" id="transforming-aggregating-and-filtering-multidimensional-data">
-<span id="chap-transform-matrix"></span><h1><span class="section-number">9. </span>Transforming, Aggregating, and Filtering Multidimensional Data<a class="headerlink" href="#transforming-aggregating-and-filtering-multidimensional-data" title="Permalink to this headline"></a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="transforming-and-filtering-multidimensional-data">
+<span id="chap-transform-matrix"></span><h1><span class="section-number">9. </span>Transforming and Filtering Multidimensional Data<a class="headerlink" href="#transforming-and-filtering-multidimensional-data" title="Permalink to this headline"></a></h1>
 <blockquote>
 <div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
 <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
@@ -310,14 +310,18 @@ f(x_{n,1}) &amp; f(x_{n,2}) &amp; \cdots &amp; f(x_{n,m}) \\
 \right].
 \end{split}\]</div>
 </div>
-<div class="section" id="aggregation-functions-componentwise">
-<h2><span class="section-number">9.2. </span>Aggregation Functions (Componentwise)<a class="headerlink" href="#aggregation-functions-componentwise" title="Permalink to this headline"></a></h2>
-<p>Aggregation functions (e.g., <strong class="command">numpy.mean</strong>, <strong class="command">numpy.quantile</strong>)
-can summarise:</p>
+<div class="section" id="componentwise-aggregation">
+<h2><span class="section-number">9.2. </span>Componentwise Aggregation<a class="headerlink" href="#componentwise-aggregation" title="Permalink to this headline"></a></h2>
+<p>Unidimensional aggregation functions
+(e.g., <strong class="command">numpy.mean</strong>, <strong class="command">numpy.quantile</strong>)
+can be applied to summarise:</p>
+<ul class="simple">
+<li><p>data in each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>),</p></li>
+<li><p>data in each column (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>),</p></li>
+</ul>
+<p>as well as:</p>
 <ul class="simple">
 <li><p>all data into a single number (<code class="docutils literal notranslate"><span class="pre">axis=None</span></code>, being the default),</p></li>
-<li><p>data in each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>),</p></li>
-<li><p>data in each column (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>).</p></li>
 </ul>
 <p>Here are the examples corresponding to the above cases:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -555,7 +559,7 @@ of <em>all</em> pairs of elements in the two arrays
         
     </div><div class="proof-content">
 <p>(**) Check out that
-<strong class="command">numpy.where</strong> relies on similar shape broadcasting rules
+<strong class="command">numpy.nonzero</strong> relies on similar shape broadcasting rules
 as the binary operators we have discussed here,
 however, not with regards to all the 3 arguments.</p>
 </div></div></div>
@@ -770,7 +774,7 @@ and the second is a row vector (or some object like the
 two said ones, e.g., compatible lists of lists).
 Further, if indexing involves logical vectors,
 it is best to convert them to integer ones first
-(e.g., by calling <strong class="command">numpy.where</strong>).</p>
+(e.g., by calling <strong class="command">numpy.nonzero</strong>).</p>
 <p>The above transformations can be done automatically
 via the <strong class="command">numpy.ix_</strong> function, which is always the safest choice:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.35</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="p">]</span>
@@ -898,7 +902,7 @@ the first and the last row and the first and the last column?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-20T12:47:44+1000.
+        Last updated on 2022-05-23T17:58:17+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

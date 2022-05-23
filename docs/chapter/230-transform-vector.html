@@ -67,7 +67,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.2.2]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.3.1]
           
 
           
@@ -144,7 +144,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#other-operations">6.4. Other Operations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sorting-and-ranking">6.4.1. Sorting and Ranking</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes">6.4.2. Searching for Certain Indexes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes-argmin-argmax">6.4.2. Searching for Certain Indexes (Argmin, Argmax)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cumulative-sums-and-iterated-differences">6.4.3. Cumulative Sums and Iterated Differences</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations-with-list-comprehensions">6.4.4. Vectorising Scalar Operations with List Comprehensions (*)</a></li>
 </ul>
@@ -157,7 +157,7 @@
 <p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">8. Multidimensional Numeric Data at a Glance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">9. Transforming, Aggregating, and Filtering Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">9. Transforming and Filtering Multidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-corelation.html">10. 🚧 Exploring Relationships Between Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
@@ -200,7 +200,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.2.2]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.3.1]</a>
         
       </nav>
 
@@ -311,15 +311,14 @@ defines many basic mathematical functions:</p>
 <ul class="simple">
 <li><p>absolute value: <strong class="command">numpy.abs</strong>,</p></li>
 <li><p>square and square root: <strong class="command">numpy.square</strong> and <strong class="command">numpy.sqrt</strong>,</p></li>
-<li><p>exponential function: <strong class="command">numpy.exp</strong>,</p></li>
+<li><p>(natural) exponential function: <strong class="command">numpy.exp</strong>,</p></li>
 <li><p>logarithms: <strong class="command">numpy.log</strong> (the natural logarithm, i.e., base <em>e</em>),
 <strong class="command">numpy.log10</strong> (base 10), etc.,</p></li>
-<li><p>trigonometric functions: <strong class="command">numpy.sin</strong>, <strong class="command">numpy.cos</strong>,
-<strong class="command">numpy.tan</strong>, etc.,</p></li>
+<li><p>trigonometric functions: <strong class="command">numpy.cos</strong>, <strong class="command">numpy.sin</strong>,
+<strong class="command">numpy.tan</strong>, etc.,
+and their inverses: <strong class="command">numpy.arccos</strong>, etc.</p></li>
 <li><p>rounding and truncating: <strong class="command">numpy.round</strong>, <strong class="command">numpy.floor</strong>,
-<strong class="command">numpy.ceil</strong>, <strong class="command">numpy.trunc</strong>
-(when in doubt about their definitions,
-we should, as usual, refer to the official manual).</p></li>
+<strong class="command">numpy.ceil</strong>, <strong class="command">numpy.trunc</strong>.</p></li>
 </ul>
 <p>Each of these functions is <em>vectorised</em>: if we apply, say, <span class="math notranslate nohighlight">\(f\)</span>,
 on a vector like <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>, we
@@ -333,24 +332,107 @@ f(\boldsymbol{x}) = (f(x_1), f(x_2), \dots, f(x_n)).
 e.g., as in <a class="reference internal" href="240-distribution-uni.html#fig-heights-lognormal"><span class="std std-numref">Figure 7.4</span></a> where
 we note that the <em>logarithm</em> of the UK incomes
 has a bell-shaped distribution.</p>
-<p>For example:</p>
+<p>For example, the absolute value of a single <span class="math notranslate nohighlight">\(x\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|x| = \left\{
+\begin{array}{ll}
+x &amp; \text{if } x \ge 0, \\
+-x &amp; \text{otherwise}.
+\end{array}
+\right.
+\end{split}\]</div>
+<p>and its vectorised version yields</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="c1">## array([2, 1, 0, 1, 2, 3])</span>
 </pre></div>
 </div>
-<p>Note that the input list has automatically been converted to a <strong class="program">numpy</strong> vector.</p>
-<p>Other examples:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="c1">## array([0.36787944, 1.        , 2.71828183, 7.3890561 ])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>  <span class="c1"># the natural logarithm is the inverse of exp</span>
-<span class="c1">## array([-1.,  0.,  1.,  2.])</span>
-</pre></div>
-</div>
-<p>and so forth.</p>
+<p>Note that the input list has automatically been converted
+to a <strong class="program">numpy</strong> vector.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
 <p>Thanks to the vectorised functions, our code is not only more
 readable, but also it runs faster – as otherwise we would have to employ
 a <strong class="command">while</strong> or <strong class="command">for</strong> loop
 to traverse through each element in a given sequence.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here are some noteworthy properties of the exponential function
+and its inverse, the natural logarithm, that we should know.
+By convention, the Euler’s number <span class="math notranslate nohighlight">\(e = \exp(1)\simeq 2.718\)</span>,
+<span class="math notranslate nohighlight">\(\exp(x)=e^x\)</span>, and <span class="math notranslate nohighlight">\(\log x = \log_e x\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(e^{\log x} = x\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log e^x = x\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log (xy) = \log x + \log y\)</span>, <span class="math notranslate nohighlight">\(\log (x/y) = \log x - \log y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(e^{x+y} = e^x e^y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log 1 = 0\)</span>, <span class="math notranslate nohighlight">\(\log e = 1\)</span></p></li>
+</ul>
+<p>Note that both functions are strictly increasing.
+For <span class="math notranslate nohighlight">\(x\ge 1\)</span>, the logarithm grows very slowly whereas the exponential
+function increases very rapidly, see Figure <a class="reference internal" href="#fig-log-exp"><span class="std std-numref">Figure 6.1</span></a>.</p>
+<p>Further, logarithms are only defined for <span class="math notranslate nohighlight">\(x &gt; 0\)</span>.
+In the limit as <span class="math notranslate nohighlight">\(x \to 0\)</span>, we have that <span class="math notranslate nohighlight">\(\log x \to -\infty\)</span>.</p>
+<div class="figure align-default" id="id3">
+<span id="fig-log-exp"></span><img alt="../_images/log-exp-1.png" src="../_images/log-exp-1.png" />
+<p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right)</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Logarithms of different bases and non-natural exponential function are
+also possible. In particular, when drawing plots, we have already used
+base-10 logarithmic scales on the axes.
+It holds <span class="math notranslate nohighlight">\(\log_{10} x = \frac{\log x}{\log 10}\)</span>
+and its inverse is <span class="math notranslate nohighlight">\(10^x\)</span>.</p>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
+<span class="c1">## array([     nan, -2.     , -1.     ,  0.     ,  0.30103,  0.69897,</span>
+<span class="c1">##         1.     ,  2.     ,  3.     ,  4.     ])</span>
+<span class="c1">## </span>
+<span class="c1">## &lt;string&gt;:1: RuntimeWarning: invalid value encountered in log10</span>
+</pre></div>
+</div>
+<p>Note the warning  and the not-a-number (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) generated.</p>
+<div class="proof proof-type-exercise" id="id4">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 6.1</span>
+        
+    </div><div class="proof-content">
+<p>Check that when using the log-scale on the OX axis
+(<strong class="command">plt.xscale</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;log&quot;)</span></code>), the plot of the logarithm
+(of any base) is a straight line. Similarly, the log-scale on the OY axis
+(<strong class="command">plt.yscale</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;log&quot;)</span></code>) makes the exponential function
+linear.</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Trigonometric functions in <strong class="program">numpy</strong> accept angles in radians;
+if <span class="math notranslate nohighlight">\(x\)</span> is the degree in angles, then to compute its
+cosine we will be thus writing <span class="math notranslate nohighlight">\(\cos (x \pi /180)\)</span> instead;
+see <a class="reference internal" href="#fig-cos"><span class="std std-numref">Figure 6.2</span></a>.</p>
+<div class="figure align-default" id="id5">
+<span id="fig-cos"></span><img alt="../_images/cos-3.png" src="../_images/cos-3.png" />
+<p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">The cosine</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+</div>
+<p>Some identities worth memorising:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sin x = \cos(\pi/2 - x)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos(-x) = \cos x\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos^2 x + \sin^2 x = 1\)</span>, where <span class="math notranslate nohighlight">\(\cos^2 x = (\cos x)^2\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos(x+y) = \cos x \cos y - \sin x \sin y\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos(x-y) = \cos x \cos y + \sin x \sin y\)</span>.</p></li>
+</ul>
+<p>we will refer to them later.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The classical handbook of mathematical functions
+and the (in)equalities related to them is <span id="id1">[<a class="reference internal" href="999-bibliography.html#id119">AS72</a>]</span>,
+see <span id="id2">[<a class="reference internal" href="999-bibliography.html#id120">O+22</a>]</span> for its updated version.</p>
+</div>
 </div>
 <div class="section" id="arithmetic-operators">
 <h2><span class="section-number">6.2. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline"></a></h2>
@@ -400,10 +482,10 @@ All of them are linear transforms of the form
 <span class="math notranslate nohighlight">\(\boldsymbol{y}=c \boldsymbol{x}+t\)</span>,
 which geometrically we can interpret as scaling
 (stretching or shrinking) and shifting (translating),
-see <a class="reference internal" href="#fig-scale-shift"><span class="std std-numref">Figure 6.1</span></a> for an illustration.</p>
-<div class="figure align-default" id="id1">
-<span id="fig-scale-shift"></span><img alt="../_images/scale-shift-1.png" src="../_images/scale-shift-1.png" />
-<p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">Scalled and shifted versions of a given vector</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+see <a class="reference internal" href="#fig-scale-shift"><span class="std std-numref">Figure 6.3</span></a> for an illustration.</p>
+<div class="figure align-default" id="id6">
+<span id="fig-scale-shift"></span><img alt="../_images/scale-shift-5.png" src="../_images/scale-shift-5.png" />
+<p class="caption"><span class="caption-number">Figure 6.3 </span><span class="caption-text">Scaled and shifted versions of a given vector</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -484,18 +566,18 @@ in centimetres).</p>
 enables the comparison of measurements on different scales
 (think: height in cm vs weight in kg or apples vs oranges).</p>
 </div>
-<div class="proof proof-type-exercise" id="id2">
+<div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 6.1</span>
+        <span class="proof-type">Exercise 6.2</span>
         
     </div><div class="proof-content">
 <p>We have a patient whose height z-score is 1 and
 weight z-score is -1. How to interpret this information?</p>
-</div></div><div class="proof proof-type-exercise" id="id3">
+</div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 6.2</span>
+        <span class="proof-type">Exercise 6.3</span>
         
     </div><div class="proof-content">
 <p>How about a patient whose weight z-score is 0
@@ -656,10 +738,10 @@ and <span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\
 is less standard in mathematics (for instance multiplication
 might denote the dot product), but in <strong class="program">numpy</strong>
 it is really convenient.</p>
-<div class="proof proof-type-example" id="id4">
+<div class="proof proof-type-example" id="id9">
 
     <div class="proof-title">
-        <span class="proof-type">Example 6.3</span>
+        <span class="proof-type">Example 6.4</span>
         
     </div><div class="proof-content">
 <p>Another example:</p>
@@ -675,41 +757,39 @@ Note that it involves the use of a unary vectorised
 minus (change sign), an aggregation function (sum),
 a vectorised mathematical function (log),
 and an elementwise multiplication.</p>
-</div></div><div class="proof proof-type-example" id="id5">
+</div></div><div class="proof proof-type-example" id="id10">
 
     <div class="proof-title">
-        <span class="proof-type">Example 6.4</span>
+        <span class="proof-type">Example 6.5</span>
         
     </div><div class="proof-content">
-<p>Let’s say that for some reason we would like to plot two mathematical
-functions:
-<span class="math notranslate nohighlight">\(f(x)= \sin x\, \cos^2 \frac{x}{3}\)</span>
-and
-<span class="math notranslate nohighlight">\(g(x) = \frac{\sin (-2x)}{x^2+1}\)</span>
-for <span class="math notranslate nohighlight">\(x\)</span> in the interval <span class="math notranslate nohighlight">\([-2\pi, 4\pi]\)</span>.</p>
+<p>Let us assume that – for whatever the reason – we would like to
+plot two mathematical functions, the sine, <span class="math notranslate nohighlight">\(f(x)= \sin x\)</span>
+and a polynomial of degree 7, <span class="math notranslate nohighlight">\(g(x) = x - x^3/6 + x^5/120 - x^7/5040\)</span>
+for <span class="math notranslate nohighlight">\(x\)</span> in the interval <span class="math notranslate nohighlight">\([-\pi, 3\pi/2]\)</span>.</p>
 <p>To do this, we can probe the values of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> at sufficiently many points
 using the vectorised operations discussed so far
 and then use the <strong class="command">matplotlib.pyplot.plot</strong> function
-to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"><span class="std std-numref">Figure 6.2</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>  <span class="c1"># many points in the said interval</span>
-<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">yg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"><span class="std std-numref">Figure 6.4</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>  <span class="c1"># many points in the said interval</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">yg</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">6</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="mi">120</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">7</span><span class="o">/</span><span class="mi">5040</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yf</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>  <span class="c1"># red solid line</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yg</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;g(x)&quot;</span><span class="p">)</span>  <span class="c1"># blue dotted line</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id6">
-<span id="fig-vectorised-easy"></span><img alt="../_images/vectorised-easy-3.png" src="../_images/vectorised-easy-3.png" />
-<p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id11">
+<span id="fig-vectorised-easy"></span><img alt="../_images/vectorised-easy-7.png" src="../_images/vectorised-easy-7.png" />
+<p class="caption"><span class="caption-number">Figure 6.4 </span><span class="caption-text">With vectorised functions, it is easy to generate plots such as this one</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
 </div>
 <p>Note that decreasing the number of points in <code class="docutils literal notranslate"><span class="pre">x</span></code> will reveal that the
-plotting function in fact draws a series of straight line segments.</p>
-</div></div><div class="proof proof-type-exercise" id="id7">
+plotting function merely draws a series of straight line segments.</p>
+</div></div><div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 6.5</span>
+        <span class="proof-type">Exercise 6.6</span>
         
     </div><div class="proof-content">
 <p>Based on the
@@ -808,10 +888,10 @@ Therefore, the bracketing of the comparisons is obligatory.</p>
 </div>
 <p>means “elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> between 20 and 40”
 (greater than or equal to 20 and less than or equal to 40).</p>
-<div class="proof proof-type-exercise" id="id8">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 6.6</span>
+        <span class="proof-type">Exercise 6.7</span>
         
     </div><div class="proof-content">
 <p>Compute the BMIs only of the persons whose
@@ -875,10 +955,10 @@ which is the inverse of <strong class="command">numpy.argsort</strong>.</p>
 <p>Element 10 is the smallest (“the winner”, say, the quickest racer),
 hence it has rank 1.
 Next is element 30, which is the 3rd on the podium, hence its rank is 3.</p>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 6.7</span>
+        <span class="proof-type">Exercise 6.8</span>
         
     </div><div class="proof-content">
 <p>Consult the manual page of
@@ -932,8 +1012,8 @@ In particular, <strong class="command">np.argsort</strong><code class="code docu
 is equivalent to <strong class="command">scipy.stats.rankdata</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">method=&quot;ordinal&quot;)</span></code>.</p>
 </div>
 </div>
-<div class="section" id="searching-for-certain-indexes">
-<h3><span class="section-number">6.4.2. </span>Searching for Certain Indexes<a class="headerlink" href="#searching-for-certain-indexes" title="Permalink to this headline"></a></h3>
+<div class="section" id="searching-for-certain-indexes-argmin-argmax">
+<h3><span class="section-number">6.4.2. </span>Searching for Certain Indexes (Argmin, Argmax)<a class="headerlink" href="#searching-for-certain-indexes-argmin-argmax" title="Permalink to this headline"></a></h3>
 <p><strong class="command">numpy.argmin</strong> and <strong class="command">numpy.argmax</strong> return the index at
 which we can find the smallest and the largest observation
 in a given vector.</p>
@@ -944,32 +1024,40 @@ in a given vector.</p>
 </div>
 <p>Note that if there are tied observations,
 the smallest index is returned.</p>
-<div style="margin-top: 1em"></div><p>We can use <strong class="command">numpy.where</strong> to get the indexes
-where a logical vector has elements equal to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+<p>Mathematically, for example, we write</p>
+<div class="math notranslate nohighlight">
+\[
+i = \mathrm{arg}\min_j x_j
+\]</div>
+<p>(read: <span class="math notranslate nohighlight">\(i\)</span> is the index of the smallest element in the sequence;
+it is the <em>argument of the minimum</em>),
+whenever</p>
+<div class="math notranslate nohighlight">
+\[
+x_i = \min_j x_j
+\]</div>
+<p>(read: the <span class="math notranslate nohighlight">\(i\)</span>-th element is the smallest).</p>
+<div style="margin-top: 1em"></div><p>We can use <strong class="command">numpy.flatnonzero</strong> to fetch the indexes
+where a logical vector has elements equal to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+(in <a class="reference internal" href="420-categorical.html#sec-binary-logical"><span class="std std-numref">Section 12.1.3</span></a> we note the a value equal
+to zero is treated as the logical <code class="docutils literal notranslate"><span class="pre">False</span></code>, and as <code class="docutils literal notranslate"><span class="pre">True</span></code> in all
+other cases).
 For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="c1">## (array([2, 5]),)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1">## array([2, 5])</span>
 </pre></div>
 </div>
 <p>This is a version of <strong class="command">numpy.argmax</strong> that lets us decide
 what we would like to do with the tied maxima.</p>
-<div class="proof proof-type-exercise" id="id10">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 6.8</span>
-        
-    </div><div class="proof-content">
-<p>Let <code class="docutils literal notranslate"><span class="pre">x</span></code> be a vector with possible ties.
-Write an expression that returns a randomly chosen index
-pinpointing the sample maximum.</p>
-</div></div><div class="proof proof-type-exercise" id="id11">
+<div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.9</span>
         
     </div><div class="proof-content">
-<p><strong class="command">numpy.where</strong> can also act as a vectorised version
-of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement. Consult its documentation</p>
+<p>Let <code class="docutils literal notranslate"><span class="pre">x</span></code> be a vector with possible ties.
+Write an expression that returns a randomly chosen index
+pinpointing one of the sample maximums.</p>
 </div></div></div>
 <div class="section" id="cumulative-sums-and-iterated-differences">
 <h3><span class="section-number">6.4.3. </span>Cumulative Sums and Iterated Differences<a class="headerlink" href="#cumulative-sums-and-iterated-differences" title="Permalink to this headline"></a></h3>
@@ -1035,7 +1123,7 @@ to return either <code class="docutils literal notranslate"><span class="pre">x_
 <span class="c1">## [0.62, 0.66, 0.74, 0.32, 0.66, 0.39, 0.98, 0.61, 0.2, 0.47]</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id12">
+<div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.10</span>
@@ -1043,7 +1131,7 @@ to return either <code class="docutils literal notranslate"><span class="pre">x_
     </div><div class="proof-content">
 <p>Write equivalent versions of the above expressions
 using vectorised <strong class="program">numpy</strong> functions.</p>
-</div></div><div class="proof proof-type-exercise" id="id13">
+</div></div><div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.11</span>
@@ -1072,7 +1160,7 @@ so that it can be used on <strong class="program">numpy</strong> vectors:</p>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">6.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id14">
+<div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.12</span>
@@ -1080,7 +1168,7 @@ so that it can be used on <strong class="program">numpy</strong> vectors:</p>
     </div><div class="proof-content">
 <p>Give the mathematical definitions, use cases, and interpretations
 of standardisation, normalisation, and min-max scaling.</p>
-</div></div><div class="proof proof-type-exercise" id="id15">
+</div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.13</span>
@@ -1092,7 +1180,7 @@ How about <strong class="command">numpy.log</strong> vs <strong class="command">
 <strong class="command">numpy.min</strong> vs <strong class="command">numpy.argmin</strong>,
 <strong class="command">numpy.sort</strong> vs <strong class="command">numpy.argsort</strong>,  and
 <strong class="command">scipy.stats.rankdata</strong> vs <strong class="command">numpy.argsort</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id16">
+</div></div><div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.14</span>
@@ -1101,7 +1189,7 @@ How about <strong class="command">numpy.log</strong> vs <strong class="command">
 <p>What is the difference between
 <strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
 and <strong class="command">numpy.round</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id17">
+</div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.15</span>
@@ -1109,14 +1197,14 @@ and <strong class="command">numpy.round</strong>?</p>
     </div><div class="proof-content">
 <p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
 lengths?</p>
-</div></div><div class="proof proof-type-exercise" id="id18">
+</div></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.16</span>
         
     </div><div class="proof-content">
 <p>List the four ways to index a vector.</p>
-</div></div><div class="proof proof-type-exercise" id="id19">
+</div></div><div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.17</span>
@@ -1125,7 +1213,7 @@ lengths?</p>
 <p>What is wrong with the expression
 <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
 How about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 6.18</span>
@@ -1151,7 +1239,7 @@ How about <code class="docutils literal notranslate"><span class="pre">x[</span>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-05-20T12:47:44+1000.
+        Last updated on 2022-05-23T17:58:17+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
