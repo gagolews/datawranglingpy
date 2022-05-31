@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+
+
+<html class="writer-html5" lang="en" >
+<!-- Copyright (C) 2020-2022, Marek Gagolewski <https://www.gagolewski.com> -->
+
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5. Processing Unidimensional Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  
+
+  
+  
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/220-transform-vector.html" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/proof.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Continuous Probability Distributions" href="230-distribution.html" />
+    <link rel="prev" title="4. Unidimensional Numeric Data and Their Distribution" href="210-vector.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.4.1]
+          
+
+          
+          </a>
+
+          <div class="version">
+          by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
+          </div>
+
+<!--
+          
+            
+            
+              <div class="version">
+                by Marek Gagolewski
+              </div>
+            
+          
+-->
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search phrase..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="000-preface.html">Preface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introducing Python</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="110-setup.html">1. Getting Started with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types and Control Structures in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="130-sequential.html">3. Sequential and Other Types in Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Processing Unidimensional Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aggregating-numeric-data">5.1. Aggregating Numeric Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#measures-of-location">5.1.1. Measures of Location</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arithmetic-mean-and-median">5.1.1.1. Arithmetic Mean and Median</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sensitive-to-outliers-vs-robust">5.1.1.2. Sensitive to Outliers vs Robust</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sample-quantiles">5.1.1.3. Sample Quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#measures-of-dispersion">5.1.2. Measures of Dispersion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#standard-deviation-and-variance">5.1.2.1. Standard Deviation (and Variance)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interquartile-range">5.1.2.2. Interquartile Range</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#measures-of-shape">5.1.3. Measures of Shape (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#box-and-whisker-plots">5.1.4. Box (and Whisker) Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-methods">5.1.5. Further Methods (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vectorised-mathematical-functions">5.2. Vectorised Mathematical Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arithmetic-operators">5.3. Arithmetic Operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vector-scalar-case">5.3.1. Vector-Scalar Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-feature-scaling">5.3.2. Application: Feature Scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#standardisation-and-z-scores">5.3.2.1. Standardisation and Z-scores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#min-max-scaling-and-clipping">5.3.2.2. Min-Max Scaling and Clipping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#normalisation-l-2-dividing-by-length">5.3.2.3. Normalisation (<span class="math notranslate nohighlight">\(l_2\)</span>; Dividing by Length)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#normalisation-l-1-dividing-by-sum">5.3.2.4. Normalisation (<span class="math notranslate nohighlight">\(l_1\)</span>; Dividing by Sum)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#vector-vector-case">5.3.3. Vector-Vector Case</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vector-indexing">5.4. Vector Indexing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#integer-indexing">5.4.1. Integer Indexing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logical-indexing">5.4.2. Logical Indexing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slicing">5.4.3. Slicing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-operations">5.5. Other Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sorting-and-ranking">5.5.1. Sorting and Ranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes-argmin-argmax">5.5.2. Searching for Certain Indexes (Argmin, Argmax)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cumulative-sums-and-iterated-differences">5.5.3. Cumulative Sums and Iterated Differences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dealing-with-round-off-and-measurement-errors">5.5.4. 🚧 Dealing with Round-off and Measurement Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations-with-list-comprehensions">5.5.5. Vectorising Scalar Operations with List Comprehensions (*)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">5.6. Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Multidimensional Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. Multidimensional Numeric Data at a Glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">8. Processing Multidimensional Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="330-relationship.html">9. Exploring Relationships Between Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="420-categorical.html">11. Handling Categorical Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="530-time-series.html">16. Time Series</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="998-changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">This Book in PDF</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">Report Bugs or Typos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/gagolews/teaching_data">Datasets</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com">Author</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.4.1]</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>Processing Unidimensional Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+
+        
+        
+        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">Star</a>
+        
+
+
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+        <a href="230-distribution.html" class="btn btn-neutral float-right" title="6. Continuous Probability Distributions" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+      
+      
+        <a href="210-vector.html" class="btn btn-neutral float-left" title="4. Unidimensional Numeric Data and Their Distribution" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="processing-unidimensional-data">
+<span id="chap-transform-vector"></span><h1><span class="section-number">5. </span>Processing Unidimensional Data<a class="headerlink" href="#processing-unidimensional-data" title="Permalink to this headline"></a></h1>
+<blockquote>
+<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
+<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
+in the hope that it’ll be useful. Any
+<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+are appreciated. Although available online, this is a whole course,
+and should be read from the beginning to the end. In particular,
+refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
+</div></blockquote>
+<p>It is extremely rare for our datasets to bring interesting
+and valid insights out of the box. The ones we are using
+for illustrational purposes in the first part of our series have
+already been curated. After all, this is an introductory course,
+and we need to build up the necessary skills and not overwhelm
+the kind reader with too much information at the same time.
+We learn simple things first, learn them well, so that then we can move to
+more complex matters with a healthy level of confidence.</p>
+<p>In real life, various <em>data cleansing</em> and <em>feature engineering</em>
+techniques will need to be performed on data.
+Generally, most of them can be reduced to
+simple operations on vectors:</p>
+<ul class="simple">
+<li><p>summarising data (for example, computing the median or sum),</p></li>
+<li><p>transforming values (applying mathematical operations on each element,
+such as subtracting a scalar or taking the natural logarithm),</p></li>
+<li><p>filtering (selecting or removing observations
+that meet specific criteria,
+e.g., those that are larger than the arithmetic mean ± 5 standard
+deviations).</p></li>
+</ul>
+<p>We cover them below.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The same operations we are going to be applying on individual
+data frame columns in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>.</p>
+</div>
+<div class="section" id="aggregating-numeric-data">
+<span id="sec-aggregate"></span><h2><span class="section-number">5.1. </span>Aggregating Numeric Data<a class="headerlink" href="#aggregating-numeric-data" title="Permalink to this headline"></a></h2>
+<p>Histograms are based on binned data and hence
+provide us with snapshots of how much probability mass
+is allocated in different parts of the data domain.</p>
+<p>For instance, here is a textual summary of the UK income data
+that we have studied in the previous part
+(compare also <a class="reference internal" href="210-vector.html#fig-income-histogram-bins20"><span class="std std-numref">Figure 4.3</span></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">,</span> <span class="mi">80000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span>  <span class="c1"># bounds</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># counts</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">5</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1">##     0-10000:   29</span>
+<span class="c1">## 10000-20000:  207</span>
+<span class="c1">## 20000-30000:  263</span>
+<span class="c1">## 30000-40000:  196</span>
+<span class="c1">## 40000-50000:  117</span>
+<span class="c1">## 50000-60000:   74</span>
+<span class="c1">## 60000-80000:   64</span>
+<span class="c1">## 80000-  inf:   50</span>
+</pre></div>
+</div>
+<p>Instead of dealing with a large dataset, we
+obtained just a few counts.
+Below we will also be using the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset as an illustration
+(recall <a class="reference internal" href="210-vector.html#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>),
+so let’s load it now.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generally, the process of binning and its textual or visual depictions
+are useful in determining whether the distribution
+is unimodal or multimodal, left or right skewed or maybe symmetric around
+some point, what range of values contains most of the observations,
+how small or large are extreme values, etc.</p>
+<div style="margin-top: 1em"></div><p>Still, too much information may sometimes be overwhelming.
+Also, revealing it might not be a good idea for privacy or confidentially
+reasons (although we strongly advocate for all information
+of concern to the general public be openly available!).</p>
+<p>Thus, oftentimes we will be interested in even more synthetic descriptions –
+data aggregates which reduce the whole dataset into a <em>single</em>
+number reflecting one of its many characteristics
+and thus providing a kind of bird’s eye view on some aspect of it.
+We refer to such a process as data <em>aggregation</em>
+<span id="id1">[<a class="reference internal" href="999-bibliography.html#id9">Gag15a</a>, <a class="reference internal" href="999-bibliography.html#id10">GMMP09</a>]</span>.</p>
+<div style="margin-top: 1em"></div><p>In this part we discuss a few noteworthy <em>measures</em> of:</p>
+<ul class="simple">
+<li><p><em>location</em>; e.g., central tendency measures such as mean and median;</p></li>
+<li><p><em>dispersion</em>; e.g., standard deviation and interquartile range;</p></li>
+<li><p>distribution <em>shape</em>; e.g., skewness.</p></li>
+</ul>
+<p>We also introduce <em>box and whisker plots</em>.</p>
+<div class="section" id="measures-of-location">
+<h3><span class="section-number">5.1.1. </span>Measures of Location<a class="headerlink" href="#measures-of-location" title="Permalink to this headline"></a></h3>
+<div class="section" id="arithmetic-mean-and-median">
+<h4><span class="section-number">5.1.1.1. </span>Arithmetic Mean and Median<a class="headerlink" href="#arithmetic-mean-and-median" title="Permalink to this headline"></a></h4>
+<p>Two main measures of <em>central tendency</em> are:</p>
+<ul>
+<li><p><em>the arithmetic mean</em> (sometimes for simplicity called the mean or average),
+defined as the sum of all observations divided by the sample size:</p>
+<div class="math notranslate nohighlight">
+\[
+    \bar{x} = \frac{(x_1+x_2+\dots+x_n)}{n} = \frac{1}{n} \sum_{i=1}^n x_i,
+    \]</div>
+</li>
+<li><p><em>the median</em>, being the middle value in a sorted version of the
+sample if its length is odd
+or the arithmetic mean of the two middle values otherwise:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    m = \left\{
+    \begin{array}{ll}
+    x_{(n+1)/2} &amp; \text{if }n\text{ is odd},\\
+    \frac{x_{(n/2)}+x_{(n/2+1)}}{2} &amp; \text{if }n\text{ is even}.
+    \end{array}
+    \right.
+    \end{split}\]</div>
+</li>
+</ul>
+<p>They can be computed using the <strong class="command">numpy.mean</strong> and
+<strong class="command">numpy.median</strong> functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="c1">## (160.13679222932953, 160.1)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span class="c1">## (35779.994, 30042.0)</span>
+</pre></div>
+</div>
+<p>We note what follows:</p>
+<ul class="simple">
+<li><p>for symmetric distributions,
+the arithmetic mean and the median are
+expected to be more or less equal,</p></li>
+<li><p>for skewed distributions, the arithmetic mean will be biased towards
+the heavier tail.</p></li>
+</ul>
+<div class="proof proof-type-exercise" id="id11">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.1</span>
+        
+    </div><div class="proof-content">
+<p>Compute the arithmetic mean
+and median for the <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> dataset
+mentioned in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>.</p>
+</div></div><div class="proof proof-type-exercise" id="id12">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.2</span>
+        
+    </div><div class="proof-content">
+<p>(*) Write a function
+that computes the median without the use of <strong class="command">numpy.median</strong>
+(based on its mathematical definition and <strong class="command">numpy.sort</strong>).</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*) On a technical note, the arithmetic mean can also be computed
+using the <strong class="command">mean</strong> <em>method</em> in the <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> class –
+it will sometimes be the case
+that we have many different ways to perform the same operation.
+Or, we can “implement” it manually using the <code class="docutils literal notranslate"><span class="pre">sum</span></code> function.
+Thus, the following expressions are equivalent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">heights</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> \
+    <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">heights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">heights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1">## (160.13679222932953, 160.13679222932953, 160.13679222932953, 160.13679222932953)</span>
+</pre></div>
+</div>
+<p>On the other hand, there exists the <strong class="command">numpy.median</strong> function
+but, unfortunately, the <strong class="command">median</strong> method for vectors is not
+available.</p>
+</div>
+</div>
+<div class="section" id="sensitive-to-outliers-vs-robust">
+<span id="sec-robust-intro-median"></span><h4><span class="section-number">5.1.1.2. </span>Sensitive to Outliers vs Robust<a class="headerlink" href="#sensitive-to-outliers-vs-robust" title="Permalink to this headline"></a></h4>
+<p>The arithmetic mean is strongly influenced by very large
+or very small observations (which in some context we refer to as <em>outliers</em>).
+For instance, assume that we are adding one billionaire to the <code class="docutils literal notranslate"><span class="pre">income</span></code>
+dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="p">[</span><span class="mi">1_000_000_000</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income2</span><span class="p">)</span>
+<span class="c1">## 1034745.2487512487</span>
+</pre></div>
+</div>
+<p>We feel we are all richer now, right?
+In fact, the arithmetic mean reflects the income each of us would
+get if the all the wealth was gathered in a single Santa Claus
+(or Robin Hood) sack and then distributed equally amongst all of us.
+But we do not live in a utopia, so let us move on.</p>
+<div style="margin-top: 1em"></div><p>On the other hand, the median is the value
+such that 50% of the observations are less than or equal to it
+and 50% of the remaining ones are no less than it.</p>
+<p>Hence, it completely ignores most of the data points – on both the left and the
+right side of the distribution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income2</span><span class="p">)</span>
+<span class="c1">## 30076.0</span>
+</pre></div>
+</div>
+<div style="margin-top: 1em"></div><p>Because of this, we cannot say that one measure is better than the other.
+Certainly for symmetrical distributions with no outliers
+(e.g., <code class="docutils literal notranslate"><span class="pre">heights</span></code>), the mean
+will be better as it uses <em>all</em> data (and its efficiency
+can be proven for certain statistical models).
+For skewed distributions (e.g., <code class="docutils literal notranslate"><span class="pre">income</span></code>),
+the median has a nice interpretation: what is the “middle”
+value? Let us still remember that these are data summaries – they
+only allow us to look at a single data aspect, and there can be
+many different, valid perspectives. The reality is complex.</p>
+<p>We will explore the concept of robust aggregation measures
+in more detail in <a class="reference internal" href="520-missingness.html#sec-robust-agg"><span class="std std-numref">Section 15.4.2</span></a>.</p>
+</div>
+<div class="section" id="sample-quantiles">
+<span id="sec-quantiles"></span><h4><span class="section-number">5.1.1.3. </span>Sample Quantiles<a class="headerlink" href="#sample-quantiles" title="Permalink to this headline"></a></h4>
+<p>Quantiles generalise the notion of the sample median and the inverse
+of the empirical cumulative distribution function (<a class="reference internal" href="210-vector.html#sec-ecdf"><span class="std std-numref">Section 4.3.8</span></a>),
+giving the value that is not exceeded by the elements in a given sample
+with a predefined probability.</p>
+<p>Before proceeding with a formal definition, which is quite technical,
+let’s note that for larger sample sizes, we have the following rule of thumb.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For any <em>p</em> between 0 and 1, the <em>p</em>-quantile,
+denoted with <span class="math notranslate nohighlight">\(q_p\)</span>, is a value dividing the sample in such a way that
+approximately <em>100p</em>% of observations are not greater than <span class="math notranslate nohighlight">\(q_p\)</span>,
+and the remaining ca. <em>100(1-p)</em>% are not less than <span class="math notranslate nohighlight">\(q_p\)</span>.</p>
+</div>
+<p>Quantiles appear under many different names, but they
+all refer to the same concept.
+In particular, the we can speak about <em>100p</em>-th <em>percentiles</em>,
+e.g., the 0.5-quantile is the same as the 50th percentile.</p>
+<p>Furthermore:</p>
+<ul class="simple">
+<li><p>0-quantile (<span class="math notranslate nohighlight">\(q_0\)</span>)       – the minimum (also: <strong class="command">numpy.min</strong>),</p></li>
+<li><p>0.25-quantile (<span class="math notranslate nohighlight">\(q_{0.25}\)</span>) – the 1st quartile (denoted <span class="math notranslate nohighlight">\(Q_1\)</span>),</p></li>
+<li><p>0.5-quantile (<span class="math notranslate nohighlight">\(q_{0.5}\)</span>)  – the 2nd quartile a.k.a. median
+(denoted <span class="math notranslate nohighlight">\(m\)</span> or <span class="math notranslate nohighlight">\(Q_2\)</span>),</p></li>
+<li><p>0.75-quantile (<span class="math notranslate nohighlight">\(q_{0.75}\)</span>) – the 3rd quartile (denoted <span class="math notranslate nohighlight">\(Q_3\)</span>),</p></li>
+<li><p>1.0-quantile (<span class="math notranslate nohighlight">\(q_{1}\)</span>)   – the maximum (also: <strong class="command">numpy.max</strong>).</p></li>
+</ul>
+<p>Here are the above five aggregates for the two datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="c1">## array([  5750.  ,  20669.75,  30042.  ,  44123.75, 199969.  ])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="c1">## array([131.1, 155.3, 160.1, 164.8, 189.3])</span>
+</pre></div>
+</div>
+<div class="proof proof-type-exercise" id="id13">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.3</span>
+        
+    </div><div class="proof-content">
+<p>What is the income bracket for 95% of the “most typical”
+taxpayers? In other words, determine the 2.5- and 97.5-percentiles.</p>
+</div></div><div class="proof proof-type-exercise" id="id14">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.4</span>
+        
+    </div><div class="proof-content">
+<p>Compute the <em>midrange</em> of <code class="docutils literal notranslate"><span class="pre">income</span></code> and <code class="docutils literal notranslate"><span class="pre">heights</span></code>,
+being the arithmetic mean of the minimum and the maximum.
+Note that this measure is extremely sensitive to outliers.</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+As we do not like the <em>approximately</em> part in the
+“asymptotic definition” above, in this course
+we shall assume that for any <span class="math notranslate nohighlight">\(p\in[0,1]\)</span>, the <em>p</em>-quantile is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    q_p =
+    x_{(\lfloor k\rfloor)} +
+    (k-\lfloor k\rfloor) (x_{(\lfloor k\rfloor+1)}-x_{(\lfloor k\rfloor)}),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(k=(n-1)p+1\)</span>
+and <span class="math notranslate nohighlight">\(\lfloor k\rfloor\)</span> is the floor function, i.e.,
+the greatest integer less than or equal to <span class="math notranslate nohighlight">\(k\)</span> (e.g.,
+<span class="math notranslate nohighlight">\(\lfloor 2.0\rfloor=\lfloor 2.1\rfloor=\lfloor 2.999\rfloor=2\)</span> and <span class="math notranslate nohighlight">\(\lfloor 3.0\rfloor=3\)</span>).</p>
+<p><span class="math notranslate nohighlight">\(q_p\)</span> is thus a function that linearly interpolates between
+the points featuring the consecutive order statistics,
+<span class="math notranslate nohighlight">\(((k - 1) / (n - 1), x_{(k)})\)</span> for <span class="math notranslate nohighlight">\(k=1,\dots,n\)</span>.
+For instance, for <span class="math notranslate nohighlight">\(n=5\)</span>, we are linearly interpolating between the points
+<span class="math notranslate nohighlight">\((0, x_{(1)})\)</span>, <span class="math notranslate nohighlight">\((0.25, x_{(2)})\)</span>, <span class="math notranslate nohighlight">\((0.5, x_{(3)})\)</span>,
+<span class="math notranslate nohighlight">\((0.75, x_{(4)})\)</span>, <span class="math notranslate nohighlight">\((1, x_{(5)})\)</span>,
+whereas for <span class="math notranslate nohighlight">\(n=6\)</span>, we do the same for
+<span class="math notranslate nohighlight">\((0, x_{(1)})\)</span>, <span class="math notranslate nohighlight">\((0.2, x_{(2)})\)</span>, <span class="math notranslate nohighlight">\((0.4, x_{(3)})\)</span>,
+<span class="math notranslate nohighlight">\((0.6, x_{(4)})\)</span>, <span class="math notranslate nohighlight">\((0.8, x_{(5)})\)</span>, <span class="math notranslate nohighlight">\((1, x_{(6)})\)</span>,
+see <a class="reference internal" href="#fig-quantile7"><span class="std std-numref">Figure 5.1</span></a> for an illustration.</p>
+<div class="figure align-default" id="id15">
+<span id="fig-quantile7"></span><img alt="../_images/quantile7-1.png" src="../_images/quantile7-1.png" />
+<p class="caption"><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(q_p\)</span> as a function of <span class="math notranslate nohighlight">\(p\)</span> for two example vectors of length 5 (left subfigure) and 6 (right)</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
+</div>
+<p>Note that for <em>p</em>=0.5 we get the median regardless
+of whether <em>n</em> is even or not.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(**) There are many definitions
+of quantiles across statistical software, see
+the <code class="docutils literal notranslate"><span class="pre">method</span></code> argument to <strong class="command">numpy.quantile</strong>.
+They have been nicely summarised in <span id="id2">[<a class="reference internal" href="999-bibliography.html#id7">HF96</a>]</span>
+as well as in the corresponding <a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">Wikipedia</a> article.
+They are all approximately equivalent for large sample sizes
+(i.e., asymptotically), but the best practice is to be explicit about
+which variant we are using in the computations when reporting
+data analysis results.
+And thus, in our case, we say that we are relying on
+the type-7 quantiles as described in <span id="id3">[<a class="reference internal" href="999-bibliography.html#id7">HF96</a>]</span>,
+see also <span id="id4">[<a class="reference internal" href="999-bibliography.html#id35">Gum39</a>]</span>.</p>
+<p>Actually, simply mentioning that our computations are done with
+<strong class="command">numpy</strong> version 1.xx implicitly implies that
+the default method parameters are used everywhere,
+unless otherwise stated.</p>
+</div>
+</div>
+</div>
+<div class="section" id="measures-of-dispersion">
+<h3><span class="section-number">5.1.2. </span>Measures of Dispersion<a class="headerlink" href="#measures-of-dispersion" title="Permalink to this headline"></a></h3>
+<p>Measures of central tendency quantify the location of the
+most <em>typical</em> value (whatever that means, and we already
+know it’s complicated). That of dispersion (spread), on the other hand,
+will tell us how much <em>variability</em> is in our data.</p>
+<p>After all, when we say that the height of a group of people is 160 cm
+(on average) ± 14 cm (here, 2 standard deviations), the latter
+piece of information is a valuable addition
+(and is much different to the imaginary ± 4 cm case).</p>
+<p>Some degree of variability might be good in certain contexts and bad in other
+ones. A bolt factory should keep the variance of the fasteners’
+diameters as low as possible – after all, this is how we define quality products
+(assuming that on average they all meet the required specification).
+On the other hand, too much diversity in human behaviour, where everyone
+feels that they are special, is not really sustainable
+(but lack thereof would be extremely boring), and so forth.</p>
+<div class="section" id="standard-deviation-and-variance">
+<h4><span class="section-number">5.1.2.1. </span>Standard Deviation (and Variance)<a class="headerlink" href="#standard-deviation-and-variance" title="Permalink to this headline"></a></h4>
+<p>The standard deviation (** in the so-called uncorrected for bias version),
+is the average distance to the arithmetic mean:</p>
+<div class="math notranslate nohighlight">
+\[s = \sqrt{
+\frac{ (x_1-\bar{x})^2 + (x_2-\bar{x})^2 + \dots + (x_n-\bar{x})^2 }{n}
+} =
+\sqrt{
+\frac{1}{n} \sum_{i=1}^n (x_i-\bar{x})^2,
+}
+\]</div>
+<p>Computing the above with <strong class="program">numpy</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="c1">## (22888.77122437908, 7.062021850008261)</span>
+</pre></div>
+</div>
+<p>The standard deviation measures the average degree of spread around the
+arithmetic mean. Thus, it makes most sense for data distributions that
+are symmetric around the mean.
+This measure is useful overall for making comparisons across different samples.
+However, without further assumptions, it’s quite difficult to express the
+meaning of a particular value of <em>s</em> (e.g., the statement
+that the standard deviation of income is £22,900 is hard to interpret).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+For bell-shaped data (like <code class="docutils literal notranslate"><span class="pre">heights</span></code>, more precisely,
+for normally-distributed samples, see the next chapter),
+we sometimes report <span class="math notranslate nohighlight">\(\bar{x}\pm 2s\)</span>, as the theoretical expectancy is that
+ca. 95% of data points fall into the <span class="math notranslate nohighlight">\([\bar{x}-2s, \bar{x}+2s]\)</span>
+interval (the so-called 2-sigma rule).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+Passing <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> (<em>delta degrees of freedom</em>)
+to <strong class="command">numpy.std</strong> will apply division by <em>n-1</em> instead of <em>n</em>
+in the denominator. This estimator has slightly better statistical properties
+(which we normally explore in a course in mathematical statistics,
+which this one is not); interestingly, the <code class="docutils literal notranslate"><span class="pre">std</span></code> methods in
+the <strong class="program">pandas</strong> package has <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> by default, therefore we might
+be interested in setting <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> therein.</p>
+</div>
+<p>Further, the <em>variance</em> is the square of the standard deviation, <span class="math notranslate nohighlight">\(s^2\)</span>
+Note that if data are expressed in centimetres,
+then the variance is in centimetres <em>squared</em>, which
+is not very intuitive. The standard deviation does not have this
+drawback. Mathematicians find the square root annoying though
+(for many reasons); that is we will come across <span class="math notranslate nohighlight">\(s^2\)</span>
+every now and then below too.</p>
+</div>
+<div class="section" id="interquartile-range">
+<h4><span class="section-number">5.1.2.2. </span>Interquartile Range<a class="headerlink" href="#interquartile-range" title="Permalink to this headline"></a></h4>
+<p>The interquartile range (IQR) is another popular measure of dispersion.
+It is defined as the difference between the 3rd
+and the 1st quartile:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{IQR} = q_{0.75}-q_{0.25} = Q_3-Q_1.
+\]</div>
+<p>Computing the above is almost effortless:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+<span class="c1">## 23454.0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+<span class="c1">## 9.5</span>
+</pre></div>
+</div>
+<p>The IQR has an appealing interpretation,
+because we may say that this is the range comprised of the 50% <em>most typical</em>
+values. It is a quite robust measure, as it ignores the 25% smallest
+and 25% largest observations.
+Standard deviation, on the other hand, is extremely sensitive to outliers.</p>
+<p>Furthermore, by <em>range</em> (or support) we will mean a measure based on
+extremal quantiles: it is the difference between the maximal
+and minimal observation.</p>
+</div>
+</div>
+<div class="section" id="measures-of-shape">
+<h3><span class="section-number">5.1.3. </span>Measures of Shape (*)<a class="headerlink" href="#measures-of-shape" title="Permalink to this headline"></a></h3>
+<p>Note that from a histogram we can easily deduce
+if a dataset is symmetric or skewed.
+It turns out that we can also give a numerical summary of such a feature.
+Namely, the <em>skewness</em> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+g = \frac{
+\frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^3
+}{
+\left(\sqrt{\frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2}\right)^3
+}.
+\]</div>
+<p>For symmetric distributions, skewness is approximately zero.
+Positive and negative skewness indicates a heavier right
+and left tail, respectively.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="c1">## 0.0811184528074054</span>
+</pre></div>
+</div>
+<p>is thus an instance of almost-symmetric distribution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span class="c1">## 1.9768735693998942</span>
+</pre></div>
+</div>
+<p>Income is right-skewed, and now we have this expressed as a single number.</p>
+</div>
+<div class="section" id="box-and-whisker-plots">
+<span id="sec-boxplot"></span><h3><span class="section-number">5.1.4. </span>Box (and Whisker) Plots<a class="headerlink" href="#box-and-whisker-plots" title="Permalink to this headline"></a></h3>
+<p>The box and whisker plot
+(or the box plot for short)
+depicts some of the most noteworthy features of a data sample
+and is based only on the aggregates</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 1st subplot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">income</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 2nd subplot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;heights&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id16">
+<span id="fig-boxplot-income-heights"></span><img alt="../_images/boxplot-income-heights-3.png" src="../_images/boxplot-income-heights-3.png" />
+<p class="caption"><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box-and-whisker plots</span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
+</div>
+<p>Each box plot (compare <a class="reference internal" href="#fig-boxplot-income-heights"><span class="std std-numref">Figure 5.2</span></a>)
+consists of:</p>
+<ul class="simple">
+<li><p>the box, which spans between the 1st and the 3rd quartile:</p>
+<ul>
+<li><p>the median is clearly marked by a vertical bar inside the box;</p></li>
+<li><p>note that the width of the box corresponds to the IQR;</p></li>
+</ul>
+</li>
+<li><p>the whiskers, which span between:</p>
+<ul>
+<li><p>the smallest observation (the minimum)
+or <span class="math notranslate nohighlight">\(Q_1-1.5 \mathrm{IQR}\)</span> (the left side of the box minus
+3/2 of its width), whichever is larger, and</p></li>
+<li><p>the largest observation (the maximum)
+or <span class="math notranslate nohighlight">\(Q_3+1.5 \mathrm{IQR}\)</span> (the right side of the box
+plus 3/2 of its width), whichever is smaller.</p></li>
+</ul>
+</li>
+</ul>
+<p>Additionally, all observations that are less than
+<span class="math notranslate nohighlight">\(Q_1-1.5 \mathrm{IQR}\)</span> (if any)
+or greater than <span class="math notranslate nohighlight">\(Q_3+1.5 \mathrm{IQR}\)</span> (if any)
+are separately marked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are used to referring to the marked points as <em>outliers</em>, however,
+it doesn’t automatically mean there is anything <em>anomalous</em> about them.
+They are <em>atypical</em> in the sense that they are
+considerably farther away from the box.
+However, they might also indicate some problems in data quality
+(e.g., when one made a typo entering the data).
+Actually, box plots are calibrated (via the nicely round magic constant 1.5)
+in such a way that we expect there
+to be no or only few outliers if the data are normally distributed.
+For skewed distributions, there will naturally be many outliers
+on either side.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Most of the statistical packages <em>do not</em> include
+the arithmetic mean in the figure. If they do, it is marked with
+a special symbol.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Box plots will be particularly useful for comparing
+data samples with each other
+(e.g., body measures of men and women separately);
+both in terms of the relative shift (location)
+as well as spread and skewness, see <a class="reference internal" href="430-group-by.html#fig-gender-usborn-bmi"><span class="std std-numref">Figure 12.1</span></a>.</p>
+</div>
+<div class="proof proof-type-exercise" id="id17">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.5</span>
+        
+    </div><div class="proof-content">
+<p>Call <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot(numpy.mean(..data..),</span> <span class="pre">0,</span> <span class="pre">&quot;wX&quot;)</span></code> after
+<code class="docutils literal notranslate"><span class="pre">seaborn.boxplot</span></code> to mark the arithmetic mean with a white cross.</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We may also sometimes be interested in a <em>violin plot</em>
+(<a class="reference internal" href="#fig-violinplot-income"><span class="std std-numref">Figure 5.3</span></a>),
+which combines the box plot (although with no outliers marked)
+and the so-called kernel density estimator
+(which is a smoothened version of a histogram, see <a class="reference internal" href="520-missingness.html#sec-kde-1d"><span class="std std-numref">Section 15.4.3</span></a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">income</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1">## ([&lt;matplotlib.axis.YTick object at 0x7f27c149de80&gt;], [Text(0, 0, &#39;income&#39;)])</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id18">
+<span id="fig-violinplot-income"></span><img alt="../_images/violinplot-income-5.png" src="../_images/violinplot-income-5.png" />
+<p class="caption"><span class="caption-number">Figure 5.3 </span><span class="caption-text">An example violin plot</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="further-methods">
+<h3><span class="section-number">5.1.5. </span>Further Methods (*)<a class="headerlink" href="#further-methods" title="Permalink to this headline"></a></h3>
+<p>We have said that the arithmetic mean is very sensitive
+to extreme observations.
+In <a class="reference internal" href="520-missingness.html#sec-robust-agg"><span class="std std-numref">Section 15.4.2</span></a>, we will consider the <em>trimmed</em> and <em>winsorised</em>
+means which are more <em>robust</em> in presence of outliers – they remove
+or replace a few smallest and largest observations in a sample.</p>
+<p>Similarly, the <em>mean absolute deviation from the mean</em> or from the median
+or even the <em>median absolute deviation from the median</em>
+can be used as more robust versions of dispersion measures.</p>
+<p>The arithmetic mean is not the only mean of interest.
+The two other very famous means
+are the <em>harmonic</em>
+and <em>geometric</em> ones.
+The former can be used for computing the average speed from
+speed measurements at sections of identical lengths
+and the latter is more meaningful for averaging
+growth rates and speedups.</p>
+<p>The <em>coefficient of variation</em>, being the standard deviation
+dived by the arithmetic mean, is an example of a <em>relative</em> (or
+normalised) spread measure. It can be useful for comparing data
+on different scales, as it is unit-less
+(think how standard deviation changes when you
+convert between metres and kilometres).</p>
+<p>The <em>Gini index</em>
+widely used in economics, can serve as a measure of dispersion
+(or shape – depending how we look at it),
+but assumes that all data points are nonnegative.
+It is normalised so that it takes values in the unit interval.
+An index of 0 reflects the situation where all values in a sample are the
+same (0 variance; perfect equality).
+If there is a single entity in possession of all the “wealth”,
+and the remaining ones are 0, then the index is equal to 1.</p>
+<p><em>Entropy</em> can be used as a measure of spread
+for data which sum to 1, e.g., probabilities.</p>
+<p><em>Kurtosis</em> (or excess kurtosis) is another measure of shape,
+describing whether a distribution is heavy- or thin-tailed.</p>
+<p>For some more generic treatment of
+aggregation functions see <span id="id5">[<a class="reference internal" href="999-bibliography.html#id10">GMMP09</a>]</span> and <span id="id6">[<a class="reference internal" href="999-bibliography.html#id8">Gag15b</a>]</span>.</p>
+</div>
+</div>
+<div class="section" id="vectorised-mathematical-functions">
+<span id="sec-vecfun"></span><h2><span class="section-number">5.2. </span>Vectorised Mathematical Functions<a class="headerlink" href="#vectorised-mathematical-functions" title="Permalink to this headline"></a></h2>
+<p><em>Numpy</em>, just like any other comprehensive numerical computing
+package, library, or environment (e.g., R and Julia),
+defines many basic mathematical functions:</p>
+<ul class="simple">
+<li><p>absolute value: <strong class="command">numpy.abs</strong>,</p></li>
+<li><p>square and square root: <strong class="command">numpy.square</strong> and <strong class="command">numpy.sqrt</strong>,</p></li>
+<li><p>(natural) exponential function: <strong class="command">numpy.exp</strong>,</p></li>
+<li><p>logarithms: <strong class="command">numpy.log</strong> (the natural logarithm, i.e., base <em>e</em>),
+<strong class="command">numpy.log10</strong> (base 10), etc.,</p></li>
+<li><p>trigonometric functions: <strong class="command">numpy.cos</strong>, <strong class="command">numpy.sin</strong>,
+<strong class="command">numpy.tan</strong>, etc.,
+and their inverses: <strong class="command">numpy.arccos</strong>, etc.</p></li>
+<li><p>rounding and truncating: <strong class="command">numpy.round</strong>, <strong class="command">numpy.floor</strong>,
+<strong class="command">numpy.ceil</strong>, <strong class="command">numpy.trunc</strong>.</p></li>
+</ul>
+<p>Each of these functions is <em>vectorised</em>: if we apply, say, <span class="math notranslate nohighlight">\(f\)</span>,
+on a vector like <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>, we
+obtain a sequence of the same size
+with all elements appropriately transformed:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\boldsymbol{x}) = (f(x_1), f(x_2), \dots, f(x_n)).
+\]</div>
+<p>We will frequently be using such operations for adjusting the data,
+e.g., as in <a class="reference internal" href="230-distribution.html#fig-heights-lognormal"><span class="std std-numref">Figure 6.4</span></a> where
+we note that the <em>logarithm</em> of the UK incomes
+has a bell-shaped distribution.</p>
+<p>For example, the absolute value of a single <span class="math notranslate nohighlight">\(x\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|x| = \left\{
+\begin{array}{ll}
+x &amp; \text{if } x \ge 0, \\
+-x &amp; \text{otherwise}.
+\end{array}
+\right.
+\end{split}\]</div>
+<p>and its vectorised version yields</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="c1">## array([2, 1, 0, 1, 2, 3])</span>
+</pre></div>
+</div>
+<p>Note that the input list has automatically been converted
+to a <strong class="program">numpy</strong> vector.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Thanks to the vectorised functions, our code is not only more
+readable, but also it runs faster – as otherwise we would have to employ
+a <strong class="command">while</strong> or <strong class="command">for</strong> loop
+to traverse through each element in a given sequence.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here are some noteworthy properties of the exponential function
+and its inverse, the natural logarithm, that we should know.
+By convention, the Euler’s number <span class="math notranslate nohighlight">\(e = \exp(1)\simeq 2.718\)</span>,
+<span class="math notranslate nohighlight">\(\exp(x)=e^x\)</span>, and <span class="math notranslate nohighlight">\(\log x = \log_e x\)</span>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(e^{\log x} = x\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log e^x = x\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log (xy) = \log x + \log y\)</span>, <span class="math notranslate nohighlight">\(\log (x/y) = \log x - \log y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(e^{x+y} = e^x e^y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\log 1 = 0\)</span>, <span class="math notranslate nohighlight">\(\log e = 1\)</span></p></li>
+</ul>
+<p>Note that both functions are strictly increasing.
+For <span class="math notranslate nohighlight">\(x\ge 1\)</span>, the logarithm grows very slowly whereas the exponential
+function increases very rapidly, see Figure <a class="reference internal" href="#fig-log-exp"><span class="std std-numref">Figure 5.4</span></a>.</p>
+<p>Further, logarithms are only defined for <span class="math notranslate nohighlight">\(x &gt; 0\)</span>.
+In the limit as <span class="math notranslate nohighlight">\(x \to 0\)</span>, we have that <span class="math notranslate nohighlight">\(\log x \to -\infty\)</span>.</p>
+<div class="figure align-default" id="id19">
+<span id="fig-log-exp"></span><img alt="../_images/log-exp-7.png" src="../_images/log-exp-7.png" />
+<p class="caption"><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right)</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Logarithms of different bases and non-natural exponential function are
+also possible. In particular, when drawing plots, we have already used
+base-10 logarithmic scales on the axes.
+It holds <span class="math notranslate nohighlight">\(\log_{10} x = \frac{\log x}{\log 10}\)</span>
+and its inverse is <span class="math notranslate nohighlight">\(10^x\)</span>.</p>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
+<span class="c1">## array([     nan, -2.     , -1.     ,  0.     ,  0.30103,  0.69897,</span>
+<span class="c1">##         1.     ,  2.     ,  3.     ,  4.     ])</span>
+<span class="c1">## </span>
+<span class="c1">## &lt;string&gt;:1: RuntimeWarning: invalid value encountered in log10</span>
+</pre></div>
+</div>
+<p>Note the warning  and the not-a-number (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) generated.</p>
+<div class="proof proof-type-exercise" id="id20">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.6</span>
+        
+    </div><div class="proof-content">
+<p>Check that when using the log-scale on the OX axis
+(<strong class="command">plt.xscale</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;log&quot;)</span></code>), the plot of the logarithm
+(of any base) is a straight line. Similarly, the log-scale on the OY axis
+(<strong class="command">plt.yscale</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;log&quot;)</span></code>) makes the exponential function
+linear.</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Trigonometric functions in <strong class="program">numpy</strong> accept angles in radians;
+if <span class="math notranslate nohighlight">\(x\)</span> is the degree in angles, then to compute its
+cosine we will be thus writing <span class="math notranslate nohighlight">\(\cos (x \pi /180)\)</span> instead;
+see <a class="reference internal" href="#fig-cos"><span class="std std-numref">Figure 5.5</span></a>.</p>
+<div class="figure align-default" id="id21">
+<span id="fig-cos"></span><img alt="../_images/cos-9.png" src="../_images/cos-9.png" />
+<p class="caption"><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
+</div>
+<p>Some identities worth memorising:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sin x = \cos(\pi/2 - x)\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos(-x) = \cos x\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos^2 x + \sin^2 x = 1\)</span>, where <span class="math notranslate nohighlight">\(\cos^2 x = (\cos x)^2\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos(x+y) = \cos x \cos y - \sin x \sin y\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\cos(x-y) = \cos x \cos y + \sin x \sin y\)</span>.</p></li>
+</ul>
+<p>we will refer to them later.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The classical handbook of mathematical functions
+and the (in)equalities related to them is <span id="id7">[<a class="reference internal" href="999-bibliography.html#id127">AS72</a>]</span>,
+see <span id="id8">[<a class="reference internal" href="999-bibliography.html#id128">O+22</a>]</span> for its updated version.</p>
+</div>
+</div>
+<div class="section" id="arithmetic-operators">
+<h2><span class="section-number">5.3. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline"></a></h2>
+<p>We can apply the standard binary (two-argument) arithmetic operators
+`<strong class="command">+</strong>`, `<strong class="command">-</strong>`, `<strong class="command">*</strong>`,
+`<strong class="command">/</strong>`, `<strong class="command">**</strong>`, `<strong class="command">%</strong>`,
+`<strong class="command">//</strong>` on vectors too.
+Below we discuss the possible cases of the operands’ lengths.</p>
+<div class="section" id="vector-scalar-case">
+<h3><span class="section-number">5.3.1. </span>Vector-Scalar Case<a class="headerlink" href="#vector-scalar-case" title="Permalink to this headline"></a></h3>
+<p>Often we will be referring to the binary operators
+in contexts where one operand is a vector and the other one is a single
+value, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<span class="c1">## array([4, 1, 0, 1, 4, 9])</span>
+<span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span>
+<span class="c1">## array([0. , 0.2, 0.4, 0.6, 0.8, 1. ])</span>
+</pre></div>
+</div>
+<p>In such a case, each element in the vector is being
+operated upon (e.g., squared, divided by 5)
+and we get a vector of the same length in return.
+Hence, in this case the operators behave just like the vectorised
+mathematical functions discussed above.</p>
+<p>Mathematically, it is common to assume that
+scalar multiplication and, less commonly, addition
+is performed in this way.</p>
+<div class="math notranslate nohighlight">
+\[
+c \boldsymbol{x} + t = (cx_1+t, cx_2+t, \dots, cx_n+t).
+\]</div>
+<p>We will also become used to writing, <span class="math notranslate nohighlight">\((\boldsymbol{x}-t)/c\)</span>
+which is of course equivalent to <span class="math notranslate nohighlight">\((1/c) \boldsymbol{x} + (-t/c)\)</span>.</p>
+</div>
+<div class="section" id="application-feature-scaling">
+<h3><span class="section-number">5.3.2. </span>Application: Feature Scaling<a class="headerlink" href="#application-feature-scaling" title="Permalink to this headline"></a></h3>
+<p>Such vector-scalar operations and aggregation functions are the basis
+for the most commonly applied <em>feature scalers</em>,
+which can increase the interpretability of data points:</p>
+<ul class="simple">
+<li><p>standardisation,</p></li>
+<li><p>normalisation,</p></li>
+<li><p>min-max scaling and clipping,</p></li>
+</ul>
+<p>bringing them onto a common, unitless scale.
+All of them are linear transforms of the form
+<span class="math notranslate nohighlight">\(\boldsymbol{y}=c \boldsymbol{x}+t\)</span>,
+which geometrically we can interpret as scaling
+(stretching or shrinking) and shifting (translating),
+see <a class="reference internal" href="#fig-scale-shift"><span class="std std-numref">Figure 5.6</span></a> for an illustration.</p>
+<div class="figure align-default" id="id22">
+<span id="fig-scale-shift"></span><img alt="../_images/scale-shift-11.png" src="../_images/scale-shift-11.png" />
+<p class="caption"><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of a given vector</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Let <span class="math notranslate nohighlight">\(\boldsymbol{y}=c \boldsymbol{x}+t\)</span>
+and let <span class="math notranslate nohighlight">\(\bar{x}, \bar{y}, s_x, s_y\)</span> denote the vectors’
+arithmetic means and standard deviations.
+The following properties hold.</p>
+<ul class="simple">
+<li><p>the arithmetic mean and all the quantiles (including, of course,
+the median), are equivariant with respect to translation and scaling;
+it holds, for instance, <span class="math notranslate nohighlight">\(\bar{y} = c \bar{x} + t\)</span>;</p></li>
+<li><p>the standard deviation, the interquartile range, and the
+range are invariant to translations and equivariant to scaling;
+e.g., <span class="math notranslate nohighlight">\(s_y = c s_x\)</span></p></li>
+</ul>
+<p>As a by-product, for variance we  get of course…
+<span class="math notranslate nohighlight">\(s_y^2 = c^2 s_x^2\)</span>.</p>
+</div>
+<div class="section" id="standardisation-and-z-scores">
+<h4><span class="section-number">5.3.2.1. </span>Standardisation and Z-scores<a class="headerlink" href="#standardisation-and-z-scores" title="Permalink to this headline"></a></h4>
+<p>Consider the female heights dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
+<span class="n">heights</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span> <span class="c1"># preview</span>
+<span class="c1">## array([157. , 167.4, 159.6, 168.5, 147.8])</span>
+</pre></div>
+</div>
+<p>whose mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span> are as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="c1">## (160.13679222932953, 7.062021850008261)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A <em>standardised</em> version of a vector <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>
+consists in subtracting, from each element, the sample arithmetic mean
+(which we call <em>centring</em>) and then dividing it by the standard deviation,
+i.e., <span class="math notranslate nohighlight">\(\boldsymbol{z}=(\boldsymbol{x}-\bar{x})/s\)</span>.</p>
+</div>
+<p>Thus, we transform each <span class="math notranslate nohighlight">\(x_i\)</span> so as to obtain:</p>
+<div class="math notranslate nohighlight">
+\[
+z_i = \frac{x_i-\bar{x}}{s}.
+\]</div>
+<p>With <strong class="program">numpy</strong>, we simply apply 2 aggregation functions
+and 2 arithmetic operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights_std</span> <span class="o">=</span> <span class="p">(</span><span class="n">heights</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
+<span class="n">heights_std</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span> <span class="c1"># preview</span>
+<span class="c1">## array([-0.44417764,  1.02848843, -0.07601113,  1.18425119, -1.74692071])</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>What we obtain in result is sometimes referred to as the <em>z-scores</em>.</p>
+</div>
+<p>Z-scores are nicely interpretable:</p>
+<ul class="simple">
+<li><p>z-score of 0 corresponds to an observation equal to the sample mean
+(perfectly average);</p></li>
+<li><p>z-score of 1 is obtained for a datum 1 standard deviation
+above the mean;</p></li>
+<li><p>z-score of -2 means that it is a value 2 standard deviations
+below the mean;</p></li>
+</ul>
+<p>and so forth.</p>
+<p>We should also note that because of the way they emerge,
+the mean of z-scores is always 0 and standard deviation is 1
+(up to a tiny numerical error, as usual):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights_std</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights_std</span><span class="p">)</span>
+<span class="c1">## (1.8920872660373198e-15, 1.0)</span>
+</pre></div>
+</div>
+<p>Moreover, z-scores are unitless (e.g., the original <code class="docutils literal notranslate"><span class="pre">heights</span></code> were measured
+in centimetres).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Standardisation
+enables the comparison of measurements on different scales
+(think: height in cm vs weight in kg or apples vs oranges).</p>
+</div>
+<div class="proof proof-type-exercise" id="id23">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.7</span>
+        
+    </div><div class="proof-content">
+<p>We have a patient whose height z-score is 1 and
+weight z-score is -1. How to interpret this information?</p>
+</div></div><div class="proof proof-type-exercise" id="id24">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.8</span>
+        
+    </div><div class="proof-content">
+<p>How about a patient whose weight z-score is 0
+but BMI z-score is 2?</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+Standardisation makes most sense for bell-shaped distributions,
+in particular normally-distributed ones.
+Recalling the 2σ rule for the normal family,
+it is <em>expected</em> that 95% of observations should
+have z-scores between -2 and 2.
+Further, z-scores less than -3 and greater than 3 are highly unlikely.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+Sometimes we might be interested in performing some form
+of <em>robust</em> standardisation (e.g., for skewed data or
+those that feature some outliers). In such a case,
+we can replace the mean with the median
+and the standard deviation with the IQR.</p>
+</div>
+</div>
+<div class="section" id="min-max-scaling-and-clipping">
+<h4><span class="section-number">5.3.2.2. </span>Min-Max Scaling and Clipping<a class="headerlink" href="#min-max-scaling-and-clipping" title="Permalink to this headline"></a></h4>
+<p>A less frequently but still noteworthy transformation
+is called <em>min-max scaling</em> and
+involves subtracting the minimum
+and then dividing by the range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.33</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1">## array([0.   , 0.4  , 1.   , 0.034, 0.35 , 0.46 ])</span>
+</pre></div>
+</div>
+<p>Here, the smallest value is mapped to 0 and the
+largest one is equal to 1.
+Note that 0.5 does not mean that the value is equal to the mean
+(unless we are very lucky!).</p>
+<div style="margin-top: 1em"></div><p>Also, <em>clipping</em> can be used to replace all values less than
+0 with 0 and those greater than 1 with 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">## array([0.  , 0.5 , 1.  , 0.  , 0.25, 0.8 ])</span>
+</pre></div>
+</div>
+<p>The function is of course flexible; another popular choice is
+clipping to <em>[-1, 1]</em>.
+This can also be implemented manually by means of the vectorised pairwise
+minimum and maximum functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="c1">## array([0.  , 0.5 , 1.  , 0.  , 0.25, 0.8 ])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="normalisation-l-2-dividing-by-length">
+<span id="sec-normalisation"></span><h4><span class="section-number">5.3.2.3. </span>Normalisation (<span class="math notranslate nohighlight">\(l_2\)</span>; Dividing by Length)<a class="headerlink" href="#normalisation-l-2-dividing-by-length" title="Permalink to this headline"></a></h4>
+<p><em>Normalisation</em> is the scaling of a given vector so that it is of
+<em>unit length</em>. Usually, by <em>length</em> we mean the square root of the sum of
+squares, i.e., the Euclidean (<span class="math notranslate nohighlight">\(l^2\)</span>) norm:</p>
+<div class="math notranslate nohighlight">
+\[
+\| (x_1,\dots,x_n) \| = \sqrt{
+x_1^2 + x_2^2 + \dots + x_n^2
+} = \sqrt{
+\sum_{i=1}^n x_i^2
+},
+\]</div>
+<p>Its special case for <em>n=2</em> we know well from high school:
+the length of a vector <span class="math notranslate nohighlight">\((a,b)\)</span>
+is <span class="math notranslate nohighlight">\(\sqrt{a^2+b^2}\)</span>, e.g., <span class="math notranslate nohighlight">\(\|(1, 2)\| = \sqrt{5} \simeq 2.236\)</span>.
+Also, it’s good to program our brains so that when
+next time we see <span class="math notranslate nohighlight">\(\| \boldsymbol{x} \|^2\)</span>, we immediately
+think of the <em>sum of squares</em>.</p>
+<p>We can thus write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
+<span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># x divided by the Euclidean norm of x</span>
+<span class="c1">## array([ 0.13834289,  0.69171446, -0.55337157,  0.27668579,  0.34585723])</span>
+</pre></div>
+</div>
+<p>to mean the normalised vector</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\boldsymbol{x}}{\| \boldsymbol{x} \|} =
+\left(
+\frac{x_1}{\| \boldsymbol{x} \|},
+\frac{x_2}{\| \boldsymbol{x} \|},
+\dots,
+\frac{x_n}{\| \boldsymbol{x} \|}
+\right).
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that normalisation is very similar to standardisation if data are
+already centred (when mean was subtracted). Actually, we can obtain one
+from the other via scaling by <span class="math notranslate nohighlight">\(\sqrt{n}\)</span>.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A common confusion is that normalisation is supposed to make
+data more “normally” distributed. This is not the case, as we only
+scale (stretch or shrink) the observations here.</p>
+</div>
+</div>
+<div class="section" id="normalisation-l-1-dividing-by-sum">
+<h4><span class="section-number">5.3.2.4. </span>Normalisation (<span class="math notranslate nohighlight">\(l_1\)</span>; Dividing by Sum)<a class="headerlink" href="#normalisation-l-1-dividing-by-sum" title="Permalink to this headline"></a></h4>
+<p>At other times, by <em>length</em> we can also mean the Manhattan (<span class="math notranslate nohighlight">\(l^1\)</span>) norm,</p>
+<div class="math notranslate nohighlight">
+\[
+\| (x_1,\dots,x_n) \|_1 = |x_1| + |x_2| + \dots + |x_n| = \sum_{i=1}^n |x_i|,
+\]</div>
+<p>being the sum of absolute values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1">## array([ 0.06896552,  0.34482759, -0.27586207,  0.13793103,  0.17241379])</span>
+</pre></div>
+</div>
+<p><span class="math notranslate nohighlight">\(l_1\)</span> normalisation is frequently applied on vectors of nonnegative values,
+whose normalised versions can be interpreted as <em>probabilities</em>
+or <em>proportions</em>: values between 0 and 1 which sum to 1 (or, equivalently,
+100%). In particular, on binned data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># counts</span>
+<span class="c1">## [ 306 1776 1773  366]</span>
+</pre></div>
+</div>
+<p>And now, converting the counts to
+empirical probabilities:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="c1">## [0.07249467 0.42075338 0.42004264 0.08670931]</span>
+</pre></div>
+</div>
+<p>We did not apply <strong class="program">numpy.abs</strong>, because the values were already nonnegative.</p>
+</div>
+</div>
+<div class="section" id="vector-vector-case">
+<h3><span class="section-number">5.3.3. </span>Vector-Vector Case<a class="headerlink" href="#vector-vector-case" title="Permalink to this headline"></a></h3>
+<p>The arithmetic operators can also be applied
+on two vectors of equal lengths.
+In such a case, they will act <em>elementwisely</em>:
+taking each element from the first operand
+and combining it with the <em>corresponding</em> element from the second argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
+<span class="c1">## array([   20,   300,  4000, 50000])</span>
+</pre></div>
+</div>
+<p>We see that the first element in the left operand (2)
+was multiplied by the first element in the right operand (10).
+Then, we computed 3*100 (the second elements), and so forth.</p>
+<p>Such a behaviour of the binary operators
+is inspired by the usual convention in vector algebra
+where applying <span class="math notranslate nohighlight">\(+\)</span> (or <span class="math notranslate nohighlight">\(-\)</span>) on <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>
+and <span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span> means exactly:</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{x}+\boldsymbol{y} = (x_1+y_1, x_2+y_2, \dots, x_n+y_n).
+\]</div>
+<p>Using other operators this way (elementwisely)
+is less standard in mathematics (for instance multiplication
+might denote the dot product), but in <strong class="program">numpy</strong>
+it is really convenient.</p>
+<div class="proof proof-type-example" id="id25">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 5.9</span>
+        
+    </div><div class="proof-content">
+<p>Another example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">])</span>  <span class="c1"># example vector</span>
+<span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span class="c1">## 1.6790818544987114</span>
+</pre></div>
+</div>
+<p>computes the value of the expression
+<span class="math notranslate nohighlight">\(h = - (p_1\, \log p_1 + \dots + p_n\, \log p_n)\)</span>,
+i.e., <span class="math notranslate nohighlight">\(h=-\sum_{i=1}^n p_i\, \log p_i\)</span>.
+Note that it involves the use of a unary vectorised
+minus (change sign), an aggregation function (sum),
+a vectorised mathematical function (log),
+and an elementwise multiplication.</p>
+</div></div><div class="proof proof-type-example" id="id26">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 5.10</span>
+        
+    </div><div class="proof-content">
+<p>Let us assume that – for whatever the reason – we would like to
+plot two mathematical functions, the sine, <span class="math notranslate nohighlight">\(f(x)= \sin x\)</span>
+and a polynomial of degree 7, <span class="math notranslate nohighlight">\(g(x) = x - x^3/6 + x^5/120 - x^7/5040\)</span>
+for <span class="math notranslate nohighlight">\(x\)</span> in the interval <span class="math notranslate nohighlight">\([-\pi, 3\pi/2]\)</span>.</p>
+<p>To do this, we can probe the values of <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> at sufficiently many points
+using the vectorised operations discussed so far
+and then use the <strong class="command">matplotlib.pyplot.plot</strong> function
+to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"><span class="std std-numref">Figure 5.7</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>  <span class="c1"># many points in the said interval</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">yg</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">6</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="mi">120</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">7</span><span class="o">/</span><span class="mi">5040</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yf</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;f(x)&quot;</span><span class="p">)</span>  <span class="c1"># red solid line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yg</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;g(x)&quot;</span><span class="p">)</span>  <span class="c1"># black dotted line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id27">
+<span id="fig-vectorised-easy"></span><img alt="../_images/vectorised-easy-13.png" src="../_images/vectorised-easy-13.png" />
+<p class="caption"><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots such as this one</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
+</div>
+<p>Note that decreasing the number of points in <code class="docutils literal notranslate"><span class="pre">x</span></code> will reveal that the
+plotting function merely draws a series of straight line segments.</p>
+</div></div><div class="proof proof-type-exercise" id="id28">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.11</span>
+        
+    </div><div class="proof-content">
+<p>Based on the
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_height_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020</span></code></a>
+and
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a>
+datasets (discussed in the
+part on histograms), using a single line of code,
+compute the vector of BMIs of all persons.</p>
+</div></div></div>
+</div>
+<div class="section" id="vector-indexing">
+<span id="sec-vector-indexing"></span><h2><span class="section-number">5.4. </span>Vector Indexing<a class="headerlink" href="#vector-indexing" title="Permalink to this headline"></a></h2>
+<p>Recall that sequential objects in Python
+(lists, tuples, strings, ranges) support indexing
+using scalars and slices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># scalar index - extract</span>
+<span class="c1">## 20</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># slice index - subset</span>
+<span class="c1">## [20]</span>
+</pre></div>
+</div>
+<p><strong class="program">numpy</strong> vectors additionally support  two other indexing schemes:
+using integer and boolean sequences.</p>
+<div class="section" id="integer-indexing">
+<h3><span class="section-number">5.4.1. </span>Integer Indexing<a class="headerlink" href="#integer-indexing" title="Permalink to this headline"></a></h3>
+<p>Indexing with a single integer <em>extracts</em>
+a particular element:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># first, second, last</span>
+<span class="c1">## (10, 20, 50)</span>
+</pre></div>
+</div>
+<p>We can also use lists of vector of integer indexes,
+which return a subvector with elements at the specified indices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">],</span> <span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">],</span> <span class="n">x</span><span class="p">[</span> <span class="p">[]</span> <span class="p">],</span> <span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+<span class="c1">## (array([10]), array([10, 20, 50]), array([], dtype=int64), array([10, 20, 10, 10]))</span>
+</pre></div>
+</div>
+<p>Note that we added some spaces between the square brackets,
+because, for example, <code class="docutils literal notranslate"><span class="pre">x[[0,</span> <span class="pre">1,</span> <span class="pre">-1]]</span></code> might look slightly more
+enigmatic (What are these double square brackets?
+Nah, it is a list inside the index operator).</p>
+</div>
+<div class="section" id="logical-indexing">
+<h3><span class="section-number">5.4.2. </span>Logical Indexing<a class="headerlink" href="#logical-indexing" title="Permalink to this headline"></a></h3>
+<p>Subsetting using a vector of the same length as the indexed
+vector is possible too:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span> <span class="p">]</span>
+<span class="c1">## array([10, 30, 40])</span>
+</pre></div>
+</div>
+<p>Returned the 1st, 3rd, and 4th element
+(select 1st, don’t select 2nd, select 3rd, select 4th, don’t select 5th).</p>
+<p>This is particularly useful as a <em>data filtering</em> technique.
+Knowing that the relational operators `<strong class="command">&lt;</strong>`, `<strong class="command">&lt;=</strong>`,
+`<strong class="command">==</strong>`, `<strong class="command">!=</strong>`,
+`<strong class="command">&gt;=</strong>`, and `<strong class="command">&gt;</strong>` on vectors are also performed elementwisely
+(just like `<strong class="command">+</strong>`, `<strong class="command">*</strong>`, etc.), for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">30</span>
+<span class="c1">## array([False, False,  True,  True,  True])</span>
+</pre></div>
+</div>
+<p>we can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">30</span> <span class="p">]</span>
+<span class="c1">## array([30, 40, 50])</span>
+</pre></div>
+</div>
+<p>to mean “select those elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> which are not less than 30”.</p>
+<div style="margin-top: 1em"></div><p>Of course, the indexed vector and the vector
+used in comparisons do not have to be the same:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+<span class="n">y</span>  <span class="c1"># 0 if a number is a multiply of 10 times an even number</span>
+<span class="c1">## array([1., 0., 1., 0., 1.])</span>
+<span class="n">x</span><span class="p">[</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">]</span>
+<span class="c1">## array([20, 40])</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If we would like to combine many logical vectors, unfortunately we cannot
+use the <strong class="command">and</strong>, <strong class="command">or</strong>, and <strong class="command">not</strong> operators,
+because they are not vectorised (this is a limitation of our language
+per se).</p>
+<p><strong class="program">numpy</strong> uses the `<strong class="command">&amp;</strong>`, `<strong class="command">|</strong>`,
+and `<strong class="command">~</strong>` operators,
+which unfortunately have lower order of precedence than
+`<strong class="command">&lt;</strong>`, `<strong class="command">&lt;=</strong>`, `<strong class="command">==</strong>`, etc.
+Therefore, the bracketing of the comparisons is obligatory.</p>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">(</span><span class="mi">20</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">40</span><span class="p">)</span> <span class="p">]</span>  <span class="c1"># check what happens if we skip the brackets</span>
+<span class="c1">## array([20, 30, 40])</span>
+</pre></div>
+</div>
+<p>means “elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> between 20 and 40”
+(greater than or equal to 20 and less than or equal to 40).</p>
+<div class="proof proof-type-exercise" id="id29">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.12</span>
+        
+    </div><div class="proof-content">
+<p>Compute the BMIs only of the persons whose
+height is between 150 and 170 cm.</p>
+</div></div></div>
+<div class="section" id="slicing">
+<h3><span class="section-number">5.4.3. </span>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline"></a></h3>
+<p>Just as with ordinary lists,
+slicing with “<code class="docutils literal notranslate"><span class="pre">:</span></code>” can be used to fetch the elements
+at indexes in a given range <code class="docutils literal notranslate"><span class="pre">from:to</span></code> or <code class="docutils literal notranslate"><span class="pre">from:to:by</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="c1">## (array([50, 40, 30, 20, 10]), array([40, 50]), array([20, 30, 40]))</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>(*)
+For efficiency reasons, slicing returns a
+<em>view</em> on existing data – it does not make an independent
+copy of the subsetted elements.</p>
+</div>
+<p>In other words, both <code class="docutils literal notranslate"><span class="pre">x</span></code> and its sliced version share the same memory.
+This is important when we apply operations which modify a
+given vector in place, such as the <code class="docutils literal notranslate"><span class="pre">sort</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">y</span>
+<span class="c1">## array([1, 4, 2, 5, 6, 3, 7, 9, 8])</span>
+</pre></div>
+</div>
+<p>This sorted every second element in <code class="docutils literal notranslate"><span class="pre">y</span></code>
+(i.e., <code class="docutils literal notranslate"><span class="pre">[6,</span> <span class="pre">8,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">7]</span></code> was rearranged so as to obtain
+<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8]</span></code>).</p>
+<p>Indexing with an integer or logical vector always returns a copy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">y</span>
+<span class="c1">## array([1, 4, 2, 5, 6, 3, 7, 9, 8])</span>
+</pre></div>
+</div>
+<p>This <em>did not</em> modify the original vector.</p>
+</div>
+</div>
+<div class="section" id="other-operations">
+<h2><span class="section-number">5.5. </span>Other Operations<a class="headerlink" href="#other-operations" title="Permalink to this headline"></a></h2>
+<div class="section" id="sorting-and-ranking">
+<h3><span class="section-number">5.5.1. </span>Sorting and Ranking<a class="headerlink" href="#sorting-and-ranking" title="Permalink to this headline"></a></h3>
+<p>The <strong class="command">numpy.sort</strong> function returns a sorted copy of the given vector,
+i.e., determines the order statistics.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">## array([10, 20, 30, 40, 50, 50])</span>
+</pre></div>
+</div>
+<p>Recall that <code class="docutils literal notranslate"><span class="pre">x.sort()</span></code> sorts the vector in-place.</p>
+<div style="margin-top: 1em"></div><p>Next, <strong class="command">scipy.stats.rankdata</strong> returns a vector of <em>ranks</em>,
+which is the inverse of <strong class="command">numpy.argsort</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">## array([1. , 3. , 5.5, 4. , 2. , 5.5])</span>
+</pre></div>
+</div>
+<p>Element 10 is the smallest (“the winner”, say, the quickest racer),
+hence it has rank 1.
+Next is element 30, which is the 3rd on the podium, hence its rank is 3.</p>
+<div class="proof proof-type-exercise" id="id30">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.13</span>
+        
+    </div><div class="proof-content">
+<p>Consult the manual page of
+<strong class="program">scipy.stats.rankdata</strong> and test various methods for dealing
+with <em>tied</em> elements, e.g., a situation where some values
+are nonunique (for instance, when two racers finished in exactly
+the same time).</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+There are many methods in nonparametric statistics
+(those that do not make any too particular assumptions
+about the underlying data distribution) that are based on ranks,
+e.g., the Spearman correlation coefficient which we cover later.</p>
+</div>
+<p><strong class="command">numpy.argsort</strong> returns a sequence of indexes that
+lead to an ordered version of a given vector
+(i.e., an ordering permutation).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">## array([0, 4, 1, 3, 2, 5])</span>
+</pre></div>
+</div>
+<p>Which means that the smallest element is at index 0,
+then the 2nd smallest is at index 4, 3rd smallest at index 1, etc.
+Therefore:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+<span class="c1">## array([10, 20, 30, 40, 50, 50])</span>
+</pre></div>
+</div>
+<p>is equivalent to <strong class="command">numpy.sort</strong><code class="code docutils literal notranslate"><span class="pre">(x)</span></code>.</p>
+<div style="margin-top: 1em"></div><p>On a side note, <strong class="command">numpy.random.permutation</strong> rearranges
+the elements in a given vector.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(**)
+If there are tied observations in a vector <code class="docutils literal notranslate"><span class="pre">x</span></code>,
+<strong class="command">numpy.argsort</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">kind=&quot;stable&quot;)</span></code> will use
+a <em>stable</em> sorting algorithm
+(<a class="reference external" href="https://github.com/python/cpython/blob/3.7/Objects/listsort.txt">timsort</a>,
+a variant of mergesort), which guarantees that the ordering
+permutation is unique: tied elements are placed in order of appearance</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(**)
+Readers with some background in discrete mathematics
+will be interested in the fact that
+calling <strong class="command">numpy.argsort</strong> on a vector representing a permutation of elements
+in fact generates its inverse.
+In particular, <strong class="command">np.argsort</strong><code class="code docutils literal notranslate"><span class="pre">(</span></code><strong class="command">np.argsort</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">kind=&quot;stable&quot;))+1</span></code>
+is equivalent to <strong class="command">scipy.stats.rankdata</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">method=&quot;ordinal&quot;)</span></code>.</p>
+</div>
+</div>
+<div class="section" id="searching-for-certain-indexes-argmin-argmax">
+<h3><span class="section-number">5.5.2. </span>Searching for Certain Indexes (Argmin, Argmax)<a class="headerlink" href="#searching-for-certain-indexes-argmin-argmax" title="Permalink to this headline"></a></h3>
+<p><strong class="command">numpy.argmin</strong> and <strong class="command">numpy.argmax</strong> return the index at
+which we can find the smallest and the largest observation
+in a given vector.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">## (0, 2)</span>
+</pre></div>
+</div>
+<p>Note that if there are tied observations,
+the smallest index is returned.</p>
+<p>Mathematically, for example, we write</p>
+<div class="math notranslate nohighlight">
+\[
+i = \mathrm{arg}\min_j x_j
+\]</div>
+<p>(read: <span class="math notranslate nohighlight">\(i\)</span> is the index of the smallest element in the sequence;
+it is the <em>argument of the minimum</em>),
+whenever</p>
+<div class="math notranslate nohighlight">
+\[
+x_i = \min_j x_j
+\]</div>
+<p>(read: the <span class="math notranslate nohighlight">\(i\)</span>-th element is the smallest).</p>
+<div style="margin-top: 1em"></div><p>We can use <strong class="command">numpy.flatnonzero</strong> to fetch the indexes
+where a logical vector has elements equal to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+(in <a class="reference internal" href="420-categorical.html#sec-binary-logical"><span class="std std-numref">Section 11.1.3</span></a> we note the a value equal
+to zero is treated as the logical <code class="docutils literal notranslate"><span class="pre">False</span></code>, and as <code class="docutils literal notranslate"><span class="pre">True</span></code> in all
+other cases).
+For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1">## array([2, 5])</span>
+</pre></div>
+</div>
+<p>This is a version of <strong class="command">numpy.argmax</strong> that lets us decide
+what we would like to do with the tied maxima.</p>
+<div class="proof proof-type-exercise" id="id31">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.14</span>
+        
+    </div><div class="proof-content">
+<p>Let <code class="docutils literal notranslate"><span class="pre">x</span></code> be a vector with possible ties.
+Write an expression that returns a randomly chosen index
+pinpointing one of the sample maximums.</p>
+</div></div></div>
+<div class="section" id="cumulative-sums-and-iterated-differences">
+<h3><span class="section-number">5.5.3. </span>Cumulative Sums and Iterated Differences<a class="headerlink" href="#cumulative-sums-and-iterated-differences" title="Permalink to this headline"></a></h3>
+<p>Recall that the `<strong class="command">+</strong>` operator acts elementwisely on two vectors
+and that the <strong class="command">numpy.sum</strong> function aggregates all values into
+a single one. We have one more similar function, but vectorised
+in a slightly different fashion. Namely, <strong class="command">numpy.cumsum</strong>
+returns the vector of <em>cumulative sums</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="c1">## array([5, 8, 4, 5, 6, 9])</span>
+</pre></div>
+</div>
+<p>gave, in this order: the first element, the sum of first two elements,
+the sum of first three elements, …, the sum of all elements.</p>
+<div style="margin-top: 1em"></div><p>Further, <em>iterative differences</em> are a somewhat inverse operation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="c1">## array([ 3, -4,  1,  1,  3])</span>
+</pre></div>
+</div>
+<p>returned the difference between the 2nd and 1st element,
+then the difference between the 3rd and the 2nd, and so forth.
+The resulting vector is 1 element shorter than the input one.</p>
+<div style="margin-top: 1em"></div><p>We often make use of cumulative sums and iterated differences when
+processing time series, e.g., stock exchange data
+(e.g., by how much the price changed since the previous day?;
+<a class="reference internal" href="530-time-series.html#sec-diff-ts"><span class="std std-numref">Section 16.3.1</span></a>)
+or cumulative distribution functions (<a class="reference internal" href="210-vector.html#sec-ecdf"><span class="std std-numref">Section 4.3.8</span></a>).</p>
+</div>
+<div class="section" id="dealing-with-round-off-and-measurement-errors">
+<span id="sec-fp-error"></span><h3><span class="section-number">5.5.4. </span>🚧 Dealing with Round-off and Measurement Errors<a class="headerlink" href="#dealing-with-round-off-and-measurement-errors" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This part is under construction. Please come back later.</p>
+</div>
+<p>A good introductory reference is <span id="id9">[<a class="reference internal" href="999-bibliography.html#id131">Gol91</a>]</span>,
+see also <span id="id10">[<a class="reference internal" href="999-bibliography.html#id130">Hig02</a>, <a class="reference internal" href="999-bibliography.html#id132">Knu97</a>]</span> for a more comprehensive treatment.</p>
+</div>
+<div class="section" id="vectorising-scalar-operations-with-list-comprehensions">
+<span id="sec-list-comprehension"></span><h3><span class="section-number">5.5.5. </span>Vectorising Scalar Operations with List Comprehensions (*)<a class="headerlink" href="#vectorising-scalar-operations-with-list-comprehensions" title="Permalink to this headline"></a></h3>
+<p><em>List comprehensions</em> of the form
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">expression</span> </code><strong class="command">for</strong><code class="code docutils literal notranslate"> <span class="pre">name</span> </code><strong class="command">in</strong><code class="code docutils literal notranslate"> <span class="pre">iterable</span> <span class="pre">]</span></code>
+are part of base Python.
+They allow us to create lists based on transformed versions
+of individual elements in a given iterable object.
+Hence, they might work in cases where a task at hand
+cannot be solved by means of vectorised <strong class="program">numpy</strong> functions.</p>
+<p>For example, here is a way to generate squares of 10 first natural numbers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">i</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="p">]</span>
+<span class="c1">## [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</span>
+</pre></div>
+</div>
+<p>The result can be passed to <strong class="command">numpy.array</strong> to convert it to a vector.</p>
+<p>And if we wish to filter our all elements that are not greater
+than 0, we can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># make pseudorandom number generation reproducible</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">[</span> <span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">]</span>
+<span class="c1">## [0.39, 0.1, 0.44, 0.96, 0.37]</span>
+</pre></div>
+</div>
+<div style="margin-top: 1em"></div><p>Further, we can use the ternary operator of the form
+<code class="docutils literal notranslate"><span class="pre">x_true</span> </code><strong class="command">if</strong><code class="code docutils literal notranslate"> <span class="pre">cond</span> </code><strong class="command">else</strong><code class="code docutils literal notranslate"> <span class="pre">x_false</span></code>
+to return either <code class="docutils literal notranslate"><span class="pre">x_true</span></code> or
+<code class="docutils literal notranslate"><span class="pre">x_false</span></code> depending on the truth value of <code class="docutils literal notranslate"><span class="pre">cond</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">e</span><span class="o">**</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+<span class="c1">## 1.4142135623730951</span>
+</pre></div>
+</div>
+<p>Combined with a list comprehension, we can write, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">**</span><span class="mf">0.5</span> <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="o">-</span><span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span> <span class="p">]</span>
+<span class="c1">## [0.62, 0.66, 0.74, 0.32, 0.66, 0.39, 0.98, 0.61, 0.2, 0.47]</span>
+</pre></div>
+</div>
+<div class="proof proof-type-exercise" id="id32">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.15</span>
+        
+    </div><div class="proof-content">
+<p>Write equivalent versions of the above expressions
+using vectorised <strong class="program">numpy</strong> functions.</p>
+</div></div><div class="proof proof-type-exercise" id="id33">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.16</span>
+        
+    </div><div class="proof-content">
+<p>Write equivalent versions of the above expressions
+using base Python lists,
+the <strong class="command">for</strong> loop and the <strong class="command">list.append</strong> method (start from
+an empty list which will store the result).</p>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is also a tool which vectorises a scalar function
+so that it can be used on <strong class="program">numpy</strong> vectors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clip1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>    <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">clip1</span><span class="p">)</span>  <span class="c1"># returns a function object</span>
+<span class="n">clip</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="c1">## array([0.3, 0. , 0.7, 1. , 1. ])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="exercises">
+<h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
+<div class="proof proof-type-exercise" id="id34">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.17</span>
+        
+    </div><div class="proof-content">
+<p>How can we interpret the different values
+of the arithmetic mean, median, standard deviation, interquartile range,
+and skewness?</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.18</span>
+        
+    </div><div class="proof-content">
+<p>There is something scientific and magical about <em>numbers</em>
+that makes us approach them with some kind of respect.
+However, taking into account that there are many possible data aggregates,
+there is a risk that a party may be cherry-picking – reporting
+the one that portrays the analysed entity in a good or bad light. For instance,
+reporting the mean instead of the median or vice versa.
+Is there anything that can be done about it?</p>
+</div></div><div class="proof proof-type-exercise" id="id36">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.19</span>
+        
+    </div><div class="proof-content">
+<p>Although – mathematically speaking – all measures can be computed on all
+data, it does not mean that it always makes sense.
+For instance, some distributions will yield skewness of 0,
+but we should not automatically assume that they are nicely symmetric
+and bell-shaped (e.g., this can be a bimodal distribution).
+It is thus best to always visualise your data.
+Give some examples of datasets and measures where we should be critical
+about the obtained results.</p>
+</div></div><div class="proof proof-type-exercise" id="id37">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.20</span>
+        
+    </div><div class="proof-content">
+<p>Give some examples, where simple data preprocessing
+can drastically change the values of chosen sample aggregates.</p>
+</div></div><div class="proof proof-type-exercise" id="id38">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.21</span>
+        
+    </div><div class="proof-content">
+<p>(**) Reflect on the
+<a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein/">famous</a>
+saying <em>not everything that can be counted counts,
+and not everything that counts can be counted</em>.</p>
+</div></div><div class="proof proof-type-exercise" id="id39">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.22</span>
+        
+    </div><div class="proof-content">
+<p>(**) Being a data scientist can be a frustrating job, especially
+when you care for some causes.
+Reflect on: <em>some things that count can be counted,
+but we will not count them, because there’s no budget for it.</em></p>
+</div></div><div class="proof proof-type-exercise" id="id40">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.23</span>
+        
+    </div><div class="proof-content">
+<p>(**) Being a data scientist can be a frustrating job, especially
+when you care for the truth.
+Reflect on: <em>some things that count can be counted,
+but we will not count them, because some people might be offended.</em></p>
+</div></div><div class="proof proof-type-exercise" id="id41">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.24</span>
+        
+    </div><div class="proof-content">
+<p>(**) Assume you were to establish your own nation on some island
+and become the benevolent dictator thereof.
+How would you <em>measure</em> if your people are happy or not?
+Let’s say that you need to come up with 3 qualitative measures
+(key performance indicators).
+What would happen if your policy making were solely be focused
+on optimising those KPIs?
+How about the same problem but with regards to your company and employees?</p>
+</div></div><div class="proof proof-type-exercise" id="id42">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.25</span>
+        
+    </div><div class="proof-content">
+<p>Give the mathematical definitions, use cases, and interpretations
+of standardisation, normalisation, and min-max scaling.</p>
+</div></div><div class="proof proof-type-exercise" id="id43">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.26</span>
+        
+    </div><div class="proof-content">
+<p>How are <strong class="command">numpy.log</strong> and <strong class="command">numpy.exp</strong> related to each other?
+How about <strong class="command">numpy.log</strong> vs <strong class="command">numpy.log10</strong>,
+<strong class="command">numpy.cumsum</strong> vs <strong class="command">numpy.diff</strong>,
+<strong class="command">numpy.min</strong> vs <strong class="command">numpy.argmin</strong>,
+<strong class="command">numpy.sort</strong> vs <strong class="command">numpy.argsort</strong>,  and
+<strong class="command">scipy.stats.rankdata</strong> vs <strong class="command">numpy.argsort</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id44">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.27</span>
+        
+    </div><div class="proof-content">
+<p>What is the difference between
+<strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
+and <strong class="command">numpy.round</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id45">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.28</span>
+        
+    </div><div class="proof-content">
+<p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
+lengths?</p>
+</div></div><div class="proof proof-type-exercise" id="id46">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.29</span>
+        
+    </div><div class="proof-content">
+<p>List the four ways to index a vector.</p>
+</div></div><div class="proof proof-type-exercise" id="id47">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.30</span>
+        
+    </div><div class="proof-content">
+<p>What is wrong with the expression
+<code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
+How about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
+</div></div><div class="proof proof-type-exercise" id="id48">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.31</span>
+        
+    </div><div class="proof-content">
+<p>(*) What does it mean that slicing returns a view on existing data?</p>
+</div></div></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="230-distribution.html" class="btn btn-neutral float-right" title="6. Continuous Probability Distributions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="210-vector.html" class="btn btn-neutral float-left" title="4. Unidimensional Numeric Data and Their Distribution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+      <span class="lastupdated">
+        Last updated on 2022-05-31T17:56:04+1000.
+      </span>
+    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
+    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
