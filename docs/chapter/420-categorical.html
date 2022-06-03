@@ -154,18 +154,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#visualising">11.3. Visualising</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bar-plots">11.3.1. Bar Plots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#political-marketing-and-statistics">11.3.2. Political Marketing and Statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pearson-s-chi-squared-test">11.3.3. 🚧 Pearson’s Chi-Squared Test (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pie-cha-don-t-even-trip">11.3.4. Pie Cha… Don’t Even Trip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pareto-charts">11.3.5. Pareto Charts (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#heat-maps">11.3.6. Heat Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pie-cha-don-t-even-trip">11.3.3. Pie Cha… Don’t Even Trip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pareto-charts">11.3.4. Pareto Charts (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#heat-maps">11.3.5. Heat Maps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#aggregating">11.4. Aggregating</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#categorical-data">11.4.1. Categorical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregating-and-comparing">11.4. Aggregating and Comparing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-mode">11.4.1. A Mode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#binary-data-as-logical-vectors">11.4.2. Binary Data as Logical Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binned-numeric-data">11.4.3. Binned Numeric Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ordinal-data">11.4.4. Ordinal Data (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pearson-s-chi-squared-test">11.4.3. Pearson’s Chi-Squared Test (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#two-sample-pearson-s-chi-squared-test">11.4.4. Two-Sample Pearson’s Chi-Squared Test (*)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#measuring-association">11.4.5. Measuring Association (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binned-numeric-data">11.4.6. Binned Numeric Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ordinal-data">11.4.7. Ordinal Data (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#exercises">11.5. Exercises</a></li>
@@ -323,7 +324,7 @@ is by storing it as:</p>
 is by means of logical vectors. This can be extended to a so-called
 one-hot encoded representation using a logical vector of length <em>l</em>.</p>
 <div style="margin-top: 1em"></div><p>Let’s consider the data on the original whereabouts of the top
-16 marathoners (the 37th PZU Warsaw Marathon dataset again):</p>
+16 marathoners (the 37th PZU Warsaw Marathon dataset):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_simplified.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
@@ -334,7 +335,7 @@ one-hot encoded representation using a logical vector of length <em>l</em>.</p>
 <span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
 </pre></div>
 </div>
-<p>These are two-letter <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes">ISO 3166</a> country codes,
+<p>These are two-letter ISO 3166 country codes,
 encoded of course as strings (note the <code class="docutils literal notranslate"><span class="pre">dtype=&quot;str&quot;</span></code> argument).</p>
 <p>Calling <strong class="command">numpy.unique</strong> allows us to determine
 the set of distinct categories:</p>
@@ -397,7 +398,7 @@ it is possible to introduce non-occurring levels.
 Such information can be useful, e.g., we could explicitly
 indicate that there were no runners from Australia in the top 16.</p>
 </div>
-<div class="proof proof-type-exercise" id="id1">
+<div class="proof proof-type-exercise" id="id3">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.1</span>
@@ -483,7 +484,7 @@ to <code class="docutils literal notranslate"><span class="pre">True</span></cod
 <span class="c1">## array([ True,  True,  True, False,  True,  True,  True])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id2">
+<div class="proof proof-type-exercise" id="id4">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.2</span>
@@ -520,14 +521,14 @@ then <em>spam</em> is encoded as <span class="math notranslate nohighlight">\((1
 yeah-spam, nah-bacon, and nah-hot dog.
 We can build three binary classifiers, each specialising
 in telling whether what it encounters is a given food or something else.</p>
-<div class="proof proof-type-example" id="id3">
+<div class="proof proof-type-example" id="id5">
 
     <div class="proof-title">
         <span class="proof-type">Example 11.3</span>
         
     </div><div class="proof-content">
 <p>Write a function to one-hot encode a given categorical vector.</p>
-</div></div><div class="proof proof-type-example" id="id4">
+</div></div><div class="proof proof-type-example" id="id6">
 
     <div class="proof-title">
         <span class="proof-type">Example 11.4</span>
@@ -546,16 +547,15 @@ enables us to include them in printed reports (in form of a table).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>As strong proponents of openness and transparency,
-we always encourage all entities (government, research,
-non-for-profits, NGOs, corporations, etc.)
+we always encourage all entities (governments, universities,
+non-for-profits, corporations, etc.)
 to share (e.g., under the Creative Commons CC-BY-SA-4.0 license)
 unabridged versions of their datasets to enable public scrutiny
 and getting the most of the possibilities they can bring for
 the public good.</p>
 <p>Of course, sometimes the sharing of unprocessed information
 can violate the privacy of the subjects. In such a case,
-it might be a good idea to communicated them
-in binned form.</p>
+it might be a good idea to communicate them in a binned form.</p>
 </div>
 <p>Consider the 16 best marathon finish times (in minutes):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;mins&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -580,7 +580,7 @@ whereas code 3 – greater than or equal to the last bound:</p>
 <p><strong class="command">pandas.cut</strong> us another interface to the same binning method.
 It returns a vector-like object of <code class="docutils literal notranslate"><span class="pre">dtype</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;category&quot;</span></code>,
 with very readable labels generated automatically
-(and ordered, see <a class="reference internal" href="#sec-ordinal-data"><span class="std std-numref">Section 11.4.4</span></a>):</p>
+(and ordered, see <a class="reference internal" href="#sec-ordinal-data"><span class="std std-numref">Section 11.4.7</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cut_mins16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">mins16</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]))</span>
 <span class="n">cut_mins16</span>
 <span class="c1">## 0      (-inf, 130.0]</span>
@@ -606,7 +606,7 @@ with very readable labels generated automatically
 <span class="c1">## Index([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(150.0, inf]&#39;], dtype=&#39;object&#39;)</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id5">
+<div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.5</span>
@@ -620,7 +620,7 @@ Also, note that <strong class="command">numpy.linspace</strong> and <strong clas
 which we have covered in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>
 can be useful for generating equidistant bounds
 on linear and logarithmic scale, respectively.</p>
-</div></div><div class="proof proof-type-example" id="id6">
+</div></div><div class="proof proof-type-example" id="id8">
 
     <div class="proof-title">
         <span class="proof-type">Example 11.6</span>
@@ -652,10 +652,10 @@ the <strong class="command">list.append</strong> method. Recoding based on the a
 </div>
 </div></div></div>
 <div class="section" id="generating-pseudorandom-labels">
-<h3><span class="section-number">11.1.6. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this headline"></a></h3>
+<span id="sec-random-choice"></span><h3><span class="section-number">11.1.6. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this headline"></a></h3>
 <p>It is worth knowing that
 <strong class="command">numpy.random.choice</strong> allows us to create a pseudorandom sample
-of with categories picked with any probabilities:</p>
+with categories picked with any probabilities:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
     <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;tempeh&quot;</span><span class="p">],</span>
@@ -669,7 +669,7 @@ of with categories picked with any probabilities:</p>
 </pre></div>
 </div>
 <p>Hence, if we generate a sufficiently large sample,
-we will expect <code class="docutils literal notranslate"><span class="pre">&quot;spam&quot;</span></code> to occur ca. 70% times, and <code class="docutils literal notranslate"><span class="pre">&quot;tempeh&quot;</span></code>
+we will expect <code class="docutils literal notranslate"><span class="pre">&quot;spam&quot;</span></code> to occur ca. 70% times, and <code class="docutils literal notranslate"><span class="pre">&quot;tempeh&quot;</span></code>
 to be drawn in 5% of the cases, etc.</p>
 </div>
 </div>
@@ -719,7 +719,7 @@ vector of row labels):</p>
 <span class="c1">## 4      PL  31.25</span>
 </pre></div>
 </div>
-<div class="proof proof-type-example" id="id7">
+<div class="proof proof-type-example" id="id9">
 
     <div class="proof-title">
         <span class="proof-type">Example 11.7</span>
@@ -773,7 +773,7 @@ as it returns a <code class="docutils literal notranslate"><span class="pre">Ser
 </div>
 <p>Note that by default data are ordered with respect to the counts,
 decreasingly.</p>
-<div class="proof proof-type-exercise" id="id8">
+<div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.8</span>
@@ -789,7 +789,7 @@ by means of the more basic
 and <strong class="command">numpy.histogram_bin_edges</strong>.
 Apply <strong class="command">numpy.histogram</strong>
 on the whole <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> dataset.</p>
-</div></div><div class="proof proof-type-exercise" id="id9">
+</div></div><div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.9</span>
@@ -803,12 +803,11 @@ together with the corresponding items in <code class="docutils literal notransla
 <span id="sec-contingency-two"></span><h3><span class="section-number">11.2.2. </span>Two-Way Contingency Tables: Factor Combinations<a class="headerlink" href="#two-way-contingency-tables-factor-combinations" title="Permalink to this headline"></a></h3>
 <p>Some datasets may feature many categorical columns,
 each having possibly different levels.
-Let us now consider a different slice of the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset,
-this time describing the top 1000 runners:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m1000</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">1000</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;category&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">m1000</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span>
-<span class="n">m1000</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+Let us now consider the whole <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># first two chars</span>
+<span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="s2">&quot;60&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;60+&quot;</span>  <span class="c1"># too few runners aged 70+</span>
+<span class="n">marathon</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span>
+<span class="n">marathon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">##   sex age country</span>
 <span class="c1">## 0   M  20      KE</span>
 <span class="c1">## 1   M  20      KE</span>
@@ -823,39 +822,39 @@ in each column individually,
 however, some interesting patterns might also arise when we study the
 <em>combinations</em> of levels of different variables.</p>
 <p>Here are the levels of the sex and age variables:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;sex&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;sex&quot;</span><span class="p">])</span>
 <span class="c1">## array([&#39;F&#39;, &#39;M&#39;], dtype=object)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">])</span>
-<span class="c1">## array([&#39;20&#39;, &#39;30&#39;, &#39;40&#39;, &#39;50&#39;, &#39;60&#39;], dtype=object)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">])</span>
+<span class="c1">## array([&#39;20&#39;, &#39;30&#39;, &#39;40&#39;, &#39;50&#39;, &#39;60+&#39;], dtype=object)</span>
 </pre></div>
 </div>
 <p>We thus have 10 different possible combinations thereof.</p>
 <p>A two-way <em>contingency table</em> is a matrix which gives
 the number of occurrences of each pair of values:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">v</span>
-<span class="c1">## age   20   30   40  50  60</span>
-<span class="c1">## sex                       </span>
-<span class="c1">## F     17   23    8   1   0</span>
-<span class="c1">## M    158  433  278  73   9</span>
+<span class="c1">## age   20    30    40   50  60+</span>
+<span class="c1">## sex                           </span>
+<span class="c1">## F    240   449   262   43   19</span>
+<span class="c1">## M    879  2200  1708  541  170</span>
 </pre></div>
 </div>
-<p>Hence, for example, there were 9 men aged 60-69 amongst the top 1000 runners.
-Nice.</p>
+<p>Hence, for example, there were 19 women aged 60 and over
+amongst the marathoners. Nice.</p>
 <p>Note that the <em>marginal</em> (one dimensional) frequency distributions
 can be recreated by computing the rowwise and columnwise sums.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">## sex</span>
-<span class="c1">## F     49</span>
-<span class="c1">## M    951</span>
+<span class="c1">## F    1013</span>
+<span class="c1">## M    5498</span>
 <span class="c1">## dtype: int64</span>
 <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## age</span>
-<span class="c1">## 20    175</span>
-<span class="c1">## 30    456</span>
-<span class="c1">## 40    286</span>
-<span class="c1">## 50     74</span>
-<span class="c1">## 60      9</span>
+<span class="c1">## 20     1119</span>
+<span class="c1">## 30     2649</span>
+<span class="c1">## 40     1970</span>
+<span class="c1">## 50      584</span>
+<span class="c1">## 60+     189</span>
 <span class="c1">## dtype: int64</span>
 </pre></div>
 </div>
@@ -864,22 +863,22 @@ can be recreated by computing the rowwise and columnwise sums.</p>
 <h3><span class="section-number">11.2.3. </span>Combinations of Even More Factors<a class="headerlink" href="#combinations-of-even-more-factors" title="Permalink to this headline"></a></h3>
 <p><strong class="command">pandas.DataFrame.value_counts</strong> can also be used
 with a combination of more than 2 categorical variables:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span>\
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span>\
     <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##    sex age country  count</span>
-<span class="c1">## 0    M  30      PL    391</span>
-<span class="c1">## 1    M  40      PL    251</span>
-<span class="c1">## 2    M  20      PL    142</span>
-<span class="c1">## 3    M  50      PL     65</span>
-<span class="c1">## 4    F  30      PL     17</span>
-<span class="c1">## ..  ..  ..     ...    ...</span>
-<span class="c1">## 61   M  30      CY      1</span>
-<span class="c1">## 62   M  30      CZ      1</span>
-<span class="c1">## 63   F  20      ET      1</span>
-<span class="c1">## 64   M  30      FR      1</span>
-<span class="c1">## 65   F  20      CA      1</span>
+<span class="c1">##     sex  age country  count</span>
+<span class="c1">## 0     M   30      PL   2081</span>
+<span class="c1">## 1     M   40      PL   1593</span>
+<span class="c1">## 2     M   20      PL    824</span>
+<span class="c1">## 3     M   50      PL    475</span>
+<span class="c1">## 4     F   30      PL    422</span>
+<span class="c1">## ..   ..  ...     ...    ...</span>
+<span class="c1">## 189   M   30      SI      1</span>
+<span class="c1">## 190   F  60+      EE      1</span>
+<span class="c1">## 191   F  60+      FI      1</span>
+<span class="c1">## 192   M   30      PE      1</span>
+<span class="c1">## 193   F   20      BE      1</span>
 <span class="c1">## </span>
-<span class="c1">## [66 rows x 4 columns]</span>
+<span class="c1">## [194 rows x 4 columns]</span>
 </pre></div>
 </div>
 <p>Of course, the display will be in the <em>long</em> format
@@ -903,22 +902,22 @@ will do the trick most of the time, see <a class="reference internal" href="#fig
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id10">
+<div class="figure align-default" id="id12">
 <span id="fig-bar-country"></span><img alt="../_images/bar-country-1.png" src="../_images/bar-country-1.png" />
-<p class="caption"><span class="caption-number">Figure 11.1 </span><span class="caption-text">Bar plot for the top 16 marathoners’ countries</span><a class="headerlink" href="#id10" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.1 </span><span class="caption-text">Bar plot for the top 16 marathoners’ countries</span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">ind</span></code> vector gives the x-coordinates of the bars,
 here: consecutive integers.
 By calling <strong class="command">matplotlib.pyplot.xticks</strong>
 we assign them readable labels.</p>
-<div class="proof proof-type-exercise" id="id11">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.10</span>
         
     </div><div class="proof-content">
 <p>Assign a different colour to each bar.</p>
-</div></div><div class="proof proof-type-exercise" id="id12">
+</div></div><div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.11</span>
@@ -926,14 +925,14 @@ we assign them readable labels.</p>
     </div><div class="proof-content">
 <p>Draw a bar plot which features percentages instead
 of counts, so that the total bar height is 100%.</p>
-</div></div><div class="proof proof-type-exercise" id="id13">
+</div></div><div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.12</span>
         
     </div><div class="proof-content">
 <p>Print the frequency table and draw a bar plot for the top 100 marathoners’ countries.</p>
-</div></div><div class="proof proof-type-exercise" id="id14">
+</div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.13</span>
@@ -946,24 +945,24 @@ with a single one, labelled “All other”.</p>
 </div></div><div style="margin-top: 1em"></div><p>A bar plot is a versatile tool for visualising
 the counts also in the two-variable case, see
 <a class="reference internal" href="#fig-bar-age-sex"><span class="std std-numref">Figure 11.2</span></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span>\
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span>\
     <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id17">
 <span id="fig-bar-age-sex"></span><img alt="../_images/bar-age-sex-3.png" src="../_images/bar-age-sex-3.png" />
-<p class="caption"><span class="caption-number">Figure 11.2 </span><span class="caption-text">Number of runners by age category and sex in the top 1000</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.2 </span><span class="caption-text">Number of runners by age category and sex</span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
 </div>
-<div class="proof proof-type-exercise" id="id16">
+<div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.14</span>
         
     </div><div class="proof-content">
 <p>(*) Draw a similar chart using <strong class="command">matplotlib.pyplot.bar</strong>.</p>
-</div></div><div class="proof proof-type-exercise" id="id17">
+</div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.15</span>
@@ -972,14 +971,14 @@ the counts also in the two-variable case, see
 <p>(**)
 Create a stacked bar plot similar to the one
 in <a class="reference internal" href="#fig-stacked-bar"><span class="std std-numref">Figure 11.3</span></a>, where we have horizontal bars for
-data that have been normalised so that for each sex they sum to 100%.</p>
-<div class="figure align-default" id="id18">
+data that have been normalised so that for each sex their sum is 100%.</p>
+<div class="figure align-default" id="id20">
 <span id="fig-stacked-bar"></span><img alt="../_images/stacked-bar-5.png" src="../_images/stacked-bar-5.png" />
-<p class="caption"><span class="caption-number">Figure 11.3 </span><span class="caption-text">Example stacked bar plot: Age distribution for different sexes amongst the top 1000 runners</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.3 </span><span class="caption-text">Example stacked bar plot: Age distribution for different sexes amongst all the runners</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
 </div>
 </div></div></div>
 <div class="section" id="political-marketing-and-statistics">
-<h3><span class="section-number">11.3.2. </span>Political Marketing and Statistics<a class="headerlink" href="#political-marketing-and-statistics" title="Permalink to this headline"></a></h3>
+<span id="sec-political-marketing"></span><h3><span class="section-number">11.3.2. </span>Political Marketing and Statistics<a class="headerlink" href="#political-marketing-and-statistics" title="Permalink to this headline"></a></h3>
 <p>Even such a simple plot can be manipulated.
 For example, presidential elections were held in Poland in 2020.
 In the second round, Andrzej Duda had won against
@@ -995,9 +994,9 @@ by one of the infamous Polish TV conglomerate:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id19">
+<div class="figure align-default" id="id21">
 <span id="fig-wybory1"></span><img alt="../_images/wybory1-7.png" src="../_images/wybory1-7.png" />
-<p class="caption"><span class="caption-number">Figure 11.4 </span><span class="caption-text">Flawless victory!</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.4 </span><span class="caption-text">Flawless victory!</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
 </div>
 <p>Such a great victory! Wait… it was a close vote after all!
 We should just take a look at the y-axis tick marks.</p>
@@ -1012,9 +1011,9 @@ We should just take a look at the y-axis tick marks.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id20">
+<div class="figure align-default" id="id22">
 <span id="fig-wybory2"></span><img alt="../_images/wybory2-9.png" src="../_images/wybory2-9.png" />
-<p class="caption"><span class="caption-number">Figure 11.5 </span><span class="caption-text">It was a draw, so close!</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.5 </span><span class="caption-text">It was a draw, so close!</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
 </div>
 <p>The moral of the story is:</p>
 <div class="admonition important">
@@ -1024,15 +1023,8 @@ And when drawing own bar plots, do not trick the reader;
 this is unethical.</p>
 </div>
 </div>
-<div class="section" id="pearson-s-chi-squared-test">
-<span id="sec-chisq-test"></span><h3><span class="section-number">11.3.3. </span>🚧 Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#pearson-s-chi-squared-test" title="Permalink to this headline"></a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This part is under construction. Please come back later.</p>
-</div>
-</div>
 <div class="section" id="pie-cha-don-t-even-trip">
-<h3><span class="section-number">11.3.4. </span>Pie Cha… Don’t Even Trip<a class="headerlink" href="#pie-cha-don-t-even-trip" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">11.3.3. </span>Pie Cha… Don’t Even Trip<a class="headerlink" href="#pie-cha-don-t-even-trip" title="Permalink to this headline"></a></h3>
 <p>We are definitely not going to discuss the infamous
 pie charts, because
 their use in data analysis has been widely criticised for a long time
@@ -1041,12 +1033,12 @@ Case closed.
 Good morning.</p>
 </div>
 <div class="section" id="pareto-charts">
-<h3><span class="section-number">11.3.5. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">11.3.4. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this headline"></a></h3>
 <p>As a general (empirical) rule, it is usually the case
 that most instances of something’s happening (usually 70–90%)
 are due to only few causes (10–30%). This is known as the <em>Pareto rule</em>
 (with 80% vs 20% being an often cited rule of thumb).</p>
-<div class="proof proof-type-example" id="id21">
+<div class="proof proof-type-example" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Example 11.16</span>
@@ -1055,7 +1047,7 @@ are due to only few causes (10–30%). This is known as the <em>Pareto rule</em>
 <p>In <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a> we modelled
 the US cities’ population dataset using the Pareto distribution
 (the very same Pareto, but a different, yet related object).
-We discovered that only ca. 14% of the settlements (those
+We discovered that only ca. 14% of the settlements (those
 with 10,000 or more inhabitants) is home to as much as
 84% of the population. Hence, we may say that this data domain
 follows the Pareto rule.</p>
@@ -1122,12 +1114,12 @@ of the <strong class="program">matplotlib</strong> package is left as an exercis
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id22">
+<div class="figure align-default" id="id24">
 <span id="fig-pareto-chart"></span><img alt="../_images/pareto-chart-11.png" src="../_images/pareto-chart-11.png" />
-<p class="caption"><span class="caption-number">Figure 11.6 </span><span class="caption-text">The most frequent causes for medication errors</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.6 </span><span class="caption-text">The most frequent causes for medication errors</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
 </div>
 <p>From <a class="reference internal" href="#fig-pareto-chart"><span class="std std-numref">Figure 11.6</span></a>, we can read that 5 causes
-(less than 40%) correspond to ca. 85% of the medication errors.
+(less than 40%) correspond to ca. 85% of the medication errors.
 More precisely,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">cat_med</span><span class="p">,</span>
@@ -1159,26 +1151,26 @@ they do, there is a hint above. However, coming up with something
 more effective yet so simple at the same time requires much more effort.</p>
 </div>
 <div class="section" id="heat-maps">
-<h3><span class="section-number">11.3.6. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">11.3.5. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline"></a></h3>
 <p>Two-way contingency tables can be depicted by means of a heatmap,
 where each count affects the corresponding cell’s colour intensity,
 see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std std-numref">Figure 11.7</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">m1000</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id23">
+<div class="figure align-default" id="id25">
 <span id="fig-heat-map-marathon"></span><img alt="../_images/heat-map-marathon-13.png" src="../_images/heat-map-marathon-13.png" />
-<p class="caption"><span class="caption-number">Figure 11.7 </span><span class="caption-text">Heatmap for the top 1000 marathoners’ sex and age category</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 11.7 </span><span class="caption-text">Heatmap for the marathoners’ sex and age category</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
 </div>
 </div>
 </div>
-<div class="section" id="aggregating">
-<h2><span class="section-number">11.4. </span>Aggregating<a class="headerlink" href="#aggregating" title="Permalink to this headline"></a></h2>
-<div class="section" id="categorical-data">
-<h3><span class="section-number">11.4.1. </span>Categorical Data<a class="headerlink" href="#categorical-data" title="Permalink to this headline"></a></h3>
+<div class="section" id="aggregating-and-comparing">
+<h2><span class="section-number">11.4. </span>Aggregating and Comparing<a class="headerlink" href="#aggregating-and-comparing" title="Permalink to this headline"></a></h2>
+<div class="section" id="a-mode">
+<h3><span class="section-number">11.4.1. </span>A Mode<a class="headerlink" href="#a-mode" title="Permalink to this headline"></a></h3>
 <p>As we have already said, the only operation on categorical data
 that we can rely on is counting (because we have
 an equivalence relation on the set of labels and nothing more).
@@ -1235,7 +1227,7 @@ we will get the proportion:</p>
 </pre></div>
 </div>
 <p>Hence, 31.25% amongst the top 16 runners are from Poland.</p>
-<div class="proof proof-type-exercise" id="id24">
+<div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.17</span>
@@ -1265,8 +1257,283 @@ and <code class="docutils literal notranslate"><span class="pre">p*q</span> <spa
 </ul>
 </div>
 </div>
+<div class="section" id="pearson-s-chi-squared-test">
+<span id="sec-chisq-test"></span><h3><span class="section-number">11.4.3. </span>Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#pearson-s-chi-squared-test" title="Permalink to this headline"></a></h3>
+<p>The Kolmogorov–Smirnov test that we described in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>
+verifies whether a given sample differs significantly from
+a hypothesised <em>continuous</em> distribution, i.e.,
+it works for <em>numeric</em> data.</p>
+<p>For binned/categorical data, we can use a classical
+and easy-to-understand test developed by Karl Pearson in 1900.
+It is supposed to judge whether the difference between the observed
+proportions <span class="math notranslate nohighlight">\(\hat{p}_1,\dots,\hat{p}_l\)</span> and the
+theoretical ones <span class="math notranslate nohighlight">\(p_1,\dots,p_l\)</span> is significantly large or not:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left\{
+\begin{array}{rll}
+H_0: &amp; \hat{p}_i=p_i\ \text{ for all }i=1,\dots,l &amp; \text{(null hypothesis)}\\
+H_1: &amp; \hat{p}_i\neq p_i\ \text{ for some }i=1,\dots,l &amp; \text{(alternative hypothesis)} \\
+\end{array}
+\right.
+\end{split}\]</div>
+<p>Having such a test is beneficial, e.g., when
+the data we have at hand are based on small surveys
+that are supposed to serve as estimates of what might be happening in
+a larger population.</p>
+<p>Going back to our political example from <a class="reference internal" href="#sec-political-marketing"><span class="std std-numref">Section 11.3.2</span></a>,
+it turns out that one of the pre-election polls indicated that <span class="math notranslate nohighlight">\(c=516\)</span>
+out of <span class="math notranslate nohighlight">\(n=1017\)</span> people would vote for the first candidate.
+We have <span class="math notranslate nohighlight">\(\hat{p}_1=50.74\%\)</span> (Duda)
+and <span class="math notranslate nohighlight">\(\hat{p}_2=49.26\%\)</span> (Traskowski).
+If we would like to test whether the observed proportions
+are significantly different from each other, we could test them
+against the theoretical distribution <span class="math notranslate nohighlight">\(p_1=50\%\)</span> and <span class="math notranslate nohighlight">\(p_2=50\%\)</span>,
+stating that there is a tie between the competitors
+(up to a sampling error).</p>
+<p>As a natural test statistic is based on the relative squared differences:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{T} = n \sum_{i=1}^l \frac{\left(\hat{p}_i-p_i\right)^2}{p_i}.
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">516</span><span class="p">,</span> <span class="mi">1017</span>
+<span class="n">p_observed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">c</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
+<span class="n">p_expected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">p_observed</span><span class="o">-</span><span class="n">p_expected</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">p_expected</span> <span class="p">)</span>
+<span class="n">T</span>
+<span class="c1">## 0.2212389380530986</span>
+</pre></div>
+</div>
+<p>Similarly to the continuous case in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>,
+we should reject the null hypothesis, if</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{T} \ge K,
+\]</div>
+<p>where the critical value <span class="math notranslate nohighlight">\(K\)</span> is based
+on the fact that, if the null hypothesis is true,
+<span class="math notranslate nohighlight">\(\hat{T}\)</span> follows the <span class="math notranslate nohighlight">\(\chi^2\)</span> (chi-squared, hence the name of the test)
+distribution with <span class="math notranslate nohighlight">\(l-1\)</span> degrees of freedom,
+see <strong class="command">scipy.stats.chi2</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># significance level</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_observed</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">## 10.827566170662733</span>
+</pre></div>
+</div>
+<p>As <span class="math notranslate nohighlight">\(\hat{T} &lt; K\)</span> (because <span class="math notranslate nohighlight">\(0.22 &lt; 10.83\)</span>), we cannot deem
+the two proportions significantly different from each other.
+In other words, this poll did not indicate  (at significance level <span class="math notranslate nohighlight">\(0.1\%\)</span>)
+any of the candidates as a clear winner.</p>
+<div class="proof proof-type-exercise" id="id27">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.18</span>
+        
+    </div><div class="proof-content">
+<p>Determine the smallest <span class="math notranslate nohighlight">\(c\)</span>, i.e., the number of respondents
+indicating they would vote for Duda,
+that leads to the rejection of the null hypothesis.</p>
+</div></div></div>
+<div class="section" id="two-sample-pearson-s-chi-squared-test">
+<span id="sec-chisq-test2"></span><h3><span class="section-number">11.4.4. </span>Two-Sample Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#two-sample-pearson-s-chi-squared-test" title="Permalink to this headline"></a></h3>
+<p>Let’s consider the data depicted in <a class="reference internal" href="#fig-stacked-bar"><span class="std std-numref">Figure 11.3</span></a>
+and test whether the runners’ age distributions
+differ significantly between females and males.</p>
+<p>We have <span class="math notranslate nohighlight">\(l=5\)</span> categories.
+First, denote the total number of observations
+in both groups with <span class="math notranslate nohighlight">\(n'\)</span> and <span class="math notranslate nohighlight">\(n''\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>  <span class="c1"># first row, second row</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">n1</span><span class="p">,</span> <span class="n">n2</span>
+<span class="c1">## (1013, 5498)</span>
+</pre></div>
+</div>
+<p>The observed proportions in the first group (females),
+denoted as <span class="math notranslate nohighlight">\(\hat{p}_1',\dots,\hat{p}_l'\)</span>, are, respectively:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">/</span><span class="n">n1</span>
+<span class="n">p1</span>
+<span class="c1">## array([0.23692004, 0.44323791, 0.25863771, 0.04244817, 0.01875617])</span>
+</pre></div>
+</div>
+<p>Here are the proportions in the second group (males),
+<span class="math notranslate nohighlight">\(\hat{p}_1'',\dots,\hat{p}_l''\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">/</span><span class="n">n2</span>
+<span class="n">p2</span>
+<span class="c1">## array([0.15987632, 0.40014551, 0.31065842, 0.09839942, 0.03092033])</span>
+</pre></div>
+</div>
+<p>We would like to verify whether the corresponding proportions are equal
+to each other (up to some sampling error):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left\{
+\begin{array}{rll}
+H_0: &amp; \hat{p}_i'=\hat{p}_i''\ \text{ for all }i=1,\dots,l &amp; \text{(null hypothesis)}\\
+H_1: &amp; \hat{p}_i'\neq \hat{p}_i''\ \text{ for some }i=1,\dots,l &amp; \text{(alternative hypothesis)} \\
+\end{array}
+\right.
+\end{split}\]</div>
+<p>In other words, we are interested whether the categorical data in the two
+groups come from the same discrete probability distribution.</p>
+<p>Taking the estimated expected proportions,</p>
+<div class="math notranslate nohighlight">
+\[\bar{p}_i = \frac{c_i'+c_i''}{n'+n''},\]</div>
+<p>for all <span class="math notranslate nohighlight">\(i=1,\dots,l\)</span>,
+the test statistic this time is equal to:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{T} =
+n'  \sum_{i=1}^l \frac{\left(\hat{p}_i' -\bar{p}_i\right)^2}{\bar{p}_i} +
+n'' \sum_{i=1}^l \frac{\left(\hat{p}_i''-\bar{p}_i\right)^2}{\bar{p}_i},
+\]</div>
+<p>which is a variation on the one-sample theme
+presented in <a class="reference internal" href="#sec-chisq-test2"><span class="std std-numref">Section 11.4.4</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">c1</span><span class="o">+</span><span class="n">c2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n1</span><span class="o">+</span><span class="n">n2</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">pp</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">pp</span> <span class="p">)</span> <span class="o">+</span> <span class="n">n2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">p2</span><span class="o">-</span><span class="n">pp</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">pp</span> <span class="p">)</span>
+<span class="n">T</span>
+<span class="c1">## 75.31373854741857</span>
+</pre></div>
+</div>
+<p>It can be shown that, if the null hypothesis is true,
+the test statistic <em>approximately</em> follows
+the <span class="math notranslate nohighlight">\(\chi^2\)</span> distribution with <span class="math notranslate nohighlight">\(l-1\)</span> degrees of freedom<a class="footnote-reference brackets" href="#recipesdof" id="id1">1</a>.
+The critical value <span class="math notranslate nohighlight">\(K\)</span> is equal to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># significance level</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">## 18.46682695290317</span>
+</pre></div>
+</div>
+<p>As <span class="math notranslate nohighlight">\(\hat{T} \ge K\)</span> (because <span class="math notranslate nohighlight">\(75.31 \ge 18.47\)</span>),
+we reject the null hypothesis. And so, the age distribution
+differs across sexes (at significance level <span class="math notranslate nohighlight">\(0.1\%\)</span>).</p>
+</div>
+<div class="section" id="measuring-association">
+<h3><span class="section-number">11.4.5. </span>Measuring Association (*)<a class="headerlink" href="#measuring-association" title="Permalink to this headline"></a></h3>
+<p>Let us consider Australian Bureau of Statistics’
+<a class="reference external" href="https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-first-results/2017-18">National Health Survey 2018</a>
+data on the prevalence of certain medical conditions
+as a function of age. Here is the extracted contingency table:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;Arthritis&quot;</span><span class="p">,</span> <span class="s2">&quot;Asthma&quot;</span><span class="p">,</span> <span class="s2">&quot;Back problems&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancer (malignant neoplasms)&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;Chronic obstructive pulmonary disease&quot;</span><span class="p">,</span> <span class="s2">&quot;Diabetes mellitus&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;Heart, stroke and vascular disease&quot;</span><span class="p">,</span> <span class="s2">&quot;Kidney disease&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;Mental and behavioural conditions&quot;</span><span class="p">,</span> <span class="s2">&quot;Osteoporosis&quot;</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;15-44&quot;</span><span class="p">,</span> <span class="s2">&quot;45-64&quot;</span><span class="p">,</span> <span class="s2">&quot;65+&quot;</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">C</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span> <span class="mf">360.2</span><span class="p">,</span>     <span class="mf">1489.0</span><span class="p">,</span>      <span class="mf">1772.2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1069.7</span><span class="p">,</span>      <span class="mf">741.9</span><span class="p">,</span>       <span class="mf">433.7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1469.6</span><span class="p">,</span>     <span class="mf">1513.3</span><span class="p">,</span>       <span class="mf">955.3</span><span class="p">],</span>
+    <span class="p">[</span>  <span class="mf">28.1</span><span class="p">,</span>      <span class="mf">162.7</span><span class="p">,</span>       <span class="mf">237.5</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mf">103.8</span><span class="p">,</span>      <span class="mf">207.0</span><span class="p">,</span>       <span class="mf">251.9</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mf">135.4</span><span class="p">,</span>      <span class="mf">427.3</span><span class="p">,</span>       <span class="mf">607.7</span><span class="p">],</span>
+    <span class="p">[</span>  <span class="mf">94.0</span><span class="p">,</span>      <span class="mf">344.4</span><span class="p">,</span>       <span class="mf">716.0</span><span class="p">],</span>
+    <span class="p">[</span>  <span class="mf">29.6</span><span class="p">,</span>       <span class="mf">67.7</span><span class="p">,</span>       <span class="mf">123.3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">2218.9</span><span class="p">,</span>     <span class="mf">1390.6</span><span class="p">,</span>       <span class="mf">725.0</span><span class="p">],</span>
+    <span class="p">[</span>  <span class="mf">36.1</span><span class="p">,</span>      <span class="mf">312.3</span><span class="p">,</span>       <span class="mf">564.7</span><span class="p">],</span>
+<span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1">##                                          15-44    45-64      65+</span>
+<span class="c1">## Arthritis                               360000  1489000  1772000</span>
+<span class="c1">## Asthma                                 1069000   741000   433000</span>
+<span class="c1">## Back problems                          1469000  1513000   955000</span>
+<span class="c1">## Cancer (malignant neoplasms)             28000   162000   237000</span>
+<span class="c1">## Chronic obstructive pulmonary disease   103000   207000   251000</span>
+<span class="c1">## Diabetes mellitus                       135000   427000   607000</span>
+<span class="c1">## Heart, stroke and vascular disease       94000   344000   716000</span>
+<span class="c1">## Kidney disease                           29000    67000   123000</span>
+<span class="c1">## Mental and behavioural conditions      2218000  1390000   725000</span>
+<span class="c1">## Osteoporosis                             36000   312000   564000</span>
+</pre></div>
+</div>
+<p>Cramer’s <span class="math notranslate nohighlight">\(V\)</span> is one of a few ways
+to measure the degree of association between two categorical variables.
+It is equal to 0 (lowest possible value) if the two variables are independent
+(there is no association between them)
+and 1 (highest possible value) if they are tied.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">contingency</span><span class="o">.</span><span class="n">association</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="c1">## 0.316237999724298</span>
+</pre></div>
+</div>
+<p>The above means that there might be a small association between
+age and the prevalence of certain conditions.
+In other words, it might be the case that some conditions
+are more prevalent in different age groups than others.</p>
+<p>Given a two-way contingency table <span class="math notranslate nohighlight">\(C\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows and
+<span class="math notranslate nohighlight">\(m\)</span> columns and assuming that</p>
+<div class="math notranslate nohighlight">
+\[
+T = \sum_{i=1}^n \sum_{j=1}^m \frac{(c_{i,j} - e_{i,j})^2}{e_{i,j}},
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+e_{i,j} = \frac{
+\sum_{k=1}^m v_{i,k}  \sum_{k=1}^n c_{k,j}
+}{
+\sum_{i=1}^n \sum_{j=1}^m c_{i,j}
+}
+\]</div>
+<p>the Cramer coefficient is given by</p>
+<div class="math notranslate nohighlight">
+\[
+V = \sqrt{
+\frac{T}{\min\{n-1, m-1\} \sum_{i=1}^n \sum_{j=1}^m c_{i,j}}
+}.
+\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(c_{i,j}\)</span> gives the actually observed counts and <span class="math notranslate nohighlight">\(e_{i, j}\)</span> denotes
+the number that we would expect if the two variables were actually independent.</p>
+<div class="proof proof-type-exercise" id="id28">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.19</span>
+        
+    </div><div class="proof-content">
+<p>Compute the Cramer <span class="math notranslate nohighlight">\(V\)</span> using only <strong class="program">numpy</strong> functions.</p>
+</div></div><div class="proof proof-type-exercise" id="id29">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.20</span>
+        
+    </div><div class="proof-content">
+<p>(**)
+Actually we can easily verify the hypothesis whether <span class="math notranslate nohighlight">\(V\)</span> does not differ
+significantly from <span class="math notranslate nohighlight">\(0\)</span>, i.e., whether the variables are independent.
+Looking at <span class="math notranslate nohighlight">\(T\)</span>, we see that this is actually the test statistic
+in Pearson’s chi-squared goodness-of-fit test.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">E</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">C</span><span class="o">-</span><span class="n">E</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">E</span><span class="p">)</span>
+<span class="n">T</span>
+<span class="c1">## 3715440.465191512</span>
+</pre></div>
+</div>
+<p>If the data are really independent, <span class="math notranslate nohighlight">\(T\)</span> follows the chi-squared
+distribution <span class="math notranslate nohighlight">\(n + m - 1\)</span>, hence the critical value is equal to</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># significance level</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">## 32.90949040736021</span>
+</pre></div>
+</div>
+<p>as it is greater than <span class="math notranslate nohighlight">\(T\)</span>, we conclude (at significance level <span class="math notranslate nohighlight">\(0.1\%\)</span>) that
+the conditions are not independent of age.</p>
+</div></div><div class="proof proof-type-exercise" id="id30">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.21</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Take a look at
+<em>Table 19: Comorbidity of selected chronic conditions</em>
+of the  <a class="reference external" href="https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-first-results/2017-18">National Health Survey 2018</a>,
+where we clearly see that many disorders co-occur.
+Visualise them on some heatmaps and bar plots (including
+data grouped by sex and age).</p>
+</div></div></div>
 <div class="section" id="binned-numeric-data">
-<h3><span class="section-number">11.4.3. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">11.4.6. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this headline"></a></h3>
 <p>Note that generally modes do not work for continuous data,
 where repeated values are – at least theoretically – highly unlikely
 (unless someone does not report them with full digit precision).
@@ -1279,10 +1546,10 @@ for example the middle of this interval as the mode.</p>
 on the binning (recall that we can also apply logarithmic binning).
 Thus, the question “what is the most popular income” is overall quite
 difficult to answer.</p>
-<div class="proof proof-type-exercise" id="id25">
+<div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 11.18</span>
+        <span class="proof-type">Exercise 11.22</span>
         
     </div><div class="proof-content">
 <p>Compute some potentially informative modes for
@@ -1291,7 +1558,7 @@ Play around with different numbers
 of bins for linear and logarithmic binning and see how it affects the mode.</p>
 </div></div></div>
 <div class="section" id="ordinal-data">
-<span id="sec-ordinal-data"></span><h3><span class="section-number">11.4.4. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this headline"></a></h3>
+<span id="sec-ordinal-data"></span><h3><span class="section-number">11.4.7. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this headline"></a></h3>
 <p>The case where the categories can be linearly ordered,
 is called <em>ordinal data</em>.
 This gives a few more options as except for the mode,
@@ -1310,10 +1577,10 @@ be equal to 2.5.</p>
 labels to consecutive integers is far from optimal – because
 it gives the impression that the “distance” between different
 levels is always equal (linear).</p>
-<div class="proof proof-type-exercise" id="id26">
+<div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 11.19</span>
+        <span class="proof-type">Exercise 11.23</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -1350,167 +1617,86 @@ and then compare your result
 to the true corresponding scores listed in the
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/grades_scores.txt">grades_scores</a> dataset.</p>
 </div></div></div>
-<div class="section" id="measuring-association">
-<h3><span class="section-number">11.4.5. </span>Measuring Association (*)<a class="headerlink" href="#measuring-association" title="Permalink to this headline"></a></h3>
-<p>Let us consider Australian Bureau of Statistics’
-<a class="reference external" href="https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-first-results/2017-18">National Health Survey 2018</a>
-data on the prevalence of certain conditions
-as a function of age. Here is the extracted contingency table:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="s2">&quot;Arthritis&quot;</span><span class="p">,</span> <span class="s2">&quot;Asthma&quot;</span><span class="p">,</span> <span class="s2">&quot;Back problems&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancer (malignant neoplasms)&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;Chronic obstructive pulmonary disease&quot;</span><span class="p">,</span> <span class="s2">&quot;Diabetes mellitus&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;Heart, stroke and vascular disease&quot;</span><span class="p">,</span> <span class="s2">&quot;Kidney disease&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;Mental and behavioural conditions&quot;</span><span class="p">,</span> <span class="s2">&quot;Osteoporosis&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;15-44&quot;</span><span class="p">,</span> <span class="s2">&quot;45-64&quot;</span><span class="p">,</span> <span class="s2">&quot;65+&quot;</span><span class="p">]</span>
-<span class="p">]</span>
-<span class="n">v</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span> <span class="mf">360.2</span><span class="p">,</span>     <span class="mf">1489.0</span><span class="p">,</span>      <span class="mf">1772.2</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">1069.7</span><span class="p">,</span>      <span class="mf">741.9</span><span class="p">,</span>       <span class="mf">433.7</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">1469.6</span><span class="p">,</span>     <span class="mf">1513.3</span><span class="p">,</span>       <span class="mf">955.3</span><span class="p">],</span>
-    <span class="p">[</span>  <span class="mf">28.1</span><span class="p">,</span>      <span class="mf">162.7</span><span class="p">,</span>       <span class="mf">237.5</span><span class="p">],</span>
-    <span class="p">[</span> <span class="mf">103.8</span><span class="p">,</span>      <span class="mf">207.0</span><span class="p">,</span>       <span class="mf">251.9</span><span class="p">],</span>
-    <span class="p">[</span> <span class="mf">135.4</span><span class="p">,</span>      <span class="mf">427.3</span><span class="p">,</span>       <span class="mf">607.7</span><span class="p">],</span>
-    <span class="p">[</span>  <span class="mf">94.0</span><span class="p">,</span>      <span class="mf">344.4</span><span class="p">,</span>       <span class="mf">716.0</span><span class="p">],</span>
-    <span class="p">[</span>  <span class="mf">29.6</span><span class="p">,</span>       <span class="mf">67.7</span><span class="p">,</span>       <span class="mf">123.3</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">2218.9</span><span class="p">,</span>     <span class="mf">1390.6</span><span class="p">,</span>       <span class="mf">725.0</span><span class="p">],</span>
-    <span class="p">[</span>  <span class="mf">36.1</span><span class="p">,</span>      <span class="mf">312.3</span><span class="p">,</span>       <span class="mf">564.7</span><span class="p">],</span>
-<span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="c1">##                                          15-44    45-64      65+</span>
-<span class="c1">## Arthritis                               360000  1489000  1772000</span>
-<span class="c1">## Asthma                                 1069000   741000   433000</span>
-<span class="c1">## Back problems                          1469000  1513000   955000</span>
-<span class="c1">## Cancer (malignant neoplasms)             28000   162000   237000</span>
-<span class="c1">## Chronic obstructive pulmonary disease   103000   207000   251000</span>
-<span class="c1">## Diabetes mellitus                       135000   427000   607000</span>
-<span class="c1">## Heart, stroke and vascular disease       94000   344000   716000</span>
-<span class="c1">## Kidney disease                           29000    67000   123000</span>
-<span class="c1">## Mental and behavioural conditions      2218000  1390000   725000</span>
-<span class="c1">## Osteoporosis                             36000   312000   564000</span>
-</pre></div>
-</div>
-<p>Cramer’s <em>V</em> is one of a few ways
-to measure the degree of association between two categorical variables.
-It is equal to 0 (lowest possible value) if the two variables are independent
-(there is no association between them)
-and 1 (highest possible value) if they are tied.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">contingency</span><span class="o">.</span><span class="n">association</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-<span class="c1">## 0.316237999724298</span>
-</pre></div>
-</div>
-<p>The above means that there is small association between
-age and the prevalence of certain conditions
-(in other words, it might be the case that some conditions
-are more prevalent in different age groups than others).</p>
-<p>It is defined via:</p>
-<div class="math notranslate nohighlight">
-\[
-\chi^2 = \sum_{i=1}^n \sum_{j=1}^m \frac{(v_{i,j} - v_{i,\cdot} v_{\cdot, j}/c)^2}{v_{i,\cdot} v_{\cdot, j}/c},
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(c = \sum_{i=1}^n \sum_{j=1}^m v_{i,j}\)</span>,
-<span class="math notranslate nohighlight">\(v_{i,\cdot} = \sum_{j=1}^m v_{i,j}\)</span>,
-<span class="math notranslate nohighlight">\(v_{\cdot, j} = \sum_{i=1}^n v_{i,j}\)</span>,
-and then</p>
-<div class="math notranslate nohighlight">
-\[
-V = \sqrt{
-\frac{\chi^2/c}{\min\{n-1, m-1\}}
-}.
-\]</div>
-<p>Note that <span class="math notranslate nohighlight">\(v_{i,j}\)</span> is what we observe
-and <span class="math notranslate nohighlight">\(v_{i,\cdot} v_{\cdot, j}/c\)</span> denotes what we would expect
-if the two variables were independent.</p>
-<div class="proof proof-type-example" id="id27">
-
-    <div class="proof-title">
-        <span class="proof-type">Example 11.20</span>
-        
-    </div><div class="proof-content">
-<p>(*)
-Here is a way to compute Cramer’s <em>V</em> manually:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-<span class="n">chisq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">v</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">e</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">chisq</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-<span class="c1">## 0.316237999724298</span>
-</pre></div>
-</div>
-<p>The result is of course equivalent to the one above.</p>
-</div></div><div class="proof proof-type-exercise" id="id28">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 11.21</span>
-        
-    </div><div class="proof-content">
-<p>(*)
-Take a look at
-<em>Table 19: Comorbidity of selected chronic conditions</em>
-of the  <a class="reference external" href="https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-first-results/2017-18">National Health Survey 2018</a>,
-where we clearly see that many disorders co-occur.
-Visualise them on some heatmaps and bar plots (including
-data grouped by sex and age).</p>
-</div></div></div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">11.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id29">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 11.22</span>
-        
-    </div><div class="proof-content">
-<p>Does it make sense to compute the arithmetic mean of a categorical
-variable?</p>
-</div></div><div class="proof proof-type-exercise" id="id30">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 11.23</span>
-        
-    </div><div class="proof-content">
-<p>Name the basic use cases for categorical data.</p>
-</div></div><div class="proof proof-type-exercise" id="id31">
+<div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.24</span>
         
     </div><div class="proof-content">
-<p>(*) What is a Pareto chart?</p>
-</div></div><div class="proof proof-type-exercise" id="id32">
+<p>Does it make sense to compute the arithmetic mean of a categorical
+variable?</p>
+</div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.25</span>
         
     </div><div class="proof-content">
-<p>How to deal with the case of the mode being nonunique?</p>
-</div></div><div class="proof proof-type-exercise" id="id33">
+<p>Name the basic use cases for categorical data.</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.26</span>
         
     </div><div class="proof-content">
-<p>What is the meaning of <strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">((x</span> <span class="pre">&gt;</span> <span class="pre">0)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&lt;</span> <span class="pre">1))</span></code>, where
-<code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+<p>(*) What is a Pareto chart?</p>
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.27</span>
         
     </div><div class="proof-content">
-<p>What is the meaning of the sum and mean for binary data (logical vectors)?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+<p>How to deal with the case of the mode being nonunique?</p>
+</div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.28</span>
         
     </div><div class="proof-content">
-<p>List some ways to visualise multidimensional categorical data.</p>
-</div></div><div class="proof proof-type-exercise" id="id36">
+<p>What is the meaning of <strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">((x</span> <span class="pre">&gt;</span> <span class="pre">0)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&lt;</span> <span class="pre">1))</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?</p>
+</div></div><div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.29</span>
         
     </div><div class="proof-content">
+<p>What is the meaning of the sum and mean for binary data (logical vectors)?</p>
+</div></div><div class="proof proof-type-exercise" id="id39">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.30</span>
+        
+    </div><div class="proof-content">
+<p>List some ways to visualise multidimensional categorical data.</p>
+</div></div><div class="proof proof-type-exercise" id="id40">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.31</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+State the null hypotheses verified by the one- and two-sample
+chi-squared tests.</p>
+</div></div><div class="proof proof-type-exercise" id="id41">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 11.32</span>
+        
+    </div><div class="proof-content">
 <p>(*) How is Cramer’s <em>V</em> defined and what values does it take?</p>
-</div></div></div>
+</div></div><hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="recipesdof"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Note that <span id="id2">[<a class="reference internal" href="999-bibliography.html#id133">PTVF07</a>]</span> in Section 14.3
+suggests <span class="math notranslate nohighlight">\(l\)</span> degrees of freedom, but do not agree with the reasoning
+therein. Also, simple Monte Carlo simulations suggests that <span class="math notranslate nohighlight">\(l-1\)</span>
+is a better candidate.</p>
+</dd>
+</dl>
+</div>
 </div>
 
 
@@ -1529,7 +1715,7 @@ variable?</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-06-01T15:08:42+1000.
+        Last updated on 2022-06-03T13:05:59+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

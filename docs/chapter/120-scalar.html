@@ -46,6 +46,8 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/proof.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -536,19 +538,18 @@ and packages (which are collections of modules).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>   <span class="c1"># the math module must be imported prior its first use</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.718281828459045</span><span class="p">))</span>  <span class="c1"># the natural logarithm (base e)</span>
 <span class="c1">## 1.0</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>  <span class="c1"># sin(pi) equals 0 (with some numeric error)</span>
-<span class="c1">## 1.2246467991473532e-16</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="o">-</span><span class="mf">7.33</span><span class="p">))</span>  <span class="c1"># the floor function</span>
 <span class="c1">## -8</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>  <span class="c1"># sin(pi) equals 0 (with some numeric error)</span>
+<span class="c1">## 1.2246467991473532e-16</span>
 </pre></div>
 </div>
 <p>See the <a class="reference external" href="https://docs.python.org/3/library/math.html">official documentation</a>
-for the comprehensive list of objects defined
-therein. Also, we assume that the reader is familiar with
-basic mathematical objects such as the said floor function.
-If not, please consult the English Wikipedia
-which is overall a reliable source
-of knowledge on topics from our discipline.</p>
+for the comprehensive list of objects defined therein.
+On a side note, all floating-point computations in any programming language
+are subject to round-off errors and other inaccuracies,
+hence the result of <span class="math notranslate nohighlight">\(\sin\pi\)</span> not being exactly 0, but some value very close
+thereto. We will elaborate on this topic in <a class="reference internal" href="220-transform-vector.html#sec-fp-error"><span class="std std-numref">Section 5.5.4</span></a>.</p>
 </div>
 <div class="section" id="slots-and-methods">
 <h3><span class="section-number">2.2.3. </span>Slots and Methods<a class="headerlink" href="#slots-and-methods" title="Permalink to this headline"></a></h3>
@@ -856,7 +857,31 @@ median of 3 given values (the one value that is in-between the other ones).</p>
     </div><div class="proof-content">
 <p>(*) Write a function <strong class="command">min4</strong> to compute the
 minimum of 4 values.</p>
-</div></div></div>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Lambda expressions</em> give us an easy way to define
+functions using a single line of code.
+Their syntax is: <strong class="command">lambda</strong><code class="code docutils literal notranslate"> <span class="pre">argument_name:</span> <span class="pre">return_value</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># i.e., def square(x): return x**2</span>
+<span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1">## 16</span>
+</pre></div>
+</div>
+</div>
+<p>Function objects generated through lambda expressions
+do not have to be assigned a name – they can be anonymous.
+It is useful when we are calling other functions that take other functions
+as their arguments. With lambdas, the latter can be generated on the fly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_x_and_fx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x = </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> and f(x) = </span><span class="si">{</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">print_x_and_fx</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">## x = 4 and f(x) = 16</span>
+<span class="n">print_x_and_fx</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1">## x = 0.7853981633974483 and f(x) = 0.70711</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="exercises">
 <h2><span class="section-number">2.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
 <div class="proof proof-type-exercise" id="id14">
@@ -913,7 +938,7 @@ minimum of 4 values.</p>
     <p>
         &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
       <span class="lastupdated">
-        Last updated on 2022-06-01T15:08:42+1000.
+        Last updated on 2022-06-03T13:05:59+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
