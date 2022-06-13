@@ -1,4 +1,5 @@
 # Minimalist Data Wrangling with Python
+# (Open Access Textbook)
 
 > **This is a draft version of a forthcoming book by [Marek Gagolewski][1].
 > Any remarks and bug fixes are appreciated — please submit them via
