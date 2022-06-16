@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6. Continuous Probability Distributions &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>6. Continuous Probability Distributions &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -122,7 +122,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">6. Continuous Probability Distributions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#normal-distribution">6.1. Normal Distribution</a><ul>
@@ -166,9 +166,9 @@
 <li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
 <li class="toctree-l1"><a class="reference internal" href="420-categorical.html">11. Handling Categorical Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases (An Interlude)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -200,7 +200,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -269,10 +269,11 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="continuous-probability-distributions">
 <span id="chap-distribution"></span><h1><span class="section-number">6. </span>Continuous Probability Distributions<a class="headerlink" href="#continuous-probability-distributions" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -1131,7 +1132,7 @@ with a pinch of chilli pepper.</p>
 <span class="n">p1</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">p2</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">p3</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mf">0.35</span><span class="o">*</span><span class="n">p1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">p2</span> <span class="o">+</span> <span class="mf">0.55</span><span class="o">*</span><span class="n">p3</span>  <span class="c1"># weighted (convex) combination of 3 densities</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.35</span><span class="o">*</span><span class="n">p1</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">p2</span> <span class="o">+</span> <span class="mf">0.55</span><span class="o">*</span><span class="n">p3</span>  <span class="c1"># weighted combination of 3 densities</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PDF of a normal mixture&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1524,9 +1525,9 @@ random variables and is defined as the derivative of <span class="math notransla
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

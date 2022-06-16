@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>12. Processing Data in Groups &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>12. Processing Data in Groups &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -54,7 +54,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13. Accessing Databases" href="440-sql.html" />
+    <link rel="next" title="13. Accessing Databases (An Interlude)" href="440-sql.html" />
     <link rel="prev" title="11. Handling Categorical Data" href="420-categorical.html" /> 
 </head>
 
@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -122,7 +122,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
 </ul>
@@ -140,7 +140,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#basic-methods">12.1. Basic Methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#aggregating-data-in-groups">12.1.1. Aggregating Data in Groups</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#transforming-data-in-groups">12.1.2. Transforming Data in Groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#manual-splitting-into-subgroups">12.1.3. Manual Splitting Into Subgroups (**)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-splitting-into-subgroups">12.1.3. Manual Splitting Into Subgroups (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-groups">12.2. Plotting Data in Groups</a><ul>
@@ -156,13 +156,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#classification-tasks">12.3. Classification Tasks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#k-nearest-neighbour-classification">12.3.1. <em>K</em>-Nearest Neighbour Classification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#assessing-the-quality-of-predictions">12.3.2. Assessing the Quality of Predictions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#train-test-set-split">12.3.3. Train-Test Set Split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#splitting-into-training-and-test-sets">12.3.3. Splitting into Training and Test Sets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#validating-many-models-parameter-selection">12.3.4. Validating Many Models (Parameter Selection)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#clustering-tasks">12.4. Clustering Tasks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-k-means-method">12.4.1. The <em>K</em>-Means Method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#solving-k-means-is-hard">12.4.2. Solving <em>k</em>-means is Hard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#k-means-method">12.4.1. <em>K</em>-Means Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solving-k-means-is-hard">12.4.2. Solving <em>K</em>-means is Hard</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lloyd-s-algorithm">12.4.3. Lloyd’s Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-minima">12.4.4. Local Minima</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#random-restarts">12.4.5. Random Restarts</a></li>
@@ -172,9 +172,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#exercises">12.6. Exercises</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases (An Interlude)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -206,7 +206,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -260,7 +260,7 @@
   
   <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
       
-        <a href="440-sql.html" class="btn btn-neutral float-right" title="13. Accessing Databases" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="440-sql.html" class="btn btn-neutral float-right" title="13. Accessing Databases (An Interlude)" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
       
       
         <a href="420-categorical.html" class="btn btn-neutral float-left" title="11. Handling Categorical Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
@@ -275,10 +275,11 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="processing-data-in-groups">
 <span id="chap-group-by"></span><h1><span class="section-number">12. </span>Processing Data in Groups<a class="headerlink" href="#processing-data-in-groups" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -445,9 +446,11 @@ with a number of well-known aggregation functions, for example:</p>
 on numeric columns.
 Further, a few common aggregates are generated by <strong class="command">describe</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##    gender   count        mean       std    min    25%    50%    75%    max</span>
-<span class="c1">## 0  female  4514.0  160.089189  7.035483  131.1  155.3  160.0  164.8  189.3</span>
-<span class="c1">## 1    male  4271.0  173.759541  7.702224  144.6  168.5  173.8  178.9  199.6</span>
+<span class="c1">##    gender   count        mean       std  ...    25%    50%    75%    max</span>
+<span class="c1">## 0  female  4514.0  160.089189  7.035483  ...  155.3  160.0  164.8  189.3</span>
+<span class="c1">## 1    male  4271.0  173.759541  7.702224  ...  168.5  173.8  178.9  199.6</span>
+<span class="c1">## </span>
+<span class="c1">## [2 rows x 9 columns]</span>
 </pre></div>
 </div>
 <p>But we can always apply a custom list of functions
@@ -544,7 +547,7 @@ height of 173.8 cm.</p>
 and 5 tallest women.</p>
 </div></div></div>
 <div class="section" id="manual-splitting-into-subgroups">
-<h3><span class="section-number">12.1.3. </span>Manual Splitting Into Subgroups (**)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">12.1.3. </span>Manual Splitting Into Subgroups (*)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this headline"></a></h3>
 <p>It turns out that <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects and their derivatives
 are <em>iterable</em> (compare <a class="reference internal" href="130-sequential.html#sec-iterable"><span class="std std-numref">Section 3.4</span></a>), therefore
 the grouped data frames and series can be easily processed manually
@@ -645,10 +648,8 @@ to form a data frame:</p>
 where we would like to perform the basic operations such as
 computing some basic aggregates.
 These scenarios are very common, no wonder why the <strong class="program">pandas</strong>
-developers
-came up with an additional, convenience interface
-in the form of
-the <strong class="command">pandas.DataFrame.groupby</strong>
+developers came up with an additional, convenience interface
+in the form of the <strong class="command">pandas.DataFrame.groupby</strong>
 and <strong class="command">pandas.Series.groupby</strong> methods and the <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code> classes. However, it is still worth knowing the
 low-level way to perform splitting in case of more ambitious tasks.</p>
@@ -1023,7 +1024,7 @@ More formally:</p>
 <p>Assume we are given a set of training points
 <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
 and the corresponding reference outputs
-<span class="math notranslate nohighlight">\(\boldsymbol{y}\in\{L_1,L_2,\dots,L_l\}^n\)</span> in form of a categorical
+<span class="math notranslate nohighlight">\(\boldsymbol{y}\in\{L_1,L_2,\dots,L_l\}^n\)</span> in the form of a categorical
 variable with <em>l</em> distinct levels.
 The aim of a <em>classification</em> algorithm is to predict
 what the outputs for each point from a possibly different
@@ -1341,8 +1342,8 @@ aggregated into a single number</p></li>
 <li><p>Wine recommendation.</p></li>
 </ul>
 </div></div></div>
-<div class="section" id="train-test-set-split">
-<span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Train-Test Set Split<a class="headerlink" href="#train-test-set-split" title="Permalink to this headline"></a></h3>
+<div class="section" id="splitting-into-training-and-test-sets">
+<span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into Training and Test Sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Permalink to this headline"></a></h3>
 <p>The training set, that we have been provided with, was used
 as a source of knowledge about our problem domain.</p>
 <div class="admonition important">
@@ -1352,7 +1353,7 @@ in order to generate a new prediction, we need to be able to
 query all the points in the database – they must be at hand all the time.</p>
 </div>
 <p>Most statistical/machine learning algorithms, however, by construction,
-generalise the patters discovered in the dataset in form
+generalise the patterns discovered in the dataset in the form
 of mathematical functions (oftentimes, very complicated ones),
 that are fitted by minimising some error metric.
 Linear regression analysis by means of the least squares approximation
@@ -1562,8 +1563,8 @@ In the <em>k</em>-means method, which we discuss below,
 the cluster structure is determined based on
 the proximity to <em>k</em> carefully chosen group centroids
 (compare <a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>).</p>
-<div class="section" id="the-k-means-method">
-<h3><span class="section-number">12.4.1. </span>The <em>K</em>-Means Method<a class="headerlink" href="#the-k-means-method" title="Permalink to this headline"></a></h3>
+<div class="section" id="k-means-method">
+<h3><span class="section-number">12.4.1. </span><em>K</em>-Means Method<a class="headerlink" href="#k-means-method" title="Permalink to this headline"></a></h3>
 <p>Fix <span class="math notranslate nohighlight">\(k \ge 2\)</span>.
 In the <em>k</em>-means method<a class="footnote-reference brackets" href="#footkmeans" id="id3">2</a>, we seek <em>k</em> pivot points,
 <span class="math notranslate nohighlight">\(\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k\in\mathbb{R}^m\)</span>
@@ -1735,7 +1736,7 @@ to previously unobserved data.</p>
 </div>
 </div>
 <div class="section" id="solving-k-means-is-hard">
-<h3><span class="section-number">12.4.2. </span>Solving <em>k</em>-means is Hard<a class="headerlink" href="#solving-k-means-is-hard" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">12.4.2. </span>Solving <em>K</em>-means is Hard<a class="headerlink" href="#solving-k-means-is-hard" title="Permalink to this headline"></a></h3>
 <p>Unfortunately, the <em>k</em>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
@@ -1841,12 +1842,14 @@ dataset.</p>
 <span class="p">]</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;Australia&quot;</span><span class="p">,</span> <span class="s2">&quot;Germany&quot;</span><span class="p">,</span> <span class="s2">&quot;Poland&quot;</span><span class="p">,</span> <span class="s2">&quot;United States&quot;</span><span class="p">],</span> <span class="p">:]</span>  <span class="c1"># preview</span>
-<span class="c1">##                PersonalDevelopmentAndHealth  WellBalancedSociety   Economy</span>
-<span class="c1">## Country                                                                   </span>
-<span class="c1">## Australia                          8.590927             6.105539  7.593052</span>
-<span class="c1">## Germany                            8.629024             8.036620  5.575906</span>
-<span class="c1">## Poland                             8.265950             7.331700  5.989513</span>
-<span class="c1">## United States                      8.357395             5.069076  3.756943</span>
+<span class="c1">##                PersonalDevelopmentAndHealth  ...   Economy</span>
+<span class="c1">## Country                                      ...          </span>
+<span class="c1">## Australia                          8.590927  ...  7.593052</span>
+<span class="c1">## Germany                            8.629024  ...  5.575906</span>
+<span class="c1">## Poland                             8.265950  ...  5.989513</span>
+<span class="c1">## United States                      8.357395  ...  3.756943</span>
+<span class="c1">## </span>
+<span class="c1">## [4 rows x 3 columns]</span>
 </pre></div>
 </div>
 <p>Thus, it is a three-dimensional dataset, where each point corresponds
@@ -1908,7 +1911,7 @@ and <span class="math notranslate nohighlight">\((2, 2, 3, 3, 2, 1)\)</span>.</p
 </div>
 <p>By looking at the contingency table, we see
 that clusters 0, 1, and 2 in <code class="docutils literal notranslate"><span class="pre">l1</span></code> correspond, respectively,
-to clusters 2, 0, and 1 in <code class="docutils literal notranslate"><span class="pre">l2</span></code> (by a form of majority voting).
+to clusters 2, 0, and 1 in <code class="docutils literal notranslate"><span class="pre">l2</span></code> (by a kind of majority voting).
 Therefore, we can relabel the elements in <code class="docutils literal notranslate"><span class="pre">l1</span></code> to get a more readable
 result:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l1p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])[</span><span class="n">l1</span><span class="p">]</span>
@@ -2205,7 +2208,7 @@ more approaches tested improve the chance of success.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="440-sql.html" class="btn btn-neutral float-right" title="13. Accessing Databases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="440-sql.html" class="btn btn-neutral float-right" title="13. Accessing Databases (An Interlude)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="420-categorical.html" class="btn btn-neutral float-left" title="11. Handling Categorical Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
@@ -2213,9 +2216,9 @@ more approaches tested improve the chance of success.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

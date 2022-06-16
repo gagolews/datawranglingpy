@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9. Exploring Relationships Between Variables &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>9. Exploring Relationships Between Variables &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -122,7 +122,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
 </ul>
@@ -147,14 +147,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#regression-tasks">9.2. Regression Tasks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#k-nearest-neighbour-regression">9.2.1. <em>K</em>-Nearest Neighbour Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#from-data-to-linear-models">9.2.2. From Data To (Linear) Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#from-data-to-linear-models">9.2.2. From Data to (Linear) Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#least-squares-method">9.2.3. Least Squares Method</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#analysis-of-residuals">9.2.4. Analysis of Residuals</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-regression">9.2.5. Multiple Regression</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#variable-transformation-and-linearisable-models">9.2.6. Variable Transformation and Linearisable Models (*)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#descriptive-vs-predictive-power">9.2.7. Descriptive vs Predictive Power (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fitting-regression-models-with-scikit-learn">9.2.8. Fitting Regression Models with <strong class="program">scikit-learn</strong> (**)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ill-conditioned-model-matrices">9.2.9. Ill-Conditioned Model Matrices (**)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fitting-regression-models-with-scikit-learn">9.2.8. Fitting Regression Models with <strong class="program">scikit-learn</strong> (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ill-conditioned-model-matrices">9.2.9. Ill-Conditioned Model Matrices (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#finding-interesting-combinations-of-variables">9.3. Finding Interesting Combinations of Variables (*)</a><ul>
@@ -176,9 +176,9 @@
 <li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
 <li class="toctree-l1"><a class="reference internal" href="420-categorical.html">11. Handling Categorical Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases (An Interlude)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -210,7 +210,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -279,10 +279,11 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="exploring-relationships-between-variables">
 <span id="chap-relationship"></span><h1><span class="section-number">9. </span>Exploring Relationships Between Variables<a class="headerlink" href="#exploring-relationships-between-variables" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -891,7 +892,7 @@ easily implement some form of fixed-radius search regression
 </div>
 </div>
 <div class="section" id="from-data-to-linear-models">
-<h3><span class="section-number">9.2.2. </span>From Data To (Linear) Models<a class="headerlink" href="#from-data-to-linear-models" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">9.2.2. </span>From Data to (Linear) Models<a class="headerlink" href="#from-data-to-linear-models" title="Permalink to this headline"></a></h3>
 <p>Unfortunately, in order to generate predictions for new data points,
 <em>k</em>-nearest neighbours regression requires
 that the training sample is available at all times.
@@ -1617,7 +1618,7 @@ glorify it. Bad models must be discarded and we should move on.
 Let us not think about them too much.</p>
 </div>
 <div class="section" id="fitting-regression-models-with-scikit-learn">
-<h3><span class="section-number">9.2.8. </span>Fitting Regression Models with <strong class="program">scikit-learn</strong> (**)<a class="headerlink" href="#fitting-regression-models-with-scikit-learn" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">9.2.8. </span>Fitting Regression Models with <strong class="program">scikit-learn</strong> (*)<a class="headerlink" href="#fitting-regression-models-with-scikit-learn" title="Permalink to this headline"></a></h3>
 <p><a class="reference external" href="https://scikit-learn.org/stable/index.html"><strong class="program">scikit-learn</strong></a>
 (<strong class="program">sklearn</strong>; <span id="id6">[<a class="reference internal" href="999-bibliography.html#id3">PVG+11</a>]</span>)
 is a huge Python package for machine learning
@@ -1671,7 +1672,7 @@ For example, we can calculate the coefficient of determination:</p>
 the score? We should always do.</p>
 </div>
 <div class="section" id="ill-conditioned-model-matrices">
-<span id="sec-ill-condition"></span><h3><span class="section-number">9.2.9. </span>Ill-Conditioned Model Matrices (**)<a class="headerlink" href="#ill-conditioned-model-matrices" title="Permalink to this headline"></a></h3>
+<span id="sec-ill-condition"></span><h3><span class="section-number">9.2.9. </span>Ill-Conditioned Model Matrices (*)<a class="headerlink" href="#ill-conditioned-model-matrices" title="Permalink to this headline"></a></h3>
 <p>Our approach to regression analysis relies on solving
 an optimisation problem (the method least squares).
 However, sometimes the “optimal” solution that the algorithm returns
@@ -1696,8 +1697,8 @@ First, <strong class="command">scipy</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;scipy_X&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;scipy_X&quot;</span><span class="p">]</span>
-<span class="c1">## array([ 2.33103950e-16,  6.31514064e-12,  1.34162021e-07, -2.33980973e-12,</span>
-<span class="c1">##         1.03490968e-17])</span>
+<span class="c1">## array([ 2.33103950e-16,  6.31514064e-12,  1.34162021e-07,</span>
+<span class="c1">##        -2.33980973e-12,  1.03490968e-17])</span>
 </pre></div>
 </div>
 <p>If we drew the fitted polynomial (see the figure below),
@@ -1746,8 +1747,8 @@ and so should be slightly better-behaving:</p>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;sklearn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">]</span>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;sklearn&quot;</span><span class="p">]</span>
 <span class="c1">## LinearRegression()</span>
-<span class="c1">## array([ 6.92257641e+01,  5.05754568e-13,  1.38835855e-08, -2.18869526e-13,</span>
-<span class="c1">##         9.09347414e-19])</span>
+<span class="c1">## array([ 6.92257641e+01,  5.05754568e-13,  1.38835855e-08,</span>
+<span class="c1">##        -2.18869526e-13,  9.09347414e-19])</span>
 </pre></div>
 </div>
 <p>Here is the condition number:</p>
@@ -1792,8 +1793,8 @@ original regression problem is</p>
 <span class="n">c_scipyZ</span> <span class="o">=</span> <span class="n">resZ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">stds</span>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;scipy_Z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">c_scipyZ</span> <span class="o">@</span> <span class="n">means</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">c_scipyZ</span><span class="p">]</span>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;scipy_Z&quot;</span><span class="p">]</span>
-<span class="c1">## array([ 6.35946784e+01,  1.04541932e-03, -2.41992445e-08,  2.39133533e-13,</span>
-<span class="c1">##        -8.13307828e-19])</span>
+<span class="c1">## array([ 6.35946784e+01,  1.04541932e-03, -2.41992445e-08,</span>
+<span class="c1">##         2.39133533e-13, -8.13307828e-19])</span>
 </pre></div>
 </div>
 <p>The condition number is:</p>
@@ -2311,7 +2312,7 @@ ones (from the pairplot).</p>
 <p class="caption"><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes</span><a class="headerlink" href="#id42" title="Permalink to this image"></a></p>
 </div>
 <p>What we have thus done was a kind of <em>dimensionality reduction</em> –
-we have found a viewpoint (in form of an orthonormal matrix, being
+we have found a viewpoint (in the form of an orthonormal matrix, being
 a mixture of rotations and reflections) on <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span>
 such that its orthonormal projection onto the
 first two axes of the Cartesian coordinate system
@@ -2655,9 +2656,9 @@ when we even remotely think about practising data science.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

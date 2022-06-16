@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>16. Time Series &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>16. Time Series &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -122,7 +122,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
 </ul>
@@ -137,9 +137,9 @@
 <li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
 <li class="toctree-l1"><a class="reference internal" href="420-categorical.html">11. Handling Categorical Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases (An Interlude)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -149,7 +149,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#representation-the-unix-epoch">16.2.1. Representation: The UNIX Epoch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#time-differences">16.2.2. Time Differences</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datetimes-in-data-frames">16.2.3. Datetimes in Data Frames</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#modelling-event-times-with-an-exponential-distribution">16.2.4. Modelling Event Times with an Exponential Distribution (**)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelling-event-times-with-exponential-distributions">16.2.4. Modelling Event Times with Exponential Distributions (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#basic-operations">16.3. Basic Operations</a><ul>
@@ -193,7 +193,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -260,12 +260,13 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="time-series">
-<span id="chap-time"></span><h1><span class="section-number">16. </span>Time Series<a class="headerlink" href="#time-series" title="Permalink to this headline"></a></h1>
+<span id="chap-time-series"></span><h1><span class="section-number">16. </span>Time Series<a class="headerlink" href="#time-series" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -367,14 +368,14 @@ Usually, we’ll be creating dates from strings, for instance:</p>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-06-13&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-06-16&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-06-13T04:56:53&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-06-16T02:47:34&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -386,9 +387,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let’s verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19156.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19159.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.65509621e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.65534765e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
@@ -407,10 +408,10 @@ all dates in the YYYY-MM-DD format from a
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-06-12&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-06-15&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-06-13T16:56:53&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-06-16T14:47:34&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -564,8 +565,8 @@ it the last 50-ish years:</p>
 winters are cold, whereas in the summertime the living is easy,
 what a wonderful world.</p>
 </div></div></div>
-<div class="section" id="modelling-event-times-with-an-exponential-distribution">
-<span id="sec-exp-distrib"></span><h3><span class="section-number">16.2.4. </span>Modelling Event Times with an Exponential Distribution (**)<a class="headerlink" href="#modelling-event-times-with-an-exponential-distribution" title="Permalink to this headline"></a></h3>
+<div class="section" id="modelling-event-times-with-exponential-distributions">
+<span id="sec-exp-distrib"></span><h3><span class="section-number">16.2.4. </span>Modelling Event Times with Exponential Distributions (*)<a class="headerlink" href="#modelling-event-times-with-exponential-distributions" title="Permalink to this headline"></a></h3>
 <p>The exponential distribution family is frequently used
 for modelling times between different events (i.e., deltas)
 under the assumption that a system generates on average a constant
@@ -983,7 +984,7 @@ the average PM2.5 was greater than in the preceding day.</p></li>
 </div></div></div>
 <div class="section" id="plotting-multidimensional-time-series">
 <h3><span class="section-number">16.3.5. </span>Plotting Multidimensional Time Series<a class="headerlink" href="#plotting-multidimensional-time-series" title="Permalink to this headline"></a></h3>
-<p>Multidimensional time series stored in form of
+<p>Multidimensional time series stored in the form of
 an <em>n</em>-by-<em>m</em> matrix are best viewed as <em>m</em> time series –
 possibly but not necessarily somehow related to each other –
 all sampled at the same <em>n</em> points in time
@@ -1266,9 +1267,9 @@ of a candlestick plot.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

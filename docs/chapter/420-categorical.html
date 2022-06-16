@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>11. Handling Categorical Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>11. Handling Categorical Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -122,7 +122,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
 </ul>
@@ -151,7 +151,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#combinations-of-even-more-factors">11.2.3. Combinations of Even More Factors</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#visualising">11.3. Visualising</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visualising-factors">11.3. Visualising Factors</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bar-plots">11.3.1. Bar Plots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#political-marketing-and-statistics">11.3.2. Political Marketing and Statistics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pie-cha-don-t-even-trip">11.3.3. Pie Cha… Don’t Even Trip</a></li>
@@ -159,7 +159,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#heat-maps">11.3.5. Heat Maps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#aggregating-and-comparing">11.4. Aggregating and Comparing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aggregating-and-comparing-factors">11.4. Aggregating and Comparing Factors</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#a-mode">11.4.1. A Mode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#binary-data-as-logical-vectors">11.4.2. Binary Data as Logical Vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pearson-s-chi-squared-test">11.4.3. Pearson’s Chi-Squared Test (*)</a></li>
@@ -173,9 +173,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases (An Interlude)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -207,7 +207,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -276,10 +276,11 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="handling-categorical-data">
 <span id="chap-categorical"></span><h1><span class="section-number">11. </span>Handling Categorical Data<a class="headerlink" href="#handling-categorical-data" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -543,7 +544,7 @@ binning (quantisation). This results in information (precision) loss,
 however, it also opens some new possibilities. In fact, this is what we needed
 to do in order to draw all the histograms in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>.
 Also, reporting observation counts in each bin instead of raw data
-enables us to include them in printed reports (in form of a table).</p>
+enables us to include them in printed reports (in the form of tables).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>As strong proponents of openness and transparency,
@@ -603,7 +604,9 @@ with very readable labels generated automatically
 <span class="c1">## Categories (4, interval[float64, right]): [(-inf, 130.0] &lt; (130.0, 140.0] &lt; (140.0, 150.0] &lt;</span>
 <span class="c1">##                                            (150.0, inf]]</span>
 <span class="n">cut_mins16</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
-<span class="c1">## Index([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(150.0, inf]&#39;], dtype=&#39;object&#39;)</span>
+<span class="c1">## Index([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
+<span class="c1">##        &#39;(150.0, inf]&#39;],</span>
+<span class="c1">##       dtype=&#39;object&#39;)</span>
 </pre></div>
 </div>
 <div class="proof proof-type-exercise" id="id7">
@@ -646,8 +649,8 @@ the <strong class="command">list.append</strong> method. Recoding based on the a
 <span class="c1">##        &#39;(130.0, 140.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(130.0, 140.0]&#39;,</span>
 <span class="c1">##        &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
 <span class="c1">##        &#39;(140.0, 150.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
-<span class="c1">##        &#39;(140.0, 150.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(150.0, inf]&#39;, &#39;(150.0, inf]&#39;],</span>
-<span class="c1">##       dtype=&#39;&lt;U14&#39;)</span>
+<span class="c1">##        &#39;(140.0, 150.0]&#39;, &#39;(140.0, 150.0]&#39;, &#39;(150.0, inf]&#39;,</span>
+<span class="c1">##        &#39;(150.0, inf]&#39;], dtype=&#39;&lt;U14&#39;)</span>
 </pre></div>
 </div>
 </div></div></div>
@@ -882,12 +885,12 @@ with a combination of more than 2 categorical variables:</p>
 </pre></div>
 </div>
 <p>Of course, the display will be in the <em>long</em> format
-(compare <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.7</span></a>) here, as high-dimensional
+(compare <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>) here, as high-dimensional
 arrays are not nicely printable.</p>
 </div>
 </div>
-<div class="section" id="visualising">
-<h2><span class="section-number">11.3. </span>Visualising<a class="headerlink" href="#visualising" title="Permalink to this headline"></a></h2>
+<div class="section" id="visualising-factors">
+<h2><span class="section-number">11.3. </span>Visualising Factors<a class="headerlink" href="#visualising-factors" title="Permalink to this headline"></a></h2>
 <p>Methods for visualising categorical data are by no means
 fascinating (unless we use them as grouping variables in more complex
 datasets, but this is a topic that we cover in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>).</p>
@@ -1167,8 +1170,8 @@ see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std
 </div>
 </div>
 </div>
-<div class="section" id="aggregating-and-comparing">
-<h2><span class="section-number">11.4. </span>Aggregating and Comparing<a class="headerlink" href="#aggregating-and-comparing" title="Permalink to this headline"></a></h2>
+<div class="section" id="aggregating-and-comparing-factors">
+<h2><span class="section-number">11.4. </span>Aggregating and Comparing Factors<a class="headerlink" href="#aggregating-and-comparing-factors" title="Permalink to this headline"></a></h2>
 <div class="section" id="a-mode">
 <h3><span class="section-number">11.4.1. </span>A Mode<a class="headerlink" href="#a-mode" title="Permalink to this headline"></a></h3>
 <p>As we have already said, the only operation on categorical data
@@ -1586,7 +1589,7 @@ levels is always equal (linear).</p>
 <p>(**)
 The <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/grades_results.txt">grades_results</a> represents the grades (F, P, C, D, HD)
 of 100 students attending an imaginary course in a virtual Australian
-university. You can load it in form of an <em>ordered</em> categorical <code class="docutils literal notranslate"><span class="pre">Series</span></code>
+university. You can load it in the form of an <em>ordered</em> categorical <code class="docutils literal notranslate"><span class="pre">Series</span></code>
 by calling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/grades_results.txt&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
@@ -1713,9 +1716,9 @@ is a better candidate.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

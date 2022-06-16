@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>13. Accessing Databases &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>13. Accessing Databases (An Interlude) &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -67,7 +67,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -120,7 +120,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
 </ul>
@@ -135,7 +135,7 @@
 <li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
 <li class="toctree-l1"><a class="reference internal" href="420-categorical.html">11. Handling Categorical Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Accessing Databases</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Accessing Databases (An Interlude)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#example-database">13.1. Example Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exporting-data">13.2. Exporting Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exercises-on-sql-vs-pandas">13.3. Exercises on SQL vs <strong class="program">pandas</strong></a><ul>
@@ -158,7 +158,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -190,7 +190,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -225,7 +225,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li><span class="section-number">13. </span>Accessing Databases</li>
+      <li><span class="section-number">13. </span>Accessing Databases (An Interlude)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -256,13 +256,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="tex2jax_ignore mathjax_ignore section" id="accessing-databases">
-<span id="chap-sql"></span><h1><span class="section-number">13. </span>Accessing Databases<a class="headerlink" href="#accessing-databases" title="Permalink to this headline"></a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="accessing-databases-an-interlude">
+<span id="chap-sql"></span><h1><span class="section-number">13. </span>Accessing Databases (An Interlude)<a class="headerlink" href="#accessing-databases-an-interlude" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -392,7 +393,7 @@ that will be an ordinary file stored on the computer’s disk:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
 <span class="n">dbfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;travel.db&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dbfile</span><span class="p">)</span>
-<span class="c1">## /tmp/tmpzzlzoj8x/travel.db</span>
+<span class="c1">## /tmp/tmp1aos7thr/travel.db</span>
 </pre></div>
 </div>
 <p>The above gives the file path (compare <a class="reference internal" href="#sec-file-paths"><span class="std std-numref">Section 13.6.1</span></a>)
@@ -413,7 +414,7 @@ information fetched.</p>
 <p>At the end, we should not forget
 about the call to <code class="docutils literal notranslate"><span class="pre">conn.close()</span></code>.</p>
 </div>
-<p>We already have our data in form of <strong class="program">pandas</strong> data frames,
+<p>We already have our data in the form of <strong class="program">pandas</strong> data frames,
 therefore exporting them to the database is straightforward.
 All we have to do is to perform
 a bunch of calls to the <strong class="command">pandas.DataFrame.to_sql</strong> method.</p>
@@ -439,9 +440,8 @@ e.g., when they are to be fetched from XML or JSON files
 Intermediate-level SQL users can call <code class="docutils literal notranslate"><span class="pre">conn.execute(&quot;CREATE</span> <span class="pre">TABLE</span> <span class="pre">t...&quot;)</span></code>,
 <code class="docutils literal notranslate"><span class="pre">conn.executemany(&quot;INSERT</span> <span class="pre">INTO</span> <span class="pre">t</span> <span class="pre">VALUES(?,</span> <span class="pre">?,</span> <span class="pre">?)&quot;,</span> <span class="pre">l)</span></code> followed by
 <code class="docutils literal notranslate"><span class="pre">conn.commit()</span></code> to create a new table (here: named <code class="docutils literal notranslate"><span class="pre">t</span></code>) populated
-by a list of records (e.g., in form of tuples or <strong class="program">numpy</strong> vectors).
-For more details, see the
-<a class="reference external" href="https://docs.python.org/3/library/sqlite3.html">manual</a>
+by a list of records (e.g., in the form of tuples or <strong class="program">numpy</strong> vectors).
+For more details, see the <a class="reference external" href="https://docs.python.org/3/library/sqlite3.html">manual</a>
 of the <strong class="program">sqlite3</strong> package.</p>
 </div>
 </div>
@@ -565,16 +565,18 @@ whose rows fulfil given conditions:</p>
 <span class="s2">        FavoriteCount BETWEEN 35 AND 100</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
 <span class="n">res4a</span>
-<span class="c1">##                                                Title  Score  ViewCount  FavoriteCount</span>
-<span class="c1">## 0  When traveling to a country with a different c...    136    16838.0           35.0</span>
-<span class="c1">## 1         How can I do a &quot;broad&quot; search for flights?     95    33554.0           49.0</span>
-<span class="c1">## 2  Tactics to avoid getting harassed by corrupt p...    156    13220.0           42.0</span>
-<span class="c1">## 3  Flight tickets: buy two weeks before even duri...    109    49440.0           36.0</span>
-<span class="c1">## 4  OK we&#39;re all adults here, so really, how on ea...    306    73808.0           79.0</span>
-<span class="c1">## 5  How to intentionally get denied entry to the U...    219    63873.0           53.0</span>
-<span class="c1">## 6  How do you know if Americans genuinely/literal...    254    30312.0           79.0</span>
-<span class="c1">## 7  OK, we are all adults here, so what is a bidet...    140    52265.0           38.0</span>
-<span class="c1">## 8          How to cope with too slow Wi-Fi at hotel?     82    16380.0           41.0</span>
+<span class="c1">##                                                Title  ...  FavoriteCount</span>
+<span class="c1">## 0  When traveling to a country with a different c...  ...           35.0</span>
+<span class="c1">## 1         How can I do a &quot;broad&quot; search for flights?  ...           49.0</span>
+<span class="c1">## 2  Tactics to avoid getting harassed by corrupt p...  ...           42.0</span>
+<span class="c1">## 3  Flight tickets: buy two weeks before even duri...  ...           36.0</span>
+<span class="c1">## 4  OK we&#39;re all adults here, so really, how on ea...  ...           79.0</span>
+<span class="c1">## 5  How to intentionally get denied entry to the U...  ...           53.0</span>
+<span class="c1">## 6  How do you know if Americans genuinely/literal...  ...           79.0</span>
+<span class="c1">## 7  OK, we are all adults here, so what is a bidet...  ...           38.0</span>
+<span class="c1">## 8          How to cope with too slow Wi-Fi at hotel?  ...           41.0</span>
+<span class="c1">## </span>
+<span class="c1">## [9 rows x 4 columns]</span>
 </pre></div>
 </div>
 </div></div></div>
@@ -768,13 +770,15 @@ Return the top 6 records with respect to <code class="docutils literal notransla
 <span class="s2">    LIMIT 6</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
 <span class="n">res10a</span>
-<span class="c1">##          TagName  Count  OwnerUserId   Age          Location       DisplayName</span>
-<span class="c1">## 0         canada    802        101.0  34.0     Mumbai, India             hitec</span>
-<span class="c1">## 1         europe    681        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
-<span class="c1">## 2  visa-refusals    554       1737.0  34.0      New York, NY  Benjamin Pollack</span>
-<span class="c1">## 3      australia    411        101.0  34.0     Mumbai, India             hitec</span>
-<span class="c1">## 4             eu    204        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
-<span class="c1">## 5  new-york-city    204        101.0  34.0     Mumbai, India             hitec</span>
+<span class="c1">##          TagName  Count  ...          Location       DisplayName</span>
+<span class="c1">## 0         canada    802  ...     Mumbai, India             hitec</span>
+<span class="c1">## 1         europe    681  ...  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 2  visa-refusals    554  ...      New York, NY  Benjamin Pollack</span>
+<span class="c1">## 3      australia    411  ...     Mumbai, India             hitec</span>
+<span class="c1">## 4             eu    204  ...  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 5  new-york-city    204  ...     Mumbai, India             hitec</span>
+<span class="c1">## </span>
+<span class="c1">## [6 rows x 6 columns]</span>
 </pre></div>
 </div>
 </div></div><div class="proof proof-type-exercise" id="id16">
@@ -873,16 +877,18 @@ with the most up-votes:</p>
     <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">res4b</span>
-<span class="c1">##                                                Title  Score  ViewCount  FavoriteCount</span>
-<span class="c1">## 0  When traveling to a country with a different c...    136    16838.0           35.0</span>
-<span class="c1">## 1         How can I do a &quot;broad&quot; search for flights?     95    33554.0           49.0</span>
-<span class="c1">## 2  Tactics to avoid getting harassed by corrupt p...    156    13220.0           42.0</span>
-<span class="c1">## 3  Flight tickets: buy two weeks before even duri...    109    49440.0           36.0</span>
-<span class="c1">## 4  OK we&#39;re all adults here, so really, how on ea...    306    73808.0           79.0</span>
-<span class="c1">## 5  How to intentionally get denied entry to the U...    219    63873.0           53.0</span>
-<span class="c1">## 6  How do you know if Americans genuinely/literal...    254    30312.0           79.0</span>
-<span class="c1">## 7  OK, we are all adults here, so what is a bidet...    140    52265.0           38.0</span>
-<span class="c1">## 8          How to cope with too slow Wi-Fi at hotel?     82    16380.0           41.0</span>
+<span class="c1">##                                                Title  ...  FavoriteCount</span>
+<span class="c1">## 0  When traveling to a country with a different c...  ...           35.0</span>
+<span class="c1">## 1         How can I do a &quot;broad&quot; search for flights?  ...           49.0</span>
+<span class="c1">## 2  Tactics to avoid getting harassed by corrupt p...  ...           42.0</span>
+<span class="c1">## 3  Flight tickets: buy two weeks before even duri...  ...           36.0</span>
+<span class="c1">## 4  OK we&#39;re all adults here, so really, how on ea...  ...           79.0</span>
+<span class="c1">## 5  How to intentionally get denied entry to the U...  ...           53.0</span>
+<span class="c1">## 6  How do you know if Americans genuinely/literal...  ...           79.0</span>
+<span class="c1">## 7  OK, we are all adults here, so what is a bidet...  ...           38.0</span>
+<span class="c1">## 8          How to cope with too slow Wi-Fi at hotel?  ...           41.0</span>
+<span class="c1">## </span>
+<span class="c1">## [9 rows x 4 columns]</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_frame_equal</span><span class="p">(</span><span class="n">res4a</span><span class="p">,</span> <span class="n">res4b</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1066,13 +1072,15 @@ and GROUP BY.</p>
     <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">res10b</span>
-<span class="c1">##          TagName  Count  OwnerUserId   Age          Location       DisplayName</span>
-<span class="c1">## 0         canada    802        101.0  34.0     Mumbai, India             hitec</span>
-<span class="c1">## 1         europe    681        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
-<span class="c1">## 2  visa-refusals    554       1737.0  34.0      New York, NY  Benjamin Pollack</span>
-<span class="c1">## 3      australia    411        101.0  34.0     Mumbai, India             hitec</span>
-<span class="c1">## 4             eu    204        583.0  35.0  Philadelphia, PA       Adam Tuttle</span>
-<span class="c1">## 5  new-york-city    204        101.0  34.0     Mumbai, India             hitec</span>
+<span class="c1">##          TagName  Count  ...          Location       DisplayName</span>
+<span class="c1">## 0         canada    802  ...     Mumbai, India             hitec</span>
+<span class="c1">## 1         europe    681  ...  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 2  visa-refusals    554  ...      New York, NY  Benjamin Pollack</span>
+<span class="c1">## 3      australia    411  ...     Mumbai, India             hitec</span>
+<span class="c1">## 4             eu    204  ...  Philadelphia, PA       Adam Tuttle</span>
+<span class="c1">## 5  new-york-city    204  ...     Mumbai, India             hitec</span>
+<span class="c1">## </span>
+<span class="c1">## [6 rows x 6 columns]</span>
 </pre></div>
 </div>
 <p>Note that in SQL, “not equals to -1” implies that “IS NOT NULL”.</p>
@@ -1348,9 +1356,9 @@ read from many CSV files?</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

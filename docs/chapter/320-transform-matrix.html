@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8. Processing Multidimensional Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
+  <title>8. Processing Multidimensional Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
   
 
   
@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [DRAFTv0.5.1]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
           
 
           
@@ -122,7 +122,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="210-vector.html">4. Unidimensional Numeric Data and Their Empirical Distribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="220-transform-vector.html">5. Processing Unidimensional Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
 </ul>
@@ -143,13 +143,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#other-row-and-column-transforms">8.1.4. Other Row and Column Transforms (*)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#matrix-indexing">8.2. Matrix Indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#indexing-matrices">8.2. Indexing Matrices</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#slice-based-indexing">8.2.1. Slice-Based Indexing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scalar-based-indexing">8.2.2. Scalar-Based Indexing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mixed-boolean-integer-vector-and-scalar-slice-indexers">8.2.3. Mixed Boolean/Integer Vector and Scalar/Slice Indexers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#two-vectors-as-indexers">8.2.4. Two Vectors as Indexers (*)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#views-on-existing-arrays">8.2.5. Views on Existing Arrays (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adding-and-modifying-rows-or-columns">8.2.6. Adding and Modifying Rows or Columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-and-modifying-rows-and-columns">8.2.6. Adding and Modifying Rows and Columns</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#matrix-multiplication-dot-products-and-the-euclidean-norm">8.3. Matrix Multiplication, Dot Products, and the Euclidean Norm</a></li>
@@ -157,7 +157,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#the-euclidean-metric">8.4.1. The Euclidean Metric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#centroids">8.4.2. Centroids</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multidimensional-dispersion-and-other-aggregates">8.4.3. Multidimensional Dispersion and Other Aggregates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fixed-radius-and-k-nearest-neighbour-search">8.4.4. Fixed-Radius and K-Nearest Neighbour Search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixed-radius-and-k-nearest-neighbour-search">8.4.4. Fixed-Radius and <em>K</em>-Nearest Neighbour Search</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#spatial-search-with-k-d-trees">8.4.5. Spatial Search with <em>K</em>-d Trees</a></li>
 </ul>
 </li>
@@ -171,9 +171,9 @@
 <li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
 <li class="toctree-l1"><a class="reference internal" href="420-categorical.html">11. Handling Categorical Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
-<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases (An Interlude)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Types of Data</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Data Types</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="510-text.html">14. Text Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="520-missingness.html">15. Missing, Censored, and Questionable Data</a></li>
@@ -205,7 +205,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [DRAFTv0.5.1]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
         
       </nav>
 
@@ -274,10 +274,11 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="processing-multidimensional-data">
 <span id="chap-transform-matrix"></span><h1><span class="section-number">8. </span>Processing Multidimensional Data<a class="headerlink" href="#processing-multidimensional-data" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>This is an early draft of</em> Minimalist Data Wrangling with Python <em>by
-<a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>. It’s distributed
-in the hope that it’ll be useful. Any
-<a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
+<div><p><em>The online version of the open access textbook</em> Minimalist Data
+Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
+is, and will remain, freely available for everyone’s enjoyment
+(also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
+Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course,
 and should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
@@ -742,8 +743,8 @@ in <code class="docutils literal notranslate"><span class="pre">A</span></code>,
 </div>
 </div>
 </div>
-<div class="section" id="matrix-indexing">
-<span id="sec-matrix-indexing"></span><h2><span class="section-number">8.2. </span>Matrix Indexing<a class="headerlink" href="#matrix-indexing" title="Permalink to this headline"></a></h2>
+<div class="section" id="indexing-matrices">
+<span id="sec-matrix-indexing"></span><h2><span class="section-number">8.2. </span>Indexing Matrices<a class="headerlink" href="#indexing-matrices" title="Permalink to this headline"></a></h2>
 <p>Recall that for 1-dimensional arrays we have four possible choices
 of indexers (i.e., where performing filtering like <code class="docutils literal notranslate"><span class="pre">x[i]</span></code>):</p>
 <ul class="simple">
@@ -940,8 +941,8 @@ in-place, e.g.,</p>
 might lead to some unexpected results if we are not
 focused enough. We have been warned.</p>
 </div>
-<div class="section" id="adding-and-modifying-rows-or-columns">
-<h3><span class="section-number">8.2.6. </span>Adding and Modifying Rows or Columns<a class="headerlink" href="#adding-and-modifying-rows-or-columns" title="Permalink to this headline"></a></h3>
+<div class="section" id="adding-and-modifying-rows-and-columns">
+<h3><span class="section-number">8.2.6. </span>Adding and Modifying Rows and Columns<a class="headerlink" href="#adding-and-modifying-rows-and-columns" title="Permalink to this headline"></a></h3>
 <p>With slice/scalar-based indexers,
 rows/columns/individual elements can be replaced by
 new content in a natural way:</p>
@@ -1379,7 +1380,7 @@ due its low popularity amongst practitioners.</p>
 </div>
 </div>
 <div class="section" id="fixed-radius-and-k-nearest-neighbour-search">
-<span id="sec-knn-vs-radius"></span><h3><span class="section-number">8.4.4. </span>Fixed-Radius and K-Nearest Neighbour Search<a class="headerlink" href="#fixed-radius-and-k-nearest-neighbour-search" title="Permalink to this headline"></a></h3>
+<span id="sec-knn-vs-radius"></span><h3><span class="section-number">8.4.4. </span>Fixed-Radius and <em>K</em>-Nearest Neighbour Search<a class="headerlink" href="#fixed-radius-and-k-nearest-neighbour-search" title="Permalink to this headline"></a></h3>
 <p>A number of data analysis techniques relies upon
 aggregating information about what is happening in the
 <em>local neighbourhoods</em> of the points.
@@ -1657,9 +1658,9 @@ the Euclidean norm as
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Marek Gagolewski. Licensed under CC BY-NC-ND 4.0.
+        Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-13T15:25:17+1000.
+        Last updated on 2022-06-16T18:44:24+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
