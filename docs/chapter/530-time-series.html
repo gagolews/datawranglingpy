@@ -282,7 +282,7 @@ recorded at a particular point in time;</p></li>
 count data and the corresponding categories or labels,</p></li>
 <li><p>data to report (as in: tables, figures, heatmaps, etc.).</p></li>
 </ul>
-<p>In this part we’ll explore the most basic concepts related to the
+<p>In this part we will explore the most basic concepts related to the
 wrangling of <em>time series</em> data – signals indexed by discrete time.
 Usually a time series is a sequence of measurements
 sampled at equally spaced moments, e.g.,
@@ -363,19 +363,19 @@ winter is colder than summer.</p>
 <div class="section" id="representation-the-unix-epoch">
 <h3><span class="section-number">16.2.1. </span>Representation: The UNIX Epoch<a class="headerlink" href="#representation-the-unix-epoch" title="Permalink to this headline"></a></h3>
 <p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.datetime.html"><code class="docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a> is a type to represent datetimes.
-Usually, we’ll be creating dates from strings, for instance:</p>
+Usually, we will be creating dates from strings, for instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-06-16&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-06-17&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-06-16T02:47:34&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-06-17T01:33:54&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -385,11 +385,11 @@ Usually, we’ll be creating dates from strings, for instance:</p>
 the number of days or seconds since the so-called <em>Unix Epoch</em>,
 1970-01-01T00:00:00 in the UTC time zone.</p>
 </div>
-<p>Let’s verify that:</p>
+<p>Let us verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19159.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19160.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.65534765e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.65542963e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
@@ -408,10 +408,10 @@ all dates in the YYYY-MM-DD format from a
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-06-15&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-06-16&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-06-16T14:47:34&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-06-17T13:33:54&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -494,7 +494,7 @@ to datetime objects:</p>
         <span class="proof-type">Exercise 16.3</span>
         
     </div><div class="proof-content">
-<p>From the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less that 18 years old
+<p>From the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less than 18 years old
 (as of the current day).
 The <strong class="command">pandas.to_datetime</strong> function can also
 convert arbitrarily formatted date strings,
@@ -621,9 +621,9 @@ the events.</p>
 <span class="c1">##       dtype=&#39;datetime64[ms]&#39;))</span>
 </pre></div>
 </div>
-<p>W converted the deltas to milliseconds so that we didn’t lose
+<p>W converted the deltas to milliseconds so that we did not lose
 precision; <code class="docutils literal notranslate"><span class="pre">datetime64</span></code> is based on integers, not floating-point numbers.</p>
-<p>As an exercise, let’s apply binning and
+<p>As an exercise, let us apply binning and
 count how many events occur in each hour:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
     <span class="s2">&quot;2022-01-01T00:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-01T05:00:00&quot;</span><span class="p">,</span>
@@ -927,7 +927,7 @@ by the average of its neighbours.</p></li>
     </div><div class="proof-content">
 <p>The classic <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/r/air_quality_1973.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_1973</span></code></a> dataset gives some
 daily air quality measurements in New York, between May and September 1973.
-As an example, let’s impute a first few observations in the
+As an example, let us impute a first few observations in the
 solar radiation column:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/r/air_quality_1973.csv&quot;</span><span class="p">,</span>
@@ -986,7 +986,7 @@ the average PM2.5 was greater than in the preceding day.</p></li>
 <h3><span class="section-number">16.3.5. </span>Plotting Multidimensional Time Series<a class="headerlink" href="#plotting-multidimensional-time-series" title="Permalink to this headline"></a></h3>
 <p>Multidimensional time series stored in the form of
 an <em>n</em>-by-<em>m</em> matrix are best viewed as <em>m</em> time series –
-possibly but not necessarily somehow related to each other –
+possibly but not necessarily somewhat related to each other –
 all sampled at the same <em>n</em> points in time
 (e.g., <em>m</em> different stocks on <em>n</em> consecutive days).</p>
 <p>Consider the currency exchange rates
@@ -1007,7 +1007,7 @@ for the first half of 2020:</p>
 (how many Australian Dollars we pay for 1 Euro),
 EUR/CNY (Chinese Yuans), EUR/GBP (British Pounds),
 and EUR/PLN (Polish Złotys), in this order.
-Let’s draw the four time series, see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 16.8</span></a>.</p>
+Let us draw the four time series, see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 16.8</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/euraud-20200101-20200630-dates.txt&quot;</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
@@ -1157,7 +1157,7 @@ and High prices on all the days.</p>
 <p>Data science classically deals with
 information that is or can be represented in tabular form
 and where particular observations (which can be multidimensional)
-are usually independent from but still somewhat similar to each other.
+are usually independent from but still to some extent similar to each other.
 We often treat them as samples from different larger populations
 which we would like to describe or compare at some level
 of generality (think: health data on patients being
@@ -1172,7 +1172,7 @@ Still, for data of this kind, employing statistical modelling
 techniques (<em>stochastic processes</em>) still can make sense.</p>
 <div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video, are slightly different,
 because <em>structured randomness</em> does not play dominant role there (unless
-it’s noise that we would like to filter out).
+it is noise that we would like to filter out).
 Instead, what is happening in the frequency (think: perceiving
 pitches when listening to music)
 or spatial (seeing green grass and sky on a photo) domain
@@ -1181,7 +1181,7 @@ will play key role there.</p>
 e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
 (also because it requires some more advanced calculus skills that we
-didn’t assume the reader to have at this time).
+did not assume the reader to have at this time).
 Therefore, see, e.g., <span id="id1">[<a class="reference internal" href="999-bibliography.html#id28">Smi02</a>, <a class="reference internal" href="999-bibliography.html#id27">Ste96</a>]</span>.</p>
 <p>Nevertheless, we should keep in mind that these are not completely
 independent domains. For example, we can extract various features of audio
@@ -1224,7 +1224,7 @@ stochastic processes, e.g., <span id="id4">[<a class="reference internal" href="
         <span class="proof-type">Exercise 16.17</span>
         
     </div><div class="proof-content">
-<p>Let’s say we have a time series with <em>n</em> observations.
+<p>Assume we have a time series with <em>n</em> observations.
 What is a 1- and an <em>n</em>-moving average?
 Which one is smoother, an <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
 </div></div><div class="proof proof-type-exercise" id="id32">
@@ -1269,7 +1269,7 @@ of a candlestick plot.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-16T18:44:24+1000.
+        Last updated on 2022-06-17T18:22:19+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
