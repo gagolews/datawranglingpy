@@ -1,7 +1,7 @@
 # Minimalist Data Wrangling with Python
 
 > Any remarks and bug fixes are appreciated — please submit them via
-> this repository's *Issues* tracker. Thank you.**
+> this repository's *Issues* tracker. Thank you.
 
 This repository hosts the HTML and PDF versions of the open access (free!)
 textbook *Minimalist Data Wrangling with Python* by [Marek Gagolewski][1].
