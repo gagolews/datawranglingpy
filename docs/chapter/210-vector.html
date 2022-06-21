@@ -127,22 +127,21 @@
 <li class="toctree-l3"><a class="reference internal" href="#enumerating-elements">4.1.1. Enumerating Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#arithmetic-progressions">4.1.2. Arithmetic Progressions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#repeating-values">4.1.3. Repeating Values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generating-pseudorandom-variates">4.1.4. Generating Pseudorandom Variates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#loading-data-from-files">4.1.5. Loading Data from Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#numpy-r">4.1.6. <strong class="command">numpy.r_</strong> (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#numpy-r">4.1.4. <strong class="command">numpy.r_</strong> (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generating-pseudorandom-variates">4.1.5. Generating Pseudorandom Variates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-data-from-files">4.1.6. Loading Data from Files</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#mathematical-notation">4.2. Mathematical Notation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#histograms">4.3. Histograms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-the-data-distribution-with-histograms">4.3. Inspecting the Data Distribution with Histograms</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#heights-a-bell-shaped-distribution">4.3.1. <code class="docutils literal notranslate"><span class="pre">heights</span></code>: A Bell-Shaped Distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#income-a-right-skewed-distribution">4.3.2. <code class="docutils literal notranslate"><span class="pre">income</span></code>: A Right-Skewed Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#marathon-the-fastest-runners-a-left-skewed-distribution">4.3.3. <code class="docutils literal notranslate"><span class="pre">marathon</span></code> (The Fastest Runners): A Left-Skewed Distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#how-many-bins">4.3.4. How Many Bins?</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#manual-binning">4.3.5. Manual Binning (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#peds-a-bimodal-distribution-already-binned">4.3.6. <code class="docutils literal notranslate"><span class="pre">peds</span></code>: A Bimodal Distribution (Already Binned)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#matura-a-bell-shaped-distribution-almost">4.3.7. <code class="docutils literal notranslate"><span class="pre">matura</span></code>: A Bell-Shaped Distribution (Almost)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-many-bins">4.3.3. How Many Bins?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#peds-a-bimodal-distribution-already-binned">4.3.4. <code class="docutils literal notranslate"><span class="pre">peds</span></code>: A Bimodal Distribution (Already Binned)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#matura-a-bell-shaped-distribution-almost">4.3.5. <code class="docutils literal notranslate"><span class="pre">matura</span></code>: A Bell-Shaped Distribution (Almost)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#marathon-truncated-fastest-runners-a-left-skewed-distribution">4.3.6. <code class="docutils literal notranslate"><span class="pre">marathon</span></code> (Truncated – Fastest Runners): A Left-Skewed Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#log-scale-and-heavy-tailed-distributions">4.3.7. Log-scale and Heavy-Tailed Distributions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cumulative-counts-and-the-empirical-cumulative-distribution-function">4.3.8. Cumulative Counts and the Empirical Cumulative Distribution Function</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#log-scale-and-heavy-tailed-distributions">4.3.9. Log-scale and Heavy-Tailed Distributions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#exercises">4.4. Exercises</a></li>
@@ -288,35 +287,38 @@ conducted by the US Centres for Disease Control and Prevention.</p>
     <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let us preview a few first observations:</p>
+<p>Let us preview a few observations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>  <span class="c1"># first six</span>
 <span class="c1">## array([160.2, 152.7, 161.2, 157.4, 154.6, 144.7])</span>
 </pre></div>
 </div>
-<p>This is an example of <em>quantitative</em> (numeric) data
-in the form of a series of numbers on which it makes sense
-to apply various mathematical operations such as subtraction,
-division, taking logarithms, comparing which one is greater than the other,
-and so forth.</p>
+<p>This is an example of <em>quantitative</em> (numeric) data.
+They are in the form of a series of numbers.
+It makes sense to apply various mathematical operations on them,
+including subtraction, division, taking logarithms,
+comparing which one is greater than the other, and so forth.</p>
 <p>Most importantly, here, all the observations are <em>independent</em>
-of each other; the ordering of values does not matter.</p>
-<p>Our data sample
-consists 4221 points on the real line (a “bag” of points),
-see <a class="reference internal" href="#fig-heights-jitter"><span class="std std-numref">Figure 4.1</span></a>,
-but merely looking at the numbers themselves tells us nothing.
+of each other.
+Each value represents a different person
+Our data sample consists of 4221 points on the real line
+(a <em>bag</em> of points whose actual ordering of does not matter).
+From <a class="reference internal" href="#fig-heights-jitter"><span class="std std-numref">Figure 4.1</span></a>, we see that
+merely looking at the numbers themselves tells us nothing.
 There are too many of them.</p>
-<div class="figure align-default" id="id9">
+<div class="figure align-default" id="id16">
 <span id="fig-heights-jitter"></span><img alt="../_images/heights-jitter-1.png" src="../_images/heights-jitter-1.png" />
-<p class="caption"><span class="caption-number">Figure 4.1 </span><span class="caption-text">The <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset is comprised of independent points on the real like; we have added some jitter on the y-axis for dramatic effects only</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 4.1 </span><span class="caption-text">The <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset is comprised of independent points on the real line. We have added some jitter on the y-axis for dramatic effects only: the points are too plentiful</span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
 </div>
-<p>In this chapter we introduce basic ways to create vectors in the
-<strong class="program">numpy</strong> package, which are an efficient data structure for
-storing and operating on numeric data just like the ones above.
-Then, we discuss some basic tools for inspecting their the distribution.</p>
+<p>This is why we are interested in studying a multitude of methods
+that can bring some insight into the reality behind the numbers.
+For example, inspecting their distribution.</p>
 <div class="section" id="creating-vectors-in-numpy">
 <h2><span class="section-number">4.1. </span>Creating Vectors in <strong class="program">numpy</strong><a class="headerlink" href="#creating-vectors-in-numpy" title="Permalink to this headline"></a></h2>
+<p>In this chapter we introduce basic ways to create <strong class="program">numpy</strong>
+vectors, which are an efficient data structure for
+storing and operating on numeric data just like the ones above.</p>
 <p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html"><strong class="program">numpy</strong></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id5">H+20</a>]</span> is an open source add-on for numerical  computing
+<span id="id1">[<a class="reference internal" href="999-bibliography.html#id5">H+20</a>]</span> is an open-source add-on for numerical  computing
 written by Travis Oliphant and other developers
 in 2005 (although the project has a much longer
 <a class="reference external" href="https://scipy.github.io/old-wiki/pages/History_of_SciPy">history</a>
@@ -324,7 +326,7 @@ and stands on the shoulders of many giants
 (e.g., concepts from the APL and Fortran languages).
 It adds support for multi-dimensional arrays
 and numerous operations on them,
-similar to those available in R, S, MATLAB, GNU Octave, Scilab, Julia,
+similar to those available in R, S, GNU Octave, Scilab, Julia,
 Perl (via <strong class="program">Perl Data Language</strong>),
 and some numerical analysis libraries such as <strong class="program">LAPACK</strong>,
 <strong class="program">GNU GSL</strong>, etc.</p>
@@ -333,40 +335,15 @@ and some numerical analysis libraries such as <strong class="program">LAPACK</st
 <strong class="program">pandas</strong> <span id="id3">[<a class="reference internal" href="999-bibliography.html#id13">McK17</a>]</span>, and
 <strong class="program">sklearn</strong> <span id="id4">[<a class="reference internal" href="999-bibliography.html#id3">PVG+11</a>]</span>),
 hence our studying it in very detail is utterly important.
-In particular, whatever we learn  about vectors here
-will be transferable to the case of the processing of data frame columns.</p>
-<div style="margin-top: 1em"></div><p>Recall that Python lists, e.g., <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>, represent simple sequences of
-objects of any kind.
-Their use cases are very broad, which is both an advantage
-and something quite the opposite.</p>
-<p><em>Vectors</em> in <strong class="program">numpy</strong> are 1-dimensional arrays which
-are like lists, but on steroids, which make them strong
-at scientific computing.</p>
-<p>A vector of length <em>n</em> will often be used to represent
-a point in an <em>n</em> dimensional space (for example, GPS coordinates
-of a place on Earth assume <em>n=2</em>)
-or <em>n</em> readings of some 1-dimensional quantity
-(e.g., recorded heights of <em>n</em> people).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>(*) <strong class="program">numpy</strong> vectors are powerful because of the underlying assumption
-that each object they store is of the same type. Although it is possible
-to save references to arbitrary objects therein, in majority of the cases
-we will be dealing with vectors of logical values, integers, and
-floating-point numbers.</p>
-<p>Those are directly representable as simple arrays in the C programming
-language, in which <strong class="program">numpy</strong> is written. Hence, operations on
-vectors will be very fast provided that we are using the functions working
-on them <em>as a whole</em>. Hence, the readers having some background in other
-lower-level languages, will need to change their habits
-of processing individual elements in a sequence, e.g., by means
-of a <strong class="command">for</strong> loop.</p>
-</div>
-<p>It is customary to import the <strong class="program">numpy</strong> package under the <code class="docutils literal notranslate"><span class="pre">np</span></code> alias:</p>
+Whatever we learn about vectors will be greatly transferable
+to the case of the processing
+of data frame columns.</p>
+<div style="margin-top: 1em"></div><p>It is customary to import the <strong class="program">numpy</strong>
+package under the <code class="docutils literal notranslate"><span class="pre">np</span></code> alias:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
-<p>Hence, we can now refer to objects defined therein as
+<p>Hence, our code can now refer to the objects defined therein as
 <code class="docutils literal notranslate"><span class="pre">np.spam</span></code>, <code class="docutils literal notranslate"><span class="pre">np.bacon</span></code>, or <code class="docutils literal notranslate"><span class="pre">np.spam</span></code>.</p>
 <div class="section" id="enumerating-elements">
 <h3><span class="section-number">4.1.1. </span>Enumerating Elements<a class="headerlink" href="#enumerating-elements" title="Permalink to this headline"></a></h3>
@@ -376,11 +353,16 @@ of a <strong class="command">for</strong> loop.</p>
 <span class="c1">## array([10, 20, 30, 40, 50, 60])</span>
 </pre></div>
 </div>
-<p>Note that the vector elements were specified by means of an ordinary list.
+<p>Here, the vector elements were specified by means of an ordinary list.
 Ranges and tuples can also be used as content providers,
 which the kind reader is encouraged to check themself.</p>
-<div style="margin-top: 1em"></div><p>The length of the vector can either be read using the previously mentioned
-<code class="docutils literal notranslate"><span class="pre">len</span></code> function:</p>
+<div style="margin-top: 1em"></div><p>A vector of length (size) <em>n</em> is often used to represent
+a point in an <em>n</em> dimensional space (for example, GPS coordinates
+of a place on Earth assume <em>n=2</em>)
+or <em>n</em> readings of some 1-dimensional quantity
+(e.g., recorded heights of <em>n</em> people).</p>
+<p>The said length can either be read using the previously mentioned
+<strong class="command">len</strong> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## 6</span>
 </pre></div>
@@ -390,27 +372,52 @@ which the kind reader is encouraged to check themself.</p>
 <span class="c1">## (6,)</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>Note that a vector is a 1-dimensional array, hence its shape is stored
-as a tuple of length 1 (the number of dimensions is stored as <code class="docutils literal notranslate"><span class="pre">x.ndim</span></code>).
-We can get its length by accessing <code class="docutils literal notranslate"><span class="pre">x.shape[0]</span></code>.</p>
-<p>On a side note, matrices (2-dimensional arrays), which we shall study later,
-will be of shape like <code class="docutils literal notranslate"><span class="pre">(number_of_rows,</span> <span class="pre">number_of_columns)</span></code>.</p>
-<div style="margin-top: 1em"></div><p>All vector elements are generally of the same type. Above
-we have a sequence of integers:</p>
+<div style="margin-top: 1em"></div><p>Note that a vector is a <em>1-dimensional array</em>, hence its shape is stored
+as a tuple of length 1 (the number of dimensions is given by querying
+<code class="docutils literal notranslate"><span class="pre">x.ndim</span></code>). We can therefore get its length by accessing <code class="docutils literal notranslate"><span class="pre">x.shape[0]</span></code>.</p>
+<p>On a side note, matrices (2-dimensional arrays), which we shall study
+in <a class="reference internal" href="310-matrix.html#chap-matrix"><span class="std std-numref">Chapter 7</span></a>, will be of shape like
+<code class="docutils literal notranslate"><span class="pre">(number_of_rows,</span> <span class="pre">number_of_columns)</span></code>.</p>
+<div style="margin-top: 1em"></div><p>Recall that Python lists, e.g., <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>, represent simple sequences of
+objects of any kind.
+Their use cases are very broad, which is both an advantage
+and something quite the opposite.
+<em>Vectors</em> in <strong class="program">numpy</strong> are like lists, but on steroids.
+They are powerful in scientific computing
+because of the underlying assumption
+that each object they store is of the same type<a class="footnote-reference brackets" href="#footnumpyc" id="id5">1</a>.
+Although it is possible
+to save references to arbitrary objects therein, in most scenarios
+we will be dealing with vectors of logical values, integers, and
+floating-point numbers. Thanks to this, a wide range of applicable
+methods could have been defined to enable the performing of the most
+popular mathematical operations.</p>
+<p>And so, above we have created a sequence of integers:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>  <span class="c1"># data type</span>
 <span class="c1">## dtype(&#39;int64&#39;)</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>However, logical, float, complex, but also string vectors are possible too:</p>
+<div style="margin-top: 1em"></div><p>However, other element types are possible too.
+For instance, we can convert the above to a <code class="docutils literal notranslate"><span class="pre">float</span></code> vector:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># or np.array(x, dtype=float)</span>
+<span class="c1">## array([10., 20., 30., 40., 50., 60.])</span>
+</pre></div>
+</div>
+<p>Note that the above is now printed differently
+(compare the output of <strong class="command">print</strong><code class="code docutils literal notranslate"><span class="pre">(x)</span></code> above).</p>
+<p>Furthermore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
 <span class="c1">## array([ True, False, False,  True])</span>
-<span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># or np.array(x, dtype=float)</span>
-<span class="c1">## array([10., 20., 30., 40., 50., 60.])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>gave a logical vector; the constructor detected that the common
+type of all the elements is <code class="docutils literal notranslate"><span class="pre">bool</span></code>.
+Also:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">])</span>
 <span class="c1">## array([&#39;spam&#39;, &#39;spam&#39;, &#39;bacon&#39;, &#39;spam&#39;], dtype=&#39;&lt;U5&#39;)</span>
 </pre></div>
 </div>
-<p>The in last example we have an array of strings in Unicode
+<p>This yielded an an array of strings in Unicode
 (i.e., capable of storing any character in any alphabet,
 emojis, mathematical symbols, etc.),
 each of no more than 5 code points in length.
@@ -423,37 +430,37 @@ result in the too long strings’ truncation. This can be remedied by calling
 <h3><span class="section-number">4.1.2. </span>Arithmetic Progressions<a class="headerlink" href="#arithmetic-progressions" title="Permalink to this headline"></a></h3>
 <p><strong class="program">numpy</strong>’s <strong class="command">arange</strong> is similar to the built-in
 <strong class="command">range</strong>, but outputs a vector:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># from 0 to 10 (exclusive) by 2</span>
 <span class="c1">## array([0, 2, 4, 6, 8])</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">linspace</span></code> (<em>linear space</em>) creates a sequence of equidistant points
+<p><strong class="command">numpy.linspace</strong> (<em>linear space</em>) creates a sequence of equidistant points
 in a given interval:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># from 0 to 1 (inclusive), 5 equispaced values</span>
 <span class="c1">## array([0.  , 0.25, 0.5 , 0.75, 1.  ])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id10">
+<div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.1</span>
         
     </div><div class="proof-content">
-<p>Call <strong class="command">help</strong><code class="code docutils literal notranslate"><span class="pre">(np.linspace)</span></code> and study the meaning of the
-<code class="docutils literal notranslate"><span class="pre">endpoint</span></code> argument.
-Also, find the same documentation page at the <strong class="program">numpy</strong> project’s
+<p>Call <strong class="command">help</strong><code class="code docutils literal notranslate"><span class="pre">(np.linspace)</span></code>
+or <strong class="command">help</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;numpy.linspace&quot;)</span></code>
+to study the meaning of the <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> argument.
+Find the same documentation page at the <strong class="program">numpy</strong> project’s
 <a class="reference external" href="https://numpy.org/doc/stable/reference/index.html">website</a>.
 Another way is to use your favourite search engine such as
-DuckDuckGo and query “<code class="docutils literal notranslate"><span class="pre">linspace</span> <span class="pre">site:numpy.org</span></code>”.
-Always remember to gather information from first hand sources!
-If you are serious about data science in Python,
-you will become a frequent visitor at this page (and similar ones).
+DuckDuckGo and query “<code class="docutils literal notranslate"><span class="pre">linspace</span> <span class="pre">site:numpy.org</span></code>”<a class="footnote-reference brackets" href="#footbang" id="id6">2</a>.
+Always remember to gather information from first-hand sources.
+You should become a frequent visitor of this page (and similar ones).
 In particular, every so often it is a good idea to check out for
 significant updates at <a class="reference external" href="https://numpy.org/news/">https://numpy.org/news/</a>.</p>
 </div></div></div>
 <div class="section" id="repeating-values">
 <h3><span class="section-number">4.1.3. </span>Repeating Values<a class="headerlink" href="#repeating-values" title="Permalink to this headline"></a></h3>
-<p><strong class="command">numpy.repeat</strong> repeats <em>each</em> value a number of times:</p>
+<p><strong class="command">numpy.repeat</strong> repeats <em>each</em> value a given number of times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="c1">## array([5, 5, 5, 5, 5, 5])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
@@ -462,63 +469,30 @@ significant updates at <a class="reference external" href="https://numpy.org/new
 <span class="c1">## array([1, 1, 1, 2, 2, 2, 2, 2])</span>
 </pre></div>
 </div>
-<p>Here, each element from the 1st argument
+<p>In each case, every element from the list passed as the 1st argument
 was repeated the <em>corresponding</em> number of times,
-as defined by the 2nd argument.</p>
-<p><strong class="command">numpy.tile</strong>, on the other hand, repeats a whole sequence
+as defined by the 2nd argument.
+The kind reader should not expect us to elaborate upon the obtained results
+any further, because everything is evident: they need to look at the
+example calls, carefully study all the displayed outputs,
+and make the conclusions by themself.
+If something is unclear, they should consult the official documentation
+and apply Rule #4.</p>
+<div style="margin-top: 1em"></div><p>Moving on.
+<strong class="command">numpy.tile</strong>, on the other hand, repeats a whole sequence
 with <em>recycling</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
 <span class="c1">## array([1, 2, 1, 2, 1, 2])</span>
 </pre></div>
 </div>
-<p>See also <strong class="command">numpy.zeros</strong> and <strong class="command">numpy.ones</strong> for
+<p>Note the difference between the above
+and the result of <strong class="command">numpy.repeat</strong><code class="code docutils literal notranslate"><span class="pre">([1,</span> <span class="pre">2],</span> <span class="pre">3)</span></code>.</p>
+<p>See also<a class="footnote-reference brackets" href="#footseealso" id="id7">3</a> <strong class="command">numpy.zeros</strong> and <strong class="command">numpy.ones</strong> for
 some specialised versions of the above.</p>
 </div>
-<div class="section" id="generating-pseudorandom-variates">
-<h3><span class="section-number">4.1.4. </span>Generating Pseudorandom Variates<a class="headerlink" href="#generating-pseudorandom-variates" title="Permalink to this headline"></a></h3>
-<p>The <strong class="program">numpy.random</strong> module defines many functions to generate
-pseudorandom numbers. We will be discussing the reason
-for our using the <em>pseudo</em> prefix together with various probability
-distributions in a further part, so let us only quickly take
-note of a way to sample from the uniform distribution on the unit interval:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="c1">## array([0.49340194, 0.41614605, 0.69780667, 0.45278338, 0.84061215])</span>
-</pre></div>
-</div>
-<p>and picking values from a given set:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1">## array([1, 5, 8])</span>
-</pre></div>
-</div>
-<p>This gave 3 values from the set <em>{1, 2, …, 9}</em>, without replacement
-(so that all the numbers are unique).</p>
-</div>
-<div class="section" id="loading-data-from-files">
-<h3><span class="section-number">4.1.5. </span>Loading Data from Files<a class="headerlink" href="#loading-data-from-files" title="Permalink to this headline"></a></h3>
-<p>We will usually  be reading whole heterogeneous tabular data sets
-using <strong class="command">pandas.read_csv</strong> being the topic we shall cover
-in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>.</p>
-<p>It is worth knowing, though, that arrays with elements of the
-same type can be read efficiently from
-text (e.g., CSV) files using <strong class="command">numpy.loadtxt</strong>,
-for example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="proof proof-type-exercise" id="id11">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 4.2</span>
-        
-    </div><div class="proof-content">
-<p>Use <strong class="command">numpy.loadtxt</strong> to read
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/population_largest_cities_unnamed.txt">this dataset</a>
-from GitHub (click <em>Raw</em> to get access to its contents).</p>
-</div></div></div>
 <div class="section" id="numpy-r">
-<h3><span class="section-number">4.1.6. </span><strong class="command">numpy.r_</strong> (*)<a class="headerlink" href="#numpy-r" title="Permalink to this headline"></a></h3>
-<p><strong class="command">numpy.r_</strong> is perhaps the most flexible means for
+<h3><span class="section-number">4.1.4. </span><strong class="command">numpy.r_</strong> (*)<a class="headerlink" href="#numpy-r" title="Permalink to this headline"></a></h3>
+<p><strong class="command">numpy.r_</strong> gives perhaps the most flexible means for
 creating vectors involving quite a few of the aforementioned scenarios,
 however it has a quirky syntax.</p>
 <p>For example:</p>
@@ -527,65 +501,120 @@ however it has a quirky syntax.</p>
 </pre></div>
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">nan</span></code> stands for a <em>not-a-number</em> and is used as a placeholder
-for missing values (discussed later) or <em>wrong</em> results,
+for missing values (discussed in <a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>)
+or <em>wrong</em> results,
 such as the square root of -1 in the domain of reals.
-<code class="docutils literal notranslate"><span class="pre">inf</span></code>, on the other hand, means <em>infinity</em>, <span class="math notranslate nohighlight">\(\infty\)</span>.</p>
-<p>We see that square brackets are used instead of the round ones.
-This is actually smart, because we have mentioned that slices
-(`<strong class="command">:</strong>`) can only be used inside them. And so they can:</p>
+The <code class="docutils literal notranslate"><span class="pre">inf</span></code> object, on the other hand, means <em>infinity</em>, <span class="math notranslate nohighlight">\(\infty\)</span>.
+We can think of it as value that is too large to be
+represented in the set of floating-point numbers.</p>
+<p>We see that <strong class="command">numpy.r_</strong> uses
+square brackets instead of the round ones.
+This is actually smart, because we have mentioned in
+<a class="reference internal" href="130-sequential.html#sec-slicing"><span class="std std-numref">Section 3.2.2</span></a> that slices (`<strong class="command">:</strong>`) cannot
+be used outside them. And so:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># like np.arange(0, 10, 2)</span>
 <span class="c1">## array([0, 2, 4, 6, 8])</span>
 </pre></div>
 </div>
-<p>What is more, <strong class="program">numpy</strong> authors added the following syntactic sugar:</p>
+<p>What is more, it accepts the following syntactic sugar:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="n">j</span><span class="p">]</span>  <span class="c1"># like np.linspace(0, 1, 5)</span>
 <span class="c1">## array([0.  , 0.25, 0.5 , 0.75, 1.  ])</span>
 </pre></div>
 </div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">5j</span></code> does not have the literal meaning (a complex number).
+By an arbitrary convention, and only in this context,
+it denotes the output length of the sequence to be generated.
+Could the <strong class="program">numpy</strong> authors do that? Well, they could, and they did.
+End of story.</p>
 <p>Finally, note that we can combine many chunks into one:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="n">j</span><span class="p">]</span>
 <span class="c1">## array([1. , 2. , 3. , 3. , 0. , 1. , 2. , 0. , 1.5, 3. ])</span>
 </pre></div>
 </div>
 </div>
+<div class="section" id="generating-pseudorandom-variates">
+<h3><span class="section-number">4.1.5. </span>Generating Pseudorandom Variates<a class="headerlink" href="#generating-pseudorandom-variates" title="Permalink to this headline"></a></h3>
+<p>The automatically attached <strong class="program">numpy.random</strong> module
+defines many functions to generate
+pseudorandom numbers. We will be discussing the reason
+for our using the <em>pseudo</em> prefix in <a class="reference internal" href="230-distribution.html#sec-pseudorandom"><span class="std std-numref">Section 6.4</span></a>,
+so now let us only quickly take note of a way to sample from
+the uniform distribution on the unit interval:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 5 pseudorandom observations in [0, 1]</span>
+<span class="c1">## array([0.49340194, 0.41614605, 0.69780667, 0.45278338, 0.84061215])</span>
+</pre></div>
+</div>
+<p>and to pick a few values from a given set with replacement
+(so that any number can be generated multiple times):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># replace=True</span>
+<span class="c1">## array([7, 7, 4, 6, 6, 2, 1, 7, 2, 1, 8, 9, 5, 5, 9, 8, 1, 2, 6, 6])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-data-from-files">
+<h3><span class="section-number">4.1.6. </span>Loading Data from Files<a class="headerlink" href="#loading-data-from-files" title="Permalink to this headline"></a></h3>
+<p>We will usually be reading whole heterogeneous tabular data sets
+using <strong class="command">pandas.read_csv</strong>, being the topic we shall cover
+in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>.</p>
+<p>It is worth knowing, though, that arrays with elements of the
+same type can be read efficiently from
+text (e.g., CSV) files using <strong class="command">numpy.loadtxt</strong>.
+See the code chunk at the beginning of this chapter for an example.</p>
+<div class="proof proof-type-exercise" id="id18">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 4.2</span>
+        
+    </div><div class="proof-content">
+<p>Use <strong class="command">numpy.loadtxt</strong> to read the
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/population_largest_cities_unnamed.txt">population_largest_cities_unnamed</a> dataset
+from GitHub (click <em>Raw</em> to get access to its contents).</p>
+</div></div></div>
 </div>
 <div class="section" id="mathematical-notation">
 <h2><span class="section-number">4.2. </span>Mathematical Notation<a class="headerlink" href="#mathematical-notation" title="Permalink to this headline"></a></h2>
 <p>Mathematically, we will be denoting number sequences
-with</p>
+with:</p>
 <div class="math notranslate nohighlight">
 \[\boldsymbol{x}=(x_1, x_2, \dots, x_n),\]</div>
-<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-th element therein and <span class="math notranslate nohighlight">\(n\)</span>
-is the size of the sample.
-The bold font (hopefully visible) is to emphasise that <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
-is not an atomic entity (<span class="math notranslate nohighlight">\(x\)</span>), but rather a collection thereof.</p>
-<p>For brevity, instead of saying “let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
-be a real-valued sequence<a class="footnote-reference brackets" href="#footsequencesynonyms" id="id5">1</a> of length <span class="math notranslate nohighlight">\(n\)</span>”,
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-th element therein and <span class="math notranslate nohighlight">\(n\)</span> is the length (size)
+of the tuple.
+Using the programming syntax,
+<span class="math notranslate nohighlight">\(n\)</span> corresponds to <strong class="command">len</strong><code class="code docutils literal notranslate"><span class="pre">(x)</span></code> or, equivalently, <code class="docutils literal notranslate"><span class="pre">x.shape[0]</span></code>.
+Furthermore, <span class="math notranslate nohighlight">\(x_i\)</span> is <code class="docutils literal notranslate"><span class="pre">x[i-1]</span></code> (because the first element is at index 0).</p>
+<p>The bold font (hopefully visible) is to emphasise
+that <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> is not an atomic entity (<span class="math notranslate nohighlight">\(x\)</span>),
+but rather a collection thereof.
+For brevity, instead of saying “let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
+be a real-valued sequence<a class="footnote-reference brackets" href="#footsequencesynonyms" id="id8">4</a> of length <span class="math notranslate nohighlight">\(n\)</span>”,
 we shall write “let <span class="math notranslate nohighlight">\(\boldsymbol{x}\in\mathbb{R}^n\)</span>”.
-Here, the “<span class="math notranslate nohighlight">\(\in\)</span>” symbol  stand for “<em>is in</em>” or
-“<em>is a member of</em>” and
-<span class="math notranslate nohighlight">\(\mathbb{R}\)</span> denotes the set of real numbers (the very one that features,
-<span class="math notranslate nohighlight">\(0\)</span>, <span class="math notranslate nohighlight">\(-358745.2394\)</span>, <span class="math notranslate nohighlight">\(42\)</span> and <span class="math notranslate nohighlight">\(\pi\)</span>, amongst uncountably many others)
-and <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is the set of real-valued sequences of length <span class="math notranslate nohighlight">\(n\)</span>
-(i.e., <span class="math notranslate nohighlight">\(n\)</span> such numbers considered at a time).
-For instance, <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> includes pairs such as
-<span class="math notranslate nohighlight">\((1, 2)\)</span>, <span class="math notranslate nohighlight">\((\pi/3, \sqrt{2}/2)\)</span>, and <span class="math notranslate nohighlight">\((1/3, 10^{3})\)</span>.</p>
+Here:</p>
+<ul class="simple">
+<li><p>the “<span class="math notranslate nohighlight">\(\in\)</span>” symbol stands for “<em>is in</em>” or “<em>is a member of</em>”,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}\)</span> denotes the set of real numbers (the very one
+that features, <span class="math notranslate nohighlight">\(0\)</span>, <span class="math notranslate nohighlight">\(-358745.2394\)</span>, <span class="math notranslate nohighlight">\(42\)</span> and <span class="math notranslate nohighlight">\(\pi\)</span>, amongst
+uncountably many others), and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is the set of real-valued sequences of length <span class="math notranslate nohighlight">\(n\)</span>
+(i.e., <span class="math notranslate nohighlight">\(n\)</span> such numbers considered at a time);
+e.g., <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> includes pairs such as
+<span class="math notranslate nohighlight">\((1, 2)\)</span>, <span class="math notranslate nohighlight">\((\pi/3, \sqrt{2}/2)\)</span>, and <span class="math notranslate nohighlight">\((1/3, 10^{3})\)</span>.</p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Mathematical notation is pleasantly <em>abstract</em> (general)
 in the sense that <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> can be anything,
 e.g., data on the incomes of households,
-sizes of the largest cities in a given country,
-or heights of participants in a study.
+sizes of the largest cities in some country,
+or heights of participants in some longitudinal study.
 At a first glance, such a representation of objects
-from the so-called real world might seem overly simplistic,
+from the so-called <em>real world</em> might seem overly simplistic,
 especially if we wish to store information on very complex entities.
-However, it turns out that in most cases expressing them as
+However, in most cases, expressing them as
 <em>vectors</em> (i.e., establishing a set of numeric attributes
 that best describe them in a task at hand) is not only natural
 but also perfectly sufficient for achieving whatever we aim at.</p>
 </div>
-<div class="proof proof-type-exercise" id="id12">
+<div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.3</span>
@@ -598,42 +627,42 @@ but also perfectly sufficient for achieving whatever we aim at.</p>
 <li><p>How would you represent a car in an insurance company’s database
 (for the purpose of determining how much a driver should pay annually
 for the mandatory policy)?</p></li>
-<li><p>How would you represent a student in an university (for the purpose
+<li><p>How would you represent a student in a university (for the purpose
 of granting them scholarships)?</p></li>
 </ul>
 <p>In each case, list a few numeric features that best describe the reality
-of concern. Note that descriptive labels can always be <em>encoded</em> as numbers,
-e.g., female = 1, male = 2.</p>
-</div></div><p>Using the programming syntax,
-<span class="math notranslate nohighlight">\(n\)</span> corresponds to <code class="docutils literal notranslate"><span class="pre">len(x)</span></code> or equivalently <code class="docutils literal notranslate"><span class="pre">x.shape[0]</span></code>
-and <span class="math notranslate nohighlight">\(x_i\)</span> is <code class="docutils literal notranslate"><span class="pre">x[i-1]</span></code> (because the first element is at index 0).</p>
-<p>Furthermore, by <span class="math notranslate nohighlight">\(x_{(i)}\)</span> (note the bracket)
-we will denote the <span class="math notranslate nohighlight">\(i\)</span>-th smallest value in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
-(some textbooks denote it with <span class="math notranslate nohighlight">\(x_{i:n}\)</span>, but we will not).
-In particular, <span class="math notranslate nohighlight">\(x_{(1)}\)</span> is the minimum
-and <span class="math notranslate nohighlight">\(x_{(n)}\)</span> is the maximum.</p>
+of concern. Note that descriptive (categorical)
+labels can always be <em>encoded</em> as numbers,
+e.g., female = 1, male = 2, but this will be the topic of
+<a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>.</p>
+</div></div><p>Furthermore, by <span class="math notranslate nohighlight">\(x_{(i)}\)</span> (note the bracket<a class="footnote-reference brackets" href="#footorderalt" id="id9">5</a>)
+we will denote the <em>i</em>-th smallest value in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>
+(also called the <span class="math notranslate nohighlight">\(i\)</span>-th <em>order statistic</em>).
+In particular, <span class="math notranslate nohighlight">\(x_{(1)}\)</span> is the sample minimum
+and <span class="math notranslate nohighlight">\(x_{(n)}\)</span> is the maximum.
+The same in Python:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># just an example</span>
 <span class="n">x_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">x_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_sorted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># the minimum and the maximum</span>
 <span class="c1">## (1, 5)</span>
 </pre></div>
 </div>
-<p>We shall sometimes be referring to <span class="math notranslate nohighlight">\(x_{(i)}\)</span> as the <span class="math notranslate nohighlight">\(i\)</span>-th <em>order statistic</em>.</p>
-<p>Also, for to avoid the clutter of notation,
-in certain formulae we will be assuming that
-<span class="math notranslate nohighlight">\(x_{(0)}\)</span> is the same as <span class="math notranslate nohighlight">\(x_{(1)}\)</span>
-and <span class="math notranslate nohighlight">\(x_{(n+1)}\)</span> is equivalent to <span class="math notranslate nohighlight">\(x_{(n)}\)</span>.</p>
+<p>Also, to avoid the clutter of notation,
+in certain formulae (e.g., in the definition of the type-7 quantiles
+in <a class="reference internal" href="220-transform-vector.html#sec-quantiles"><span class="std std-numref">Section 5.1.1.3</span></a>), we will be assuming that
+<span class="math notranslate nohighlight">\(x_{(0)}\)</span> is the same as <span class="math notranslate nohighlight">\(x_{(1)}\)</span> and <span class="math notranslate nohighlight">\(x_{(n+1)}\)</span> is equivalent
+to <span class="math notranslate nohighlight">\(x_{(n)}\)</span>.</p>
 </div>
-<div class="section" id="histograms">
-<h2><span class="section-number">4.3. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline"></a></h2>
+<div class="section" id="inspecting-the-data-distribution-with-histograms">
+<h2><span class="section-number">4.3. </span>Inspecting the Data Distribution with Histograms<a class="headerlink" href="#inspecting-the-data-distribution-with-histograms" title="Permalink to this headline"></a></h2>
 <p><em>Histograms</em> are one of the most
 intuitive tools for depicting the empirical distribution of a
 data sample.
 We will be drawing them using the statistical data visualisation
 package called <a class="reference external" href="https://seaborn.pydata.org"><strong class="program">seaborn</strong></a>
-<span id="id6">[<a class="reference internal" href="999-bibliography.html#id47">Was21</a>]</span> (written by Michael Waskom),
+<span id="id10">[<a class="reference internal" href="999-bibliography.html#id47">Was21</a>]</span> (written by Michael Waskom),
 which was built on top of the classic plotting library
-<a class="reference external" href="https://matplotlib.org/"><strong class="program">matplotlib</strong></a> <span id="id7">[<a class="reference internal" href="999-bibliography.html#id46">Hun07</a>]</span>
+<a class="reference external" href="https://matplotlib.org/"><strong class="program">matplotlib</strong></a> <span id="id11">[<a class="reference internal" href="999-bibliography.html#id46">Hun07</a>]</span>
 (originally developed by John D. Hunter).
 Let us import both packages and set their traditional aliases:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -642,115 +671,176 @@ Let us import both packages and set their traditional aliases:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We will frequently be calling a single
-function from <strong class="program">seaborn</strong> and then performing a series
+<p>It is customary to call a single
+function from <strong class="program">seaborn</strong> and then perform a series
 of additional calls to <strong class="program">matplotlib</strong> to tweak the
 display details. It is important to remember that the former
-uses the latter to achieve its goals, not the other way around.</p>
+uses the latter to achieve its goals, not the other way around.
+In many exercises, <strong class="program">seaborn</strong> might not even have
+the required functionality at all, and we will
+be using <strong class="program">matplotlib</strong> only, and nothing else.</p>
 </div>
 <div class="section" id="heights-a-bell-shaped-distribution">
 <h3><span class="section-number">4.3.1. </span><code class="docutils literal notranslate"><span class="pre">heights</span></code>: A Bell-Shaped Distribution<a class="headerlink" href="#heights-a-bell-shaped-distribution" title="Permalink to this headline"></a></h3>
-<p>Let us draw a histogram for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset,
+<p>Let us draw a histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset,
 see <a class="reference internal" href="#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id20">
 <span id="fig-heights-histogram-bins11"></span><img alt="../_images/heights-histogram-bins11-3.png" src="../_images/heights-histogram-bins11-3.png" />
-<p class="caption"><span class="caption-number">Figure 4.2 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 4.2 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; the empirical distribution is nicely bell-shaped</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
 </div>
 <p>The data were split into 11 bins and plotted in such a way that
-bar heights are proportional to the number of observations
-falling into each interval.</p>
-<p>The bins are non-overlapping, adjacent to each other, and of equal lengths
-and we can read their coordinates by looking at the bottom side of each
-rectangular bar.</p>
-<p>This distribution is bell-shaped – nicely symmetrical around
-about 160 cm. It resembles a <em>normal</em> distribution (which we cover
-in <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a>) – the most typical (<em>normal</em>) observations
-are somewhere in the middle, and the probability mass decreases quickly.
-We will learn that, for instance, observations outside the (more or less)
-<em>[139, 181]</em> interval (mean ± 3 standard deviations – the 3σ rule)
-are very rare (less than 1% probability).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For some of us, a normal distribution is a prototypical one – we
-think of many phenomena to be distributed in this way.
-And that is indeed the case, e.g., in psychology (IQ or
-personality tests), physiology (the above heights), or
-when measuring stuff with not-so-precise devices (distribution of errors).</p>
-<p>(*) In fact, we have a proposition saying
-that the sum or average of many observations,
-assuming that they are independent
-and follow the same (any!) distribution with finite variance,
-is approximately normally distributed.
-This is called the Central Limit Theorem and
-it is a very strong mathematical result.</p>
-<p>We might be tempted to think now that everything is normally
-distributed, but this is very much untrue.</p>
-</div>
+the bar heights are proportional to the number of observations
+falling into each interval.
+The bins are non-overlapping, adjacent to each other,
+and of equal lengths.
+We can read their coordinates by looking at the bottom side of each
+rectangular bar.
+For example, there are ca. 1200 observations falling into
+the interval <span class="math notranslate nohighlight">\([158, 163]\)</span> (more or less)
+and ca. 400 in <span class="math notranslate nohighlight">\([168, 173]\)</span> (approximately).</p>
+<p>This distribution is bell-shaped<a class="footnote-reference brackets" href="#footbell" id="id12">6</a> – nicely symmetrical around
+about 160 cm. The most typical (<em>normal</em>) observations are
+somewhere in the middle, and the probability mass decreases quickly
+on both sides.
+Actually, in <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a> we will model this
+dataset using a <em>normal</em> distribution and obtain an excellent fit.
+In particular, we will note that observations outside the
+interval <span class="math notranslate nohighlight">\([139, 181]\)</span> are very rare (probability less than 1%;
+via the <em>3σ rule</em>, i.e., expected value ± 3 standard deviations).</p>
 </div>
 <div class="section" id="income-a-right-skewed-distribution">
 <h3><span class="section-number">4.3.2. </span><code class="docutils literal notranslate"><span class="pre">income</span></code>: A Right-Skewed Distribution<a class="headerlink" href="#income-a-right-skewed-distribution" title="Permalink to this headline"></a></h3>
+<p>For some of us, a normal distribution is a prototypical one – we might
+expect (wishfully think) that many phenomena yield similar regularities.
+And that is indeed the case<a class="footnote-reference brackets" href="#footclt" id="id13">7</a>,
+e.g., in psychology (IQ or personality tests),
+physiology (the above heights), or when measuring stuff with not-so-precise
+devices (distribution of errors).
+We might be tempted to think now that <em>everything</em> is normally
+distributed, but this is very much untrue.</p>
 <p>Let us therefore consider another dataset.
 In <a class="reference internal" href="#fig-income-histogram-bins20"><span class="std std-numref">Figure 4.3</span></a> we depict
 the distribution of a simulated sample of disposable
-income (financial year ending 2020)
-of 1000 randomly chosen UK households, in £
-(of course, the UK Office for National Statistics does not provide
-us with details on each tax payer, for privacy and other reasons,
+income of 1000 randomly chosen UK households, in British Pounds,
+for the financial year ending 2020 (unfortunately, the UK Office
+for National Statistics does not provide us with details on each
+taxpayer, for privacy and other reasons,
 hence we needed to recreate it based on data from
-this <a class="reference external" href="https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/householddisposableincomeandinequality/financialyear2020">report</a>):</p>
+<a class="reference external" href="https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/householddisposableincomeandinequality/financialyear2020">this report</a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id14">
+<div class="figure align-default" id="id21">
 <span id="fig-income-histogram-bins20"></span><img alt="../_images/income-histogram-bins20-5.png" src="../_images/income-histogram-bins20-5.png" />
-<p class="caption"><span class="caption-number">Figure 4.3 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset</span><a class="headerlink" href="#id14" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 4.3 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset; the distribution is right-skewed</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
 </div>
 <p>We have normalised (<code class="docutils literal notranslate"><span class="pre">stat=&quot;percent&quot;</span></code>) the bar heights so that
-they all sum to 1 (or, equivalently, 100%), which resulted in a <em>probability</em>
-histogram.</p>
+they all sum to 1 (or, equivalently, 100%), which resulted
+in a <em>probability histogram</em>.</p>
 <p>Now we  see that the probability density
-quickly increases, reaches peak at around £15,500–£35,000
-and then slowly goes down. It has a <em>long tail</em> on the right
+quickly increases, reaches its peak at around £15,500–£35,000
+and then slowly goes down.
+We say that it has a <em>long tail</em> on the right
 (and hence it is <em>right- or positive-skewed</em>), which means that high
-salaries are quite likely.</p>
-<p>Thus, it is quite a non-normal distribution. Most people are rather
+or ever very high salaries are still quite likely.
+Thus, it is quite a non-normal distribution. Most people are rather
 poor, they do not earn the average salary. We will get back to that
 later.</p>
-<p>Also take note of the higher bars, as compared to their neighbours,
-at ca. £100,000 and £120,000. Some of us might be tempted
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In <a class="reference internal" href="#fig-income-histogram-bins20"><span class="std std-numref">Figure 4.3</span></a> we might have taken note
+of the relatively higher bars, as compared to their neighbours,
+at ca. £100,000 and £120,000. We might be tempted
 to try to invent a <em>story</em> about why there can be some difference
-in the relative probability mass, but we will refrain from it.
-Our data sample is quite small and it is likely
-that they are merely due to some natural variability.
+in the relative probability mass, but we should refrain from it.
+Our data sample is quite small, and it is likely
+that they are merely due to some natural variability
+(<a class="reference internal" href="230-distribution.html#sec-natural-variability"><span class="std std-numref">Section 6.4.4</span></a>).
 Of course, there might be some reasons behind it (theoretically),
-but we cannot read this by merely looking at a single histogram –
-a careful further inspection is necessary, but maybe not today.</p>
-<div class="proof proof-type-example" id="id15">
+but we cannot read this only by looking at a single histogram.
+In other words, it is a tool that we use to identify some rather
+general features of the data distribution (like the overall shape),
+not the specifics.</p>
+</div>
+<div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
-        <span class="proof-type">Example 4.4</span>
+        <span class="proof-type">Exercise 4.4</span>
         
     </div><div class="proof-content">
-<p>In the documentation of <strong class="command">seaborn.histplot</strong>
-(and <strong class="command">matplotlib.pyplot.hist</strong> which the former extends),
-we read that the <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument is passed to
-<strong class="command">numpy.histogram_bin_edges</strong>,
-which determines the intervals into which our data are split.
-Similarly, <strong class="command">numpy.histogram</strong> uses the same function
-and additionally returns the corresponding counts (how many observations fall
-into each bin) instead of plotting them:</p>
+<p>There is also the
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a>
+dataset in our data repository, giving corresponding weights
+(in kilograms) of the NHANES study participants.
+Draw a histogram. Does its shape resemble the
+<code class="docutils literal notranslate"><span class="pre">income</span></code> or <code class="docutils literal notranslate"><span class="pre">heights</span></code> distribution more?</p>
+</div></div></div>
+<div class="section" id="how-many-bins">
+<span id="sec-how-many-bins"></span><h3><span class="section-number">4.3.3. </span>How Many Bins?<a class="headerlink" href="#how-many-bins" title="Permalink to this headline"></a></h3>
+<p>Unless some stronger assumptions about the data distribution
+are made, choosing the right number of bins is more art than science:</p>
+<ul class="simple">
+<li><p>too many will result in a rugged histogram,</p></li>
+<li><p>too few might result in our missing of important details.</p></li>
+</ul>
+<p><a class="reference internal" href="#fig-income-histogram-binnumber"><span class="std std-numref">Figure 4.4</span></a> illustrates this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 1st plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 2nd plot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id23">
+<span id="fig-income-histogram-binnumber"></span><img alt="../_images/income-histogram-binnumber-7.png" src="../_images/income-histogram-binnumber-7.png" />
+<p class="caption"><span class="caption-number">Figure 4.4 </span><span class="caption-text">Too few and too many histogram bins (the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset)</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
+</div>
+<p>For example, in the histogram with 5 bins, we miss the information
+that the ca. £20,000 income is more popular than the ca. £10,000 one.
+(as given by the first two bars in <a class="reference internal" href="#fig-income-histogram-bins20"><span class="std std-numref">Figure 4.3</span></a>).</p>
+<p>On the other hand, the histogram with 200 bins
+already seems too fine-grained.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Usually, the “truth” is probably somewhere in-between.
+When preparing histograms for publication (e.g., in a report
+or on a webpage), we might be tempted to think
+“one must choose one and only one bin count”.
+In fact, we do not have to –
+even though some people will insist on it, remember that it
+is we who are responsible for the data be presented in
+the most unambiguous fashion possible.
+Thus providing 2 or 3 histograms can sometimes be a much better idea.</p>
+<p>Further, note that someone might want to trick us by choosing the
+number of bins that depict the reality in good light,
+when the truth is quite the opposite. For instance, the histogram on
+the left above hides the poorest households inside the first bar –
+the first income bracket is very wide. If we cannot request
+access to the original data, best thing we can do is to simply ignore
+such a data visualisation instance and warn others not to trust it.
+A true data scientist must be a sceptic.</p>
+</div>
+<p>The documentation of <strong class="command">seaborn.histplot</strong>
+(and the underlying <strong class="command">matplotlib.pyplot.hist</strong>),
+states that the <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument is passed to
+<strong class="command">numpy.histogram_bin_edges</strong>
+to determine the intervals into which our data are to be split.
+<strong class="command">numpy.histogram</strong> uses the same function
+and additionally returns the corresponding counts
+(how many observations fall into each bin) instead of plotting them.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">counts</span>
-<span class="n">bins</span>
 <span class="c1">## array([131, 238, 238, 147,  95,  55,  29,  23,  10,  12,   5,   7,   4,</span>
 <span class="c1">##          3,   2,   0,   0,   0,   0,   1])</span>
+<span class="n">bins</span>
 <span class="c1">## array([  5750.  ,  15460.95,  25171.9 ,  34882.85,  44593.8 ,  54304.75,</span>
 <span class="c1">##         64015.7 ,  73726.65,  83437.6 ,  93148.55, 102859.5 , 112570.45,</span>
 <span class="c1">##        122281.4 , 131992.35, 141703.3 , 151414.25, 161125.2 , 170836.15,</span>
@@ -758,149 +848,108 @@ into each bin) instead of plotting them:</p>
 </pre></div>
 </div>
 <p>Thus, there are 238 observations both in the
-[15460.95, 25171.9) and [25171.9, 34882.85) intervals.
-We will discuss the topic of manual data binning in greater detail
-in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>.</p>
-</div></div><div class="proof proof-type-exercise" id="id16">
+<span class="math notranslate nohighlight">\([15{,}461; 25{,}172)\)</span> and <span class="math notranslate nohighlight">\([25{,}172; 34{,}883)\)</span> intervals.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A table of ranges and the corresponding counts can be useful
+for data reporting. It is more informative and takes less space than
+a series of raw numbers,
+especially if we present them like in the table below.</p>
+<table class="colwidths-auto docutils align-default" id="id24">
+<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Incomes of selected British households; note that the bin edges are pleasantly round numbers</span><a class="headerlink" href="#id24" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>income bracket [£1000s]</p></th>
+<th class="text-align:right head"><p>count</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>0-200</p></td>
+<td class="text-align:right"><p>236</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>200-400</p></td>
+<td class="text-align:right"><p>459</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>400-600</p></td>
+<td class="text-align:right"><p>191</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>600-800</p></td>
+<td class="text-align:right"><p>64</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>800-1000</p></td>
+<td class="text-align:right"><p>26</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>1000-1200</p></td>
+<td class="text-align:right"><p>11</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1200-1400</p></td>
+<td class="text-align:right"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>1400-1600</p></td>
+<td class="text-align:right"><p>2</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1600-1800</p></td>
+<td class="text-align:right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>1800-2000</p></td>
+<td class="text-align:right"><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Reporting data in tabular form can also increase privacy of the subjects
+(making subjects less identifiable, which is good)
+or hide some uncomfortable facts (which is not so good;
+“there are 10 people in our company earning <em>more</em> than £200,000 p.a.” –
+this can be as much as £10,000,000, but shush).</p>
+</div>
+<div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.5</span>
         
     </div><div class="proof-content">
-<p>There is also the corresponding
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a>
-dataset in our data repository, giving weights (in kgs) of the participants.
-Draw a histogram. Does its shape resemble the
-<code class="docutils literal notranslate"><span class="pre">income</span></code> or <code class="docutils literal notranslate"><span class="pre">heights</span></code> distribution more?</p>
-</div></div></div>
-<div class="section" id="marathon-the-fastest-runners-a-left-skewed-distribution">
-<h3><span class="section-number">4.3.3. </span><code class="docutils literal notranslate"><span class="pre">marathon</span></code> (The Fastest Runners): A Left-Skewed Distribution<a class="headerlink" href="#marathon-the-fastest-runners-a-left-skewed-distribution" title="Permalink to this headline"></a></h3>
-<p>Next, let us consider the 37th PZU Warsaw Marathon (2015) results.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_mins.txt&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Here are the top 5 gun times (in minutes):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># preview first 5 (data are already sorted increasingly)</span>
-<span class="c1">## array([129.32, 130.75, 130.97, 134.17, 134.68])</span>
-</pre></div>
-</div>
-<p>Plotting the histogram for the participants who finished the 42.2 km run
-in less than three hours
-reveals (see <a class="reference internal" href="#fig-marathon180-histogram"><span class="std std-numref">Figure 4.4</span></a>)
-that the data are highly <em>left</em>-skewed.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">marathon</span><span class="p">[</span><span class="n">marathon</span> <span class="o">&lt;</span> <span class="mi">180</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="figure align-default" id="id17">
-<span id="fig-marathon180-histogram"></span><img alt="../_images/marathon180-histogram-7.png" src="../_images/marathon180-histogram-7.png" />
-<p class="caption"><span class="caption-number">Figure 4.4 </span><span class="caption-text">Histogram for a subset of the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset</span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
-</div>
-<p>This is of course to be expected – there are only few elite runners
-in the game. Yours truly wishes his personal best becomes &lt; 180 minutes someday.
-We shall see. Running is fun, so is walking; why not taking a break
-for an hour and going outside?</p>
-<div class="proof proof-type-exercise" id="id18">
+<p>Find how we can provide the <strong class="command">seaborn.histplot</strong>
+and <strong class="command">numpy.histogram</strong> functions with custom bin breaks.
+Plot a histogram where the bin edges are
+0, 20,000, 40,000, etc. (just like in the above table).
+Also note that bins do not have to be of equal sizes:
+set the last bin to <span class="math notranslate nohighlight">\([140{,}000; 200{,}000]\)</span>.</p>
+</div></div><div class="proof proof-type-example" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 4.6</span>
+        <span class="proof-type">Example 4.6</span>
         
     </div><div class="proof-content">
-<p>Plot the histogram of the untruncated (complete) version of this
-dataset.</p>
-</div></div></div>
-<div class="section" id="how-many-bins">
-<span id="sec-how-many-bins"></span><h3><span class="section-number">4.3.4. </span>How Many Bins?<a class="headerlink" href="#how-many-bins" title="Permalink to this headline"></a></h3>
-<p>Unless some stronger assumptions about the data distribution
-are made, choosing the right number of bins is more art than science:</p>
-<ul class="simple">
-<li><p>too many will result in a rugged histogram,</p></li>
-<li><p>too few might result in our missing of important details.</p></li>
-</ul>
-<p><a class="reference internal" href="#fig-income-histogram-binnumber"><span class="std std-numref">Figure 4.5</span></a> illustrates this.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 1st plot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>  <span class="c1"># 1 row, 2 columns, 2nd plot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<p>Let us also inspect the bin edges and counts
+that we see in <a class="reference internal" href="#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">counts</span>
+<span class="c1">## array([   2,   11,  116,  409,  992, 1206,  948,  404,  110,   20,    3])</span>
+<span class="n">bins</span>
+<span class="c1">## array([131.1       , 136.39090909, 141.68181818, 146.97272727,</span>
+<span class="c1">##        152.26363636, 157.55454545, 162.84545455, 168.13636364,</span>
+<span class="c1">##        173.42727273, 178.71818182, 184.00909091, 189.3       ])</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id19">
-<span id="fig-income-histogram-binnumber"></span><img alt="../_images/income-histogram-binnumber-9.png" src="../_images/income-histogram-binnumber-9.png" />
-<p class="caption"><span class="caption-number">Figure 4.5 </span><span class="caption-text">Too few and too many histogram bins (the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
-</div>
-<p>For example, in the histogram with 5 bins, we miss the information
-that the ca. £16,000 income is more popular than the ca. £12,000 one.</p>
-<p>The other histogram seems too fine-grained already.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>As usual, the “truth” is probably somewhere in-between.
-When preparing a histogram for publication (e.g., in a report
-or on a webpage), we might be tempted to think “I need to choose one
-and only one bin count”. In fact, we do not have to –
-even though some people will insist on it, remember that it
-is we who are responsible for the data be presented in an
-as unambiguous fashion as possible.
-Thus, actually, providing 2 or 3 histograms is often a much better idea.</p>
-</div>
-<p>Further, note that someone might want to trick us by choosing the
-number of bins that depict the reality in a good light,
-when the truth is quite the opposite. For instance, the histogram on
-the left above hides the poorest households inside the first bar –
-the first income bracket is very wide. If we cannot request
-access to the original data, best thing we can do is to simply ignore
-such a data visualisation instance as non-informative
-and tell others not to trust it.
-A real scientist is a sceptic, first and foremost.</p>
-<div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.7</span>
         
     </div><div class="proof-content">
-<p>Studying the manual of the <strong class="command">seaborn.histplot</strong> function,
-we see that we can provide the function with custom bin breaks.
-Plot a histogram which has breaks at
-0, 10,000, 20,000, etc.</p>
-</div></div><div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>(*) There are quite a few heuristics
 to determine the number of bins automagically,
 see <strong class="command">numpy.histogram_bin_edges</strong> for a few formulae.
 Check out how different values of the <code class="docutils literal notranslate"><span class="pre">bins</span></code> argument
 (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;sturges&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;fd&quot;</span></code>) affect the histogram shapes
 on both <code class="docutils literal notranslate"><span class="pre">income</span></code> and <code class="docutils literal notranslate"><span class="pre">heights</span></code> datasets.
-Each has its own limitations, but some might be a good
+Each has its own limitations, none is perfect, but some might be a good
 starting point for further fine-tuning.</p>
+</div></div><p>We will get back to the topic of manual data binning in <a class="reference internal" href="420-categorical.html#sec-binning"><span class="std std-numref">Section 11.1.5</span></a>.</p>
 </div>
-</div>
-<div class="section" id="manual-binning">
-<h3><span class="section-number">4.3.5. </span>Manual Binning (*)<a class="headerlink" href="#manual-binning" title="Permalink to this headline"></a></h3>
-<p><strong class="command">numpy.histogram</strong> can be used to apply the binning
-of a numeric vector manually and then count the number
-of items falling into each bin.
-This can for instance be useful for data reporting –
-a table of ranges and corresponding counts is more informative
-and takes less space. Also, it can increase privacy
-(making subjects less identifiable) or hide some uncomfortable facts
-(“there are 10 people in our company earning more than £200,000
-p.a.” – this can be as much as £10,000,000, but shush).</p>
-<p>We will discuss this topic in more detail in <a class="reference internal" href="420-categorical.html#sec-binning"><span class="std std-numref">Section 11.1.5</span></a>.</p>
-<div class="proof proof-type-exercise" id="id21">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 4.8</span>
-        
-    </div><div class="proof-content">
-<p>(*)
-Use <strong class="command">numpy.histogram</strong> on the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> data.</p>
-</div></div></div>
 <div class="section" id="peds-a-bimodal-distribution-already-binned">
-<h3><span class="section-number">4.3.6. </span><code class="docutils literal notranslate"><span class="pre">peds</span></code>: A Bimodal Distribution (Already Binned)<a class="headerlink" href="#peds-a-bimodal-distribution-already-binned" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">4.3.4. </span><code class="docutils literal notranslate"><span class="pre">peds</span></code>: A Bimodal Distribution (Already Binned)<a class="headerlink" href="#peds-a-bimodal-distribution-already-binned" title="Permalink to this headline"></a></h3>
 <p>Sometimes data we get access to have already been binned by somebody else.
-For instance, here are the December 2021 hourly averages
+For instance, here are the December 2021 hourly average
 <a class="reference external" href="http://www.pedestrian.melbourne.vic.gov.au/">pedestrian counts</a>
 near the Southern Cross Station in Melbourne:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -917,25 +966,25 @@ near the Southern Cross Station in Melbourne:</p>
 <p>We cannot thus use <strong class="command">seaborn.histplot</strong> to depict them.
 Instead, we can rely on a more low-level function,
 <strong class="command">matplotlib.pyplot.bar</strong>,
-see <a class="reference internal" href="#fig-peds-histogram"><span class="std std-numref">Figure 4.6</span></a>.</p>
+see <a class="reference internal" href="#fig-peds-histogram"><span class="std std-numref">Figure 4.5</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">peds</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id22">
-<span id="fig-peds-histogram"></span><img alt="../_images/peds-histogram-11.png" src="../_images/peds-histogram-11.png" />
-<p class="caption"><span class="caption-number">Figure 4.6 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id28">
+<span id="fig-peds-histogram"></span><img alt="../_images/peds-histogram-9.png" src="../_images/peds-histogram-9.png" />
+<p class="caption"><span class="caption-number">Figure 4.5 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset; a bimodal (trimodal?) distribution</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
 </div>
 <p>This is an example of a bimodal (or even trimodal)
 distribution: there is a morning peak and
 an evening peak (and some analysts
-probably would distinguish a lunch-time one too).</p>
+probably would distinguish a lunchtime one too).</p>
 </div>
 <div class="section" id="matura-a-bell-shaped-distribution-almost">
-<h3><span class="section-number">4.3.7. </span><code class="docutils literal notranslate"><span class="pre">matura</span></code>: A Bell-Shaped Distribution (Almost)<a class="headerlink" href="#matura-a-bell-shaped-distribution-almost" title="Permalink to this headline"></a></h3>
-<p><a class="reference internal" href="#fig-matura-histogram"><span class="std std-numref">Figure 4.7</span></a> depicts a histogram for another
-interesting dataset which has already been pre-summarised.</p>
+<h3><span class="section-number">4.3.5. </span><code class="docutils literal notranslate"><span class="pre">matura</span></code>: A Bell-Shaped Distribution (Almost)<a class="headerlink" href="#matura-a-bell-shaped-distribution-almost" title="Permalink to this headline"></a></h3>
+<p><a class="reference internal" href="#fig-matura-histogram"><span class="std std-numref">Figure 4.6</span></a> depicts a histogram of another
+interesting dataset which comes in an already pre-summarised form.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">matura</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/matura_2019_polish.txt&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">71</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">matura</span><span class="p">,</span>
@@ -943,57 +992,172 @@ interesting dataset which has already been pre-summarised.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id23">
-<span id="fig-matura-histogram"></span><img alt="../_images/matura-histogram-13.png" src="../_images/matura-histogram-13.png" />
-<p class="caption"><span class="caption-number">Figure 4.7 </span><span class="caption-text">Histogram for <code class="docutils literal notranslate"><span class="pre">matura</span></code> dataset</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id29">
+<span id="fig-matura-histogram"></span><img alt="../_images/matura-histogram-11.png" src="../_images/matura-histogram-11.png" />
+<p class="caption"><span class="caption-number">Figure 4.6 </span><span class="caption-text">Histogram of <code class="docutils literal notranslate"><span class="pre">matura</span></code> dataset; a bell-shaped distribution… almost</span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
 </div>
 <p>This gives the <a class="reference external" href="https://cke.gov.pl/images/_EGZAMIN_MATURALNY_OD_2015/Informacje_o_wynikach/2019/sprawozdanie/Sprawozdanie%202019%20-%20J%C4%99zyk%20polski.pdf">distribution</a>
-of the 2019 <a class="reference external" href="https://en.wikipedia.org/wiki/Matura">Matura</a>
-exam scores in Poland (in %) – Polish literature at basic level.</p>
+of the 2019 Matura (end of high school) exam scores in Poland (in %) –
+Polish literature<a class="footnote-reference brackets" href="#footpllit" id="id14">8</a> at basic level.</p>
 <p>It seems that the distribution should be bell-shaped, but someone
 tinkered with it. However, knowing that:</p>
 <ul class="simple">
 <li><p>the examiners are good people – we teachers love our students,</p></li>
 <li><p>20 points were required to pass,</p></li>
-<li><p>50 points were for an essay – and beauty is in the eye of beholder,</p></li>
+<li><p>50 points were given for an essay – and beauty is in the eye of beholder,</p></li>
 </ul>
 <p>this actually starts to make sense.
 Without graphically depicting this dataset, we would not know
 that such (albeit lucky for some students) <em>anomalies</em> occurred.</p>
 </div>
+<div class="section" id="marathon-truncated-fastest-runners-a-left-skewed-distribution">
+<h3><span class="section-number">4.3.6. </span><code class="docutils literal notranslate"><span class="pre">marathon</span></code> (Truncated – Fastest Runners): A Left-Skewed Distribution<a class="headerlink" href="#marathon-truncated-fastest-runners-a-left-skewed-distribution" title="Permalink to this headline"></a></h3>
+<p>Next, let us consider the 37th PZU Warsaw Marathon (2015) results.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_mins.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here are the top 5 gun times (in minutes):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># preview first 5 (data are already sorted increasingly)</span>
+<span class="c1">## array([129.32, 130.75, 130.97, 134.17, 134.68])</span>
+</pre></div>
+</div>
+<p>Plotting the histogram of the data on the participants
+who finished the 42.2 km run
+in less than three hours, i.e., a <em>truncated</em> version of this dataset,
+reveals that the data are highly <em>left</em>-skewed,
+see <a class="reference internal" href="#fig-marathon180-histogram"><span class="std std-numref">Figure 4.7</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">marathon</span><span class="p">[</span><span class="n">marathon</span> <span class="o">&lt;</span> <span class="mi">180</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id30">
+<span id="fig-marathon180-histogram"></span><img alt="../_images/marathon180-histogram-13.png" src="../_images/marathon180-histogram-13.png" />
+<p class="caption"><span class="caption-number">Figure 4.7 </span><span class="caption-text">Histogram of a truncated version of the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset; the distribution is left-skewed</span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
+</div>
+<p>This was of course expected – there are only few elite runners
+in the game. Yours truly wishes his personal best becomes &lt; 180 minutes someday.
+We shall see. Running is fun, so is walking; why not taking a break
+for an hour and going outside?</p>
+<div class="proof proof-type-exercise" id="id31">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 4.8</span>
+        
+    </div><div class="proof-content">
+<p>Plot the histogram of the untruncated (complete) version of this
+dataset.</p>
+</div></div></div>
+<div class="section" id="log-scale-and-heavy-tailed-distributions">
+<h3><span class="section-number">4.3.7. </span>Log-scale and Heavy-Tailed Distributions<a class="headerlink" href="#log-scale-and-heavy-tailed-distributions" title="Permalink to this headline"></a></h3>
+<p>Consider the dataset on the populations of cities in the 2000 US Census:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching_data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let us restrict ourselves only to the cities
+whose population is not less than 10,000 (another instance
+of truncating, this time on the other side of the distribution).
+It turns out that, even though they constitute ca. 14% of all the US
+settlements,
+as much as about 84% of all the citizens live there.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">large_cities</span> <span class="o">=</span> <span class="n">cities</span><span class="p">[</span><span class="n">cities</span> <span class="o">&gt;=</span> <span class="mi">10000</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Here are the populations of the 5 largest cities
+(can we guess which ones are they?):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">large_cities</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>  <span class="c1"># preview last 5 – data are sorted increasingly</span>
+<span class="c1">## array([1517550., 1953633., 2896047., 3694742., 8008654.])</span>
+</pre></div>
+</div>
+<p>The histogram is depicted in <a class="reference internal" href="#fig-large-cities-histogram"><span class="std std-numref">Figure 4.8</span></a>.
+It is virtually unreadable, because the distribution is
+not just right-skewed; it is extremely <em>heavy-tailed</em>:
+most cities are small, and those that are large – such as New York –
+are <em>really</em> unique.
+Had we plotted the whole dataset (<code class="docutils literal notranslate"><span class="pre">cities</span></code> instead of <code class="docutils literal notranslate"><span class="pre">large_cities</span></code>),
+the results’ intelligibility would be even worse.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id32">
+<span id="fig-large-cities-histogram"></span><img alt="../_images/large-cities-histogram-15.png" src="../_images/large-cities-histogram-15.png" />
+<p class="caption"><span class="caption-number">Figure 4.8 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset; it is extremely heavy-tailed</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
+</div>
+<p>This is why we should rather draw such a distribution
+on the <em>logarithmic</em> scale,
+see  <a class="reference internal" href="#fig-large-cities-histogram-log"><span class="std std-numref">Figure 4.9</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id33">
+<span id="fig-large-cities-histogram-log"></span><img alt="../_images/large-cities-histogram-log-17.png" src="../_images/large-cities-histogram-log-17.png" />
+<p class="caption"><span class="caption-number">Figure 4.9 </span><span class="caption-text">Another histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset; it is right-skewed even on a logarithmic scale</span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
+</div>
+<p>The log-scale on the x-axis does not increase
+linearly: it is not based on steps of equal sizes like 0,
+1,000,000, 2,000,000, …, and so forth.
+Instead, now the increases are geometrical:
+10,000, 100,000, 1,000,000, etc.</p>
+<p>This is a right-skewed distribution even on the logarithmic scale.
+Many real-world datasets have a similar behaviour,
+for instance, the frequencies of occurrences of words in books.
+On a side note, <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a> we will discuss
+the Pareto distribution family which yields similar histograms.</p>
+<div class="proof proof-type-exercise" id="id34">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 4.9</span>
+        
+    </div><div class="proof-content">
+<p>Draw the histogram of <code class="docutils literal notranslate"><span class="pre">income</span></code> on the logarithmic scale.
+Does is resemble a bell-shaped distribution?</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 4.10</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Use <strong class="command">numpy.geomspace</strong> and <strong class="command">numpy.histogram</strong> to apply
+logarithmic binning of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset manually, i.e.,
+to create bins of equal lengths on the log-scale.</p>
+</div></div></div>
 <div class="section" id="cumulative-counts-and-the-empirical-cumulative-distribution-function">
 <span id="sec-ecdf"></span><h3><span class="section-number">4.3.8. </span>Cumulative Counts and the Empirical Cumulative Distribution Function<a class="headerlink" href="#cumulative-counts-and-the-empirical-cumulative-distribution-function" title="Permalink to this headline"></a></h3>
-<p>Let us get back to the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset.
-The histogram above told us that, e.g.,
-ca. 30% of women are approximately 160±5 cm tall.</p>
+<p>Let us go back to the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset.
+The histogram in <a class="reference internal" href="#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a> told us that,
+amongst others, 28.6% (1206 of 4221) of women are approximately
+160.2±2.65 cm tall.</p>
 <p>However, sometimes we might be more interested in <em>cumulative</em>
-counts, see <a class="reference internal" href="#fig-heights-cumulative-histogram"><span class="std std-numref">Figure 4.8</span></a>.</p>
+counts, see <a class="reference internal" href="#fig-heights-cumulative-histogram"><span class="std std-numref">Figure 4.10</span></a>.
+They have a different interpretation:
+we can read that, e.g., 80% of all women are <em>no more than</em>
+ca. 166 cm tall (or that only 20% are taller than this height).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id24">
-<span id="fig-heights-cumulative-histogram"></span><img alt="../_images/heights-cumulative-histogram-15.png" src="../_images/heights-cumulative-histogram-15.png" />
-<p class="caption"><span class="caption-number">Figure 4.8 </span><span class="caption-text">Cumulative histogram for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id36">
+<span id="fig-heights-cumulative-histogram"></span><img alt="../_images/heights-cumulative-histogram-19.png" src="../_images/heights-cumulative-histogram-19.png" />
+<p class="caption"><span class="caption-number">Figure 4.10 </span><span class="caption-text">Cumulative histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id36" title="Permalink to this image"></a></p>
 </div>
-<p>This has a different interpretation:
-we can read that, e.g, 60% of all women are <em>no more than</em>
-ca. 162 cm tall (or that 40% are taller).</p>
 <div style="margin-top: 1em"></div><p>Very similar is the plot of the <em>empirical cumulative
 distribution function</em> (ECDF), which for a sample
-<span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> we denote as <span class="math notranslate nohighlight">\(\hat{F}_n\)</span>.</p>
-<p>At any given point <span class="math notranslate nohighlight">\(t\in\mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\hat{F}_n(t)\)</span> is a
-step function<a class="footnote-reference brackets" href="#footsteps" id="id8">2</a> that
-gives the <em>proportion of observations in our sample that are not greater
-than <span class="math notranslate nohighlight">\(t\)</span></em>:</p>
+<span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> we denote as <span class="math notranslate nohighlight">\(\hat{F}_n\)</span>.
+And so, at any given point <span class="math notranslate nohighlight">\(t\in\mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\hat{F}_n(t)\)</span> is a
+step function<a class="footnote-reference brackets" href="#footsteps" id="id15">9</a> that gives the proportion of observations
+in our sample that are not greater than <span class="math notranslate nohighlight">\(t\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{F}_n(t) = \frac{| i: x_i\le t |}{n}
+\hat{F}_n(t) = \frac{| i: x_i\le t |}{n}.
 \]</div>
-<p>(read <span class="math notranslate nohighlight">\(| i: x_i\le t |\)</span> as the number of <span class="math notranslate nohighlight">\(i\)</span>s such that
-the corresponding <span class="math notranslate nohighlight">\(x_i\)</span> is greater than or equal to <span class="math notranslate nohighlight">\(t\)</span>)</p>
-<p>Given ordered inputs, <span class="math notranslate nohighlight">\(x_{(1)}\le x_{(2)}\le \dots\le x_{(n)}\)</span>,
-we have:</p>
+<p>We read <span class="math notranslate nohighlight">\(| i: x_i\le t |\)</span> as the number of indexes like <span class="math notranslate nohighlight">\(i\)</span> such that
+the corresponding <span class="math notranslate nohighlight">\(x_i\)</span> is less than or equal to <span class="math notranslate nohighlight">\(t\)</span>.
+It can be shown that, given the ordered inputs,
+<span class="math notranslate nohighlight">\(x_{(1)}\le x_{(2)}\le \dots\le x_{(n)}\)</span>, it holds:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \hat{F}_n(t) = \left\{
@@ -1007,8 +1171,8 @@ k/n &amp; \text{for }x_{(k)} \le t&lt;x_{(k+1)}, \\
 <p>Note that drawing the ECDF does not involve binning – we only need
 to arrange the observations in an ascending order.
 Then, assuming that all observations are unique (there are no ties),
-the arithmetic progression <span class="math notranslate nohighlight">\(1/n, 2/n, \dots n/n\)</span> is plotted
-against them, see <a class="reference internal" href="#fig-heights-ecdf"><span class="std std-numref">Figure 4.9</span></a>.</p>
+the arithmetic progression <span class="math notranslate nohighlight">\(1/n, 2/n, \dots, n/n\)</span> is plotted
+against them, see <a class="reference internal" href="#fig-heights-ecdf"><span class="std std-numref">Figure 4.11</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">heights_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">heights_sorted</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s2">&quot;steps-post&quot;</span><span class="p">)</span>
@@ -1017,172 +1181,111 @@ against them, see <a class="reference internal" href="#fig-heights-ecdf"><span c
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id25">
-<span id="fig-heights-ecdf"></span><img alt="../_images/heights-ecdf-17.png" src="../_images/heights-ecdf-17.png" />
-<p class="caption"><span class="caption-number">Figure 4.9 </span><span class="caption-text">Empirical cumulative distribution function for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
+<div class="figure align-default" id="id37">
+<span id="fig-heights-ecdf"></span><img alt="../_images/heights-ecdf-21.png" src="../_images/heights-ecdf-21.png" />
+<p class="caption"><span class="caption-number">Figure 4.11 </span><span class="caption-text">Empirical cumulative distribution function for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id37" title="Permalink to this image"></a></p>
 </div>
-<div class="proof proof-type-exercise" id="id26">
+<div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 4.9</span>
+        <span class="proof-type">Exercise 4.11</span>
         
     </div><div class="proof-content">
 <p>Check out <strong class="command">seaborn.ecdfplot</strong> for a built-in method
 implementing the drawing of an ECDF.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(*) Quantiles that we introduce in <a class="reference internal" href="220-transform-vector.html#sec-quantiles"><span class="std std-numref">Section 5.1.1.3</span></a>
+<p>(*) Quantiles (which we introduce in <a class="reference internal" href="220-transform-vector.html#sec-quantiles"><span class="std std-numref">Section 5.1.1.3</span></a>)
 can be considered a generalised inverse of the
 ECDF.</p>
 </div>
 </div>
-<div class="section" id="log-scale-and-heavy-tailed-distributions">
-<h3><span class="section-number">4.3.9. </span>Log-scale and Heavy-Tailed Distributions<a class="headerlink" href="#log-scale-and-heavy-tailed-distributions" title="Permalink to this headline"></a></h3>
-<p>Consider the <a class="reference external" href="https://arxiv.org/abs/0706.1062v2">dataset</a>
-on the populations of cities in the 2000 US Census:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching_data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Let us restrict ourselves only to the cities
-whose population is no less than 10,000.
-Even though they constitute ca. 14% of all the US settlements,
-about 84% of all the citizens live there.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">large_cities</span> <span class="o">=</span> <span class="n">cities</span><span class="p">[</span><span class="n">cities</span> <span class="o">&gt;=</span> <span class="mi">10000</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Here are the populations of the 5 largest cities:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">large_cities</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>  <span class="c1"># preview last 5 – data are sorted increasingly</span>
-<span class="c1">## array([1517550., 1953633., 2896047., 3694742., 8008654.])</span>
-</pre></div>
-</div>
-<p>The histogram is depicted in <a class="reference internal" href="#fig-large-cities-histogram"><span class="std std-numref">Figure 4.10</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="figure align-default" id="id27">
-<span id="fig-large-cities-histogram"></span><img alt="../_images/large-cities-histogram-19.png" src="../_images/large-cities-histogram-19.png" />
-<p class="caption"><span class="caption-number">Figure 4.10 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
-</div>
-<p>is basically unreadable because the distribution is
-not just right-skewed; it is extremely <em>heavy-tailed</em>:
-most cities are small, and those that are large – such as New York –
-are <em>really</em> unique.
-Had we plotted the whole dataset (<code class="docutils literal notranslate"><span class="pre">cities</span></code> instead of <code class="docutils literal notranslate"><span class="pre">large_cities</span></code>),
-the results’ intelligibility would be even worse.</p>
-<p>This is why we should rather draw such a distribution
-on the <em>logarithmic</em> scale,
-see  <a class="reference internal" href="#fig-large-cities-histogram-log"><span class="std std-numref">Figure 4.11</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="figure align-default" id="id28">
-<span id="fig-large-cities-histogram-log"></span><img alt="../_images/large-cities-histogram-log-21.png" src="../_images/large-cities-histogram-log-21.png" />
-<p class="caption"><span class="caption-number">Figure 4.11 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset (logarithmic scale)</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
-</div>
-<p>The log-scale on the <em>x</em> axis does not increase
-linearly – based on steps of equal sizes 0,
-1,000,000, 2,000,000, …, and so forth.
-Now the increases are geometrical: 10,000, 100,000, 1,000,000.</p>
-<p>This is a right-skewed distribution even on the logarithmic scale.
-Many real-world datasets have a similar behaviour,
-for instance, the frequencies of occurrences of words in books.
-In <a class="reference internal" href="420-categorical.html#sec-binning"><span class="std std-numref">Section 11.1.5</span></a> we will discuss the Pareto distribution
-family which
-yields similar histograms.</p>
-<div class="proof proof-type-exercise" id="id29">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 4.10</span>
-        
-    </div><div class="proof-content">
-<p>Draw the histogram of <code class="docutils literal notranslate"><span class="pre">income</span></code> on the logarithmic scale.
-Does is resemble a bell-shaped distribution?</p>
-</div></div><div class="proof proof-type-exercise" id="id30">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 4.11</span>
-        
-    </div><div class="proof-content">
-<p>(*)
-Use <strong class="command">numpy.geomspace</strong> and <strong class="command">numpy.histogram</strong> to apply
-logarithmic binning of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset manually, i.e.,
-to create bins of equal lengths on the log-scale.</p>
-</div></div></div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">4.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id31">
+<div class="proof proof-type-exercise" id="id39">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.12</span>
         
     </div><div class="proof-content">
-<p>What are some benefits of using a <strong class="program">numpy</strong> vector
-over an ordinary Python list? What are the drawbacks?</p>
-</div></div><div class="proof proof-type-exercise" id="id32">
+<p>What is the difference between <strong class="command">numpy.arange</strong> and
+<strong class="command">numpy.linspace</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id40">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.13</span>
         
     </div><div class="proof-content">
-<p>What is the difference between <strong class="command">numpy.arange</strong> and
-<strong class="command">numpy.linspace</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id33">
+<p>(*) What happens when we convert a logical vector to a numeric one?
+And what about when we convert a numeric vector to a logical one?
+We will discuss that later, but you might want to check it yourself now.</p>
+</div></div><div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.14</span>
         
     </div><div class="proof-content">
-<p>(*) What happens when we convert a logical vector to a numeric one?
-(We will discuss that later but you might want to check it yourself now.)</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+<p>Check what happens when we try to create a vector featuring
+a mix of logical, integer, and floating-point values.</p>
+</div></div><div class="proof proof-type-exercise" id="id42">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.15</span>
         
     </div><div class="proof-content">
-<p>(*) What happens when we convert a numeric vector to a logical one?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+<p>What is a bell-shaped distribution?</p>
+</div></div><div class="proof proof-type-exercise" id="id43">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.16</span>
         
     </div><div class="proof-content">
-<p>What is a bell-shaped distribution?</p>
-</div></div><div class="proof proof-type-exercise" id="id36">
+<p>What is a right-skewed distribution?</p>
+</div></div><div class="proof proof-type-exercise" id="id44">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.17</span>
         
     </div><div class="proof-content">
-<p>What is a right-skewed distribution?</p>
-</div></div><div class="proof proof-type-exercise" id="id37">
+<p>What is a heavy-tailed distribution?</p>
+</div></div><div class="proof proof-type-exercise" id="id45">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.18</span>
         
     </div><div class="proof-content">
-<p>What is a heavy-tailed distribution?</p>
-</div></div><div class="proof proof-type-exercise" id="id38">
+<p>What is a multi-modal distribution?</p>
+</div></div><div class="proof proof-type-exercise" id="id46">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 4.19</span>
         
     </div><div class="proof-content">
-<p>What is a multi-modal distribution?</p>
-</div></div><div class="proof proof-type-exercise" id="id39">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 4.20</span>
-        
-    </div><div class="proof-content">
 <p>(*) When does logarithmic binning make sense?</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
-<dt class="label" id="footsequencesynonyms"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dt class="label" id="footnumpyc"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dd><p>(*) Vectors are directly representable as
+simple arrays in the C programming
+language, in which <strong class="program">numpy</strong> procedures are written.
+Hence, operations on vectors will be very fast provided
+that we are using the functions working on them <em>as a whole</em>.
+The readers who have some background in other
+lower-level languages, will need to get out of the habit
+of processing <em>individual</em> elements using a <strong class="command">for</strong>-like loop.</p>
+</dd>
+<dt class="label" id="footbang"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
+<dd><p>DuckDuckGo also supports <em>search bangs</em> like
+“<code class="docutils literal notranslate"><span class="pre">!numpy</span> <span class="pre">linspace</span></code>” which redirect to the official documentation
+automatically.</p>
+</dd>
+<dt class="label" id="footseealso"><span class="brackets"><a class="fn-backref" href="#id7">3</a></span></dt>
+<dd><p>When we write <em>See also</em>, it means that this is
+an exercise for the reader (Rule #3),
+in this case: to look something up in the official documentation.</p>
+</dd>
+<dt class="label" id="footsequencesynonyms"><span class="brackets"><a class="fn-backref" href="#id8">4</a></span></dt>
 <dd><p>If <span class="math notranslate nohighlight">\(\boldsymbol{x}\in \mathbb{R}^n\)</span>,
 then we often say that <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> is
 <em>a sequence of <span class="math notranslate nohighlight">\(n\)</span> numbers</em>,
@@ -1190,11 +1293,29 @@ then we often say that <span class="math notranslate nohighlight">\(\boldsymbol{
 <em>a <span class="math notranslate nohighlight">\(n\)</span>-dimensional real vector</em>,
 <em>a point in a <span class="math notranslate nohighlight">\(n\)</span>-dimensional real space</em>,
 or <em>an element of a real <span class="math notranslate nohighlight">\(n\)</span>-space</em>, etc.
-In many contexts, these are more or less synonyms
-of each other.</p>
+In many contexts, they are synonymic.</p>
 </dd>
-<dt class="label" id="footsteps"><span class="brackets"><a class="fn-backref" href="#id8">2</a></span></dt>
-<dd><p>We cannot see the steps in <a class="reference internal" href="#fig-heights-ecdf"><span class="std std-numref">Figure 4.9</span></a>,
+<dt class="label" id="footorderalt"><span class="brackets"><a class="fn-backref" href="#id9">5</a></span></dt>
+<dd><p>Some textbooks denote the <em>i</em>-th order
+statistic with <span class="math notranslate nohighlight">\(x_{i:n}\)</span>, but we will not.</p>
+</dd>
+<dt class="label" id="footbell"><span class="brackets"><a class="fn-backref" href="#id12">6</a></span></dt>
+<dd><p>A rather traditional name, but we will get used to it.</p>
+</dd>
+<dt class="label" id="footclt"><span class="brackets"><a class="fn-backref" href="#id13">7</a></span></dt>
+<dd><p>In fact, we have a proposition stating that the
+sum or average of many observations or otherwise simpler components
+of some more complex entity, assuming that they are independent
+and follow the same (any!) distribution with finite variance,
+is approximately normally distributed.
+This is called the Central Limit Theorem and
+it is a very strong mathematical result.</p>
+</dd>
+<dt class="label" id="footpllit"><span class="brackets"><a class="fn-backref" href="#id14">8</a></span></dt>
+<dd><p>Gombrowicz, Nałkowska, Miłosz, Tuwim, etc. – I recommend.</p>
+</dd>
+<dt class="label" id="footsteps"><span class="brackets"><a class="fn-backref" href="#id15">9</a></span></dt>
+<dd><p>We cannot see the steps in <a class="reference internal" href="#fig-heights-ecdf"><span class="std std-numref">Figure 4.11</span></a>,
 because the points are too plentiful.</p>
 </dd>
 </dl>
@@ -1217,7 +1338,7 @@ because the points are too plentiful.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-19T12:11:26+1000.
+        Last updated on 2022-06-21T12:19:42+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

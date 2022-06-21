@@ -665,10 +665,10 @@ between the empirical and theoretical CDF) for each of them,
 we expect it to be distributed like in <a class="reference internal" href="#fig-kolmogorovdistr"><span class="std std-numref">Figure 6.4</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">_ns</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">_n</span> <span class="ow">in</span> <span class="n">_ns</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kstwo</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">_n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;$n=</span><span class="si">{</span><span class="n">_n</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">_n</span> <span class="ow">in</span> <span class="n">_ns</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kstwo</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">_n</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -718,7 +718,7 @@ Let us investigate whether this is the case for the UK taxpayers.</p>
     <span class="s2">&quot;teaching_data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The plotting of the histogram for the logarithm of
+<p>The plotting of the histogram of the logarithm of
 income is left as an exercise (we can pass <code class="docutils literal notranslate"><span class="pre">log_scale=True</span></code>
 to <strong class="command">seaborn.histplot</strong>; we will plot it soon anyway
 in a different way).
@@ -755,12 +755,12 @@ on the logarithmic scale (via <strong class="command">numpy.geomspace</strong>).
 </pre></div>
 </div>
 <p>And now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>  <span class="c1"># own bins!</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">())</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PDF of LN(</span><span class="si">{</span><span class="n">lmu</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">lsigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -793,7 +793,7 @@ version).</p>
 <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">income_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">quantiles</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">lsigma</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lmu</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">income_sorted</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">income_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">income_sorted</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -803,7 +803,7 @@ version).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">quantiles2</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
@@ -887,7 +887,7 @@ which the reader can inspect themself when they are feeling playful.</p>
 </div>
 <div class="figure align-default" id="id22">
 <span id="fig-hist-cities"></span><img alt="../_images/hist-cities-13.png" src="../_images/hist-cities-13.png" />
-<p class="caption"><span class="caption-number">Figure 6.7 </span><span class="caption-text">Histogram for the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 6.7 </span><span class="caption-text">Histogram of the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset</span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
 </div>
 <p>We, however, this time will be interested in not what is <em>typical</em>,
 but what is in some sense <em>anomalous</em> or <em>extreme</em>.
@@ -950,7 +950,7 @@ with what we see in <a class="reference internal" href="#fig-fit-pareto"><span c
 </div>
 <div class="figure align-default" id="id23">
 <span id="fig-fit-pareto"></span><img alt="../_images/fit-pareto-15.png" src="../_images/fit-pareto-15.png" />
-<p class="caption"><span class="caption-number">Figure 6.8 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and the fitted density on a double log-scale</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 6.8 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and the fitted density on a double log-scale</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
 </div>
 <p><a class="reference internal" href="#fig-qq-pareto"><span class="std std-numref">Figure 6.9</span></a> gives the corresponding Q-Q plot on
 a double-logarithmic scale.</p>
@@ -1062,7 +1062,7 @@ an outcome like <em>49.1253</em> as representing the 49th ball
 </div>
 <div class="figure align-default" id="id27">
 <span id="fig-lotto"></span><img alt="../_images/lotto-21.png" src="../_images/lotto-21.png" />
-<p class="caption"><span class="caption-number">Figure 6.11 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 6.11 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
 </div>
 <p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 6.11</span></a>, this model makes much sense, but again,
 some more rigorous statistical testing would be required to determine
@@ -1105,7 +1105,7 @@ which might be worth giving a study (and then try).</p>
 <a class="reference external" href="http://www.pedestrian.melbourne.vic.gov.au/">pedestrian counts</a>
 near the Southern Cross Station in Melbourne
 might be a good instance of such a scenario,
-compare <a class="reference internal" href="210-vector.html#fig-peds-histogram"><span class="std std-numref">Figure 4.6</span></a>.</p>
+compare <a class="reference internal" href="210-vector.html#fig-peds-histogram"><span class="std std-numref">Figure 4.5</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/southern_cross_station_peds_2019_dec.txt&quot;</span><span class="p">)</span>
 </pre></div>
@@ -1140,7 +1140,7 @@ with a pinch of chilli pepper.</p>
 </div>
 <div class="figure align-default" id="id29">
 <span id="fig-mixture"></span><img alt="../_images/mixture-23.png" src="../_images/mixture-23.png" />
-<p class="caption"><span class="caption-number">Figure 6.12 </span><span class="caption-text">Histogram for the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 6.12 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1165,7 +1165,7 @@ divides the dataset into natural groups, compare
 </div>
 </div>
 <div class="section" id="generating-pseudorandom-numbers">
-<h2><span class="section-number">6.4. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this headline"></a></h2>
+<span id="sec-pseudorandom"></span><h2><span class="section-number">6.4. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this headline"></a></h2>
 <p>A probability distribution is useful not only for describing a dataset.
 It also enables us to perform many experiments on data that we do not
 currently have, but we might obtain in the future,
@@ -1391,7 +1391,7 @@ on randomness above, therefore our values is approximate. Increasing the number
 of trials from 10000 to, say, 1000000 will make the above estimate
 more precise.</p>
 <p>It is also worth checking out that
-the density histogram for <code class="docutils literal notranslate"><span class="pre">Dns</span></code> resembles the Kolmogorov distribution
+the density histogram of <code class="docutils literal notranslate"><span class="pre">Dns</span></code> resembles the Kolmogorov distribution
 that we can compute via <strong class="command">scipy.stats.kstwo.pdf</strong>.</p>
 </div></div><div class="proof proof-type-exercise" id="id36">
 
@@ -1527,7 +1527,7 @@ random variables and is defined as the derivative of <span class="math notransla
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-19T12:11:26+1000.
+        Last updated on 2022-06-21T12:19:42+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
