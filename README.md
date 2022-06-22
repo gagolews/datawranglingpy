@@ -3,7 +3,7 @@
 > Any remarks and bug fixes are appreciated — please submit them via
 > this repository's *Issues* tracker. Thank you.
 
-This repository hosts the HTML and PDF versions of the open access (free!)
+This repository hosts the HTML and PDF versions of the open-access (free!)
 textbook *Minimalist Data Wrangling with Python* by [Marek Gagolewski][1].
 You can read them at:
 
@@ -14,7 +14,7 @@ You can read them at:
 ## About the Author
 
 [Marek Gagolewski][1]
-is currently a Senior Lecturer in Applied AI at Deakin University
+is currently a Senior Lecturer/Researcher in Applied AI at Deakin University
 in Melbourne, VIC, Australia and an Associate Professor in Data Science
 (on long-term leave) at the Faculty of Mathematics and Information Science,
 Warsaw University of Technology, Poland and Systems Research Institute
