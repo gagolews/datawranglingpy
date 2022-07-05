@@ -262,13 +262,13 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="time-series">
 <span id="chap-time-series"></span><h1><span class="section-number">16. </span>Time Series<a class="headerlink" href="#time-series" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>The online version of the open access textbook</em> Minimalist Data
+<div><p><em>The online version of the open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
 is, and will remain, freely available for everyone’s enjoyment
 (also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
 Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
-are appreciated. Although available online, this is a whole course,
-and should be read from the beginning to the end. In particular,
+are appreciated. Although available online, this is a whole course;
+it should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
 <p>So far we have been using <strong class="program">numpy</strong>
@@ -329,13 +329,14 @@ in <a class="reference internal" href="#fig-spokane-violinplot"><span class="std
 <span id="fig-spokane-violinplot"></span><img alt="../_images/spokane-violinplot-1.png" src="../_images/spokane-violinplot-1.png" />
 <p class="caption"><span class="caption-number">Figure 16.1 </span><span class="caption-text">Distribution of the midrange daily temperatures in Spokane in the period 1889-2021; observations are treated as a bag of unrelated items (temperature on a “randomly chosen day” in a version of planet Earth where there is no climate change)</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
 </div>
+<p>When computing data aggregates
+or plotting histograms, the order of elements does not matter.
+Contrary to the <em>independent</em> measurements case,
+vectors representing time series do not have to be treated simply
+as mixed bags of unrelated items.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Contrary to the <em>independent</em> measurements case,
-we do not have to treat vectors representing time series simply
-as mixed bags of unrelated items (note that when computing data aggregates
-or plotting histograms, the order of elements does not matter).</p>
-<p>Instead, in time series, for any given
+<p>In time series, for any given
 item <span class="math notranslate nohighlight">\(x_i\)</span>, its neighbouring elements <span class="math notranslate nohighlight">\(x_{i-1}\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>
 denote the recordings occurring directly before and after it.
 We can use this <em>temporal ordering</em> to model how consecutive
@@ -368,14 +369,14 @@ Usually, we will be creating dates from strings, for instance:</p>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-06-17&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-06-23&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-06-17T01:33:54&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-06-23T05:58:15&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -387,9 +388,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19160.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19166.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.65542963e+09])</span>
+<span class="c1">## array([7.2650000e+03, 1.6559639e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
@@ -408,10 +409,10 @@ all dates in the YYYY-MM-DD format from a
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-06-16&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-06-22&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-06-17T13:33:54&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-06-23T17:58:15&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -476,7 +477,7 @@ see <a class="reference internal" href="#fig-spokane-5-linechart"><span class="s
 <span id="fig-spokane-5-linechart"></span><img alt="../_images/spokane-5-linechart-5.png" src="../_images/spokane-5-linechart-5.png" />
 <p class="caption"><span class="caption-number">Figure 16.3 </span><span class="caption-text">Line chart of midrange daily temperatures in Spokane for 2017–2021</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </div>
-<p>Note that now the x-axis labels have been generated automatically.</p>
+<p>The x-axis labels have now been generated automatically.</p>
 </div></div><p>Note that <strong class="command">pandas.to_datetime</strong> can be used to convert strings
 to datetime objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1991-04-05&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-09-12&quot;</span><span class="p">,</span> <span class="s2">&quot;2042-12-31&quot;</span><span class="p">]</span>
@@ -576,7 +577,7 @@ to a cloud service during peak hours,
 wait times for the next pedestrian to appear at a crossing near
 the Southern Cross Station in Melbourne, or the amount of time
 it takes a bank teller to interact with a customer
-(note that there is a whole branch of applied mathematics –
+(there is a whole branch of applied mathematics –
 or should we refer to it more fashionably: data science –
 called queuing theory that deals with this type of modelling).</p>
 <div style="margin-top: 1em"></div><p>An exponential family is identified by the scale parameter
@@ -746,7 +747,7 @@ the 5 preceding days.</p></li>
 <span class="c1">## 2021-01-12 33923 -1643.69 dec -2789.78 -1898.11 -543.06 1426.57 2546.68</span>
 </pre></div>
 </div>
-<p>Note that in the 6th row (representing 2021-01-12),
+<p>In the 6th row (representing 2021-01-12),
 <code class="docutils literal notranslate"><span class="pre">Lag1</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">Change</span></code> on 2021-01-11,
 <code class="docutils literal notranslate"><span class="pre">Lag2</span></code> gives the <code class="docutils literal notranslate"><span class="pre">Change</span></code> on 2021-01-10, and so forth.</p>
 <p>To spice things up, make sure your code can generate any number,
@@ -798,7 +799,7 @@ December 2011:</p>
 <p>We get, in this order: the mean of the first 3 observations;
 the mean of the 2nd, 3rd, and 4th items;
 then the mean of the 3rd, 4th, and 5th; and so forth.
-Note that we have centred the observations in such a way
+Notice that we have centred the observations in such a way
 that we have the same number of missing values at the start
 and end of the series.
 This way, we treat the first 3-day moving average
@@ -1115,7 +1116,7 @@ Here, let us briefly mention the candlestick plot.</p>
 <p class="caption"><span class="caption-number">Figure 16.10 </span><span class="caption-text">Candlestick plot for the BTC/USD exchange rates in January 2021</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
 </div>
 <p><a class="reference internal" href="#fig-candlestick-plot"><span class="std std-numref">Figure 16.10</span></a> depicts the January 2021 data.
-Note that this is not a box and whisker plot.
+Let us stress that this is not a box and whisker plot.
 The candlestick body denotes the difference in the market opening
 and the closing price. The wicks (shadows) give the range
 (high to low).</p>
@@ -1206,7 +1207,7 @@ for image and video processing with Python bindings).</p></li>
 </div>
 <div class="section" id="further-reading">
 <h2><span class="section-number">16.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline"></a></h2>
-<p>Note that due to limited spacetime, we merely touched upon the most basic
+<p>Due to limited spacetime, we merely touched upon the most basic
 methods for dealing with time series. The reader is encouraged to take a look
 at the broad literature concerning statistical analysis of time series
 (e.g., issues in forecasting,
@@ -1269,7 +1270,7 @@ of a candlestick plot.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-22T15:44:17+1000.
+        Last updated on 2022-07-05T13:30:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

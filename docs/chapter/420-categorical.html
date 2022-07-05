@@ -276,13 +276,13 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="handling-categorical-data">
 <span id="chap-categorical"></span><h1><span class="section-number">11. </span>Handling Categorical Data<a class="headerlink" href="#handling-categorical-data" title="Permalink to this headline"></a></h1>
 <blockquote>
-<div><p><em>The online version of the open access textbook</em> Minimalist Data
+<div><p><em>The online version of the open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
 is, and will remain, freely available for everyone’s enjoyment
 (also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
 Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
-are appreciated. Although available online, this is a whole course,
-and should be read from the beginning to the end. In particular,
+are appreciated. Although available online, this is a whole course;
+it should be read from the beginning to the end. In particular,
 refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
 <p>So far we have been mostly dealing with <em>quantitative</em> (numeric) data –
@@ -337,7 +337,7 @@ one-hot encoded representation using a logical vector of length <em>l</em>.</p>
 </pre></div>
 </div>
 <p>These are two-letter ISO 3166 country codes,
-encoded of course as strings (note the <code class="docutils literal notranslate"><span class="pre">dtype=&quot;str&quot;</span></code> argument).</p>
+encoded of course as strings (notice the <code class="docutils literal notranslate"><span class="pre">dtype=&quot;str&quot;</span></code> argument).</p>
 <p>Calling <strong class="command">numpy.unique</strong> allows us to determine
 the set of distinct categories:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span>
@@ -367,7 +367,7 @@ to <strong class="command">numpy.unique</strong>:</p>
 <span class="c1">## array([2, 2, 2, 0, 2, 2, 0, 3, 4, 4, 1, 4, 2, 2, 4, 4])</span>
 </pre></div>
 </div>
-<p>Note that the code sequence 2, 2, 2, 0, …
+<p>The code sequence 2, 2, 2, 0, …
 corresponds to the 3rd, 3rd, 3rd, 1st, … level in <code class="docutils literal notranslate"><span class="pre">cat_cntrs16</span></code>,
 i.e., Kenya, Kenya, Kenya, Ethiopia, ….</p>
 <p>The values between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(l-1=4\)</span> can be used to index a given array
@@ -619,8 +619,8 @@ with very readable labels generated automatically
 function which tries to determine some informative
 interval bounds automatically based on a range of
 simple heuristics.
-Also, note that <strong class="command">numpy.linspace</strong> and <strong class="command">numpy.geomspace</strong>
-which we have covered in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>
+Also, <strong class="command">numpy.linspace</strong> and <strong class="command">numpy.geomspace</strong>,
+which we have covered in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>,
 can be useful for generating equidistant bounds
 on linear and logarithmic scale, respectively.</p>
 </div></div><div class="proof proof-type-example" id="id8">
@@ -689,7 +689,7 @@ to be drawn in 5% of the cases, etc.</p>
 <p>to get both the set of unique categories and
 the <em>corresponding</em> number of occurrences.
 For instance, there were 7 runners from Kenya amongst the top 16.</p>
-<p>Also, note that if we <em>already</em> have an array of integer codes between
+<p>If we <em>already</em> have an array of integer codes between
 <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(l-1\)</span>, there is no need to call <strong class="command">numpy.unique</strong>,
 as <strong class="command">numpy.bincount</strong> can return the number of
 times each code appears therein.</p>
@@ -705,7 +705,7 @@ a vector of proportions (fractions):</p>
 </div>
 <p>Hence, almost 31.25% of the top runners were from Poland
 (it is a marathon in Warsaw after all…).
-Note that we can of course multiply the above by 100 to get the percentages.</p>
+We can of course multiply the above by 100 to get the percentages.</p>
 <p>We can output a nice <em>frequency table</em> by storing both objects
 in a single data frame (or a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object with an appropriate
 vector of row labels):</p>
@@ -774,7 +774,7 @@ as it returns a <code class="docutils literal notranslate"><span class="pre">Ser
 <span class="c1">## Name: country, dtype: int64</span>
 </pre></div>
 </div>
-<p>Note that by default data are ordered with respect to the counts,
+<p>By default, data are ordered with respect to the counts,
 decreasingly.</p>
 <div class="proof proof-type-exercise" id="id10">
 
@@ -844,7 +844,7 @@ the number of occurrences of each pair of values:</p>
 </div>
 <p>Hence, for example, there were 19 women aged 60 and over
 amongst the marathoners. Nice.</p>
-<p>Note that the <em>marginal</em> (one dimensional) frequency distributions
+<p>The <em>marginal</em> (one dimensional) frequency distributions
 can be recreated by computing the rowwise and columnwise sums.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">## sex</span>
@@ -1451,7 +1451,7 @@ as a function of age. Here is the extracted contingency table:</p>
 <span class="c1">## Osteoporosis                             36000   312000   564000</span>
 </pre></div>
 </div>
-<p>Cramer’s <span class="math notranslate nohighlight">\(V\)</span> is one of a few ways
+<p>Cramér’s <span class="math notranslate nohighlight">\(V\)</span> is one of a few ways
 to measure the degree of association between two categorical variables.
 It is equal to 0 (lowest possible value) if the two variables are independent
 (there is no association between them)
@@ -1479,14 +1479,14 @@ e_{i,j} = \frac{
 \sum_{i=1}^n \sum_{j=1}^m c_{i,j}
 }
 \]</div>
-<p>the Cramer coefficient is given by</p>
+<p>the Cramér coefficient is given by</p>
 <div class="math notranslate nohighlight">
 \[
 V = \sqrt{
 \frac{T}{\min\{n-1, m-1\} \sum_{i=1}^n \sum_{j=1}^m c_{i,j}}
 }.
 \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(c_{i,j}\)</span> gives the actually observed counts and <span class="math notranslate nohighlight">\(e_{i, j}\)</span> denotes
+<p>Here, <span class="math notranslate nohighlight">\(c_{i,j}\)</span> gives the actually observed counts and <span class="math notranslate nohighlight">\(e_{i, j}\)</span> denotes
 the number that we would expect if the two variables were actually independent.</p>
 <div class="proof proof-type-exercise" id="id28">
 
@@ -1494,7 +1494,7 @@ the number that we would expect if the two variables were actually independent.<
         <span class="proof-type">Exercise 11.19</span>
         
     </div><div class="proof-content">
-<p>Compute the Cramer <span class="math notranslate nohighlight">\(V\)</span> using only <strong class="program">numpy</strong> functions.</p>
+<p>Compute the Cramér <span class="math notranslate nohighlight">\(V\)</span> using only <strong class="program">numpy</strong> functions.</p>
 </div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
@@ -1537,7 +1537,7 @@ data grouped by sex and age).</p>
 </div></div></div>
 <div class="section" id="binned-numeric-data">
 <h3><span class="section-number">11.4.6. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this headline"></a></h3>
-<p>Note that generally modes do not work for continuous data,
+<p>Generally, modes do not work for continuous data,
 where repeated values are – at least theoretically – highly unlikely
 (unless someone does not report them with full digit precision).
 It might make sense to compute it on binned data, though.</p>
@@ -1689,11 +1689,11 @@ chi-squared tests.</p>
         <span class="proof-type">Exercise 11.32</span>
         
     </div><div class="proof-content">
-<p>(*) How is Cramer’s <em>V</em> defined and what values does it take?</p>
+<p>(*) How is Cramér’s <em>V</em> defined and what values does it take?</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="recipesdof"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Note that <span id="id2">[<a class="reference internal" href="999-bibliography.html#id134">PTVF07</a>]</span> in Section 14.3
+<dd><p>Notice that <span id="id2">[<a class="reference internal" href="999-bibliography.html#id134">PTVF07</a>]</span> in Section 14.3
 suggests <span class="math notranslate nohighlight">\(l\)</span> degrees of freedom, but do not agree with the reasoning
 therein. Also, simple Monte Carlo simulations suggests that <span class="math notranslate nohighlight">\(l-1\)</span>
 is a better candidate.</p>
@@ -1718,7 +1718,7 @@ is a better candidate.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-06-22T15:44:17+1000.
+        Last updated on 2022-07-05T13:30:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
