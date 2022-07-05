@@ -275,18 +275,16 @@ refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 </div></blockquote>
 <p>From the perspective of structured datasets,
 a vector often represents <em>n</em> independent measurements
-of the same quantitative or qualitative property,
+of the same quantitative property,
 e.g., heights of <em>n</em> different patients,
 incomes in <em>n</em> randomly chosen households,
-or age category brackets of <em>n</em> runners (we deal with categorical data
-in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>).</p>
-<p>More generally, these are all instances of a bag of
+or ages of <em>n</em> runners.
+More generally, these are all instances of a bag of
 <em>n</em> points on the real line.
-By far (assuming we have solved all the suggested exercises)
-we should have become quite fluent with the methods for processing
-such one-dimensional arrays.</p>
+By far<a class="footnote-reference brackets" href="#footsolveex" id="id1">1</a> we should have become quite fluent with the methods
+for processing such one-dimensional arrays.</p>
 <p>Let us increase the level of complexity
-by allowing each of the <em>n</em> entities be described by possibly more
+by allowing each of the <em>n</em> entities to be described by possibly more
 than one feature: say, <em>m</em> of them.
 In other words, we will be dealing with <em>n</em> points
 in an <em>m</em>-dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
@@ -294,9 +292,9 @@ in an <em>m</em>-dimensional space, <span class="math notranslate nohighlight">\
 (just like in spreadsheets).
 Such an object can be expressed with <strong class="program">numpy</strong> as a two-dimensional
 array which we will refer to as <em>matrices</em>.
-Thanks to matrices, we can all keep <em>n</em> vectors of length
+Thanks to matrices, we can keep the <em>n</em> tuples of length
 <em>m</em> together in a single object and process them all at once
-(or <em>m</em> vectors of length <em>n</em>, depending how we want to look at it).
+(or <em>m</em> tuples of length <em>n</em>, depending how we want to look at them).
 Very convenient.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -309,13 +307,12 @@ complexity (and freedom) by not only allowing for mixed data types
 to perform data analysis in subgroups more easily)
 but also for the rows and columns be named.</p>
 <p>Many data analysis algorithms convert data frames to matrices
-automatically and deal with them as such,
-and from the computational side, it is <strong class="program">numpy</strong> which does
+automatically and deal with them as such.
+From the computational side, it is <strong class="program">numpy</strong> that does
 most of the “mathematical” work.
-Our ambitions is to go way beyond very basic data wrangling
-(this is a university-level course after all),
-and that is why before proceeding with
-<strong class="program">pandas</strong>, we are learning the former in detail.</p>
+<strong class="program">pandas</strong> implements many recipes for basic data wrangling
+tasks, but we want to go way beyond that.
+After all, we would like to be able to tackle <em>any</em> problem.</p>
 </div>
 <div class="section" id="creating-matrices">
 <h2><span class="section-number">7.1. </span>Creating Matrices<a class="headerlink" href="#creating-matrices" title="Permalink to this headline"></a></h2>
@@ -324,23 +321,22 @@ and that is why before proceeding with
 <p>Tabular data are often stored and distributed
 in a very portable plain-text format called CSV (comma-separated values)
 or variants thereof.</p>
-<p><strong class="command">numpy.loadtxt</strong>, which we have already been using, supports
+<p><strong class="command">numpy.loadtxt</strong> supports
 them quite well as long as they do not feature column names
 (comment lines are accepted, though).
 Unfortunately, for most CSV files the opposite is the case,
 and hence we suggest relying
-rely on a corresponding function from the <strong class="program">pandas</strong> package
-(anticipating what is going to happen in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>):</p>
+rely on a corresponding function from the <strong class="program">pandas</strong> package:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">body</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>  <span class="c1"># data frames will be covered later</span>
+<span class="n">body</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>  <span class="c1"># convert to matrix</span>
 </pre></div>
 </div>
 <p>Notice that we have converted the data frame to
-a <strong class="program">numpy</strong> array by calling the <strong class="command">to_numpy</strong>
-method. Here is a preview of a few first rows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># 6 first rows, all columns</span>
+a matrix by calling the <strong class="command">numpy.array</strong>
+function. Here is a preview of the first few rows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># six first rows, all columns</span>
 <span class="c1">## array([[ 97.1, 160.2,  34.7,  40.8,  35.8, 126.1, 117.9],</span>
 <span class="c1">##        [ 91.1, 152.7,  33.5,  33. ,  38.5, 125.5, 103.1],</span>
 <span class="c1">##        [ 73. , 161.2,  37.4,  38. ,  31.8, 106.2,  92. ],</span>
@@ -351,51 +347,53 @@ method. Here is a preview of a few first rows:</p>
 </div>
 <p>This is an extended version of the
 National Health and Nutrition Examination Survey
-(<a class="reference external" href="https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx">NHANES</a>
-dataset), where we are given
-body measurements of adult females, in the following order:</p>
-<ol class="simple">
-<li><p>weight (kg),</p></li>
-<li><p>standing height (cm),</p></li>
-<li><p>upper arm length (cm),</p></li>
-<li><p>upper leg length (cm),</p></li>
-<li><p>arm circumference (cm),</p></li>
-<li><p>hip circumference (cm),</p></li>
-<li><p>waist circumference (cm).</p></li>
-</ol>
-<p>Unfortunately, <strong class="program">numpy</strong> matrices do not support column
-naming, so these should be noted down separately elsewhere.
-<strong class="program">pandas</strong> data frames  will
-have that capability, but – as we have said above –
-from the algebraic side, they are
-not as convenient for the purpose of scientific computing as matrices.</p>
+(<a class="reference external" href="https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx">NHANES</a>),
+where the consecutive columns give the following body measurements
+of adult females:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="s2">&quot;weight (kg)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;standing height (cm)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;upper arm length (cm)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;upper leg length (cm)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;arm circumference (cm)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hip circumference (cm)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;waist circumference (cm)&quot;</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+<p><strong class="program">numpy</strong> matrices do not support column
+naming. This is why we noted them down separately.
+It is only a minor inconvenience.
+<strong class="program">pandas</strong> data frames will
+have this capability, but from the algebraic side, they are
+not as convenient as matrices for the purpose of scientific computing.</p>
 <div style="margin-top: 1em"></div><p>What we are dealing with is still a <strong class="program">numpy</strong> array:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>  <span class="c1"># class of this object</span>
 <span class="c1">## &lt;class &#39;numpy.ndarray&#39;&gt;</span>
 </pre></div>
 </div>
 <p>however, this time a two-dimensional one:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="o">.</span><span class="n">ndim</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="o">.</span><span class="n">ndim</span>  <span class="c1"># number of dimensions</span>
 <span class="c1">## 2</span>
 </pre></div>
 </div>
-<p>which means that the <code class="docutils literal notranslate"><span class="pre">shape</span></code> slot is now  a tuple of length 2:</p>
+<p>which means that the <code class="docutils literal notranslate"><span class="pre">shape</span></code> slot is now a tuple of length 2:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="o">.</span><span class="n">shape</span>
 <span class="c1">## (4221, 7)</span>
 </pre></div>
 </div>
-<p>The above gave the number of rows and columns, respectively.</p>
+<p>The above gave the total number of rows and columns, respectively.</p>
 </div>
 <div class="section" id="enumerating-elements">
 <h3><span class="section-number">7.1.2. </span>Enumerating Elements<a class="headerlink" href="#enumerating-elements" title="Permalink to this headline"></a></h3>
 <p><strong class="command">numpy.array</strong> can create a two-dimensional array based on a list
-of lists or vector-like objects of identical lengths.
+of lists or vector-like objects, all of identical lengths.
 Each of them will constitute a separate row of the resulting matrix.</p>
 <p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span> <span class="p">],</span>
-    <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span> <span class="p">],</span>
-    <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span> <span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>  <span class="c1"># list of lists</span>
+    <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span> <span class="p">],</span>  <span class="c1"># the 1st row</span>
+    <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span> <span class="p">],</span>  <span class="c1"># the 2nd row</span>
+    <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span> <span class="p">]</span>   <span class="c1"># the 3rd row</span>
 <span class="p">])</span>
 <span class="c1">## array([[ 1,  2,  3,  4],</span>
 <span class="c1">##        [ 5,  6,  7,  8],</span>
@@ -432,30 +430,28 @@ a single pair of square brackets:</p>
 <p>The previously mentioned <strong class="command">numpy.tile</strong> and <strong class="command">numpy.repeat</strong>
 can also generate some nice matrices.
 For instance,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="mi">4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1">## array([[1, 2, 3],</span>
-<span class="c1">##        [1, 2, 3],</span>
-<span class="c1">##        [1, 2, 3],</span>
-<span class="c1">##        [1, 2, 3]])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">## array([[1, 2, 3, 4],</span>
+<span class="c1">##        [1, 2, 3, 4],</span>
+<span class="c1">##        [1, 2, 3, 4]])</span>
 </pre></div>
 </div>
 <p>repeats a row vector rowwisely (i.e., over axis <code class="docutils literal notranslate"><span class="pre">0</span></code> – the first one).</p>
 <p>Replicating a column vector columnwisely (i.e.,
 over axis <code class="docutils literal notranslate"><span class="pre">1</span></code> – the second one) is possible as well:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">]],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">## array([[1, 1, 1],</span>
-<span class="c1">##        [2, 2, 2],</span>
-<span class="c1">##        [3, 3, 3],</span>
-<span class="c1">##        [4, 4, 4]])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]],</span> <span class="mi">4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">## array([[1, 1, 1, 1],</span>
+<span class="c1">##        [2, 2, 2, 2],</span>
+<span class="c1">##        [3, 3, 3, 3]])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id2">
+<div class="proof proof-type-exercise" id="id6">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.1</span>
         
     </div><div class="proof-content">
-<p>How to obtain matrices of the following kinds programmatically?</p>
+<p>How to generate matrices of the following kinds?</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[
 \begin{array}{cc}
@@ -469,16 +465,15 @@ over axis <code class="docutils literal notranslate"><span class="pre">1</span><
 \end{array}
 \right], \qquad
 \left[
-\begin{array}{cccccccc}
-    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2&amp; 1&amp; 2 \\
-    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2&amp; 1&amp; 2 \\
-    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2&amp; 1&amp; 2 \\
+\begin{array}{cccccc}
+    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2 \\
+    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2 \\
 \end{array}
 \right], \qquad
 \left[
-\begin{array}{ccccccc}
-    1&amp; 1&amp; 1&amp; 2&amp; 2&amp; 2 &amp; 2 \\
-    3&amp; 3&amp; 3&amp; 4&amp; 4&amp; 4 &amp; 4 \\
+\begin{array}{ccccc}
+    1&amp; 1&amp;  2&amp; 2 &amp; 2 \\
+    3&amp; 3&amp;  4&amp; 4 &amp; 4 \\
 \end{array}
 \right].\end{split}\]</div>
 </div></div></div>
@@ -503,7 +498,7 @@ to form a new matrix:</p>
 <span class="c1">##        [50, 60, 90]])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id3">
+<div class="proof proof-type-exercise" id="id7">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.2</span>
@@ -512,7 +507,7 @@ to form a new matrix:</p>
 <p>Perform similar operations
 using <strong class="command">numpy.append</strong>, <strong class="command">numpy.vstack</strong>, <strong class="command">numpy.hstack</strong>,
 <strong class="command">numpy.concatenate</strong>, and (*) <strong class="command">numpy.c_</strong>.</p>
-</div></div><div class="proof proof-type-exercise" id="id4">
+</div></div><div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.3</span>
@@ -527,15 +522,13 @@ of an array. Let us stress that this function returns a new array.</p>
 <p>Many built-in functions allow for generating arrays
 of arbitrary shapes (not only vectors). For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># not: rand((3, 4))</span>
-<span class="c1">## array([[0.69646919, 0.28613933, 0.22685145, 0.55131477],</span>
-<span class="c1">##        [0.71946897, 0.42310646, 0.9807642 , 0.68482974],</span>
-<span class="c1">##        [0.4809319 , 0.39211752, 0.34317802, 0.72904971]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># not: rand((2, 5))</span>
+<span class="c1">## array([[0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897],</span>
+<span class="c1">##        [0.42310646, 0.9807642 , 0.68482974, 0.4809319 , 0.39211752]])</span>
 </pre></div>
 </div>
 <p>The same with <strong class="program">scipy</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
 <span class="c1">## array([[0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897],</span>
 <span class="c1">##        [0.42310646, 0.9807642 , 0.68482974, 0.4809319 , 0.39211752]])</span>
 </pre></div>
@@ -543,13 +536,13 @@ of arbitrary shapes (not only vectors). For example:</p>
 <p>The way we specify the output shapes might differ
 across functions and packages. Therefore, as usual, it is always best
 to refer to the their documentation.</p>
-<div class="proof proof-type-exercise" id="id5">
+<div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.4</span>
         
     </div><div class="proof-content">
-<p>Check out the following functions:
+<p>Check out the documentation of the following functions:
 <strong class="command">numpy.eye</strong>, <strong class="command">numpy.diag</strong>, <strong class="command">numpy.zeros</strong>,
 <strong class="command">numpy.ones</strong>, and <strong class="command">numpy.empty</strong>.</p>
 </div></div></div>
@@ -566,19 +559,19 @@ to refer to the their documentation.</p>
 </div>
 <p>Internally, a matrix is represented using a <em>long</em> flat vector
 where elements are stored in
-the row-major order (sometimes referred to as a C-style array,
-as opposed to Fortran-style which is used in, e.g., R):</p>
+the row-major<a class="footnote-reference brackets" href="#footrowmajor" id="id2">2</a> order:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># total number of elements</span>
 <span class="c1">## 12</span>
 <span class="n">A</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>  <span class="c1"># the underlying array</span>
 <span class="c1">## array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])</span>
 </pre></div>
 </div>
-<p>It is the <code class="docutils literal notranslate"><span class="pre">shape</span></code> slot that is causing the 12 elements be treated
-if they were arranged on a 3 by 4 grid,
+<p>It is the <code class="docutils literal notranslate"><span class="pre">shape</span></code> slot that is causing the 12 elements to be treated as
+if they were arranged on a 3-by-4 grid,
 for example in different algebraic computations and during
 the printing thereof.
-It can be modified anytime without modifying the underlying array:</p>
+This arrangement can be modified anytime without modifying
+the underlying array:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">A</span>
 <span class="c1">## array([[ 1,  2,  3],</span>
@@ -598,7 +591,7 @@ that returns a modified version of the object it is applied on:</p>
 <p>Here, “<code class="docutils literal notranslate"><span class="pre">-1</span></code>” means that <strong class="program">numpy</strong> must deduce by itself how many rows
 we actually want in the result (12 elements are supposed
 to be arranged in 6 columns, so the maths behind it is not rocket science).</p>
-<p>This way, generating row or column vectors is very easy:</p>
+<p>Thanks to this, generating row or column vectors is very easy:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">## array([[0.  , 0.25, 0.5 , 0.75, 1.  ]])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9099</span><span class="p">,</span> <span class="mi">2537</span><span class="p">,</span> <span class="mi">1832</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -609,7 +602,7 @@ to be arranged in 6 columns, so the maths behind it is not rocket science).</p>
 </div>
 <div style="margin-top: 1em"></div><p>Reshaping is not the same as matrix <em>transpose</em>, which also
 changes the order of elements in the underlying array:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span>  <span class="c1"># to recall</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span>  <span class="c1"># before</span>
 <span class="c1">## array([[ 1,  2,  3],</span>
 <span class="c1">##        [ 4,  5,  6],</span>
 <span class="c1">##        [ 7,  8,  9],</span>
@@ -641,18 +634,18 @@ For example,</p>
 <p>Is an array of “depth” 2, “height” 4, and “width” 3;
 we can see it as two 4-by-3 matrices stacked together.
 Theoretically, they can be useful for representing contingency tables for
-products of many factors, but in our application
-areas we are used to sticking with
-long data frames instead, see <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>
-(more aesthetic display, better handling of sparse data).</p>
+products of many factors.
+However, in our application areas, we are used to sticking with
+long data frames instead, see <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>,
+due to their more aesthetic display and better handling of sparse data.</p>
 </div>
 </div>
 <div class="section" id="mathematical-notion">
 <h2><span class="section-number">7.3. </span>Mathematical Notion<a class="headerlink" href="#mathematical-notion" title="Permalink to this headline"></a></h2>
 <p>Here is some standalone mathematical notation that we shall
-be employing in the course of this course.
+be employing in this course.
 A matrix with <em>n</em> rows and <em>m</em> columns
-(an <em>n</em> by <em>m</em>, <span class="math notranslate nohighlight">\(n\times m\)</span>-matrix) <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> can be written as</p>
+(an <em>n</em>-by-<em>m</em> matrix) <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> can be written as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{X}=
@@ -674,17 +667,21 @@ the latter were inspired by the former.</p>
 the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row (e.g., the <span class="math notranslate nohighlight">\(i\)</span>-th <em>observation</em>)
 and the <span class="math notranslate nohighlight">\(j\)</span>-th column (e.g., the <span class="math notranslate nohighlight">\(j\)</span>-th <em>feature</em> or <em>variable</em>), for every
 <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, <span class="math notranslate nohighlight">\(j=1,\dots,m\)</span>.</p>
+<p>In particular, if <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> denoted the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset,
+then <span class="math notranslate nohighlight">\(x_{1,2}\)</span> would be the height of the 1st person.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Matrices like <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> are a convenient
-means of representing many different kinds of data:</p>
+<p>Matrices are a convenient means of representing many different kinds of data:</p>
 <ul class="simple">
 <li><p><em>n</em> points in an <em>m</em> dimensional space
 (like <em>n</em> observations for which there are <em>m</em>
 measurements/features recorded,
-where each row describes a different object);</p></li>
-<li><p><em>m</em> time series sampled at <em>n</em> points in time (e.g., <em>m</em>
-different stocks on <em>n</em> consecutive days);</p></li>
+where each row describes a different object;
+exactly the case of the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset above) – this
+is the most common scenario;</p></li>
+<li><p><em>m</em> time series sampled at <em>n</em> points in time (e.g., prices of <em>m</em>
+different currencies on <em>n</em> consecutive days;
+see <a class="reference internal" href="530-time-series.html#chap-time-series"><span class="std std-numref">Chapter 16</span></a>);</p></li>
 <li><p>a single kind of measurement for data
 in <em>m</em> groups, each consisting of <em>n</em> subjects
 (e.g., heights of <em>n</em> males and <em>n</em> females);
@@ -703,24 +700,22 @@ at the same time, being at the <span class="math notranslate nohighlight">\(j\)<
 variable (e.g., blue-eyed <em>and</em> blonde-haired);</p></li>
 <li><p>graphs and other relationships between objects,
 e.g., <span class="math notranslate nohighlight">\(x_{i,j}=0\)</span> might denote that the <span class="math notranslate nohighlight">\(i\)</span>-th object
-is not connected<a class="footnote-reference brackets" href="#footsparse" id="id1">1</a> with the <span class="math notranslate nohighlight">\(j\)</span>-th one
+is not connected<a class="footnote-reference brackets" href="#footsparse" id="id3">3</a> with the <span class="math notranslate nohighlight">\(j\)</span>-th one
 and <span class="math notranslate nohighlight">\(x_{k,l}=0.2\)</span> that there is a weak connection between
-<span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(l\)</span>;</p></li>
+<span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(l\)</span>
+(e.g., who is a friend of whom, whether a user recommends
+a particular item);</p></li>
 <li><p>images, where <span class="math notranslate nohighlight">\(x_{i,j}\)</span> represents the
 intensity of a colour component (e.g., red, green, blue
 or shades of grey or hue, saturation, brightness;
 compare <a class="reference internal" href="530-time-series.html#sec-image"><span class="std std-numref">Section 16.4</span></a>)
 of a pixel in the <span class="math notranslate nohighlight">\((n-i+1)\)</span>-th row and the <span class="math notranslate nohighlight">\(j\)</span>-th column.</p></li>
 </ul>
-<div style="margin-top: 1em"></div><p>In this course, we are most most often dealing with the first case,
-i.e., <em>n</em> independent points in an <em>m</em> dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
-which we refer to as <em>multidimensional data</em>.
-The above <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset is a typical example of such data.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In practice, quite often more complex and
-less-structured data can be mapped to a tabular form.
+<p>In practice,  more complex and
+less-structured data can quite often be mapped to a tabular form.
 For instance, a set of audio recordings
 can be described by measuring overall loudness,
 timbre, and danceability of each song.
@@ -761,20 +756,6 @@ x_{i,m} \\
 \end{array}
 \right].
 \end{split}\]</div>
-<p>Also, recall that we are used to denoting
-a <em>vector</em> of length <span class="math notranslate nohighlight">\(m\)</span> with <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1, \dots, x_m)\)</span>.
-A vector is a 1-dimensional array (not a 2-dimensional one),
-hence a slightly different notation in the case where ambiguity
-can lead to some trouble.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>In <a class="reference internal" href="320-transform-matrix.html#chap-transform-matrix"><span class="std std-numref">Chapter 8</span></a>
-we will see that often <strong class="program">numpy</strong> automatically
-treats length-<em>m</em> vectors as if they were row vectors,
-i.e., matrices of size <em>1×m</em>.
-For the column vector behaviour, we will need to reshape them
-manually.</p>
-</div>
 <div style="margin-top: 1em"></div><p>Alternatively, we can specify the <span class="math notranslate nohighlight">\(m\)</span> columns</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -812,10 +793,23 @@ x_{n,j} \\
 <p>where <span class="math notranslate nohighlight">\(\cdot^T\)</span> denotes the transpose of a given matrix
 (thanks to which we can save some vertical space, we do not
 want this book be 1000 pages long, do we?).</p>
+<div style="margin-top: 1em"></div><p>Also, recall that we are used to denoting
+<em>vectors</em> of length <span class="math notranslate nohighlight">\(m\)</span> with <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1, \dots, x_m)\)</span>.
+A vector is a 1-dimensional array (not a 2-dimensional one),
+hence a slightly different font in the case where ambiguity
+can be troublesome.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To avoid notation clutter, we will often be implicitly  promoting
+vectors like <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_m)\)</span>
+to row vectors <span class="math notranslate nohighlight">\(\mathbf{x}=[x_1\,\cdots\,x_m]\)</span>,
+because this is the behaviour that <strong class="program">numpy</strong><a class="footnote-reference brackets" href="#footcolumnwisevecs" id="id4">4</a>
+uses; see <a class="reference internal" href="320-transform-matrix.html#chap-transform-matrix"><span class="std std-numref">Chapter 8</span></a>.</p>
+</div>
 </div>
 <div class="section" id="transpose">
 <h3><span class="section-number">7.3.2. </span>Transpose<a class="headerlink" href="#transpose" title="Permalink to this headline"></a></h3>
-<p>More generally, the <em>transpose</em> of a matrix
+<p>The <em>transpose</em> of a matrix
 <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
 is an <span class="math notranslate nohighlight">\((m\times n)\)</span>-matrix <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> given by:</p>
 <div class="math notranslate nohighlight">
@@ -831,8 +825,8 @@ x_{1,n} &amp; x_{2,n} &amp; \cdots &amp; x_{m,n} \\
 \end{array}
 \right],
 \end{split}\]</div>
-<p>i.e., <span class="math notranslate nohighlight">\(y_{i,j}=x_{j, i}\)</span>.</p>
-<div class="proof proof-type-exercise" id="id6">
+<p>i.e., it enjoys <span class="math notranslate nohighlight">\(y_{i,j}=x_{j, i}\)</span>.</p>
+<div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.5</span>
@@ -844,10 +838,10 @@ x_{1,n} &amp; x_{2,n} &amp; \cdots &amp; x_{m,n} \\
 <div class="section" id="identity-and-other-diagonal-matrices">
 <h3><span class="section-number">7.3.3. </span>Identity and Other Diagonal Matrices<a class="headerlink" href="#identity-and-other-diagonal-matrices" title="Permalink to this headline"></a></h3>
 <p><span class="math notranslate nohighlight">\(\mathbf{I}\)</span> denotes the <em>identity matrix</em>,
-being a square <span class="math notranslate nohighlight">\(n\times n\)</span> (with <span class="math notranslate nohighlight">\(n\)</span> most often clear from the context)
-matrix with 0s everywhere except on the main diagonal,
-where 1s lie.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+being a square <span class="math notranslate nohighlight">\(n\times n\)</span> matrix
+(with <span class="math notranslate nohighlight">\(n\)</span> most often clear from the context)
+with 0s everywhere except on the main diagonal, where 1s lie.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># I</span>
 <span class="c1">## array([[1., 0., 0., 0., 0.],</span>
 <span class="c1">##        [0., 1., 0., 0., 0.],</span>
 <span class="c1">##        [0., 0., 1., 0., 0.],</span>
@@ -855,7 +849,8 @@ where 1s lie.</p>
 <span class="c1">##        [0., 0., 0., 0., 1.]])</span>
 </pre></div>
 </div>
-<p>The identity matrix is a neutral element of matrix multiplication.</p>
+<p>The identity matrix is a neutral element of the matrix multiplication
+(<a class="reference internal" href="320-transform-matrix.html#sec-matrix-multiply"><span class="std std-numref">Section 8.3</span></a>).</p>
 <p>More generally, any diagonal matrix,
 <span class="math notranslate nohighlight">\(\mathrm{diag}(a_1,\dots,a_n)\)</span>,
 can be constructed from a given sequence of elements by calling:</p>
@@ -878,42 +873,46 @@ can be constructed from a given sequence of elements by calling:</p>
 <span class="c1">##        [ 61.7, 157.4,  38. ,  34.7,  29. , 101. ,  90.5],</span>
 <span class="c1">##        [ 55.4, 154.6,  34.6,  34. ,  28.3,  92.5,  73.2],</span>
 <span class="c1">##        [ 62. , 144.7,  32.5,  34.2,  29.8, 106.7,  84.8]])</span>
+<span class="n">body</span><span class="o">.</span><span class="n">shape</span>
+<span class="c1">## (4221, 7)</span>
 </pre></div>
 </div>
 <p>This is an example of tabular (“structured”) data.
 The important property it that the elements in each row
 describe the same person;
-we can reorder all the columns at the same time
-(change the order of participants),
-but sorting a single column and leaving the others
+we can freely reorder all the columns at the same time
+(change the order of participants).
+However, sorting a single column and leaving the other ones
 unchanged will be semantically invalid.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="o">.</span><span class="n">shape</span>
-<span class="c1">## (4221, 7)</span>
-</pre></div>
-</div>
 <p>Mathematically, we consider the above as
-a set of 4221 points in a 7-dimensional space.
+a set of 4221 points in a 7-dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^7\)</span>.
 Let us discuss how we can try visualising different
 natural <em>projections</em> thereof.</p>
 <div class="section" id="d-data">
 <h3><span class="section-number">7.4.1. </span>2D Data<a class="headerlink" href="#d-data" title="Permalink to this headline"></a></h3>
 <p>A <em>scatterplot</em> can be used to visualise one variable against another one.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;#00000011&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;standing height (cm)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;upper leg length (cm)&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;#00000022&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id7">
+<div class="figure align-default" id="id11">
 <span id="fig-body-scatter-1-3"></span><img alt="../_images/body-scatter-1-3-1.png" src="../_images/body-scatter-1-3-1.png" />
-<p class="caption"><span class="caption-number">Figure 7.1 </span><span class="caption-text">An example scatterplot</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 7.1 </span><span class="caption-text">An example scatterplot</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
 </div>
 <p><a class="reference internal" href="#fig-body-scatter-1-3"><span class="std std-numref">Figure 7.1</span></a> depicts
-upper leg length (<em>y</em> axis) vs (versus; against; as a function of)
-standing height (<em>x</em> axis) in the form
+upper leg length (the y-axis) vs (versus; against; as a function of)
+standing height (the x-axis) in the form
 of a point cloud with <span class="math notranslate nohighlight">\((x, y)\)</span> coordinates like
 <code class="docutils literal notranslate"><span class="pre">(body[i,</span> <span class="pre">1],</span> <span class="pre">body[i,</span> <span class="pre">3])</span></code>.</p>
-<p>For instance, here are the exact coordinates of the point
+<div class="proof proof-type-example" id="id12">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 7.6</span>
+        
+    </div><div class="proof-content">
+<p>Here are the exact coordinates of the point
 corresponding to the person of the smallest height:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
 <span class="c1">## array([131.1,  30.8])</span>
@@ -924,7 +923,8 @@ corresponding to the person of the smallest height:</p>
 <span class="c1">## array([168.9,  49.1])</span>
 </pre></div>
 </div>
-<p>As the points are plentiful, normally we cannot easily see
+<p>Locate them in <a class="reference internal" href="#fig-body-scatter-1-3"><span class="std std-numref">Figure 7.1</span></a>.</p>
+</div></div><p>As the points are abundant, normally we cannot easily see
 <em>where</em> the majority of them is located.
 However, to remedy this, we applied the simple trick
 of plotting the points using a semi-transparent colour.
@@ -934,9 +934,9 @@ channel in series of two hexadecimal digits (between <code class="docutils liter
 and <code class="docutils literal notranslate"><span class="pre">ff</span></code> = 255).</p>
 <p>Overall, the plot reveals that there is a <em>general tendency</em>
 of small heights and small upper leg lengths to occur frequently together.
-The same with larger pairs. In <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a>
-we will explore some measures
-of correlation that enable us to quantify the degree of association
+The same with larger pairs. In <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a>,
+we explore some measures of correlation that will enable
+us to quantify the degree of association
 between variable pairs.</p>
 </div>
 <div class="section" id="d-data-and-beyond">
@@ -946,42 +946,43 @@ to visualise, we might be tempted to use, e.g.,
 a 3-dimensional scatterplot like the one in
 <a class="reference internal" href="#fig-body-scatter-3d"><span class="std std-numref">Figure 7.2</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;#ffffff00&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#00000011&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vertical_axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;standing height (cm)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;upper leg length (cm)&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;weight (kg)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">vertical_axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id8">
+<div class="figure align-default" id="id13">
 <span id="fig-body-scatter-3d"></span><img alt="../_images/body-scatter-3d-3.png" src="../_images/body-scatter-3d-3.png" />
-<p class="caption"><span class="caption-number">Figure 7.2 </span><span class="caption-text">A three-dimensional scatterplot reveals almost nothing</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 7.2 </span><span class="caption-text">A three-dimensional scatterplot reveals almost nothing</span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
 </div>
 <p>However, infrequently will such a 3D plot provide us with readable results:
 we are projecting a three-dimensional reality onto
 a two-dimensional screen or page. Some information must inherently
 be lost. Also, what we see is relative to the position of the
 virtual camera.</p>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 7.6</span>
+        <span class="proof-type">Exercise 7.7</span>
         
     </div><div class="proof-content">
 <p>(*)
 Try finding an <em>interesting</em> elevation and azimuth angle
 by playing with the arguments passed to the
 <strong class="command">mpl_toolkits.mplot3d.axes3d.Axes3D.view_init</strong> function.
-Also, depict arm circumference, hip circumference, and weight.</p>
+Also, depict arm circumference, hip circumference, and weight on
+a 3D plot.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
 Sometimes there might be facilities available to create an interactive
-scatterplot (e.g., running the above from the Python’s console
-actually enables this), where the virtual camera can be freely repositioned.
-This can give some insight into our data.
+scatterplot (running the above from the Python’s console
+actually enables this), where the virtual camera can be freely repositioned
+with a mouse/touchpad. This can give some more insight into our data.
 Also, there are means of creating animated sequences, where we
 can fly over the data scene. Some people find it cool, others
 find in annoying, but the biggest problem therewith is that
@@ -991,10 +992,10 @@ includes mobile devices), we can try
 <a class="reference external" href="https://wiki.python.org/moin/NumericAndScientific/Plotting">some Python libraries</a>
 that output HTML+CSS+JavaScript code to be rendered by a browser engine.</p>
 </div>
-<div class="proof proof-type-example" id="id10">
+<div class="proof proof-type-example" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Example 7.7</span>
+        <span class="proof-type">Example 7.8</span>
         
     </div><div class="proof-content">
 <p>Instead of drawing a 3D plot, it might be better
@@ -1005,38 +1006,37 @@ can be used to distinguish between low and high values of an
 additional variable, as in <a class="reference internal" href="#fig-scatter-3d-colour"><span class="std std-numref">Figure 7.3</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-    <span class="n">body</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span>   <span class="c1"># x</span>
-    <span class="n">body</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span>   <span class="c1"># y</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="c1"># &quot;z&quot; - colours</span>
+    <span class="n">body</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">],</span>    <span class="c1"># x</span>
+    <span class="n">body</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span>    <span class="c1"># y</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>  <span class="c1"># &quot;z&quot; - colours</span>
     <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">),</span>  <span class="c1"># colour map</span>
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span>  <span class="c1"># opaqueness level between 0 and 1</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;arm circumference (cm)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;hip circumference (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;weight (kg)&quot;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">body_columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id11">
+<div class="figure align-default" id="id16">
 <span id="fig-scatter-3d-colour"></span><img alt="../_images/scatter-3d-colour-5.png" src="../_images/scatter-3d-colour-5.png" />
-<p class="caption"><span class="caption-number">Figure 7.3 </span><span class="caption-text">A two-dimensional scatter plot displaying 3 variables</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 7.3 </span><span class="caption-text">A two-dimensional scatter plot displaying 3 variables</span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
 </div>
 <p>We can see some tendency for the weight be greater
 as both the arm and the hip circumferences increase.</p>
-</div></div><div class="proof proof-type-exercise" id="id12">
+</div></div><div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 7.8</span>
+        <span class="proof-type">Exercise 7.9</span>
         
     </div><div class="proof-content">
-<p>Play around with different
-<a class="reference external" href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">colour pallettes</a>.</p>
-<p>However, be wary that ca. every 1 in 12 men (8%) and 1 in 200 women
-(0.5%) has colour vision deficiencies,
+<p>Play around with different colour pallettes.
+However, be wary that ca. every 1 in 12 men (8%) and 1 in 200 women
+(0.5%) have colour vision deficiencies,
 especially in the red-green or blue-yellow spectrum,
 thence some diverging colour maps might be worse than others.</p>
 </div></div><div style="margin-top: 1em"></div><p>A piece of paper is 2-dimensional. We only have height and width.
@@ -1048,10 +1048,9 @@ and any attempts towards visualising them will simply not work,
 don’t even trip.</p>
 <p>Luckily, this is where mathematics comes to our rescue.
 With some more knowledge and intuitions, and this book lets us
-gain them, it will be as easy as imagining a generic <em>m</em>-dimensional space,
+gain them, it will be as easy<a class="footnote-reference brackets" href="#footjoke" id="id5">5</a> as imagining a generic <em>m</em>-dimensional space,
 and then assuming that, say, <em>m=7</em> or <em>42</em>.</p>
-<p>Pardon yours truly an old joke.</p>
-<p>But, really, jokes aside, this is exactly why data science relies
+<p>This is exactly why data science relies
 on automated methods for knowledge/pattern discovery – so that
 we are able to identify, describe, and analyse the structures that
 might be present in the data, but cannot be perceived with our imperfect
@@ -1062,49 +1061,41 @@ senses.</p>
 can be applied to visualise some aspects of high-dimensional data
 in the form of 2D (or 3D) plots.
 In particular, the principal component analysis (PCA) finds
-an <em>interesting</em> angle at which to look at the data
-(so that most variance is along the first, and then second, etc., axis).</p>
+an <em>interesting</em> angle from which it is worth to look at the data;
+see <a class="reference internal" href="330-relationship.html#sec-pca"><span class="std std-numref">Section 9.3</span></a>.</p>
 </div>
 </div>
 <div class="section" id="scatterplot-matrix-pairplot">
 <h3><span class="section-number">7.4.3. </span>Scatterplot Matrix (Pairplot)<a class="headerlink" href="#scatterplot-matrix-pairplot" title="Permalink to this headline"></a></h3>
-<p>As a countermeasure, we may try depicting all (or most – ones we
-deem interesting) pairs of variables in the same drawing
-in the form of a scatterplot matrix, see <a class="reference internal" href="#fig-body-pairplot"><span class="std std-numref">Figure 7.4</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
-        <span class="s2">&quot;weight (kg)&quot;</span><span class="p">,</span> <span class="s2">&quot;standing height (cm)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;arm circumference (cm)&quot;</span><span class="p">,</span> <span class="s2">&quot;hip circumference (cm)&quot;</span>
-    <span class="p">]</span>
-<span class="p">))</span>
+<p>We may also try depicting all (or most – ones that we deem interesting)
+pairs of variables in the form of a scatterplot matrix;
+see <a class="reference internal" href="#fig-body-pairplot"><span class="std std-numref">Figure 7.4</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>  <span class="c1"># sns.pairplot needs a DataFrame...</span>
+        <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span>
+        <span class="n">columns</span><span class="o">=</span><span class="n">body_columns</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+    <span class="p">),</span>
+    <span class="n">plot_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="p">)</span>
 <span class="c1"># plt.show()  # not needed :/</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id18">
 <span id="fig-body-pairplot"></span><img alt="../_images/body-pairplot-7.png" src="../_images/body-pairplot-7.png" />
-<p class="caption"><span class="caption-number">Figure 7.4 </span><span class="caption-text">Scatterplot matrix for selected columns in the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset</span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 7.4 </span><span class="caption-text">Scatterplot matrix for selected columns in the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset: scatterplots for all unique pairs of variables together with histograms on the main diagonal</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
 </div>
-<p>As depicting a variable against itself is uninteresting (exercise:
-what would that be?), we have included histograms on the main
-diagonal to see how the one-dimensional projections are distributed
+<p>Plotting variables against themselves is uninteresting (exercise:
+what would that be?). Thus, we have included histograms on the main
+diagonal to see how the they are distributed
 (the <em>marginal distributions</em>).</p>
-<p>In <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a> we will be interested in
-describing and even modelling the possible relationships between
-variables. A scatterplot matrix can be a good tool for identifying
-interesting combinations of columns in our datasets.</p>
-<div class="proof proof-type-exercise" id="id14">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 7.9</span>
-        
-    </div><div class="proof-content">
-<p>Draw a scatterplot matrix for the
-<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/clustering/fcps_chainlink.csv">fcps_chainlink</a> dataset.
-Note that we are only observing different 2-dimensional projections
-of this more complex domain: only those that are along
-the main axes. Create a 3D scatterplot to reveal the true shapes.</p>
-</div></div><div class="proof proof-type-exercise" id="id15">
+<p>A scatterplot matrix can be a good tool for identifying
+interesting combinations of columns in our datasets.
+We see that some pairs of variables are more “structured”
+than others, e.g., hip circumference and weight are more or less
+aligned on a straight line.
+This is why in <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a> we will be interested in
+describing the possible relationships between the variables.</p>
+<div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.10</span>
@@ -1113,22 +1104,22 @@ the main axes. Create a 3D scatterplot to reveal the true shapes.</p>
 <p>(*)
 Use <strong class="command">matplotlib.pyplot.subplot</strong> and other functions we have learned
 in the previous part to create a scatterplot matrix manually.
-Draw weight, arm circumference,  and hip circumference on a logarithmic
+Draw weight, arm circumference, and hip circumference on a logarithmic
 scale.</p>
 </div></div></div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">7.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id16">
+<div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.11</span>
         
     </div><div class="proof-content">
 <p>What is the difference between
-<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">2,</span> <span class="pre">3]]</span></code> and <code class="docutils literal notranslate"><span class="pre">[[1],</span> <span class="pre">[2],</span> <span class="pre">[3]]</span></code> in the context
+<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">2,</span> <span class="pre">3]]</span></code>, and <code class="docutils literal notranslate"><span class="pre">[[1],</span> <span class="pre">[2],</span> <span class="pre">[3]]</span></code> in the context
 of array creation?</p>
-</div></div><div class="proof proof-type-exercise" id="id17">
+</div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.12</span>
@@ -1136,7 +1127,7 @@ of array creation?</p>
     </div><div class="proof-content">
 <p>If <code class="docutils literal notranslate"><span class="pre">A</span></code> is a matrix with 5 rows and 6 columns,
 what is the difference between <code class="docutils literal notranslate"><span class="pre">A.reshape(6,</span> <span class="pre">5)</span></code> and <code class="docutils literal notranslate"><span class="pre">A.T</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id18">
+</div></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.13</span>
@@ -1147,36 +1138,55 @@ what is the meaning of:
 <code class="docutils literal notranslate"><span class="pre">A.reshape(-1)</span></code>, <code class="docutils literal notranslate"><span class="pre">A.reshape(3,</span> <span class="pre">-1)</span></code>,
 <code class="docutils literal notranslate"><span class="pre">A.reshape(-1,</span> <span class="pre">3)</span></code>, <code class="docutils literal notranslate"><span class="pre">A.reshape(-1,</span> <span class="pre">-1)</span></code>,
 <code class="docutils literal notranslate"><span class="pre">A.shape</span> <span class="pre">=</span> <span class="pre">(3,</span> <span class="pre">10)</span></code>, and <code class="docutils literal notranslate"><span class="pre">A.shape</span> <span class="pre">=</span> <span class="pre">(-1,</span> <span class="pre">3)</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id19">
+</div></div><div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.14</span>
         
     </div><div class="proof-content">
-<p>List some methods to add a new row to an existing matrix.</p>
-</div></div><div class="proof proof-type-exercise" id="id20">
+<p>List some methods to add a new row and add a new column to an existing matrix.</p>
+</div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.15</span>
         
     </div><div class="proof-content">
 <p>Give some ways to visualise 3-dimensional data.</p>
-</div></div><div class="proof proof-type-exercise" id="id21">
+</div></div><div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 7.16</span>
         
     </div><div class="proof-content">
-<p>How to and why set point opaqueness/transparency when drawing
-a scatter plot?</p>
+<p>How to set point opaqueness/transparency when drawing
+a scatter plot?
+Why would we be interested in this?</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
-<dt class="label" id="footsparse"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="footsolveex"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Assuming we solved all the suggested exercises,
+which did, didn’t we? See Rule #3.</p>
+</dd>
+<dt class="label" id="footrowmajor"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>(*) Sometimes referred to as a C-style array,
+as opposed to Fortran-style which is used in, e.g., R.</p>
+</dd>
+<dt class="label" id="footsparse"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
 <dd><p>Such matrices are usually sparse, i.e.,
 have many elements equal to 0. We have special, memory-efficient
 data structures for handling these data, see
 <strong class="program">scipy.sparse</strong> for more detail as they go beyond
 the scope of our introductory course.</p>
+</dd>
+<dt class="label" id="footcolumnwisevecs"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>However, some textbooks assume that all
+vectors are <em>column</em> vectors; in such a case, they would define
+the Euclidean norm as
+<span class="math notranslate nohighlight">\(\|\boldsymbol{x}\|=\sqrt{\mathbf{x}^T \mathbf{x}}\)</span>.</p>
+</dd>
+<dt class="label" id="footjoke"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>This is an old funny joke which most funny mathematicians
+find funny.</p>
 </dd>
 </dl>
 </div>
@@ -1198,7 +1208,7 @@ the scope of our introductory course.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-05T13:30:13+1000.
+        Last updated on 2022-07-05T15:51:10+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
