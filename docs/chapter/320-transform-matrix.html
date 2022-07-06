@@ -285,10 +285,8 @@ refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 </div></blockquote>
 <div class="section" id="from-vectors-to-matrices">
 <h2><span class="section-number">8.1. </span>From Vectors to Matrices<a class="headerlink" href="#from-vectors-to-matrices" title="Permalink to this headline"></a></h2>
-<p>Let us study how the vector operations
-that we discussed in, amongst others,
-<a class="reference internal" href="220-transform-vector.html#chap-transform-vector"><span class="std std-numref">Chapter 5</span></a>
-can be extended to matrices.
+<p>Let us study how the vector operations that we discussed in, amongst others,
+<a class="reference internal" href="220-transform-vector.html#chap-transform-vector"><span class="std std-numref">Chapter 5</span></a> can be extended to matrices.
 In many cases, we will end up applying the same transform either
 on every matrix element separately, or on each row or column.
 They are all a brilliant example of the <em>write less, do more</em> principle
@@ -334,20 +332,17 @@ f(x_{n,1}) &amp; f(x_{n,2}) &amp; \cdots &amp; f(x_{n,m}) \\
 (e.g., <strong class="command">numpy.mean</strong>, <strong class="command">numpy.quantile</strong>)
 can be applied to summarise:</p>
 <ul class="simple">
-<li><p>data in each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>),</p></li>
-<li><p>data in each column (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>),</p></li>
-</ul>
-<p>as well as:</p>
-<ul class="simple">
 <li><p>all data into a single number (<code class="docutils literal notranslate"><span class="pre">axis=None</span></code>, being the default),</p></li>
+<li><p>data in each column (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>), as well as</p></li>
+<li><p>data in each row (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>).</p></li>
 </ul>
 <p>Here are the examples corresponding to the above cases:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="c1">## 0.39999999999999997</span>
-<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">## array([0.4  , 0.325, 0.475])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## array([0.33333333, 0.53333333, 0.33333333, 0.4       ])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">## array([0.4  , 0.325, 0.475])</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -356,9 +351,10 @@ can be applied to summarise:</p>
 that we get the column means (even though
 columns constitute the 2nd axis, and we count starting at 0).
 It denotes the axis <em>along</em> which the matrix is sliced.
-Sadly, even yours truly sometimes does not get it right.</p>
+Sadly, even yours truly sometimes does not get it right
+on the first attempt.</p>
 </div>
-<div class="proof proof-type-exercise" id="id5">
+<div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.1</span>
@@ -368,18 +364,17 @@ Sadly, even yours truly sometimes does not get it right.</p>
 dataset, compute the mean, standard deviation, minimum,
 and maximum of each body measurement.</p>
 </div></div><p>We will get back to the topic of the aggregation of
-multidimensional data in <a class="reference internal" href="#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>
-and <a class="reference internal" href="#sec-aggmultidim"><span class="std std-numref">Section 8.4.3</span></a>.</p>
+multidimensional data in <a class="reference internal" href="#sec-distances"><span class="std std-numref">Section 8.4</span></a>.</p>
 </div>
 <div class="section" id="arithmetic-logical-and-comparison-operations">
 <h3><span class="section-number">8.1.3. </span>Arithmetic, Logical, and Comparison Operations<a class="headerlink" href="#arithmetic-logical-and-comparison-operations" title="Permalink to this headline"></a></h3>
 <p>Recall that for vectors, binary operators
 such as `<strong class="command">+</strong>`, `<strong class="command">*</strong>`, `<strong class="command">==</strong>`,
 `<strong class="command">&lt;=</strong>`, and `<strong class="command">&amp;</strong>`
-and similar elementwise functions (e.g., <strong class="command">numpy.minimum</strong>)
+as well as similar elementwise functions (e.g., <strong class="command">numpy.minimum</strong>)
 can be applied if both inputs are of the same length,
 for example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>  <span class="c1"># elementwisely</span>
 <span class="c1">## array([   7,  -60,  200, 8000])</span>
 </pre></div>
 </div>
@@ -432,9 +427,7 @@ cx_{n,1} &amp; cx_{n,2} &amp; \cdots &amp; cx_{n,m} \\
 <span class="c1">##        [0.64, 0.64, 0.04, 0.01]])</span>
 </pre></div>
 </div>
-<p>takes the square of each element
-(this is not the same as matrix-multiply by itself
-which we cover in the matrix algebra section).</p>
+<p>takes the square<a class="footnote-reference brackets" href="#footsquare" id="id1">1</a> of each element.</p>
 <p>Also:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">&gt;=</span> <span class="mf">0.25</span>
 <span class="c1">## array([[False,  True,  True,  True],</span>
@@ -447,7 +440,7 @@ which we cover in the matrix algebra section).</p>
 <div class="section" id="matrix-vs-matrix">
 <h4><span class="section-number">8.1.3.2. </span>Matrix vs Matrix<a class="headerlink" href="#matrix-vs-matrix" title="Permalink to this headline"></a></h4>
 <p>For two matrices of identical sizes, we will be
-acting on the corresponding elements:</p>
+acting on the <em>corresponding</em> elements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tri</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># just an example</span>
 <span class="n">B</span>  <span class="c1"># a lower triangular 0-1 matrix</span>
 <span class="c1">## array([[1., 0., 0., 0.],</span>
@@ -472,7 +465,7 @@ the result of <span class="math notranslate nohighlight">\(+\)</span> (or <span 
 \left[
 \begin{array}{cccc}
 a_{1,1}+b_{1,1} &amp; a_{1,2}+b_{1,2} &amp; \cdots &amp; a_{1,m}+b_{1,m} \\
-a_{2,1}+b_{2,1} &amp; a_{2,2}+b_{1,2} &amp; \cdots &amp; a_{2,m}+b_{2,m} \\
+a_{2,1}+b_{2,1} &amp; a_{2,2}+b_{2,2} &amp; \cdots &amp; a_{2,m}+b_{2,m} \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 a_{n,1}+b_{n,1} &amp; a_{n,2}+b_{n,2} &amp; \cdots &amp; a_{n,m}+b_{n,m} \\
 \end{array}
@@ -486,7 +479,7 @@ we can perform various tests on an per-element basis, e.g.,</p>
 <span class="c1">##        [False, False, False, False]])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-example" id="id6">
+<div class="proof proof-type-example" id="id10">
 
     <div class="proof-title">
         <span class="proof-type">Example 8.2</span>
@@ -500,7 +493,7 @@ In order to draw it, we have probed 250 points from the two said
 ranges and called <strong class="command">numpy.meshgrid</strong> to generate
 two matrices, both of shape 250 by 250,
 giving the x- and y-coordinates of all the points on
-the corresponding a two-dimensional grid.
+the corresponding two-dimensional grid.
 Thanks to this, we were able to use vectorised mathematical operations
 to compute the values of <span class="math notranslate nohighlight">\(f\)</span> thereon.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
@@ -513,13 +506,13 @@ to compute the values of <span class="math notranslate nohighlight">\(f\)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id7">
+<div class="figure align-default" id="id11">
 <span id="fig-ex-contourf"></span><img alt="../_images/ex-contourf-1.png" src="../_images/ex-contourf-1.png" />
-<p class="caption"><span class="caption-number">Figure 8.1 </span><span class="caption-text">An example filled contour plot with additional labelled contour lines</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 8.1 </span><span class="caption-text">An example filled contour plot with additional labelled contour lines</span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
 </div>
 <p>In order to understand the result generated by
-<strong class="command">numpy.meshgrid</strong> better here are the outputs generated
-by it for a smaller number of probe points:</p>
+<strong class="command">numpy.meshgrid</strong>, here is its output for a smaller number
+of probe points:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">xg</span><span class="p">,</span> <span class="n">yg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -573,21 +566,22 @@ an <em>n×1</em> column vector:</p>
 </div>
 <p>recycles the row vector over all rows (top to bottom).</p>
 <p>If one operand is a 1-dimensional array or a list of length
-<em>m</em>, it will be treated as a row vector.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<em>m</em>, it will be treated as a row vector. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># matrix - vector</span>
 <span class="c1">## array([[-0.133,  0.067,  0.067, -0.   ],</span>
 <span class="c1">##        [-0.333, -0.333,  0.067,  0.3  ],</span>
 <span class="c1">##        [ 0.467,  0.267, -0.133, -0.3  ]])</span>
 </pre></div>
 </div>
-<p>This resulted in each column mean’s being 0. An explicit <code class="docutils literal notranslate"><span class="pre">.reshape(1,</span> <span class="pre">-1)</span></code>
-was not necessary.</p>
+<p>On a side note, this is an instance of <em>centring</em> of each column.
+An explicit <code class="docutils literal notranslate"><span class="pre">.reshape(1,</span> <span class="pre">-1)</span></code> was not necessary.</p>
 <p>Mathematically, although it is not necessarily a standard
 notation, we will allow adding and subtracting row vectors
 from matrices of compatible sizes:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{X}+\mathbf{t}=
+\mathbf{X}+[ t_1\ t_2\ \cdots\ t_m ]=
 \left[
 \begin{array}{cccc}
 x_{1,1} + t_1 &amp; x_{1,2} + t_2 &amp; \dots &amp; x_{1,m} + t_m \\
@@ -599,29 +593,19 @@ x_{n,1} + t_1 &amp; x_{n,2} + t_2 &amp; \dots &amp; x_{n,m} + t_m \\
 \end{split}\]</div>
 <p>This corresponds to shifting (translating) every row
 in the matrix.</p>
-<p>However, subtracting the row means already requires
-some extra labour:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="c1">## array([[-0.2  ,  0.2  ,  0.   ,  0.   ],</span>
-<span class="c1">##        [-0.325, -0.125,  0.075,  0.375],</span>
-<span class="c1">##        [ 0.325,  0.325, -0.275, -0.375]])</span>
-</pre></div>
-</div>
-<p>The reader is encouraged to verify that
-<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">-</span> <span class="pre">np.mean(A,</span> <span class="pre">axis=1)</span></code> would raise an exception.</p>
-<div class="proof proof-type-exercise" id="id8">
+<div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.3</span>
         
     </div><div class="proof-content">
 <p>Standardise, normalise, and min-max scale
-each column in the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/nhanes_adult_female_bmx_2020.csv"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_bmx_2020.csv</span></code></a>
-dataset using a single line of code.</p>
+every column in the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/nhanes_adult_female_bmx_2020.csv"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_bmx_2020.csv</span></code></a>.
+In every case, a single line of code is sufficient.</p>
 </div></div></div>
 <div class="section" id="row-vector-vs-column-vector">
 <h4><span class="section-number">8.1.3.4. </span>Row Vector vs Column Vector (*)<a class="headerlink" href="#row-vector-vs-column-vector" title="Permalink to this headline"></a></h4>
-<p>As a bonus, let us quickly mention that
+<p>To add to joy, let us quickly mention that
 a row vector combined with a column vector results
 in an operation’s being performed on each <em>combination</em>
 of <em>all</em> pairs of elements in the two arrays
@@ -632,7 +616,7 @@ of <em>all</em> pairs of elements in the two arrays
 <span class="c1">##        [100, 200, 300, 400, 500, 600, 700]])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.4</span>
@@ -642,18 +626,17 @@ of <em>all</em> pairs of elements in the two arrays
 <strong class="command">numpy.nonzero</strong> relies on similar shape broadcasting rules
 as the binary operators we have discussed here,
 however, not with regard to all the 3 arguments.</p>
-</div></div><div class="proof proof-type-example" id="id10">
+</div></div><div class="proof proof-type-example" id="id14">
 
     <div class="proof-title">
         <span class="proof-type">Example 8.5</span>
         
     </div><div class="proof-content">
-<p>Himmelblau’s function in <a class="reference internal" href="#fig-ex-contourf"><span class="std std-numref">Figure 8.1</span></a> is only defined
+<p>(*) Himmelblau’s function in <a class="reference internal" href="#fig-ex-contourf"><span class="std std-numref">Figure 8.1</span></a> is only defined
 by means of arithmetic operators, which all accept the kind of
 shape broadcasting that we discuss in this section.
 Therefore, calling <strong class="command">numpy.meshgrid</strong> in that example
-was actually not necessary in order to evaluate <span class="math notranslate nohighlight">\(f\)</span>
-on a grid of points:</p>
+in order to evaluate <span class="math notranslate nohighlight">\(f\)</span> on a grid of points was actually unnecessary:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">xg</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -690,7 +673,7 @@ for example:</p>
 </pre></div>
 </div>
 <p>computes the ranks of elements in each column.</p>
-<p>A few functions have the default argument
+<p>Some functions have the default argument
 <code class="docutils literal notranslate"><span class="pre">axis=-1</span></code>, which means that they  are applied
 along the last (i.e., columns in the matrix case) axis:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1"># axis=1 here</span>
@@ -714,7 +697,7 @@ argument and – instead – it was designed to work
 with individual vectors,
 we can propagate it over all the rows or columns
 by calling <strong class="command">numpy.apply_along_axis</strong>.</p>
-<p>For instance, here is another (have we solved the suggested
+<p>For instance, here is another (have you solved the suggested
 exercise?) way to compute the column z-scores:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -725,18 +708,20 @@ exercise?) way to compute the column z-scores:</p>
 <span class="c1">##        [ 1.37,  1.07, -1.41, -1.22]])</span>
 </pre></div>
 </div>
+<p>But of course we prefer
+<code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">-</span> <span class="pre">np.mean(x,</span> <span class="pre">axis=0))/np.std(x,</span> <span class="pre">axis=0)</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-Matrices are of course iterable (in the sense of <a class="reference internal" href="130-sequential.html#sec-iterable"><span class="std std-numref">Section 3.4</span></a>),
+Matrices are iterable (in the sense of <a class="reference internal" href="130-sequential.html#sec-iterable"><span class="std std-numref">Section 3.4</span></a>),
 but in an interesting way. Namely, an iterator traverses through
 each row in a matrix. Therefore, for example,
-writing</p>
+writing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">A</span>  <span class="c1"># A has 3 rows</span>
 </pre></div>
 </div>
 <p>creates three variables, each representing a separate row
-in <code class="docutils literal notranslate"><span class="pre">A</span></code>, second of which being</p>
+in <code class="docutils literal notranslate"><span class="pre">A</span></code>, second of which being:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r2</span>
 <span class="c1">## array([0. , 0.2, 0.4, 0.7])</span>
 </pre></div>
@@ -746,15 +731,15 @@ in <code class="docutils literal notranslate"><span class="pre">A</span></code>,
 </div>
 <div class="section" id="indexing-matrices">
 <span id="sec-matrix-indexing"></span><h2><span class="section-number">8.2. </span>Indexing Matrices<a class="headerlink" href="#indexing-matrices" title="Permalink to this headline"></a></h2>
-<p>Recall that for 1-dimensional arrays we have four possible choices
+<p>Recall that for 1-dimensional arrays, we have four possible choices
 of indexers (i.e., where performing filtering like <code class="docutils literal notranslate"><span class="pre">x[i]</span></code>):</p>
 <ul class="simple">
 <li><p>scalar (extracts a single element),</p></li>
 <li><p>slice (selects a regular subsequence, e.g., every 2nd element
 or the first 6 items; returns a <em>view</em> on existing data  – it does
 not make an independent copy of the subsetted elements),</p></li>
-<li><p>integer vector (selects elements at given indices),</p></li>
-<li><p>logical vector (select elements that correspond to
+<li><p>integer vector (selects elements at given indexes),</p></li>
+<li><p>logical vector (selects elements that correspond to
 <code class="docutils literal notranslate"><span class="pre">True</span></code> in the indexer).</p></li>
 </ul>
 <p>Matrices are two-dimensional arrays, and hence
@@ -768,14 +753,13 @@ so we at least 10 different cases to consider
 <p class="admonition-title">Important</p>
 <p>Generally:</p>
 <ul class="simple">
-<li><p>each scalar indexer reduces the dimensionality of the
+<li><p>each scalar index reduces the dimensionality of the
 subsetted object by 1;</p></li>
 <li><p>slice-slice and slice-scalar indexing returns a view on
 the existing array, so we need to be careful when modifying
 the resulting object;</p></li>
 <li><p>usually, indexing returns a submatrix (subblock),
-which is a combination of elements at given rows and columns,
-but two flat-vector indexers are vectorised elementwisely instead;</p></li>
+which is a combination of elements at given rows and columns;</p></li>
 <li><p>indexing with two integer or logical vectors at the same time
 should be avoided.</p></li>
 </ul>
@@ -797,8 +781,8 @@ should be avoided.</p></li>
 <span class="c1">##        [0.1]])</span>
 </pre></div>
 </div>
-<p>gives every second row and skips first three columns.
-Let us stress that the result is still a matrix.</p>
+<p>gives every second row and skips the first three columns.
+Let us stress that the result is always a matrix.</p>
 <p>An empty slice selects all elements on the corresponding axis, therefore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># all rows, reversed columns</span>
 <span class="c1">## array([[0.4, 0.4, 0.6, 0.2],</span>
@@ -812,18 +796,19 @@ Let us stress that the result is still a matrix.</p>
 <h3><span class="section-number">8.2.2. </span>Scalar-Based Indexing<a class="headerlink" href="#scalar-based-indexing" title="Permalink to this headline"></a></h3>
 <p>Indexing by a scalar selects a given row or column,
 reducing the dimensionality of the output object.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
-<span class="c1">## array([0. , 0.2, 0.4, 0.7])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="c1">## array([0.4, 0.7, 0.1])</span>
 </pre></div>
 </div>
-<p>selects the 2nd row and gives a flat vector.</p>
+<p>selects the 4th column and gives a flat vector
+(we can always use the <strong class="command">reshape</strong> method to
+convert the resulting object back to a matrix).</p>
+<p>Furthermore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="c1">## 0.4</span>
 </pre></div>
 </div>
-<p>yields the element in the first row and last column.</p>
-<p>However, we can always use the <strong class="command">reshape</strong> method to
-convert the resulting object back to a matrix.</p>
+<p>yields the element (scalar) in the first row and the last column.</p>
 </div>
 <div class="section" id="mixed-boolean-integer-vector-and-scalar-slice-indexers">
 <h3><span class="section-number">8.2.3. </span>Mixed Boolean/Integer Vector and Scalar/Slice Indexers<a class="headerlink" href="#mixed-boolean-integer-vector-and-scalar-slice-indexers" title="Permalink to this headline"></a></h3>
@@ -844,7 +829,7 @@ and reverses the order of columns.</p>
 <span class="c1">##        [0.8, 0.8, 0.2, 0.1]])</span>
 </pre></div>
 </div>
-<p>selects rows such that in the first column the values
+<p>selects the rows from <code class="docutils literal notranslate"><span class="pre">A</span></code> where the values in the first column of <code class="docutils literal notranslate"><span class="pre">A</span></code>
 are greater than 0.1.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.35</span><span class="p">,</span> <span class="p">:</span> <span class="p">]</span>
 <span class="c1">## array([[0.2, 0.6, 0.4, 0.4],</span>
@@ -859,8 +844,8 @@ are greater than 0.1.</p>
 </pre></div>
 </div>
 <p>orders the matrix with respect to the values in the first
-row (all rows permuted in the same way, together).</p>
-<div class="proof proof-type-exercise" id="id11">
+column (all rows permuted in the same way, together).</p>
+<div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.6</span>
@@ -868,14 +853,14 @@ row (all rows permuted in the same way, together).</p>
     </div><div class="proof-content">
 <p>In the
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/nhanes_adult_female_bmx_2020.csv"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_bmx_2020</span></code></a> dataset,
-select all the participants whose heights is within their
+select all the participants whose heights are within their
 mean ± 2 standard deviations.</p>
 </div></div></div>
 <div class="section" id="two-vectors-as-indexers">
 <h3><span class="section-number">8.2.4. </span>Two Vectors as Indexers (*)<a class="headerlink" href="#two-vectors-as-indexers" title="Permalink to this headline"></a></h3>
 <p>With two vectors (logical or integer) things are a tad more
 horrible, as in this case not only some
-form <em>shape broadcasting</em> comes into play
+form of <em>shape broadcasting</em> comes into play
 but also all the headache-inducing exceptions
 listed in the perhaps not the most clearly written
 <a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html">Advanced Indexing</a>
@@ -883,9 +868,10 @@ section of the <strong class="program">numpy</strong> manual.
 Cheer up, however, things in <strong class="program">pandas</strong> are much worse
 (see <a class="reference internal" href="410-data-frame.html#sec-df-indexing"><span class="std std-numref">Section 10.5</span></a>).</p>
 <p>For the sake of our maintaining sanity, in practice it is best
-to stick only to the scenarios below and be extra careful
-when using two vector indexers.</p>
-<p>For two flat integer indexers, we pick elementwisely:</p>
+to be extra careful when using two vector indexers and
+stick only to the scenarios discussed below.</p>
+<p>For two flat integer indexers, we pick elementwisely.
+Therefore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="p">]</span>
 <span class="c1">## array([0.6, 0.2, 0.2, 0.2, 0.6])</span>
 </pre></div>
@@ -893,29 +879,41 @@ when using two vector indexers.</p>
 <p>yields <code class="docutils literal notranslate"><span class="pre">A[0,</span> <span class="pre">1]</span></code>, <code class="docutils literal notranslate"><span class="pre">A[-1,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">A[0,</span> <span class="pre">0]</span></code>, <code class="docutils literal notranslate"><span class="pre">A[2,</span> <span class="pre">2]</span></code>, and <code class="docutils literal notranslate"><span class="pre">A[0,</span> <span class="pre">1]</span></code>.</p>
 <p>In order to select a submatrix using integer indexes,
 it is best to make sure that the first indexer is a column vector,
-and the second is a row vector (or some object like the
-two said ones, e.g., compatible lists of lists).
-Further, if indexing involves logical vectors,
+and the second one is a row vector (or some objects like these,
+e.g., compatible lists of lists).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="p">]</span>  <span class="c1"># column vector-like list, row vector-like list</span>
+<span class="c1">## array([[0.6, 0.4],</span>
+<span class="c1">##        [0.8, 0.1]])</span>
+</pre></div>
+</div>
+<p>Further, if indexing involves logical vectors,
 it is best to convert them to integer ones first
-(e.g., by calling <strong class="command">numpy.nonzero</strong>).</p>
-<p>The above transformations can be done automatically
-via the <strong class="command">numpy.ix_</strong> function, which is always the safest choice:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.35</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="p">]</span>
+(e.g., by calling <strong class="command">numpy.flatnonzero</strong>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.35</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="p">]</span>
 <span class="c1">## array([[0.2, 0.4, 0.4, 0.2],</span>
 <span class="c1">##        [0.8, 0.2, 0.1, 0.8]])</span>
 </pre></div>
 </div>
-<p>Alternatively, we can always apply indexing twice instead
-(which we will anyway be forced to do in <strong class="program">pandas</strong>
-whenever selecting rows by number and columns by names is required).</p>
+<p>The necessary reshaping can be done automatically with the
+<strong class="command">numpy.ix_</strong> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.35</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="p">]</span>  <span class="c1"># np.ix_(rows, cols)</span>
+<span class="c1">## array([[0.2, 0.4, 0.4, 0.2],</span>
+<span class="c1">##        [0.8, 0.2, 0.1, 0.8]])</span>
+</pre></div>
+</div>
+<p>Alternatively, we can always apply indexing twice instead:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.45</span><span class="p">,</span> <span class="p">:][:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
 <span class="c1">## array([[0.8, 0.2, 0.1, 0.8]])</span>
 </pre></div>
 </div>
+<p>This is only a mild inconvenience.
+Moreover, we will be forced to apply such double indexing in
+<strong class="program">pandas</strong> whenever selecting rows <em>by position</em> and columns
+<em>by name</em> is required; see <a class="reference internal" href="410-data-frame.html#sec-df-indexing"><span class="std std-numref">Section 10.5</span></a>.</p>
 </div>
 <div class="section" id="views-on-existing-arrays">
 <h3><span class="section-number">8.2.5. </span>Views on Existing Arrays (*)<a class="headerlink" href="#views-on-existing-arrays" title="Permalink to this headline"></a></h3>
-<p>Only indexing involving two slices or a slice and a scalar returns a
+<p>Only the indexing involving two slices or a slice and a scalar returns a
 <a class="reference external" href="https://numpy.org/devdocs/user/basics.copies.html">view</a>
 on an existing array.</p>
 <p>For example:</p>
@@ -939,8 +937,8 @@ in-place, e.g.,</p>
 </pre></div>
 </div>
 <p>This is time and memory efficient, but
-might lead to some unexpected results if we are not
-focused enough. We have been warned.</p>
+might lead to some unexpected results if we are being rather absent-minded.
+We have been warned.</p>
 </div>
 <div class="section" id="adding-and-modifying-rows-and-columns">
 <h3><span class="section-number">8.2.6. </span>Adding and Modifying Rows and Columns<a class="headerlink" href="#adding-and-modifying-rows-and-columns" title="Permalink to this headline"></a></h3>
@@ -951,11 +949,10 @@ new content in a natural way:</p>
 </pre></div>
 </div>
 <p>With <strong class="command">numpy</strong> arrays, however, brand new rows or columns cannot
-be added using the index operator. Instead, the whole array needs to
+be added via the index operator. Instead, the whole array needs to
 be created from scratch using, for example, one
-of the functions discussed in <a class="reference internal" href="310-matrix.html#sec-stacking-array"><span class="std std-numref">Section 7.1.4</span></a>.</p>
-<p>Here is an example where we add a new column to the <code class="docutils literal notranslate"><span class="pre">A</span></code> matrix
-being a function of the first column:</p>
+of the functions discussed in <a class="reference internal" href="310-matrix.html#sec-stacking-array"><span class="std std-numref">Section 7.1.4</span></a>.
+For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])))</span>
 <span class="n">A</span>
 <span class="c1">## array([[ 0.04,  0.6 , -0.4 ,  0.4 ,  0.2 ],</span>
@@ -967,9 +964,9 @@ being a function of the first column:</p>
 </div>
 <div class="section" id="matrix-multiplication-dot-products-and-the-euclidean-norm">
 <span id="sec-matrix-multiply"></span><h2><span class="section-number">8.3. </span>Matrix Multiplication, Dot Products, and the Euclidean Norm<a class="headerlink" href="#matrix-multiplication-dot-products-and-the-euclidean-norm" title="Permalink to this headline"></a></h2>
-<p>Matrix algebra is at the core of most methods used in data analysis
-and matrix multiply is one of the most fundamental operations therein
-(e.g., <span id="id1">[<a class="reference internal" href="999-bibliography.html#id71">DFO20</a>, <a class="reference internal" href="999-bibliography.html#id127">Gen17</a>]</span>).</p>
+<p>Matrix algebra is at the core of all the methods used in data analysis
+with the matrix multiply being the most fundamental operation therein
+(e.g., <span id="id2">[<a class="reference internal" href="999-bibliography.html#id73">DFO20</a>, <a class="reference internal" href="999-bibliography.html#id129">Gen17</a>]</span>).</p>
 <p>Given <span class="math notranslate nohighlight">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span>
 and <span class="math notranslate nohighlight">\(\mathbf{B}\in\mathbb{R}^{p\times m}\)</span>, their <em>multiply</em> is a matrix
 <span class="math notranslate nohighlight">\(\mathbf{C}=\mathbf{A}\mathbf{B}\in\mathbb{R}^{n\times m}\)</span>
@@ -990,16 +987,19 @@ c_{i,j} = a_{i, 1} b_{1, j} + a_{i, 2} b_{2, j} + \dots + a_{i, p} b_{p, j}
     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
 <span class="p">])</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
 <span class="p">])</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>  <span class="c1"># or: A.dot(B)</span>
+</pre></div>
+</div>
+<p>And now:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>  <span class="c1"># or: A.dot(B)</span>
 <span class="n">C</span>
-<span class="c1">## array([[ 3, -1,  3,  1],</span>
-<span class="c1">##        [ 4,  6,  5,  7],</span>
-<span class="c1">##        [ 3,  5,  2,  6],</span>
-<span class="c1">##        [ 7,  7, 11,  9],</span>
+<span class="c1">## array([[ 3,  0,  3,  1],</span>
+<span class="c1">##        [ 4,  8,  5,  7],</span>
+<span class="c1">##        [ 3,  8,  2,  6],</span>
+<span class="c1">##        [ 7,  8, 11,  9],</span>
 <span class="c1">##        [ 2,  0,  3,  1]])</span>
 </pre></div>
 </div>
@@ -1011,34 +1011,34 @@ c_{i,j} = a_{i, 1} b_{1, j} + a_{i, 2} b_{2, j} + \dots + a_{i, p} b_{p, j}
 1 &amp; 0 &amp; 1 \\
 2 &amp; 2 &amp; 1 \\
 3 &amp; 2 &amp; 0 \\
-\color{red}{1} &amp; \color{red}{2} &amp; \color{red}{3} \\
+\mathbf{1} &amp; \mathbf{2} &amp; \mathbf{3} \\
 0 &amp; 0 &amp; 1 \\
 \end{array}
 \right]
 \,
 \left[
 \begin{array}{cccc}
-1 &amp; -1 &amp; \color{red}{0} &amp; 0 \\
-0 &amp;  4 &amp; \color{red}{1} &amp; 3 \\
-2 &amp;  0 &amp; \color{red}{3} &amp; 1 \\
+1 &amp;  0 &amp; \mathbf{0} &amp; 0 \\
+0 &amp;  4 &amp; \mathbf{1} &amp; 3 \\
+2 &amp;  0 &amp; \mathbf{3} &amp; 1 \\
 \end{array}
 \right]
 =
 \left[
 \begin{array}{cccc}
-3 &amp; -1 &amp;  3 &amp;  1 \\
-4 &amp;  6 &amp;  5 &amp;  7 \\
-3 &amp;  5 &amp;  2 &amp;  6 \\
-7 &amp;  7 &amp; \color{red}{11} &amp;  9 \\
+3 &amp;  0 &amp;  3 &amp;  1 \\
+4 &amp;  8 &amp;  5 &amp;  7 \\
+3 &amp;  8 &amp;  2 &amp;  6 \\
+7 &amp;  8 &amp; \mathbf{11} &amp;  9 \\
 2 &amp;  0 &amp;  3 &amp;  1 \\
 \end{array}
 \right].
 \end{split}\]</div>
 <p>For example, the element in the 4th row and 3rd column,
 <span class="math notranslate nohighlight">\(c_{4,3}\)</span> takes the 4th row in the left matrix
-<span class="math notranslate nohighlight">\(\mathbf{a}_{4,\cdot}=[1\, 2\, 3]\)</span>
-and the 3rd column in the right matrix <span class="math notranslate nohighlight">\(\mathbf{b}_{\cdot,3}=[0\, 1\, 3]^T\)</span>
-(they are marked in red), multiplies the corresponding elements and
+<span class="math notranslate nohighlight">\(\mathbf{a}_{4,\cdot}=[1\ 2\ 3]\)</span>
+and the 3rd column in the right matrix <span class="math notranslate nohighlight">\(\mathbf{b}_{\cdot,3}=[0\ 1\ 3]^T\)</span>
+(they are marked in bold), multiplies the corresponding elements and
 computes their sum, i.e., <span class="math notranslate nohighlight">\(c_{4,3}=1\cdot 0 + 2\cdot 1 + 3\cdot 3 = 11\)</span>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1051,7 +1051,7 @@ must match the number of rows in the right operand.</p>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 <span class="p">])</span>
-<span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+<span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>  <span class="c1"># np.eye(2)</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="p">])</span>
@@ -1066,7 +1066,7 @@ and hence the result is identical to <span class="math notranslate nohighlight">
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In most textbooks, just like in this one,
-<span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{B}\)</span> almost always denotes the matrix multiplication
+<span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{B}\)</span> always denotes the matrix multiplication
 which is a very different operation to the elementwise multiplication.</p>
 </div>
 <p>Compare the above to:</p>
@@ -1075,21 +1075,10 @@ which is a very different operation to the elementwise multiplication.</p>
 <span class="c1">##        [0, 4]])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id12">
+<div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.7</span>
-        
-    </div><div class="proof-content">
-<p>Show that <span class="math notranslate nohighlight">\(\mathbf{A}^T \mathbf{A}\)</span>
-gives the matrix that consists of the dot products of all the pairs
-of columns in <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
-and <span class="math notranslate nohighlight">\(\mathbf{A} \mathbf{A}^T\)</span> stores the dot products of all the
-pairs of rows.</p>
-</div></div><div class="proof proof-type-exercise" id="id13">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 8.8</span>
         
     </div><div class="proof-content">
 <p>(*) Show that
@@ -1098,7 +1087,7 @@ Also notice that, typically, matrix multiplication
 is not commutative.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Matrix multiplication gives a convenient means for denoting
+<p>By definition, matrix multiplication gives a convenient means for denoting
 sums of products of corresponding elements in many pairs of vectors,
 which we refer to as dot products.</p>
 <p>Given two vectors <span class="math notranslate nohighlight">\(\boldsymbol{x}, \boldsymbol{y} \in \mathbb{R}^p\)</span>,
@@ -1119,19 +1108,31 @@ The result is a single number.</p>
 \boldsymbol{x} \cdot \boldsymbol{x} = \sum_{i=1}^p x_i^2,
 \]</div>
 <p>is the square of the Euclidean norm of <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>,
-which – as we have said in <a class="reference internal" href="220-transform-vector.html#sec-normalisation"><span class="std std-numref">Section 5.3.2.3</span></a> –
-we use to measure the <em>length</em> of a vector,</p>
+which – as we said in <a class="reference internal" href="220-transform-vector.html#sec-normalisation"><span class="std std-numref">Section 5.3.2.3</span></a> –
+is used to measure the <em>magnitude</em> of a vector,</p>
 <div class="math notranslate nohighlight">
 \[
 \|\boldsymbol{x}\| = \sqrt{\sum_{i=1}^p x_i^2}
 =\sqrt{\boldsymbol{x} \cdot \boldsymbol{x}}
 =\sqrt{\mathbf{x} \mathbf{x}^T}.
 \]</div>
-<p>The Euclidean norm fulfils (amongst others) the condition
+<p>It is worth pointing out that
+the Euclidean norm fulfils (amongst others) the condition
 that <span class="math notranslate nohighlight">\(\|\boldsymbol{x}\|=0\)</span> if and only if
-<span class="math notranslate nohighlight">\(\boldsymbol{x}=\boldsymbol{0}=(0,0,\dots,0)\)</span>.
+<span class="math notranslate nohighlight">\(\boldsymbol{x}=\mathbf{0}=(0,0,\dots,0)\)</span>.
 The same of course holds for its square.</p>
-<p>In <a class="reference internal" href="330-relationship.html#sec-geometric-transform"><span class="std std-numref">Section 9.3.2</span></a> we will
+<div class="proof proof-type-exercise" id="id17">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 8.8</span>
+        
+    </div><div class="proof-content">
+<p>Show that <span class="math notranslate nohighlight">\(\mathbf{A}^T \mathbf{A}\)</span>
+gives the matrix that consists of the dot products of all the pairs
+of columns in <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
+and <span class="math notranslate nohighlight">\(\mathbf{A} \mathbf{A}^T\)</span> stores the dot products of all the
+pairs of rows.</p>
+</div></div><p>In <a class="reference internal" href="330-relationship.html#sec-geometric-transform"><span class="std std-numref">Section 9.3.2</span></a> we will
 see that matrix multiplication can be used as a way to express
 certain geometrical transformations of points in a dataset,
 e.g., scaling and rotating.</p>
@@ -1145,13 +1146,13 @@ and in <a class="reference internal" href="330-relationship.html#sec-svd"><span 
 <em>distances</em> between points,
 which quantify the extent to which two points
 (e.g., two rows in a matrix) are different from each other.
-Here we will be dealing with the most natural distance
+Here we will be dealing with the most natural<a class="footnote-reference brackets" href="#footmanydistances" id="id3">2</a> distance
 called the Euclidean metric.
 We know it from school, where we measured how two points
-are far away from each other with a ruler.</p>
+are far away from each other using a ruler.</p>
 <div class="section" id="the-euclidean-metric">
 <h3><span class="section-number">8.4.1. </span>The Euclidean Metric<a class="headerlink" href="#the-euclidean-metric" title="Permalink to this headline"></a></h3>
-<p>Given two vectors of length <span class="math notranslate nohighlight">\(m\)</span>,
+<p>Given two points in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
 <span class="math notranslate nohighlight">\(\boldsymbol{u}=(u_1,\dots,u_m)\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{v}=(v_1,\dots,v_m)\)</span>, the <em>Euclidean metric</em> is defined in terms of the corresponding Euclidean
 norm</p>
 <div class="math notranslate nohighlight">
@@ -1165,8 +1166,25 @@ norm</p>
 },
 \]</div>
 <p>that is, it is the square root of the sum of squared differences
-between the corresponding vector components.</p>
-<div class="proof proof-type-exercise" id="id14">
+between the corresponding coordinates.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Given two vectors of equal lengths
+<span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^m\)</span>,
+the dot product of their difference,</p>
+<div class="math notranslate nohighlight">
+\[
+(\boldsymbol{x}-\boldsymbol{y})\cdot (\boldsymbol{x}-\boldsymbol{y})
+= (\mathbf{x}-\mathbf{y}) (\mathbf{x}-\mathbf{y})^T
+= \sum_{i=1}^{m} (x_i-y_i)^2
+\]</div>
+<p>is nothing else than the square of the Euclidean distance between them.</p>
+<p>In particular,
+for unidimensional data (<span class="math notranslate nohighlight">\(m=1\)</span>),
+we have <span class="math notranslate nohighlight">\(\|\boldsymbol{u}-\boldsymbol{v}\|=|u_1-v_1|\)</span>
+(absolute value of the difference).</p>
+</div>
+<div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.9</span>
@@ -1183,24 +1201,20 @@ between the corresponding vector components.</p>
 \end{array}\right].
 \end{split}\]</div>
 <p>Calculate (by hand)
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot}, \mathbf{x}_{2,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot}, \mathbf{x}_{3,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot}, \mathbf{x}_{4,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot}, \mathbf{x}_{4,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot}, \mathbf{x}_{3,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot}, \mathbf{x}_{1,\cdot}\|\)</span>, and
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot}, \mathbf{x}_{1,\cdot}\|\)</span>.</p>
-</div></div><div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>For unidimensional data (<span class="math notranslate nohighlight">\(m=1\)</span>), we have <span class="math notranslate nohighlight">\(\|u-v\|=|u-v|\)</span>.</p>
-</div>
-<p>The distances between all the pairs of rows
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{2,\cdot}\|\)</span>,
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{3,\cdot}\|\)</span>,
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{4,\cdot}\|\)</span>,
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{4,\cdot}\|\)</span>,
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{3,\cdot}\|\)</span>,
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{1,\cdot}\|\)</span>, and
+<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{1,\cdot}\|\)</span>.</p>
+</div></div><p>The distances between all the possible pairs of rows
 in two matrices <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
 and <span class="math notranslate nohighlight">\(\mathbf{Y}\in\mathbb{R}^{k\times m}\)</span> can be computed by calling
 <strong class="command">scipy.spatial.distance.cdist</strong>.
 We need to be careful, though, because they result in
 a distance matrix of size <span class="math notranslate nohighlight">\(n\times k\)</span>, which can become quite large
-(e.g., for <span class="math notranslate nohighlight">\(n=k=100000\)</span> we would need ca. 80 GB of RAM to store it).</p>
+(e.g., for <span class="math notranslate nohighlight">\(n=k=100{,}000\)</span> we would need ca. 80 GB of RAM to store it).</p>
 <p>Here are the distances between all the pairs of points in the same
 dataset.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
@@ -1222,9 +1236,10 @@ dataset.</p>
 That we have zeros on the diagonal
 is due to the fact that <span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|= 0\)</span>
 if and only if <span class="math notranslate nohighlight">\(\boldsymbol{u} = \boldsymbol{v}\)</span>.
-Furthermore, <span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|=\|\boldsymbol{v} - \boldsymbol{u}\|\)</span>, which implies the symmetry of <span class="math notranslate nohighlight">\(\mathbf{D}\)</span>.</p>
+Furthermore, <span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|=\|\boldsymbol{v} - \boldsymbol{u}\|\)</span>, which implies the symmetry of <span class="math notranslate nohighlight">\(\mathbf{D}\)</span>,
+i.e., it holds <span class="math notranslate nohighlight">\(\mathbf{D}^T=\mathbf{D}\)</span></p>
 <p><a class="reference internal" href="#fig-euclid-dist-ex"><span class="std std-numref">Figure 8.2</span></a>
-illustrates all the non-trivial pairwise distances.
+illustrates all of the 6 non-trivial pairwise distances.
 Let us emphasise that our perception of distance is disturbed because
 of the aspect ratio (the ratio between the range of the x-axis
 to the range of the y-axis) is not 1:1.
@@ -1235,54 +1250,37 @@ or set the axis limits manually (which is left as an exercise).</p>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;k-&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="mi">1</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id19">
 <span id="fig-euclid-dist-ex"></span><img alt="../_images/euclid-dist-ex-3.png" src="../_images/euclid-dist-ex-3.png" />
-<p class="caption"><span class="caption-number">Figure 8.2 </span><span class="caption-text">Distances between four example points. Their perception is disturbed because the aspect ratio is not 1:1</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>There are many possible distances,
-allowing to measure the similarity of points not only in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
-but also character strings (e.g., the Levenshtein metric),
-ratings (e.g., cosine dissimilarity), etc.;
-there is even an encyclopedia of distances <span id="id2">[<a class="reference internal" href="999-bibliography.html#id104">DD14</a>]</span>.</p>
+<p class="caption"><span class="caption-number">Figure 8.2 </span><span class="caption-text">Distances between four example points; their perception is disturbed because the aspect ratio is not 1:1</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>There are many techniques in data science that rely on
-computing pairwise distances, including, but not limited to:</p>
+<p>Some popular techniques in data science rely on
+computing pairwise distances, including:</p>
 <ul class="simple">
 <li><p>multidimensional data aggregation (see below),</p></li>
 <li><p><em>k</em>-means clustering (<a class="reference internal" href="430-group-by.html#sec-kmeans"><span class="std std-numref">Section 12.4</span></a>),</p></li>
 <li><p><em>k</em>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>)
 and classification (<a class="reference internal" href="430-group-by.html#sec-knn-classification"><span class="std std-numref">Section 12.3.1</span></a>),</p></li>
+<li><p>missing value imputation (<a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>),</p></li>
 <li><p>density estimation (which we can use outlier detection,
-see <a class="reference internal" href="520-missingness.html#sec-outliers"><span class="std std-numref">Section 15.4</span></a>),</p></li>
-<li><p>missing value imputation (<a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>).</p></li>
+see <a class="reference internal" href="520-missingness.html#sec-outliers"><span class="std std-numref">Section 15.4</span></a>).</p></li>
 </ul>
 <p>In the sequel, whenever we apply them,
 we will be assuming that data have been
 appropriately preprocessed, in particular that columns
 are on the same scale
-(e.g., are standardised). Otherwise, computing their sums
-of squared differences might not make sense at all.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Given two vectors of equal lengths
-<span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^p\)</span>,
-the dot product of their difference,</p>
-<div class="math notranslate nohighlight">
-\[
-(\boldsymbol{x}-\boldsymbol{y})\cdot (\boldsymbol{x}-\boldsymbol{y})
-= (\mathbf{x}-\mathbf{y}) (\mathbf{x}-\mathbf{y})^T
-= \sum_{i=1}^{p} (x_i-y_i)^2
-\]</div>
-<p>is nothing else than the square of the Euclidean distance between them.</p>
+(e.g., are standardised). Otherwise, computing sums
+of their squared differences might not make sense at all.</p>
 </div>
 </div>
 <div class="section" id="centroids">
@@ -1315,12 +1313,13 @@ the point <span class="math notranslate nohighlight">\(\boldsymbol{c}\in\mathbb{
 =
 \frac{1}{n} \sum_{i=1}^n \mathbf{x}_{i, \cdot},
 \]</div>
-<p>which is the componentwise arithmetic mean, i.e., its <span class="math notranslate nohighlight">\(j\)</span>-th component is</p>
+<p>which is the componentwise arithmetic mean, i.e., its <em>j</em>-th component is</p>
 <div class="math notranslate nohighlight">
 \[
 c_j = \frac{1}{n} \sum_{i=1}^n x_{i, j}.
 \]</div>
-<p>For instance, the centroid of the above dataset is:</p>
+<p>For instance, the centroid of the dataset depicted in
+<a class="reference internal" href="#fig-euclid-dist-ex"><span class="std std-numref">Figure 8.2</span></a> is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">c</span>
 <span class="c1">## array([0.125, 0.5  ])</span>
@@ -1353,23 +1352,24 @@ to the centroid. Notice that <span class="math notranslate nohighlight">\(s\)</s
 <p>(**) Generalising other aggregation
 functions is not a trivial task, because, amongst others,
 there is no natural linear ordering relation in the
-multidimensional space (see, e.g., <span id="id3">[<a class="reference internal" href="999-bibliography.html#id22">PFBG19</a>]</span>).
+multidimensional space (see, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id23">PFBG19</a>]</span>).
 For instance, any point on the convex hull of a dataset
-could serve as the analogue of the minimal and maximal observation.
-Furthermore, the componentwise median does not behave nicely
+could serve as an analogue of the minimal and maximal observation.</p>
+<p>Furthermore, the componentwise median does not behave nicely
 (it may, for example, fall outside the convex hull). Thus,
 instead, we usually consider a different generalisation of the median
-being the point that minimises the sum of distances (not squared),
-<span class="math notranslate nohighlight">\(\sum_{i=1}^n \| \mathbf{x}_{i,\cdot}-\boldsymbol{c}\|\)</span>;
-sadly, it does not have an analytic solution
-(can be determined algorithmically).</p>
+being the point <span class="math notranslate nohighlight">\(\boldsymbol{m}\)</span>
+that minimises the sum of distances (not squared),
+<span class="math notranslate nohighlight">\(\sum_{i=1}^n \| \mathbf{x}_{i,\cdot}-\boldsymbol{m}\|\)</span>;
+sadly, it does not have an analytic solution;
+it be determined algorithmically.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(**) A bag plot <span id="id4">[<a class="reference internal" href="999-bibliography.html#id130">RRT99</a>]</span>
+<p>(**) A bag plot <span id="id5">[<a class="reference internal" href="999-bibliography.html#id132">RRT99</a>]</span>
 is one of the possible multidimensional generalisations
 of the box-and-whisker plot. Unfortunately, its use is quite limited
-due its low popularity amongst practitioners.</p>
+due to its low popularity amongst practitioners.</p>
 </div>
 </div>
 <div class="section" id="fixed-radius-and-k-nearest-neighbour-search">
@@ -1378,76 +1378,76 @@ due its low popularity amongst practitioners.</p>
 aggregating information about what is happening in the
 <em>local neighbourhoods</em> of the points.
 Let <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> be a dataset
-and <span class="math notranslate nohighlight">\(\boldsymbol{y}\in\mathbb{R}^m\)</span> be some point, not necessarily
+and <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span> be some point, not necessarily
 from <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>. We basically have two options:</p>
 <ul>
 <li><p><em>fixed-radius search</em>: for some radius <span class="math notranslate nohighlight">\(r&gt;0\)</span>,
-we seek the indices of all the points in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> whose distance to
-<span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> is not greater than <span class="math notranslate nohighlight">\(r\)</span></p>
+we seek the indexes of all the points in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> whose distance to
+<span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span> is not greater than <span class="math notranslate nohighlight">\(r\)</span></p>
 <div class="math notranslate nohighlight">
 \[
-    B_r(\boldsymbol{y}) = \left\{
-    i: \|\mathbf{x}_{i,\cdot} - \boldsymbol{y}\| \le r
+    B_r(\boldsymbol{x}') = \left\{
+    i: \|\mathbf{x}_{i,\cdot} - \boldsymbol{x}'\| \le r
     \right\};
     \]</div>
 </li>
-<li><p><em>few nearest-neighbour search</em>: for some (usually small) integer <span class="math notranslate nohighlight">\(k\ge 1\)</span>,
-we seek the indices of the <span class="math notranslate nohighlight">\(k\)</span> points in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-which are the closest to <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span></p>
+<li><p><em>few nearest neighbour search</em>: for some (usually small) integer <span class="math notranslate nohighlight">\(k\ge 1\)</span>,
+we seek the indexes of the <span class="math notranslate nohighlight">\(k\)</span> points in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
+which are the closest to <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span></p>
 <div class="math notranslate nohighlight">
 \[
-    N_k(\boldsymbol{y}) = \{
+    N_k(\boldsymbol{x}') = \{
     i_1, i_2, \dots, i_k
     \}
     \]</div>
 <p>such that for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span></p>
 <div class="math notranslate nohighlight">
 \[
-    \| \mathbf{x}_{i_1,\cdot} -\boldsymbol{y} \|
+    \| \mathbf{x}_{i_1,\cdot} -\boldsymbol{x}'\|
     \le
-    \| \mathbf{x}_{i_2,\cdot} -\boldsymbol{y} \|
+    \| \mathbf{x}_{i_2,\cdot} -\boldsymbol{x}' \|
     \le\dots\le
-    \| \mathbf{x}_{i_k,\cdot} -\boldsymbol{y} \|
+    \| \mathbf{x}_{i_k,\cdot} -\boldsymbol{x}' \|
     \le
-    \| \mathbf{x}_{j,\cdot} -\boldsymbol{y} \|.
+    \| \mathbf{x}_{j,\cdot} -\boldsymbol{x}' \|.
     \]</div>
 </li>
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In <span class="math notranslate nohighlight">\(\mathbb{R}^1\)</span>,
-<span class="math notranslate nohighlight">\(B_r(\boldsymbol{y})\)</span> is an interval of length <span class="math notranslate nohighlight">\(2r\)</span>
-centred at <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>,
-i.e., <span class="math notranslate nohighlight">\([y_1-r, y_1+r]\)</span>.
+<span class="math notranslate nohighlight">\(B_r(\boldsymbol{x'})\)</span> is an interval of length <span class="math notranslate nohighlight">\(2r\)</span>
+centred at <span class="math notranslate nohighlight">\(\boldsymbol{x'}\)</span>,
+i.e., <span class="math notranslate nohighlight">\([x_1'-r, x_1'+r]\)</span>.
 In <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>,
-<span class="math notranslate nohighlight">\(B_r(\boldsymbol{y})\)</span> is a circle of radius <span class="math notranslate nohighlight">\(r\)</span>
-centred at <span class="math notranslate nohighlight">\((y_1, y_2)\)</span>.
-More generally, we call <span class="math notranslate nohighlight">\(B_r(\boldsymbol{y})\)</span>
+<span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span> is a circle of radius <span class="math notranslate nohighlight">\(r\)</span>
+centred at <span class="math notranslate nohighlight">\((x_1', x_2')\)</span>.
+More generally, we call <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x})\)</span>
 an <span class="math notranslate nohighlight">\(m\)</span>-dimensional (Euclidean) ball or a solid hypersphere.</p>
 </div>
 <p>Here is an example dataset, consisting of some randomly generated points
-(see figure below).</p>
+(see <a class="reference internal" href="#fig-euclid-search-ex"><span class="std std-numref">Figure 8.3</span></a>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">777</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Local neighbourhoods can of course be determined
 by computing the distances between each point in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>.</p>
+and <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.spatial.distance</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>For instance, here are the indices
-of the points in <span class="math notranslate nohighlight">\(B_{0.75}(\boldsymbol{y})\)</span>:</p>
+<p>For instance, here are the indexes
+of the points in <span class="math notranslate nohighlight">\(B_{0.75}(\boldsymbol{x}')\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">D</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">B</span>
 <span class="c1">## array([ 1, 11, 14, 16, 24])</span>
 </pre></div>
 </div>
-<p>And here are the 11 nearest neighbours:</p>
+<p>And here are the 11 nearest neighbours, <span class="math notranslate nohighlight">\(N_{11}(\boldsymbol{x}')\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))[:</span><span class="n">k</span><span class="p">]</span>
 <span class="n">N</span>
@@ -1458,21 +1458,25 @@ of the points in <span class="math notranslate nohighlight">\(B_{0.75}(\boldsymb
 (observe that the aspect ratio is set to 1:1 as otherwise the circle
 would look like an ellipse).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">N</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">N</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">]],</span> <span class="s2">&quot;r:&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">x_test</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">N</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">]],</span>
+        <span class="p">[</span><span class="n">x_test</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">N</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">]],</span>
+        <span class="s2">&quot;r:&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span>
+    <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;rX&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathbf</span><span class="si">{y}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_test</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;rX&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_test</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathbf</span><span class="si">{x}</span><span class="s2">&#39;$&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id16">
+<div class="figure align-default" id="id20">
 <span id="fig-euclid-search-ex"></span><img alt="../_images/euclid-search-ex-5.png" src="../_images/euclid-search-ex-5.png" />
-<p class="caption"><span class="caption-number">Figure 8.3 </span><span class="caption-text">Fixed-radius vs few-nearest neighbour search</span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 8.3 </span><span class="caption-text">Fixed-radius vs few nearest neighbour search</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
 </div>
 </div>
 <div class="section" id="spatial-search-with-k-d-trees">
@@ -1481,9 +1485,7 @@ would look like an ellipse).</p>
 it is better to rely on dedicated spatial search data structures,
 especially if we have a large number of neighbourhood-related queries.
 <strong class="program">scipy</strong> implements such a search algorithm based on the
-so-called <em>K</em>-dimensional trees (<em>K</em>-d trees;
-in our context, we should prefer referring to them as <em>m</em>-d trees,
-but let us stick with the traditional name).</p>
+so-called <em>K</em>-dimensional trees (<em>K</em>-d trees<a class="footnote-reference brackets" href="#footkd" id="id6">3</a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
@@ -1501,58 +1503,60 @@ above <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> matrix.</
 </div>
 <p>Assume we would like to make queries with regard to the 3 following
 pivot points.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
     <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
 <span class="p">])</span>
 </pre></div>
 </div>
-<p>Here are the results for the fixed radius searches:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">.</span><span class="n">query_ball_point</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>  <span class="c1"># r was defined above</span>
+<p>Here are the results for the fixed radius searches <span class="math notranslate nohighlight">\((r=0.75)\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">.</span><span class="n">query_ball_point</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
 <span class="c1">## array([list([1, 11, 14, 16, 24]), list([20]), list([])], dtype=object)</span>
 </pre></div>
 </div>
 <p>We see that the search was nicely vectorised; we have made
 a query about many points all at the same time.
 In result, we received a list-like object storing
-three lists representing the resulting indices, each for a different
+three lists representing the resulting indexes, each for a different
 input point.
 Note that in the case of the 3rd point,
 there are no elements in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 within the range (ball) of interest, hence the empty index list.</p>
-<p>And here are the nearest neighbours:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>  <span class="c1"># k was defined above</span>
-<span class="c1">## (array([[0.31457701, 0.44600012, 0.54848109, 0.64875661, 0.71635172,</span>
-<span class="c1">##         0.80435675, 0.84401121, 0.89488218, 0.94671021, 0.95240875,</span>
-<span class="c1">##         0.96257142],</span>
-<span class="c1">##        [0.20356263, 1.45896222, 1.61587605, 1.64870864, 2.04640408,</span>
-<span class="c1">##         2.2021443 , 2.20687238, 2.29585085, 2.90551519, 2.9678564 ,</span>
-<span class="c1">##         3.02393202],</span>
-<span class="c1">##        [1.2494805 , 1.35482619, 1.93984334, 1.95938464, 2.08926502,</span>
-<span class="c1">##         2.17968448, 2.30592773, 2.43335828, 2.50319585, 2.51159254,</span>
-<span class="c1">##         2.7345559 ]]), array([[14, 24, 16, 11,  1, 22,  7, 19,  0,  9, 15],</span>
-<span class="c1">##        [20,  5, 13,  2,  9, 15, 21, 18, 11, 16, 19],</span>
-<span class="c1">##        [17,  3, 21, 12, 22, 11, 15,  1, 13,  9,  0]]))</span>
+<p>And here are the 5 nearest neighbours:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">,</span> <span class="n">indexes</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># returns a tuple of length 2</span>
 </pre></div>
 </div>
-<p>We obtained both the distances to the nearest neighbours
-as well as the indices, in the form of two separate matrices
-with 3 rows (corresponding to the number of pivot points) and 11
-columns (the number of neighbours sought for).</p>
+<p>We obtained both the distances to the nearest neighbours:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span>
+<span class="c1">## array([[0.31457701, 0.44600012, 0.54848109, 0.64875661, 0.71635172],</span>
+<span class="c1">##        [0.20356263, 1.45896222, 1.61587605, 1.64870864, 2.04640408],</span>
+<span class="c1">##        [1.2494805 , 1.35482619, 1.93984334, 1.95938464, 2.08926502]])</span>
+</pre></div>
+</div>
+<p>as well as the indexes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">indexes</span>
+<span class="c1">## array([[14, 24, 16, 11,  1],</span>
+<span class="c1">##        [20,  5, 13,  2,  9],</span>
+<span class="c1">##        [17,  3, 21, 12, 22]])</span>
+</pre></div>
+</div>
+<p>Each of them is a matrix with 3 rows (corresponding to the number
+of pivot points) and 5 columns (the number of neighbours sought).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(**)
+<p>(*)
 We expect the <em>K</em>-d trees to be much faster than the brute-force approach
 (where we compute all pairwise distances) in low-dimensional spaces.
 However, due to the phenomenon called the <em>curse of dimensionality</em>,
-sometimes already for <span class="math notranslate nohighlight">\(m\ge 5\)</span> the speed gains might be very small.</p>
+sometimes already for <span class="math notranslate nohighlight">\(m\ge 5\)</span> the speed gains might be very small;
+see, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id114">BHK20</a>]</span>.</p>
 </div>
 </div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">8.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id17">
+<div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.10</span>
@@ -1560,15 +1564,15 @@ sometimes already for <span class="math notranslate nohighlight">\(m\ge 5\)</spa
     </div><div class="proof-content">
 <p>Does <strong class="command">numpy.mean</strong><strong class="command">(A, axis=0)</strong>
 compute rowwise or columnwise means?</p>
-</div></div><div class="proof proof-type-exercise" id="id18">
+</div></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.11</span>
         
     </div><div class="proof-content">
 <p>How does shape broadcasting work? List the most common pairs of shape cases
-when performing arithmetic operations.</p>
-</div></div><div class="proof proof-type-exercise" id="id19">
+when performing arithmetic operations like addition or multiplication.</p>
+</div></div><div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.12</span>
@@ -1576,14 +1580,14 @@ when performing arithmetic operations.</p>
     </div><div class="proof-content">
 <p>What are the possible matrix indexing schemes
 and how do they behave?</p>
-</div></div><div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.13</span>
         
     </div><div class="proof-content">
 <p>Which kinds of matrix indexers return a view on an existing array?</p>
-</div></div><div class="proof proof-type-exercise" id="id21">
+</div></div><div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.14</span>
@@ -1591,7 +1595,7 @@ and how do they behave?</p>
     </div><div class="proof-content">
 <p>(*) How to select a submatrix comprised of
 the first and the last row and the first and the last column?</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
+</div></div><div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.15</span>
@@ -1599,7 +1603,7 @@ the first and the last row and the first and the last column?</p>
     </div><div class="proof-content">
 <p>Why appropriate data preprocessing is required when computing
 the Euclidean distance between points?</p>
-</div></div><div class="proof proof-type-exercise" id="id23">
+</div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.16</span>
@@ -1608,7 +1612,7 @@ the Euclidean distance between points?</p>
 <p>What is the relationship between the dot product,
 the Euclidean norm,
 and the Euclidean distance?</p>
-</div></div><div class="proof proof-type-exercise" id="id24">
+</div></div><div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.17</span>
@@ -1616,16 +1620,34 @@ and the Euclidean distance?</p>
     </div><div class="proof-content">
 <p>What is a centroid? How is it defined by means of the Euclidean distance
 between the points in a dataset?</p>
-</div></div><div class="proof proof-type-exercise" id="id25">
+</div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 8.18</span>
         
     </div><div class="proof-content">
-<p>When <em>K</em>-d tress or other spatial search data structures might
+<p>(*) When <em>K</em>-d tress or other spatial search data structures might
 be better than a brute-force search with
 <strong class="command">scipy.spatial.distance.cdist</strong>?</p>
-</div></div></div>
+</div></div><hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="footsquare"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This is not the same as matrix-multiply by itself
+which we cover in <a class="reference internal" href="#sec-matrix-multiply"><span class="std std-numref">Section 8.3</span></a>.</p>
+</dd>
+<dt class="label" id="footmanydistances"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>There are many possible distances,
+allowing to measure the similarity of points not only in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
+but also character strings (e.g., the Levenshtein metric),
+ratings (e.g., cosine dissimilarity), etc.; there is even an
+encyclopedia of distances <span id="id8">[<a class="reference internal" href="999-bibliography.html#id106">DD14</a>]</span>.</p>
+</dd>
+<dt class="label" id="footkd"><span class="brackets"><a class="fn-backref" href="#id6">3</a></span></dt>
+<dd><p>In our context, we should prefer referring to them as <em>m</em>-d trees,
+but let us stick with the traditional name.</p>
+</dd>
+</dl>
+</div>
 </div>
 
 
@@ -1644,7 +1666,7 @@ be better than a brute-force search with
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-05T15:51:10+1000.
+        Last updated on 2022-07-06T20:38:47+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
