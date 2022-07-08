@@ -76,6 +76,7 @@
           </a>
 
           <div class="version">
+          An open-access textbook<br />
           by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
           </div>
 
@@ -1098,11 +1099,11 @@ sophisticated wine taster.</p>
 of the dataset: as we are about to use a technique based on pairwise distances,
 it would be best if the variables were on the same scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">wine_train</span><span class="o">.</span><span class="n">bad</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_train</span><span class="o">.</span><span class="n">bad</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Computing the z-scores for the train set:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">wine_train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="s2">&quot;sugar&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="s2">&quot;sugar&quot;</span><span class="p">]])</span>
 <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">sds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">Z_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_train</span><span class="o">-</span><span class="n">means</span><span class="p">)</span><span class="o">/</span><span class="n">sds</span>
@@ -1110,7 +1111,7 @@ it would be best if the variables were on the same scale.</p>
 </div>
 <p>The z-scores for the test set (let us stress that they are
 based on the aggregates computed for the train set):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Z_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">wine_test</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="s2">&quot;sugar&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">-</span><span class="n">means</span><span class="p">)</span><span class="o">/</span><span class="n">sds</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Z_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_test</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="s2">&quot;sugar&quot;</span><span class="p">]])</span><span class="o">-</span><span class="n">means</span><span class="p">)</span><span class="o">/</span><span class="n">sds</span>
 </pre></div>
 </div>
 <p>Making the predictions:</p>
@@ -1189,7 +1190,8 @@ by calling:</p>
 have already been assessed by some experts.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
         <span class="s2">&quot;teaching_data/master/other/sweetwhitewine_train2.csv&quot;</span><span class="p">,</span>
-        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">y_test</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># preview</span>
 <span class="c1">## array([0, 1, 0, 0, 0, 1, 0, 0, 0, 1])</span>
 </pre></div>
@@ -1277,7 +1279,7 @@ what is the probability that this is indeed true?</p>
     \]</div>
 </li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>  <span class="c1"># convert to matrix</span>
 <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Precision</span>
 <span class="c1">## 0.7250755287009063</span>
 </pre></div>
@@ -2218,7 +2220,7 @@ more approaches tested improve the chance of success.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-06T20:38:47+1000.
+        Last updated on 2022-07-08T12:58:04+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

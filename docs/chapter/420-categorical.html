@@ -76,6 +76,7 @@
           </a>
 
           <div class="version">
+          An open-access textbook<br />
           by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
           </div>
 
@@ -443,7 +444,7 @@ Namely, we can write:</p>
 This yields a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object displayed as if it was represented
 using string labels, however, in fact it is encoded using the numeric
 representation. This can be revealed by accessing:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cntrs16_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="p">)</span>
 <span class="c1">## array([2, 2, 2, 0, 2, 2, 0, 3, 4, 4, 1, 4, 2, 2, 4, 4], dtype=int8)</span>
 <span class="n">cntrs16_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
 <span class="c1">## Index([&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;], dtype=&#39;object&#39;)</span>
@@ -559,7 +560,7 @@ can violate the privacy of the subjects. In such a case,
 it might be a good idea to communicate them in a binned form.</p>
 </div>
 <p>Consider the 16 best marathon finish times (in minutes):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;mins&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;mins&quot;</span><span class="p">])</span>
 <span class="n">mins16</span> <span class="o">=</span> <span class="n">mins</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
 <span class="n">mins16</span>
 <span class="c1">## array([129.32, 130.75, 130.97, 134.17, 134.68, 135.97, 139.88, 143.2 ,</span>
@@ -1346,7 +1347,7 @@ differ significantly between females and males.</p>
 First, denote the total number of observations
 in both groups with <span class="math notranslate nohighlight">\(n'\)</span> and <span class="math notranslate nohighlight">\(n''\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>  <span class="c1"># first row, second row</span>
+<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>  <span class="c1"># first row, second row</span>
 <span class="n">n1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span>
@@ -1718,7 +1719,7 @@ is a better candidate.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-06T20:38:47+1000.
+        Last updated on 2022-07-08T12:58:04+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

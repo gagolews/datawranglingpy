@@ -76,6 +76,7 @@
           </a>
 
           <div class="version">
+          An open-access textbook<br />
           by <a style="color: inherit" href="https://www.gagolewski.com">Marek Gagolewski</a>
           </div>
 
@@ -388,7 +389,7 @@ that ignore missing values whatsoever:
 missing entities by default. Compare an application of <strong class="command">numpy.mean</strong>
 on a <code class="docutils literal notranslate"><span class="pre">Series</span></code> instance vs on a vector:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">]</span>  <span class="c1"># some example Series, whatever</span>
-<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="c1">## (148.5, nan)</span>
 </pre></div>
 </div>
@@ -957,7 +958,7 @@ approach.</p>
 <p>Consider the following code chunk:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">query_ball_point</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>  <span class="c1"># r=0.2 (radius)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">())</span>
 <span class="n">c</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># preview</span>
 <span class="c1">## array([42, 30,  1,  1])</span>
 </pre></div>
@@ -1059,7 +1060,7 @@ with the simplest kernel – a rectangular one.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-06T20:38:47+1000.
+        Last updated on 2022-07-08T12:58:04+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
