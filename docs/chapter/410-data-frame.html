@@ -280,11 +280,11 @@ is, and will remain, freely available for everyone’s enjoyment
 (also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
 Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course;
-it should be read from the beginning to the end. In particular,
-refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
+it should be read from the beginning to the end.
+Refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
 <p><strong class="program">numpy</strong> arrays are an extremely versatile tool for performing data
-analysis and other numerical computations computations of various kinds.
+analysis exercises and other numerical computations of various kinds.
 Although theoretically possible otherwise, in practice
 we only store elements of the same type therein, most often numbers.</p>
 <p><a class="reference external" href="https://pandas.pydata.org/"><strong class="program">pandas</strong></a> <span id="id1">[<a class="reference internal" href="999-bibliography.html#id14">McK17</a>]</span>
@@ -295,18 +295,14 @@ It was originally written by Wes McKinney
 and was heavily inspired by the <code class="docutils literal notranslate"><span class="pre">data.frame</span></code><a class="footnote-reference brackets" href="#footdf" id="id2">1</a> objects in S and R
 as well as tables in relational (think: SQL) databases
 and spreadsheets.</p>
-<div style="margin-top: 1em"></div><p>It is customary to load this package with the following alias:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</pre></div>
-</div>
-<p>The <strong class="program">pandas</strong> package delivers a few classes, of which the most important are:</p>
+<div style="margin-top: 1em"></div><p><strong class="program">pandas</strong> delivers a few classes, of which the most important are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> – for representing tabular data (matrix-like)
 with columns of possibly different types,
 in particular a mix of numerical and categorical variables,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Series</span></code> – vector-like objects for representing individual columns,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Index</span></code> – vector-like (usually) objects for labelling individual
-rows and columns of <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s and items in <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects,</p></li>
+rows and columns in <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s and items in <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects,</p></li>
 </ul>
 <p>together with many methods for:</p>
 <ul class="simple">
@@ -317,22 +313,27 @@ in groups determined by categorical variables or products thereof,</p></li>
 e.g., CSV and HDF5 files or relational databases,</p></li>
 <li><p>handling missing data,</p></li>
 </ul>
-<p>which we introduce in this and further chapters.</p>
-<div class="section" id="creating-data-frames">
-<h2><span class="section-number">10.1. </span>Creating Data Frames<a class="headerlink" href="#creating-data-frames" title="Permalink to this headline"></a></h2>
+<p>all of which we introduce in this part.</p>
+<div style="margin-top: 1em"></div><p>Before we delve into the world of <strong class="program">pandas</strong>,
+let us point out that it is customary to load this package
+under the following alias:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Let us repeat: <strong class="program">pandas</strong> is built on top of
 <strong class="program">numpy</strong> and most objects therein can be processed by
 <strong class="program">numpy</strong> functions as well.
-Other functions (e.g., in <strong class="program">seaborn</strong> or <strong class="program">sklearn</strong>)
-will be accepting both <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> objects,
-but will be converting the former to the latter
-automatically to enable data processing using
-fast C/C++/Fortran routines.
-What we have learnt so far still applies.
+Many other functions (e.g., in <strong class="program">sklearn</strong>)
+accept both <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> objects,
+but often convert the former to the latter internally to enable data
+processing using fast C/C++/Fortran routines.</p>
+<p>Thus, what we have learned so far<a class="footnote-reference brackets" href="#footgoback" id="id3">2</a> still applies.
 But there is of course more, hence this part.</p>
 </div>
+<div class="section" id="creating-data-frames">
+<h2><span class="section-number">10.1. </span>Creating Data Frames<a class="headerlink" href="#creating-data-frames" title="Permalink to this headline"></a></h2>
 <p>Data frames can be created, amongst others,
 using the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> class constructor, which
 can be fed, for example, with a <strong class="program">numpy</strong> matrix:</p>
@@ -368,7 +369,7 @@ common option:</p>
 </div>
 <p>This illustrates the possibility of having columns of different
 types.</p>
-<div class="proof proof-type-exercise" id="id6">
+<div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.1</span>
@@ -394,7 +395,7 @@ formats, for instance, CSV:</p>
 </div>
 <p>Reading from URLs and local files (compare <a class="reference internal" href="440-sql.html#sec-file-paths"><span class="std std-numref">Section 13.6.1</span></a>)
 is of course supported.</p>
-<div class="proof proof-type-exercise" id="id7">
+<div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.2</span>
@@ -430,7 +431,7 @@ hence we can feel quite at home with them.</p>
 </pre></div>
 </div>
 <p>or the type of each column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>  <span class="c1"># returns a Series object; see below</span>
 <span class="c1">## u    float64</span>
 <span class="c1">## v       bool</span>
 <span class="c1">## w     object</span>
@@ -454,9 +455,11 @@ columns: it is called <code class="docutils literal notranslate"><span class="pr
 <span class="c1">## Name: u, dtype: float64</span>
 </pre></div>
 </div>
-<p>A data frame with one column is printed
-out slightly differently:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<p>Data frames with one column are printed
+out slightly differently.
+In particular, we get the column name at the top,
+but do not have the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> information at the bottom.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>  <span class="c1"># or: pd.DataFrame(s)</span>
 <span class="c1">##       u</span>
 <span class="c1">## 0  0.70</span>
 <span class="c1">## 1  0.29</span>
@@ -471,13 +474,21 @@ out slightly differently:</p>
 <p>It is crucial to know when we are dealing
 with a <code class="docutils literal notranslate"><span class="pre">Series</span></code> and when with a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object,
 because each of them defines a slightly different set of methods.</p>
+<p>We will now be relying upon object-oriented syntax
+(compare <a class="reference internal" href="120-scalar.html#sec-oop"><span class="std std-numref">Section 2.2.3</span></a>) much more frequently than before.</p>
 </div>
-<p>For example:</p>
+<div class="proof proof-type-example" id="id10">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 10.3</span>
+        
+    </div><div class="proof-content">
+<p>By calling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="c1">## 0.49800000000000005</span>
 </pre></div>
 </div>
-<p>refers to <strong class="command">pandas.Series.mean</strong> (which returns a scalar), whereas</p>
+<p>we refer to <strong class="command">pandas.Series.mean</strong> (which returns a scalar), whereas:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">## u    0.498</span>
 <span class="c1">## v    0.600</span>
@@ -485,15 +496,16 @@ because each of them defines a slightly different set of methods.</p>
 </pre></div>
 </div>
 <p>uses <strong class="command">pandas.DataFrame.mean</strong> (which yields a <code class="docutils literal notranslate"><span class="pre">Series</span></code>).</p>
-<div class="proof proof-type-exercise" id="id8">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.3</span>
-        
-    </div><div class="proof-content">
-<p>Look up the two methods in the <strong class="program">pandas</strong> manual.
+<p>Look up these two methods in the <strong class="program">pandas</strong> manual.
 Note that their argument list is slightly different.</p>
-</div></div><p><code class="docutils literal notranslate"><span class="pre">Series</span></code> are wrappers around <strong class="program">numpy</strong> arrays.</p>
+</div></div><p><code class="docutils literal notranslate"><span class="pre">Series</span></code> are vector-like objects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">shape</span>
+<span class="c1">## (5,)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">dtype</span>
+<span class="c1">## dtype(&#39;float64&#39;)</span>
+</pre></div>
+</div>
+<p>They are wrappers around <strong class="program">numpy</strong> arrays.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">values</span>
 <span class="c1">## array([0.7 , 0.29, 0.23, 0.55, 0.72])</span>
 </pre></div>
@@ -503,15 +515,16 @@ Note that their argument list is slightly different.</p>
 <span class="c1">## 0.49800000000000005</span>
 </pre></div>
 </div>
-<p>Hence, what we have covered in the part dealing with vector
-processing still holds for data frame columns as well (there will be more,
-stay tuned).</p>
+<p>Hence, what we covered in the part of this book that dealt
+with vector processing still holds for data frame columns
+(but there will be more).</p>
 <p><code class="docutils literal notranslate"><span class="pre">Series</span></code> can also be <em>named</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">name</span>
 <span class="c1">## &#39;u&#39;</span>
 </pre></div>
 </div>
-<p>This is convenient when we convert from/to a data frame.</p>
+<p>This is convenient when we convert them to a data frame,
+because the <code class="docutils literal notranslate"><span class="pre">name</span></code> sets the label of the newly created column:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 <span class="c1">##    spam</span>
 <span class="c1">## 0  0.70</span>
@@ -524,13 +537,15 @@ stay tuned).</p>
 </div>
 <div class="section" id="index">
 <h3><span class="section-number">10.1.3. </span><code class="docutils literal notranslate"><span class="pre">Index</span></code><a class="headerlink" href="#index" title="Permalink to this headline"></a></h3>
-<p>Another important class is <code class="docutils literal notranslate"><span class="pre">Index</span></code>, which
-is used for encoding the row and column names in a data frame:</p>
+<p>Another important class is called <code class="docutils literal notranslate"><span class="pre">Index</span></code><a class="footnote-reference brackets" href="#footindex" id="id4">3</a>.
+The <code class="docutils literal notranslate"><span class="pre">index</span></code> (lowercase) <em>slot</em> of a data frame stores an <code class="docutils literal notranslate"><span class="pre">Index</span></code> object
+that gives the row labels:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span>  <span class="c1"># row labels</span>
 <span class="c1">## RangeIndex(start=0, stop=5, step=1)</span>
 </pre></div>
 </div>
 <p>The above represents a sequence (0, 1, 2, 3, 4).</p>
+<p>Furthermore, the <code class="docutils literal notranslate"><span class="pre">column</span></code> slot gives:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>  <span class="c1"># column labels</span>
 <span class="c1">## Index([&#39;u&#39;, &#39;v&#39;, &#39;w&#39;, &#39;x&#39;], dtype=&#39;object&#39;)</span>
 </pre></div>
@@ -540,9 +555,9 @@ is used for encoding the row and column names in a data frame:</p>
 <span class="c1">## RangeIndex(start=0, stop=5, step=1)</span>
 </pre></div>
 </div>
-<p>A quite frequent operation that we will be applying
-to make a data frame column act as a vector of row labels
-is implemented in the <code class="docutils literal notranslate"><span class="pre">set_index</span></code> method for data frames:</p>
+<p>The <strong class="command">set_index</strong> method is a quite frequent operation.
+We will be applying it to make a data frame column act as
+a vector of row labels:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="n">df2</span>
 <span class="c1">##           u      v  w</span>
@@ -559,18 +574,30 @@ is implemented in the <code class="docutils literal notranslate"><span class="pr
 <span class="c1">## &#39;x&#39;</span>
 </pre></div>
 </div>
-<p>which is handy when we decide that we want to convert
-the vector of row labels back to a standalone column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##        x     u      v  w</span>
-<span class="c1">## 0   spam  0.70   True  A</span>
-<span class="c1">## 1   spam  0.29   True  B</span>
-<span class="c1">## 2  bacon  0.23  False  C</span>
-<span class="c1">## 3   spam  0.55  False  D</span>
-<span class="c1">## 4   eggs  0.72   True  E</span>
+<p>We can also rename the axes on the fly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;ROWS&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;COLS&quot;</span><span class="p">)</span>
+<span class="c1">## COLS      u      v  w</span>
+<span class="c1">## ROWS                 </span>
+<span class="c1">## spam   0.70   True  A</span>
+<span class="c1">## spam   0.29   True  B</span>
+<span class="c1">## bacon  0.23  False  C</span>
+<span class="c1">## spam   0.55  False  D</span>
+<span class="c1">## eggs   0.72   True  E</span>
 </pre></div>
 </div>
-<p>There is also an option to get rid of the current <code class="docutils literal notranslate"><span class="pre">.index</span></code>
+<p>Having a named <code class="docutils literal notranslate"><span class="pre">index</span></code> slot is handy when we decide
+that we want to convert the vector of row labels back
+to a standalone column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;NAME_OF_THE_NEW_COLUMN&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1">##   NAME_OF_THE_NEW_COLUMN     u      v  w</span>
+<span class="c1">## 0                   spam  0.70   True  A</span>
+<span class="c1">## 1                   spam  0.29   True  B</span>
+<span class="c1">## 2                  bacon  0.23  False  C</span>
+<span class="c1">## 3                   spam  0.55  False  D</span>
+<span class="c1">## 4                   eggs  0.72   True  E</span>
+</pre></div>
+</div>
+<p>There is also an option to get rid of the current <code class="docutils literal notranslate"><span class="pre">index</span></code>
 and to replace it with the default label sequence, i.e.,
 0, 1, 2, …:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -582,13 +609,15 @@ and to replace it with the default label sequence, i.e.,
 <span class="c1">## 4  0.72   True  E</span>
 </pre></div>
 </div>
+<p>Take note of the fact that <strong class="command">reset_index</strong> and many other methods
+that we have used so far do not modify the data frame in-place.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>In due course, we will be calling
-<code class="docutils literal notranslate"><span class="pre">df.reset_index(drop=True)</span></code> quite frequently, sometimes
-more than once in a single chain of commands.</p>
+<p>We will soon get used to calling
+<strong class="command">reset_index</strong><code class="code docutils literal notranslate"><span class="pre">(drop=True)</span></code> quite frequently, sometimes
+more than once in a single series of commands.</p>
 </div>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.4</span>
@@ -598,7 +627,9 @@ more than once in a single chain of commands.</p>
 <strong class="command">pandas.DataFrame.rename</strong> method to
 change the name of the <code class="docutils literal notranslate"><span class="pre">u</span></code> column in <code class="docutils literal notranslate"><span class="pre">df</span></code> to <code class="docutils literal notranslate"><span class="pre">spam</span></code>.</p>
 </div></div><p>Also, a <em>hierarchical</em> index – one that is comprised
-of more than two levels – is possible:</p>
+of more than one level – is possible.
+For example, here is a sorted (see <a class="reference internal" href="#sec-df-sort"><span class="std std-numref">Section 10.6.1</span></a>) version
+of <code class="docutils literal notranslate"><span class="pre">df</span></code> with a new index based on two columns at the same time:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">])</span>
 <span class="c1">##                 u  w</span>
 <span class="c1">## x     v             </span>
@@ -609,56 +640,46 @@ of more than two levels – is possible:</p>
 <span class="c1">## bacon False  0.23  C</span>
 </pre></div>
 </div>
-<p>Note that a group of three consecutive <code class="docutils literal notranslate"><span class="pre">spam</span></code>s
-does not have the labels repeated – this is for increased
-readability.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>We will soon see that hierarchical indexes might arise
-after aggregating data in groups (via the <strong class="command">groupby</strong> method).</p>
-</div>
-<p>For <a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_DEMO.htm">example</a>:</p>
+<p>Note that a group of three consecutive <code class="docutils literal notranslate"><span class="pre">spam</span></code>s, when printed,
+does not have the series of identical labels repeated.
+This is for increased readability.</p>
+<div class="proof proof-type-example" id="id12">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 10.5</span>
+        
+    </div><div class="proof-content">
+<p>Hierarchical indexes might arise after aggregating data in groups.
+We will discuss that in more detail in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;RIAGENDR&quot;</span><span class="p">,</span> <span class="s2">&quot;DMDEDUC2&quot;</span><span class="p">])[</span><span class="s2">&quot;BMXBMI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">res</span>  <span class="c1"># BMI by gender and education</span>
-<span class="c1">## RIAGENDR  DMDEDUC2</span>
-<span class="c1">## 1         1.0         28.765244</span>
-<span class="c1">##           2.0         28.534737</span>
-<span class="c1">##           3.0         29.637793</span>
-<span class="c1">##           4.0         30.323158</span>
-<span class="c1">##           5.0         28.689736</span>
-<span class="c1">##           9.0         28.080000</span>
-<span class="c1">## 2         1.0         30.489032</span>
-<span class="c1">##           2.0         31.251247</span>
-<span class="c1">##           3.0         30.969200</span>
-<span class="c1">##           4.0         31.471476</span>
-<span class="c1">##           5.0         28.891357</span>
-<span class="c1">##           7.0         30.200000</span>
-<span class="c1">##           9.0         33.950000</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;RIAGENDR&quot;</span><span class="p">,</span> <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">])[</span><span class="s2">&quot;BMXBMI&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">res</span>  <span class="c1"># BMI by gender and US born-ness</span>
+<span class="c1">## RIAGENDR  DMDBORN4</span>
+<span class="c1">## 1         1           25.734110</span>
+<span class="c1">##           2           27.405251</span>
+<span class="c1">## 2         1           27.120261</span>
+<span class="c1">##           2           27.579448</span>
+<span class="c1">##           77          28.725000</span>
+<span class="c1">##           99          32.600000</span>
 <span class="c1">## Name: BMXBMI, dtype: float64</span>
 </pre></div>
 </div>
-<p>But let us fret not, as there is always:</p>
+<p>This returned a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object with a hierarchical index.
+Let us fret not, though: <strong class="command">reset_index</strong> can always come to
+our rescue:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##     RIAGENDR  DMDEDUC2     BMXBMI</span>
-<span class="c1">## 0          1       1.0  28.765244</span>
-<span class="c1">## 1          1       2.0  28.534737</span>
-<span class="c1">## 2          1       3.0  29.637793</span>
-<span class="c1">## 3          1       4.0  30.323158</span>
-<span class="c1">## 4          1       5.0  28.689736</span>
-<span class="c1">## 5          1       9.0  28.080000</span>
-<span class="c1">## 6          2       1.0  30.489032</span>
-<span class="c1">## 7          2       2.0  31.251247</span>
-<span class="c1">## 8          2       3.0  30.969200</span>
-<span class="c1">## 9          2       4.0  31.471476</span>
-<span class="c1">## 10         2       5.0  28.891357</span>
-<span class="c1">## 11         2       7.0  30.200000</span>
-<span class="c1">## 12         2       9.0  33.950000</span>
+<span class="c1">##    RIAGENDR  DMDBORN4     BMXBMI</span>
+<span class="c1">## 0         1         1  25.734110</span>
+<span class="c1">## 1         1         2  27.405251</span>
+<span class="c1">## 2         2         1  27.120261</span>
+<span class="c1">## 3         2         2  27.579448</span>
+<span class="c1">## 4         2        77  28.725000</span>
+<span class="c1">## 5         2        99  32.600000</span>
 </pre></div>
 </div>
-</div>
+</div></div></div>
 </div>
 <div class="section" id="aggregating-data-frames">
 <h2><span class="section-number">10.2. </span>Aggregating Data Frames<a class="headerlink" href="#aggregating-data-frames" title="Permalink to this headline"></a></h2>
@@ -678,43 +699,40 @@ after aggregating data in groups (via the <strong class="command">groupby</stron
 <span class="c1">## e  0.72 -1.62  sausage</span>
 </pre></div>
 </div>
-<p>First, all <strong class="program">numpy</strong> functions can be applied directly on individual
+<p>All <strong class="program">numpy</strong> functions can be applied directly on individual
 columns (i.e., objects of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>),
 as the latter are, after all,  vector-like.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>  <span class="c1"># extract the column named `u` (gives a Series; see below)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="c1">## array([0.23, 0.55, 0.72])</span>
 </pre></div>
 </div>
-<p>For more details on the <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>-type indexing, see below.
-By then, the meaning of the above should be clear from the
-context.</p>
 <div style="margin-top: 1em"></div><p>Most <strong class="program">numpy</strong> functions also work if they are fed with data frames,
-but we will need to extract the numeric matrix columns manually.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+but we will need to extract the numeric columns manually.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span>  <span class="c1"># select two columns (a DataFrame; see below)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## array([[ 0.23, -1.62],</span>
 <span class="c1">##        [ 0.55, -0.05],</span>
 <span class="c1">##        [ 0.72,  1.98]])</span>
 </pre></div>
 </div>
 <p>Sometimes the results will automatically be coerced to a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object
-with <code class="docutils literal notranslate"><span class="pre">index</span></code> slot set appropriately:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+with the <code class="docutils literal notranslate"><span class="pre">index</span></code> slot set appropriately:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## u    0.498</span>
 <span class="c1">## v    0.086</span>
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>Many operations, for convenience, have also
-been implemented as methods for the <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>
-classes, e.g.,
-<strong class="command">mean</strong>, <strong class="command">median</strong>, <strong class="command">min</strong>, <strong class="command">max</strong>, <strong class="command">quantile</strong>,
-<strong class="command">var</strong>, <strong class="command">std</strong> (with <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> by default, interestingly),
-and <strong class="command">skew</strong>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div style="margin-top: 1em"></div><p>Many operations, for convenience, were also implemented as methods for the
+<code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> classes, e.g., <strong class="command">mean</strong>, <strong class="command">median</strong>,
+<strong class="command">min</strong>, <strong class="command">max</strong>, <strong class="command">quantile</strong>,
+<strong class="command">var</strong>, <strong class="command">std</strong>, and <strong class="command">skew</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">## u    0.498</span>
 <span class="c1">## v    0.086</span>
 <span class="c1">## dtype: float64</span>
-<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">##         u     v</span>
 <span class="c1">## 0.0  0.23 -1.62</span>
 <span class="c1">## 0.5  0.55 -0.05</span>
@@ -735,30 +753,37 @@ returns a few statistics at the same time.</p>
 <span class="c1">## max    0.720000  1.980000</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>(*) Let us stress that above we see
-the corrected for bias (but still only asymptotically unbiased)
-version of standard deviation (<code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>),
-given by <span class="math notranslate nohighlight">\(\sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i-\bar{x})^2}\)</span>,
-compare <a class="reference internal" href="220-transform-vector.html#sec-aggregate"><span class="std std-numref">Section 5.1</span></a>.</p>
-</div>
-<div class="proof proof-type-exercise" id="id10">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.5</span>
+        <span class="proof-type">Exercise 10.6</span>
         
     </div><div class="proof-content">
 <p>Check out the <strong class="command">pandas.DataFrame.agg</strong> method
-that can apply all aggregating operations from
-a given list of functions.
+that can apply all aggregates given by a list of functions.
 Write a call equivalent to <code class="docutils literal notranslate"><span class="pre">d.describe()</span></code>.</p>
-</div></div></div>
+</div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*) Let us stress that above we see
+the corrected for bias (but still only asymptotically unbiased)
+version of standard deviation,
+given by <span class="math notranslate nohighlight">\(\sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i-\bar{x})^2}\)</span>;
+compare <a class="reference internal" href="220-transform-vector.html#sec-aggregate"><span class="std std-numref">Section 5.1</span></a>.
+In <strong class="program">pandas</strong>, <strong class="command">std</strong> methods assume <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> by default,
+whereas we recall that <strong class="program">numpy</strong> uses <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">([</span><span class="n">u</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">u</span><span class="p">)),</span> <span class="n">u</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1">## array([0.228, 0.204, 0.204, 0.204])</span>
+</pre></div>
+</div>
+<p>This is an unfortunate inconsistency between the two packages,
+but please do not blame the messenger.</p>
+</div>
+</div>
 <div class="section" id="transforming-data-frames">
 <h2><span class="section-number">10.3. </span>Transforming Data Frames<a class="headerlink" href="#transforming-data-frames" title="Permalink to this headline"></a></h2>
-<p>By applying the already well-known vectorised mathematical <strong class="program">numpy</strong> functions.
-we can transform each data cell and return an object of the same type
-as the input one.</p>
+<p>By applying the already well-known vectorised mathematical
+functions from <strong class="program">numpy</strong>, we can transform each data cell
+and return an object of the same type as the input one.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">])</span>
 <span class="c1">## a    2.013753</span>
 <span class="c1">## b    1.336427</span>
@@ -790,18 +815,11 @@ elementwisely – a style with which we are already familiar.</p>
 <span class="c1">## Name: u, dtype: float64</span>
 </pre></div>
 </div>
-<p>For two objects of class <code class="docutils literal notranslate"><span class="pre">Series</span></code>, the operators
-are vectorised somewhat differently
-from their <strong class="program">numpy</strong> counterparts: they are applied
-on the pairs of elements having <em>identical labels</em>
-(i.e., labelwisely).
-Still, if we are transforming the columns
-that come from the same data frame
-(and thus having identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slots;
-this is the most common scenario), there will be no surprises,
-because this is equivalent to elementwise action.
-For instance:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">]</span>
+<p>Binary operators act on the elements with corresponding labels.
+For two objects having identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slots
+(this is the most common scenario), this is the same as elementwise
+vectorisation. For instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">]</span>  <span class="c1"># here: elementwise comparison</span>
 <span class="c1">## a     True</span>
 <span class="c1">## b     True</span>
 <span class="c1">## c     True</span>
@@ -814,9 +832,9 @@ For instance:</p>
 it is a good idea either to
 convert them to a numeric matrix explicitly
 and then use the basic <strong class="program">numpy</strong> functions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">uv</span> <span class="o">=</span> <span class="p">(</span><span class="n">uv</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">uv</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]])</span>
+<span class="n">uv2</span> <span class="o">=</span> <span class="p">(</span><span class="n">uv</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">uv2</span>
 <span class="c1">## array([[ 0.99067229,  0.20286225],</span>
 <span class="c1">##        [-1.0200982 , -0.11790285],</span>
 <span class="c1">##        [-1.3143573 , -0.24794275],</span>
@@ -826,9 +844,8 @@ and then use the basic <strong class="program">numpy</strong> functions:</p>
 </div>
 <p>or to use the <strong class="command">pandas.DataFrame.apply</strong> method
 which invokes a given function on each column separately:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">uv</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">standardise</span><span class="p">)</span>
-<span class="n">uv</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">uv2</span>
 <span class="c1">##           u         v</span>
 <span class="c1">## a  0.990672  0.202862</span>
 <span class="c1">## b -1.020098 -0.117903</span>
@@ -837,24 +854,74 @@ which invokes a given function on each column separately:</p>
 <span class="c1">## e  1.088759 -1.478987</span>
 </pre></div>
 </div>
-<p>In both cases, we can then write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">uv</span>
-</pre></div>
-</div>
-<p>to replace the old content with the transformed one.</p>
-<p>Also, new columns can be added based on transformed
-versions of the existing ones:</p>
+<div style="margin-top: 1em"></div><p>Anticipating what we cover in the next section,
+in both cases, we can write <code class="docutils literal notranslate"><span class="pre">d.loc[:,</span> <span class="pre">[&quot;u&quot;,</span> <span class="pre">&quot;v&quot;]]</span> <span class="pre">=</span> <span class="pre">uv2</span></code>
+to replace the old content. Also, new columns can be added based on the
+transformed versions of the existing ones, for instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;uv_squared&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
 <span class="n">d</span>
-<span class="c1">##           u         v        w  uv_squared</span>
-<span class="c1">## a  0.990672  0.202862     spam    0.040389</span>
-<span class="c1">## b -1.020098 -0.117903    bacon    0.014465</span>
-<span class="c1">## c -1.314357 -0.247943     spam    0.106201</span>
-<span class="c1">## d  0.255025  1.641971     eggs    0.175346</span>
-<span class="c1">## e  1.088759 -1.478987  sausage    2.592938</span>
+<span class="c1">##       u     v        w  uv_squared</span>
+<span class="c1">## a  0.70  0.32     spam    0.050176</span>
+<span class="c1">## b  0.29 -0.05    bacon    0.000210</span>
+<span class="c1">## c  0.23 -0.20     spam    0.002116</span>
+<span class="c1">## d  0.55  1.98     eggs    1.185921</span>
+<span class="c1">## e  0.72 -1.62  sausage    1.360489</span>
 </pre></div>
 </div>
+<div class="proof proof-type-example" id="id14">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 10.7</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Binary operations on objects with different <code class="docutils literal notranslate"><span class="pre">index</span></code> slots
+are actually vectorised <em>labelwisely</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<span class="n">x</span>
+<span class="c1">## a         1</span>
+<span class="c1">## b        10</span>
+<span class="c1">## a      1000</span>
+<span class="c1">## a     10000</span>
+<span class="c1">## c    100000</span>
+<span class="c1">## dtype: int64</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<span class="n">y</span>
+<span class="c1">## b    1</span>
+<span class="c1">## b    2</span>
+<span class="c1">## a    3</span>
+<span class="c1">## d    4</span>
+<span class="c1">## c    5</span>
+<span class="c1">## dtype: int64</span>
+</pre></div>
 </div>
+<p>And now:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="c1">## a         3.0</span>
+<span class="c1">## a      3000.0</span>
+<span class="c1">## a     30000.0</span>
+<span class="c1">## b        10.0</span>
+<span class="c1">## b        20.0</span>
+<span class="c1">## c    500000.0</span>
+<span class="c1">## d         NaN</span>
+<span class="c1">## dtype: float64</span>
+</pre></div>
+</div>
+<p>Here, each element in the first <code class="docutils literal notranslate"><span class="pre">Series</span></code> named <code class="docutils literal notranslate"><span class="pre">a</span></code> was
+multiplied by each (there was only one) element labelled <code class="docutils literal notranslate"><span class="pre">a</span></code> in the second
+<code class="docutils literal notranslate"><span class="pre">Series</span></code>. For <code class="docutils literal notranslate"><span class="pre">d</span></code>, there was no match, hence the result’s being marked
+as missing (compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>).
+Thus, this behaves like a full outer join-type operation;
+see <a class="reference internal" href="#sec-join"><span class="std std-numref">Section 10.6.4</span></a>.</p>
+<p>The above is different from <em>elementwise</em> vectorisation in <strong class="program">numpy</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="c1">## array([     1,     20,   3000,  40000, 500000])</span>
+</pre></div>
+</div>
+<p>Labelwise vectorisation <em>can</em> be useful in certain contexts,
+but we should be aware of this (yet another) incompatibility between
+the two packages.</p>
+</div></div></div>
 <div class="section" id="indexing-series-objects">
 <span id="sec-series-indexing"></span><h2><span class="section-number">10.4. </span>Indexing <code class="docutils literal notranslate"><span class="pre">Series</span></code> Objects<a class="headerlink" href="#indexing-series-objects" title="Permalink to this headline"></a></h2>
 <p>Recall that each <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> object
@@ -867,12 +934,12 @@ not only through the <em>indexers</em> known from
 the <strong class="program">numpy</strong> part (e.g., numerical ones, i.e., by position)
 but also ones that pinpoint the items via their
 labels. That is quite a lot of index-ing.</p>
-<p>Let us study different forms thereof in very detail.</p>
-<p>In this section we play with two example objects of
+<p>Let us study different forms thereof in very detail.
+For illustration, we will be playing with the two following objects of
 class <code class="docutils literal notranslate"><span class="pre">Series</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">b</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">b</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">b</span>
 <span class="c1">## 2    0.70</span>
 <span class="c1">## 1    0.29</span>
@@ -885,8 +952,11 @@ class <code class="docutils literal notranslate"><span class="pre">Series</span>
 <span class="c1">## 3    0.48</span>
 <span class="c1">## 0    0.39</span>
 <span class="c1">## dtype: float64</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span>  <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;abcdefghij&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;abcdefghij&quot;</span><span class="p">)</span>
 <span class="n">c</span>
 <span class="c1">## a    0.70</span>
 <span class="c1">## b    0.29</span>
@@ -902,18 +972,18 @@ class <code class="docutils literal notranslate"><span class="pre">Series</span>
 </pre></div>
 </div>
 <p>They consist of the same values, in the same order,
-but have different labels (<code class="docutils literal notranslate"><span class="pre">.index</span></code> slots).
+but have different labels (<code class="docutils literal notranslate"><span class="pre">index</span></code> slots).
 In particular, <code class="docutils literal notranslate"><span class="pre">b</span></code>’s labels
 are integers which <em>do not</em> match the physical element
 positions (where 0 would denote the first element, etc.).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>For <strong class="program">numpy</strong> vectors, we had four different indexing schemes:
-by scalar (extracts an element at given position),
+by scalar (extracts an element at a given position),
 slice, integer vector, and logical vector.
 <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are <em>additionally</em> labelled, therefore
 they can <em>additionally</em> be accessed taking into account
-the contents of the <code class="docutils literal notranslate"><span class="pre">.index</span></code> slot.</p>
+the contents of the <code class="docutils literal notranslate"><span class="pre">index</span></code> slot.</p>
 </div>
 <div class="section" id="do-not-use-directly">
 <h3><span class="section-number">10.4.1. </span>Do Not Use <code class="docutils literal notranslate"><span class="pre">[...]</span></code> Directly<a class="headerlink" href="#do-not-use-directly" title="Permalink to this headline"></a></h3>
@@ -1035,7 +1105,7 @@ we will be returning all the matching items:</p>
 <p>Indexing using a logical vector-like object
 is also available.</p>
 <p>We usually will be using <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
-with either a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object of identical <code class="docutils literal notranslate"><span class="pre">.index</span></code> slot
+with either a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object of identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slot
 as the subsetted object or a logical <strong class="program">numpy</strong> vector.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mf">0.6</span><span class="p">)]</span>
 <span class="c1">## 7    0.55</span>
@@ -1044,8 +1114,8 @@ as the subsetted object or a logical <strong class="program">numpy</strong> vect
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
-<p>For <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, the indexer must be unlabelled, like in, e.g.,
-<code class="docutils literal notranslate"><span class="pre">b.loc[i.values]</span></code>.</p>
+<p>For <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, the indexer must be unlabelled,
+like in, e.g., <code class="docutils literal notranslate"><span class="pre">b.loc[i.values]</span></code>.</p>
 </div>
 </div>
 <div class="section" id="indexing-data-frames">
@@ -1100,26 +1170,26 @@ This improves the readability in contexts such as:</p>
 <p>However, this accessor is not universal: we can check this out by
 considering a data frame featuring a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p>
 </div>
-<div class="proof proof-type-exercise" id="id11">
+<div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.6</span>
+        <span class="proof-type">Exercise 10.8</span>
         
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.DataFrame.drop</strong>
 to select all columns but <code class="docutils literal notranslate"><span class="pre">v</span></code> in <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id12">
+</div></div><div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.7</span>
+        <span class="proof-type">Exercise 10.9</span>
         
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.Series.isin</strong> (amongst others)
 to select all rows with <code class="docutils literal notranslate"><span class="pre">spam</span></code> and <code class="docutils literal notranslate"><span class="pre">bacon</span></code> on the <code class="docutils literal notranslate"><span class="pre">d</span></code>’s menu.</p>
-</div></div><div class="proof proof-type-exercise" id="id13">
+</div></div><div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.8</span>
+        <span class="proof-type">Exercise 10.10</span>
         
     </div><div class="proof-content">
 <p>In the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/tips.csv"><code class="docutils literal notranslate"><span class="pre">tips</span></code></a> dataset,
@@ -1144,20 +1214,20 @@ data frame:</p>
 </div>
 <p>Notation like
 “<code class="docutils literal notranslate"><span class="pre">d.new_column</span> <span class="pre">=</span> <span class="pre">...</span></code>” will not work.
-As we have said, <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> are universal, other
+As we said, <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> are universal, other
 accessors – not so much.</p>
-<div class="proof proof-type-exercise" id="id14">
+<div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.9</span>
+        <span class="proof-type">Exercise 10.11</span>
         
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.DataFrame.insert</strong>
 to add a new column not necessarily at the end of <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id15">
+</div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.10</span>
+        <span class="proof-type">Exercise 10.12</span>
         
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.DataFrame.append</strong>
@@ -1193,10 +1263,10 @@ such as:</p>
 of the random number generator so that we get
 reproducible results.
 Alternatively, we could call <strong class="command">numpy.random.seed</strong>.</p>
-<div class="proof proof-type-exercise" id="id16">
+<div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.11</span>
+        <span class="proof-type">Exercise 10.13</span>
         
     </div><div class="proof-content">
 <p>Show how the 3 aforementioned scenarios
@@ -1259,10 +1329,10 @@ the data frame number one:</p>
 <span class="c1">## 2   73.0  161.2     37.4    38.0     31.8   106.2      92.0</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id17">
+<div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.12</span>
+        <span class="proof-type">Exercise 10.14</span>
         
     </div><div class="proof-content">
 <p>In the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a> dataset,
@@ -1271,10 +1341,10 @@ Partition the resulting data frame randomly into three data frames:
 <code class="docutils literal notranslate"><span class="pre">wines_train</span></code> (60% of the rows),
 <code class="docutils literal notranslate"><span class="pre">wines_validate</span></code> (another 20% of the rows),
 and <code class="docutils literal notranslate"><span class="pre">wines_test</span></code> (the remaining 20%).</p>
-</div></div><div class="proof proof-type-exercise" id="id18">
+</div></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.13</span>
+        <span class="proof-type">Exercise 10.15</span>
         
     </div><div class="proof-content">
 <p>Consider the white wines dataset again.
@@ -1379,7 +1449,7 @@ from within any context:</p>
 <div class="section" id="further-operations-on-data-frames">
 <h2><span class="section-number">10.6. </span>Further Operations on Data Frames<a class="headerlink" href="#further-operations-on-data-frames" title="Permalink to this headline"></a></h2>
 <div class="section" id="sorting">
-<h3><span class="section-number">10.6.1. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline"></a></h3>
+<span id="sec-df-sort"></span><h3><span class="section-number">10.6.1. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline"></a></h3>
 <p>Let us consider another example dataset.
 Here are the yearly (for 2018) average
 <a class="reference external" href="https://discover.data.vic.gov.au/dataset/epa-air-watch-all-sites-air-quality-hourly-averages-yearly">air quality data</a>
@@ -1457,19 +1527,19 @@ with respect to one criterion:</p>
 </div>
 <p>Here, in each group of identical parameters,
 we get a decreasing order with respect to the value.</p>
-<div class="proof proof-type-exercise" id="id19">
+<div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.14</span>
+        <span class="proof-type">Exercise 10.16</span>
         
     </div><div class="proof-content">
 <p>(*)
 Compare the ordering with respect to <code class="docutils literal notranslate"><span class="pre">param_id</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>
 vs <code class="docutils literal notranslate"><span class="pre">value</span></code> and then <code class="docutils literal notranslate"><span class="pre">param_id</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.15</span>
+        <span class="proof-type">Exercise 10.17</span>
         
     </div><div class="proof-content">
 <p>(**) Perform identical reorderings but using only
@@ -1509,7 +1579,7 @@ are not guaranteed to be listed in the original order:</p>
 <span class="c1">## 15      NO2      Footscray  10.274531</span>
 </pre></div>
 </div>
-<p>We have lost the ordering based on station names in the two subgroups.
+<p>We lost the ordering based on station names in the two subgroups.
 To switch to a mergesort-like method (timsort), we should pass
 <code class="docutils literal notranslate"><span class="pre">kind=&quot;stable&quot;</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1550,7 +1620,7 @@ data of different types.</p>
 <p>The above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the so-called <em>long</em> format,
 where all measurements are <em>stacked</em> one after/below another.
 Such a form is quite convenient for the purpose of storing data,
-but not necessarily for all processing tasks, compare <span id="id3">[<a class="reference internal" href="999-bibliography.html#id36">Wic14</a>]</span>.
+but not necessarily for all processing tasks, compare <span id="id5">[<a class="reference internal" href="999-bibliography.html#id36">Wic14</a>]</span>.
 Recall from the matrix part that a more natural way
 would be to have a single <em>observation</em> (e.g.,
 data for a measurement station) in each row.</p>
@@ -1707,19 +1777,19 @@ is relatively easy:</p>
 </pre></div>
 </div>
 <p>There are no duplicate rows in the output.</p>
-<div class="proof proof-type-exercise" id="id21">
+<div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.16</span>
+        <span class="proof-type">Exercise 10.18</span>
         
     </div><div class="proof-content">
 <p>Determine
 <span class="math notranslate nohighlight">\((A\cup B) \setminus (A\cap B) = (A\setminus B)\cup(B\setminus A)\)</span>
 (symmetric difference).</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
+</div></div><div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.17</span>
+        <span class="proof-type">Exercise 10.19</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1733,14 +1803,14 @@ Hint: consider using
 <strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
 </div></div></div>
 <div class="section" id="joining-merging">
-<h3><span class="section-number">10.6.4. </span>Joining (Merging)<a class="headerlink" href="#joining-merging" title="Permalink to this headline"></a></h3>
+<span id="sec-join"></span><h3><span class="section-number">10.6.4. </span>Joining (Merging)<a class="headerlink" href="#joining-merging" title="Permalink to this headline"></a></h3>
 <p>In database design, it is common to normalise
 the datasets in order to avoid the duplication of information
-and pathologies stemming from them (e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id74">Dat03</a>]</span>).</p>
-<div class="proof proof-type-example" id="id23">
+and pathologies stemming from them (e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.html#id74">Dat03</a>]</span>).</p>
+<div class="proof proof-type-example" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Example 10.18</span>
+        <span class="proof-type">Example 10.20</span>
         
     </div><div class="proof-content">
 <p>The above air quality parameters
@@ -1837,30 +1907,30 @@ union of the left and the right join:</p>
 <span class="c1">## 5  a4  NaN   c3</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id24">
+<div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.19</span>
+        <span class="proof-type">Exercise 10.21</span>
         
     </div><div class="proof-content">
 <p>Join
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_value.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_value</span></code></a>
 with <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_point.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_point</span></code></a>
 and <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_param.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_param</span></code></a>.</p>
-</div></div><div class="proof proof-type-exercise" id="id25">
+</div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.20</span>
+        <span class="proof-type">Exercise 10.22</span>
         
     </div><div class="proof-content">
 <p>Normalise
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
 yourself so that you get the three data frames mentioned in the previous
 exercise (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">point</span></code>, <code class="docutils literal notranslate"><span class="pre">param</span></code>).</p>
-</div></div><div class="proof proof-type-exercise" id="id26">
+</div></div><div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.21</span>
+        <span class="proof-type">Exercise 10.23</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -1908,102 +1978,102 @@ where we can work with data frames
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">10.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id27">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.22</span>
-        
-    </div><div class="proof-content">
-<p>How are data frames different from matrices?</p>
-</div></div><div class="proof proof-type-exercise" id="id28">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.23</span>
-        
-    </div><div class="proof-content">
-<p>What are the use cases of the <code class="docutils literal notranslate"><span class="pre">name</span></code> slot
-in <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">Index</span></code> objects?</p>
-</div></div><div class="proof proof-type-exercise" id="id29">
+<div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.24</span>
         
     </div><div class="proof-content">
-<p>What is the purpose of <strong class="command">set_index</strong> and <strong class="command">reset_index</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id30">
+<p>How are data frames different from matrices?</p>
+</div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.25</span>
         
     </div><div class="proof-content">
-<p>Why learning <strong class="program">numpy</strong> is crucial when someone wants to become
-a proficient user of <strong class="program">pandas</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id31">
+<p>What are the use cases of the <code class="docutils literal notranslate"><span class="pre">name</span></code> slot
+in <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">Index</span></code> objects?</p>
+</div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.26</span>
         
     </div><div class="proof-content">
-<p>What is the difference between <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id32">
+<p>What is the purpose of <strong class="command">set_index</strong> and <strong class="command">reset_index</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.27</span>
         
     </div><div class="proof-content">
-<p>Why applying the index operator <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly on a
-<code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object is not necessarily a good idea?</p>
-</div></div><div class="proof proof-type-exercise" id="id33">
+<p>Why learning <strong class="program">numpy</strong> is crucial when someone wants to become
+a proficient user of <strong class="program">pandas</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.28</span>
         
     </div><div class="proof-content">
-<p>What is the difference between <code class="docutils literal notranslate"><span class="pre">.index</span></code>, <code class="docutils literal notranslate"><span class="pre">Index</span></code>, and <code class="docutils literal notranslate"><span class="pre">.columns</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+<p>What is the difference between <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>?</p>
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.29</span>
         
     </div><div class="proof-content">
-<p>How to compute the arithmetic mean and median
-of all the numeric columns in a data frame, using
-a single line of code?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+<p>Why applying the index operator <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly on a
+<code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object is not necessarily a good idea?</p>
+</div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.30</span>
         
     </div><div class="proof-content">
-<p>What is a train/test split and how to perform it using
-<strong class="program">numpy</strong> and <strong class="program">pandas</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id36">
+<p>What is the difference between <code class="docutils literal notranslate"><span class="pre">index</span></code>, <code class="docutils literal notranslate"><span class="pre">Index</span></code>, and <code class="docutils literal notranslate"><span class="pre">columns</span></code>?</p>
+</div></div><div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.31</span>
         
     </div><div class="proof-content">
-<p>What is the difference between stacking and unstacking?
-Which one yields a wide (as opposed to long) format?</p>
-</div></div><div class="proof proof-type-exercise" id="id37">
+<p>How to compute the arithmetic mean and median
+of all the numeric columns in a data frame, using
+a single line of code?</p>
+</div></div><div class="proof proof-type-exercise" id="id39">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.32</span>
         
     </div><div class="proof-content">
-<p>Name different data frame join (merge) operations and explain how
-they work.</p>
-</div></div><div class="proof proof-type-exercise" id="id38">
+<p>What is a train/test split and how to perform it using
+<strong class="program">numpy</strong> and <strong class="program">pandas</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id40">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.33</span>
         
     </div><div class="proof-content">
-<p>How does sorting with respect to more than one criterion work?</p>
-</div></div><div class="proof proof-type-exercise" id="id39">
+<p>What is the difference between stacking and unstacking?
+Which one yields a wide (as opposed to long) format?</p>
+</div></div><div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.34</span>
+        
+    </div><div class="proof-content">
+<p>Name different data frame join (merge) operations and explain how
+they work.</p>
+</div></div><div class="proof proof-type-exercise" id="id42">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.35</span>
+        
+    </div><div class="proof-content">
+<p>How does sorting with respect to more than one criterion work?</p>
+</div></div><div class="proof proof-type-exercise" id="id43">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.36</span>
         
     </div><div class="proof-content">
 <p>Name the basic set-theoretic operations on data frames.</p>
@@ -2011,7 +2081,20 @@ they work.</p>
 <dl class="footnote brackets">
 <dt class="label" id="footdf"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>Data frames were first introduced in the 1991 version
-of the S language <span id="id5">[<a class="reference internal" href="999-bibliography.html#id35">CH91</a>]</span>.</p>
+of the S language <span id="id7">[<a class="reference internal" href="999-bibliography.html#id35">CH91</a>]</span>.</p>
+</dd>
+<dt class="label" id="footgoback"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>If, by any chance, the kind reader has frivolously decided
+to start their journey with this superb book
+at this chapter, it is now the time to go back to the
+<a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> and learn everything in the right order.
+See you later.</p>
+</dd>
+<dt class="label" id="footindex"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>The name <code class="docutils literal notranslate"><span class="pre">Index</span></code> is confusing not only because
+it clashes with the <em>index</em> operator (square brackets),
+but also the concept of an <em>index</em> in relational databases.
+In <strong class="program">pandas</strong>, we can have non-unique row names.</p>
 </dd>
 </dl>
 </div>
@@ -2033,7 +2116,7 @@ of the S language <span id="id5">[<a class="reference internal" href="999-biblio
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-08T12:58:04+1000.
+        Last updated on 2022-07-09T15:52:08+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

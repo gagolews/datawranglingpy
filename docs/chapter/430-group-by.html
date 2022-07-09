@@ -282,8 +282,8 @@ is, and will remain, freely available for everyone’s enjoyment
 (also in <a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">PDF</a>).
 Any <a class="reference external" href="https://github.com/gagolews/datawranglingpy/blob/master/CODE_OF_CONDUCT.md">bug/typos reports/fixes</a>
 are appreciated. Although available online, this is a whole course;
-it should be read from the beginning to the end. In particular,
-refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
+it should be read from the beginning to the end.
+Refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
 <p>Let us consider (once again) a subset of the US Centres for Disease Control
 and Prevention National Health and Nutrition Examination Survey data,
@@ -415,8 +415,7 @@ standalone columns:</p>
 <span class="c1">## 7    male        obese    1619</span>
 </pre></div>
 </div>
-<p>Take note of the <strong class="command">rename</strong> part thanks to which we have obtained
-a readable column name.</p>
+<p>Take note of the <strong class="command">rename</strong> part. It gave us a readable column name.</p>
 <div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
@@ -622,9 +621,9 @@ Here is a preview of the first and the last row in each chunk:</p>
 <span class="c1">## 8784   74    59.7   167.5    21.3   male     no      normal   -0.812693</span>
 </pre></div>
 </div>
-<p>We can apply any operation on each subgroup we have learned
-so far, our imagination is the only limiting factor,
-e.g., aggregate some columns:</p>
+<p>Within each subgroup, we can apply any operation we have learned
+so far: our imagination is the only limiting factor.
+For instance, we aggregate some columns:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_agg</span> <span class="o">=</span> <span class="p">[</span>
     <span class="nb">dict</span><span class="p">(</span>
         <span class="n">level</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
@@ -767,7 +766,7 @@ from each other across genders.</p>
 <h3><span class="section-number">12.2.3. </span>Semitransparent Histograms<a class="headerlink" href="#semitransparent-histograms" title="Permalink to this headline"></a></h3>
 <p><a class="reference internal" href="#fig-hist-transparent-weight-usborn"><span class="std std-numref">Figure 12.3</span></a> illustrates
 that playing with semitransparent objects can make comparisons
-easy. By passing <code class="docutils literal notranslate"><span class="pre">common_norm=False</span></code>, we have scaled each density
+easy. By passing <code class="docutils literal notranslate"><span class="pre">common_norm=False</span></code>, we scaled each density
 histogram separately, which is the behaviour we desire is samples
 are of different lengths.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span>
@@ -1001,7 +1000,7 @@ that bad wines are rather low in… alcohol and, to some extent, sugar.</p>
 <span id="fig-wines"></span><img alt="../_images/wines-15.png" src="../_images/wines-15.png" />
 <p class="caption"><span class="caption-number">Figure 12.8 </span><span class="caption-text">Scatterplot for sugar vs alcohol content for white, rather sweet wines, and whether they are considered bad (1) or drinkable (0) by some experts</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
 </div>
-<p>Someone answer the door! We have just received a delivery:
+<p>Someone answer the door! We have a delivery:
 quite a few new wine bottles whose alcohol and sugar contents have,
 luckily, been given on their respective labels.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wine_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1125,9 +1124,9 @@ based on the aggregates computed for the train set):</p>
 <span class="c1">## array([0, 1, 0, 0, 1, 0, 0, 0, 0, 0])</span>
 </pre></div>
 </div>
-<p>First, we have fetched the indices of each test point’s nearest neighbours
+<p>First, we fetched the indices of each test point’s nearest neighbours
 (amongst the points in the training set).
-Then, we have fetched their corresponding labels; they are stored
+Then, we read their corresponding labels; they are stored
 in a matrix with <span class="math notranslate nohighlight">\(k\)</span> columns.
 Finally, we computed the modes in each row, and hence classified
 each point in the test set.</p>
@@ -1216,7 +1215,7 @@ let us note that our dataset is slightly imbalanced:</p>
 </div>
 <p>It turns out that 639 out of 1000 wines in our sample are (truly) good.
 Therefore, a classifier which labels all the wines as great
-would have accuracy of ca. 64%. Thus, our machine learning approach
+would have accuracy of ca. 64%. Thus, our machine learning approach
 to wine quality assessment is not that usable after all.</p>
 <p>Thus, it is always good to analyse the corresponding <em>confusion matrix</em>,
 which is a two-way contingency table summarising the correct decisions
@@ -1264,7 +1263,8 @@ imbalanced classification problems.</p>
 less frequently occurring and where mispredicting it is considered
 more hazardous than making an inaccurate prediction with respect to class 0
 (most will agree that it is better to be surprised by a vino
-mis-labelled as bad, than be disappointed with a highly recommended product where we have already built some expectations around it;
+mis-labelled as bad, than be disappointed with a highly recommended product
+where we have already built some expectations around it;
 not getting diagnosed with COVID-19 where we actually are sick
 can be more dangerous for the people around us than
 being forced to stay at home where it turned out
@@ -1346,21 +1346,17 @@ aggregated into a single number</p></li>
 </div></div></div>
 <div class="section" id="splitting-into-training-and-test-sets">
 <span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into Training and Test Sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Permalink to this headline"></a></h3>
-<p>The training set, that we have been provided with, was used
-as a source of knowledge about our problem domain.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The <em>k</em>-nearest neighbour classifier is technically <em>model-free</em>, therefore
+<p>The training set was used as a source of knowledge about our problem domain.
+The <em>k</em>-nearest neighbour classifier is technically <em>model-free</em>, therefore
 in order to generate a new prediction, we need to be able to
-query all the points in the database – they must be at hand all the time.</p>
-</div>
+query all the points in the database – they must be at hand at all times.</p>
 <p>Most statistical/machine learning algorithms, however, by construction,
 generalise the patterns discovered in the dataset in the form
 of mathematical functions (oftentimes, very complicated ones),
 that are fitted by minimising some error metric.
 Linear regression analysis by means of the least squares approximation
 uses exactly this kind of approach.</p>
-<p>Either way, we have used a separate <em>test set</em> to verify the quality
+<p>Either way, we used a separate <em>test set</em> to verify the quality
 of our classifier on so-far <em>unobserved</em> data, i.e., its <em>predictive</em>
 capabilities. After all, we do not want our model to overfit to training
 data and be completely useless when filling the gaps between
@@ -1649,7 +1645,7 @@ depicts the two clusters (painted in different colours)
 together with the cluster centroids (black crosses).
 We use <code class="docutils literal notranslate"><span class="pre">l</span></code> as a colour selector
 in <code class="docutils literal notranslate"><span class="pre">my_colours[l]</span></code> (this is a clever instance of the integer vector-based
-indexing). It looks like we have correctly discovered the
+indexing). It seems that we correctly discovered the
 very natural partitioning of this dataset into two clusters.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">])[</span><span class="n">l</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">C</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">C</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;yX&quot;</span><span class="p">)</span>
@@ -1718,7 +1714,7 @@ the returned clusters are.</p>
 <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/clustering/wut_twosplashes.csv"><code class="docutils literal notranslate"><span class="pre">wut_twosplashes</span></code></a>
 dataset and display the results on a scatterplot.
 Compare the results to those obtained on the standardised
-version thereof. Recall what we have said about the Euclidean distance
+version thereof. Recall what we said about the Euclidean distance
 and its perception being disturbed when a plot’s aspect ratio is not 1:1.</p>
 </div>
 <div class="admonition note">
@@ -2065,7 +2061,7 @@ following cluster centres which are close to the global minimum.</p>
 <h2><span class="section-number">12.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline"></a></h2>
 <p>An overall good introduction to classification is <span id="id7">[<a class="reference internal" href="999-bibliography.html#id51">HTF17</a>]</span>
 and <span id="id8">[<a class="reference internal" href="999-bibliography.html#id52">Bis06</a>]</span>.
-However, as we have said earlier, we recommend going through
+However, as we said earlier, we recommend going through
 a solid course in matrix algebra and probability and statistics
 first, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id73">DFO20</a>, <a class="reference internal" href="999-bibliography.html#id129">Gen17</a>]</span>
 and <span id="id10">[<a class="reference internal" href="999-bibliography.html#id43">DKLM05</a>, <a class="reference internal" href="999-bibliography.html#id46">Gen09</a>, <a class="reference internal" href="999-bibliography.html#id41">Gen20</a>]</span>.</p>
@@ -2196,7 +2192,7 @@ point of view it does not really matter which one returns
 the best solution – they are merely our tools to achieve
 a higher goal. Ideally, we should run all of them
 a few times and just get the result that corresponds to the smallest
-WCSS. What matters is that we have <em>did our best</em> to
+WCSS. What matters is that we <em>did our best</em> to
 find the optimal set of cluster centres – and of course
 more approaches tested improve the chance of success.</p>
 </dd>
@@ -2220,7 +2216,7 @@ more approaches tested improve the chance of success.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-08T12:58:04+1000.
+        Last updated on 2022-07-09T15:52:08+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
