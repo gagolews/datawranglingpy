@@ -580,7 +580,7 @@ corresponding to these categories.</p>
 without the use of <strong class="program">pandas</strong>.
 Calling <strong class="command">numpy.split</strong><code class="code docutils literal notranslate"><span class="pre">(arr,</span> <span class="pre">ind)</span></code> returns a list
 with <code class="docutils literal notranslate"><span class="pre">arr</span></code> (being an array-like object, e.g., a matrix, a vector, or a data
-frame) split rowwisely into <strong class="command">len</strong><code class="code docutils literal notranslate"><span class="pre">(ind)+1</span></code> chunks at indices
+frame) split rowwisely into <strong class="command">len</strong><code class="code docutils literal notranslate"><span class="pre">(ind)+1</span></code> chunks at indexes
 given by <code class="docutils literal notranslate"><span class="pre">ind</span></code>.</p>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
@@ -593,7 +593,7 @@ for instance, the <code class="docutils literal notranslate"><span class="pre">g
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_srt</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Then, we can use <strong class="command">numpy.unique</strong> to fetch the indices of
+<p>Then, we can use <strong class="command">numpy.unique</strong> to fetch the indexes of
 first occurrences of each series of identical labels:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">levels</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">nhanes_srt</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">],</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">levels</span><span class="p">,</span> <span class="n">where</span>
@@ -1065,10 +1065,10 @@ is based on the information about a test point’s nearest neighbours
 <p>Fix <span class="math notranslate nohighlight">\(k\ge 1\)</span>.
 Namely, to classify some <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
 <ol>
-<li><p>Find the indices <span class="math notranslate nohighlight">\(N_k(\boldsymbol{y})=\{i_1,\dots,i_k\}\)</span>
+<li><p>Find the indexes <span class="math notranslate nohighlight">\(N_k(\boldsymbol{y})=\{i_1,\dots,i_k\}\)</span>
 of the <span class="math notranslate nohighlight">\(k\)</span> points from
 <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> closest to <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>, i.e., ones that fulfil
-for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span></p>
+for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[ \|\mathbf{x}_{i_1,\cdot}-\boldsymbol{x}'\|
     \le\dots\le
@@ -1124,7 +1124,7 @@ based on the aggregates computed for the train set):</p>
 <span class="c1">## array([0, 1, 0, 0, 1, 0, 0, 0, 0, 0])</span>
 </pre></div>
 </div>
-<p>First, we fetched the indices of each test point’s nearest neighbours
+<p>First, we fetched the indexes of each test point’s nearest neighbours
 (amongst the points in the training set).
 Then, we read their corresponding labels; they are stored
 in a matrix with <span class="math notranslate nohighlight">\(k\)</span> columns.
@@ -1390,7 +1390,7 @@ phase is complete.</p>
 <p>Let us generate its 60/40% partition.
 To avoid bias, it is best to allocate the rows into the training
 and test sets at random. One way to do so is to
-create a vector of randomly rearranged row indices:</p>
+create a vector of randomly rearranged row indexes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># assure reproducibility</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">XY</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -1400,7 +1400,7 @@ create a vector of randomly rearranged row indices:</p>
 </pre></div>
 </div>
 <p>and now the train set can be created by picking the rows
-at the first 60% of these indices:</p>
+at the first 60% of these indexes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">XY_train</span> <span class="o">=</span> <span class="n">XY</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.6</span><span class="o">*</span><span class="n">n</span><span class="p">)],</span> <span class="p">:]</span>
 <span class="n">XY_train</span>
 <span class="c1">##      x    y</span>
@@ -1453,7 +1453,7 @@ metrics might be too optimistic and can poorly reflect the real performance
 of the solution on future data.</p>
 <p>Assuming that our dataset carries a decent number of observations,
 in order to overcome this problem, we can perform a random
-<em>train-validation-test split</em>:</p>
+<em>training/validation/test split</em>:</p>
 <ul class="simple">
 <li><p><em>training sample</em>  (e.g., 60% of randomly chosen rows) –
 for model construction,</p></li>
@@ -1490,7 +1490,7 @@ Evaluate the quality of best classifier on the test set.</p>
 <p class="admonition-title">Note</p>
 <p>(*)
 We can use various <em>cross-validation</em>
-techniques instead of a train-validate-test split, especially
+techniques instead of a training/validation/test split, especially
 on smaller datasets.
 For instance, in a <em>5-fold cross-validation</em>, we split the original
 train set randomly into 5 disjoint parts: <span class="math notranslate nohighlight">\(A, B, C, D, E\)</span>
@@ -2132,7 +2132,7 @@ potential ties at random when computing the mode of the neighbours’ labels?</p
         <span class="proof-type">Exercise 12.31</span>
         
     </div><div class="proof-content">
-<p>What is the purpose of a train-test and train-validation-test set
+<p>What is the purpose of a training/test and training/validation/test set
 splits?</p>
 </div></div><div class="proof proof-type-exercise" id="id57">
 
@@ -2216,7 +2216,7 @@ more approaches tested improve the chance of success.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-09T15:52:08+1000.
+        Last updated on 2022-07-10T19:55:16+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

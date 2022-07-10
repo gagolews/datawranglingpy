@@ -154,14 +154,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#indexing-data-frames">10.5. Indexing Data Frames</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#loc-and-iloc">10.5.1. <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-rows-and-columns">10.5.2. Adding Rows and Columns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#random-sampling">10.5.3. Random Sampling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hierarchical-indices">10.5.4. Hierarchical Indices (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pseudorandom-sampling-and-splitting">10.5.3. Pseudorandom Sampling and Splitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hierarchical-indexes">10.5.4. Hierarchical Indexes (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#further-operations-on-data-frames">10.6. Further Operations on Data Frames</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sorting">10.6.1. Sorting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stacking-and-unstacking-long-and-wide-forms">10.6.2. Stacking and Unstacking (Long and Wide Forms)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#set-theoretic-operations">10.6.3. Set-Theoretic Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-theoretic-operations-and-removing-duplicates">10.6.3. Set-Theoretic Operations and Removing Duplicates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#joining-merging">10.6.4. Joining (Merging)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#and-too-many-more">10.6.5. …And (Too) Many More</a></li>
 </ul>
@@ -369,7 +369,7 @@ common option:</p>
 </div>
 <p>This illustrates the possibility of having columns of different
 types.</p>
-<div class="proof proof-type-exercise" id="id8">
+<div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.1</span>
@@ -395,7 +395,7 @@ formats, for instance, CSV:</p>
 </div>
 <p>Reading from URLs and local files (compare <a class="reference internal" href="440-sql.html#sec-file-paths"><span class="std std-numref">Section 13.6.1</span></a>)
 is of course supported.</p>
-<div class="proof proof-type-exercise" id="id9">
+<div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.2</span>
@@ -477,7 +477,7 @@ because each of them defines a slightly different set of methods.</p>
 <p>We will now be relying upon object-oriented syntax
 (compare <a class="reference internal" href="120-scalar.html#sec-oop"><span class="std std-numref">Section 2.2.3</span></a>) much more frequently than before.</p>
 </div>
-<div class="proof proof-type-example" id="id10">
+<div class="proof proof-type-example" id="id12">
 
     <div class="proof-title">
         <span class="proof-type">Example 10.3</span>
@@ -617,7 +617,7 @@ that we have used so far do not modify the data frame in-place.</p>
 <strong class="command">reset_index</strong><code class="code docutils literal notranslate"><span class="pre">(drop=True)</span></code> quite frequently, sometimes
 more than once in a single series of commands.</p>
 </div>
-<div class="proof proof-type-exercise" id="id11">
+<div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.4</span>
@@ -643,7 +643,7 @@ of <code class="docutils literal notranslate"><span class="pre">df</span></code>
 <p>Note that a group of three consecutive <code class="docutils literal notranslate"><span class="pre">spam</span></code>s, when printed,
 does not have the series of identical labels repeated.
 This is for increased readability.</p>
-<div class="proof proof-type-example" id="id12">
+<div class="proof proof-type-example" id="id14">
 
     <div class="proof-title">
         <span class="proof-type">Example 10.5</span>
@@ -753,7 +753,7 @@ returns a few statistics at the same time.</p>
 <span class="c1">## max    0.720000  1.980000</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id13">
+<div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.6</span>
@@ -868,7 +868,7 @@ transformed versions of the existing ones, for instance:</p>
 <span class="c1">## e  0.72 -1.62  sausage    1.360489</span>
 </pre></div>
 </div>
-<div class="proof proof-type-example" id="id14">
+<div class="proof proof-type-example" id="id16">
 
     <div class="proof-title">
         <span class="proof-type">Example 10.7</span>
@@ -1008,29 +1008,32 @@ the contents of the <code class="docutils literal notranslate"><span class="pre"
 <span class="c1">## 0.7</span>
 </pre></div>
 </div>
-<p>fall back to position-based indexing.</p>
-<p>Confusing? Well, with some self-discipline, the solution is easy.
-Namely:</p>
+<p>both fall back to position-based indexing.</p>
+<p>Confusing? Well, with some self-discipline, the solution is easy:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>To stay away from potential problems, we should
-never apply <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects.</p>
+<p>We should never apply <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> nor <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects.</p>
+<p>To avoid ambiguity, which is what we want,
+we should be referring to the <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
+and <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> accessors
+for label- and position-based filtering, respectively.</p>
 </div>
 </div>
 <div class="section" id="loc">
 <h3><span class="section-number">10.4.2. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc" title="Permalink to this headline"></a></h3>
-<p>To avoid ambiguity, which is what we want,
-we should be referring to <strong class="command">Series.loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
-and <strong class="command">Series.iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
-for label- and position-based filtering, respectively.</p>
-<p>And thus:</p>
+<p><strong class="command">Series.loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> implements label-based indexing.
+And thus:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.39</span>
 </pre></div>
 </div>
-<p>returns the element labelled <code class="docutils literal notranslate"><span class="pre">0</span></code>. On the other
-hand, <code class="docutils literal notranslate"><span class="pre">c.loc[0]</span></code> will raise a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>,
-because <code class="docutils literal notranslate"><span class="pre">c</span></code> consists of character labels only.</p>
+<p>returns the element labelled <code class="docutils literal notranslate"><span class="pre">0</span></code>. On the other hand, <code class="docutils literal notranslate"><span class="pre">c.loc[0]</span></code> will
+raise a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>, because <code class="docutils literal notranslate"><span class="pre">c</span></code> consists of string labels only.
+But in this case, we can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">]</span>
+<span class="c1">## 0.39</span>
+</pre></div>
+</div>
 <p>Next, we can use lists of labels to select a <em>subset</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
 <span class="c1">## 0    0.39</span>
@@ -1046,7 +1049,7 @@ because <code class="docutils literal notranslate"><span class="pre">c</span></c
 </div>
 <p>The result is always of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
 <p>Slicing behaves differently as the range is <em>inclusive</em>
-at both sides:</p>
+(sic!<a class="footnote-reference brackets" href="#footinclusive" id="id5">4</a>) at both sides:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
 <span class="c1">## 1    0.29</span>
 <span class="c1">## 8    0.23</span>
@@ -1069,7 +1072,7 @@ at both sides:</p>
 </div>
 <p>return all elements between the two indicated labels.</p>
 <p>Be careful that if there are repeated labels, then
-we will be returning all the matching items:</p>
+we will be returning <em>all</em> (sic!<a class="footnote-reference brackets" href="#footallmatch" id="id6">5</a>) the matching items:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
 <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>
 <span class="c1">## a    1</span>
@@ -1081,7 +1084,12 @@ we will be returning all the matching items:</p>
 </div>
 <div class="section" id="iloc">
 <h3><span class="section-number">10.4.3. </span><strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#iloc" title="Permalink to this headline"></a></h3>
-<p>Here are some examples of position-based indexing:</p>
+<p>Here are some examples of position-based indexing with
+the <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> accessor.
+It is worth stressing that, fortunately, its behaviour
+is consistent with its <strong class="program">numpy</strong> counterpart, i.e.,
+the ordinary square brackets applied on objects of class <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>.</p>
+<p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># the same: c.iloc[0]</span>
 <span class="c1">## 0.7</span>
 </pre></div>
@@ -1102,11 +1110,10 @@ we will be returning all the matching items:</p>
 </div>
 <div class="section" id="logical-indexing">
 <h3><span class="section-number">10.4.4. </span>Logical Indexing<a class="headerlink" href="#logical-indexing" title="Permalink to this headline"></a></h3>
-<p>Indexing using a logical vector-like object
-is also available.</p>
-<p>We usually will be using <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
-with either a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object of identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slot
-as the subsetted object or a logical <strong class="program">numpy</strong> vector.</p>
+<p>Indexing using a logical vector-like object is also available.
+For this purpose, we will usually be using <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
+with either a logical <code class="docutils literal notranslate"><span class="pre">Series</span></code> object of identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slot
+as the subsetted object, or a Boolean <strong class="program">numpy</strong> vector.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mf">0.6</span><span class="p">)]</span>
 <span class="c1">## 7    0.55</span>
 <span class="c1">## 4    0.42</span>
@@ -1115,7 +1122,8 @@ as the subsetted object or a logical <strong class="program">numpy</strong> vect
 </pre></div>
 </div>
 <p>For <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, the indexer must be unlabelled,
-like in, e.g., <code class="docutils literal notranslate"><span class="pre">b.loc[i.values]</span></code>.</p>
+e.g., be an ordinary <strong class="program">numpy</strong> vector.</p>
+<p>`</p>
 </div>
 </div>
 <div class="section" id="indexing-data-frames">
@@ -1137,7 +1145,7 @@ selectors.</p>
 </pre></div>
 </div>
 <p>And now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">:</span><span class="s2">&quot;w&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">:</span><span class="s2">&quot;w&quot;</span> <span class="p">]</span>
 <span class="c1">##       u     v        w</span>
 <span class="c1">## a  0.70  0.32     spam</span>
 <span class="c1">## d  0.55  1.98     eggs</span>
@@ -1146,7 +1154,7 @@ selectors.</p>
 </div>
 <p>selects the rows where the values in the <code class="docutils literal notranslate"><span class="pre">u</span></code>
 column are greater than 0.5 and then
-returns all columns between <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p>
+returns all columns between <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> (inclusive!).</p>
 <p>Furthermore,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>
 <span class="c1">##       u      w</span>
@@ -1167,18 +1175,19 @@ This improves the readability in contexts such as:</p>
 <span class="c1">## d  0.55  eggs</span>
 </pre></div>
 </div>
-<p>However, this accessor is not universal: we can check this out by
-considering a data frame featuring a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code>.</p>
+<p>However, this accessor is not universal.
+We can verify this by considering a data frame featuring
+a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code> (which clashes with a built-in method).</p>
 </div>
-<div class="proof proof-type-exercise" id="id15">
+<div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.8</span>
         
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.DataFrame.drop</strong>
-to select all columns but <code class="docutils literal notranslate"><span class="pre">v</span></code> in <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id16">
+to select all columns except <code class="docutils literal notranslate"><span class="pre">v</span></code> in <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
+</div></div><div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.9</span>
@@ -1186,16 +1195,16 @@ to select all columns but <code class="docutils literal notranslate"><span class
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.Series.isin</strong> (amongst others)
 to select all rows with <code class="docutils literal notranslate"><span class="pre">spam</span></code> and <code class="docutils literal notranslate"><span class="pre">bacon</span></code> on the <code class="docutils literal notranslate"><span class="pre">d</span></code>’s menu.</p>
-</div></div><div class="proof proof-type-exercise" id="id17">
+</div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.10</span>
         
     </div><div class="proof-content">
-<p>In the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/tips.csv"><code class="docutils literal notranslate"><span class="pre">tips</span></code></a> dataset,
-select data on male customers where total bill
-was in the <em>[10, 20]</em> interval.
-Also, select data from Saturday and Sunday with tip greater than
+<p>In the
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/tips.csv"><code class="docutils literal notranslate"><span class="pre">tips</span></code></a>
+dataset, select data on male customers where total bill was in the <span class="math notranslate nohighlight">\([10, 20]\)</span>
+interval. Also, select data from Saturday and Sunday with tip greater than
 $5 from <code class="docutils literal notranslate"><span class="pre">tips</span></code>.</p>
 </div></div></div>
 <div class="section" id="adding-rows-and-columns">
@@ -1212,11 +1221,13 @@ data frame:</p>
 <span class="c1">## e  0.72 -1.62  sausage   True  0.5184</span>
 </pre></div>
 </div>
-<p>Notation like
-“<code class="docutils literal notranslate"><span class="pre">d.new_column</span> <span class="pre">=</span> <span class="pre">...</span></code>” will not work.
-As we said, <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> are universal, other
-accessors – not so much.</p>
-<div class="proof proof-type-exercise" id="id18">
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Notation like “<code class="docutils literal notranslate"><span class="pre">d.new_column</span> <span class="pre">=</span> <span class="pre">...</span></code>” does not work.
+As we said, <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> are universal.
+For other accessors this is not necessarily the case.</p>
+</div>
+<div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.11</span>
@@ -1224,7 +1235,7 @@ accessors – not so much.</p>
     </div><div class="proof-content">
 <p>Use <strong class="command">pandas.DataFrame.insert</strong>
 to add a new column not necessarily at the end of <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id19">
+</div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.12</span>
@@ -1233,24 +1244,23 @@ to add a new column not necessarily at the end of <code class="docutils literal 
 <p>Use <strong class="command">pandas.DataFrame.append</strong>
 to add a few more rows to <code class="docutils literal notranslate"><span class="pre">d</span></code>.</p>
 </div></div></div>
-<div class="section" id="random-sampling">
-<span id="sec-random-sampling"></span><h3><span class="section-number">10.5.3. </span>Random Sampling<a class="headerlink" href="#random-sampling" title="Permalink to this headline"></a></h3>
+<div class="section" id="pseudorandom-sampling-and-splitting">
+<span id="sec-random-sampling"></span><h3><span class="section-number">10.5.3. </span>Pseudorandom Sampling and Splitting<a class="headerlink" href="#pseudorandom-sampling-and-splitting" title="Permalink to this headline"></a></h3>
 <p>As a simple application of what we have covered so far,
-let us consider the case of randomly sampling a number of rows
+let us consider the ways to sample a number of rows
 from an existing data frame.</p>
-<p>For the most basic use cases, we can use the
-<strong class="command">pandas.DataFrame.sample</strong> method. It includes scenarios
-such as:</p>
+<p>We can use the <strong class="command">pandas.DataFrame.sample</strong> method
+in the most basic scenarios, such as:</p>
 <ul class="simple">
-<li><p>randomly select 5 rows, without replacement,</p></li>
-<li><p>randomly select 20% rows, with replacement,</p></li>
-<li><p>randomly rearrange all the rows.</p></li>
+<li><p>select 5 rows, without replacement,</p></li>
+<li><p>select 20% rows, with replacement,</p></li>
+<li><p>rearrange all the rows.</p></li>
 </ul>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">body</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># 5 random rows without replacement</span>
+<span class="n">body</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># 5 rows without replacement</span>
 <span class="c1">##       BMXWT  BMXHT  BMXARML  BMXLEG  BMXARMC  BMXHIP  BMXWAIST</span>
 <span class="c1">## 4214   58.4  156.2     35.2    34.7     27.2    99.5      77.5</span>
 <span class="c1">## 3361   73.7  161.0     36.5    34.5     29.0   107.6      98.2</span>
@@ -1260,10 +1270,10 @@ such as:</p>
 </pre></div>
 </div>
 <p>Notice the <code class="docutils literal notranslate"><span class="pre">random_state</span></code> argument which controls the seed
-of the random number generator so that we get
+of the pseudorandom number generator so that we get
 reproducible results.
 Alternatively, we could call <strong class="command">numpy.random.seed</strong>.</p>
-<div class="proof proof-type-exercise" id="id20">
+<div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.13</span>
@@ -1273,14 +1283,15 @@ Alternatively, we could call <strong class="command">numpy.random.seed</strong>.
 can be implemented manually using <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
 and <strong class="command">numpy.random.permutation</strong>
 or <strong class="command">numpy.random.choice</strong>.</p>
-</div></div><p>In machine learning practice, as we shall
-see later, we are used to
-training and evaluating machine learning models
-on different (mutually disjoint) subsets of the whole data frame.</p>
-<p>For instance, we might be interested in performing the
-so-called <em>train/test split</em>, where 80% (or 60% or 70%) of the
+</div></div><p>In machine learning practice, we are used to training and evaluating
+machine learning models on different (mutually disjoint) subsets
+of the whole data frame.</p>
+<p>For instance, in <a class="reference internal" href="430-group-by.html#sec-train-test-split"><span class="std std-numref">Section 12.3.3</span></a> we mention
+that we may be interested in performing the
+so-called <em>training/test split</em> (partitioning),
+where 80% (or 60% or 70%) of the
 randomly selected rows would constitute the first
-new data frame and the remaining 20% (or 40% or 30%)
+new data frame and the remaining 20% (or 40% or 30%, respectively)
 would go to the second one.</p>
 <p>Given a data frame like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># this is just an example</span>
@@ -1298,16 +1309,15 @@ would go to the second one.</p>
 <span class="c1">## 9   91.6  174.5     36.1    45.9     35.2   121.3     100.3</span>
 </pre></div>
 </div>
-<p>one way to perform the aforementioned split is to
-generate a random permutation
-of the set of row indices:</p>
+<p>one way to perform the aforementioned split is to generate a random
+permutation of the set of row indexes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># reproducibility matters</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">idx</span>
 <span class="c1">## array([4, 0, 7, 5, 8, 3, 1, 6, 9, 2])</span>
 </pre></div>
 </div>
-<p>And then to pick the first 80% of these indices to construct
+<p>And then to pick the first 80% of them to construct
 the data frame number one:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">[:</span><span class="n">k</span><span class="p">],</span> <span class="p">:]</span>
@@ -1329,39 +1339,37 @@ the data frame number one:</p>
 <span class="c1">## 2   73.0  161.2     37.4    38.0     31.8   106.2      92.0</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id21">
+<div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.14</span>
         
     </div><div class="proof-content">
-<p>In the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a> dataset,
-leave out all but the white wines.
-Partition the resulting data frame randomly into three data frames:
-<code class="docutils literal notranslate"><span class="pre">wines_train</span></code> (60% of the rows),
-<code class="docutils literal notranslate"><span class="pre">wines_validate</span></code> (another 20% of the rows),
-and <code class="docutils literal notranslate"><span class="pre">wines_test</span></code> (the remaining 20%).</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
+<p>In the
+<a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a>
+dataset, leave out all but the white wines. Partition the resulting data
+frame randomly into three data frames: <code class="docutils literal notranslate"><span class="pre">wines_train</span></code> (60% of the rows),
+<code class="docutils literal notranslate"><span class="pre">wines_validate</span></code> (another 20% of the rows), and <code class="docutils literal notranslate"><span class="pre">wines_test</span></code>
+(the remaining 20%).</p>
+</div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.15</span>
         
     </div><div class="proof-content">
-<p>Consider the white wines dataset again.
-Write a function <strong class="command">kfold</strong> which takes
-a data frame <code class="docutils literal notranslate"><span class="pre">x</span></code> and an integer <em>k&gt;1</em> on input.
-Return a list of data frames resulting
-in randomly splitting <code class="docutils literal notranslate"><span class="pre">x</span></code> into <em>k</em> disjoint chunks of
+<p>Write a function <strong class="command">kfold</strong> which takes a data frame <code class="docutils literal notranslate"><span class="pre">x</span></code> and an
+integer <span class="math notranslate nohighlight">\(k&gt;1\)</span> as arguments. Return a list of data frames resulting
+in stemming from randomly partitioning <code class="docutils literal notranslate"><span class="pre">x</span></code> into <span class="math notranslate nohighlight">\(k\)</span> disjoint chunks of
 equal (or almost equal if that is not possible) sizes.</p>
 </div></div></div>
-<div class="section" id="hierarchical-indices">
-<h3><span class="section-number">10.5.4. </span>Hierarchical Indices (*)<a class="headerlink" href="#hierarchical-indices" title="Permalink to this headline"></a></h3>
+<div class="section" id="hierarchical-indexes">
+<h3><span class="section-number">10.5.4. </span>Hierarchical Indexes (*)<a class="headerlink" href="#hierarchical-indexes" title="Permalink to this headline"></a></h3>
 <p>Consider the following <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object
 with a hierarchical index:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
-    <span class="n">year</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">2025</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">),</span>
-    <span class="n">quarter</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;Q4&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">2025</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">quarter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">([</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;Q4&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
 <span class="p">))</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;quarter&quot;</span><span class="p">])</span>
 <span class="n">d</span>
@@ -1392,7 +1400,12 @@ first level of the hierarchy:</p>
 <span class="c1">## Q2       0.29</span>
 <span class="c1">## Q3       0.23</span>
 <span class="c1">## Q4       0.55</span>
-<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2025</span><span class="p">],</span> <span class="p">:]</span>
+</pre></div>
+</div>
+<p>Note that we selected <em>all</em> rows corresponding to a given label
+and dropped (!) this level of the hierarchy.</p>
+<p>Another example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2025</span><span class="p">],</span> <span class="p">:</span> <span class="p">]</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2023 Q1       0.70</span>
@@ -1406,10 +1419,10 @@ first level of the hierarchy:</p>
 </pre></div>
 </div>
 <p>To access deeper levels, we can use tuples as indexers:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">),</span> <span class="p">:]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">),</span> <span class="p">:</span> <span class="p">]</span>
 <span class="c1">## data    0.7</span>
 <span class="c1">## Name: (2023, Q1), dtype: float64</span>
-<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[[(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">)],</span> <span class="p">:]</span>
+<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">)],</span> <span class="p">:</span> <span class="p">]</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2023 Q1       0.70</span>
@@ -1417,14 +1430,14 @@ first level of the hierarchy:</p>
 </pre></div>
 </div>
 <p>In certain scenarios, though, it will probably be much easier
-to subset a hierarchical index
-by using <strong class="command">reset_index</strong> and <strong class="command">set_index</strong> creatively
-(together with <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">pandas.Series.isin</strong>, etc.).</p>
-<p>The `<strong class="command">:</strong>` operator
-for slicing can be used only <em>directly</em> within square brackets,
-but we can always use the <strong class="command">slice</strong> constructor to create them
-from within any context:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">]),</span> <span class="p">:]</span>  <span class="c1"># `:`, [&quot;Q1&quot;, &quot;Q3&quot;]</span>
+to subset a hierarchical index by using <strong class="command">reset_index</strong>
+and <strong class="command">set_index</strong> creatively (together with
+<strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">pandas.Series.isin</strong>, etc.).</p>
+<p>Let us stress again that the `<strong class="command">:</strong>` operator
+can only be used <em>directly</em> within the square brackets.
+However, we can always use the <strong class="command">slice</strong> constructor to create
+a slice in any context:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">]),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># :, [&quot;Q1&quot;, &quot;Q3&quot;]</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2023 Q1       0.70</span>
@@ -1433,7 +1446,7 @@ from within any context:</p>
 <span class="c1">##      Q3       0.98</span>
 <span class="c1">## 2025 Q1       0.48</span>
 <span class="c1">##      Q3       0.34</span>
-<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">)),</span> <span class="p">:]</span>  <span class="c1"># ::-1, &quot;Q2&quot;:&quot;Q3&quot;</span>
+<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">)),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># ::-1, &quot;Q2&quot;:&quot;Q3&quot;</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2025 Q3       0.34</span>
@@ -1448,6 +1461,10 @@ from within any context:</p>
 </div>
 <div class="section" id="further-operations-on-data-frames">
 <h2><span class="section-number">10.6. </span>Further Operations on Data Frames<a class="headerlink" href="#further-operations-on-data-frames" title="Permalink to this headline"></a></h2>
+<p>One of the many roles of data frames is to represent tables
+of values for their nice presentation, e.g., in reports
+from data analysis or research papers. Here are some functions
+that can aid in their formatting.</p>
 <div class="section" id="sorting">
 <span id="sec-df-sort"></span><h3><span class="section-number">10.6.1. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline"></a></h3>
 <p>Let us consider another example dataset.
@@ -1462,7 +1479,18 @@ in the Australian state of Victoria.</p>
     <span class="n">loc</span><span class="p">[</span><span class="n">air</span><span class="o">.</span><span class="n">param_id</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;BPM2.5&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">]),</span> <span class="p">:]</span><span class="o">.</span>
     <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">air</span>
+</pre></div>
+</div>
+<p>We chose two air quality parameters using
+<strong class="command">pandas.Series.isin</strong>, which determines whether
+each element in a <code class="docutils literal notranslate"><span class="pre">Series</span></code> is enlisted in a given sequence.
+We could also have used <strong class="command">set_index</strong> and <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
+for that.</p>
+<p>What is more, notice that the above code spans many lines.
+Thence, we needed to enclose it in round brackets to avoid a syntax error.
+Alternatively, we could have used backslashes at the end of each line.</p>
+<p>So anyway, here is the data frame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span>
 <span class="c1">##           sp_name param_id      value</span>
 <span class="c1">## 0      Alphington   BPM2.5   7.848758</span>
 <span class="c1">## 1      Alphington      NO2   9.558120</span>
@@ -1483,7 +1511,7 @@ in the Australian state of Victoria.</p>
 </pre></div>
 </div>
 <p><strong class="command">sort_values</strong> is a convenient means to order the rows
-with respect to one criterion:</p>
+with respect to one criterion, be it numeric or categorical.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="c1">##           sp_name param_id      value</span>
 <span class="c1">## 6       Footscray      NO2  10.274531</span>
@@ -1527,28 +1555,19 @@ with respect to one criterion:</p>
 </div>
 <p>Here, in each group of identical parameters,
 we get a decreasing order with respect to the value.</p>
-<div class="proof proof-type-exercise" id="id23">
+<div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.16</span>
         
     </div><div class="proof-content">
-<p>(*)
-Compare the ordering with respect to <code class="docutils literal notranslate"><span class="pre">param_id</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>
+<p>Compare the ordering with respect to <code class="docutils literal notranslate"><span class="pre">param_id</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>
 vs <code class="docutils literal notranslate"><span class="pre">value</span></code> and then <code class="docutils literal notranslate"><span class="pre">param_id</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id24">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.17</span>
-        
-    </div><div class="proof-content">
-<p>(**) Perform identical reorderings but using only
-<strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, and <strong class="command">numpy.argsort</strong>.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-<strong class="command">DataFrame.sort_values</strong> unfortunately uses a non-stable algorithm
-by default (a modified quicksort).
+<strong class="command">DataFrame.sort_values</strong> by default lamentably (!)
+uses a non-stable algorithm (a modified quicksort).
 If a data frame is sorted with respect to one criterion,
 and then we reorder it with respect to another one, tied observations
 are not guaranteed to be listed in the original order:</p>
@@ -1610,23 +1629,37 @@ To switch to a mergesort-like method (timsort), we should pass
 </pre></div>
 </div>
 </div>
-</div>
+<div class="proof proof-type-exercise" id="id26">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.17</span>
+        
+    </div><div class="proof-content">
+<p>(*) Perform identical reorderings but using only
+<strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>,
+and <strong class="command">numpy.argsort</strong>.</p>
+</div></div></div>
 <div class="section" id="stacking-and-unstacking-long-and-wide-forms">
 <span id="sec-stack"></span><h3><span class="section-number">10.6.2. </span>Stacking and Unstacking (Long and Wide Forms)<a class="headerlink" href="#stacking-and-unstacking-long-and-wide-forms" title="Permalink to this headline"></a></h3>
 <p>Let us discuss some further ways to transform
 data frames, that benefit from, make sense because of,
 or are possible due to their being able to store
 data of different types.</p>
-<p>The above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the so-called <em>long</em> format,
+<p>The <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset we were playing with in the previous subsection
+is in the so-called <em>long</em> format,
 where all measurements are <em>stacked</em> one after/below another.
 Such a form is quite convenient for the purpose of storing data,
-but not necessarily for all processing tasks, compare <span id="id5">[<a class="reference internal" href="999-bibliography.html#id36">Wic14</a>]</span>.
-Recall from the matrix part that a more natural way
-would be to have a single <em>observation</em> (e.g.,
-data for a measurement station) in each row.</p>
+especially when there are only few recorded values, but many possible
+combinations of levels (sparse data).</p>
+<p>Long format might not necessarily be optimal in all data processing
+activities, though; compare <span id="id7">[<a class="reference internal" href="999-bibliography.html#id36">Wic14</a>]</span>.
+In the matrix processing part of this book
+it was much more natural for us to have a single <em>observation</em>
+(e.g., data for each measurement station) in each row.</p>
 <p>We can <em>unstack</em> the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame
 (convert to the <em>wide</em> format) quite easily:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
+<span class="n">air_wide</span>
 <span class="c1">## param_id         BPM2.5        NO2</span>
 <span class="c1">## sp_name                           </span>
 <span class="c1">## Alphington     7.848758   9.558120</span>
@@ -1642,30 +1675,12 @@ data for a measurement station) in each row.</p>
 <span class="c1">## Traralgon      8.024735   5.776333</span>
 </pre></div>
 </div>
-<p>The missing values are denoted with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s (not-a-number),
+<p>The missing values are denoted with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s (not-a-number);
 see <a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a> for more details.
-Interestingly, we got a hierarchical index in the columns,
-hence the <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> part.</p>
-<p>Equivalently:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="o">.</span>\
-    <span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">air_wide</span>
-<span class="c1">##                  BPM2.5        NO2</span>
-<span class="c1">## Alphington     7.848758   9.558120</span>
-<span class="c1">## Altona North        NaN   9.467912</span>
-<span class="c1">## Churchill      6.391230        NaN</span>
-<span class="c1">## Dandenong           NaN   9.800705</span>
-<span class="c1">## Footscray      7.640948  10.274531</span>
-<span class="c1">## Geelong South  6.502762   5.681722</span>
-<span class="c1">## Melbourne CBD  8.072998        NaN</span>
-<span class="c1">## Moe            6.427079        NaN</span>
-<span class="c1">## Morwell East   6.784596        NaN</span>
-<span class="c1">## Morwell South  6.512849   5.124430</span>
-<span class="c1">## Traralgon      8.024735   5.776333</span>
-</pre></div>
-</div>
-<p>The <strong class="command">rename_axis</strong> part is there so as to get rid of the <code class="docutils literal notranslate"><span class="pre">name</span></code> parts
-of the <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> slots.</p>
+Interestingly, we got a hierarchical index in the <code class="docutils literal notranslate"><span class="pre">columns</span></code> (sic!) slot,
+hence the <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> part
+to drop the last level of the hierarchy.
+Also notice that <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> slots are named.</p>
 <p>The other way around, we can use the <strong class="command">stack</strong> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;param&quot;</span><span class="p">)</span><span class="o">.</span>\
     <span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -1689,10 +1704,14 @@ of the <code class="docutils literal notranslate"><span class="pre">index</span>
 </pre></div>
 </div>
 <p>We used the data frame transpose (<strong class="command">T</strong>) to
-get a location-major order (less boring an outcome in this context).</p>
+get a location-major order (less boring an outcome in this context).
+Missing values are gone now, because we do not need them anymore.
+Nevertheless, passing <code class="docutils literal notranslate"><span class="pre">dropna=False</span></code> would help us identify
+the combinations of <code class="docutils literal notranslate"><span class="pre">location</span></code> and <code class="docutils literal notranslate"><span class="pre">param</span></code> for which the readings
+are not provided.</p>
 </div>
-<div class="section" id="set-theoretic-operations">
-<h3><span class="section-number">10.6.3. </span>Set-Theoretic Operations<a class="headerlink" href="#set-theoretic-operations" title="Permalink to this headline"></a></h3>
+<div class="section" id="set-theoretic-operations-and-removing-duplicates">
+<h3><span class="section-number">10.6.3. </span>Set-Theoretic Operations and Removing Duplicates<a class="headerlink" href="#set-theoretic-operations-and-removing-duplicates" title="Permalink to this headline"></a></h3>
 <p>Here are two not at all disjoint sets of imaginary persons:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/some_birth_dates1.csv&quot;</span><span class="p">,</span>
@@ -1730,13 +1749,15 @@ get a location-major order (less boring an outcome in this context).</p>
 <span class="c1">## 10         Åge Trelstad  07.03.1935</span>
 </pre></div>
 </div>
-<p>In both datasets, there is a single column whose
+<p>In both datasets, there is a single categorical column whose
 elements uniquely identify each record (i.e., <code class="docutils literal notranslate"><span class="pre">Name</span></code>).
 In the language of relational databases, we would call it
-a <em>primary key</em>.
+the <em>primary key</em>.
 In such a case, implementing the set-theoretic operations
-is relatively easy:</p>
-<p><span class="math notranslate nohighlight">\(A\cap B\)</span> (intersection) – the rows that are both in <em>A</em> and in <em>B</em>:</p>
+is relatively easy, as we can refer to the <strong class="command">pandas.Series.isin</strong>
+method.</p>
+<p>First, <span class="math notranslate nohighlight">\(A\cap B\)</span> (intersection),
+includes only the rows that are <em>both</em> in <em>A</em> and in <em>B</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
 <span class="c1">##                   Name   BirthDate</span>
 <span class="c1">## 4        Micha Kitchen  17.09.1930</span>
@@ -1747,7 +1768,8 @@ is relatively easy:</p>
 <span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
 </pre></div>
 </div>
-<p><span class="math notranslate nohighlight">\(A\setminus B\)</span> (difference) – the rows that are in <em>A</em> but not in <em>B</em>:</p>
+<p>Second, <span class="math notranslate nohighlight">\(A\smallsetminus B\)</span> (difference), gives all
+the rows that are in <em>A</em> <em>but not</em> in <em>B</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
 <span class="c1">##                 Name   BirthDate</span>
 <span class="c1">## 0   Paitoon Ornwimol  26.06.1958</span>
@@ -1756,7 +1778,8 @@ is relatively easy:</p>
 <span class="c1">## 3      Nedeljko Bukv  19.12.1921</span>
 </pre></div>
 </div>
-<p><span class="math notranslate nohighlight">\(A\cup B\)</span> (union) – the rows that exist in <em>A</em> or are in <em>B</em>:</p>
+<p>Third, <span class="math notranslate nohighlight">\(A\cup B\)</span> (union), returns the rows that exist in <em>A</em> <em>or</em>
+are in <em>B</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]))</span>
 <span class="c1">##                   Name   BirthDate</span>
 <span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
@@ -1776,17 +1799,17 @@ is relatively easy:</p>
 <span class="c1">## 9        Noe Tae-Woong  11.07.1970</span>
 </pre></div>
 </div>
-<p>There are no duplicate rows in the output.</p>
-<div class="proof proof-type-exercise" id="id25">
+<p>There are no duplicate rows in any of the above outputs.</p>
+<div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.18</span>
         
     </div><div class="proof-content">
 <p>Determine
-<span class="math notranslate nohighlight">\((A\cup B) \setminus (A\cap B) = (A\setminus B)\cup(B\setminus A)\)</span>
+<span class="math notranslate nohighlight">\((A\cup B) \smallsetminus (A\cap B) = (A\smallsetminus B)\cup(B\smallsetminus A)\)</span>
 (symmetric difference).</p>
-</div></div><div class="proof proof-type-exercise" id="id26">
+</div></div><div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.19</span>
@@ -1799,6 +1822,7 @@ and
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/other/wine_sample2.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample2</span></code></a> datasets,
 where there is no column uniquely identifying the observations.
 Hint: consider using
+<strong class="command">pandas.concat</strong> and
 <strong class="command">pandas.DataFrame.duplicated</strong> or
 <strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
 </div></div></div>
@@ -1806,8 +1830,8 @@ Hint: consider using
 <span id="sec-join"></span><h3><span class="section-number">10.6.4. </span>Joining (Merging)<a class="headerlink" href="#joining-merging" title="Permalink to this headline"></a></h3>
 <p>In database design, it is common to normalise
 the datasets in order to avoid the duplication of information
-and pathologies stemming from them (e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.html#id74">Dat03</a>]</span>).</p>
-<div class="proof proof-type-example" id="id27">
+and pathologies stemming from them (e.g., <span id="id8">[<a class="reference internal" href="999-bibliography.html#id74">Dat03</a>]</span>).</p>
+<div class="proof proof-type-example" id="id29">
 
     <div class="proof-title">
         <span class="proof-type">Example 10.20</span>
@@ -1832,14 +1856,15 @@ are separately described in another data frame:</p>
 </pre></div>
 </div>
 <p>We could have stored them alongside the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame,
-but that would be a waste of space.</p>
-<p>Also, if we wanted to modify some datum
+but that would be a waste of space.
+Also, if we wanted to modify some datum
 (note, e.g., the annoying double space in <code class="docutils literal notranslate"><span class="pre">param_name</span></code> for <code class="docutils literal notranslate"><span class="pre">BPM2.5</span></code>),
 we would have to update all the relevant records.</p>
-<p>Instead, we can always look the information up by <code class="docutils literal notranslate"><span class="pre">param_id</span></code>
-and join (merge) the two data frames only if we need it.</p>
+<p>Instead, we can always match the records in both data frames
+that have the same <code class="docutils literal notranslate"><span class="pre">param_id</span></code>s,
+and join (merge) these datasets only when we really need this.</p>
 </div></div><div style="margin-top: 1em"></div><p>Let us discuss the possible join operations by studying
-the two following data sets:</p>
+the two following toy data sets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a3&quot;</span><span class="p">],</span>
     <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;b3&quot;</span><span class="p">]</span>
@@ -1875,7 +1900,7 @@ both datasets:</p>
 <span class="c1">## 2  a2  b2  c2</span>
 </pre></div>
 </div>
-<p>The  <em>left join</em> of <em>A</em> with <em>B</em> guarantees to return all the records from <em>A</em>,
+<p>The <em>left join</em> of <em>A</em> with <em>B</em> guarantees to return all the records from <em>A</em>,
 even those which are not matched by anything in <em>B</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x   y    z</span>
@@ -1907,7 +1932,7 @@ union of the left and the right join:</p>
 <span class="c1">## 5  a4  NaN   c3</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id28">
+<div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.21</span>
@@ -1915,9 +1940,9 @@ union of the left and the right join:</p>
     </div><div class="proof-content">
 <p>Join
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_value.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_value</span></code></a>
-with <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_point.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_point</span></code></a>
-and <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_param.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_param</span></code></a>.</p>
-</div></div><div class="proof proof-type-exercise" id="id29">
+with <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_point.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_point</span></code></a>,
+and then with <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018_param.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_param</span></code></a>.</p>
+</div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.22</span>
@@ -1925,27 +1950,25 @@ and <a class="reference external" href="https://raw.githubusercontent.com/gagole
     </div><div class="proof-content">
 <p>Normalise
 <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
-yourself so that you get the three data frames mentioned in the previous
-exercise (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">point</span></code>, <code class="docutils literal notranslate"><span class="pre">param</span></code>).</p>
-</div></div><div class="proof proof-type-exercise" id="id30">
+so that you get the three separate data frames mentioned in the previous
+exercise (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">point</span></code>, and <code class="docutils literal notranslate"><span class="pre">param</span></code>).</p>
+</div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.23</span>
         
     </div><div class="proof-content">
 <p>(*)
-In the National Health and Nutrition Examination Survey
-(NHANES) by the US Centres for Disease Control and Prevention,
-each participant is uniquely identified
-by their sequence number (<code class="docutils literal notranslate"><span class="pre">SEQN</span></code>),
-which is mentioned in numerous datasets, including:</p>
+In the National Health and Nutrition Examination Survey,
+each participant is uniquely identified by their sequence number (<code class="docutils literal notranslate"><span class="pre">SEQN</span></code>).
+This token is mentioned in numerous datasets, including:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_DEMO.htm">demographic variables</a>;</p></li>
 <li><p><a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">body measures</a>;</p></li>
 <li><p><a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/AUX_J.htm">audiometry</a>;</p></li>
 <li><p>and <a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/continuousnhanes/default.aspx?BeginYear=2017">many more</a>.</p></li>
 </ul>
-<p>Join a few chosen datasets that are to your liking.</p>
+<p>Join a few chosen datasets that you find interesting.</p>
 </div></div></div>
 <div class="section" id="and-too-many-more">
 <h3><span class="section-number">10.6.5. </span>…And (Too) Many More<a class="headerlink" href="#and-too-many-more" title="Permalink to this headline"></a></h3>
@@ -1955,37 +1978,43 @@ for the <code class="docutils literal notranslate"><span class="pre">DataFrame</
 we can see that they are abundant.
 Together with the object-oriented syntax, we will often find ourselves
 appreciating the high readability of even quite complex operation
-chains such as <code class="docutils literal notranslate"><span class="pre">data.drop_duplicates().groupby([&quot;year&quot;,</span> <span class="pre">&quot;month&quot;]).mean().reset_index()</span></code>.</p>
+chains such as
+<code class="docutils literal notranslate"><span class="pre">data.drop_duplicates().groupby([&quot;year&quot;,</span> <span class="pre">&quot;month&quot;]).mean().reset_index()</span></code>;
+see <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>.</p>
 <p>Nevertheless, in fact, we should admit that the methods are too
 plentiful – they make an impression that someone was too generous
 by including a list of all the possible <em>verbs</em> related to data analysis,
-even if they can be easily expressed as a combination of 2-3 simpler
+even if they can be easily expressed via a composition of 2-3 simpler
 operations.
 Therefore, in order to prevent the reader from
-being overloaded with too much new information, below we will be
-discussing only the most noteworthy features
-that often appear in data wrangling scenarios.</p>
-<p>As strong advocates of minimalism
-(which is more environmentally friendly and sustainable),
+being overloaded with too much new information, we discussed
+only the most noteworthy features that appear in data wrangling
+scenarios frequently.</p>
+<p>As strong advocates of minimalism,
 not rarely will we be more eager to fall back to the hand-crafted
-combinations of the more basic (universal) building blocks from <strong class="program">numpy</strong>
-and <strong class="program">scipy</strong> instead. This is also in line with our
+combinations of the more basic (universal) building blocks from
+<strong class="program">numpy</strong> and <strong class="program">scipy</strong> instead. This is also in line with our
 putting emphasis on developing <em>transferable</em> skills –
-as Python with <strong class="program">pandas</strong> is not the only combo
+as Python with <strong class="program">pandas</strong> is not the only environment
 where we can work with data frames
-(e.g., base R allows that too).</p>
+(e.g., base R or Julia with <strong class="program">DataFrame.jl</strong> allows that too).</p>
+<p>Lastly, our approach is slightly more hygienic.
+We do not want the reader to develop a hopeless mindset,
+the habit of looking everything up on the internet
+when faced with even the simplest kinds of problems.
+We have brains for a reason.</p>
 </div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">10.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id31">
+<div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.24</span>
         
     </div><div class="proof-content">
 <p>How are data frames different from matrices?</p>
-</div></div><div class="proof proof-type-exercise" id="id32">
+</div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.25</span>
@@ -1993,14 +2022,14 @@ where we can work with data frames
     </div><div class="proof-content">
 <p>What are the use cases of the <code class="docutils literal notranslate"><span class="pre">name</span></code> slot
 in <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">Index</span></code> objects?</p>
-</div></div><div class="proof proof-type-exercise" id="id33">
+</div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.26</span>
         
     </div><div class="proof-content">
 <p>What is the purpose of <strong class="command">set_index</strong> and <strong class="command">reset_index</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.27</span>
@@ -2008,14 +2037,14 @@ in <code class="docutils literal notranslate"><span class="pre">Series</span></c
     </div><div class="proof-content">
 <p>Why learning <strong class="program">numpy</strong> is crucial when someone wants to become
 a proficient user of <strong class="program">pandas</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+</div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.28</span>
         
     </div><div class="proof-content">
 <p>What is the difference between <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id36">
+</div></div><div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.29</span>
@@ -2023,14 +2052,14 @@ a proficient user of <strong class="program">pandas</strong>?</p>
     </div><div class="proof-content">
 <p>Why applying the index operator <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly on a
 <code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object is not necessarily a good idea?</p>
-</div></div><div class="proof proof-type-exercise" id="id37">
+</div></div><div class="proof proof-type-exercise" id="id39">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.30</span>
         
     </div><div class="proof-content">
 <p>What is the difference between <code class="docutils literal notranslate"><span class="pre">index</span></code>, <code class="docutils literal notranslate"><span class="pre">Index</span></code>, and <code class="docutils literal notranslate"><span class="pre">columns</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id38">
+</div></div><div class="proof proof-type-exercise" id="id40">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.31</span>
@@ -2039,15 +2068,15 @@ a proficient user of <strong class="program">pandas</strong>?</p>
 <p>How to compute the arithmetic mean and median
 of all the numeric columns in a data frame, using
 a single line of code?</p>
-</div></div><div class="proof proof-type-exercise" id="id39">
+</div></div><div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.32</span>
         
     </div><div class="proof-content">
-<p>What is a train/test split and how to perform it using
+<p>What is a training/test split and how to perform it using
 <strong class="program">numpy</strong> and <strong class="program">pandas</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id40">
+</div></div><div class="proof proof-type-exercise" id="id42">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.33</span>
@@ -2055,7 +2084,7 @@ a single line of code?</p>
     </div><div class="proof-content">
 <p>What is the difference between stacking and unstacking?
 Which one yields a wide (as opposed to long) format?</p>
-</div></div><div class="proof proof-type-exercise" id="id41">
+</div></div><div class="proof proof-type-exercise" id="id43">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.34</span>
@@ -2063,14 +2092,14 @@ Which one yields a wide (as opposed to long) format?</p>
     </div><div class="proof-content">
 <p>Name different data frame join (merge) operations and explain how
 they work.</p>
-</div></div><div class="proof proof-type-exercise" id="id42">
+</div></div><div class="proof proof-type-exercise" id="id44">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.35</span>
         
     </div><div class="proof-content">
 <p>How does sorting with respect to more than one criterion work?</p>
-</div></div><div class="proof proof-type-exercise" id="id43">
+</div></div><div class="proof proof-type-exercise" id="id45">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 10.36</span>
@@ -2081,7 +2110,7 @@ they work.</p>
 <dl class="footnote brackets">
 <dt class="label" id="footdf"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>Data frames were first introduced in the 1991 version
-of the S language <span id="id7">[<a class="reference internal" href="999-bibliography.html#id35">CH91</a>]</span>.</p>
+of the S language <span id="id9">[<a class="reference internal" href="999-bibliography.html#id35">CH91</a>]</span>.</p>
 </dd>
 <dt class="label" id="footgoback"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
 <dd><p>If, by any chance, the kind reader has frivolously decided
@@ -2095,6 +2124,14 @@ See you later.</p>
 it clashes with the <em>index</em> operator (square brackets),
 but also the concept of an <em>index</em> in relational databases.
 In <strong class="program">pandas</strong>, we can have non-unique row names.</p>
+</dd>
+<dt class="label" id="footinclusive"><span class="brackets"><a class="fn-backref" href="#id5">4</a></span></dt>
+<dd><p>Inconsistency; but makes sense when
+selecting column ranges.</p>
+</dd>
+<dt class="label" id="footallmatch"><span class="brackets"><a class="fn-backref" href="#id6">5</a></span></dt>
+<dd><p>Inconsistency; but makes sense for hierarchical
+indexes with repeated.</p>
 </dd>
 </dl>
 </div>
@@ -2116,7 +2153,7 @@ In <strong class="program">pandas</strong>, we can have non-unique row names.</p
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-09T15:52:08+1000.
+        Last updated on 2022-07-10T19:55:16+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
