@@ -131,7 +131,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#data-models-are-useful">6.1.2. Data Models Are Useful</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#assessing-goodness-of-fit">6.2. Assessing Goodness of Fit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#assessing-goodness-of-fit">6.2. Assessing Goodness-of-Fit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#comparing-cumulative-distribution-functions">6.2.1. Comparing Cumulative Distribution Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#comparing-quantiles">6.2.2. Comparing Quantiles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#kolmogorovsmirnov-test">6.2.3. Kolmogorov–Smirnov Test (*)</a></li>
@@ -398,9 +398,9 @@ so that the histogram bars are normalised
 <p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">A histogram and the probability density function of the fitted normal distribution for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
 </div>
 <p>At first glance, this is a genuinely nice match.
-Before proceeding with some ways of assessing the goodness of fit slightly
-more rigorously, we should praise the potential benefits of having
-an idealised <em>model</em> of our dataset at our disposal.</p>
+Before proceeding with an overview of the ways to assess
+the goodness-of-fit more rigorously, we should praise the potential
+benefits of having an idealised <em>model</em> of our dataset at our disposal.</p>
 </div>
 <div class="section" id="data-models-are-useful">
 <h3><span class="section-number">6.1.2. </span>Data Models Are Useful<a class="headerlink" href="#data-models-are-useful" title="Permalink to this headline"></a></h3>
@@ -458,7 +458,7 @@ A cow neither barks nor can it serve as a screwdriver. Period.</p>
 </div>
 </div>
 <div class="section" id="assessing-goodness-of-fit">
-<h2><span class="section-number">6.2. </span>Assessing Goodness of Fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">6.2. </span>Assessing Goodness-of-Fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Permalink to this headline"></a></h2>
 <div class="section" id="comparing-cumulative-distribution-functions">
 <h3><span class="section-number">6.2.1. </span>Comparing Cumulative Distribution Functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Permalink to this headline"></a></h3>
 <p>In the previous subsection we were comparing densities and histograms.
@@ -644,7 +644,7 @@ Still, we can say that we observe a very good fit.</p>
 <span id="sec-ks-test"></span><h3><span class="section-number">6.2.3. </span>Kolmogorov–Smirnov Test (*)<a class="headerlink" href="#kolmogorovsmirnov-test" title="Permalink to this headline"></a></h3>
 <p>To be scientific, we should yearn for some more formal method that will
 enable us to test the null hypothesis stating that a given empirical distribution <span class="math notranslate nohighlight">\(\hat{F}_n\)</span> does not differ <em>significantly</em> from the
-theoretical one, <span class="math notranslate nohighlight">\(F\)</span>:</p>
+theoretical continuous CDF <span class="math notranslate nohighlight">\(F\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \left\{
@@ -666,7 +666,7 @@ that even for samples which truly come from a hypothesised distribution,
 there is some inherent variability. We thus need to be somewhat tolerant.</p>
 <p>A good textbook in statistics will tell us (and prove) that,
 under the assumption that <span class="math notranslate nohighlight">\(\hat{F}_n\)</span> is the ECDF of a sample
-of <span class="math notranslate nohighlight">\(n\)</span> independent variables <em>really</em> generated from <span class="math notranslate nohighlight">\(F\)</span>,
+of <span class="math notranslate nohighlight">\(n\)</span> independent variables <em>really</em> generated from a continuous CDF <span class="math notranslate nohighlight">\(F\)</span>,
 the random variable <span class="math notranslate nohighlight">\(\hat{D}_n = \sup_{t\in\mathbb{R}} | \hat{F}_n(t) - F(t) |\)</span>
 follows the Kolmogorov distribution with parameter <span class="math notranslate nohighlight">\(n\)</span>
 (available via <strong class="command">scipy.stats.kstwo</strong>).</p>
@@ -1057,8 +1057,9 @@ an outcome like <em>49.1253</em> as representing the 49th ball
 some more rigorous statistical testing would be required to determine
 if someone has not been tampering with the lottery results, i.e.,
 if data does not deviate from the uniform distribution significantly.</p>
-<p>Unfortunately, we cannot use the Kolmogorov–Smirnov test, because
-data are not continuous. See, however, <a class="reference internal" href="420-categorical.html#sec-chisq-test"><span class="std std-numref">Section 11.4.3</span></a>
+<p>Unfortunately, we cannot use the Kolmogorov–Smirnov test in a version
+defined above, because data are not continuous.
+See, however, <a class="reference internal" href="420-categorical.html#sec-chisq-test"><span class="std std-numref">Section 11.4.3</span></a>
 for the Pearson chi-squared test that is applicable here.</p>
 <div class="proof proof-type-exercise" id="id44">
 
@@ -1355,7 +1356,7 @@ we can verify (approximately) that the Kolmogorov–Smirnov
 goodness-of-fit test introduced in <a class="reference internal" href="#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>
 has been calibrated properly,
 i.e., that for samples which really follow the assumed distribution,
-the null hypothesis is rejected only in ca. 0.1% of the cases.</p>
+the null hypothesis is rejected only in ca. 0.1% of the cases.</p>
 <p>Let us say we are interested in the null hypothesis
 referencing the standard normal distribution, N(0, 1),
 and sample size <span class="math notranslate nohighlight">\(n=100\)</span>.
@@ -1587,7 +1588,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-10T19:55:16+1000.
+        Last updated on 2022-07-11T16:52:04+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

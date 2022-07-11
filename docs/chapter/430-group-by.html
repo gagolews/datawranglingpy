@@ -285,11 +285,11 @@ are appreciated. Although available online, this is a whole course;
 it should be read from the beginning to the end.
 Refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
-<p>Let us consider (once again) a subset of the US Centres for Disease Control
-and Prevention National Health and Nutrition Examination Survey data,
+<p>Let us consider another subset of the US Centres for Disease Control
+and Prevention National Health and Nutrition Examination Survey,
 this time carrying some body measures
-(<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">P_BMX</a>) and
-demographics
+(<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">P_BMX</a>)
+together with demographics
 (<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_DEMO.htm">P_DEMO</a>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
@@ -299,7 +299,7 @@ demographics
     <span class="o">.</span><span class="n">loc</span><span class="p">[</span>
         <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">),</span>
         <span class="p">[</span><span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXWT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXBMI&quot;</span><span class="p">,</span> <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">,</span> <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">]</span>
-    <span class="p">]</span>
+    <span class="p">]</span>  <span class="c1"># age &gt;= 18 and only US and non-US born</span>
     <span class="o">.</span><span class="n">rename</span><span class="p">({</span>
         <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">:</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span>
         <span class="s2">&quot;BMXWT&quot;</span><span class="p">:</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
@@ -307,23 +307,30 @@ demographics
         <span class="s2">&quot;BMXBMI&quot;</span><span class="p">:</span> <span class="s2">&quot;bmival&quot;</span><span class="p">,</span>
         <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">:</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span>
         <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">:</span> <span class="s2">&quot;usborn&quot;</span>
-    <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># rename columns</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>   <span class="c1"># remove missing values</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">)</span>
-
-<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span><span class="o">.</span>\
-    <span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We consider only the adult (at least 18 years old) participants,
+whose country of birth (the US or not) is well-defined.
+Let us recode the <code class="docutils literal notranslate"><span class="pre">usborn</span></code> and <code class="docutils literal notranslate"><span class="pre">gender</span></code> variables (for readability)
+and introduce the BMI categories:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>       <span class="c1"># recode usborn</span>
 
 <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span><span class="o">.</span>\
-    <span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;male&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+    <span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;male&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>  <span class="c1"># recode gender</span>
 
 <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;bmival&quot;</span><span class="p">],</span>
     <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span>
     <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;underweight&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;overweight&quot;</span><span class="p">,</span> <span class="s2">&quot;obese&quot;</span><span class="p">]</span>
 <span class="p">)</span>
-
-<span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here is the preview of this data frame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  <span class="c1"># preview</span>
 <span class="c1">##    age  weight  height  bmival  gender usborn      bmicat</span>
 <span class="c1">## 0   29    97.1   160.2    37.8  female     no       obese</span>
 <span class="c1">## 1   49    98.8   182.3    29.7    male    yes  overweight</span>
@@ -332,23 +339,23 @@ demographics
 <span class="c1">## 4   76    83.3   177.1    26.6    male    yes  overweight</span>
 </pre></div>
 </div>
-<p>We consider only the adult (at least 18 years old) participants,
-whose country of birth (the US or not) is well-defined.</p>
 <p>We have a mix of categorical (gender, US born-ness, BMI category)
 and numerical (age, weight, height, BMI) variables.
 Unless we had encoded qualitative variables as integers,
-this would not be possible with plain matrices.</p>
+this would not be possible with plain matrices,
+at least not with a single one.</p>
 <p>In this section, we will treat the categorical columns
 as grouping variables, so that we can, e.g., summarise
 or visualise the data <em>in each group</em> separately, because
 it is likely that data distributions vary across different factor levels.
-This is much like having many data frames stored in one object.</p>
+This is much like having many data frames stored in one object,
+e.g., heights of females and males separately.</p>
 <p><code class="docutils literal notranslate"><span class="pre">nhanes</span></code> is thus an example of heterogeneous data at their best.</p>
 <div class="section" id="basic-methods">
 <h2><span class="section-number">12.1. </span>Basic Methods<a class="headerlink" href="#basic-methods" title="Permalink to this headline"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are equipped with the <strong class="command">groupby</strong>
 methods, which assist in performing a wide range
-of popular operations in data groups defined by one
+of operations in data groups defined by one
 or more data frame columns (compare <span id="id1">[<a class="reference internal" href="999-bibliography.html#id34">Wic11</a>]</span>).</p>
 <p>They return objects of class <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code>:</p>
@@ -2216,7 +2223,7 @@ more approaches tested improve the chance of success.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-10T19:55:16+1000.
+        Last updated on 2022-07-11T16:52:04+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
