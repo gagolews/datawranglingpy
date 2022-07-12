@@ -323,7 +323,7 @@ one-hot encoded representation using a logical vector of length <em>l</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_simplified.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">cntrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;country&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+<span class="n">cntrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
 <span class="n">cntrs16</span> <span class="o">=</span> <span class="n">cntrs</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
 <span class="n">cntrs16</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
@@ -467,7 +467,7 @@ representation:</p>
 <p>This time the labels are sorted lexicographically.</p>
 <p>Most often, however, we will store categorical data in data frames
 as ordinary strings, unless a relabelling on-the-fly is required:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">16</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;country&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">16</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">(</span>
         <span class="p">[</span><span class="s2">&quot;KE&quot;</span><span class="p">,</span>    <span class="s2">&quot;IL&quot;</span><span class="p">,</span>     <span class="s2">&quot;MA&quot;</span><span class="p">,</span>      <span class="s2">&quot;ET&quot;</span><span class="p">,</span>       <span class="s2">&quot;PL&quot;</span><span class="p">]</span>
     <span class="p">)</span>
@@ -632,7 +632,7 @@ However, rounding can easily introduce tied observations,
 which are problematic on their own; see <a class="reference internal" href="220-transform-vector.html#sec-ties"><span class="std std-numref">Section 5.5.3</span></a>.</p>
 </div>
 <p>Consider the 16 best marathon finish times (in minutes):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;mins&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">mins</span><span class="p">)</span>
 <span class="n">mins16</span> <span class="o">=</span> <span class="n">mins</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
 <span class="n">mins16</span>
 <span class="c1">## array([129.32, 130.75, 130.97, 134.17, 134.68, 135.97, 139.88, 143.2 ,</span>
@@ -789,9 +789,9 @@ in each column individually, but this we leave as an exercise.
 Instead, we note that some interesting patterns might also arise
 when we study the <em>combinations</em> of levels of different variables.</p>
 <p>Here are the levels of the sex and age variables:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;sex&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span>
 <span class="c1">## array([&#39;M&#39;, &#39;F&#39;], dtype=object)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
 <span class="c1">## array([&#39;20&#39;, &#39;30&#39;, &#39;50&#39;, &#39;40&#39;, &#39;60+&#39;], dtype=object)</span>
 </pre></div>
 </div>
@@ -1745,10 +1745,10 @@ For example, <code class="docutils literal notranslate"><span class="pre">DMDBOR
 <dt class="label" id="footdiscreteks"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
 <dd><p>(*) There exists a discrete version of the
 Kolmogorov–Smirnov test, but it is defined in a different
-way than in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>; compare <span id="id4">[<a class="reference internal" href="999-bibliography.html#id143">AE11</a>, <a class="reference internal" href="999-bibliography.html#id142">Con72</a>]</span>.</p>
+way than in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>; compare <span id="id4">[<a class="reference internal" href="999-bibliography.html#id145">AE11</a>, <a class="reference internal" href="999-bibliography.html#id144">Con72</a>]</span>.</p>
 </dd>
 <dt class="label" id="recipesdof"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>Notice that <span id="id5">[<a class="reference internal" href="999-bibliography.html#id136">PTVF07</a>]</span> in Section 14.3
+<dd><p>Notice that <span id="id5">[<a class="reference internal" href="999-bibliography.html#id138">PTVF07</a>]</span> in Section 14.3
 suggests <span class="math notranslate nohighlight">\(l\)</span> degrees of freedom, but we do not agree with
 this rather informal reasoning.
 Also, simple Monte Carlo simulations suggests that <span class="math notranslate nohighlight">\(l-1\)</span>
@@ -1774,7 +1774,7 @@ is a better candidate.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-11T16:52:04+1000.
+        Last updated on 2022-07-12T15:34:57+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
