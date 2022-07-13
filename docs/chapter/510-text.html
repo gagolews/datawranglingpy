@@ -156,9 +156,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#formatted-outputs-for-reproducible-report-generation">14.3. Formatted Outputs for Reproducible Report Generation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#formatting-strings">14.3.1. Formatting Strings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#str-and-repr">14.3.2. <strong class="command">str</strong> and <strong class="command">repr</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#justifying-strings">14.3.3. Justifying Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aligning-strings">14.3.3. Aligning Strings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#direct-markdown-output-in-jupyter">14.3.4. Direct Markdown Output in Jupyter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#manual-markdown-file-output">14.3.5. Manual Markdown File Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-markdown-file-output">14.3.5. Manual Markdown File Output (*)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#regular-expressions">14.4. Regular Expressions (*)</a><ul>
@@ -179,7 +179,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#quantifiers">14.4.5. Quantifiers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#capture-groups-and-references-thereto">14.4.6. Capture Groups and References Thereto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#capture-groups-and-references-thereto">14.4.6. Capture Groups and References Thereto (**)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#extracting-capture-group-matches">14.4.6.1. Extracting Capture Group Matches</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#replacing-with-capture-group-matches">14.4.6.2. Replacing with Capture Group Matches</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#back-referencing">14.4.6.3. Back-Referencing</a></li>
@@ -188,7 +188,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#anchoring">14.4.7. Anchoring</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#matching-at-the-beginning-or-end-of-a-string">14.4.7.1. Matching at the Beginning or End of a String</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#matching-at-word-boundaries">14.4.7.2. Matching at Word Boundaries</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#looking-behind-and-ahead">14.4.7.3. Looking Behind and Ahead</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#looking-behind-and-ahead">14.4.7.3. Looking Behind and Ahead (**)</a></li>
 </ul>
 </li>
 </ul>
@@ -426,79 +426,80 @@ might be used for the removal of some formatting nuances:</p>
 <h3><span class="section-number">14.1.3. </span>Substring Searching and Replacing<a class="headerlink" href="#substring-searching-and-replacing" title="Permalink to this headline"></a></h3>
 <p>Determining if a string features a particular fixed substring
 can be done in a number of different ways.</p>
-<p>For instance:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span> <span class="o">=</span> <span class="s2">&quot;bacon, spam, spam, eggs, and spam&quot;</span>
+<p>For instance,
+the <strong class="command">in</strong> operator verifies whether a particular substring
+occurs at least once:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span> <span class="o">=</span> <span class="s2">&quot;bacon, spam, spam, srapatapam, eggs, and spam&quot;</span>
 <span class="s2">&quot;spam&quot;</span> <span class="ow">in</span> <span class="n">food</span>
 <span class="c1">## True</span>
 </pre></div>
 </div>
-<p>verifies whether a particular substring exists,</p>
+<p>The <strong class="command">str.count</strong> method  counts the number of occurrences
+of a substring:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span>
 <span class="c1">## 3</span>
 </pre></div>
 </div>
-<p>counts the number of occurrences of a substring,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span>
+<p>To locate the first pattern appearance, we call <strong class="command">str.index</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span>
 <span class="c1">## 7</span>
 </pre></div>
 </div>
-<p>locates the first pattern occurrence (see also <strong class="command">str.rfind</strong>
-as well as <strong class="command">str.index</strong> and <strong class="command">str.rindex</strong>),</p>
+<p><strong class="command">str.replace</strong> substitutes matching substrings with new content:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;veggies&quot;</span><span class="p">)</span>
-<span class="c1">## &#39;bacon, veggies, veggies, eggs, and veggies&#39;</span>
+<span class="c1">## &#39;bacon, veggies, veggies, srapatapam, eggs, and veggies&#39;</span>
 </pre></div>
 </div>
-<p>replaces matching substrings with another string.</p>
-<div class="proof proof-type-exercise" id="id15">
+<div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 14.1</span>
         
     </div><div class="proof-content">
 <p>Read the manual of
-the following methods: <strong class="command">str.startswith</strong>, <strong class="command">str.endswith</strong>
-<strong class="command">str.removeprefix</strong>, <strong class="command">str.removesuffix</strong>.</p>
+the following methods: <strong class="command">str.startswith</strong>, <strong class="command">str.endswith</strong>,
+<strong class="command">str.find</strong>, <strong class="command">str.rfind</strong>, <strong class="command">str.rindex</strong>,
+<strong class="command">str.removeprefix</strong>, and <strong class="command">str.removesuffix</strong>.</p>
 </div></div><p>The splitting of long strings at specific fixed delimiter strings
 can be done via:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">food</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
-<span class="c1">## [&#39;bacon&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;eggs&#39;, &#39;and spam&#39;]</span>
+<span class="c1">## [&#39;bacon&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;srapatapam&#39;, &#39;eggs&#39;, &#39;and spam&#39;]</span>
 </pre></div>
 </div>
-<p>see also <strong class="command">str.partition</strong>. The <strong class="command">str.join</strong> method
+<p>See also <strong class="command">str.partition</strong>. The <strong class="command">str.join</strong> method
 implements the inverse operation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">])</span>
 <span class="c1">## &#39;spam, bacon, eggs, spam&#39;</span>
 </pre></div>
 </div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>In <a class="reference internal" href="#sec-regex"><span class="std std-numref">Section 14.4</span></a>, we will discuss pattern matching with regular expressions,
-which can be useful in, amongst others, extracting more abstract
-data chunks (numbers, URLs, email addresses, IDs) from within strings.</p>
-</div>
+<p>Moreover, in <a class="reference internal" href="#sec-regex"><span class="std std-numref">Section 14.4</span></a>, we will discuss pattern matching with
+regular expressions, which can be useful in, amongst others, extracting
+more abstract data chunks (numbers, URLs, email addresses, IDs)
+from within strings.</p>
 </div>
 <div class="section" id="locale-aware-services-in-icu">
 <h3><span class="section-number">14.1.4. </span>Locale-Aware Services in <strong class="program">ICU</strong> (*)<a class="headerlink" href="#locale-aware-services-in-icu" title="Permalink to this headline"></a></h3>
 <p>Recall that relational operators such as `<strong class="command">&lt;</strong>` and
-`<strong class="command">&gt;=</strong> perform lexicographic comparing of strings:</p>
+`<strong class="command">&gt;=</strong> perform the lexicographic comparing of strings
+(like in a dictionary or an encyclopedia):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam&quot;</span> <span class="o">&gt;</span> <span class="s2">&quot;egg&quot;</span>
 <span class="c1">## True</span>
 </pre></div>
 </div>
 <p>We have:
 <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;aa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;aaaaaaaaaaaaa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;ab&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;aba&quot;</span></code> &lt;
-<code class="docutils literal notranslate"><span class="pre">&quot;abb&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;ba&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;baaaaaaa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;bb&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;Spanish</span> <span class="pre">inquisition&quot;</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">&quot;abb&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;ba&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;baaaaaaa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;bb&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;Spanish</span> <span class="pre">Inquisition&quot;</span></code>.</p>
 <p>Lexicographic ordering (character-by-character, from left to right)
 is, however, not necessarily appropriate for strings
 featuring numerals:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a9&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;a123&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a9&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;a123&quot;</span>  <span class="c1"># 1 is greater than 9</span>
 <span class="c1">## False</span>
 </pre></div>
 </div>
 <p>Also, it only takes into account the
-<a class="reference external" href="https://www.unicode.org/charts/">numeric codes</a>
-corresponding to each Unicode character, therefore does not work well
-with non-English alphabets:</p>
+numeric codes (see <a class="reference internal" href="#sec-code-points"><span class="std std-numref">Section 14.4.3.4</span></a>) corresponding to each
+Unicode character. Therefore, it does not work well with non-English
+alphabets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;MIELONECZKĄ&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;MIELONECZKI&quot;</span>
 <span class="c1">## False</span>
 </pre></div>
@@ -507,12 +508,13 @@ with non-English alphabets:</p>
 and before <em>B</em>, let alone <em>I</em>.
 However, their corresponding numeric codes in the Unicode table are:
 260 (Ą), 65 (A), 66 (B), and 73 (I), therefore the resulting
-ordering is incorrect, natural language processing-wisely.</p>
+ordering is incorrect, as far as natural language processing
+is concerned.</p>
 <p>It is best to perform string collation using the services provided
 by <strong class="program">ICU</strong>. Here is an example of German phone book-like collation
 where <code class="docutils literal notranslate"><span class="pre">&quot;ö&quot;</span></code> is treated the same as <code class="docutils literal notranslate"><span class="pre">&quot;oe&quot;</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">icu</span><span class="o">.</span><span class="n">Collator</span><span class="o">.</span><span class="n">createInstance</span><span class="p">(</span><span class="n">icu</span><span class="o">.</span><span class="n">Locale</span><span class="p">(</span><span class="s2">&quot;de_DE@collation=phonebook&quot;</span><span class="p">))</span>
-<span class="n">c</span><span class="o">.</span><span class="n">setStrength</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">setStrength</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ignore case and some diacritics</span>
 <span class="n">c</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="s2">&quot;Löwe&quot;</span><span class="p">,</span> <span class="s2">&quot;loewe&quot;</span><span class="p">)</span>
 <span class="c1">## 0</span>
 </pre></div>
@@ -525,27 +527,31 @@ treated as a single entity and are sorted after <code class="docutils literal no
 <span class="c1">## 1</span>
 </pre></div>
 </div>
-<p>i.e., we have <code class="docutils literal notranslate"><span class="pre">&quot;chladný&quot;</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">&quot;hladný&quot;</span></code> (the 1st argument is greater
+<p>Therefore, we have <code class="docutils literal notranslate"><span class="pre">&quot;chladný&quot;</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">&quot;hladný&quot;</span></code> (the 1st argument is greater
 than the 2nd one). Compare the above to something similar in Polish:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">icu</span><span class="o">.</span><span class="n">Collator</span><span class="o">.</span><span class="n">createInstance</span><span class="p">(</span><span class="n">icu</span><span class="o">.</span><span class="n">Locale</span><span class="p">(</span><span class="s2">&quot;pl_PL&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="s2">&quot;chłodny&quot;</span><span class="p">,</span> <span class="s2">&quot;hardy&quot;</span><span class="p">)</span>
 <span class="c1">## -1</span>
 </pre></div>
 </div>
-<p>i.e., <code class="docutils literal notranslate"><span class="pre">&quot;chłodny&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;hardy&quot;</span></code> (the first argument is less than
+<p>That is, <code class="docutils literal notranslate"><span class="pre">&quot;chłodny&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;hardy&quot;</span></code> (the first argument is less than
 the 2nd one).</p>
 <div style="margin-top: 1em"></div><p>Also, with <strong class="program">ICU</strong>, numeric collation is possible:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">icu</span><span class="o">.</span><span class="n">Collator</span><span class="o">.</span><span class="n">createInstance</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span><span class="n">icu</span><span class="o">.</span><span class="n">UCollAttribute</span><span class="o">.</span><span class="n">NUMERIC_COLLATION</span><span class="p">,</span> <span class="n">icu</span><span class="o">.</span><span class="n">UCollAttributeValue</span><span class="o">.</span><span class="n">ON</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">setAttribute</span><span class="p">(</span>
+    <span class="n">icu</span><span class="o">.</span><span class="n">UCollAttribute</span><span class="o">.</span><span class="n">NUMERIC_COLLATION</span><span class="p">,</span>
+    <span class="n">icu</span><span class="o">.</span><span class="n">UCollAttributeValue</span><span class="o">.</span><span class="n">ON</span>
+<span class="p">)</span>
 <span class="n">c</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="s2">&quot;a9&quot;</span><span class="p">,</span> <span class="s2">&quot;a123&quot;</span><span class="p">)</span>
 <span class="c1">## -1</span>
 </pre></div>
 </div>
 <p>Which is the correct result: <code class="docutils literal notranslate"><span class="pre">&quot;a9&quot;</span></code> is less than <code class="docutils literal notranslate"><span class="pre">&quot;a123&quot;</span></code>
-(compare the above to the example which was using using `<strong class="command">&lt;</strong>`).</p>
+(compare the above to the example
+where we used the ordinary `<strong class="command">&lt;</strong>`).</p>
 </div>
 <div class="section" id="string-operations-in-pandas">
 <h3><span class="section-number">14.1.5. </span>String Operations in <strong class="program">pandas</strong><a class="headerlink" href="#string-operations-in-pandas" title="Permalink to this headline"></a></h3>
-<p>String sequences in <code class="docutils literal notranslate"><span class="pre">Series</span></code> are
+<p>String sequences in <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> are
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/text.html">by default</a>
 using the broadest possible <code class="docutils literal notranslate"><span class="pre">object</span></code> data type:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">])</span>
@@ -555,15 +561,11 @@ using the broadest possible <code class="docutils literal notranslate"><span cla
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<p>which basically means that we deal with a sequence
-of Python objects of arbitrary type (here, are all of class <code class="docutils literal notranslate"><span class="pre">str</span></code>).
-This allows for the encoding of missing values by means
-of the <code class="docutils literal notranslate"><span class="pre">None</span></code> object.</p>
+<p>This allows for the encoding of missing values by means
+of the <code class="docutils literal notranslate"><span class="pre">None</span></code> object (which is of type <code class="docutils literal notranslate"><span class="pre">None</span></code>, not <code class="docutils literal notranslate"><span class="pre">str</span></code>);
+compare <a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>.</p>
 <p>Vectorised versions of base string operations
-are <a class="reference external" href="https://numpy.org/doc/stable/reference/routines.char.html">available</a>
-via the <strong class="command">pandas.Series.str</strong> accessor,
-which we usually refer to by calling
-<code class="docutils literal notranslate"><span class="pre">x.str.method_name()</span></code>, for instance:</p>
+are available via the <strong class="command">pandas.Series.str</strong> accessor, for instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;buckwheat&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">])</span>
 <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 <span class="c1">## 0         SPAM</span>
@@ -588,12 +590,8 @@ of each string:</p>
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
-<p>Concatenating all items into a single string:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;; &quot;</span><span class="p">)</span>
-<span class="c1">## &#39;spam; bacon; buckwheat; spam&#39;</span>
-</pre></div>
-</div>
-<p>Vectorised string concatenation:</p>
+<p>Vectorised concatenation of strings can be done using the overloaded
+`<strong class="command">+</strong>` operator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">+</span> <span class="s2">&quot; and spam&quot;</span>
 <span class="c1">## 0         spam and spam</span>
 <span class="c1">## 1        bacon and spam</span>
@@ -601,6 +599,11 @@ of each string:</p>
 <span class="c1">## 3    buckwheat and spam</span>
 <span class="c1">## 4         spam and spam</span>
 <span class="c1">## dtype: object</span>
+</pre></div>
+</div>
+<p>To concatenate all items into a single string, we call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;; &quot;</span><span class="p">)</span>
+<span class="c1">## &#39;spam; bacon; buckwheat; spam&#39;</span>
 </pre></div>
 </div>
 <p>Conversion to numeric:</p>
@@ -612,7 +615,7 @@ of each string:</p>
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
-<p>Selecting substrings:</p>
+<p>Select substrings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># like x.iloc[i][2:-1] for all i</span>
 <span class="c1">## 0         a</span>
 <span class="c1">## 1        co</span>
@@ -622,7 +625,7 @@ of each string:</p>
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<p>Replacing substrings:</p>
+<p>Replace substrings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice_replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;tofu&quot;</span><span class="p">)</span>  <span class="c1"># like x.iloc[i][2:-1] = &quot;tofu&quot;</span>
 <span class="c1">## 0         tofuam</span>
 <span class="c1">## 1        tofucon</span>
@@ -632,32 +635,33 @@ of each string:</p>
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id16">
+<div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 14.2</span>
         
     </div><div class="proof-content">
 <p>Consider the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/other/nasaweather_glaciers.csv"><code class="docutils literal notranslate"><span class="pre">nasaweather_glaciers</span></code></a> data frame.
-All glaciers are assigned 11/12-character unique identifiers.
-The ID number is assigned to the glacier as defined by the WGMS
-convention that forms the glacier ID number by combining the
-following five elements. Extract all of them and store them as independent
-columns in the data frame.</p>
+All glaciers are assigned 11/12-character unique identifiers
+as defined by the WGMS convention that forms the glacier ID number
+by combining the following five elements.</p>
 <ol class="simple">
-<li><p>2-character political unit,</p></li>
-<li><p>1-digit continent code,</p></li>
-<li><p>4-character drainage code,</p></li>
-<li><p>2-digit free position code,</p></li>
-<li><p>2- or 3-digit local glacier code.</p></li>
+<li><p>2-character political unit (first two letters of the ID),</p></li>
+<li><p>1-digit continent code (the third letter),</p></li>
+<li><p>4-character drainage code (next four),</p></li>
+<li><p>2-digit free position code (next two),</p></li>
+<li><p>2- or 3-digit local glacier code (the remaining ones).</p></li>
 </ol>
+<p>Extract the five chunks and store them as independent
+columns in the data frame.</p>
 </div></div></div>
 <div class="section" id="string-operations-in-numpy">
 <h3><span class="section-number">14.1.6. </span>String Operations in <strong class="program">numpy</strong> (*)<a class="headerlink" href="#string-operations-in-numpy" title="Permalink to this headline"></a></h3>
 <p>There is a huge overlap between the <strong class="program">numpy</strong> and
 <strong class="program">pandas</strong> capabilities
 for string handling, with the latter being more powerful.
-Still, some readers will find the following useful.</p>
+After all, <strong class="program">numpy</strong> is a workhorse for <em>numerical</em> computing.
+Still, some readers might find the following useful.</p>
 <p>As mentioned in our introduction to <strong class="program">numpy</strong> vectors,
 objects of type <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> can store not only numeric and logical
 data, but also character strings. For example:</p>
@@ -704,8 +708,9 @@ most of which we discussed above. For example:</p>
 <span class="c1">## array([1, 2, 4])</span>
 </pre></div>
 </div>
-<p>Operations that we would normally perform via the use of binary
-operators (i.e., `<strong class="command">+</strong>`, `<strong class="command">*</strong>`, `<strong class="command">&lt;</strong>`, etc.)
+<p>Vectorised operations that we would normally perform through
+the binary operators (i.e., `<strong class="command">+</strong>`, `<strong class="command">*</strong>`,
+`<strong class="command">&lt;</strong>`, etc.)
 are available through standalone functions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">],</span> <span class="s2">&quot; and spam&quot;</span><span class="p">)</span>
 <span class="c1">## array([&#39;spam and spam&#39;, &#39;bacon and spam&#39;], dtype=&#39;&lt;U14&#39;)</span>
@@ -723,13 +728,12 @@ is noteworthy:</p>
 </div>
 <div class="section" id="working-with-string-lists">
 <span id="sec-string-list"></span><h2><span class="section-number">14.2. </span>Working with String Lists<a class="headerlink" href="#working-with-string-lists" title="Permalink to this headline"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Series</span></code> can also consist of lists of strings of varying lengths.
-They can not only be input manually (via the <strong class="command">pandas.Series</strong> constructor),
-but also through string splitting.
+<p><strong class="program">pandas</strong> nicely supports lists of strings of varying lengths.
 For instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span>
     <span class="s2">&quot;spam&quot;</span><span class="p">,</span>
     <span class="s2">&quot;spam, bacon, spam&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;potatoes&quot;</span><span class="p">,</span>
     <span class="kc">None</span><span class="p">,</span>
     <span class="s2">&quot;spam, eggs, bacon, spam, spam&quot;</span>
 <span class="p">])</span>
@@ -737,12 +741,13 @@ For instance:</p>
 <span class="n">xs</span>
 <span class="c1">## 0                             [spam]</span>
 <span class="c1">## 1                [spam, bacon, spam]</span>
-<span class="c1">## 2                               None</span>
-<span class="c1">## 3    [spam, eggs, bacon, spam, spam]</span>
+<span class="c1">## 2                         [potatoes]</span>
+<span class="c1">## 3                               None</span>
+<span class="c1">## 4    [spam, eggs, bacon, spam, spam]</span>
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<p>and now, e.g., looking at the last element:</p>
+<p>And now, e.g., looking at the last element:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="c1">## [&#39;spam&#39;, &#39;eggs&#39;, &#39;bacon&#39;, &#39;spam&#39;, &#39;spam&#39;]</span>
 </pre></div>
@@ -754,17 +759,19 @@ such as concatenating all strings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;; &quot;</span><span class="p">)</span>
 <span class="c1">## 0                             spam</span>
 <span class="c1">## 1                spam; bacon; spam</span>
-<span class="c1">## 2                             None</span>
-<span class="c1">## 3    spam; eggs; bacon; spam; spam</span>
+<span class="c1">## 2                         potatoes</span>
+<span class="c1">## 3                             None</span>
+<span class="c1">## 4    spam; eggs; bacon; spam; spam</span>
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
 <p>selecting, say, the first string in each list:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1">## 0    spam</span>
-<span class="c1">## 1    spam</span>
-<span class="c1">## 2    None</span>
-<span class="c1">## 3    spam</span>
+<span class="c1">## 0        spam</span>
+<span class="c1">## 1        spam</span>
+<span class="c1">## 2    potatoes</span>
+<span class="c1">## 3        None</span>
+<span class="c1">## 4        spam</span>
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
@@ -772,74 +779,91 @@ such as concatenating all strings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># like xs.iloc[i][0:-1] for all i</span>
 <span class="c1">## 0                           []</span>
 <span class="c1">## 1                [spam, bacon]</span>
-<span class="c1">## 2                         None</span>
-<span class="c1">## 3    [spam, eggs, bacon, spam]</span>
+<span class="c1">## 2                           []</span>
+<span class="c1">## 3                         None</span>
+<span class="c1">## 4    [spam, eggs, bacon, spam]</span>
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id17">
+<div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 14.3</span>
         
     </div><div class="proof-content">
 <p>(*)
-Using <strong class="command">pandas.merge</strong>, join the following datasets:
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/other/countries.csv">countries</a>,
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/world_factbook_2020.csv">world_factbook_2020</a>,
-and <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/ssi_2016_dimensions.csv">ssi_2016_dimensions</a>
-based on the country names.
-Note that some manual data cleansing will be necessary.</p>
-</div></div><div class="proof proof-type-exercise" id="id18">
+Using <strong class="command">pandas.merge</strong>, join the
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/other/countries.csv"><code class="docutils literal notranslate"><span class="pre">countries</span></code></a>,
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/world_factbook_2020.csv"><code class="docutils literal notranslate"><span class="pre">world_factbook_2020</span></code></a>,
+and <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/ssi_2016_dimensions.csv"><code class="docutils literal notranslate"><span class="pre">ssi_2016_dimensions</span></code></a>
+datasets based on the country names.
+Note that some manual data cleansing will be necessary beforehand.</p>
+</div></div><div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 14.4</span>
         
     </div><div class="proof-content">
 <p>(**)
-Given a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object featuring lists of strings:</p>
+Given a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object <code class="docutils literal notranslate"><span class="pre">xs</span></code> featuring lists of strings,
+convert it to a 0/1 representation.</p>
 <ol class="simple">
-<li><p>determine the list of all unique strings
-(e.g., for <code class="docutils literal notranslate"><span class="pre">xs</span></code> above we have: <code class="docutils literal notranslate"><span class="pre">[&quot;spam&quot;,</span> <span class="pre">&quot;bacon&quot;,</span> <span class="pre">&quot;eggs&quot;]</span></code>),
-call it <code class="docutils literal notranslate"><span class="pre">xu</span></code>;</p></li>
-<li><p>create a data frame <code class="docutils literal notranslate"><span class="pre">x</span></code> with <code class="docutils literal notranslate"><span class="pre">xs.shape[0]</span></code> rows
+<li><p>Determine the list of all unique strings; let us call it <code class="docutils literal notranslate"><span class="pre">xu</span></code>.</p></li>
+<li><p>Create a data frame <code class="docutils literal notranslate"><span class="pre">x</span></code> with <code class="docutils literal notranslate"><span class="pre">xs.shape[0]</span></code> rows
 and <code class="docutils literal notranslate"><span class="pre">len(xu)</span></code> columns such that <code class="docutils literal notranslate"><span class="pre">x.iloc[i,</span> <span class="pre">j]</span></code> is equal to 1 if
-<code class="docutils literal notranslate"><span class="pre">xu[j]</span></code> is amongst <code class="docutils literal notranslate"><span class="pre">xs.loc[i]</span></code> and equal to 0 otherwise;</p></li>
-<li><p>given <code class="docutils literal notranslate"><span class="pre">x</span></code> (and only <code class="docutils literal notranslate"><span class="pre">x</span></code>: neither <code class="docutils literal notranslate"><span class="pre">xs</span></code> nor <code class="docutils literal notranslate"><span class="pre">xu</span></code>),
+<code class="docutils literal notranslate"><span class="pre">xu[j]</span></code> is amongst <code class="docutils literal notranslate"><span class="pre">xs.loc[i]</span></code> and equal to 0 otherwise.
+Set the column names to <code class="docutils literal notranslate"><span class="pre">xs</span></code>.</p></li>
+<li><p>Given <code class="docutils literal notranslate"><span class="pre">x</span></code> (and only <code class="docutils literal notranslate"><span class="pre">x</span></code>: neither <code class="docutils literal notranslate"><span class="pre">xs</span></code> nor <code class="docutils literal notranslate"><span class="pre">xu</span></code>),
 perform the inverse operation.</p></li>
 </ol>
+<p>For example, for the above <code class="docutils literal notranslate"><span class="pre">xs</span></code> object, <code class="docutils literal notranslate"><span class="pre">x</span></code> should look like:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">##    bacon  eggs  potatoes  spam</span>
+<span class="c1">## 0      0     0         0     1</span>
+<span class="c1">## 1      1     0         0     1</span>
+<span class="c1">## 2      0     0         1     0</span>
+<span class="c1">## 3      0     0         0     0</span>
+<span class="c1">## 4      1     1         0     1</span>
+</pre></div>
+</div>
 </div></div></div>
 <div class="section" id="formatted-outputs-for-reproducible-report-generation">
 <span id="sec-format-output"></span><h2><span class="section-number">14.3. </span>Formatted Outputs for Reproducible Report Generation<a class="headerlink" href="#formatted-outputs-for-reproducible-report-generation" title="Permalink to this headline"></a></h2>
 <p>Some good development practices related to reproducible report generation
-are discussed in <span id="id5">[<a class="reference internal" href="999-bibliography.html#id149">SNTH13</a>, <a class="reference internal" href="999-bibliography.html#id147">W+14</a>, <a class="reference internal" href="999-bibliography.html#id148">W+17</a>]</span>.</p>
-<p>When preparing reports from data analysis (e.g., using
-Jupyter Notebooks or writing directly to Markdown files which we
-later compile to PDF or HTML using <a class="reference external" href="https://pandoc.org/"><strong class="program">pandoc</strong></a>)
-it is important to be able to output
-nicely formatted content programmatically.</p>
+are discussed in <span id="id5">[<a class="reference internal" href="999-bibliography.html#id150">SNTH13</a>, <a class="reference internal" href="999-bibliography.html#id148">W+14</a>, <a class="reference internal" href="999-bibliography.html#id149">W+17</a>]</span>.
+Note that the paradigm of literate programming was introduced by D. Knuth
+in <span id="id6">[<a class="reference internal" href="999-bibliography.html#id76">Knu92</a>]</span>.</p>
+<p>Reports from data analysis can be prepared, e.g., in
+Jupyter Notebooks or by writing directly to Markdown files which we
+can later compile to PDF or HTML.
+Below we briefly discuss how to output
+nicely formatted objects programmatically.</p>
 <div class="section" id="formatting-strings">
 <h3><span class="section-number">14.3.1. </span>Formatting Strings<a class="headerlink" href="#formatting-strings" title="Permalink to this headline"></a></h3>
-<p>Recall that string formatting for inclusion of data stored in existing
+<p>Inclusion of textual representation of data stored in existing
 objects can easily be done using f-strings
-(formatted string literals) of the type <code class="docutils literal notranslate"><span class="pre">f&quot;...{expression}...&quot;</span></code>.
+(formatted string literals; see <a class="reference internal" href="120-scalar.html#sec-f-strings"><span class="std std-numref">Section 2.1.3.1</span></a>)
+of the type <code class="docutils literal notranslate"><span class="pre">f&quot;...{expression}...&quot;</span></code>.
 For instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159265358979323846</span>
 <span class="sa">f</span><span class="s2">&quot;π = </span><span class="si">{</span><span class="n">pi</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="c1">## &#39;π = 3.14&#39;</span>
 </pre></div>
 </div>
-<p>creates a string including the variable <code class="docutils literal notranslate"><span class="pre">pi</span></code> formatted as a <code class="docutils literal notranslate"><span class="pre">float</span></code>
-rounded to two places after the decimal separator.</p>
+<p>creates a string showing the value of the variable <code class="docutils literal notranslate"><span class="pre">pi</span></code> formatted
+as a <code class="docutils literal notranslate"><span class="pre">float</span></code> rounded to two places after the decimal separator.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(**) Similar functionality can be achieved using
-the <strong class="command">str.format</strong> method
-as well as the `<strong class="command">%</strong>` operator overloaded for strings, which uses
+the <strong class="command">str.format</strong> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;π = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+<span class="c1">## &#39;π = 3.14&#39;</span>
+</pre></div>
+</div>
+<p>as well as the `<strong class="command">%</strong>` operator overloaded for strings, which uses
 <strong class="command">sprintf</strong>-like value placeholders known to some readers
 from other programming languages (such as C):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;π = </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pi</span><span class="p">),</span> <span class="s2">&quot;π = </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pi</span>
-<span class="c1">## (&#39;π = 3.14&#39;, &#39;π = 3.14&#39;)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;π = </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pi</span>
+<span class="c1">## &#39;π = 3.14&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -847,23 +871,25 @@ from other programming languages (such as C):</p>
 <div class="section" id="str-and-repr">
 <h3><span class="section-number">14.3.2. </span><strong class="command">str</strong> and <strong class="command">repr</strong><a class="headerlink" href="#str-and-repr" title="Permalink to this headline"></a></h3>
 <p>The <strong class="command">str</strong> and <strong class="command">repr</strong> functions can create string representations
-of a number of objects, with the former being more human-readable
-and latter slightly more technical.</p>
+of a number of objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="c1">## (&#39;[1 2 3]&#39;, &#39;array([1, 2, 3])&#39;)</span>
+<span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">## &#39;[1 2 3]&#39;</span>
+<span class="nb">repr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">## &#39;array([1, 2, 3])&#39;</span>
 </pre></div>
 </div>
-<p>Note that <strong class="command">repr</strong> often returns an output that can be
-interpreted as executable Python code literally (with no
-or few adjustments, however, <strong class="program">pandas</strong> objects are one of the
-many exceptions).</p>
+<p>The former is more human-readable and latter is slightly more technical.
+Note that <strong class="command">repr</strong> often returns an output that can be
+interpreted as executable Python code with no
+or few adjustments. However, <strong class="program">pandas</strong> objects are amongst
+the many exceptions to this rule.</p>
 </div>
-<div class="section" id="justifying-strings">
-<h3><span class="section-number">14.3.3. </span>Justifying Strings<a class="headerlink" href="#justifying-strings" title="Permalink to this headline"></a></h3>
+<div class="section" id="aligning-strings">
+<h3><span class="section-number">14.3.3. </span>Aligning Strings<a class="headerlink" href="#aligning-strings" title="Permalink to this headline"></a></h3>
 <p><strong class="command">str.center</strong>, <strong class="command">str.ljust</strong>, <strong class="command">str.rjust</strong> can be used
-to centre, left-, or-right justify a string so that
-it is of at least given width, which might make the display thereof
+to centre, left-, or-right align a string so that
+it is of at least given width. This might make the display thereof
 more aesthetic.
 Very long strings, possibly containing whole text paragraphs
 can be dealt with using the <strong class="command">wrap</strong> and <strong class="command">shorten</strong> functions
@@ -875,47 +901,38 @@ from the <strong class="program">textwrap</strong> package.</p>
 strings that will be directly interpreted as Markdown-formatted:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">IPython.display</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span>
-<span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;*Result*: $2^2=2+2=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">$.&quot;</span>
+<span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;*Result*: $2^2=2</span><span class="se">\\</span><span class="s2">cdot 2=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">$.&quot;</span>  <span class="c1"># LaTeX math</span>
 <span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><em>Result</em>: <span class="math notranslate nohighlight">\(2^2=2+2=4\)</span>.</p>
-<p>Recall that <a class="reference external" href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>
-is a very flexible markup language,
-allowing us to insert itemised and numbered lists, mathematical
-formulae, tables, images, etc.</p>
+<p><em>Result</em>: <span class="math notranslate nohighlight">\(2^2=2\cdot 2=4\)</span>.</p>
+<p>Recall from <a class="reference internal" href="110-setup.html#sec-markdown"><span class="std std-numref">Section 1.2.5</span></a> that Markdown is a very flexible
+markup<a class="footnote-reference brackets" href="#footmarkup" id="id7">2</a> language that allows us to define itemised and
+numbered lists, mathematical formulae, tables, images, etc.</p>
+<p>On a side note, data frames can be nicely prepared for display in a report
+using <strong class="command">pandas.DataFrame.to_markdown</strong>.</p>
 </div>
 <div class="section" id="manual-markdown-file-output">
-<h3><span class="section-number">14.3.5. </span>Manual Markdown File Output<a class="headerlink" href="#manual-markdown-file-output" title="Permalink to this headline"></a></h3>
+<span id="sec-manual-markdown"></span><h3><span class="section-number">14.3.5. </span>Manual Markdown File Output (*)<a class="headerlink" href="#manual-markdown-file-output" title="Permalink to this headline"></a></h3>
 <p>We can also generate Markdown code programmatically
 in the form of standalone <code class="docutils literal notranslate"><span class="pre">.md</span></code> files:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/tmp/test-report.md&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>  <span class="c1"># open for writing (overwrite if exists)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;test-report.md&quot;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>  <span class="c1"># open for writing (overwrite if exists)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;**Yummy Foods** include, but are not limited to:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;* </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">And now for something completely different:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">And now for something *completely* different:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Rank | Food</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;-----|-----</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">4</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">10</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="c1">## 50</span>
-<span class="c1">## 7</span>
-<span class="c1">## 8</span>
-<span class="c1">## 7</span>
-<span class="c1">## 7</span>
-<span class="c1">## 46</span>
-<span class="c1">## 12</span>
-<span class="c1">## 12</span>
-<span class="c1">## 18</span>
-<span class="c1">## 18</span>
-<span class="c1">## 18</span>
-<span class="c1">## 18</span>
 </pre></div>
 </div>
 <p>Here is the resulting raw Markdown source file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/tmp/test-report.md&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  <span class="c1"># will call f.close() automatically</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="c1">## **Yummy Foods** include, but are not limited to:</span>
@@ -925,7 +942,7 @@ in the form of standalone <code class="docutils literal notranslate"><span class
 <span class="c1">## * eggs</span>
 <span class="c1">## * spam</span>
 <span class="c1">## </span>
-<span class="c1">## And now for something completely different:</span>
+<span class="c1">## And now for something *completely* different:</span>
 <span class="c1">## </span>
 <span class="c1">## Rank | Food</span>
 <span class="c1">## -----|-----</span>
@@ -935,9 +952,10 @@ in the form of standalone <code class="docutils literal notranslate"><span class
 <span class="c1">##    4 | maps</span>
 </pre></div>
 </div>
-<p>We can run it through the <a class="reference external" href="https://pandoc.org/"><strong class="program">pandoc</strong></a> tool
-to convert it to a number of formats, including HTML, PDF, EPUB, and ODT.
-We may also render it directly into our report:</p>
+<p>We can convert it to a number of formats, including HTML, PDF, EPUB, ODT,
+and even presentations
+by running<a class="footnote-reference brackets" href="#footrun" id="id8">3</a> the <a class="reference external" href="https://pandoc.org/"><strong class="program">pandoc</strong></a> tool.
+We may also embed it directly inside an IPython/Jupyter notebook:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">IPython</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -948,7 +966,7 @@ We may also render it directly into our report:</p>
 <li><p>eggs</p></li>
 <li><p>spam</p></li>
 </ul>
-<p>And now for something completely different:</p>
+<p>And now for something <em>completely</em> different:</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Rank</p></th>
@@ -974,35 +992,30 @@ We may also render it directly into our report:</p>
 <p class="admonition-title">Note</p>
 <p>Figures created in <strong class="program">matplotlib</strong>
 can be exported to PNG, SVG, or PDF files
-using the <strong class="command">matplotlib.pyplot.savefig</strong> function.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Data frames can be nicely prepared for display in a report
-using <strong class="command">pandas.DataFrame.to_markdown</strong>.</p>
+using the <strong class="command">matplotlib.pyplot.savefig</strong> function.
+We can include them manually in a Markdown document using the
+<code class="docutils literal notranslate"><span class="pre">![description](filename)</span></code> syntax.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-Markdown is amongst many markup languages.
-Other learn-worthy ones include HTML (for the Web)
-and LaTeX (especially for beautiful
-typesetting of maths, print-ready articles and books, e.g., PDF;
-see <span id="id6">[<a class="reference internal" href="999-bibliography.html#id8">O+21</a>]</span> for a good introduction).</p>
-<p>Jupyter Notebooks can be converted to different formats
+IPython/Jupyter Notebooks can be converted to different formats
 using the <a class="reference external" href="https://pypi.org/project/nbconvert/"><strong class="program">jupyter-nbconvert</strong></a>
-command line tool.</p>
-<p>More generally, <a class="reference external" href="https://pandoc.org/"><strong class="program">pandoc</strong></a>
-is a generic converter between different formats,
-e.g., the highly universal (although primitive) Markdown and the said
-LaTeX and HTML. Also, it can be used for preparing presentations (slides).</p>
+command line tool.
+<a class="reference external" href="https://jupytext.readthedocs.io/en/latest/"><strong class="program">jupytext</strong></a>
+can create notebooks from ordinary text files.
+Literate programming with mixed R and Python
+is possible with the R packages
+<a class="reference external" href="https://yihui.org/knitr/"><strong class="program">knitr</strong></a> and
+<a class="reference external" href="https://rstudio.github.io/reticulate/"><strong class="program">reticulate</strong></a>.
+See <span id="id9">[<a class="reference internal" href="999-bibliography.html#id151">Poo19</a>]</span> for an overview of many more options.</p>
 </div>
 </div>
 </div>
 <div class="section" id="regular-expressions">
 <span id="sec-regex"></span><h2><span class="section-number">14.4. </span>Regular Expressions (*)<a class="headerlink" href="#regular-expressions" title="Permalink to this headline"></a></h2>
 <p>This section contains large excerpts
-from yours truly’s other work <span id="id7">[<a class="reference internal" href="999-bibliography.html#id14">Gag22</a>]</span>.</p>
+from yours truly’s other work <span id="id10">[<a class="reference internal" href="999-bibliography.html#id14">Gag22</a>]</span>.</p>
 <p><em>Regular expressions (regexes) provide us with a concise grammar for
 defining systematic patterns which can be sought in character strings.
 Examples of such patterns include: specific fixed substrings, emojis of
@@ -1011,23 +1024,30 @@ substrings that can be interpreted as real numbers (with or without
 fractional parts, also in scientific notation), telephone numbers, email
 addresses, or URLs.</em></p>
 <p><em>Theoretically, the concept of regular pattern matching dates back to the
-so-called regular languages and finite state automata <span id="id8">[<a class="reference internal" href="999-bibliography.html#id19">Kle51</a>]</span>, see
-also <span id="id9">[<a class="reference internal" href="999-bibliography.html#id20">RS59</a>]</span> and <span id="id10">[<a class="reference internal" href="999-bibliography.html#id22">HU79</a>]</span>.
+so-called regular languages and finite state automata <span id="id11">[<a class="reference internal" href="999-bibliography.html#id19">Kle51</a>]</span>, see
+also <span id="id12">[<a class="reference internal" href="999-bibliography.html#id20">RS59</a>]</span> and <span id="id13">[<a class="reference internal" href="999-bibliography.html#id22">HU79</a>]</span>.
 Regexes in the form as we know today
 were already present in one of the pre-Unix implementations of the
-command-line text editor <strong class="program">qed</strong> <span id="id11">[<a class="reference internal" href="999-bibliography.html#id21">RT70</a>]</span>
+command-line text editor <strong class="program">qed</strong> <span id="id14">[<a class="reference internal" href="999-bibliography.html#id21">RT70</a>]</span>
 (the predecessor of the well-known <strong class="program">sed</strong>).</em></p>
 <div class="section" id="regex-matching-with-re">
 <h3><span class="section-number">14.4.1. </span>Regex Matching with <strong class="program">re</strong><a class="headerlink" href="#regex-matching-with-re" title="Permalink to this headline"></a></h3>
 <p>In Python, the <strong class="program">re</strong> module implements a regular expression matching
-engine that accepts patterns following a similar syntax
+engine. It accepts patterns that follow a similar syntax
 to the ones available in the Perl language.</p>
+<p>Actually, most programming languages and text editors
+(including <a class="reference external" href="https://kate-editor.org/"><strong class="program">Kate</strong></a>,
+<a class="reference external" href="https://www.eclipse.org/ide/"><strong class="program">Eclipse</strong></a>, and
+<a class="reference external" href="https://vscodium.com/"><strong class="program">VSCodium</strong></a>) support finding and
+replacing patterns with regexes. Therefore, they should be amongst the
+instruments at every data scientist’s disposal.</p>
 <p>Before we proceed with a detailed discussion on how to read and write
-regexes, let us first review the methods for identifying the matching
+regexes, let us first review some of the methods for identifying the matching
 substrings. Below we use the <code class="docutils literal notranslate"><span class="pre">r&quot;\bni+\b&quot;</span></code> regex as an example,
 which catches <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code> followed by at least one <code class="docutils literal notranslate"><span class="pre">&quot;i&quot;</span></code>
-that begins and ends at a <em>word boundary</em>, i.e.,
-which may be considered standalone words.</p>
+that begins and ends at a <em>word boundary</em>.
+In other words, we seek <code class="docutils literal notranslate"><span class="pre">&quot;ni&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nii&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;niii&quot;</span></code>, etc. that
+may be considered standalone words.</p>
 <p>In particular, <strong class="command">re.findall</strong> extracts all non-overlapping
 matches to a given regex:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
@@ -1041,11 +1061,12 @@ not the other way around.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>We used the <code class="docutils literal notranslate"><span class="pre">r&quot;...&quot;</span></code> prefix when entering a string so that <code class="docutils literal notranslate"><span class="pre">\b</span></code> is not
-treated as a escape sequence denoting the backspace character. Otherwise,
+treated as an escape sequence denoting the backspace character. Otherwise,
 the above would have to be input as <code class="docutils literal notranslate"><span class="pre">&quot;\\bni+\\b&quot;</span></code>.</p>
 </div>
 <p>If we had not insisted on matching at the word boundaries (i.e.,
-if we used <code class="docutils literal notranslate"><span class="pre">&quot;ni+&quot;</span></code> instead), we would also match the <code class="docutils literal notranslate"><span class="pre">&quot;ni&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">&quot;knights&quot;</span></code>.</p>
+if we used the simple <code class="docutils literal notranslate"><span class="pre">&quot;ni+&quot;</span></code> regex instead),
+we would also match the <code class="docutils literal notranslate"><span class="pre">&quot;ni&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">&quot;knights&quot;</span></code>.</p>
 <div style="margin-top: 1em"></div><p>The <strong class="command">re.search</strong> function returns an object of class <code class="docutils literal notranslate"><span class="pre">re.Match</span></code>
 that enables us to get some more information about the first match:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bni+\b&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
@@ -1105,9 +1126,7 @@ of vectorised functions that utilise the <strong class="program">re</strong> pac
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<p>Here are the most notable functions; their names are
-self-explanatory, so let us just generate the (textual) picture instead of
-the words’ abundance.</p>
+<p>Here are the most notable functions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bni+\b&quot;</span><span class="p">)</span>
 <span class="c1">## 0     True</span>
 <span class="c1">## 1     True</span>
@@ -1153,12 +1172,12 @@ which work with regexes that include capture groups.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-If we intend to seek matches to the same pattern in different strings
-without the use of <strong class="program">pandas</strong>,
-it might be a good to pre-compile a regex first and
+If we intend to seek matches to the same pattern in many
+different strings without the use of <strong class="program">pandas</strong>,
+it might be faster to pre-compile a regex first, and
 then use the <strong class="command">re.Pattern.findall</strong> method instead or <strong class="command">re.findall</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bni+\b&quot;</span><span class="p">)</span>  <span class="c1"># returns an object of class `re.Pattern`</span>
-<span class="n">p</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;We&#39;re the knights who say ni! ni! niiiii! nininiiiiiiiii!&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;We&#39;re the Spanish Inquisition ni! ni! niiiii! nininiiiiiiiii!&quot;</span><span class="p">)</span>
 <span class="c1">## [&#39;ni&#39;, &#39;ni&#39;, &#39;niiiii&#39;]</span>
 </pre></div>
 </div>
@@ -1166,39 +1185,31 @@ then use the <strong class="command">re.Pattern.findall</strong> method instead 
 </div>
 <div class="section" id="matching-individual-characters">
 <h3><span class="section-number">14.4.3. </span>Matching Individual Characters<a class="headerlink" href="#matching-individual-characters" title="Permalink to this headline"></a></h3>
-<p>Most programming languages and text editors
-(including <a class="reference external" href="https://kate-editor.org/"><strong class="program">Kate</strong></a>,
-<a class="reference external" href="https://www.eclipse.org/ide/"><strong class="program">Eclipse</strong></a>, and
-<a class="reference external" href="https://code.visualstudio.com/"><strong class="program">VSCode</strong></a>) support finding or
-replacing patterns with regexes. Therefore, they should be amongst the
-instruments at every data scientist’s disposal. One general introduction to
-regexes is <span id="id12">[<a class="reference internal" href="999-bibliography.html#id18">Fri06</a>]</span>.
+<p>In the following subsections we review the most important
+elements of the regex syntax as we did in <span id="id15">[<a class="reference internal" href="999-bibliography.html#id14">Gag22</a>]</span>.
+One general introduction to regexes is <span id="id16">[<a class="reference internal" href="999-bibliography.html#id18">Fri06</a>]</span>.
 The <strong class="program">re</strong> module flavour is summarised
 in the official <a class="reference external" href="https://docs.python.org/3/library/re.html">manual</a>,
-see also <span id="id13">[<a class="reference internal" href="999-bibliography.html#id23">Kuc22</a>]</span>.
-In the following sections we review the most important
-elements of the regex syntax as we did in <span id="id14">[<a class="reference internal" href="999-bibliography.html#id14">Gag22</a>]</span>.</p>
-<div style="margin-top: 1em"></div><p>We begin by discussing different ways to define character sets. In this
+see also <span id="id17">[<a class="reference internal" href="999-bibliography.html#id23">Kuc22</a>]</span>.</p>
+<p>We begin by discussing different ways to define character sets. In this
 part, determining the length of all matching substrings will be quite
 straightforward.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The following characters have special meaning to the regex engine:</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">.</span></code>
-<code class="docutils literal notranslate"><span class="pre">\</span></code>
-<code class="docutils literal notranslate"><span class="pre">|</span></code>
-<code class="docutils literal notranslate"><span class="pre">(</span></code>
-<code class="docutils literal notranslate"><span class="pre">)</span></code>
-<code class="docutils literal notranslate"><span class="pre">[</span></code>
-<code class="docutils literal notranslate"><span class="pre">]</span></code>  &gt; <code class="docutils literal notranslate"><span class="pre">{</span></code>
-<code class="docutils literal notranslate"><span class="pre">}</span></code>
-<code class="docutils literal notranslate"><span class="pre">^</span></code>
-<code class="docutils literal notranslate"><span class="pre">$</span></code>
-<code class="docutils literal notranslate"><span class="pre">*</span></code>
-<code class="docutils literal notranslate"><span class="pre">+</span></code>
-<code class="docutils literal notranslate"><span class="pre">?</span></code></p>
-</div></blockquote>
+<p>The following characters have special meaning to the regex engine:
+“<code class="docutils literal notranslate"><span class="pre">.</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">\</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">|</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">(</span></code>“,
+“<code class="docutils literal notranslate"><span class="pre">)</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">[</span></code>“,
+“<code class="docutils literal notranslate"><span class="pre">]</span></code>”,  “<code class="docutils literal notranslate"><span class="pre">{</span></code>“,
+“<code class="docutils literal notranslate"><span class="pre">}</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">^</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">$</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">*</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">+</span></code>”, and
+“<code class="docutils literal notranslate"><span class="pre">?</span></code>”.</p>
 </div>
 <p>Any regular expression that contains none of
 the above behaves like a fixed pattern:</p>
@@ -1223,13 +1234,13 @@ it with a backslash, “<code class="docutils literal notranslate"><span class="
 <span class="c1">## [&#39;Spam&#39;, &#39; ham&#39;, &#39;SPAM&#39;, &#39;spam&#39;]</span>
 </pre></div>
 </div>
-<p>The above matches non-overlapping length-4 substrings that end with
+<p>The above extracts non-overlapping length-4 substrings that end with
 “<code class="docutils literal notranslate"><span class="pre">am</span></code>”, case insensitively.</p>
 <p>The dot’s insensitivity to the newline character is motivated by the
 need to maintain the compatibility with tools such as <strong class="program">grep</strong> (when
 searching within text files in a line-by-line manner). This behaviour
 can be altered by setting the <code class="docutils literal notranslate"><span class="pre">DOTALL</span></code> flag.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;..am&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;..am&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="o">|</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>  <span class="c1"># `|` is the bitwise OR</span>
 <span class="c1">## [&#39;Spam&#39;, &#39; ham&#39;, &#39;\njam&#39;, &#39;SPAM&#39;, &#39;spam&#39;]</span>
 </pre></div>
 </div>
@@ -1251,17 +1262,15 @@ case-insensitively).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The following characters, if used within square brackets, may be treated
-non-literally:</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">\</span></code>
-<code class="docutils literal notranslate"><span class="pre">[</span></code>
-<code class="docutils literal notranslate"><span class="pre">]</span></code>
-<code class="docutils literal notranslate"><span class="pre">^</span></code>
-<code class="docutils literal notranslate"><span class="pre">-</span></code>
-<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>
-<code class="docutils literal notranslate"><span class="pre">~</span></code>
-<code class="docutils literal notranslate"><span class="pre">|</span></code></p>
-</div></blockquote>
+non-literally:
+“<code class="docutils literal notranslate"><span class="pre">\</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">[</span></code>“,
+“<code class="docutils literal notranslate"><span class="pre">]</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">^</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">-</span></code>“,
+“<code class="docutils literal notranslate"><span class="pre">&amp;</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">~</span></code>”, and
+“<code class="docutils literal notranslate"><span class="pre">|</span></code>”.</p>
 </div>
 <p>Therefore, to include them as-is in a character set, the
 backslash-escape must be used. For example, “<code class="docutils literal notranslate"><span class="pre">[\[\]\\]</span></code>” matches a
@@ -1269,49 +1278,57 @@ backslash or a square bracket.</p>
 </div>
 <div class="section" id="complementing-sets">
 <h4><span class="section-number">14.4.3.3. </span>Complementing Sets<a class="headerlink" href="#complementing-sets" title="Permalink to this headline"></a></h4>
-<p>Including “<code class="docutils literal notranslate"><span class="pre">^</span></code>” (the caret) after the opening square bracket denotes the set
-complement. Hence, “<code class="docutils literal notranslate"><span class="pre">[^abc]</span></code>” matches any code point except “<code class="docutils literal notranslate"><span class="pre">a</span></code>”,
+<p>Including “<code class="docutils literal notranslate"><span class="pre">^</span></code>” (the caret) after the opening square bracket denotes
+a set’s complement. Hence, “<code class="docutils literal notranslate"><span class="pre">[^abc]</span></code>” matches any code point except “<code class="docutils literal notranslate"><span class="pre">a</span></code>”,
 “<code class="docutils literal notranslate"><span class="pre">b</span></code>”, and “<code class="docutils literal notranslate"><span class="pre">c</span></code>”. Here is an example where we seek any substring that
-consists of 3 non-spaces.</p>
+consists of four non-spaces.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Nobody expects the Spanish Inquisition!&quot;</span>
-<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;[^ ][^ ][^ ]&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [&#39;Nob&#39;, &#39;ody&#39;, &#39;exp&#39;, &#39;ect&#39;, &#39;the&#39;, &#39;Spa&#39;, &#39;nis&#39;, &#39;Inq&#39;, &#39;uis&#39;, &#39;iti&#39;, &#39;on!&#39;]</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;[^ ][^ ][^ ][^ ]&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="c1">## [&#39;Nobo&#39;, &#39;expe&#39;, &#39;Span&#39;, &#39;Inqu&#39;, &#39;isit&#39;, &#39;ion!&#39;]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="defining-code-point-ranges">
-<h4><span class="section-number">14.4.3.4. </span>Defining Code Point Ranges<a class="headerlink" href="#defining-code-point-ranges" title="Permalink to this headline"></a></h4>
-<p>Each Unicode code point can be referenced by its unique numeric
-identifier for more details. For instance, “<code class="docutils literal notranslate"><span class="pre">a</span></code>” is
+<span id="sec-code-points"></span><h4><span class="section-number">14.4.3.4. </span>Defining Code Point Ranges<a class="headerlink" href="#defining-code-point-ranges" title="Permalink to this headline"></a></h4>
+<p>Each Unicode character can be referenced by its unique
+<a class="reference external" href="https://www.unicode.org/charts/">numeric code</a>.
+For instance, “<code class="docutils literal notranslate"><span class="pre">a</span></code>” is
 assigned code U+0061 and “<code class="docutils literal notranslate"><span class="pre">z</span></code>” is mapped to U+007A. In the pre-Unicode
 era (mostly with regard to the ASCII codes, ≤ U+007F, representing
-English letters, decimal digits, some punctuation characters, and a few
-control characters), we were used to relying on specific code ranges;
-e.g., “<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code>” denotes the set comprised of all characters with codes
+English letters, decimal digits, as well as some punctuation and
+control characters), we were used to relying on specific code ranges.
+For example, “<code class="docutils literal notranslate"><span class="pre">[a-z]</span></code>” denotes the set comprised of all characters with codes
 between U+0061 and U+007A, i.e., lowercase letters of the English
 (Latin) alphabet.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;[0-9A-Za-z]&quot;</span><span class="p">,</span> <span class="s2">&quot;Gągolewski&quot;</span><span class="p">)</span>
 <span class="c1">## [&#39;G&#39;, &#39;g&#39;, &#39;o&#39;, &#39;l&#39;, &#39;e&#39;, &#39;w&#39;, &#39;s&#39;, &#39;k&#39;, &#39;i&#39;]</span>
 </pre></div>
 </div>
-<p>The above pattern denotes a union of 3 code ranges: digits and ASCII
-upper- and lowercase letters.</p>
-<p>Nowadays, in the processing of text in natural languages, this notation
+<p>The above pattern denotes the union of three code ranges: ASCII
+upper- and lowercase letters and digits.
+Nowadays, in the processing of text in natural languages, this notation
 should rather be avoided. Note the missing “<code class="docutils literal notranslate"><span class="pre">ą</span></code>” (Polish “<code class="docutils literal notranslate"><span class="pre">a</span></code>” with
 ogonek) in the result.</p>
 </div>
 <div class="section" id="using-predefined-character-sets">
 <h4><span class="section-number">14.4.3.5. </span>Using Predefined Character Sets<a class="headerlink" href="#using-predefined-character-sets" title="Permalink to this headline"></a></h4>
-<p>Some other noteworthy Unicode-aware code point classes include
-the “word characters”:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;aąbßÆAĄB你12𝟛๔٤,.;&#39;! </span><span class="se">\t</span><span class="s2">-+=</span><span class="se">\n</span><span class="s2">[]©←→”„&quot;</span>
-<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\w&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [&#39;a&#39;, &#39;ą&#39;, &#39;b&#39;, &#39;ß&#39;, &#39;Æ&#39;, &#39;A&#39;, &#39;Ą&#39;, &#39;B&#39;, &#39;你&#39;, &#39;1&#39;, &#39;2&#39;, &#39;𝟛&#39;, &#39;๔&#39;, &#39;٤&#39;]</span>
+<p>Consider the following string:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;aąbßÆAĄB你12𝟛٤,.;&#39;! </span><span class="se">\t</span><span class="s2">-+=</span><span class="se">\n</span><span class="s2">[]©←→”„&quot;</span>
+</pre></div>
+</div>
+<p>Some glyphs are not available in the PDF version of this book
+(because we did not install the required fonts, e.g., the Arabic digit 4
+or left and right arrows; this is an educational example),
+but they are well-defined at the program level.</p>
+<p>Noteworthy Unicode-aware code point classes include
+the “word” characters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\w&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="c1">## [&#39;a&#39;, &#39;ą&#39;, &#39;b&#39;, &#39;ß&#39;, &#39;Æ&#39;, &#39;A&#39;, &#39;Ą&#39;, &#39;B&#39;, &#39;你&#39;, &#39;1&#39;, &#39;2&#39;, &#39;𝟛&#39;, &#39;٤&#39;]</span>
 </pre></div>
 </div>
 <p>decimal digits:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [&#39;1&#39;, &#39;2&#39;, &#39;𝟛&#39;, &#39;๔&#39;, &#39;٤&#39;]</span>
+<span class="c1">## [&#39;1&#39;, &#39;2&#39;, &#39;𝟛&#39;, &#39;٤&#39;]</span>
 </pre></div>
 </div>
 <p>and whitespaces:</p>
@@ -1321,7 +1338,7 @@ the “word characters”:</p>
 </div>
 <p>Moreover, e.g., “<code class="docutils literal notranslate"><span class="pre">\W</span></code>” is
 equivalent to “<code class="docutils literal notranslate"><span class="pre">[^\w]</span></code>” , i.e.,
-denotes its complement.</p>
+denotes the set’s complement.</p>
 </div>
 </div>
 <div class="section" id="alternating-and-grouping-subexpressions">
@@ -1338,15 +1355,17 @@ matches either its left or its right branch, for instance:</p>
 </div>
 <div class="section" id="grouping-subexpressions">
 <h4><span class="section-number">14.4.4.2. </span>Grouping Subexpressions<a class="headerlink" href="#grouping-subexpressions" title="Permalink to this headline"></a></h4>
-<p>“<code class="docutils literal notranslate"><span class="pre">|</span></code>” has a very low precedence. Therefore, if we wish to introduce an
-alternative of subexpressions, we need to group them using the
+<p>The “<code class="docutils literal notranslate"><span class="pre">|</span></code>” operator has a very low precedence (otherwise, we would
+match “<code class="docutils literal notranslate"><span class="pre">spamam</span></code>” or “<code class="docutils literal notranslate"><span class="pre">spaham</span></code>” above instead).
+If we wish to introduce an alternative of <em>sub</em>expressions,
+we need to group them using the
 “<code class="docutils literal notranslate"><span class="pre">(?:...)</span></code>” syntax. For instance, “<code class="docutils literal notranslate"><span class="pre">(?:sp|h)am</span></code>” matches either “<code class="docutils literal notranslate"><span class="pre">spam</span></code>”
 or “<code class="docutils literal notranslate"><span class="pre">ham</span></code>”.</p>
 <p>Notice that the bare use of the round brackets, <code class="docutils literal notranslate"><span class="pre">&quot;(...)&quot;</span></code>
 (i.e., without the <code class="docutils literal notranslate"><span class="pre">&quot;?:&quot;</span></code>) part, has the side-effect of creating new
 capturing groups, see below for more details.</p>
 <p>Also, matching is always done left-to-right, on a first-come,
-first-served basis. Hence, if the left branch is a subset of the right
+first-served (greedy) basis. Hence, if the left branch is a subset of the right
 one, the latter will never be matched. In particular,
 “<code class="docutils literal notranslate"><span class="pre">(?:al|alga|algae)</span></code>” can only match “<code class="docutils literal notranslate"><span class="pre">al</span></code>”. To fix this, we can write
 “<code class="docutils literal notranslate"><span class="pre">(?:algae|alga|al)</span></code>”.</p>
@@ -1390,7 +1409,7 @@ subfragments thereof is more readable:</p>
 subexpression needs to be captured or its presence should be made
 optional. This can be achieved by means of the following quantifiers:</p>
 <ul class="simple">
-<li><p>“<code class="docutils literal notranslate"><span class="pre">?</span></code>” matches 0 or 1 times;</p></li>
+<li><p>“<code class="docutils literal notranslate"><span class="pre">?</span></code>” matches 0 or 1 time;</p></li>
 <li><p>“<code class="docutils literal notranslate"><span class="pre">*</span></code>” matches 0 or more times;</p></li>
 <li><p>“<code class="docutils literal notranslate"><span class="pre">+</span></code>” matches 1 or more times;</p></li>
 <li><p>“<code class="docutils literal notranslate"><span class="pre">{n,m}</span></code>” matches between <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> times;</p></li>
@@ -1455,7 +1474,7 @@ digits.</p>
 </div>
 <p>finds digits which are possibly (but not
 necessarily) followed by a dot and a digit sequence.</p>
-<div class="proof proof-type-exercise" id="id19">
+<div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 14.5</span>
@@ -1465,55 +1484,54 @@ necessarily) followed by a dot and a digit sequence.</p>
 from a string #omg #SoEasy.</p>
 </div></div></div>
 <div class="section" id="capture-groups-and-references-thereto">
-<h3><span class="section-number">14.4.6. </span>Capture Groups and References Thereto<a class="headerlink" href="#capture-groups-and-references-thereto" title="Permalink to this headline"></a></h3>
-<p>Round-bracketed subexpressions (without the <code class="docutils literal notranslate"><span class="pre">&quot;?:&quot;</span></code> prefix)
+<h3><span class="section-number">14.4.6. </span>Capture Groups and References Thereto (**)<a class="headerlink" href="#capture-groups-and-references-thereto" title="Permalink to this headline"></a></h3>
+<p>Round-bracketed subexpressions (without the “<code class="docutils literal notranslate"><span class="pre">?:</span></code>” prefix)
 form the so-called <em>capture groups</em> that can be extracted separately or be
 referred to in other parts of the same regex.</p>
 <div class="section" id="extracting-capture-group-matches">
 <h4><span class="section-number">14.4.6.1. </span>Extracting Capture Group Matches<a class="headerlink" href="#extracting-capture-group-matches" title="Permalink to this headline"></a></h4>
 <p>The above is evident when we use <strong class="command">re.findall</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;name=&#39;Sir Launcelot&#39;, quest=&#39;Seek the Grail&#39;, favecolour=&#39;blue&#39;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;name=&#39;Sir Launcelot&#39;, quest=&#39;Seek Grail&#39;, favcolour=&#39;blue&#39;&quot;</span>
 <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)=&#39;(.+?)&#39;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [(&#39;name&#39;, &#39;Sir Launcelot&#39;), (&#39;quest&#39;, &#39;Seek the Grail&#39;), (&#39;favecolour&#39;, &#39;blue&#39;)]</span>
+<span class="c1">## [(&#39;name&#39;, &#39;Sir Launcelot&#39;), (&#39;quest&#39;, &#39;Seek Grail&#39;), (&#39;favcolour&#39;, &#39;blue&#39;)]</span>
 </pre></div>
 </div>
-<p>Simply returned the matches to the capture groups, not the whole matching
-substring.</p>
+<p>This returned the matches to the individual capture groups,
+not the whole matching substrings.</p>
 <p><strong class="command">re.find</strong> and <strong class="command">re.finditer</strong> can pinpoint each component:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)=&#39;(.+?)&#39;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;all (0):&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     1 :&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     2 :&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
-<span class="c1">## all (0): (0, 20, &quot;name=&#39;Sir Launcelot&#39;&quot;)</span>
-<span class="c1">##      1 : (0, 4, &#39;name&#39;)</span>
-<span class="c1">##      2 : (6, 19, &#39;Sir Launcelot&#39;)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;whole (0):&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;       1 :&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;       2 :&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+<span class="c1">## whole (0): (0, 20, &quot;name=&#39;Sir Launcelot&#39;&quot;)</span>
+<span class="c1">##        1 : (0, 4, &#39;name&#39;)</span>
+<span class="c1">##        2 : (6, 19, &#39;Sir Launcelot&#39;)</span>
 </pre></div>
 </div>
 <p>Here is a vectorised version  of the above from <strong class="program">pandas</strong>,
 returning the first match:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span>
     <span class="s2">&quot;name=&#39;Sir Launcelot&#39;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;quest=&#39;Seek the Grail&#39;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;favecolour=&#39;blue&#39;, favecolour=&#39;yel.. Aaargh!&#39;&quot;</span>
+    <span class="s2">&quot;quest=&#39;Seek Grail&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;favcolour=&#39;blue&#39;, favcolour=&#39;yel.. Aaargh!&#39;&quot;</span>
 <span class="p">])</span>
 <span class="n">y</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)=&#39;(.+?)&#39;&quot;</span><span class="p">)</span>
-<span class="c1">##             0               1</span>
-<span class="c1">## 0        name   Sir Launcelot</span>
-<span class="c1">## 1       quest  Seek the Grail</span>
-<span class="c1">## 2  favecolour            blue</span>
+<span class="c1">##            0              1</span>
+<span class="c1">## 0       name  Sir Launcelot</span>
+<span class="c1">## 1      quest     Seek Grail</span>
+<span class="c1">## 2  favcolour           blue</span>
 </pre></div>
 </div>
-<p>We see that the findings are presented in a data frame form.
-The first column gives the matches to the first
-capture group, and so forth.</p>
-<p>All matches are available too:</p>
+<p>We see that the findings are conveniently presented in the data frame form.
+The first column gives the matches to the first capture group.
+All matches can be extracted too:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)=&#39;(.+?)&#39;&quot;</span><span class="p">)</span>
-<span class="c1">##                   0               1</span>
-<span class="c1">##   match                            </span>
-<span class="c1">## 0 0            name   Sir Launcelot</span>
-<span class="c1">## 1 0           quest  Seek the Grail</span>
-<span class="c1">## 2 0      favecolour            blue</span>
-<span class="c1">##   1      favecolour   yel.. Aaargh!</span>
+<span class="c1">##                  0              1</span>
+<span class="c1">##   match                          </span>
+<span class="c1">## 0 0           name  Sir Launcelot</span>
+<span class="c1">## 1 0          quest     Seek Grail</span>
+<span class="c1">## 2 0      favcolour           blue</span>
+<span class="c1">##   1      favcolour  yel.. Aaargh!</span>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Recall that if we just need the grouping part of “<code class="docutils literal notranslate"><span class="pre">(...)</span></code>”, i.e., without the
@@ -1521,53 +1539,62 @@ capturing feature, “<code class="docutils literal notranslate"><span class="pr
 <div style="margin-top: 1em"></div><p>Also, named capture
 groups defined like “<code class="docutils literal notranslate"><span class="pre">(?P&lt;name&gt;...)</span></code>” are supported.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s2">&quot;(?:</span><span class="se">\\</span><span class="s2">w+)=&#39;(?P&lt;value&gt;.+?)&#39;&quot;</span><span class="p">)</span>
-<span class="c1">##             value</span>
-<span class="c1">## 0   Sir Launcelot</span>
-<span class="c1">## 1  Seek the Grail</span>
-<span class="c1">## 2            blue</span>
+<span class="c1">##            value</span>
+<span class="c1">## 0  Sir Launcelot</span>
+<span class="c1">## 1     Seek Grail</span>
+<span class="c1">## 2           blue</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="replacing-with-capture-group-matches">
 <h4><span class="section-number">14.4.6.2. </span>Replacing with Capture Group Matches<a class="headerlink" href="#replacing-with-capture-group-matches" title="Permalink to this headline"></a></h4>
-<p>Matches to particular capture groups can be recalled in replacement
-strings when using <strong class="command">re.sub</strong> and <strong class="command">pandas.Series.str.replace</strong>.
-Here, the match in its entirety is
+<p>When using <strong class="command">re.sub</strong> and <strong class="command">pandas.Series.str.replace</strong>,
+matches to particular capture groups can be recalled in replacement
+strings. The match in its entirety is
 denoted with “<code class="docutils literal notranslate"><span class="pre">\g&lt;0&gt;</span></code>”, then “<code class="docutils literal notranslate"><span class="pre">\g&lt;1&gt;</span></code>” stores whatever was caught by the first
 capture group, “<code class="docutils literal notranslate"><span class="pre">\g&lt;2&gt;</span></code>” is the match to the second capture group, etc.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\w+)=&#39;(.+?)&#39;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\g&lt;2&gt; is a \g&lt;1&gt;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## &#39;Sir Launcelot is a name, Seek the Grail is a quest, blue is a favecolour&#39;</span>
+<span class="c1">## &#39;Sir Launcelot is a name, Seek Grail is a quest, blue is a favcolour&#39;</span>
 </pre></div>
 </div>
 <p>Named capture groups can be referred to too:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?P&lt;key&gt;\w+)=&#39;(?P&lt;value&gt;.+?)&#39;&quot;</span><span class="p">,</span>
   <span class="sa">r</span><span class="s2">&quot;\g&lt;value&gt; is a \g&lt;key&gt;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## &#39;Sir Launcelot is a name, Seek the Grail is a quest, blue is a favecolour&#39;</span>
+<span class="c1">## &#39;Sir Launcelot is a name, Seek Grail is a quest, blue is a favcolour&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="back-referencing">
 <h4><span class="section-number">14.4.6.3. </span>Back-Referencing<a class="headerlink" href="#back-referencing" title="Permalink to this headline"></a></h4>
 <p>Matches to capture groups can also be part of the regexes themselves.
-For example, “<code class="docutils literal notranslate"><span class="pre">\1</span></code>” denotes whatever has been consumed by the first
-capture group.</p>
-<p>Even though, in general, parsing HTML code with regexes is not
-recommended, let us consider the following examples:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;&lt;strong&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/strong&gt;&lt;code&gt;eggs&lt;/code&gt;&quot;</span>
+In such a context, e.g., “<code class="docutils literal notranslate"><span class="pre">\1</span></code>” denotes whatever has been
+consumed by the first capture group.</p>
+<p>In general, parsing HTML code with regexes is not
+recommended, unless it is well-structured (which might be the case
+if it is generated programmatically; but we can always use the
+<strong class="program">lxml</strong> package).
+Despite this, let us consider the following examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/p&gt;&lt;code&gt;eggs&lt;/code&gt;&quot;</span>
 <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;[a-z]+&gt;.*?&lt;/[a-z]+&gt;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [&#39;&lt;strong&gt;&lt;em&gt;spam&lt;/em&gt;&#39;, &#39;&lt;code&gt;eggs&lt;/code&gt;&#39;]</span>
-<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(&lt;([a-z]+)&gt;.*?&lt;/\2&gt;)&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [(&#39;&lt;strong&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/strong&gt;&#39;, &#39;strong&#39;), (&#39;&lt;code&gt;eggs&lt;/code&gt;&#39;, &#39;code&#39;)]</span>
+<span class="c1">## [&#39;&lt;p&gt;&lt;em&gt;spam&lt;/em&gt;&#39;, &#39;&lt;code&gt;eggs&lt;/code&gt;&#39;]</span>
 </pre></div>
 </div>
-<p>The second regex guarantees that the match will include all characters
-between the opening <code class="docutils literal notranslate"><span class="pre">&lt;tag&gt;</span></code> and the corresponding (not: any) closing
-<code class="docutils literal notranslate"><span class="pre">&lt;/tag&gt;</span></code>. Named capture groups can be referenced using the <code class="docutils literal notranslate"><span class="pre">(?P=name)</span></code>
-syntax (the angle brackets are part of the token):</p>
+<p>This did not match the correct closing HTML tag.
+However, we can make this happen by writing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(&lt;([a-z]+)&gt;.*?&lt;/\2&gt;)&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="c1">## [(&#39;&lt;p&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/p&gt;&#39;, &#39;p&#39;), (&#39;&lt;code&gt;eggs&lt;/code&gt;&#39;, &#39;code&#39;)]</span>
+</pre></div>
+</div>
+<p>This regex guarantees that the match will include all characters
+between the opening “<code class="docutils literal notranslate"><span class="pre">&lt;tag&gt;</span></code>” and the corresponding (not: any) closing
+“<code class="docutils literal notranslate"><span class="pre">&lt;/tag&gt;</span></code>”.</p>
+<p>Named capture groups can be referenced using the “<code class="docutils literal notranslate"><span class="pre">(?P=name)</span></code>”
+syntax:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(&lt;(?P&lt;tagname&gt;[a-z]+)&gt;.*?&lt;/(?P=tagname)&gt;)&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1">## [(&#39;&lt;strong&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/strong&gt;&#39;, &#39;strong&#39;), (&#39;&lt;code&gt;eggs&lt;/code&gt;&#39;, &#39;code&#39;)]</span>
+<span class="c1">## [(&#39;&lt;p&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/p&gt;&#39;, &#39;p&#39;), (&#39;&lt;code&gt;eggs&lt;/code&gt;&#39;, &#39;code&#39;)]</span>
 </pre></div>
 </div>
+<p>The angle brackets are part of the token.</p>
 </div>
 </div>
 <div class="section" id="anchoring">
@@ -1578,9 +1605,15 @@ position within a string.</p>
 <h4><span class="section-number">14.4.7.1. </span>Matching at the Beginning or End of a String<a class="headerlink" href="#matching-at-the-beginning-or-end-of-a-string" title="Permalink to this headline"></a></h4>
 <p>“<code class="docutils literal notranslate"><span class="pre">^</span></code>” and “<code class="docutils literal notranslate"><span class="pre">$</span></code>” match, respectively, start and end of the string
 (or each line within a string, if the <code class="docutils literal notranslate"><span class="pre">re.MULTILINE</span></code> flag is set).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;spam egg&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;egg spam bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;sausage&quot;</span><span class="p">])</span>
-<span class="n">rs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;^spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam$&quot;</span><span class="p">,</span> <span class="s2">&quot;spam$|^spam&quot;</span><span class="p">,</span> <span class="s2">&quot;^spam$&quot;</span><span class="p">]</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">rs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;spam egg&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;egg spam bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;milk&quot;</span><span class="p">])</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;^spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam$&quot;</span><span class="p">,</span> <span class="s2">&quot;spam$|^spam&quot;</span><span class="p">,</span> <span class="s2">&quot;^spam$&quot;</span><span class="p">]</span>  <span class="c1"># regexes to test</span>
+</pre></div>
+</div>
+<p>The five regular expressions match “<code class="docutils literal notranslate"><span class="pre">spam</span></code>”, respectively, anywhere within
+the string, at the beginning, at the end, at the beginning or end, and
+in strings that are equal to the pattern itself.
+We can check this by calling:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">rs</span><span class="p">)</span>
 <span class="c1">##     spam  ^spam  spam$  spam$|^spam  ^spam$</span>
 <span class="c1">## 0   True   True  False         True   False</span>
 <span class="c1">## 1   True  False   True         True   False</span>
@@ -1589,10 +1622,7 @@ position within a string.</p>
 <span class="c1">## 4  False  False  False        False   False</span>
 </pre></div>
 </div>
-<p>The 5 regular expressions match “<code class="docutils literal notranslate"><span class="pre">spam</span></code>”, respectively, anywhere within
-the string, at the beginning, at the end, at the beginning or end, and
-in strings that are equal to the pattern itself.</p>
-<div class="proof proof-type-exercise" id="id20">
+<div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 14.6</span>
@@ -1602,68 +1632,37 @@ in strings that are equal to the pattern itself.</p>
 </div></div></div>
 <div class="section" id="matching-at-word-boundaries">
 <h4><span class="section-number">14.4.7.2. </span>Matching at Word Boundaries<a class="headerlink" href="#matching-at-word-boundaries" title="Permalink to this headline"></a></h4>
-<p>Furthermore, “<code class="docutils literal notranslate"><span class="pre">\b</span></code>” matches at a “word boundary”, e.g., near spaces,
+<p>What is more, “<code class="docutils literal notranslate"><span class="pre">\b</span></code>” matches at a “word boundary”, e.g., near spaces,
 punctuation marks, or at the start/end of a string (i.e., wherever there
 is a transition between a word, “<code class="docutils literal notranslate"><span class="pre">\w</span></code>”, and a non-word character,
 “<code class="docutils literal notranslate"><span class="pre">\W</span></code>”, or vice versa).</p>
 <p>In the following example, we match all stand-alone numbers
-(this regular expression is provided for didactic purposes only):</p>
+(this regular expression is imperfect, though):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[-+]?\b\d+(?:\.\d+)?\b&quot;</span><span class="p">,</span> <span class="s2">&quot;+12, 34.5, -5.3243&quot;</span><span class="p">)</span>
 <span class="c1">## [&#39;+12&#39;, &#39;34.5&#39;, &#39;-5.3243&#39;]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="looking-behind-and-ahead">
-<h4><span class="section-number">14.4.7.3. </span>Looking Behind and Ahead<a class="headerlink" href="#looking-behind-and-ahead" title="Permalink to this headline"></a></h4>
+<h4><span class="section-number">14.4.7.3. </span>Looking Behind and Ahead (**)<a class="headerlink" href="#looking-behind-and-ahead" title="Permalink to this headline"></a></h4>
 <p>There are also ways to guarantee that a pattern occurrence begins or
 ends with a match to some subexpression: “<code class="docutils literal notranslate"><span class="pre">(?&lt;=...)...</span></code>” is the
-so-called look-behind, whereas “<code class="docutils literal notranslate"><span class="pre">...(?=...)</span></code>” denotes the look-ahead.
-Moreover, “<code class="docutils literal notranslate"><span class="pre">(?&lt;!...)...</span></code>” and “<code class="docutils literal notranslate"><span class="pre">...(?!...)</span></code>” are their negated
-(“negative look-behind/ahead”) versions.</p>
+so-called <em>look-behind</em>, whereas “<code class="docutils literal notranslate"><span class="pre">...(?=...)</span></code>” denotes the <em>look-ahead</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;I like spam, spam, eggs, and spam.&quot;</span>
 <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b(?=[,.])&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="c1">## [&#39;spam&#39;, &#39;spam&#39;, &#39;eggs&#39;, &#39;spam&#39;]</span>
-<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b(?![,.])&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This regex captured words that end with a comma or a dot</p>
+<p>Moreover, “<code class="docutils literal notranslate"><span class="pre">(?&lt;!...)...</span></code>” and “<code class="docutils literal notranslate"><span class="pre">...(?!...)</span></code>” are their <em>negated</em>
+versions (negative look-behind/ahead).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b(?![,.])&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="c1">## [&#39;I&#39;, &#39;like&#39;, &#39;and&#39;]</span>
 </pre></div>
 </div>
-<p>The first regex captures words that end with “<code class="docutils literal notranslate"><span class="pre">,</span></code>” or “<code class="docutils literal notranslate"><span class="pre">.</span></code>”. The second
-one matches words that end neither with “<code class="docutils literal notranslate"><span class="pre">,</span></code>” nor “<code class="docutils literal notranslate"><span class="pre">.</span></code>”.</p>
-<div class="proof proof-type-exercise" id="id21">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 14.7</span>
-        
-    </div><div class="proof-content">
-<p>Write a regex that extracts
-all standalone numbers accepted by Python,
-including <code class="docutils literal notranslate"><span class="pre">12.123</span></code>, <code class="docutils literal notranslate"><span class="pre">-53</span></code>, <code class="docutils literal notranslate"><span class="pre">+1e-9</span></code>,
-<code class="docutils literal notranslate"><span class="pre">-1.2423e10</span></code>, <code class="docutils literal notranslate"><span class="pre">4.</span></code> and <code class="docutils literal notranslate"><span class="pre">.2</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 14.8</span>
-        
-    </div><div class="proof-content">
-<p>Write a regex that matches all email addresses.</p>
-</div></div><div class="proof proof-type-exercise" id="id23">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 14.9</span>
-        
-    </div><div class="proof-content">
-<p>Write a regex that matches all URLs
-starting with <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">https://</span></code>.</p>
-</div></div><div class="proof proof-type-exercise" id="id24">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 14.10</span>
-        
-    </div><div class="proof-content">
-<p>Cleanse the
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/warsaw_weather.csv"><code class="docutils literal notranslate"><span class="pre">warsaw_weather</span></code></a>
-dataset so that it contains analysable numeric data.</p>
-</div></div></div>
+<p>This time, we matched the words that end with neither
+a comma nor a dot.</p>
+</div>
 </div>
 </div>
 <div class="section" id="exercises">
@@ -1671,56 +1670,56 @@ dataset so that it contains analysable numeric data.</p>
 <div class="proof proof-type-exercise" id="id25">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.11</span>
+        <span class="proof-type">Exercise 14.7</span>
         
     </div><div class="proof-content">
 <p>List some ways to normalise character strings.</p>
 </div></div><div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.12</span>
+        <span class="proof-type">Exercise 14.8</span>
         
     </div><div class="proof-content">
-<p>(**) What are the challenges of processing non-English text?</p>
+<p>(**) What are the challenges of the processing of non-English text?</p>
 </div></div><div class="proof proof-type-exercise" id="id27">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.13</span>
+        <span class="proof-type">Exercise 14.9</span>
         
     </div><div class="proof-content">
 <p>What are the problems with the <code class="docutils literal notranslate"><span class="pre">&quot;[A-Za-z]&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;[A-z]&quot;</span></code> character sets?</p>
 </div></div><div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.14</span>
+        <span class="proof-type">Exercise 14.10</span>
         
     </div><div class="proof-content">
 <p>Name the two ways to turn on case-insensitive regex matching.</p>
 </div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.15</span>
+        <span class="proof-type">Exercise 14.11</span>
         
     </div><div class="proof-content">
 <p>What is a word boundary?</p>
 </div></div><div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.16</span>
+        <span class="proof-type">Exercise 14.12</span>
         
     </div><div class="proof-content">
 <p>What is the difference between the <code class="docutils literal notranslate"><span class="pre">&quot;^&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;$&quot;</span></code> anchors?</p>
 </div></div><div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.17</span>
+        <span class="proof-type">Exercise 14.13</span>
         
     </div><div class="proof-content">
 <p>When we would prefer using <code class="docutils literal notranslate"><span class="pre">&quot;[0-9]&quot;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&quot;\d&quot;</span></code>?</p>
 </div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.18</span>
+        <span class="proof-type">Exercise 14.14</span>
         
     </div><div class="proof-content">
 <p>What is the difference between the <code class="docutils literal notranslate"><span class="pre">&quot;?&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;??&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;*?&quot;</span></code>,
@@ -1728,18 +1727,52 @@ dataset so that it contains analysable numeric data.</p>
 </div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.19</span>
+        <span class="proof-type">Exercise 14.15</span>
         
     </div><div class="proof-content">
 <p>Does <code class="docutils literal notranslate"><span class="pre">&quot;.&quot;</span></code> match all the characters?</p>
 </div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 14.20</span>
+        <span class="proof-type">Exercise 14.16</span>
         
     </div><div class="proof-content">
 <p>What are named capture groups and how to refer to the matches
 thereto in <strong class="command">re.sub</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.17</span>
+        
+    </div><div class="proof-content">
+<p>Write a regex that extracts
+all standalone numbers accepted by Python,
+including <code class="docutils literal notranslate"><span class="pre">12.123</span></code>, <code class="docutils literal notranslate"><span class="pre">-53</span></code>, <code class="docutils literal notranslate"><span class="pre">+1e-9</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-1.2423e10</span></code>, <code class="docutils literal notranslate"><span class="pre">4.</span></code> and <code class="docutils literal notranslate"><span class="pre">.2</span></code>.</p>
+</div></div><div class="proof proof-type-exercise" id="id36">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.18</span>
+        
+    </div><div class="proof-content">
+<p>Write a regex that matches all email addresses.</p>
+</div></div><div class="proof proof-type-exercise" id="id37">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.19</span>
+        
+    </div><div class="proof-content">
+<p>Write a regex that matches all URLs
+starting with <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">https://</span></code>.</p>
+</div></div><div class="proof proof-type-exercise" id="id38">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 14.20</span>
+        
+    </div><div class="proof-content">
+<p>Cleanse the
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/warsaw_weather.csv"><code class="docutils literal notranslate"><span class="pre">warsaw_weather</span></code></a>
+dataset so that it contains analysable numeric data.</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="footunicode"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
@@ -1753,6 +1786,17 @@ GB18030 and Big5 (Chinese),
 EUC-KR (Korean),
 Shift-JIS and EUC-JP (Japanese), amongst others;
 they can be converted using the <strong class="command">str.decode</strong> method.</p>
+</dd>
+<dt class="label" id="footmarkup"><span class="brackets"><a class="fn-backref" href="#id7">2</a></span></dt>
+<dd><p>(*) Markdown is amongst many markup languages.
+Other learn-worthy ones include HTML (for the Web)
+and LaTeX (especially for beautiful
+typesetting of maths, print-ready articles and books, e.g., PDF;
+see <span id="id18">[<a class="reference internal" href="999-bibliography.html#id8">O+21</a>]</span> for a good introduction).</p>
+</dd>
+<dt class="label" id="footrun"><span class="brackets"><a class="fn-backref" href="#id8">3</a></span></dt>
+<dd><p>External programs can be executed using
+<strong class="command">subprocess.run</strong>.</p>
 </dd>
 </dl>
 </div>
@@ -1774,7 +1818,7 @@ they can be converted using the <strong class="command">str.decode</strong> meth
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-13T12:53:41+1000.
+        Last updated on 2022-07-13T15:48:55+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
