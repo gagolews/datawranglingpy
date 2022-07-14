@@ -270,10 +270,10 @@ are appreciated. Although available online, this is a whole course;
 it should be read from the beginning to the end.
 Refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
-<p>So far we have been mostly assuming that observations are of decent quality,
-i.e., trustworthy. It would be nice if in reality that was always the case,
-but it is not.</p>
-<p>In this section we briefly address the most basic
+<p>Up to now, we have been mostly assuming that observations
+are of decent quality, i.e., trustworthy. It would be nice if
+that was always the case, but it is not.</p>
+<p>In this chapter, we briefly address the most basic
 methods for dealing with <em>suspicious</em> observations:
 outliers, missing, censored, imprecise, and incorrect data.</p>
 <div class="section" id="missing-data">
@@ -316,7 +316,7 @@ in CSV files, e.g., with <code class="docutils literal notranslate"><span class=
 or <code class="docutils literal notranslate"><span class="pre">None</span></code>,  strings such as  <code class="docutils literal notranslate"><span class="pre">&quot;NA&quot;</span></code>,
 <code class="docutils literal notranslate"><span class="pre">&quot;N/A&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Not</span> <span class="pre">Applicable&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;---&quot;</span></code> – we should always inspect
 our datasets carefully.
-To assure consistent representation, it is a good idea to convert
+To assure consistent representation, we can convert
 them to <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (as in: <code class="docutils literal notranslate"><span class="pre">numpy.nan</span></code>) in numeric (floating-point)
 columns or to Python’s <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise.</p>
 <p>Vectorised functions such as <strong class="command">numpy.isnan</strong> (or, more generally,
@@ -363,7 +363,7 @@ and <strong class="command">pandas.DataFrameGroupBy.count</strong> methods.</p>
 <div class="section" id="computing-with-missing-values">
 <h3><span class="section-number">15.1.2. </span>Computing with Missing Values<a class="headerlink" href="#computing-with-missing-values" title="Permalink to this headline"></a></h3>
 <p>Our using <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to denote a missing
-piece of information is actually an ugly (but functional) hack<a class="footnote-reference brackets" href="#footrna" id="id1">1</a>.
+piece of information is merely an ugly (but functional) hack<a class="footnote-reference brackets" href="#footrna" id="id1">1</a>.
 The original use case for not-a-number is to represent
 the results of incorrect operations, e.g., logarithms of negative
 numbers or subtracting two infinite entities.
@@ -394,7 +394,7 @@ of <strong class="command">numpy.mean</strong> on a <code class="docutils litera
 </div>
 <p>This is quite an unfortunate behaviour, because this way we might
 miss (sic!) the presence of missing values.
-It is therefore very important have the dataset carefully
+It is therefore crucial to have the dataset carefully
 pre-inspected.</p>
 <div style="margin-top: 1em"></div><p>Also, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> is of the floating-point type.
 It cannot thus be present in, amongst others, logical vectors.
@@ -443,12 +443,12 @@ we need to do it manually:</p>
 <div class="section" id="missing-at-random-or-not">
 <h3><span class="section-number">15.1.3. </span>Missing at Random or Not?<a class="headerlink" href="#missing-at-random-or-not" title="Permalink to this headline"></a></h3>
 <p>At a general level (from the mathematical modelling perspective),
-we may distinguish between different missingness patterns; see <span id="id2">[<a class="reference internal" href="999-bibliography.html#id27">Rub76</a>]</span>:</p>
+we may distinguish between a few missingness patterns; see <span id="id2">[<a class="reference internal" href="999-bibliography.html#id27">Rub76</a>]</span>:</p>
 <ul class="simple">
 <li><p><em>missing completely at random</em>: reasons are unrelated to data
 and probabilities of cases’ being missing are all the same;</p></li>
 <li><p><em>missing at random</em>: there are different probabilities of being missing
-within different groups (e.g., ethical data scientists might
+within distinct groups (e.g., ethical data scientists might
 tend to refuse to answer specific questions);</p></li>
 <li><p><em>missing not at random</em>: due to reasons unknown to us
 (e.g., data was collected at different times,
@@ -459,7 +459,7 @@ about education or occupation).</p></li>
 </ul>
 <p>It is important to try to determine the reason for missingness,
 because this will usually imply the kinds of techniques that
-are more or less suitable in specific cases.</p>
+are suitable in specific cases.</p>
 </div>
 <div class="section" id="discarding-missing-values">
 <h3><span class="section-number">15.1.4. </span>Discarding Missing Values<a class="headerlink" href="#discarding-missing-values" title="Permalink to this headline"></a></h3>
@@ -533,7 +533,7 @@ it will artificially distort the data distribution
 for the histograms of <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">xi</span></code>, and <code class="docutils literal notranslate"><span class="pre">xg</span></code>.
 These effects can be obscured if we increase the histogram bins’
 widths, but they will still be present in the data.
-After all, we added to the sample many identical values.</p>
+No surprise here: we added to the sample many identical values.</p>
 <div class="figure align-default" id="id15">
 <span id="fig-mean-imputation"></span><img alt="../_images/mean-imputation-1.png" src="../_images/mean-imputation-1.png" />
 <p class="caption"><span class="caption-number">Figure 15.1 </span><span class="caption-text">Mean imputation distorts the data distribution</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
@@ -594,13 +594,13 @@ is above the recorded one (e.g., we stopped the experiment
 on the reliability of light bulbs after 1000 hours,
 so those which still work will not have their time-of-failure
 precisely known);</p></li>
-<li><p><em>left-censored</em> data: the actual observation is below
+<li><p><em>left-censored</em> data: the true observation is below
 the recorded one, e.g., we observe a component’s failure, but
 we do not know for how long it has been in operation before
 the study has started.</p></li>
 </ul>
 <p>Hence, in such cases, the recorded datum of, say, 1000,
-can actually mean <span class="math notranslate nohighlight">\([1000, \infty)\)</span>, <span class="math notranslate nohighlight">\([0, 1000]\)</span>, or <span class="math notranslate nohighlight">\((-\infty, 1000]\)</span>.</p>
+can essentially mean <span class="math notranslate nohighlight">\([1000, \infty)\)</span>, <span class="math notranslate nohighlight">\([0, 1000]\)</span>, or <span class="math notranslate nohighlight">\((-\infty, 1000]\)</span>.</p>
 <p>There might also be  instances where we know that a value
 is in some interval <span class="math notranslate nohighlight">\([a, b]\)</span>. There are numerical libraries
 that deal with <em>interval computations</em>, and some data analysis
@@ -626,11 +626,11 @@ constraints, e.g., negative ages, or heights of people over
 or deleted clients’ accounts);</p></li>
 </ul>
 <p>and so forth.</p>
-<p>In order to be able to identify and handle incorrect data, we need specific
+<p>To be able to identify and handle incorrect data, we need specific
 knowledge of a particular domain. Optimally, basic data validation
 techniques should already be employed on the data collection stage,
 for instance when a user submits an online form.</p>
-<p>There can be many tools that can assist us with identifying errorneous
+<p>There can be many tools that can assist us with identifying erroneous
 observations, e.g., spell checkers such as
 <a class="reference external" href="https://hunspell.github.io/"><strong class="program">hunspell</strong></a>.</p>
 <p>For smaller datasets, observations can also be manually inspected.
@@ -669,7 +669,7 @@ custom context-sensitive grammar.</p>
 <p>Once we import the data fetched from dirty sources, relevant information
 will have to be extracted from raw text,
 e.g., strings like <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code> should be converted to floating-point
-numbers. Below we suggest a number of tasks
+numbers. Below we suggest several tasks
 that can aid in developing data validation skills involving
 some operations on text.</p>
 <p>Given an example data frame with text columns
@@ -715,7 +715,7 @@ separately.
 In particular, there is a separate subfield in statistics
 called extreme value theory that is interested in predicting
 the distribution of very large observations (e.g., for modelling
-floods, extreme rainfall or temperatures, etc.); see, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id2">BGTS04</a>]</span>.
+floods, extreme rainfall, or temperatures); see, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id2">BGTS04</a>]</span>.
 But this is a topic for a more advanced course. By then, let
 us stick with simpler settings.</p>
 <div class="section" id="the-3-2-iqr-rule-for-normally-distributed-data">
@@ -730,9 +730,9 @@ cases are easily detectable. A data scientist is like a detective.</p>
 For data that are expected to come from a normal distribution,
 everything that does not fall into the interval
 <span class="math notranslate nohighlight">\([Q_1-1.5\mathrm{IQR}, Q_3+1.5\mathrm{IQR}]\)</span> can be considered
-suspicious. This definition
-is based on quartiles only, and thus should not be affected
-by potential outliers (they are robust aggregates).
+suspicious. This definition is based on quartiles only.
+Thus, it should not be affected by potential outliers
+(they are robust aggregates).
 Plus, the magic constant 1.5 is nicely round and thus easy to memorise
 (good for some practitioners). It is not too small and not too large;
 for the normal distribution N(μ, σ),
@@ -896,8 +896,8 @@ reveals that the data consist of two quite well-separable blobs:</p>
 <p class="caption"><span class="caption-number">Figure 15.5 </span><span class="caption-text">Scatterplot of the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
 </div>
 <p>There are a few observations that we might mark as outliers.
-Actually, yours truly injected eight junk points at the very end of the
-dataset. Ha.</p>
+The truth is that  yours truly injected eight junk points at the
+very end of the dataset. Ha.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:,</span> <span class="p">:]</span>
 <span class="c1">## array([[-3. ,  3. ],</span>
 <span class="c1">##        [ 3. ,  3. ],</span>
@@ -988,7 +988,7 @@ a sensible strategy?</p>
         <span class="proof-type">Exercise 15.16</span>
         
     </div><div class="proof-content">
-<p>What is the differences between data missing completely at random,
+<p>What are the differences between data missing completely at random,
 missing at random, and missing not at random?</p>
 </div></div><div class="proof proof-type-exercise" id="id33">
 
@@ -1046,7 +1046,7 @@ see <span id="id10">[<a class="reference internal" href="999-bibliography.html#i
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T13:15:50+1000.
+        Last updated on 2022-07-14T15:58:27+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

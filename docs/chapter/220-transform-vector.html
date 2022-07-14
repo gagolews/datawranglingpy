@@ -165,15 +165,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#cumulative-sums-and-iterated-differences">5.5.1. Cumulative Sums and Iterated Differences</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sorting">5.5.2. Sorting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dealing-with-tied-observations">5.5.3. Dealing with Tied Observations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#determining-the-ordering-permutation-and-ranking">5.5.4. Determining the Ordering Permutation and Ranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes-argmin-argmax">5.5.5. Searching for Certain Indexes (Argmin, Argmax)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dealing-with-round-off-and-measurement-errors">5.5.6. Dealing with Round-off and Measurement Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations-with-list-comprehensions">5.5.7. Vectorising Scalar Operations with List Comprehensions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#determining-the-ordering-permutation-and-ranking">5.6. Determining the Ordering Permutation and Ranking</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#searching-for-certain-indexes-argmin-argmax">5.6.1. Searching for Certain Indexes (Argmin, Argmax)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dealing-with-round-off-and-measurement-errors">5.6.2. Dealing with Round-off and Measurement Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#vectorising-scalar-operations-with-list-comprehensions">5.6.3. Vectorising Scalar Operations with List Comprehensions</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">5.7. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">5.6. Exercises</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="230-distribution.html">6. Continuous Probability Distributions</a></li>
@@ -589,7 +587,7 @@ data analysis results.
 And thus, in our case, we say that we are relying on
 the type-7 quantiles as described in <span id="id3">[<a class="reference internal" href="999-bibliography.html#id9">HF96</a>]</span>,
 see also <span id="id4">[<a class="reference internal" href="999-bibliography.html#id38">Gum39</a>]</span>.</p>
-<p>Actually, simply mentioning that our computations are done with
+<p>In fact, simply mentioning that our computations are done with
 <strong class="command">numpy</strong> version 1.xx (<a class="reference internal" href="110-setup.html#sec-init"><span class="std std-numref">Section 1.4</span></a>)
 implicitly implies that the default method parameters are used everywhere,
 unless otherwise stated.
@@ -606,11 +604,11 @@ will tell us how much <em>variability</em> is in our data.
 After all, when we say that the height of a group of people is 160 cm
 (on average) ± 14 cm (here, 2 standard deviations), the latter
 piece of information is a valuable addition
-(and is very different than the imaginary ± 4 cm case).</p>
+(and is very different from the imaginary ± 4 cm case).</p>
 <p>Some degree of variability might be good in certain contexts and bad in other
 ones. A bolt factory should keep the variance of the fasteners’
-diameters as low as possible – after all, this is how we define quality
-products (assuming that they all meet, on average, the required specification).
+diameters as low as possible: this is how we define quality products
+(assuming that they all meet, on average, the required specification).
 On the other hand, too much diversity in human behaviour, where everyone
 feels that they are special, is not really sustainable
 (but lack thereof would be extremely boring), and so forth.</p>
@@ -1165,7 +1163,7 @@ below the mean;</p></li>
 <p>and so forth.</p>
 <p>Because of the way they emerge,
 the mean of the z-scores is always 0 and standard deviation is 1
-(up to a tiny numerical error, as usual; see <a class="reference internal" href="#sec-fp-error"><span class="std std-numref">Section 5.6.2</span></a>):</p>
+(up to a tiny numerical error, as usual; see <a class="reference internal" href="#sec-fp-error"><span class="std std-numref">Section 5.5.6</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights_std</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights_std</span><span class="p">)</span>
 <span class="c1">## (1.8920872660373198e-15, 1.0)</span>
 </pre></div>
@@ -1654,9 +1652,8 @@ a given vector with duplicates removed.</p>
 that allows to pinpoint the indexes of the first occurrences
 of each unique value.</p>
 </div></div></div>
-</div>
 <div class="section" id="determining-the-ordering-permutation-and-ranking">
-<h2><span class="section-number">5.6. </span>Determining the Ordering Permutation and Ranking<a class="headerlink" href="#determining-the-ordering-permutation-and-ranking" title="Permalink to this headline"></a></h2>
+<h3><span class="section-number">5.5.4. </span>Determining the Ordering Permutation and Ranking<a class="headerlink" href="#determining-the-ordering-permutation-and-ranking" title="Permalink to this headline"></a></h3>
 <p><strong class="command">numpy.argsort</strong> returns a sequence of indexes that
 lead to an ordered version of a given vector
 (i.e., an ordering permutation).</p>
@@ -1718,8 +1715,9 @@ in fact generates its inverse. In particular,
 is equivalent to
 <strong class="command">scipy.stats.rankdata</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">method=&quot;ordinal&quot;)</span></code>.</p>
 </div>
+</div>
 <div class="section" id="searching-for-certain-indexes-argmin-argmax">
-<h3><span class="section-number">5.6.1. </span>Searching for Certain Indexes (Argmin, Argmax)<a class="headerlink" href="#searching-for-certain-indexes-argmin-argmax" title="Permalink to this headline"></a></h3>
+<h3><span class="section-number">5.5.5. </span>Searching for Certain Indexes (Argmin, Argmax)<a class="headerlink" href="#searching-for-certain-indexes-argmin-argmax" title="Permalink to this headline"></a></h3>
 <p><strong class="command">numpy.argmin</strong> and <strong class="command">numpy.argmax</strong> return the index at
 which we can find the smallest and the largest observation
 in a given vector.</p>
@@ -1764,7 +1762,7 @@ Write an expression that returns a randomly chosen index
 pinpointing one of the sample maxima.</p>
 </div></div></div>
 <div class="section" id="dealing-with-round-off-and-measurement-errors">
-<span id="sec-fp-error"></span><h3><span class="section-number">5.6.2. </span>Dealing with Round-off and Measurement Errors<a class="headerlink" href="#dealing-with-round-off-and-measurement-errors" title="Permalink to this headline"></a></h3>
+<span id="sec-fp-error"></span><h3><span class="section-number">5.5.6. </span>Dealing with Round-off and Measurement Errors<a class="headerlink" href="#dealing-with-round-off-and-measurement-errors" title="Permalink to this headline"></a></h3>
 <p>Mathematics tells us (the easy proof is left as an exercise to the reader)
 that a centred version of a given vector
 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{y} = \boldsymbol{x}-\bar{x}\)</span>,
@@ -1775,7 +1773,7 @@ has arithmetic mean 0, i.e., <span class="math notranslate nohighlight">\(\bar{y
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<p>Actually, the average is:</p>
+<p>The average is actually equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights_centred</span><span class="p">)</span>
 <span class="c1">## 1.3359078775153175e-14</span>
 </pre></div>
@@ -1836,11 +1834,11 @@ like <code class="docutils literal notranslate"><span class="pre">x</span> <span
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Our data are often imprecise by nature.
-When asked about people’s heights, rarely will they give a non-integer
+When asked about people’s heights, rarely will they provide a non-integer
 answer (assuming they know how tall they are and
-are not lying about it, but it is a different story) – we get data
-rounded to 0 decimal digits.
-Actually, in our dataset the precision is a bit higher:</p>
+are not lying about it, but it is a different story).
+We will most likely get data rounded to 0 decimal digits.
+In our dataset the precision is a bit higher:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>  <span class="c1"># preview</span>
 <span class="c1">## array([160.2, 152.7, 161.2, 157.4, 154.6, 144.7])</span>
 </pre></div>
@@ -1872,7 +1870,7 @@ rounding.</p>
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<p>This is because <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">0.1+0.1+0.1</span></code>, and <code class="docutils literal notranslate"><span class="pre">0.3</span></code> is actually
+<p>This is because <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">0.1+0.1+0.1</span></code>, and <code class="docutils literal notranslate"><span class="pre">0.3</span></code> is literally
 represented as, respectively:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="mf">0.1</span><span class="si">:</span><span class="s2">.19f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="mf">0.1</span><span class="o">+</span><span class="mf">0.1</span><span class="o">+</span><span class="mf">0.1</span><span class="si">:</span><span class="s2">.19f</span><span class="si">}</span><span class="s2">, and </span><span class="si">{</span><span class="mf">0.3</span><span class="si">:</span><span class="s2">.19f</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 <span class="c1">## 0.1000000000000000056, 0.3000000000000000444, and 0.2999999999999999889.</span>
@@ -1884,7 +1882,7 @@ inaccuracies is <span id="id16">[<a class="reference internal" href="999-bibliog
 for a more comprehensive treatment of numerical analysis.</p>
 </div>
 <div class="section" id="vectorising-scalar-operations-with-list-comprehensions">
-<span id="sec-list-comprehension"></span><h3><span class="section-number">5.6.3. </span>Vectorising Scalar Operations with List Comprehensions<a class="headerlink" href="#vectorising-scalar-operations-with-list-comprehensions" title="Permalink to this headline"></a></h3>
+<span id="sec-list-comprehension"></span><h3><span class="section-number">5.5.7. </span>Vectorising Scalar Operations with List Comprehensions<a class="headerlink" href="#vectorising-scalar-operations-with-list-comprehensions" title="Permalink to this headline"></a></h3>
 <p><em>List comprehensions</em> of the form
 <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">expression</span> </code><strong class="command">for</strong><code class="code docutils literal notranslate"> <span class="pre">name</span> </code><strong class="command">in</strong><code class="code docutils literal notranslate"> <span class="pre">iterable</span> <span class="pre">]</span></code>
 are part of base Python.
@@ -1965,7 +1963,7 @@ an empty list which will store the result).</p>
 </div></div></div>
 </div>
 <div class="section" id="exercises">
-<h2><span class="section-number">5.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
+<h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
 <div class="proof proof-type-exercise" id="id48">
 
     <div class="proof-title">
@@ -2190,7 +2188,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T13:15:50+1000.
+        Last updated on 2022-07-14T15:58:27+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

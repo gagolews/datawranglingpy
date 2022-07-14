@@ -150,7 +150,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#semitransparent-histograms">12.2.3. Semitransparent Histograms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scatterplots-with-group-information">12.2.4. Scatterplots with Group Information</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#grid-trellis-plots">12.2.5. Grid (Trellis) Plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#comparing-two-ecdfs-with-the-kolmogorovsmirnov-test">12.2.6. Comparing Two ECDFs with the Kolmogorov–Smirnov Test (*)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-ecdfs-with-the-kolmogorovsmirnov-test">12.2.6. Comparing ECDFs with the Kolmogorov–Smirnov Test (*)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#comparing-quantiles">12.2.7. Comparing Quantiles</a></li>
 </ul>
 </li>
@@ -443,7 +443,7 @@ for an example.</p>
 </div></div><div class="section" id="aggregating-data-in-groups">
 <h3><span class="section-number">12.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
-with a number of well-known aggregation functions, for example:</p>
+with several well-known aggregation functions. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender        age     weight      height     bmival</span>
 <span class="c1">## 0  female  48.956580  78.351839  160.089189  30.489189</span>
@@ -546,7 +546,7 @@ in both groups are equal to 0 and 1:</p>
 <span class="c1">## male    173.759541  7.701323  3.145329e-16  1.0</span>
 </pre></div>
 </div>
-<p>Interestingly, it is possibly a bug in <strong class="program">pandas</strong> that
+<p>Interestingly, it is likely a bug in <strong class="program">pandas</strong> that
 <code class="docutils literal notranslate"><span class="pre">groupby(&quot;gender&quot;).aggregate([np.std])</span></code> somewhat passes <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>
 to <strong class="command">numpy.std</strong>, hence our using a custom function.</p>
 <div class="proof proof-type-exercise" id="id28">
@@ -584,7 +584,7 @@ We see that when iterating through a <code class="docutils literal notranslate">
 we get access to pairs giving all the levels of the grouping
 variable and the subsets of the input data frame
 corresponding to these categories.</p>
-<p>Here is a very simple example of making use of the above fact:</p>
+<p>Here is a simple example where we make use of the above fact:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
     <span class="c1"># level is a string label</span>
     <span class="c1"># df is a data frame - we can do whatever we want</span>
@@ -596,8 +596,8 @@ corresponding to these categories.</p>
 <p>We see that splitting and followed by manual processing of the chunks
 in a loop is quite tedious in case where we would like to compute
 merely some basic aggregates.
-These scenarios are very common, no wonder why the <strong class="program">pandas</strong>
-developers came up with an additional, convenience interface
+These scenarios are extremely common. No wonder why the <strong class="program">pandas</strong>
+developers introduced an additional, convenience interface
 in the form of the <strong class="command">pandas.DataFrame.groupby</strong>
 and <strong class="command">pandas.Series.groupby</strong> methods and the <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code> classes.
@@ -747,7 +747,7 @@ Check <code class="docutils literal notranslate"><span class="pre">ylim</span></
 <div class="section" id="series-of-bar-plots">
 <h3><span class="section-number">12.2.2. </span>Series of Bar Plots<a class="headerlink" href="#series-of-bar-plots" title="Permalink to this headline"></a></h3>
 <p>In <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 12.2</span></a>, on the other hand,
-we have a bar plot representing a two way contingency table
+we have a bar plot representing a contingency table
 (obtained in a different way than in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;counts&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bmicat&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">,</span>
@@ -854,8 +854,8 @@ so far (e.g., histograms, bar plots, scatterplots).</p>
 <p>Draw a trellis plot with scatterplots of weight vs height
 grouped by BMI category and gender.</p>
 </div></div></div>
-<div class="section" id="comparing-two-ecdfs-with-the-kolmogorovsmirnov-test">
-<span id="sec-ks-test2"></span><h3><span class="section-number">12.2.6. </span>Comparing Two ECDFs with the Kolmogorov–Smirnov Test (*)<a class="headerlink" href="#comparing-two-ecdfs-with-the-kolmogorovsmirnov-test" title="Permalink to this headline"></a></h3>
+<div class="section" id="comparing-ecdfs-with-the-kolmogorovsmirnov-test">
+<span id="sec-ks-test2"></span><h3><span class="section-number">12.2.6. </span>Comparing ECDFs with the Kolmogorov–Smirnov Test (*)<a class="headerlink" href="#comparing-ecdfs-with-the-kolmogorovsmirnov-test" title="Permalink to this headline"></a></h3>
 <p><a class="reference internal" href="#fig-ecdf-weight-usborn"><span class="std std-numref">Figure 12.6</span></a> compares the empirical
 cumulative distribution functions of the weight distributions
 for US and non-US born participants.</p>
@@ -1109,10 +1109,9 @@ i.e., assign it the label that most frequently occurs
 amongst its <span class="math notranslate nohighlight">\(k\)</span> nearest neighbours.
 If a mode is nonunique, resolve the ties, for example, at random.</p></li>
 </ol>
-<p>It is thus a very similar algorithm to
-<em>k</em>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>),
-where we replaced the <em>quantitative</em> mean with
-the <em>qualitative</em> mode.</p>
+<p>It is thus a similar algorithm to
+<em>k</em>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>).
+We only replaced the <em>quantitative</em> mean with the <em>qualitative</em> mode.</p>
 <p>This is a variation on the theme: if you don’t know what to do
 in a given situation, try to mimic what most of the other people around you
 are doing. Or, if you don’t know what to think about a particular wine,
@@ -1135,7 +1134,7 @@ Thus, first we compute the z-scores for the training set:</p>
 </pre></div>
 </div>
 <p>Let us stress that they are based on the aggregates computed
-for the training set. This is an good example of a situation where
+for the training set. This is a good example of a situation where
 we cannot simply use a built-in method from <strong class="command">pandas</strong>.
 Instead, we apply what we have learned about <strong class="command">numpy</strong>.</p>
 <p>To make the predictions, we will use the following function:</p>
@@ -1163,7 +1162,7 @@ each point in the test set.</p>
 <p class="admonition-title">Note</p>
 <p>Unfortunately, <strong class="command">scipy.stats.mode</strong> does not resolve the possible
 ties at random. Nevertheless, in our case, <span class="math notranslate nohighlight">\(k\)</span> is odd and the number
-of possible classes is <span class="math notranslate nohighlight">\(l=2\)</span>, therefore the mode is always unique.</p>
+of possible classes is <span class="math notranslate nohighlight">\(l=2\)</span>. Therefore, the mode is always unique.</p>
 </div>
 <p><a class="reference internal" href="#fig-knn-class"><span class="std std-numref">Figure 12.9</span></a> shows how nearest neighbour classification
 categorises different regions of a section of the two-dimensional
@@ -1253,7 +1252,7 @@ in terms of the distribution of label counts:</p>
 <span class="c1">## dtype: int64</span>
 </pre></div>
 </div>
-<p>It turns out that the majority of wines (639 out of 1000)
+<p>It turns out that the majority of the wines (639 out of 1000)
 in our sample are <em>truly</em> good.
 Therefore, a dummy classifier which labels <em>all</em> the wines as great
 would have accuracy of ca. 64%. Our <em>k</em>-nearest neighbour approach
@@ -1312,9 +1311,9 @@ into account:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Accuracy}(\boldsymbol{y}', \hat{\boldsymbol{y}}') =
-\frac{\text{TN}+\text{TP}}{\text{TN}+\text{TP}+\text{FN}+\text{FP}},
+\frac{\text{TN}+\text{TP}}{\text{TN}+\text{TP}+\text{FN}+\text{FP}}.
 \]</div>
-<p>and thus might not be a good metric in imbalanced classification problems.</p>
+<p>Thus, it might not be a good metric in imbalanced classification problems.</p>
 <p>There are, fortunately, some more meaningful measures in the case where
 class 1 is less prevalent and where mispredicting it is considered
 more hazardous than making an inaccurate prediction with respect to class 0.
@@ -1322,9 +1321,9 @@ This is because most will agree that it is better to be surprised
 by a vino mislabelled as bad, than be disappointed with
 a highly recommended product where we have already
 built some expectations around it.
-Further, not getting diagnosed as having COVID-19 where we actually
-are sick can be more dangerous for the people around us than
-being asked to stay at home with nothing but a headache after all.</p>
+Further, not getting diagnosed as having COVID-19 where we are genuinely
+sick can be more dangerous for the people around us than
+being asked to stay at home with nothing but a headache.</p>
 <div style="margin-top: 1em"></div><p><em>Precision</em> answers the question: If the classifier outputs <span class="math notranslate nohighlight">\(1\)</span>,
 what is the probability that this is indeed true?</p>
 <div class="math notranslate nohighlight">
@@ -1343,7 +1342,7 @@ what is the probability that this is indeed true?</p>
 </pre></div>
 </div>
 <p>Thus, in 73% cases, when a classifier labels a vino as bad,
-it is actually undrinkable.</p>
+it is veritably undrinkable.</p>
 <div style="margin-top: 1em"></div><p><em>Recall</em> (sensitivity, hit rate, or true positive rate)
 addresses the question:
 If the true class is 1, what is the probability that the classifier
@@ -1408,8 +1407,8 @@ aggregated into a single number:</p>
 <span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into Training and Test Sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Permalink to this headline"></a></h3>
 <p>The training set which was used as a source of knowledge about our
 problem domain. The <em>k</em>-nearest neighbour classifier is technically
-<em>model-free</em>, therefore to generate a new prediction, we need
-to be able to query all the points in the database – they must be at hand
+<em>model-free</em>. Therefore, to generate a new prediction, we need
+to be able to query all the points in the database. They must be at hand
 at all times.</p>
 <p>Most statistical/machine learning algorithms, however, by construction,
 generalise the patterns discovered in the dataset in the form
@@ -1422,7 +1421,7 @@ would be a conceptually similar classifier, but it is beyond
 our introductory course.</p>
 <p>Either way, we used a separate <em>test set</em> to verify the quality
 of our classifier on so-far <em>unobserved</em> data, i.e., its <em>predictive</em>
-capabilities. After all, we do not want our model to overfit to training
+capabilities. This is because we do not want our model to overfit to training
 data and be completely useless when filling the gaps between
 the points it was exposed to. This is like being a student who
 can only repeat what the teacher says, and when faced with a slightly
@@ -1436,8 +1435,8 @@ phase is complete.</p>
 </div>
 <div class="section" id="validating-many-models-parameter-selection">
 <span id="sec-model-validation"></span><h3><span class="section-number">12.3.4. </span>Validating Many Models (Parameter Selection) (*)<a class="headerlink" href="#validating-many-models-parameter-selection" title="Permalink to this headline"></a></h3>
-<p>When trying to come up with a good solution to a given task,
-there usually are many <em>hyperparameters</em> that should be tweaked, for example:</p>
+<p>In statistical modelling, there usually are many
+<em>hyperparameters</em> that should be tweaked. For example:</p>
 <ul class="simple">
 <li><p>which independent variables should be used for model building,</p></li>
 <li><p>how they should be preprocessed; e.g., which of them should be
@@ -1446,9 +1445,9 @@ standardised,</p></li>
 thereof; for instance, which <em>k</em> should we use in the <em>k</em>-nearest
 neighbours search.</p></li>
 </ul>
-<p>At initial stages of data analysis, we usually tune them up by trial and error.
-Later, but this is already beyond the scope of this introductory course,
-we are used to exploring all the possible combinations thereof
+<p>At initial stages of data analysis, we usually tune them up by trial and
+error. Later, but this is already beyond the scope of this introductory
+course, we are used to exploring all the possible combinations thereof
 (exhaustive grid search) or making use of some local search-based
 heuristics (e.g., greedy optimisers such as hill climbing).</p>
 <p>These always involve verifying the performance of <em>many</em> different classifiers,
@@ -1477,10 +1476,10 @@ We can validate different regression
 models in the same way.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Test (hold-out) sample must neither be used in the training
-nor in the validation phase (no cheating). After all, we would like
-to obtain a good estimate of a classifier’s performance on
-previously unobserved data.</p>
+<p>We would like  to obtain a good estimate of a classifier’s performance on
+previously unobserved data.
+Therefore, test (hold-out) sample must neither be used in the training
+nor in the validation phase (no cheating).</p>
 </div>
 <div class="proof proof-type-exercise" id="id52">
 
@@ -1564,8 +1563,8 @@ obtained by a 5-fold cross-validation.</p>
 </div>
 <div class="section" id="clustering-tasks">
 <span id="sec-kmeans"></span><h2><span class="section-number">12.4. </span>Clustering Tasks<a class="headerlink" href="#clustering-tasks" title="Permalink to this headline"></a></h2>
-<p>So far we have been implicitly assuming that either
-each dataset comes from a single homogeneous distribution
+<p>So far, we have been implicitly assuming that either
+each dataset comes from a single homogeneous distribution,
 or we have a categorical variable that naturally defines the
 groups that we can split the dataset into.
 However, it might be the case that we are given a sample coming from
@@ -1620,8 +1619,8 @@ into <em>k</em> nonempty, mutually disjoint subsets.</p>
 \]</div>
 <p>And this is why we refer to the above objective function
 as the (total) <em>within-cluster sum of squares</em> (WCSS).
-This problems looks easier, but let us not be tricked;
-<span class="math notranslate nohighlight">\(l_i\)</span>s depend on <span class="math notranslate nohighlight">\(\boldsymbol{c}_j\)</span>s and thus they vary together.
+This problem looks easier, but let us not be tricked;
+<span class="math notranslate nohighlight">\(l_i\)</span>s depend on <span class="math notranslate nohighlight">\(\boldsymbol{c}_j\)</span>s. Thus, they vary together.
 We have just made it less explicit.</p>
 <p>It can be shown that given a fixed label vector
 <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> representing a partitioning,
@@ -1767,12 +1766,10 @@ In other words, the search for the <em>truly</em>
 <em>n</em> and <em>k</em>.</p>
 <p>Therefore, we must rely on some approximate algorithms
 which all have one drawback in common. Namely, whatever they return
-can actually be a <em>suboptimal</em>, and hence possibly meaningless,
+can be <em>suboptimal</em>, and hence possibly meaningless,
 solution.</p>
-<p>The documentation of <strong class="command">scipy.cluster.vq.kmeans2</strong> is honest about it
-(after all, it is a package made by people with PhDs in STEM, not
-working for marketing divisions of some greedy corporations),
-stating that the method <em>attempts to minimise the
+<p>The documentation of <strong class="command">scipy.cluster.vq.kmeans2</strong> is of course
+honest about it. It states that the method <em>attempts to minimise the
 Euclidean distance between observations and centroids</em>.
 Further, <strong class="command">sklearn.cluster.KMeans</strong>, implementing a similar algorithm,
 mentions that the procedure <em>is very fast […], but it falls in local minima.
@@ -1918,7 +1915,7 @@ this time from a different starting point:</p>
 it might as well have been worse). But is it the best possible?
 Again, we cannot tell, alone in the dark.</p>
 <p>Does a potential suboptimality affect the way the data points are grouped?
-It is indeed the case here. Let us take a look at the contingency
+It is indeed the case here. Let us look at the contingency
 table for the two label vectors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="n">l2</span><span class="p">))</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## l2   0   1   2</span>
@@ -1930,7 +1927,7 @@ table for the two label vectors:</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Clusters are actually unordered.
+<p>Clusters are essentially unordered.
 The label vector <span class="math notranslate nohighlight">\((1, 1, 2, 2, 1, 3)\)</span> represents
 the same clustering as the label vectors <span class="math notranslate nohighlight">\((3, 3, 2, 2, 3, 1)\)</span>
 and <span class="math notranslate nohighlight">\((2, 2, 3, 3, 2, 1)\)</span>.</p>
@@ -1949,7 +1946,7 @@ result:</p>
 <span class="c1">## 2     8   0  43</span>
 </pre></div>
 </div>
-<p>Much better. And so it turns out that 8+6+1 countries
+<p>Much better. It turns out that 8+6+1 countries
 are categorised differently.
 We would definitely not want to initiate any diplomatic crisis because
 of our not knowing that the above algorithm might return
@@ -1965,7 +1962,7 @@ suboptimal solutions.</p>
 <div class="section" id="random-restarts">
 <h3><span class="section-number">12.4.5. </span>Random Restarts<a class="headerlink" href="#random-restarts" title="Permalink to this headline"></a></h3>
 <p>There will never be any guarantees, but we can increase
-the probability of generating a good solution by simply
+the probability of generating a satisfactory solution by simply
 restarting the method multiple times from many randomly chosen points
 and picking the best<a class="footnote-reference brackets" href="#footkmeansdoesntmatter" id="id14">9</a> solution
 (the one with the smallest WCSS)
@@ -1991,9 +1988,9 @@ is:</p>
 <span class="c1">##        [6.31794579, 3.12048584, 3.84519706]])</span>
 </pre></div>
 </div>
-<p>Actually, they are the same as <code class="docutils literal notranslate"><span class="pre">C2</span></code> above (up to a permutation of
+<p>They are the same as <code class="docutils literal notranslate"><span class="pre">C2</span></code> above (up to a permutation of
 labels). We were lucky<a class="footnote-reference brackets" href="#footlucky" id="id15">10</a>, after all.</p>
-<p>It is very educational to take a look at the distribution of the
+<p>It is very educational to look at the distribution of the
 objective function at the identified local minima to see
 that, proportionally, in the case of this dataset
 it is not rare to end up in a quite bad solution;
@@ -2094,7 +2091,7 @@ following cluster centres which are close to the global minimum.</p>
 <p>An overall good introduction to classification is <span id="id17">[<a class="reference internal" href="999-bibliography.html#id52">HTF17</a>]</span>
 and <span id="id18">[<a class="reference internal" href="999-bibliography.html#id53">Bis06</a>]</span>.
 However, as we said earlier, we recommend going through
-a solid course in matrix algebra and probability and statistics
+a solid course in matrix algebra and mathematical statistics
 first, e.g., <span id="id19">[<a class="reference internal" href="999-bibliography.html#id74">DFO20</a>, <a class="reference internal" href="999-bibliography.html#id133">Gen17</a>]</span>
 and <span id="id20">[<a class="reference internal" href="999-bibliography.html#id44">DKLM05</a>, <a class="reference internal" href="999-bibliography.html#id47">Gen09</a>, <a class="reference internal" href="999-bibliography.html#id42">Gen20</a>]</span>.
 For advanced theoretical (probabilistic, information-theoretic) results,
@@ -2103,7 +2100,7 @@ see, e.g., <span id="id21">[<a class="reference internal" href="999-bibliography
 (see, e.g., <span id="id22">[<a class="reference internal" href="999-bibliography.html#id84">Gag21</a>, <a class="reference internal" href="999-bibliography.html#id112">Mul11</a>]</span>)
 are also noteworthy, because they do not require
 asking for a fixed number of clusters.
-Furthermore, density-based (DBSCAN) algorithms
+Furthermore, density based algorithms (DBSCAN and its variants)
 <span id="id23">[<a class="reference internal" href="999-bibliography.html#id86">CMZS15</a>, <a class="reference internal" href="999-bibliography.html#id87">EKSX96</a>, <a class="reference internal" href="999-bibliography.html#id88">Lin73</a>]</span>
 utilise the notion of fixed-radius search that we have introduced
 in <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
@@ -2216,13 +2213,13 @@ Note that it has a slightly different functionality
 from <strong class="command">pandas.DataFrame.mean</strong> and <strong class="command">pandas.Series.mean</strong>,
 which all needed to be implemented separately so that we can
 use them in complex operation chains.
-This is despite the fact that they all
+This is despite they all
 call the underlying <strong class="command">numpy.mean</strong> function.
 Object-oriented programming has its pros (more expressive syntax)
 and cons (sometimes more redundancy in the API design).</p>
 </dd>
 <dt class="label" id="footintroalgs"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p>Remember that this is an introductory course
+<dd><p>Remember that this is an introductory course,
 and we are still being very generous here.
 We encourage the readers to upskill themselves (later, of course)
 not only in mathematics, but also in programming
@@ -2246,7 +2243,7 @@ In sparsely populated regions, the decision might be
 its minimum <span class="math notranslate nohighlight">\(\le\)</span> its harmonic mean <span class="math notranslate nohighlight">\(\le\)</span> its arithmetic mean.</p>
 </dd>
 <dt class="label" id="footkmeans"><span class="brackets"><a class="fn-backref" href="#id10">7</a></span></dt>
-<dd><p>Of course we do not have to denote the number of clusters
+<dd><p>We do not have to denote the number of clusters
 with <em>k</em>: we could be speaking about the 2-means, 3-means,
 <em>l</em>-means, or <em>ę</em>-means method too. Nevertheless,
 some mainstream practitioners consider <em>k-means</em> as a kind of a
@@ -2298,7 +2295,7 @@ that data analysts only stick with the default arguments.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T13:15:50+1000.
+        Last updated on 2022-07-14T15:58:27+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

@@ -533,7 +533,7 @@ that will yield the same correlation value.</p>
 <div class="section" id="correlation-is-not-causation">
 <h4><span class="section-number">9.1.1.5. </span>Correlation Is Not Causation<a class="headerlink" href="#correlation-is-not-causation" title="Permalink to this headline"></a></h4>
 <p>A high correlation degree (either positive or negative) does not
-mean that there is any <em>casual</em> relationship between the two variables.
+mean that there is any <em>causal</em> relationship between the two variables.
 We cannot say that having large arm circumference affects hip size
 or the other way around. There might be some <em>latent</em> variable
 that influences these two (e.g., maybe also related to weight?).</p>
@@ -642,7 +642,7 @@ one.</p>
 on nonlinearly transformed versions of variables,
 e.g., logarithms (remember incomes?), squares, square roots, etc.</p>
 <p>Let us consider an excerpt from the 2020 CIA
-<a class="reference external" href="https://www.cia.gov/library/publications/the-world-factbook/docs/rankorderguide.html">World Factbook</a>,
+<a class="reference external" href="https://www.cia.gov/the-world-factbook/">World Factbook</a>,
 where we have data on gross domestic product per capita (based
 on purchasing power parity) and life expectancy at birth in many countries.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -871,14 +871,14 @@ at the domain boundaries (here: in the left and right part of the plots).</p>
 <p class="admonition-title">Note</p>
 <p>(**) Some methods use weighted arithmetic means for aggregating the
 <em>k</em> reference outputs, with weights inversely proportional
-to the actual distances to the neighbours (closer inputs are
+to the distances to the neighbours (closer inputs are
 considered more important).</p>
 <p>Also, instead of few nearest neighbours, we can
 easily implement some form of fixed-radius search regression
 (compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>),
 by simply replacing <span class="math notranslate nohighlight">\(N_k(\boldsymbol{x}')\)</span>
 with <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span>. However, note that this way we might
-make the function undefined in sparsely-populated regions of the domain.</p>
+make the function undefined in sparsely populated regions of the domain.</p>
 </div>
 </div>
 <div class="section" id="from-data-to-linear-models">
@@ -887,7 +887,7 @@ make the function undefined in sparsely-populated regions of the domain.</p>
 <em>k</em>-nearest neighbours regression requires
 that the training sample is available at all times.
 It does not <em>synthesise</em> or <em>simplify</em> the inputs;
-instead, it works as a kind of a black-box.
+instead, it works as a kind of a black box.
 If we were to provide a mathematical equation for the generated
 prediction, it would be disgustingly long and obscure.</p>
 <p>In such cases, to emphasise that <span class="math notranslate nohighlight">\(f\)</span> is dependent on the training sample,
@@ -961,7 +961,7 @@ the <em>sum of squared residuals</em> (true minus predicted outputs):</p>
 \]</div>
 <p>which is a function of <span class="math notranslate nohighlight">\(\boldsymbol{c}=(c_1,\dots,c_m)\)</span>
 (for fixed <span class="math notranslate nohighlight">\(\mathbf{X},\mathbf{y}\)</span>).</p>
-<p>And thus the <em>least squares</em> solution to the stated linear
+<p>The <em>least squares</em> solution to the stated linear
 regression problem will be defined by the coefficient vector <span class="math notranslate nohighlight">\(\boldsymbol{c}\)</span>
 that minimises the SSR.
 Based on what we said about matrix multiplication,
@@ -1066,7 +1066,7 @@ The optimal coefficients vector (the one that minimises the SSR) is:</p>
 <p>Let us contemplate the fact that the model is nicely interpretable.
 For instance, as hip circumference increases, we expect the weights
 to be greater and greater.
-As we said before, it does not mean that there is some <em>casual</em>
+As we said before, it does not mean that there is some <em>causal</em>
 relationship between the two (for instance, there can be some
 latent variables that affect both of them).
 Instead, there is some general tendency regarding
@@ -1281,7 +1281,7 @@ independent variables, arm and hip circumference:</p>
 <div class="math notranslate nohighlight">
 \[\text{weight} = 1.3\, \text{arm circumference} + 0.9\, \text{hip circumference}  -63.38 .\]</div>
 <p>We skip the visualisation part, because we do not expect it to result
-in a readable plot – these are multidimensional data after all.
+in a readable plot: these are multidimensional data.
 The coefficient of determination is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">c</span> <span class="o">@</span> <span class="n">X_train</span><span class="o">.</span><span class="n">T</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">y_train</span> <span class="o">-</span> <span class="n">y_pred</span>
@@ -1464,8 +1464,8 @@ a popular measure given by</p>
 <p>We should also be interested in a model’s <em>predictive</em> power –
 how well does it generalise to data points that we do not have now
 (or pretend we do not have), but might face in the future.
-After all, we observe the modelled reality only at a few
-different points – the question is how the model performs
+As we observe the modelled reality only at a few
+different points, the question is how the model performs
 when filling the gaps between the dots it connects.</p>
 <p>In particular, we should definitely be careful when <em>extrapolating</em>
 the data, i.e., making predictions outside of its usual domain.
@@ -1609,7 +1609,7 @@ at sufficiently many points and applying the trapezoidal rule
 ability to make correct generalisations onto unseen data, with the increased
 complexity initially improves, but then becomes worse. It is quite
 a typical behaviour. In fact, the model with the smallest RMSE on the
-training set, actually <em>overfits</em> to the input sample,
+training set, <em>overfits</em> to the input sample,
 see <a class="reference internal" href="#fig-true-model-vs-polynomials"><span class="std std-numref">Figure 9.14</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">_x</span><span class="p">,</span> <span class="n">true_model</span><span class="p">(</span><span class="n">_x</span><span class="p">),</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;true model&quot;</span><span class="p">)</span>
@@ -1652,7 +1652,7 @@ model’s valuation to assure its usefulness/uselessness
 be applied. The fact that we fitted something using a sophisticated
 procedure on a dataset that was hard to obtain does not justify
 its use.
-Mediocre models must be discarded and we should move on,
+Mediocre models must be discarded, and we should move on,
 regardless of how much time/resources we have invested whilst
 developing them.
 Too many bad models go into production and make our daily lives harder.
@@ -1699,8 +1699,8 @@ parameters.</p>
 <span class="c1">## (-63.383425410947524, array([1.30457807, 0.8986582 ]))</span>
 </pre></div>
 </div>
-<p>We obtained the same solution as with <strong class="command">scipy.linalg.lstsq</strong>.
-After all, it is the same method.</p>
+<p>We obtained the same solution as with <strong class="command">scipy.linalg.lstsq</strong>:
+it uses the same algorithm.</p>
 <p>Computing the predicted values can be done via the
 <strong class="command">predict</strong> method.
 For example, we can calculate the coefficient of determination:</p>
@@ -1724,7 +1724,7 @@ And this is despite the fact that we have the theoretical
 results stating that the solution is unique<a class="footnote-reference brackets" href="#footunique" id="id13">10</a>
 (the objective is convex).
 The problem stems from our using the computer’s finite-precision
-floating point arithmetic (compare <a class="reference internal" href="220-transform-vector.html#sec-fp-error"><span class="std std-numref">Section 5.6.2</span></a>).</p>
+floating point arithmetic (compare <a class="reference internal" href="220-transform-vector.html#sec-fp-error"><span class="std std-numref">Section 5.5.6</span></a>).</p>
 <div style="margin-top: 1em"></div><p>Let us fit a degree-4 polynomial to the life expectancy vs per capita GDP
 dataset.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_original</span> <span class="o">=</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
@@ -1744,12 +1744,12 @@ First, <strong class="command">scipy</strong>:</p>
 </pre></div>
 </div>
 <p>If we drew the fitted polynomial now (see <a class="reference internal" href="#fig-ill-cond"><span class="std std-numref">Figure 9.15</span></a>),
-we would see that the fit is actually unbelievably bad.
+we would see that the fit is unbelievably bad.
 The result returned by <strong class="command">scipy.linalg.lstsq</strong> in this case
 is not at all optimal. All coefficients are approximately equal to 0.</p>
 <div style="margin-top: 1em"></div><p>It turns out that the fitting problem is extremely <em>ill-conditioned</em>
 (and it is not the algorithm’s fault): GDPs range from very small
-to very large ones, and taking the powers of 4 thereof
+to very large ones. Furthermore, taking the powers of 4 thereof
 results in numbers of ever greater range.
 Finding the least squares solution involves some form of matrix inverse
 (not necessarily directly) and our model matrix may be close to singular
@@ -1795,7 +1795,7 @@ condition number can simply be computed as <span class="math notranslate nohighl
 </div>
 <div style="margin-top: 1em"></div><p>Let us verify the method used by <strong class="program">scikit-learn</strong>, which
 fits the intercept separately. Therefore, it should be slightly
-better-behaving (still, it is merely a
+better behaving (still, it is merely a
 wrapper around <strong class="command">scipy.linalg.lstsq</strong> with a different API).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.linear_model</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1827,7 +1827,7 @@ One way of dealing with this is to remove highly correlated variables
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> be a standardised version of the model matrix
 <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> with the intercept part (the column of 1s) not included,
 i.e., with <span class="math notranslate nohighlight">\(\mathbf{z}_{\cdot,j} = (\mathbf{x}_{\cdot,j}-\bar{x}_j)/s_j\)</span>
-with <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and <span class="math notranslate nohighlight">\(s_j\)</span> denoting the arithmetic mean
+where <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and <span class="math notranslate nohighlight">\(s_j\)</span> denotes the arithmetic mean
 and standard deviation of the <em>j</em>-th column in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.
 If <span class="math notranslate nohighlight">\((d_1,\dots,d_{m-1})\)</span> is the least squares solution
 for <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, then the least squares solution to the underlying
@@ -2030,9 +2030,9 @@ s_1 x_{n,1} &amp; s_2 x_{n,2} &amp; \dots &amp; s_m x_{n,m} \\
 \end{array}
 \right].
 \end{split}\]</div>
-<p>In <strong class="program">numpy</strong> this can be implemented without
-actually referring to the matrix multiplication;
-a notation like <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">*</span> <span class="pre">np.array([s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sm]).reshape(1,</span> <span class="pre">-1)</span></code>
+<p>In <strong class="program">numpy</strong>, this can be implemented without
+referring to the matrix multiplication.
+A notation like <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">*</span> <span class="pre">np.array([s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sm]).reshape(1,</span> <span class="pre">-1)</span></code>
 will suffice (elementwise multiplication and proper shape broadcasting).</p>
 <div style="margin-top: 1em"></div><p>Furthermore, let <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is an <em>orthonormal</em><a class="footnote-reference brackets" href="#footortho" id="id15">12</a> matrix, i.e.,
 a square matrix whose columns and rows
@@ -2143,7 +2143,7 @@ shifted linear combination of the columns in the original matrix:</p>
 \]</div>
 <p>Computing such linear combinations of columns is not rare during
 a dataset’s preprocessing step, especially if they are on the
-same scale or are unitless. Actually,
+same scale or are unitless. As a matter of fact,
 the standardisation itself is a form of scaling and translation.</p>
 <div class="proof proof-type-exercise" id="id52">
 
@@ -2403,7 +2403,7 @@ we found a viewpoint (in the form of an orthonormal matrix, being
 a mixture of rotations and reflections) on <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 such that its orthonormal projection onto the first two axes of
 the Cartesian coordinate system is the most informative<a class="footnote-reference brackets" href="#footrankkapprox" id="id16">13</a>
-(in terms of having the highest variance, axiswisely).</p>
+(in terms of having the highest variance along these axes).</p>
 </div>
 <div class="section" id="principal-component-analysis">
 <h3><span class="section-number">9.3.6. </span>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this headline"></a></h3>
@@ -2444,7 +2444,7 @@ that are linear combinations of existing ones).</p>
 <span class="c1">## [&#39;Albania&#39;, &#39;Algeria&#39;, &#39;Angola&#39;, &#39;Argentina&#39;, &#39;Armenia&#39;, &#39;Australia&#39;]</span>
 </pre></div>
 </div>
-<p>This is a 5-dimensional dataset, thus we cannot easily visualise it.
+<p>This is a 5-dimensional dataset. Thus, we cannot easily visualise it.
 That the pairplot does not reveal much is left as an exercise.</p>
 <p>Let us thus perform the SVD decomposition of a standardised
 version of this dataset, <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>
@@ -2469,8 +2469,7 @@ We can compute them by calling:</p>
 </div>
 <p>Thus, in some sense, the variability within the first two components
 covers ca. 94% of the variability of the whole dataset.
-It might thus be a clever idea to restrict ourselves
-only to a 2-dimensional projection
+We can thus restrict ourselves only to a 2-dimensional projection
 of this dataset (actually, we are quite lucky here – or someone
 has selected these countrywise indices for us in a very
 clever fashion).</p>
@@ -2778,7 +2777,7 @@ to function properly. We need more maths in our lives.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T13:15:50+1000.
+        Last updated on 2022-07-14T15:58:27+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

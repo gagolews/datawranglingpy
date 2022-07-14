@@ -270,7 +270,7 @@ are appreciated. Although available online, this is a whole course;
 it should be read from the beginning to the end.
 Refer to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a> for general introductory remarks.</em></p>
 </div></blockquote>
-<p>So far we have been using <strong class="program">numpy</strong> and <strong class="program">pandas</strong>
+<p>So far, we have been using <strong class="program">numpy</strong> and <strong class="program">pandas</strong>
 mostly for storing:</p>
 <ul class="simple">
 <li><p><em>independent</em> measurements, where each row gives, e.g.,
@@ -284,7 +284,7 @@ categories or labels.</p></li>
 </ul>
 <p>In this part we will explore the most basic concepts related to the
 wrangling of <em>time series</em>, i.e., signals indexed by discrete time.
-Usually a time series is a sequence of measurements
+Usually, a time series is a sequence of measurements
 sampled at equally spaced moments, e.g.,
 a patient’s heart rate probed every second,
 daily average currency exchange rates,
@@ -375,7 +375,7 @@ Usually, we will be creating dates from strings, for instance:</p>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-14T03:13:31&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-14T05:36:37&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -389,7 +389,7 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9187e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.65776841e+09])</span>
+<span class="c1">## array([7.265000e+03, 1.657777e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -411,7 +411,7 @@ to the <code class="docutils literal notranslate"><span class="pre">numpy.timede
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
 <span class="c1">##        &#39;2022-07-13&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-14T15:13:31&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-14T17:36:37&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -498,10 +498,10 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;MM/DD/Y
     </div><div class="proof-content">
 <p>From the <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less than 18 years old
 (as of the current day).</p>
-</div></div><p>A number of datetime functions and related properties can
+</div></div><p>Several datetime functions and related properties can
 be referred to via the <strong class="command">pandas.Series.dt</strong> accessor
 (similarly to <strong class="command">pandas.Series.str</strong> discussed in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>).
-In particular, they are are a convenient means for extracting different
+In particular, they deliver a convenient means for extracting different
 date or time fields, such as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates_ymd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">year</span>  <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
@@ -817,7 +817,7 @@ of the 2nd day.</p>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Applying the moving average has the nice effect of
-<em>smoothing</em> out all kinds of broadly-conceived noise.
+<em>smoothing</em> out all kinds of broadly conceived noise.
 To illustrate this, compare
 the temperature data for the last five years
 in <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a> to their averaged versions
@@ -849,7 +849,7 @@ the plots of the 1-year moving minimums, medians, and maximums.</p>
 <h3><span class="section-number">16.3.3. </span>Detecting Trends and Seasonal Patterns<a class="headerlink" href="#detecting-trends-and-seasonal-patterns" title="Permalink to this headline"></a></h3>
 <p>Thanks to windowed aggregation, we can also detect general trends
 (when using longish windows). For instance, below we compute
-the 10-year moving averages for the last 50-odd years worth
+the 10-year moving averages for the last 50-odd years’ worth
 of data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span>
 <span class="n">x10y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">3653</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -992,7 +992,7 @@ the average PM2.5 was greater than in the preceding day.</p></li>
 <h3><span class="section-number">16.3.5. </span>Plotting Multidimensional Time Series<a class="headerlink" href="#plotting-multidimensional-time-series" title="Permalink to this headline"></a></h3>
 <p>Multidimensional time series stored in the form of
 an <em>n</em>-by-<em>m</em> matrix are best viewed as <em>m</em> time series –
-possibly but not necessarily somewhat related to each other –
+possibly but not necessarily related to each other –
 all sampled at the same <em>n</em> points in time
 (e.g., <em>m</em> different stocks on <em>n</em> consecutive days).</p>
 <p>Consider the currency exchange rates
@@ -1133,8 +1133,8 @@ Black candles are bearish (decline).</p>
         <span class="proof-type">Exercise 16.16</span>
         
     </div><div class="proof-content">
-<p>Draw the BTC/USD rates for the whole year
-and add the 10-day moving averages.</p>
+<p>Draw the BTC/USD rates for the entire year and add the 10-day moving
+averages.</p>
 </div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
@@ -1143,8 +1143,8 @@ and add the 10-day moving averages.</p>
     </div><div class="proof-content">
 <p>(*)
 Draw a candlestick plot manually, without using
-the <strong class="program">mplfinance</strong> package. <strong class="command">matplotlib.pyplot.fill</strong> might
-be helpful.</p>
+the <strong class="program">mplfinance</strong> package.
+<em>Hint: <strong class="command">matplotlib.pyplot.fill</strong> might be helpful.</em></p>
 </div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
@@ -1263,7 +1263,7 @@ This dataset is considered for illustrational purposes only.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T13:15:50+1000.
+        Last updated on 2022-07-14T15:58:27+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

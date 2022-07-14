@@ -406,8 +406,8 @@ in the <strong class="program">pandas</strong> documentation – some of which w
 be discussing later.</p>
 </div></div><div class="section" id="data-frames-are-matrix-like">
 <h3><span class="section-number">10.1.1. </span>Data Frames are Matrix-Like<a class="headerlink" href="#data-frames-are-matrix-like" title="Permalink to this headline"></a></h3>
-<p>Data frames are modelled through <strong class="program">numpy</strong> matrices,
-hence we can feel quite at home with them.</p>
+<p>Data frames are modelled through <strong class="program">numpy</strong> matrices.
+Hence, we can feel quite at home with them.</p>
 <p>For example, given:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
@@ -457,7 +457,7 @@ columns: it is called <code class="docutils literal notranslate"><span class="pr
 </div>
 <p>Data frames with one column are printed
 out slightly differently.
-In particular, we get the column name at the top,
+We get the column name at the top,
 but do not have the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> information at the bottom.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>  <span class="c1"># or: pd.DataFrame(s)</span>
 <span class="c1">##       u</span>
@@ -700,8 +700,7 @@ our rescue:</p>
 </pre></div>
 </div>
 <p>All <strong class="program">numpy</strong> functions can be applied directly on individual
-columns (i.e., objects of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>),
-as the latter are, after all,  vector-like.</p>
+columns, i.e., objects of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>, because they are vector-like.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>  <span class="c1"># extract the column named `u` (gives a Series; see below)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="c1">## array([0.23, 0.55, 0.72])</span>
@@ -876,7 +875,7 @@ transformed versions of the existing ones, for instance:</p>
     </div><div class="proof-content">
 <p>(*)
 Binary operations on objects with different <code class="docutils literal notranslate"><span class="pre">index</span></code> slots
-are actually vectorised <em>labelwisely</em>:</p>
+are in fact vectorised <em>labelwisely</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
 <span class="n">x</span>
 <span class="c1">## a         1</span>
@@ -909,7 +908,7 @@ are actually vectorised <em>labelwisely</em>:</p>
 </div>
 <p>Here, each element in the first <code class="docutils literal notranslate"><span class="pre">Series</span></code> named <code class="docutils literal notranslate"><span class="pre">a</span></code> was
 multiplied by each (there was only one) element labelled <code class="docutils literal notranslate"><span class="pre">a</span></code> in the second
-<code class="docutils literal notranslate"><span class="pre">Series</span></code>. For <code class="docutils literal notranslate"><span class="pre">d</span></code>, there was no match, hence the result’s being marked
+<code class="docutils literal notranslate"><span class="pre">Series</span></code>. For <code class="docutils literal notranslate"><span class="pre">d</span></code>, there were no matches, hence the result’s being marked
 as missing (compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>).
 Thus, this behaves like a full outer join-type operation;
 see <a class="reference internal" href="#sec-join"><span class="std std-numref">Section 10.6.4</span></a>.</p>
@@ -981,9 +980,8 @@ positions (where 0 would denote the first element, etc.).</p>
 <p>For <strong class="program">numpy</strong> vectors, we had four different indexing schemes:
 by scalar (extracts an element at a given position),
 slice, integer vector, and logical vector.
-<code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are <em>additionally</em> labelled, therefore
-they can <em>additionally</em> be accessed taking into account
-the contents of the <code class="docutils literal notranslate"><span class="pre">index</span></code> slot.</p>
+<code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are <em>additionally</em> labelled. Therefore,
+they can also be accessed through the contents of the <code class="docutils literal notranslate"><span class="pre">index</span></code> slot.</p>
 </div>
 <div class="section" id="do-not-use-directly">
 <h3><span class="section-number">10.4.1. </span>Do Not Use <code class="docutils literal notranslate"><span class="pre">[...]</span></code> Directly<a class="headerlink" href="#do-not-use-directly" title="Permalink to this headline"></a></h3>
@@ -1209,8 +1207,8 @@ $5 from <code class="docutils literal notranslate"><span class="pre">tips</span>
 </div></div></div>
 <div class="section" id="adding-rows-and-columns">
 <h3><span class="section-number">10.5.2. </span>Adding Rows and Columns<a class="headerlink" href="#adding-rows-and-columns" title="Permalink to this headline"></a></h3>
-<p><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> can also used to add new columns to an existing
-data frame:</p>
+<p><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> can also be used to add new columns to an
+existing data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># or d.loc[:, &quot;y&quot;] = d.u**2</span>
 <span class="n">d</span>
 <span class="c1">##       u     v        w      x       y</span>
@@ -1247,12 +1245,12 @@ to add a few more rows to <code class="docutils literal notranslate"><span class
 <div class="section" id="pseudorandom-sampling-and-splitting">
 <span id="sec-random-sampling"></span><h3><span class="section-number">10.5.3. </span>Pseudorandom Sampling and Splitting<a class="headerlink" href="#pseudorandom-sampling-and-splitting" title="Permalink to this headline"></a></h3>
 <p>As a simple application of what we have covered so far,
-let us consider the ways to sample a number of rows
+let us consider the ways to sample several rows
 from an existing data frame.</p>
 <p>We can use the <strong class="command">pandas.DataFrame.sample</strong> method
 in the most basic scenarios, such as:</p>
 <ul class="simple">
-<li><p>select 5 rows, without replacement,</p></li>
+<li><p>select five rows, without replacement,</p></li>
 <li><p>select 20% rows, with replacement,</p></li>
 <li><p>rearrange all the rows.</p></li>
 </ul>
@@ -1279,7 +1277,7 @@ Alternatively, we could call <strong class="command">numpy.random.seed</strong>.
         <span class="proof-type">Exercise 10.13</span>
         
     </div><div class="proof-content">
-<p>Show how the 3 aforementioned scenarios
+<p>Show how the three aforementioned scenarios
 can be implemented manually using <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
 and <strong class="command">numpy.random.permutation</strong>
 or <strong class="command">numpy.random.choice</strong>.</p>
@@ -1653,7 +1651,7 @@ especially when there are only few recorded values, but many possible
 combinations of levels (sparse data).</p>
 <p>Long format might not necessarily be optimal in all data processing
 activities, though; compare <span id="id7">[<a class="reference internal" href="999-bibliography.html#id37">Wic14</a>]</span>.
-In the matrix processing part of this book
+In the matrix processing part of this book,
 it was much more natural for us to have a single <em>observation</em>
 (e.g., data for each measurement station) in each row.</p>
 <p>We can <em>unstack</em> the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame
@@ -1705,7 +1703,7 @@ Also notice that <code class="docutils literal notranslate"><span class="pre">in
 </div>
 <p>We used the data frame transpose (<strong class="command">T</strong>) to
 get a location-major order (less boring an outcome in this context).
-Missing values are gone now, because we do not need them anymore.
+Missing values are gone now. We do not need them anymore.
 Nevertheless, passing <code class="docutils literal notranslate"><span class="pre">dropna=False</span></code> would help us identify
 the combinations of <code class="docutils literal notranslate"><span class="pre">location</span></code> and <code class="docutils literal notranslate"><span class="pre">param</span></code> for which the readings
 are not provided.</p>
@@ -2150,7 +2148,7 @@ indexes with repeated.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T13:15:50+1000.
+        Last updated on 2022-07-14T15:58:27+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
