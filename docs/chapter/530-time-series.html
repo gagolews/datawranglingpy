@@ -370,14 +370,14 @@ Usually, we will be creating dates from strings, for instance:</p>
     <span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;1970-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">,</span> <span class="s2">&quot;today&quot;</span>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
-<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-07-12&#39;],</span>
+<span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;2021-12-31&#39;, &#39;2022-07-14&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-12T02:03:09&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-14T01:38:39&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -389,9 +389,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify that:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-29372.,      0.,  18992.,  19185.])</span>
+<span class="c1">## array([-29372.,      0.,  18992.,  19187.])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.65759139e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.65776272e+09])</span>
 </pre></div>
 </div>
 <p>Which, when we think about it for a while, is exactly what we expected.</p>
@@ -410,10 +410,10 @@ all dates in the YYYY-MM-DD format from a
 <p>Computing datetime differences is possible thanks
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
-<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-07-11&#39;],</span>
+<span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;2021-12-30&#39;, &#39;2022-07-13&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-12T14:03:09&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-14T13:38:39&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -868,7 +868,7 @@ e.g., using a 1-year moving average:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xd1y</span> <span class="o">=</span> <span class="n">xd</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">365</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="#fig-spokane-ma-trends"><span class="std std-numref">Figure 16.6</span></a> for an illustration:</p>
+<p><a class="reference internal" href="#fig-spokane-ma-trends"><span class="std std-numref">Figure 16.6</span></a> illustrates this.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x10y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;trend&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xd1y</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;seasonal pattern&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -1009,7 +1009,7 @@ for the first half of 2020:</p>
 (how many Australian Dollars we pay for 1 Euro),
 EUR/CNY (Chinese Yuans), EUR/GBP (British Pounds),
 and EUR/PLN (Polish Złotys), in this order.
-Let us draw the four time series, see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 16.8</span></a>.</p>
+Let us draw the four time series; see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 16.8</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/euraud-20200101-20200630-dates.txt&quot;</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
@@ -1183,8 +1183,8 @@ will play key role there.</p>
 e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
 (also because it requires some more advanced calculus skills that we
-did not assume the reader to have at this time).
-Therefore, see, e.g., <span id="id1">[<a class="reference internal" href="999-bibliography.html#id31">Smi02</a>, <a class="reference internal" href="999-bibliography.html#id30">Ste96</a>]</span>.</p>
+did not assume the reader to have at this time);
+but see, e.g., <span id="id1">[<a class="reference internal" href="999-bibliography.html#id31">Smi02</a>, <a class="reference internal" href="999-bibliography.html#id30">Ste96</a>]</span>.</p>
 <p>Nevertheless, we should keep in mind that these are not completely
 independent domains. For example, we can extract various features of audio
 signals (e.g., overall loudness, timbre, and danceability of each
@@ -1271,7 +1271,7 @@ of a candlestick plot.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-13T15:48:55+1000.
+        Last updated on 2022-07-14T11:43:16+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
