@@ -316,7 +316,7 @@ Means for the handling of string data
 <em>should be included in each statistician’s or data scientist’s
 repertoire to complement their  numerical computing
 and data wrangling skills.</em></p>
-<p>In this part we discuss the most useful string operations
+<p>In this part we discuss the most handy string operations
 in base Python, together with their vectorised versions
 in <strong class="program">numpy</strong> and <strong class="program">pandas</strong>.
 We also mention some more advanced features of the Unicode
@@ -341,14 +341,14 @@ e.g., `<strong class="command">+</strong>` stands for string concatenation:</p>
 <span class="c1">## &#39;spamspamspam&#39;</span>
 </pre></div>
 </div>
-<p>Further, in <a class="reference internal" href="130-sequential.html#chap-sequential"><span class="std std-numref">Chapter 3</span></a> we noted that <code class="docutils literal notranslate"><span class="pre">str</span></code>
-is a sequential type. Thus, we can extract
+<p>In <a class="reference internal" href="130-sequential.html#chap-sequential"><span class="std std-numref">Chapter 3</span></a> we noted that <code class="docutils literal notranslate"><span class="pre">str</span></code>
+is a sequential type. As a consequence, we can extract
 individual code points and create substrings using the index operator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># last letter</span>
 <span class="c1">## &#39;m&#39;</span>
 </pre></div>
 </div>
-<p>Strings are immutable. However, parts of strings can always be
+<p>Strings are immutable, but parts thereof can always be
 reused in conjunction with the concatenation operator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;ecial&quot;</span>
 <span class="c1">## &#39;special&#39;</span>
@@ -369,7 +369,7 @@ sometimes our own or other readers’ display
 (e.g., web browsers when viewing
 a HTML version of the output report) might not be able
 to <em>render</em> all code points properly, e.g., due to missing fonts.
-However, we should rest assured that they and are processed correctly
+Still, we should rest assured that they are processed correctly
 if string functions are applied thereon.</p>
 </div>
 </div>
@@ -489,16 +489,15 @@ from within strings.</p>
 <p>We have:
 <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;aa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;aaaaaaaaaaaaa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;ab&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;aba&quot;</span></code> &lt;
 <code class="docutils literal notranslate"><span class="pre">&quot;abb&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;ba&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;baaaaaaa&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;bb&quot;</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">&quot;Spanish</span> <span class="pre">Inquisition&quot;</span></code>.</p>
-<p>Lexicographic ordering (character-by-character, from left to right)
-is, however, not necessarily appropriate for strings
-featuring numerals:</p>
+<p>The lexicographic ordering (character-by-character, from left to right)
+is not necessarily appropriate for strings featuring numerals:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a9&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;a123&quot;</span>  <span class="c1"># 1 is greater than 9</span>
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<p>Also, it only takes into account the
+<p>Additionally, it only takes into account the
 numeric codes (see <a class="reference internal" href="#sec-code-points"><span class="std std-numref">Section 14.4.3.4</span></a>) corresponding to each
-Unicode character. Therefore, it does not work well with non-English
+Unicode character. Consequently, it does not work well with non-English
 alphabets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;MIELONECZKĄ&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;MIELONECZKI&quot;</span>
 <span class="c1">## False</span>
@@ -507,8 +506,8 @@ alphabets:</p>
 <p>In Polish, <em>A with ogonek</em> (Ą) should sort after <em>A</em>
 and before <em>B</em>, let alone <em>I</em>.
 However, their corresponding numeric codes in the Unicode table are:
-260 (Ą), 65 (A), 66 (B), and 73 (I), therefore the resulting
-ordering is incorrect, as far as natural language processing
+260 (Ą), 65 (A), 66 (B), and 73 (I). The resulting
+ordering is thus incorrect, as far as natural language processing
 is concerned.</p>
 <p>It is best to perform string collation using the services provided
 by <strong class="program">ICU</strong>. Here is an example of German phone book-like collation
@@ -527,8 +526,9 @@ treated as a single entity and are sorted after <code class="docutils literal no
 <span class="c1">## 1</span>
 </pre></div>
 </div>
-<p>Therefore, we have <code class="docutils literal notranslate"><span class="pre">&quot;chladný&quot;</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">&quot;hladný&quot;</span></code> (the 1st argument is greater
-than the 2nd one). Compare the above to something similar in Polish:</p>
+<p>This means that we have <code class="docutils literal notranslate"><span class="pre">&quot;chladný&quot;</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">&quot;hladný&quot;</span></code> (the 1st argument
+is greater than the 2nd one). Compare the above to something similar
+in Polish:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">icu</span><span class="o">.</span><span class="n">Collator</span><span class="o">.</span><span class="n">createInstance</span><span class="p">(</span><span class="n">icu</span><span class="o">.</span><span class="n">Locale</span><span class="p">(</span><span class="s2">&quot;pl_PL&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="s2">&quot;chłodny&quot;</span><span class="p">,</span> <span class="s2">&quot;hardy&quot;</span><span class="p">)</span>
 <span class="c1">## -1</span>
 </pre></div>
@@ -565,7 +565,10 @@ using the broadest possible <code class="docutils literal notranslate"><span cla
 of the <code class="docutils literal notranslate"><span class="pre">None</span></code> object (which is of type <code class="docutils literal notranslate"><span class="pre">None</span></code>, not <code class="docutils literal notranslate"><span class="pre">str</span></code>);
 compare <a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>.</p>
 <p>Vectorised versions of base string operations
-are available via the <strong class="command">pandas.Series.str</strong> accessor, for instance:</p>
+are available via the <strong class="command">pandas.Series.str</strong> accessor.
+We thus have <strong class="command">pandas.Series.str.strip</strong>,
+<strong class="command">pandas.Series.str.split</strong>, <strong class="command">pandas.Series.str.find</strong>,
+and so forth. For instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;buckwheat&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">])</span>
 <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 <span class="c1">## 0         SPAM</span>
@@ -576,9 +579,6 @@ are available via the <strong class="command">pandas.Series.str</strong> accesso
 <span class="c1">## dtype: object</span>
 </pre></div>
 </div>
-<p>We thus have <strong class="command">pandas.Series.str.strip</strong>,
-<strong class="command">pandas.Series.str.split</strong>, <strong class="command">pandas.Series.str.find</strong>,
-and so forth.</p>
 <p>But there is more. For example, a function to compute the length
 of each string:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
@@ -672,7 +672,7 @@ data, but also character strings. For example:</p>
 </div>
 <p>Here, the data type <code class="docutils literal notranslate"><span class="pre">&quot;&lt;U5&quot;</span></code> means
 that we deal with Unicode strings of length no greater than 5.
-Thus, unfortunately, replacing elements with too long a content
+Unfortunately, replacing elements with too long a content
 will result in truncated strings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;buckwheat&quot;</span>
 <span class="n">x</span>
@@ -881,7 +881,7 @@ representations of many objects:</p>
 <p>The former is more human-readable, and the latter is slightly more technical.
 Note that <strong class="command">repr</strong> often returns an output that can be
 interpreted as executable Python code with no
-or few adjustments. However, <strong class="program">pandas</strong> objects are amongst
+or few adjustments. Nonetheless, <strong class="program">pandas</strong> objects are amongst
 the many exceptions to this rule.</p>
 </div>
 <div class="section" id="aligning-strings">
@@ -1038,7 +1038,7 @@ to the ones available in the Perl language.</p>
 (including <a class="reference external" href="https://kate-editor.org/"><strong class="program">Kate</strong></a>,
 <a class="reference external" href="https://www.eclipse.org/ide/"><strong class="program">Eclipse</strong></a>, and
 <a class="reference external" href="https://vscodium.com/"><strong class="program">VSCodium</strong></a>) support finding and
-replacing patterns with regexes. Therefore, they should be amongst the
+replacing patterns with regexes. This is why they should be amongst the
 instruments at every data scientist’s disposal.</p>
 <p>Before we proceed with a detailed discussion on how to read and write
 regexes, let us first review some of the methods for identifying the matching
@@ -1216,10 +1216,10 @@ the above behaves like a fixed pattern:</p>
 <span class="c1">## [&#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;]</span>
 </pre></div>
 </div>
-<p>There are hence 3 occurrences of a pattern that is comprised of 4 code
+<p>There three occurrences of a pattern that is comprised of four code
 points, “<code class="docutils literal notranslate"><span class="pre">s</span></code>” followed by “<code class="docutils literal notranslate"><span class="pre">p</span></code>”, then by “<code class="docutils literal notranslate"><span class="pre">a</span></code>”, and ending with “<code class="docutils literal notranslate"><span class="pre">m</span></code>”.</p>
 <div style="margin-top: 1em"></div><p>If we wish to include a special character as part of a regular
-expression – so that it is treated literally – we will need to escape
+expression so that it is treated literally, we will need to escape
 it with a backslash, “<code class="docutils literal notranslate"><span class="pre">\</span></code>”.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\.&quot;</span><span class="p">,</span> <span class="s2">&quot;spam...&quot;</span><span class="p">)</span>
 <span class="c1">## [&#39;.&#39;, &#39;.&#39;, &#39;.&#39;]</span>
@@ -1271,7 +1271,7 @@ non-literally:
 “<code class="docutils literal notranslate"><span class="pre">~</span></code>”, and
 “<code class="docutils literal notranslate"><span class="pre">|</span></code>”.</p>
 </div>
-<p>Therefore, to include them as-is in a character set, the
+<p>To include them as-is in a character set, the
 backslash-escape must be used. For example, “<code class="docutils literal notranslate"><span class="pre">[\[\]\\]</span></code>” matches a
 backslash or a square bracket.</p>
 </div>
@@ -1280,7 +1280,7 @@ backslash or a square bracket.</p>
 <p>Including “<code class="docutils literal notranslate"><span class="pre">^</span></code>” (the caret) after the opening square bracket denotes
 a set’s complement. Hence, “<code class="docutils literal notranslate"><span class="pre">[^abc]</span></code>” matches any code point except “<code class="docutils literal notranslate"><span class="pre">a</span></code>”,
 “<code class="docutils literal notranslate"><span class="pre">b</span></code>”, and “<code class="docutils literal notranslate"><span class="pre">c</span></code>”. Here is an example where we seek any substring that
-consists of four non-spaces.</p>
+consists of four non-spaces:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Nobody expects the Spanish Inquisition!&quot;</span>
 <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;[^ ][^ ][^ ][^ ]&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="c1">## [&#39;Nobo&#39;, &#39;expe&#39;, &#39;Span&#39;, &#39;Inqu&#39;, &#39;isit&#39;, &#39;ion!&#39;]</span>
@@ -1364,8 +1364,8 @@ or “<code class="docutils literal notranslate"><span class="pre">ham</span></c
 (i.e., without the <code class="docutils literal notranslate"><span class="pre">&quot;?:&quot;</span></code>) part, has the side-effect of creating new
 capturing groups, see below for more details.</p>
 <p>Also, matching is always done left-to-right, on a first-come,
-first-served (greedy) basis. Hence, if the left branch is a subset of the right
-one, the latter will never be matched. In particular,
+first-served (greedy) basis. Consequently, if the left branch is a
+subset of the right one, the latter will never be matched. In particular,
 “<code class="docutils literal notranslate"><span class="pre">(?:al|alga|algae)</span></code>” can only match “<code class="docutils literal notranslate"><span class="pre">al</span></code>”. To fix this, we can write
 “<code class="docutils literal notranslate"><span class="pre">(?:algae|alga|al)</span></code>”.</p>
 </div>
@@ -1419,7 +1419,7 @@ optional. This can be achieved by means of the following quantifiers:</p>
 For example, “<code class="docutils literal notranslate"><span class="pre">ni+</span></code>” captures <code class="docutils literal notranslate"><span class="pre">&quot;ni&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;nii&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;niii&quot;</span></code>, etc.,
 but neither <code class="docutils literal notranslate"><span class="pre">&quot;n&quot;</span></code> alone nor <code class="docutils literal notranslate"><span class="pre">&quot;ninini&quot;</span></code> altogether.</p>
 <p>By default, the quantifiers are greedy – they match the repeated
-subexpression as many times as possible. The “<code class="docutils literal notranslate"><span class="pre">?</span></code>” suffix (hence,
+subexpression as many times as possible. The “<code class="docutils literal notranslate"><span class="pre">?</span></code>” suffix (forming
 quantifiers such as “<code class="docutils literal notranslate"><span class="pre">??</span></code>”, “<code class="docutils literal notranslate"><span class="pre">*?</span></code>”, “<code class="docutils literal notranslate"><span class="pre">+?</span></code>”, and so forth) tries with as
 few occurrences as possible (to obtain a match still).</p>
 <div style="margin-top: 1em"></div><p>Greedy:</p>
@@ -1579,7 +1579,7 @@ Despite this, let us consider the following examples:</p>
 </pre></div>
 </div>
 <p>This did not match the correct closing HTML tag.
-However, we can make this happen by writing:</p>
+But we can make this happen by writing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(&lt;([a-z]+)&gt;.*?&lt;/\2&gt;)&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="c1">## [(&#39;&lt;p&gt;&lt;em&gt;spam&lt;/em&gt;&lt;/p&gt;&#39;, &#39;p&#39;), (&#39;&lt;code&gt;eggs&lt;/code&gt;&#39;, &#39;code&#39;)]</span>
 </pre></div>
@@ -1777,14 +1777,14 @@ dataset so that it contains analysable numeric data.</p>
 <dt class="label" id="footunicode"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
 <dd><p>(*) More precisely, Python strings are UTF-8-encoded.
 Most web pages and APIs are nowadays served in UTF-8.
-However, occasionally we can encounter files encoded in
+But we can still occasionally encounter files encoded in
 ISO-8859-1 (Western Europe),
 Windows-1250 (Eastern Europe),
 Windows-1251 (Cyrillic),
 GB18030 and Big5 (Chinese),
 EUC-KR (Korean),
-Shift-JIS and EUC-JP (Japanese), amongst others;
-they can be converted using the <strong class="command">str.decode</strong> method.</p>
+Shift-JIS and EUC-JP (Japanese), amongst others.
+They can be converted using the <strong class="command">str.decode</strong> method.</p>
 </dd>
 <dt class="label" id="footmarkup"><span class="brackets"><a class="fn-backref" href="#id7">2</a></span></dt>
 <dd><p>(*) Markdown is amongst many markup languages.
@@ -1817,7 +1817,7 @@ see <span id="id18">[<a class="reference internal" href="999-bibliography.html#i
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

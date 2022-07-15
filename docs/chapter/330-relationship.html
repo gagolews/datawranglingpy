@@ -416,9 +416,9 @@ let us ignore it by then):</p>
 a decreasing linear function of the other one)
 Furthermore, a variable is trivially
 perfectly correlated with itself, <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{x})=1\)</span>.</p>
-<p>Hence, we get perfect <em>linear correlation</em> (-1 or 1) when
+<p>Consequently, we get perfect <em>linear correlation</em> (-1 or 1) when
 one variable is a scaled and shifted version (linear function)
-of the other variable, see <a class="reference internal" href="#fig-corr-ex-0"><span class="std std-numref">Figure 9.1</span></a>.</p>
+of the other variable; see <a class="reference internal" href="#fig-corr-ex-0"><span class="std std-numref">Figure 9.1</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span>  <span class="n">axes_eq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># negative slope</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="n">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>    <span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="n">axes_eq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># positive slope</span>
@@ -483,8 +483,8 @@ from making unjustified statements.</p>
 <h4><span class="section-number">9.1.1.3. </span>No Linear Correlation Does Not Imply Independence<a class="headerlink" href="#no-linear-correlation-does-not-imply-independence" title="Permalink to this headline"></a></h4>
 <p>For two independent variables, we expect the correlation coefficient
 be approximately equal to 0.
-However, we should stress that correlation close to 0 does not necessarily
-mean that two variables are unrelated to each other.
+Nevertheless, we should stress that correlation close to 0 does not
+necessarily mean that two variables are unrelated to each other.
 Pearson’s <em>r</em> is a <em>linear</em> correlation coefficient, so we
 are quantifying only<a class="footnote-reference brackets" href="#footpearsonks" id="id1">1</a> these types of relationships.
 See <a class="reference internal" href="#fig-corr-ex-2"><span class="std std-numref">Figure 9.3</span></a> for an illustration of this fact.</p>
@@ -630,9 +630,9 @@ and repeating items:</p>
 <span class="c1">## array([&#39;weight&#39;, &#39;hip circ&#39;], dtype=&#39;&lt;U10&#39;)</span>
 </pre></div>
 </div>
-<p>Thus, weight and hip circumference is the most strongly correlated.</p>
+<p>Weight and hip circumference is the most strongly correlated pair.</p>
 <p>Note that <strong class="command">numpy.argmax</strong> returns an index in the
-flattened (unidimensional) array, therefore we had to use
+flattened (unidimensional) array. We had to use
 <strong class="command">numpy.unravel_index</strong> to convert it to a two-dimensional
 one.</p>
 </div></div></div>
@@ -681,7 +681,7 @@ between these two indicates a quite weak linear correlation:</p>
 <span class="c1">## 0.656471945486374</span>
 </pre></div>
 </div>
-<p>However, already the logarithm of GDP is quite linearly
+<p>Anyhow, already the logarithm of GDP is quite linearly
 correlated with life expectancy:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.8066505089380016</span>
@@ -817,8 +817,8 @@ of hip circumference (the 6th column) in the <code class="docutils literal notra
 \]</div>
 <p>Both are instances of the <em>simple</em> regression problem,
 i.e., where there is only one independent variable (<span class="math notranslate nohighlight">\(m=1\)</span>).
-Thus, we can easily create a nice visualisation by means of the following
-function:</p>
+We can easily create an appealing visualisation thereof
+by means of the following function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_regress_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">num_test_points</span><span class="o">=</span><span class="mi">1001</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    x - 1D vector - reference inputs</span>
@@ -877,7 +877,7 @@ considered more important).</p>
 easily implement some form of fixed-radius search regression
 (compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>),
 by simply replacing <span class="math notranslate nohighlight">\(N_k(\boldsymbol{x}')\)</span>
-with <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span>. However, note that this way we might
+with <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span>. Yet, note that this way we might
 make the function undefined in sparsely populated regions of the domain.</p>
 </div>
 </div>
@@ -991,7 +991,7 @@ equivalent to solving the linear system of equations
 <span class="math notranslate nohighlight">\(\mathbf{y}-\mathbf{c} \mathbf{X}^T =\mathbf{0}\)</span>.
 However, in our setting we assume that there might be some
 measurement errors or other discrepancies between the reality and the
-theoretical model. Thus, to account for this,
+theoretical model. To account for this,
 we are trying to solve a more general problem
 of finding a hyperplane for which
 <span class="math notranslate nohighlight">\(\|\mathbf{y}-\mathbf{c} \mathbf{X}^T\|^2\)</span> is as small as possible.</p>
@@ -1021,7 +1021,7 @@ again, but this time using an affine map of the form<a class="footnote-reference
 \text{weight}=a\cdot\text{hip circumference} + b  \qquad (+ \text{some error}).
 \]</div>
 <p>The <em>design (model) matrix</em> <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-and the reference <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>s are thus:</p>
+and the reference <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>s are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_original</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">5</span><span class="p">]]</span>     <span class="c1"># a column vector</span>
 <span class="n">X_train</span> <span class="o">=</span> <span class="n">x_original</span><span class="o">**</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># hip circumference, 1s</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>          <span class="c1"># weight</span>
@@ -1058,7 +1058,7 @@ The optimal coefficients vector (the one that minimises the SSR) is:</p>
 <span class="c1">## array([  1.3052463 , -65.10087248])</span>
 </pre></div>
 </div>
-<p>Therefore, the estimated model is:</p>
+<p>The estimated model is:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{weight}=1.305\cdot\text{hip circumference} -65.1 \qquad (+ \text{some error}).
@@ -1107,9 +1107,9 @@ indicates a quite good fit, but of course there is some natural variability.</p>
 <p>The <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/r/anscombe.csv">Anscombe quartet</a>
 is a famous example dataset, where we have four pairs of
 variables that have almost identical means, variances, and linear correlation
-coefficients. Moreover, they can be approximated by the same straight
-line. However, their scatter plots are vastly different.
-Reflect upon this toy example yourself.</p>
+coefficients. Even though they can be approximated by the same straight
+line, their scatter plots are vastly different.
+Reflect upon this toy example.</p>
 </div></div></div>
 <div class="section" id="analysis-of-residuals">
 <h3><span class="section-number">9.2.4. </span>Analysis of Residuals<a class="headerlink" href="#analysis-of-residuals" title="Permalink to this headline"></a></h3>
@@ -1130,7 +1130,7 @@ to be as small as possible.
 The least squares method assures that
 this is the case <em>relative to the chosen model</em>,
 i.e., a linear one.
-However, it still does not mean that what we obtained
+Nonetheless, it still does not mean that what we obtained
 constitutes a good fit to the training data.
 Thus, we need to perform the <em>analysis of residuals</em>.</p>
 <p>Interestingly, the average of residuals is always zero:</p>
@@ -1139,7 +1139,7 @@ Thus, we need to perform the <em>analysis of residuals</em>.</p>
 \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i) = 0.
 \]</div>
 <p>Therefore, if we want to summarise the residuals into a single number,
-we should use, for example, the root mean squared error instead:</p>
+we should instead use, for example, the root mean squared error:</p>
 <div class="math notranslate nohighlight">
 \[
  \mathrm{RMSE}(\mathbf{y}, \hat{\mathbf{y}})
@@ -1248,8 +1248,8 @@ R^2(\mathbf{y}, \hat{\mathbf{y}}) = \frac{\mathrm{ESS}}{\mathrm{TSS}}
 </div>
 <p>The coefficient of determination in the current context<a class="footnote-reference brackets" href="#footscore" id="id8">8</a>
 is thus the proportion of variance of the
-dependent variable explained by the independent variables in the model –
-the closer it is to 1, the better.
+dependent variable explained by the independent variables in the model.
+The closer it is to 1, the better.
 A dummy model that always returns the mean of <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>
 gives R-squared of 0.</p>
 <p>In our case, <span class="math notranslate nohighlight">\(R^2\simeq 0.9\)</span> is quite high, which indicates a
@@ -1263,7 +1263,7 @@ the Gauss–Markov theorem). Further, if they are normally distributed,
 then we have several hypothesis tests available (e.g.,
 for the significance of coefficients). This is why in various textbooks
 such assumptions are additionally verified.
-However, we do not go that far in this introductory course.</p>
+But we do not go that far in this introductory course.</p>
 </div>
 </div>
 <div class="section" id="multiple-regression">
@@ -1277,7 +1277,7 @@ independent variables, arm and hip circumference:</p>
 <span class="c1">## array([  1.3 ,   0.9 , -63.38])</span>
 </pre></div>
 </div>
-<p>Thus, we fitted the plane:</p>
+<p>We fitted the plane:</p>
 <div class="math notranslate nohighlight">
 \[\text{weight} = 1.3\, \text{arm circumference} + 0.9\, \text{hip circumference}  -63.38 .\]</div>
 <p>We skip the visualisation part, because we do not expect it to result
@@ -1299,16 +1299,16 @@ The coefficient of determination is:</p>
 <span class="c1">## 4.431548244333893</span>
 </pre></div>
 </div>
-<p>Thus, it is a slightly better model than the previous one —
-we can predict the participants’ weights with better precision,
+<p>It is a slightly better model than the previous one.
+We can predict the participants’ weights with better precision,
 at the cost of an increased model’s complexity.</p>
 </div>
 <div class="section" id="variable-transformation-and-linearisable-models">
 <span id="sec-linearisation"></span><h3><span class="section-number">9.2.6. </span>Variable Transformation and Linearisable Models (*)<a class="headerlink" href="#variable-transformation-and-linearisable-models" title="Permalink to this headline"></a></h3>
-<p>We are of course not restricted merely to linear functions
-of the input variables, because by applying arbitrary
+<p>We are not restricted merely to linear functions
+of the input variables. By applying arbitrary
 transformations upon the columns of the design matrix, we can cover
-many interesting scenarios.</p>
+many diverse scenarios.</p>
 <p>For instance, a polynomial model involving two variables:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1423,7 +1423,7 @@ Sure, as far as individual points <em>in the training set</em> are concerned,
 they do fit the data better than the linear model.
 After all, they have smaller mean squared errors (again: at these
 given points).
-However, looking at the way they behave, one does not need a
+Looking at the way they behave, one does not need a
 university degree in economics/social policy to conclude that they
 are not the best <em>description</em> of how the reality behaves (on average).</p>
 <div class="admonition important">
@@ -1436,8 +1436,8 @@ in many different ways, the simplest explanation should be chosen
 <em>without necessity</em>).</p>
 </div>
 <p>In particular, the more independent variables we have in the model,
-the greater the <span class="math notranslate nohighlight">\(R^2\)</span> coefficient will be. Thus,
-we can try correcting for this phenomenon
+the greater the <span class="math notranslate nohighlight">\(R^2\)</span> coefficient will be.
+We can try correcting for this phenomenon
 by considering the <em>adjusted <span class="math notranslate nohighlight">\(R^2\)</span></em>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1459,7 +1459,7 @@ a popular measure given by</p>
 \[
 \mathrm{BIC} = m\log n+n\log(\mathrm{SSR})-n\log n.
 \]</div>
-<p>However, they are both dependent on the scale of <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>.</p>
+<p>Unfortunately, they are both dependent on the scale of <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>.</p>
 </div>
 <p>We should also be interested in a model’s <em>predictive</em> power –
 how well does it generalise to data points that we do not have now
@@ -1493,9 +1493,9 @@ Assume that a true model of some reality is <span class="math notranslate nohigh
     <span class="k">return</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>However, ae are only able to gather a small (<span class="math notranslate nohighlight">\(n=25\)</span>)
-sample from this model that is – and such is life –
-subject to some measurement error:</p>
+<p>Still, for some reason we are only able to gather a small (<span class="math notranslate nohighlight">\(n=25\)</span>)
+sample from this model. What is even worse, it is subject to
+some measurement error:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>                           <span class="c1"># random xs on [0, 1]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">true_model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># true_model(x) + noise</span>
@@ -1530,7 +1530,7 @@ course explains <em>the training data</em> better:</p>
 (which, whilst performing the fitting task based only on given
 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>, is unknown).
 We may thus say that the first model <em>generalises</em>
-better on yet-to-be-observed data,
+better on yet-to-be-observed data;
 see <a class="reference internal" href="#fig-true-model-vs-guess"><span class="std std-numref">Figure 9.12</span></a> for an illustration.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
@@ -1558,7 +1558,7 @@ We defined the sum of squared residuals
 (and its function, the root mean squared error) by means
 of the averaged deviation from the reference values,
 which in fact are themselves subject to error.
-They are our best-shot approximation of the truth. However,
+Even though they are our best-shot approximation of the truth,
 they should be taken with a degree of scepticism.</p>
 <p>In the above example, given the true (reference) model <span class="math notranslate nohighlight">\(f\)</span> defined
 over the domain <span class="math notranslate nohighlight">\(D\)</span> (in our case, <span class="math notranslate nohighlight">\(f(x)=5+3x^3\)</span> and <span class="math notranslate nohighlight">\(D=[0,1]\)</span>)
@@ -1718,7 +1718,7 @@ We should always be able to do that.</p>
 <span id="sec-ill-condition"></span><h3><span class="section-number">9.2.9. </span>Ill-Conditioned Model Matrices (*)<a class="headerlink" href="#ill-conditioned-model-matrices" title="Permalink to this headline"></a></h3>
 <p>Our approach to regression analysis relies on solving
 an optimisation problem (the method least squares).
-However, sometimes the “optimal” solution that the algorithm returns
+Nevertheless, sometimes the “optimal” solution that the algorithm returns
 might have nothing to do with the <em>true</em> minimum.
 And this is despite the fact that we have the theoretical
 results stating that the solution is unique<a class="footnote-reference brackets" href="#footunique" id="id13">10</a>
@@ -1767,7 +1767,7 @@ They are in fact returned by the <strong class="command">scipy.linalg.lstsq</str
 </pre></div>
 </div>
 <p>Note that they are already sorted nonincreasingly.
-Hence, the condition number <span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)\)</span> is equal to:</p>
+The condition number <span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)\)</span> is equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># condition number (largest/smallest singular value)</span>
 <span class="c1">## 9.101246653543121e+19</span>
 </pre></div>
@@ -1793,10 +1793,10 @@ As <span class="math notranslate nohighlight">\(s_{1,1}\ge\dots\ge s_{m,m}\)</sp
 values of <span class="math notranslate nohighlight">\(\mathbf{X}^T\)</span>, the aforementioned
 condition number can simply be computed as <span class="math notranslate nohighlight">\(s_{1,1}/s_{m,m}\)</span>.</p>
 </div>
-<div style="margin-top: 1em"></div><p>Let us verify the method used by <strong class="program">scikit-learn</strong>, which
-fits the intercept separately. Therefore, it should be slightly
-better behaving (still, it is merely a
-wrapper around <strong class="command">scipy.linalg.lstsq</strong> with a different API).</p>
+<div style="margin-top: 1em"></div><p>Let us verify the method used by <strong class="program">scikit-learn</strong>.
+As it fits the intercept separately, we expect it to be slightly
+better-behaving. Nevertheless, let us keep in mind that it is merely a
+wrapper around <strong class="command">scipy.linalg.lstsq</strong> with a different API.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.linear_model</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">y_train</span><span class="p">)</span>
@@ -1817,7 +1817,7 @@ Still, <strong class="program">scikit-learn</strong> did not warn us about this 
 Had we trusted the solution returned by it, we would end up
 with conclusions from our data analysis built on sand.
 As we said in <a class="reference internal" href="#sec-sklearnlm"><span class="std std-numref">Section 9.2.8</span></a>, the package design assumes
-that its users know what they are doing. This is good, we are all
+that its users know what they are doing. This is okay, we are all
 adults here, although some of us are still learning.</p>
 <div style="margin-top: 1em"></div><p>Overall, if the model matrix is close to singular, the computation of its
 inverse is prone to enormous numerical errors.
@@ -1983,7 +1983,7 @@ Looking at the definition of the Pearson linear correlation coefficient
 in <a class="reference internal" href="#sec-pearson"><span class="std std-numref">Section 9.1.1</span></a>,
 we see that it is the dot product of the standardised versions
 of two vectors <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> divided by
-the number of elements therein. Thus, if the vectors are
+the number of elements therein. If the vectors are
 centred, we can rewrite the formula equivalently as
 <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=
 \frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\cdot\frac{\boldsymbol{y}}{\|\boldsymbol{y}\|}\)</span> and thus <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})= \cos\alpha\)</span>.
@@ -2066,7 +2066,7 @@ the corresponding rotation in <span class="math notranslate nohighlight">\(\math
 \end{split}\]</div>
 <p>is orthonormal (which can be easily verified using the basic
 trigonometric equalities).</p>
-<p>Furthermore,</p>
+<p>Furthermore:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \left[
@@ -2194,11 +2194,11 @@ we can recreate the original matrix by applying:</p>
 is a diagonal matrix, then its inverse is
 <span class="math notranslate nohighlight">\(\mathbf{S}^{-1} = \mathrm{diag}(1/s_1,1/s_2,\dots,1/s_m)\)</span>,
 which we can denote as <span class="math notranslate nohighlight">\((1/\mathbf{S})\)</span>.
-Furthermore, the inverse of an orthonormal matrix <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>
+In addition, the inverse of an orthonormal matrix <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>
 is always equal to its transpose,
 <span class="math notranslate nohighlight">\(\mathbf{Q}^{-1}=\mathbf{Q}^T\)</span>.
 Luckily, we will not be inverting other matrices in this introductory course.</p>
-<p>Thus:</p>
+<p>As a consequence:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X}' = (\mathbf{X}-\mathbf{t}) \mathbf{Q}^{T} (1/\mathbf{S}).
@@ -2252,13 +2252,13 @@ have already been centred (so that their column means are all 0).</p>
 </pre></div>
 </div>
 <p>The norms of all the columns in <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> are all equal to 1
-(and hence standard deviations are <span class="math notranslate nohighlight">\(1/\sqrt{n}\)</span>),
-thus they are on the same scale:</p>
+(and hence standard deviations are <span class="math notranslate nohighlight">\(1/\sqrt{n}\)</span>).
+Consequently, they are on the same scale:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># compare</span>
 <span class="c1">## (array([0.01, 0.01]), 0.01)</span>
 </pre></div>
 </div>
-<p>Furthermore, they are orthogonal: their dot products
+<p>What is more, they are orthogonal: their dot products
 are all equal to 0. Regarding what we said about Pearson’s
 linear correlation coefficient and its relation to dot products of normalised vectors, we imply that the columns in <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> are not
 linearly correlated. In some sense, they form <em>independent</em> dimensions.</p>
@@ -2329,11 +2329,11 @@ column variances).</p>
 </div>
 <p>As we said in <a class="reference internal" href="310-matrix.html#sec-visual-multidim"><span class="std std-numref">Section 7.4</span></a>,
 plotting is always done on a 2-dimensional surface (be it the computer
-screen or book page), therefore we can look at the dataset
+screen or book page). We can look at the dataset
 only from one <em>angle</em> at a time.</p>
 <p>In particular, a scatterplot matrix only depicts the dataset
 from the perspective of the axes of the Cartesian coordinate system
-(standard basis), see <a class="reference internal" href="#fig-chainlink-pairplot"><span class="std std-numref">Figure 9.19</span></a>.</p>
+(standard basis); see <a class="reference internal" href="#fig-chainlink-pairplot"><span class="std std-numref">Figure 9.19</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chainlink</span><span class="p">))</span>
 <span class="c1"># plt.show()  # not needed :/</span>
 </pre></div>
@@ -2378,8 +2378,8 @@ of a centred dataset which we denote with <span class="math notranslate nohighli
 <p>Then, considering its rotated/reflected version:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{P}=\mathbf{X} \mathbf{Q}^{-1} = \mathbf{U}\mathbf{S}\]</div>
-<p>we know that its first column has the highest variance.
-Furthermore, the second column has the second highest variability,
+<p>we know that its first column has the highest variance,
+the second column has the second highest variability,
 and so on.
 It might indeed be worth to look at that dataset from that
 <em>most informative</em> perspective.</p>
@@ -2398,8 +2398,8 @@ ones (from the pairplot).</p>
 <span id="fig-chainlink-svd"></span><img alt="../_images/chainlink-svd-41.png" src="../_images/chainlink-svd-41.png" />
 <p class="caption"><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes</span><a class="headerlink" href="#id56" title="Permalink to this image"></a></p>
 </div>
-<p>What we thus did was a kind of <em>dimensionality reduction</em> –
-we found a viewpoint (in the form of an orthonormal matrix, being
+<p>What we just did is a kind of <em>dimensionality reduction</em>.
+We found a viewpoint (in the form of an orthonormal matrix, being
 a mixture of rotations and reflections) on <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 such that its orthonormal projection onto the first two axes of
 the Cartesian coordinate system is the most informative<a class="footnote-reference brackets" href="#footrankkapprox" id="id16">13</a>
@@ -2444,9 +2444,9 @@ that are linear combinations of existing ones).</p>
 <span class="c1">## [&#39;Albania&#39;, &#39;Algeria&#39;, &#39;Angola&#39;, &#39;Argentina&#39;, &#39;Armenia&#39;, &#39;Australia&#39;]</span>
 </pre></div>
 </div>
-<p>This is a 5-dimensional dataset. Thus, we cannot easily visualise it.
-That the pairplot does not reveal much is left as an exercise.</p>
-<p>Let us thus perform the SVD decomposition of a standardised
+<p>This is a 5-dimensional dataset. We cannot easily visualise it.
+That the pairplot does not reveal much is left as an exercise.
+Let us thus perform the SVD decomposition of a standardised
 version of this dataset, <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>
 (recall that the centring is necessary, at the very least).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -2467,9 +2467,9 @@ We can compute them by calling:</p>
 <span class="c1">## array([0.82380272, 0.93718105, 0.96827568, 0.98862519, 1.        ])</span>
 </pre></div>
 </div>
-<p>Thus, in some sense, the variability within the first two components
-covers ca. 94% of the variability of the whole dataset.
-We can thus restrict ourselves only to a 2-dimensional projection
+<p>As in some sense the variability within the first two components covers
+ca. 94% of the variability of the whole dataset,
+we can restrict ourselves only to a 2-dimensional projection
 of this dataset (actually, we are quite lucky here – or someone
 has selected these countrywise indices for us in a very
 clever fashion).</p>
@@ -2707,8 +2707,8 @@ reality. It is wise to remind ourselves about that every now and then.</p>
 aiming to minimise anything in particular. If the model
 is good with respect to some metrics such as RMSE or MAE,
 we can consider ourselves
-lucky. However, there are some asymptotic results that guarantee
-the optimality of the results generated for large sample sizes
+lucky. Nevertheless, there are some asymptotic results that guarantee
+the optimality of the outcomes generated for large sample sizes
 (e.g., consistency), see, e.g., <span id="id21">[<a class="reference internal" href="999-bibliography.html#id78">DGL96</a>]</span>.</p>
 </dd>
 <dt class="label" id="footscore"><span class="brackets"><a class="fn-backref" href="#id8">8</a></span></dt>
@@ -2724,7 +2724,7 @@ between models explaining different dependent variables.</p>
 exactly. This is because in our scenario (independent,
 normally distributed errors with expectation of 0),
 the least squares method is the maximum likelihood estimator
-of the model parameters. Hence, it is consistent.</p>
+of the model parameters. As a consequence, it is consistent.</p>
 </dd>
 <dt class="label" id="footunique"><span class="brackets"><a class="fn-backref" href="#id13">10</a></span></dt>
 <dd><p>There are methods in statistical learning
@@ -2777,7 +2777,7 @@ to function properly. We need more maths in our lives.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

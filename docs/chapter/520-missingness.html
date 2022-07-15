@@ -367,7 +367,7 @@ piece of information is merely an ugly (but functional) hack<a class="footnote-r
 The original use case for not-a-number is to represent
 the results of incorrect operations, e.g., logarithms of negative
 numbers or subtracting two infinite entities.
-Therefore, we need extra care when handling them.</p>
+We thus need extra care when handling them.</p>
 <p>Generally, arithmetic operations on missing values yield a result
 that is undefined as well:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">+</span> <span class="mi">2</span>  <span class="c1"># &quot;don&#39;t know&quot; + 2 == &quot;don&#39;t know&quot;</span>
@@ -384,7 +384,7 @@ that ignore missing values whatsoever:
 <span class="c1">## 2.0</span>
 </pre></div>
 </div>
-<p>However, running these aggregation functions directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects
+<p>Regrettably, running these aggregation functions directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects
 ignores missing entities by default. Compare an application
 of <strong class="command">numpy.mean</strong> on a <code class="docutils literal notranslate"><span class="pre">Series</span></code> instance vs on a vector:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">]</span>  <span class="c1"># some example Series, whatever</span>
@@ -397,10 +397,7 @@ miss (sic!) the presence of missing values.
 It is therefore crucial to have the dataset carefully
 pre-inspected.</p>
 <div style="margin-top: 1em"></div><p>Also, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> is of the floating-point type.
-It cannot thus be present in, amongst others, logical vectors.
-Therefore, unfortunately,
-comparisons against missing values yield <code class="docutils literal notranslate"><span class="pre">False</span></code>, instead of
-the more semantically valid missing value:</p>
+As a consequence, it cannot be present in, amongst others, logical vectors.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>  <span class="c1"># preview</span>
 <span class="c1">## 0      NaN</span>
 <span class="c1">## 1    154.7</span>
@@ -418,7 +415,9 @@ the more semantically valid missing value:</p>
 <span class="c1">## Name: BMXHT, dtype: bool</span>
 </pre></div>
 </div>
-<p>Hence, if we want to retain the missingness information
+<p>Unfortunately, comparisons against missing values yield <code class="docutils literal notranslate"><span class="pre">False</span></code>, instead of
+the more semantically valid missing value.
+Hence, if we want to retain the missingness information
 (we do not know if a missing value is greater than 100),
 we need to do it manually:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;object&quot;</span><span class="p">)</span>  <span class="c1"># required for numpy vectors, not for pandas Series</span>
@@ -465,7 +464,7 @@ are suitable in specific cases.</p>
 <h3><span class="section-number">15.1.4. </span>Discarding Missing Values<a class="headerlink" href="#discarding-missing-values" title="Permalink to this headline"></a></h3>
 <p>We may try removing (discarding) the rows or columns
 that feature at least one, some, or too many missing values.
-However, such a scheme will obviously not work for small datasets,
+Nonetheless, such a scheme will obviously not work for small datasets,
 where each observation is precious<a class="footnote-reference brackets" href="#footsmallsample" id="id3">2</a>.</p>
 <p>Also, we should not exercise data removal in situations where missingness
 is conditional (e.g., data only available for infants)
@@ -497,7 +496,7 @@ can be applied otherwise.</em></p>
 the removal of missing observations or columns,
 we may try applying some missing value <em>imputation</em>
 techniques. Let us be clear, though: this is merely a
-replacement thereof by some <em>hopefully</em> useful guesstimates.</p>
+replacement thereof by some <em>hopefully</em> adequate guesstimates.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In all kinds of reports from data analysis,
@@ -519,7 +518,7 @@ This does not change the overall average but decreases the variance.</p>
 <p>Similarly, we could consider replacing missing values
 with the median, or – in case of categorical data – the mode.</p>
 <div style="margin-top: 1em"></div><p>Furthermore, we expect heights to differ, on average, between sexes.
-Therefore, another basic imputation option is to replace
+Consequently, another basic imputation option is to replace
 the missing values with the corresponding within-group averages:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xg</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">]</span>
@@ -529,7 +528,7 @@ the missing values with the corresponding within-group averages:</p>
 </div>
 <div style="margin-top: 1em"></div><p>Unfortunately, whichever imputation method we choose,
 it will artificially distort the data distribution
-(and hence introduce some kind of bias); see <a class="reference internal" href="#fig-mean-imputation"><span class="std std-numref">Figure 15.1</span></a>
+and introduce some kind of bias; see <a class="reference internal" href="#fig-mean-imputation"><span class="std std-numref">Figure 15.1</span></a>
 for the histograms of <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">xi</span></code>, and <code class="docutils literal notranslate"><span class="pre">xg</span></code>.
 These effects can be obscured if we increase the histogram bins’
 widths, but they will still be present in the data.
@@ -599,7 +598,7 @@ the recorded one, e.g., we observe a component’s failure, but
 we do not know for how long it has been in operation before
 the study has started.</p></li>
 </ul>
-<p>Hence, in such cases, the recorded datum of, say, 1000,
+<p>In such cases, the recorded datum of, say, 1000,
 can essentially mean <span class="math notranslate nohighlight">\([1000, \infty)\)</span>, <span class="math notranslate nohighlight">\([0, 1000]\)</span>, or <span class="math notranslate nohighlight">\((-\infty, 1000]\)</span>.</p>
 <p>There might also be  instances where we know that a value
 is in some interval <span class="math notranslate nohighlight">\([a, b]\)</span>. There are numerical libraries
@@ -609,9 +608,9 @@ methods exist for dealing with such a scenario.</p>
 <div class="section" id="incorrect-data">
 <span id="sec-data-validation-exercises"></span><h2><span class="section-number">15.3. </span>Incorrect Data<a class="headerlink" href="#incorrect-data" title="Permalink to this headline"></a></h2>
 <p><em>Missing data</em> can already be marked in a given sample.
-However, we also might be willing to mark some existing values
-as missing, e.g., when they are incorrect.</p>
-<p>For example:</p>
+But we also might be willing to mark some existing values
+as missing, e.g., when they are incorrect.
+For example:</p>
 <ul class="simple">
 <li><p>for text data, misspelled words;</p></li>
 <li><p>for spatial data, GPS coordinates of places out of this world,
@@ -633,8 +632,8 @@ for instance when a user submits an online form.</p>
 <p>There can be many tools that can assist us with identifying erroneous
 observations, e.g., spell checkers such as
 <a class="reference external" href="https://hunspell.github.io/"><strong class="program">hunspell</strong></a>.</p>
-<p>For smaller datasets, observations can also be manually inspected.
-However, sometimes we will have to develop our own algorithms for detecting
+<p>For smaller datasets, observations can also be inspected manually.
+In other cases, we might have to develop our own algorithms for detecting
 such bugs in data.</p>
 <div class="proof proof-type-exercise" id="id17">
 
@@ -730,28 +729,26 @@ cases are easily detectable. A data scientist is like a detective.</p>
 For data that are expected to come from a normal distribution,
 everything that does not fall into the interval
 <span class="math notranslate nohighlight">\([Q_1-1.5\mathrm{IQR}, Q_3+1.5\mathrm{IQR}]\)</span> can be considered
-suspicious. This definition is based on quartiles only.
-Thus, it should not be affected by potential outliers
+suspicious. This definition is based on quartiles only,
+so it should not be affected by potential outliers
 (they are robust aggregates).
 Plus, the magic constant 1.5 is nicely round and thus easy to memorise
 (good for some practitioners). It is not too small and not too large;
 for the normal distribution N(μ, σ),
 the above interval corresponds to roughly
-<span class="math notranslate nohighlight">\([\mu-2.698\sigma, \mu+2.698\sigma]\)</span>
-and thus the probability of obtaining a value outside of it
+<span class="math notranslate nohighlight">\([\mu-2.698\sigma, \mu+2.698\sigma]\)</span>,
+and the probability of obtaining a value outside of it
 is ca. 0.7%. In other words, for a sample size 1000 that is <em>truly</em>
-normally distributed (and thus not contaminated by anything), only
+normally distributed (not contaminated by anything), only
 seven observations will be flagged.
 It is not a problem to inspect them by hand.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*) We can of course choose a different threshold.
 For instance, for the normal distribution N(10, 1),
-the probability of observing a value ≥ 15 is theoretically non-zero,
-hence whether we consider 15 an outlier is a matter of taste.
-Nevertheless, this probability is smaller than
-0.000029%, and thus it is sensible to treat this
-observation as suspicious.
+even though the probability of observing a value ≥ 15 is <em>theoretically</em>
+non-zero, it is smaller 0.000029%, so it is sensible to
+treat this observation as suspicious.
 On the other hand, we do not want to mark too many observations
 as outliers because inspecting them manually will be too labour-intense.</p>
 </div>
@@ -896,7 +893,7 @@ reveals that the data consist of two quite well-separable blobs:</p>
 <p class="caption"><span class="caption-number">Figure 15.5 </span><span class="caption-text">Scatterplot of the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
 </div>
 <p>There are a few observations that we might mark as outliers.
-The truth is that  yours truly injected eight junk points at the
+The truth is that yours truly injected eight junk points at the
 very end of the dataset. Ha.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span><span class="p">:,</span> <span class="p">:]</span>
 <span class="c1">## array([[-3. ,  3. ],</span>
@@ -909,7 +906,7 @@ very end of the dataset. Ha.</p>
 <span class="c1">##        [-1.5,  1.5]])</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>Thus, handling multidimensional data requires slightly more sophisticated
+<div style="margin-top: 1em"></div><p>Handling multidimensional data requires slightly more sophisticated
 methods. A quite straightforward approach is to check if there are any points
 within an observation’s radius of some assumed size <span class="math notranslate nohighlight">\(r&gt;0\)</span>. If that is not the
 case, we may consider it an outlier. This is a variation on the
@@ -930,7 +927,7 @@ aforementioned 1-dimensional density estimation approach<a class="footnote-refer
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">c[i]</span></code> gives the number of points within <code class="docutils literal notranslate"><span class="pre">X[i,</span> <span class="pre">:]</span></code>’s
 <span class="math notranslate nohighlight">\(r\)</span>-radius (with respect to the Euclidean distance),
-including the point itself. Therefore, <code class="docutils literal notranslate"><span class="pre">c[i]==1</span></code> denotes a
+including the point itself. Consequently, <code class="docutils literal notranslate"><span class="pre">c[i]==1</span></code> denotes a
 potential outlier; see <a class="reference internal" href="#fig-blobs1-eps"><span class="std std-numref">Figure 15.6</span></a> for an illustration.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;normal point&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;outlier&quot;</span><span class="p">)</span>
@@ -1046,7 +1043,7 @@ see <span id="id10">[<a class="reference internal" href="999-bibliography.html#i
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

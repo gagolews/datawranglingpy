@@ -331,27 +331,25 @@ data frame columns in <a class="reference internal" href="410-data-frame.html#ch
 the <code class="docutils literal notranslate"><span class="pre">heights</span></code> and <code class="docutils literal notranslate"><span class="pre">income</span></code> datasets whose histograms
 we gave in <a class="reference internal" href="210-vector.html#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>
 and <a class="reference internal" href="210-vector.html#fig-income-histogram-bins20"><span class="std std-numref">Figure 4.3</span></a>, respectively.
-Such graphical summaries are based on binned data and hence
+Such graphical summaries are based on binned data. They
 provide us with snapshots of how much probability mass
 is allocated in different parts of the data domain.</p>
 <p>Instead of dealing with large datasets, we obtained a few counts.
 The process of binning and its textual or visual depictions
-is useful in determining whether the distribution
+is valuable in determining whether the distribution
 is unimodal or multimodal, skewed or symmetric around
 some point, what range of values contains most of the observations,
-how small or large extreme values are, etc.</p>
-<div style="margin-top: 1em"></div><p>Still, too much information may sometimes be overwhelming.
-Also, revealing it might not be a clever idea for privacy or confidentially
-reasons (although we strongly advocate for all information
-of concern to the public be openly available,
-so that <em>experienced</em> statisticians can put them in good use).</p>
-<p>Thus, oftentimes we will be interested in even more synthetic descriptions –
+and how small or large extreme values are.</p>
+<div style="margin-top: 1em"></div><p>Too much information may sometimes be overwhelming. Besides,
+revealing it might not be a clever idea for privacy or confidentiality
+reasons<a class="footnote-reference brackets" href="#footprivacy" id="id1">1</a>.
+Consequently, we might be interested in even more synthetic descriptions –
 data aggregates which reduce the whole dataset into a <em>single</em>
-number reflecting one of its many characteristics
-and thus providing a kind of bird’s eye view on some aspect of it.
-We refer to such a process as data <em>aggregation</em>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id12">Gag15a</a>, <a class="reference internal" href="999-bibliography.html#id13">GMMP09</a>]</span>.</p>
-<div style="margin-top: 1em"></div><p>In this part we discuss a few noteworthy <em>measures</em> of:</p>
+number reflecting one of its many characteristics.
+They can provide us with a kind of bird’s eye view on some aspect of it.
+We refer to such processes as data <em>aggregation</em>;
+see <span id="id2">[<a class="reference internal" href="999-bibliography.html#id12">Gag15a</a>, <a class="reference internal" href="999-bibliography.html#id13">GMMP09</a>]</span>.</p>
+<div style="margin-top: 1em"></div><p>In this part, we discuss a few noteworthy <em>measures</em> of:</p>
 <ul class="simple">
 <li><p><em>location</em>; e.g., central tendency measures such as mean and median;</p></li>
 <li><p><em>dispersion</em>; e.g., standard deviation and interquartile range;</p></li>
@@ -405,7 +403,7 @@ expected to be more or less equal,</p></li>
 <li><p>for skewed distributions, the arithmetic mean will be biased towards
 the heavier tail.</p></li>
 </ul>
-<div class="proof proof-type-exercise" id="id19">
+<div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.1</span>
@@ -414,7 +412,7 @@ the heavier tail.</p></li>
 <p>Compute the arithmetic mean
 and median for the <code class="docutils literal notranslate"><span class="pre">37_pzu_warsaw_marathon_mins</span></code> dataset
 mentioned in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>.</p>
-</div></div><div class="proof proof-type-exercise" id="id20">
+</div></div><div class="proof proof-type-exercise" id="id21">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.2</span>
@@ -520,7 +518,7 @@ e.g., the 0.5-quantile is the same as the 50th percentile.</p>
 <span class="c1">## array([  5750.  ,  20669.75,  30042.  ,  44123.75, 199969.  ])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id21">
+<div class="proof proof-type-exercise" id="id22">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.3</span>
@@ -528,7 +526,7 @@ e.g., the 0.5-quantile is the same as the 50th percentile.</p>
     </div><div class="proof-content">
 <p>What is the income bracket for 95% of the “most typical” UK
 taxpayers? In other words, determine the 2.5- and 97.5-percentiles.</p>
-</div></div><div class="proof proof-type-exercise" id="id22">
+</div></div><div class="proof proof-type-exercise" id="id23">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.4</span>
@@ -556,19 +554,19 @@ the greatest integer less than or equal to <span class="math notranslate nohighl
 <span class="math notranslate nohighlight">\(\lfloor 3.0\rfloor=\lfloor 3.999\rfloor=3\)</span>,
 <span class="math notranslate nohighlight">\(\lfloor -3.0\rfloor=\lfloor -2.999\rfloor=\lfloor -2.001\rfloor=-3\)</span>, and
 <span class="math notranslate nohighlight">\(\lfloor -2.0\rfloor=\lfloor -1.001\rfloor=-2\)</span>).</p>
-<p><span class="math notranslate nohighlight">\(q_p\)</span> is thus a function that linearly interpolates between
+<p><span class="math notranslate nohighlight">\(q_p\)</span> is a function that linearly interpolates between
 the points featuring the consecutive order statistics,
 <span class="math notranslate nohighlight">\(((k - 1) / (n - 1), x_{(k)})\)</span> for <span class="math notranslate nohighlight">\(k=1,\dots,n\)</span>.
-For instance, for <span class="math notranslate nohighlight">\(n=5\)</span>, we are linearly interpolating between the points
+For instance, for <span class="math notranslate nohighlight">\(n=5\)</span>, we connect the points
 <span class="math notranslate nohighlight">\((0, x_{(1)})\)</span>, <span class="math notranslate nohighlight">\((0.25, x_{(2)})\)</span>, <span class="math notranslate nohighlight">\((0.5, x_{(3)})\)</span>,
-<span class="math notranslate nohighlight">\((0.75, x_{(4)})\)</span>, <span class="math notranslate nohighlight">\((1, x_{(5)})\)</span>,
-whereas for <span class="math notranslate nohighlight">\(n=6\)</span>, we do the same for
+<span class="math notranslate nohighlight">\((0.75, x_{(4)})\)</span>, <span class="math notranslate nohighlight">\((1, x_{(5)})\)</span>.
+For <span class="math notranslate nohighlight">\(n=6\)</span>, we do the same for
 <span class="math notranslate nohighlight">\((0, x_{(1)})\)</span>, <span class="math notranslate nohighlight">\((0.2, x_{(2)})\)</span>, <span class="math notranslate nohighlight">\((0.4, x_{(3)})\)</span>,
-<span class="math notranslate nohighlight">\((0.6, x_{(4)})\)</span>, <span class="math notranslate nohighlight">\((0.8, x_{(5)})\)</span>, <span class="math notranslate nohighlight">\((1, x_{(6)})\)</span>,
-see <a class="reference internal" href="#fig-quantile7"><span class="std std-numref">Figure 5.1</span></a> for an illustration.</p>
-<div class="figure align-default" id="id23">
+<span class="math notranslate nohighlight">\((0.6, x_{(4)})\)</span>, <span class="math notranslate nohighlight">\((0.8, x_{(5)})\)</span>, <span class="math notranslate nohighlight">\((1, x_{(6)})\)</span>.
+For an illustration, see <a class="reference internal" href="#fig-quantile7"><span class="std std-numref">Figure 5.1</span></a>.</p>
+<div class="figure align-default" id="id24">
 <span id="fig-quantile7"></span><img alt="../_images/quantile7-1.png" src="../_images/quantile7-1.png" />
-<p class="caption"><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(q_p\)</span> as a function of <span class="math notranslate nohighlight">\(p\)</span> for an example vector of length 5 (left subfigure) and 6 (right)</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(q_p\)</span> as a function of <span class="math notranslate nohighlight">\(p\)</span> for an example vector of length 5 (left subfigure) and 6 (right)</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
 </div>
 <p>Notice that for <em>p</em>=0.5 we get the median regardless
 of whether <em>n</em> is even or not.</p>
@@ -578,15 +576,15 @@ of whether <em>n</em> is even or not.</p>
 <p>(**) There are many definitions
 of quantiles across statistical software, see
 the <code class="docutils literal notranslate"><span class="pre">method</span></code> argument to <strong class="command">numpy.quantile</strong>.
-They were nicely summarised in <span id="id2">[<a class="reference internal" href="999-bibliography.html#id9">HF96</a>]</span>
+They were nicely summarised in <span id="id3">[<a class="reference internal" href="999-bibliography.html#id9">HF96</a>]</span>
 as well as in the corresponding <a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">Wikipedia</a> article.
 They are all approximately equivalent for large sample sizes
 (i.e., asymptotically), but the best practice is to be explicit about
 which variant we are using in the computations when reporting
 data analysis results.
-And thus, in our case, we say that we are relying on
-the type-7 quantiles as described in <span id="id3">[<a class="reference internal" href="999-bibliography.html#id9">HF96</a>]</span>,
-see also <span id="id4">[<a class="reference internal" href="999-bibliography.html#id38">Gum39</a>]</span>.</p>
+Accordingly, in our case, we say that we are relying on
+the type-7 quantiles as described in <span id="id4">[<a class="reference internal" href="999-bibliography.html#id9">HF96</a>]</span>,
+see also <span id="id5">[<a class="reference internal" href="999-bibliography.html#id38">Gum39</a>]</span>.</p>
 <p>In fact, simply mentioning that our computations are done with
 <strong class="command">numpy</strong> version 1.xx (<a class="reference internal" href="110-setup.html#sec-init"><span class="std std-numref">Section 1.4</span></a>)
 implicitly implies that the default method parameters are used everywhere,
@@ -612,11 +610,11 @@ diameters as low as possible: this is how we define quality products
 On the other hand, too much diversity in human behaviour, where everyone
 feels that they are special, is not really sustainable
 (but lack thereof would be extremely boring), and so forth.</p>
-<p>Let us therefore look at different ways in which we can
-quantify it.</p>
+<p>Let us explore the different ways in which we can quantify
+this data aspect.</p>
 <div class="section" id="standard-deviation-and-variance">
 <h4><span class="section-number">5.1.2.1. </span>Standard Deviation (and Variance)<a class="headerlink" href="#standard-deviation-and-variance" title="Permalink to this headline"></a></h4>
-<p>The standard deviation<a class="footnote-reference brackets" href="#footsdbiased" id="id5">1</a>,
+<p>The standard deviation<a class="footnote-reference brackets" href="#footsdbiased" id="id6">2</a>,
 is the average distance to the arithmetic mean:</p>
 <div class="math notranslate nohighlight">
 \[s = \sqrt{
@@ -633,13 +631,13 @@ is the average distance to the arithmetic mean:</p>
 </div>
 <p>The standard deviation quantifies the typical amount of spread around the
 arithmetic mean.
-It is overall useful for making comparisons across different samples
+It is overall adequate for making comparisons across different samples
 measuring similar things (e.g., heights of males vs of females,
 incomes in the UK vs in South Africa).
 However, without further assumptions, it is quite difficult to express the
 meaning of a particular value of <em>s</em> (e.g., the statement
 that the standard deviation of income is £22,900 is hard to interpret).
-Thus, it makes most sense for data distributions that
+This measure makes therefore most sense for data distributions that
 are symmetric around the mean.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -686,7 +684,7 @@ and minimal observation.</p>
 </div>
 <div class="section" id="measures-of-shape">
 <h3><span class="section-number">5.1.3. </span>Measures of Shape<a class="headerlink" href="#measures-of-shape" title="Permalink to this headline"></a></h3>
-<p>From a histogram we can easily read whether a dataset is
+<p>From a histogram, we can easily read whether a dataset is
 symmetric or skewed. It turns out that we can easily quantify
 such a characteristic. Namely, the <em>skewness</em> is given by:</p>
 <div class="math notranslate nohighlight">
@@ -710,18 +708,18 @@ and left tail, respectively.</p>
 <span class="c1">## 1.9768735693998942</span>
 </pre></div>
 </div>
-<p>And now we have them expressed as a single number.</p>
+<p>Now we have them expressed as a single number.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
 It is worth stressing that <span class="math notranslate nohighlight">\(g&gt;0\)</span> does not imply that the sample mean
 is greater than the median. As an alternative measure of skewness,
-sometime practitioners use:</p>
+sometimes the practitioners use:</p>
 <div class="math notranslate nohighlight">
 \[
 g'=\frac{\bar{x}-m}{s}.
 \]</div>
-<p>Furthermore, <em>Yule’s coefficient</em> is an example of a robust
+<p><em>Yule’s coefficient</em> is an example of a robust
 skewness measure:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -746,9 +744,9 @@ depicts some noteworthy features of a data sample.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id24">
+<div class="figure align-default" id="id25">
 <span id="fig-boxplot-income-heights"></span><img alt="../_images/boxplot-income-heights-3.png" src="../_images/boxplot-income-heights-3.png" />
-<p class="caption"><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box plots</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box plots</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
 </div>
 <p>Each box plot (compare <a class="reference internal" href="#fig-boxplot-income-heights"><span class="std std-numref">Figure 5.2</span></a>)
 consists of:</p>
@@ -759,7 +757,7 @@ consists of:</p>
 <li><p>the width of the box corresponds to the IQR;</p></li>
 </ul>
 </li>
-<li><p>the whiskers, which span<a class="footnote-reference brackets" href="#footiqr15" id="id6">2</a> between:</p>
+<li><p>the whiskers, which span<a class="footnote-reference brackets" href="#footiqr15" id="id7">3</a> between:</p>
 <ul>
 <li><p>the smallest observation (the minimum)
 or <span class="math notranslate nohighlight">\(Q_1-1.5 \mathrm{IQR}\)</span> (the left side of the box minus
@@ -777,23 +775,23 @@ are separately marked.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We are used to referring to the individually marked points
-as <em>outliers</em>, however,
-it does not automatically mean there is anything <em>anomalous</em> about them.
+as <em>outliers</em>. Still, it does not automatically mean there is anything
+<em>anomalous</em> about them.
 They are <em>atypical</em> in the sense that they are
 considerably farther away from the box.
-However, they might also indicate some problems in data quality
+But this might as well indicate some problems in data quality
 (e.g., when someone made a typo entering the data).
 Actually, box plots are calibrated
 (via the nicely round magic constant 1.5)
 in such a way that we expect there
 to be no or only few outliers if the data are normally distributed.
 For skewed distributions, there will naturally be many outliers
-on either side. See <a class="reference internal" href="520-missingness.html#sec-outliers"><span class="std std-numref">Section 15.4</span></a> for more details.</p>
+on either side; see <a class="reference internal" href="520-missingness.html#sec-outliers"><span class="std std-numref">Section 15.4</span></a> for more details.</p>
 </div>
 <p>Box plots are based solely on sample quantiles.
 Most of the statistical packages <em>do not</em> draw the arithmetic mean.
 If they do, it is marked with a distinctive symbol.</p>
-<div class="proof proof-type-exercise" id="id25">
+<div class="proof proof-type-exercise" id="id26">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.5</span>
@@ -803,11 +801,11 @@ If they do, it is marked with a distinctive symbol.</p>
 <strong class="command">matplotlib.pyplot.plot</strong><code class="code docutils literal notranslate"><span class="pre">(</span></code><strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">(..data..),</span> <span class="pre">0,</span> <span class="pre">&quot;wX&quot;)</span></code>
 after <strong class="command">seaborn.boxplot</strong> to mark the arithmetic mean with
 a white cross.</p>
-</div></div><p>Box plots are particularly useful for comparing data samples with each
+</div></div><p>Box plots are particularly beneficial for comparing data samples with each
 other (e.g., body measures of men and women separately);
 both in terms of the relative shift (location)
 as well as spread and skewness, see, e.g., <a class="reference internal" href="430-group-by.html#fig-gender-usborn-bmi"><span class="std std-numref">Figure 12.1</span></a>.</p>
-<div class="proof proof-type-example" id="id26">
+<div class="proof proof-type-example" id="id27">
 
     <div class="proof-title">
         <span class="proof-type">Example 5.6</span>
@@ -828,9 +826,9 @@ and the so-called kernel density estimator
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id27">
+<div class="figure align-default" id="id28">
 <span id="fig-violinplot-income"></span><img alt="../_images/violinplot-income-5.png" src="../_images/violinplot-income-5.png" />
-<p class="caption"><span class="caption-number">Figure 5.3 </span><span class="caption-text">Example violin plots</span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.3 </span><span class="caption-text">Example violin plots</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
 </div>
 </div></div></div>
 <div class="section" id="further-methods">
@@ -842,7 +840,7 @@ a high <em>breakdown point</em>). Some measures of central tendency
 that are in-between the mean-median extreme include:</p>
 <ul class="simple">
 <li><p><em>trimmed means</em> – the arithmetic mean of all the observations except
-a number of, say <em>p</em>, the smallest and the greatest ones,</p></li>
+several, say <em>p</em>, the smallest and the greatest ones,</p></li>
 <li><p><em>winsorised means</em> – the arithmetic mean with <em>p</em> smallest and <em>p</em> greatest
 observations replaced with the (<em>p+1</em>)-smallest
 the (<em>p+1</em>)-largest one.</p></li>
@@ -861,7 +859,7 @@ of the standard deviation (it is the quadratic mean of the
 distances to the mean).</p>
 <div style="margin-top: 1em"></div><p>As far as spread measures are concerned, the interquartile range (IQR)
 is a robust statistic.
-If necessary, standard deviation might be replaced with:</p>
+If necessary, the standard deviation might be replaced with:</p>
 <ul class="simple">
 <li><p>mean absolute deviation from the mean:
 <span class="math notranslate nohighlight">\(\frac{1}{n} \sum_{i=1}^n |x_i-\bar{x}|\)</span>,</p></li>
@@ -872,11 +870,11 @@ the median of <span class="math notranslate nohighlight">\((|x_1-m|, |x_2-m|, \d
 </ul>
 <p>The <em>coefficient of variation</em>, being the standard deviation
 dived by the arithmetic mean, is an example of a <em>relative</em> (or
-normalised) spread measure. It can be useful for comparing data
+normalised) spread measure. It can be appropriate for comparing data
 on different scales, as it is unit-less
 (think how standard deviation changes when you
 convert between metres and centimetres).</p>
-<p>The <em>Gini index</em>
+<p>The <em>Gini index</em>,
 widely used in economics, can also serve as a measure of relative
 dispersion, but assumes that all data points are nonnegative.</p>
 <div class="math notranslate nohighlight">
@@ -899,10 +897,10 @@ same (0 variance; perfect equality).
 If there is a single entity in possession of all the “wealth”,
 and the remaining ones are 0, then the index is equal to 1.</p>
 <div style="margin-top: 1em"></div><p>For a more generic (algebraic) treatment of aggregation functions
-for unidimensional data, see, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id117">Bul03</a>, <a class="reference internal" href="999-bibliography.html#id12">Gag15a</a>, <a class="reference internal" href="999-bibliography.html#id11">Gag15b</a>, <a class="reference internal" href="999-bibliography.html#id13">GMMP09</a>]</span>.
+for unidimensional data, see, e.g., <span id="id8">[<a class="reference internal" href="999-bibliography.html#id117">Bul03</a>, <a class="reference internal" href="999-bibliography.html#id12">Gag15a</a>, <a class="reference internal" href="999-bibliography.html#id11">Gag15b</a>, <a class="reference internal" href="999-bibliography.html#id13">GMMP09</a>]</span>.
 Some measures might be better than others under certain
 (often strict) assumptions usually explored in a
-course on mathematical statistics, e.g., <span id="id8">[<a class="reference internal" href="999-bibliography.html#id42">Gen20</a>]</span>.</p>
+course on mathematical statistics, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id42">Gen20</a>]</span>.</p>
 <p>Overall, numerical aggregates should be used in cases where
 data are unimodal. For multimodal mixtures or data in groups,
 they should rather be applied to summarise each cluster/class separately,
@@ -957,7 +955,7 @@ to traverse through each element in a given sequence.</p>
 </div>
 <div style="margin-top: 1em"></div><p>Here are some significant properties of the natural logarithm
 and its inverse, the exponential function.
-By convention, the Euler’s number <span class="math notranslate nohighlight">\(e \simeq 2.718\)</span>,
+By convention, Euler’s number <span class="math notranslate nohighlight">\(e \simeq 2.718\)</span>,
 <span class="math notranslate nohighlight">\(\log x = \log_e x\)</span>, and <span class="math notranslate nohighlight">\(\exp(x)=e^x\)</span>.</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\log 1 = 0\)</span>, <span class="math notranslate nohighlight">\(\log e = 1\)</span>; note that logarithms are
@@ -967,7 +965,7 @@ we have that <span class="math notranslate nohighlight">\(\log x \to -\infty\)</
 <li><p><span class="math notranslate nohighlight">\(\log (xy) = \log x + \log y\)</span> and thus <span class="math notranslate nohighlight">\(\log (x/y) = \log x - \log y\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(e^0 = 1\)</span>, <span class="math notranslate nohighlight">\(e^1=e\)</span>, and <span class="math notranslate nohighlight">\(e^x\to 0\)</span> as <span class="math notranslate nohighlight">\(x \to -\infty\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(e^{\log x} = x\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(e^{x+y} = e^x e^y\)</span> and hence <span class="math notranslate nohighlight">\(e^{x-y}=e^x / e^y\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(e^{x+y} = e^x e^y\)</span> and so <span class="math notranslate nohighlight">\(e^{x-y}=e^x / e^y\)</span>.</p></li>
 </ul>
 <p>Both functions are strictly increasing.
 For <span class="math notranslate nohighlight">\(x\ge 1\)</span>, the logarithm grows very slowly whereas the exponential
@@ -983,9 +981,9 @@ function increases very rapidly, see <a class="reference internal" href="#fig-lo
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id28">
+<div class="figure align-default" id="id29">
 <span id="fig-log-exp"></span><img alt="../_images/log-exp-7.png" src="../_images/log-exp-7.png" />
-<p class="caption"><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right)</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right)</span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
 </div>
 <div style="margin-top: 1em"></div><p>Logarithms of different bases and non-natural exponential functions are
 also available. In particular, when drawing plots, we used
@@ -1003,7 +1001,7 @@ For example:</p>
 </pre></div>
 </div>
 <p>Take note of the warning and the not-a-number (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) generated.</p>
-<div class="proof proof-type-exercise" id="id29">
+<div class="proof proof-type-exercise" id="id30">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.7</span>
@@ -1015,9 +1013,9 @@ For example:</p>
 (<strong class="command">plt.yscale</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;log&quot;)</span></code>) makes the exponential function
 linear.</p>
 </div></div><div style="margin-top: 1em"></div><p>Moving on, the trigonometric functions in <strong class="program">numpy</strong>
-accept angles in radians;
-if <span class="math notranslate nohighlight">\(x\)</span> is the degree in angles, then to compute its
-cosine we will thus be writing <span class="math notranslate nohighlight">\(\cos (x \pi /180)\)</span> instead;
+accept angles in radians.
+If <span class="math notranslate nohighlight">\(x\)</span> is the degree in angles, then to compute its
+cosine, we should instead write <span class="math notranslate nohighlight">\(\cos (x \pi /180)\)</span>;
 see <a class="reference internal" href="#fig-cos"><span class="std std-numref">Figure 5.5</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -1029,9 +1027,9 @@ see <a class="reference internal" href="#fig-cos"><span class="std std-numref">F
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id30">
+<div class="figure align-default" id="id31">
 <span id="fig-cos"></span><img alt="../_images/cos-9.png" src="../_images/cos-9.png" />
-<p class="caption"><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine</span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
 </div>
 <p>Some identities worth memorising:</p>
 <ul class="simple">
@@ -1045,8 +1043,8 @@ see <a class="reference internal" href="#fig-cos"><span class="std std-numref">F
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The classical handbook of mathematical functions
-and the (in)equalities related to them is <span id="id9">[<a class="reference internal" href="999-bibliography.html#id134">AS72</a>]</span>,
-see <span id="id10">[<a class="reference internal" href="999-bibliography.html#id135">O+22</a>]</span> for its updated version.</p>
+and the (in)equalities related to them is <span id="id10">[<a class="reference internal" href="999-bibliography.html#id134">AS72</a>]</span>,
+see <span id="id11">[<a class="reference internal" href="999-bibliography.html#id135">O+22</a>]</span> for its updated version.</p>
 </div>
 </div>
 <div class="section" id="arithmetic-operators">
@@ -1070,11 +1068,11 @@ value (scalar), for example:</p>
 <p>In such a case, each element in the vector is being
 operated upon (e.g., squared, divided by 5)
 and we get a vector of the same length in return.
-Hence, in this case the operators behave just like the vectorised
+Hence, in this case, the operators behave just like the vectorised
 mathematical functions discussed above.</p>
 <p>Mathematically, it is common to assume that
-scalar multiplication and, less commonly, addition
-is performed in this way.</p>
+the scalar multiplication and, less commonly, the addition
+are performed in this way.</p>
 <div class="math notranslate nohighlight">
 \[
 c \boldsymbol{x} + t = (cx_1+t, cx_2+t, \dots, cx_n+t).
@@ -1101,9 +1099,9 @@ pairwise distances between multidimensional points, see
 which geometrically we can interpret as scaling
 (stretching or shrinking) and shifting (translating),
 see <a class="reference internal" href="#fig-scale-shift"><span class="std std-numref">Figure 5.6</span></a> for an illustration.</p>
-<div class="figure align-default" id="id31">
+<div class="figure align-default" id="id32">
 <span id="fig-scale-shift"></span><img alt="../_images/scale-shift-11.png" src="../_images/scale-shift-11.png" />
-<p class="caption"><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of an example vector</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of an example vector</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1115,11 +1113,11 @@ The following properties hold.</p>
 <li><p>The arithmetic mean and all the quantiles (including, of course,
 the median), are equivariant with respect to translation and scaling;
 it holds, for instance, <span class="math notranslate nohighlight">\(\bar{y} = c \bar{x} + t\)</span>.</p></li>
-<li><p>Thhe standard deviation, the interquartile range, and the
+<li><p>The standard deviation, the interquartile range, and the
 range are invariant to translations and equivariant to scaling;
 e.g., <span class="math notranslate nohighlight">\(s_y = c s_x\)</span>.</p></li>
 </ul>
-<p>As a by-product, for variance we  get of course…
+<p>As a by-product, for the variance, we get…
 <span class="math notranslate nohighlight">\(s_y^2 = c^2 s_x^2\)</span>.</p>
 </div>
 <div class="section" id="standardisation-and-z-scores">
@@ -1175,15 +1173,15 @@ the z-scores are <em>unitless</em> (centimetres/centimetres = 1).</p>
 <p>Standardisation
 enables the comparison of measurements on different scales
 (think: height in centimetres vs weight in kilograms
-or apples vs oranges).</p>
-<p>It makes most sense for bell-shaped distributions,
+or apples vs oranges).
+It makes the most sense for bell-shaped distributions,
 in particular normally-distributed ones.
 In the next chapter we will note that, due to the 2σ rule for the
 normal family, we <em>expect</em> that 95% of observations should
 have z-scores between -2 and 2.
 Further, z-scores less than -3 and greater than 3 are highly unlikely.</p>
 </div>
-<div class="proof proof-type-exercise" id="id32">
+<div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.8</span>
@@ -1191,7 +1189,7 @@ Further, z-scores less than -3 and greater than 3 are highly unlikely.</p>
     </div><div class="proof-content">
 <p>We have a patient whose height z-score is 1 and
 weight z-score is -1. How to interpret this information?</p>
-</div></div><div class="proof proof-type-exercise" id="id33">
+</div></div><div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.9</span>
@@ -1253,13 +1251,7 @@ is <span class="math notranslate nohighlight">\(\sqrt{a^2+b^2}\)</span>, e.g., <
 Also, it is good to program our brains so that when
 next time we see <span class="math notranslate nohighlight">\(\| \boldsymbol{x} \|^2\)</span>, we immediately
 think of the <em>sum of squares</em>.</p>
-<p>We can thus write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
-<span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># x divided by the Euclidean norm of x</span>
-<span class="c1">## array([ 0.13834289,  0.69171446, -0.55337157,  0.27668579,  0.34585723])</span>
-</pre></div>
-</div>
-<p>to mean the normalised vector</p>
+<p>Consequently, a normalised vector:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\boldsymbol{x}}{\| \boldsymbol{x} \|} =
@@ -1268,21 +1260,27 @@ think of the <em>sum of squares</em>.</p>
 \frac{x_2}{\| \boldsymbol{x} \|},
 \dots,
 \frac{x_n}{\| \boldsymbol{x} \|}
-\right).
+\right)
 \]</div>
-<div class="proof proof-type-exercise" id="id34">
+<p>can be determined via:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>  <span class="c1"># example vector</span>
+<span class="n">x</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># x divided by the Euclidean norm of x</span>
+<span class="c1">## array([ 0.13834289,  0.69171446, -0.55337157,  0.27668579,  0.34585723])</span>
+</pre></div>
+</div>
+<div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.10</span>
         
     </div><div class="proof-content">
 <p>Normalisation is similar to standardisation if data are
-already centred (when mean was subtracted). Show that we can obtain one
+already centred (when the mean was subtracted). Show that we can obtain one
 from the other via the scaling by <span class="math notranslate nohighlight">\(\sqrt{n}\)</span>.</p>
 </div></div><div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>A common confusion is that normalisation is supposed to make
-data <em>more normally</em> distributed. This is not the case<a class="footnote-reference brackets" href="#footboxcox" id="id11">3</a>,
+data <em>more normally</em> distributed. This is not the case<a class="footnote-reference brackets" href="#footboxcox" id="id12">4</a>,
 as we only scale (stretch or shrink) the observations here.</p>
 </div>
 </div>
@@ -1303,7 +1301,7 @@ the Manhattan (<span class="math notranslate nohighlight">\(l_1\)</span>) norm,<
 whose normalised versions can be interpreted as <em>probabilities</em>
 or <em>proportions</em>: values between 0 and 1 which sum to 1 (or, equivalently,
 100%).</p>
-<div class="proof proof-type-example" id="id35">
+<div class="proof proof-type-example" id="id36">
 
     <div class="proof-title">
         <span class="proof-type">Example 5.11</span>
@@ -1351,7 +1349,7 @@ and <span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\
 is less standard in mathematics (for instance multiplication
 might denote the dot product), but in <strong class="program">numpy</strong>
 it is really convenient.</p>
-<div class="proof proof-type-example" id="id36">
+<div class="proof proof-type-example" id="id37">
 
     <div class="proof-title">
         <span class="proof-type">Example 5.12</span>
@@ -1370,13 +1368,13 @@ i.e., <span class="math notranslate nohighlight">\(h=-\sum_{i=1}^n p_i\, \log p_
 minus (change sign), an aggregation function (sum),
 a vectorised mathematical function (log),
 and an elementwise multiplication of two vectors of the same lengths.</p>
-</div></div><div class="proof proof-type-example" id="id37">
+</div></div><div class="proof proof-type-example" id="id38">
 
     <div class="proof-title">
         <span class="proof-type">Example 5.13</span>
         
     </div><div class="proof-content">
-<p>Let us assume that – for whatever the reason – we would like to
+<p>Let us assume that – for whatever reason – we would like to
 plot two mathematical functions, the sine, <span class="math notranslate nohighlight">\(f(x)= \sin x\)</span>,
 and a polynomial of degree 7, <span class="math notranslate nohighlight">\(g(x) = x - x^3/6 + x^5/120 - x^7/5040\)</span>
 for <span class="math notranslate nohighlight">\(x\)</span> in the interval <span class="math notranslate nohighlight">\([-\pi, 3\pi/2]\)</span>.</p>
@@ -1393,14 +1391,14 @@ to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id38">
+<div class="figure align-default" id="id39">
 <span id="fig-vectorised-easy"></span><img alt="../_images/vectorised-easy-13.png" src="../_images/vectorised-easy-13.png" />
-<p class="caption"><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one; we used different line styles so that the plot is readable also when printed in black and white</span><a class="headerlink" href="#id38" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one; we used different line styles so that the plot is readable also when printed in black and white</span><a class="headerlink" href="#id39" title="Permalink to this image"></a></p>
 </div>
 <p>Decreasing the number of points in <code class="docutils literal notranslate"><span class="pre">x</span></code> will reveal that the
 plotting function merely draws a series of straight-line segments.
 Computer graphics is essentially discrete.</p>
-</div></div><div class="proof proof-type-exercise" id="id39">
+</div></div><div class="proof proof-type-exercise" id="id40">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.14</span>
@@ -1485,7 +1483,7 @@ elementwisely
 </div>
 <p>to mean “select the elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> which are not less than 30”.</p>
 <div style="margin-top: 1em"></div><p>Of course, the indexed vector and the vector
-specifying the <em>filter</em> do not<a class="footnote-reference brackets" href="#footnononstandard" id="id12">4</a> have to be the same:</p>
+specifying the <em>filter</em> do not<a class="footnote-reference brackets" href="#footnononstandard" id="id13">5</a> have to be the same:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>  <span class="c1"># whatever</span>
 <span class="n">y</span>  <span class="c1"># equal to 0 if a number is a multiply of 10 times an even number</span>
 <span class="c1">## array([1., 0., 1., 0., 1.])</span>
@@ -1512,7 +1510,7 @@ Therefore, the bracketing of the comparisons is obligatory.</p>
 </div>
 <p>means “elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> between 20 and 40”
 (greater than or equal to 20 and less than or equal to 40).</p>
-<div class="proof proof-type-exercise" id="id40">
+<div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.15</span>
@@ -1578,7 +1576,7 @@ returns the vector of <em>cumulative sums</em>:</p>
 </div>
 <p>This gave, in this order: the first element, the sum of first two elements,
 the sum of first three elements, …, the sum of all elements.</p>
-<div style="margin-top: 1em"></div><p>Further, <em>iterative differences</em> are a somewhat inverse operation:</p>
+<div style="margin-top: 1em"></div><p><em>Iterative differences</em> are a somewhat inverse operation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 <span class="c1">## array([ 3, -4,  1,  1,  3])</span>
 </pre></div>
@@ -1603,7 +1601,7 @@ of a given vector, i.e., determines the order statistics.</p>
 </div>
 <p>The <strong class="command">sort</strong> method (as in: <code class="docutils literal notranslate"><span class="pre">x.sort()</span></code>), on the other hand,
 sorts the vector in place (and returns nothing).</p>
-<div class="proof proof-type-exercise" id="id41">
+<div class="proof proof-type-exercise" id="id42">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.16</span>
@@ -1615,22 +1613,21 @@ This function shuffles the elements in a given vector.</p>
 </div></div></div>
 <div class="section" id="dealing-with-tied-observations">
 <span id="sec-ties"></span><h3><span class="section-number">5.5.3. </span>Dealing with Tied Observations<a class="headerlink" href="#dealing-with-tied-observations" title="Permalink to this headline"></a></h3>
-<p>Some statistical methods, especially for continuous data<a class="footnote-reference brackets" href="#footconttie" id="id13">5</a>,
+<p>Some statistical methods, especially for continuous data<a class="footnote-reference brackets" href="#footconttie" id="id14">6</a>,
 assume that all observations in a vector are unique, i.e.,
-there are no <em>ties</em>.
-In real life, however, a situation where one value
-occurs many times can happen.
-For instance, two marathoners might finish their runs
-in exactly the same time, data can be rounded up to a certain number
-of fractional digits, or observations are inherently integer.
-We should thus be able to detect it.</p>
+there are no <em>ties</em>. In real life, however, some values
+might be recorded multiple times. For instance, two marathoners
+might finish their runs in exactly the same time,
+data can be rounded up to a certain number
+of fractional digits, or it just happens that observations are inherently
+integer. Therefore, we should be able to detect duplicated entries.</p>
 <p><strong class="command">numpy.unique</strong> is a workhorse for dealing with tied observations.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## array([10, 20, 30, 40, 50, 70])</span>
 </pre></div>
 </div>
-<p>Returns a <em>sorted</em><a class="footnote-reference brackets" href="#footpandasunique" id="id14">6</a> version of
+<p>Returns a <em>sorted</em><a class="footnote-reference brackets" href="#footpandasunique" id="id15">7</a> version of
 a given vector with duplicates removed.</p>
 <p>We can also get the corresponding counts:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># returns a tuple of length 2</span>
@@ -1642,14 +1639,14 @@ a given vector with duplicates removed.</p>
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id42">
+<div class="proof proof-type-exercise" id="id43">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.17</span>
         
     </div><div class="proof-content">
 <p>Play with the <code class="docutils literal notranslate"><span class="pre">return_index</span></code> argument to <strong class="command">numpy.unique</strong>
-that allows to pinpoint the indexes of the first occurrences
+that allows pinpointing the indexes of the first occurrences
 of each unique value.</p>
 </div></div></div>
 <div class="section" id="determining-the-ordering-permutation-and-ranking">
@@ -1686,16 +1683,16 @@ permutation is unique: tied elements are placed in the order of appearance.</p>
 <span class="c1">## array([1., 4., 5., 2., 3.])</span>
 </pre></div>
 </div>
-<p>Element 10 is the smallest (“the winner”, say, the quickest racer),
-hence it has rank 1.
-Element 40 is the 4th on the podium, hence its rank is 4.
+<p>Element 10 is the smallest (“the winner”, say, the quickest racer).
+Hence, it has rank 1.
+Element 40 is the 4th on the podium. Thus, its rank is 4.
 And so on.</p>
-<p>There are many methods in nonparametric statistics
+<p>On a side note, there are many methods in nonparametric statistics
 (those that do not make any too particular assumptions
-about the underlying data distribution) that are based on ranks,
-e.g., the Spearman correlation coefficient which we cover
-in <a class="reference internal" href="330-relationship.html#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>.</p>
-<div class="proof proof-type-exercise" id="id43">
+about the underlying data distribution) that are based on ranks.
+In particular, in <a class="reference internal" href="330-relationship.html#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>,
+we cover the Spearman correlation coefficient.</p>
+<div class="proof proof-type-exercise" id="id44">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.18</span>
@@ -1751,7 +1748,7 @@ For example:</p>
 </div>
 <p>It is a version of <strong class="command">numpy.argmax</strong> that lets us decide
 what we would like to do with the tied maxima (there are two).</p>
-<div class="proof proof-type-exercise" id="id44">
+<div class="proof proof-type-exercise" id="id45">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.19</span>
@@ -1766,7 +1763,7 @@ pinpointing one of the sample maxima.</p>
 <p>Mathematics tells us (the easy proof is left as an exercise to the reader)
 that a centred version of a given vector
 <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>, <span class="math notranslate nohighlight">\(\boldsymbol{y} = \boldsymbol{x}-\bar{x}\)</span>,
-has arithmetic mean 0, i.e., <span class="math notranslate nohighlight">\(\bar{y}=0\)</span>.</p>
+has the arithmetic mean of 0, i.e., <span class="math notranslate nohighlight">\(\bar{y}=0\)</span>.</p>
 <p>Of course, it is also true on a computer. Or is it?</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights_centred</span> <span class="o">=</span> <span class="p">(</span><span class="n">heights</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">))</span>
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights_centred</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -1785,21 +1782,21 @@ when performing standardisation (which involves centring)
 in <a class="reference internal" href="#sec-standardisation"><span class="std std-numref">Section 5.3.2</span></a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>All floating-point operations on a computer<a class="footnote-reference brackets" href="#footieee754" id="id15">7</a> (not only in Python)
+<p>All floating-point operations on a computer<a class="footnote-reference brackets" href="#footieee754" id="id16">8</a> (not only in Python)
 are performed with <em>finite</em> precision of 15–17 decimal digits.</p>
 </div>
 <p>We know it from school – for example, some fractions cannot
-be represented as decimals. Therefore, when asked to add or multiply
+be represented as decimals. When asked to add or multiply
 them, we will always have to apply some rounding that ultimately
-leads to precision  loss; e.g., we know that <span class="math notranslate nohighlight">\(1/3 + 1/3 + 1/3 = 1\)</span>,
-but using a decimal representation with 1 fractional digit,
-we get <span class="math notranslate nohighlight">\(0.3+0.3+0.3=0.9\)</span>; with 2 digits we obtain <span class="math notranslate nohighlight">\(0.33+0.33+0.33=0.99\)</span>,
-and so forth. This sum will never be equal exactly to 1 when
-using a finite precision.</p>
+leads to precision loss. We know that <span class="math notranslate nohighlight">\(1/3 + 1/3 + 1/3 = 1\)</span>,
+but using a decimal representation with one fractional digit,
+we get <span class="math notranslate nohighlight">\(0.3+0.3+0.3=0.9\)</span>. With two digits, we obtain <span class="math notranslate nohighlight">\(0.33+0.33+0.33=0.99\)</span>.
+And so on.
+This sum will never be equal exactly to 1 when using a finite precision.</p>
 <p>Moreover, errors induced in one operation will propagate onto further ones.
-Most often they cancel out, but in extreme cases they can lead to
+Most often they cancel out, but in extreme cases, they can lead to
 undesirable consequences (like for some model matrices
-in linear regression, see <a class="reference internal" href="330-relationship.html#sec-ill-condition"><span class="std std-numref">Section 9.2.9</span></a>).</p>
+in linear regression; see <a class="reference internal" href="330-relationship.html#sec-ill-condition"><span class="std std-numref">Section 9.2.9</span></a>).</p>
 <p>There is no reason to panic, though. The rule to remember is:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1844,12 +1841,12 @@ In our dataset the precision is a bit higher:</p>
 </pre></div>
 </div>
 <p>But still, there is an inherent <em>observational error</em>.
-Therefore, even if, for example, the mean thereof was computed exactly,
+Even if, for example, the mean thereof was computed exactly,
 the fact that the inputs themselves are not necessarily ideal
 makes the estimate <em>approximate</em> as well. We can only hope
 that these errors will more or less cancel out in the computations.</p>
 </div>
-<div class="proof proof-type-exercise" id="id45">
+<div class="proof proof-type-exercise" id="id46">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.20</span>
@@ -1864,7 +1861,7 @@ etc., decimal digits.</p>
 <p>(*) Another problem is related to the fact that floats on a computer
 use the binary base, not the decimal one. Therefore, some
 fractional numbers that we <em>believe</em> to be representable exactly,
-in fact require an infinite number of bits and thus are subject to
+require an infinite number of bits. As a consequence, they are subject to
 rounding.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">==</span> <span class="mf">0.3</span>  <span class="c1"># obviously</span>
 <span class="c1">## False</span>
@@ -1878,7 +1875,7 @@ represented as, respectively:</p>
 </div>
 </div>
 <p>A good introductory reference to the topic of numerical
-inaccuracies is <span id="id16">[<a class="reference internal" href="999-bibliography.html#id138">Gol91</a>]</span>, see also <span id="id17">[<a class="reference internal" href="999-bibliography.html#id137">Hig02</a>, <a class="reference internal" href="999-bibliography.html#id139">Knu97</a>]</span>
+inaccuracies is <span id="id17">[<a class="reference internal" href="999-bibliography.html#id138">Gol91</a>]</span>, see also <span id="id18">[<a class="reference internal" href="999-bibliography.html#id137">Hig02</a>, <a class="reference internal" href="999-bibliography.html#id139">Knu97</a>]</span>
 for a more comprehensive treatment of numerical analysis.</p>
 </div>
 <div class="section" id="vectorising-scalar-operations-with-list-comprehensions">
@@ -1938,11 +1935,11 @@ so that it can be used on <strong class="program">numpy</strong> vectors:</p>
 </pre></div>
 </div>
 <p>In the above cases, it is much better (faster, more readable code)
-to rely on vectorised <strong class="program">numpy</strong> functions. However,
-in cases where the corresponding operations are unavailable
+to rely on vectorised <strong class="program">numpy</strong> functions.
+Still, if the corresponding operations are unavailable
 (e.g., string processing, reading many files),
 list comprehensions provide a reasonable replacement therefor.</p>
-<div class="proof proof-type-exercise" id="id46">
+<div class="proof proof-type-exercise" id="id47">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.21</span>
@@ -1950,7 +1947,7 @@ list comprehensions provide a reasonable replacement therefor.</p>
     </div><div class="proof-content">
 <p>Write equivalent versions of the above expressions
 using vectorised <strong class="program">numpy</strong> functions.</p>
-</div></div><div class="proof proof-type-exercise" id="id47">
+</div></div><div class="proof proof-type-exercise" id="id48">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.22</span>
@@ -1959,12 +1956,12 @@ using vectorised <strong class="program">numpy</strong> functions.</p>
 <p>Write equivalent versions of the above expressions
 using base Python lists,
 the <strong class="command">for</strong> loop and the <strong class="command">list.append</strong> method (start from
-an empty list which will store the result).</p>
+an empty list that will store the result).</p>
 </div></div></div>
 </div>
 <div class="section" id="exercises">
 <h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
-<div class="proof proof-type-exercise" id="id48">
+<div class="proof proof-type-exercise" id="id49">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.23</span>
@@ -1972,7 +1969,7 @@ an empty list which will store the result).</p>
     </div><div class="proof-content">
 <p>What are some benefits of using a <strong class="program">numpy</strong> vector
 over an ordinary Python list? What are the drawbacks?</p>
-</div></div><div class="proof proof-type-exercise" id="id49">
+</div></div><div class="proof proof-type-exercise" id="id50">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.24</span>
@@ -1981,20 +1978,20 @@ over an ordinary Python list? What are the drawbacks?</p>
 <p>How can we interpret the possibly different values
 of the arithmetic mean, median, standard deviation, interquartile range,
 and skewness, when comparing between heights of men and women?</p>
-</div></div><div class="proof proof-type-exercise" id="id50">
+</div></div><div class="proof proof-type-exercise" id="id51">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.25</span>
         
     </div><div class="proof-content">
 <p>There is something scientific and magical about <em>numbers</em>
-that makes us approach them with some kind of respect.
+that make us approach them with some kind of respect.
 However, taking into account that there are many possible data aggregates,
 there is a risk that a party may be cherry-picking – reporting
 the one that portrays the analysed entity in a good or bad light. For instance,
 reporting the mean instead of the median or vice versa.
 Is there anything that can be done about it?</p>
-</div></div><div class="proof proof-type-exercise" id="id51">
+</div></div><div class="proof proof-type-exercise" id="id52">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.26</span>
@@ -2003,12 +2000,12 @@ Is there anything that can be done about it?</p>
 <p>Although – mathematically speaking – all measures can be computed on all
 data, it does not mean that it always makes sense to do so.
 For instance, some distributions will yield skewness of 0,
-but we should not automatically assume that they are nicely symmetric
+but we should not automatically assume that they are delightfully symmetric
 and bell-shaped (e.g., this can be a bimodal distribution).
-It is thus best to visualise your data first.
+This is why we always need to visualise our data.
 Give some examples of datasets and measures where we should be critical
-about the obtained results.</p>
-</div></div><div class="proof proof-type-exercise" id="id52">
+of the obtained results.</p>
+</div></div><div class="proof proof-type-exercise" id="id53">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.27</span>
@@ -2016,7 +2013,7 @@ about the obtained results.</p>
     </div><div class="proof-content">
 <p>Give some examples where simple data preprocessing
 can drastically change the values of chosen sample aggregates.</p>
-</div></div><div class="proof proof-type-exercise" id="id53">
+</div></div><div class="proof proof-type-exercise" id="id54">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.28</span>
@@ -2024,7 +2021,7 @@ can drastically change the values of chosen sample aggregates.</p>
     </div><div class="proof-content">
 <p>Give the mathematical definitions, use cases, and interpretations
 of standardisation, normalisation, and min-max scaling.</p>
-</div></div><div class="proof proof-type-exercise" id="id54">
+</div></div><div class="proof proof-type-exercise" id="id55">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.29</span>
@@ -2036,7 +2033,7 @@ How about <strong class="command">numpy.log</strong> vs <strong class="command">
 <strong class="command">numpy.min</strong> vs <strong class="command">numpy.argmin</strong>,
 <strong class="command">numpy.sort</strong> vs <strong class="command">numpy.argsort</strong>,  and
 <strong class="command">scipy.stats.rankdata</strong> vs <strong class="command">numpy.argsort</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id55">
+</div></div><div class="proof proof-type-exercise" id="id56">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.30</span>
@@ -2045,7 +2042,7 @@ How about <strong class="command">numpy.log</strong> vs <strong class="command">
 <p>What is the difference between
 <strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
 and <strong class="command">numpy.round</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id56">
+</div></div><div class="proof proof-type-exercise" id="id57">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.31</span>
@@ -2053,14 +2050,14 @@ and <strong class="command">numpy.round</strong>?</p>
     </div><div class="proof-content">
 <p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
 lengths?</p>
-</div></div><div class="proof proof-type-exercise" id="id57">
+</div></div><div class="proof proof-type-exercise" id="id58">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.32</span>
         
     </div><div class="proof-content">
 <p>List the four ways to index a vector.</p>
-</div></div><div class="proof proof-type-exercise" id="id58">
+</div></div><div class="proof proof-type-exercise" id="id59">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.33</span>
@@ -2069,14 +2066,14 @@ lengths?</p>
 <p>What is wrong with the expression
 <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
 How about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
-</div></div><div class="proof proof-type-exercise" id="id59">
+</div></div><div class="proof proof-type-exercise" id="id60">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.34</span>
         
     </div><div class="proof-content">
 <p>What does it mean that slicing returns a view on existing data?</p>
-</div></div><div class="proof proof-type-exercise" id="id60">
+</div></div><div class="proof proof-type-exercise" id="id61">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.35</span>
@@ -2084,9 +2081,9 @@ How about <code class="docutils literal notranslate"><span class="pre">x[</span>
     </div><div class="proof-content">
 <p>(**) Reflect on the
 <a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein/">famous</a>
-saying <em>not everything that can be counted counts,
+saying: <em>not everything that can be counted counts,
 and not everything that counts can be counted</em>.</p>
-</div></div><div class="proof proof-type-exercise" id="id61">
+</div></div><div class="proof proof-type-exercise" id="id62">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.36</span>
@@ -2095,8 +2092,8 @@ and not everything that counts can be counted</em>.</p>
 <p>(**) Being a data scientist can be a frustrating job, especially
 when you care for some causes.
 Reflect on: <em>some things that count can be counted,
-but we will not count them, because there’s no budget for it.</em></p>
-</div></div><div class="proof proof-type-exercise" id="id62">
+but we will not count them, because there’s no budget for them.</em></p>
+</div></div><div class="proof proof-type-exercise" id="id63">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.37</span>
@@ -2107,7 +2104,7 @@ when you care for the truth.
 Reflect on: <em>some things that count can be counted,
 but we will not count them, because some people might be offended
 or find it unpleasant.</em></p>
-</div></div><div class="proof proof-type-exercise" id="id63">
+</div></div><div class="proof proof-type-exercise" id="id64">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.38</span>
@@ -2118,13 +2115,18 @@ and become the benevolent dictator thereof.
 How would you <em>measure</em> if your people are happy or not?
 Let us say that you need to come up with 3 quantitative measures
 (key performance indicators).
-What would happen if your policy making was solely focused
+What would happen if your policy-making was solely focused
 on optimising those KPIs?
 How about the same problem but with regard to your company and employees?
-Think what can go wrong in other areas of life.</p>
+Think about what can go wrong in other areas of life.</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
-<dt class="label" id="footsdbiased"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dt class="label" id="footprivacy"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Nevertheless, we strongly advocate for all information
+of concern to the public to be openly available,
+so that <em>experienced</em> statisticians can put them to good use.</p>
+</dd>
+<dt class="label" id="footsdbiased"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
 <dd><p>(**) Based on the so-called <em>uncorrected for bias</em>
 version of the sample variance. We prefer it here for didactical
 reasons (simplicity, better interpretability). Plus, it is
@@ -2134,21 +2136,21 @@ to <strong class="command">numpy.std</strong> will apply division by <span class
 When used as an estimator of the distribution’s
 standard deviation, the latter has slightly better statistical properties
 (which we normally explore in a course on mathematical statistics,
-which this one is not). Interestingly, the <code class="docutils literal notranslate"><span class="pre">std</span></code> methods in
-the <strong class="program">pandas</strong> package have <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> by default,
-therefore we might be interested in setting <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> therein.</p>
+which this one is not). On the other hand, we will see later that
+the <code class="docutils literal notranslate"><span class="pre">std</span></code> methods in the <strong class="program">pandas</strong> package have <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> by
+default. Therefore, we might be interested in setting <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> therein.</p>
 </dd>
-<dt class="label" id="footiqr15"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
+<dt class="label" id="footiqr15"><span class="brackets"><a class="fn-backref" href="#id7">3</a></span></dt>
 <dd><p>The <span class="math notranslate nohighlight">\(1.5 \mathrm{IQR}\)</span> rule is the most popular
 in the statistical literature, but
 some plotting software may use different whisker ranges.
 See <a class="reference internal" href="520-missingness.html#sec-32iqr"><span class="std std-numref">Section 15.4.1</span></a> for further discussion.</p>
 </dd>
-<dt class="label" id="footboxcox"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
-<dd><p>(*) However, e.g., a Box–Cox transformation
-can help achieve that in some datasets; see <span id="id18">[<a class="reference internal" href="999-bibliography.html#id144">BC64</a>]</span>.</p>
+<dt class="label" id="footboxcox"><span class="brackets"><a class="fn-backref" href="#id12">4</a></span></dt>
+<dd><p>(*) A Box–Cox transformation
+can help achieve this in some datasets; see <span id="id19">[<a class="reference internal" href="999-bibliography.html#id144">BC64</a>]</span>.</p>
 </dd>
-<dt class="label" id="footnononstandard"><span class="brackets"><a class="fn-backref" href="#id12">4</a></span></dt>
+<dt class="label" id="footnononstandard"><span class="brackets"><a class="fn-backref" href="#id13">5</a></span></dt>
 <dd><p>(*) This is because the indexer is computed first,
 and its <em>value</em> is passed as an argument to the index operator.
 Python neither is a symbolic programming language,
@@ -2156,15 +2158,15 @@ nor does it feature any nonstandard evaluation techniques.
 In other words, <strong class="command">[...]</strong> does not care how the indexer was
 obtained.</p>
 </dd>
-<dt class="label" id="footconttie"><span class="brackets"><a class="fn-backref" href="#id13">5</a></span></dt>
+<dt class="label" id="footconttie"><span class="brackets"><a class="fn-backref" href="#id14">6</a></span></dt>
 <dd><p>Where, theoretically, the probability of obtaining
 a tie is equal to 0.</p>
 </dd>
-<dt class="label" id="footpandasunique"><span class="brackets"><a class="fn-backref" href="#id14">6</a></span></dt>
+<dt class="label" id="footpandasunique"><span class="brackets"><a class="fn-backref" href="#id15">7</a></span></dt>
 <dd><p>Later we will mention <strong class="command">pandas.unique</strong>
 which lists the values in the order of appearance.</p>
 </dd>
-<dt class="label" id="footieee754"><span class="brackets"><a class="fn-backref" href="#id15">7</a></span></dt>
+<dt class="label" id="footieee754"><span class="brackets"><a class="fn-backref" href="#id16">8</a></span></dt>
 <dd><p>Double precision <code class="docutils literal notranslate"><span class="pre">float64</span></code> format as defined
 by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
 </dd>
@@ -2188,7 +2190,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

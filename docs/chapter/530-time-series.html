@@ -369,13 +369,13 @@ Usually, we will be creating dates from strings, for instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2022-07-14&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2022-07-15&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-14T05:36:37&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-15T04:37:27&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -387,9 +387,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9187e+04])</span>
+<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9188e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.265000e+03, 1.657777e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.65785985e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -409,9 +409,9 @@ all dates in the YYYY-MM-DD format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2022-07-13&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2022-07-14&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-14T17:36:37&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-15T16:37:27&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -589,8 +589,8 @@ the midrange temperature dropped by -3.6°C.</p>
 </pre></div>
 </div>
 <p>This turned deltas back to a shifted version of the original series.
-However, we will need the first (root) observation therefrom
-to restore the dataset in full.</p>
+But we will need the first (root) observation therefrom
+to restore the dataset in full:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
 <span class="c1">## array([ -1.4,  -5. ,  -9.4, -12.8, -12.2, -11.4, -11.4])</span>
 </pre></div>
@@ -681,7 +681,7 @@ count how many events occur in each hour:</p>
 <span class="c1">## array([305, 300, 274, 321])</span>
 </pre></div>
 </div>
-<p>We expect 5 events per second, hence, 300 of them per hour.
+<p>We expect 5 events per second, i.e., 300 of them per hour.
 On a side note, from a course in statistics
 we know that for exponential inter-event times,
 the number of events per unit of time follows a Poisson
@@ -1029,9 +1029,9 @@ Let us draw the four time series; see <a class="reference internal" href="#fig-c
 <span id="fig-currency-abs"></span><img alt="../_images/currency-abs-15.png" src="../_images/currency-abs-15.png" />
 <p class="caption"><span class="caption-number">Figure 16.8 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates in the first half of 2020</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
 </div>
-<p>Unfortunately, they are all on different scales, hence
-the plot is not necessarily readable.
-It would be better to draw these time series on 4 separate plots
+<p>Unfortunately, they are all on different scales.
+This is why the plot is not necessarily readable.
+It would be better to draw these time series on four separate plots
 (compare the trellis plots in <a class="reference internal" href="430-group-by.html#sec-trellis"><span class="std std-numref">Section 12.2.5</span></a>).</p>
 <p>Another idea is to depict the currency exchange rates
 <em>relative</em> to the prices on some day,
@@ -1263,7 +1263,7 @@ This dataset is considered for illustrational purposes only.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

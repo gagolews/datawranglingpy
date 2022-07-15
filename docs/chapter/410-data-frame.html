@@ -329,7 +329,7 @@ Many other functions (e.g., in <strong class="program">sklearn</strong>)
 accept both <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> objects,
 but often convert the former to the latter internally to enable data
 processing using fast C/C++/Fortran routines.</p>
-<p>Thus, what we have learned so far<a class="footnote-reference brackets" href="#footgoback" id="id3">2</a> still applies.
+<p>What we have learned so far<a class="footnote-reference brackets" href="#footgoback" id="id3">2</a> still applies.
 But there is of course more, hence this part.</p>
 </div>
 <div class="section" id="creating-data-frames">
@@ -407,7 +407,7 @@ be discussing later.</p>
 </div></div><div class="section" id="data-frames-are-matrix-like">
 <h3><span class="section-number">10.1.1. </span>Data Frames are Matrix-Like<a class="headerlink" href="#data-frames-are-matrix-like" title="Permalink to this headline"></a></h3>
 <p>Data frames are modelled through <strong class="program">numpy</strong> matrices.
-Hence, we can feel quite at home with them.</p>
+We can thus already feel quite at home with them.</p>
 <p>For example, given:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
@@ -515,7 +515,7 @@ Note that their argument list is slightly different.</p>
 <span class="c1">## 0.49800000000000005</span>
 </pre></div>
 </div>
-<p>Hence, what we covered in the part of this book that dealt
+<p>As a consequence, what we covered in the part of this book that dealt
 with vector processing still holds for data frame columns
 (but there will be more).</p>
 <p><code class="docutils literal notranslate"><span class="pre">Series</span></code> can also be <em>named</em>.</p>
@@ -1019,13 +1019,12 @@ for label- and position-based filtering, respectively.</p>
 </div>
 <div class="section" id="loc">
 <h3><span class="section-number">10.4.2. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc" title="Permalink to this headline"></a></h3>
-<p><strong class="command">Series.loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> implements label-based indexing.
-And thus:</p>
+<p><strong class="command">Series.loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> implements label-based indexing.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.39</span>
 </pre></div>
 </div>
-<p>returns the element labelled <code class="docutils literal notranslate"><span class="pre">0</span></code>. On the other hand, <code class="docutils literal notranslate"><span class="pre">c.loc[0]</span></code> will
+<p>This returned the element labelled <code class="docutils literal notranslate"><span class="pre">0</span></code>. On the other hand, <code class="docutils literal notranslate"><span class="pre">c.loc[0]</span></code> will
 raise a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code>, because <code class="docutils literal notranslate"><span class="pre">c</span></code> consists of string labels only.
 But in this case, we can write:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">]</span>
@@ -1173,7 +1172,7 @@ This improves the readability in contexts such as:</p>
 <span class="c1">## d  0.55  eggs</span>
 </pre></div>
 </div>
-<p>However, this accessor is not universal.
+<p>This accessor is, sadly, not universal.
 We can verify this by considering a data frame featuring
 a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code> (which clashes with a built-in method).</p>
 </div>
@@ -1433,7 +1432,7 @@ and <strong class="command">set_index</strong> creatively (together with
 <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">pandas.Series.isin</strong>, etc.).</p>
 <p>Let us stress again that the `<strong class="command">:</strong>` operator
 can only be used <em>directly</em> within the square brackets.
-However, we can always use the <strong class="command">slice</strong> constructor to create
+Nonetheless, we can always use the <strong class="command">slice</strong> constructor to create
 a slice in any context:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">]),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># :, [&quot;Q1&quot;, &quot;Q3&quot;]</span>
 <span class="c1">##               data</span>
@@ -1484,10 +1483,10 @@ in the Australian state of Victoria.</p>
 each element in a <code class="docutils literal notranslate"><span class="pre">Series</span></code> is enlisted in a given sequence.
 We could also have used <strong class="command">set_index</strong> and <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
 for that.</p>
-<p>What is more, notice that the above code spans many lines.
-Thence, we needed to enclose it in round brackets to avoid a syntax error.
+<p>Notice that the above code spans many lines.
+We needed to enclose it in round brackets to avoid a syntax error.
 Alternatively, we could have used backslashes at the end of each line.</p>
-<p>So anyway, here is the data frame:</p>
+<p>Anyway, here is the data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span>
 <span class="c1">##           sp_name param_id      value</span>
 <span class="c1">## 0      Alphington   BPM2.5   7.848758</span>
@@ -1980,12 +1979,12 @@ chains such as
 <code class="docutils literal notranslate"><span class="pre">data.drop_duplicates().groupby([&quot;year&quot;,</span> <span class="pre">&quot;month&quot;]).mean().reset_index()</span></code>;
 see <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>.</p>
 <p>Nevertheless, in fact, we should admit that the methods are too
-plentiful – they make an impression that someone was too generous
+plentiful. They make an impression that someone was too generous
 by including a list of all the possible <em>verbs</em> related to data analysis,
 even if they can be easily expressed via a composition of 2-3 simpler
-operations. Therefore, to prevent the reader from being overloaded with
-too much new information, we discussed only the most noteworthy features
-that appear in data wrangling scenarios frequently.</p>
+operations. We discussed only the most noteworthy features
+that frequently appear in data wrangling scenarios
+to save the reader from being overloaded with too much new information.</p>
 <p>As strong advocates of minimalism, not rarely will we be more eager to
 fall back to the hand-crafted combinations of the more basic (universal)
 building blocks from <strong class="program">numpy</strong> and <strong class="program">scipy</strong> instead.
@@ -2148,7 +2147,7 @@ indexes with repeated.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

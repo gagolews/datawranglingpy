@@ -315,7 +315,7 @@ is by storing it as:</p>
 <li><p>a vector of integers between 0 (inclusive) and <em>l</em> (exclusive<a class="footnote-reference brackets" href="#footidx" id="id1">1</a>).</p></li>
 </ul>
 <p>These two are easily interchangeable.</p>
-<p>Furthermore, for <span class="math notranslate nohighlight">\(l=2\)</span> (binary data), another convenient representation
+<p>For <span class="math notranslate nohighlight">\(l=2\)</span> (binary data), another convenient representation
 is by means of logical vectors. This can be extended to a so-called
 one-hot encoded representation using a logical vector of length <em>l</em>.</p>
 <div style="margin-top: 1em"></div><p>Let us consider the data on the original whereabouts of the top
@@ -346,8 +346,8 @@ with data assuming one of <span class="math notranslate nohighlight">\(l=5\)</sp
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We could have also used <strong class="command">numpy.unique</strong>
-discussed in <a class="reference internal" href="220-transform-vector.html#sec-ties"><span class="std std-numref">Section 5.5.3</span></a>.
-However, it would sort the distinct values lexicographically.
+discussed in <a class="reference internal" href="220-transform-vector.html#sec-ties"><span class="std std-numref">Section 5.5.3</span></a>,
+but it would sort the distinct values lexicographically.
 In other words, they would <em>not</em> be listed in the order of appearance,
 as it is the case above.</p>
 </div>
@@ -371,13 +371,13 @@ i.e., Kenya, Kenya, Kenya, Ethiopia, ….</p>
 it is possible to introduce non-occurring levels.
 Such information can be useful, e.g., we could explicitly
 indicate that there were no runners from Australia in the top 16.</p>
-<p>However, even though we can <em>represent</em> categorical variables using
+<p>Even though we can <em>represent</em> categorical variables using
 a set of integers, it does not mean that they become instances of
 a quantitative type. Arithmetic operations thereon do not really make sense.</p>
 </div>
 <p>The values between <span class="math notranslate nohighlight">\(0\)</span> (inclusive) and <span class="math notranslate nohighlight">\(5\)</span> (exclusive) can be used
 to index a given array of length <span class="math notranslate nohighlight">\(l=5\)</span>.
-Hence, to <em>decode</em> our factor, we can simply write:</p>
+As a consequence, to <em>decode</em> our factor, we can simply write:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
 <span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
@@ -444,7 +444,7 @@ Namely, we can write:</p>
 </pre></div>
 </div>
 <p>These two yield a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object displayed as if it was represented
-using string labels.:</p>
+using string labels:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16_series</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  <span class="c1"># preview</span>
 <span class="c1">## 0    KE</span>
 <span class="c1">## 1    KE</span>
@@ -455,7 +455,7 @@ using string labels.:</p>
 <span class="c1">## Categories (5, object): [&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;]</span>
 </pre></div>
 </div>
-<p>However, it is encoded using the aforementioned numeric
+<p>Instead, it is encoded using the aforementioned numeric
 representation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cntrs16_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="p">)</span>
 <span class="c1">## array([2, 2, 2, 0, 2, 2, 0, 3, 4, 4, 1, 4, 2, 2, 4, 4], dtype=int8)</span>
@@ -464,7 +464,7 @@ representation:</p>
 </pre></div>
 </div>
 <p>This time the labels are sorted lexicographically.</p>
-<p>Most often, however, we will store categorical data in data frames
+<p>Most often we will be storing categorical data in data frames
 as ordinary strings, unless a relabelling on-the-fly is required:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">16</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">(</span>
@@ -522,7 +522,7 @@ For example:</p>
 <p>It is not rare to work with vectors of probabilities,
 where the <em>i</em>-th element therein, say <code class="docutils literal notranslate"><span class="pre">p[i]</span></code>, denotes the likelihood of
 an observation’s belonging to class 1.
-Hence, the probability of being a member of class 0 is <code class="docutils literal notranslate"><span class="pre">1-p[i]</span></code>.
+Consequently, the probability of being a member of class 0 is <code class="docutils literal notranslate"><span class="pre">1-p[i]</span></code>.
 In the case where we would rather work with <em>crisp</em>
 classes, we can simply apply the conversion <code class="docutils literal notranslate"><span class="pre">(p&gt;=0.5)</span></code>
 to get a logical vector.</p>
@@ -560,7 +560,7 @@ such that <span class="math notranslate nohighlight">\(r_{i,j}=1\)</span> if and
 \end{split}\]</div>
 <p>One can easily verify that each row consists of one and only one 1
 (the number of 1s per one row is 1).
-Such a representation is useful when solving
+Such a representation is adequate when solving
 a multiclass classification problem by means of <em>l</em> binary classifiers.
 For example, if <em>spam</em>, <em>bacon</em>, and <em>hot dogs</em> are on the menu,
 then <em>spam</em> is encoded as <span class="math notranslate nohighlight">\((1, 0, 0)\)</span>, i.e.,
@@ -601,8 +601,8 @@ in each row.</p>
 <div class="section" id="binning-numeric-data-revisited">
 <span id="sec-binning"></span><h3><span class="section-number">11.1.4. </span>Binning Numeric Data (Revisited)<a class="headerlink" href="#binning-numeric-data-revisited" title="Permalink to this headline"></a></h3>
 <p>Numerical data can be converted to categorical via binning (quantisation).
-This results in information loss,
-however, it also opens some new possibilities. In fact,
+Even though this results in information loss,
+it may open some new possibilities. In fact,
 we needed binning to draw all the histograms in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>.
 Also, reporting observation counts in each bin instead of raw data
 enables us to include them in printed reports (in the form of tables).</p>
@@ -627,7 +627,7 @@ allows for rounding to the nearest tenths, hundredths, …,
 as well as tens, hundreds, …
 It is useful if data are naturally imprecise, and we do not
 want to give the impression that it is otherwise.
-However, rounding can easily introduce tied observations,
+Nonetheless, rounding can easily introduce tied observations,
 which are problematic on their own; see <a class="reference internal" href="220-transform-vector.html#sec-ties"><span class="std std-numref">Section 5.5.3</span></a>.</p>
 </div>
 <p>Consider the 16 best marathon finish times (in minutes):</p>
@@ -696,7 +696,7 @@ for example, as follows:</p>
 function which tries to determine some informative
 interval bounds based on a few simple heuristics.
 Recall that <strong class="command">numpy.linspace</strong> and <strong class="command">numpy.geomspace</strong>
-can be useful for generating equidistant bounds
+can be used for generating equidistant bounds
 on linear and logarithmic scales, respectively.</p>
 </div></div></div>
 <div class="section" id="generating-pseudorandom-labels">
@@ -715,7 +715,7 @@ with categories picked with given probabilities:</p>
 <span class="c1">##       dtype=&#39;&lt;U6&#39;)</span>
 </pre></div>
 </div>
-<p>Hence, if we generate a sufficiently long vector,
+<p>If we generate a sufficiently long vector,
 we will expect <code class="docutils literal notranslate"><span class="pre">&quot;spam&quot;</span></code> to occur ca. 70% times, and <code class="docutils literal notranslate"><span class="pre">&quot;tempeh&quot;</span></code>
 to be drawn in 5% of the cases, etc.</p>
 </div>
@@ -738,7 +738,7 @@ equipped with a readable index (element labels):</p>
 </div>
 <p>By default, data are ordered with respect to the counts,
 decreasingly.</p>
-<p>Furthermore, if we <em>already</em> have an array of integer codes between
+<p>If we <em>already</em> have an array of integer codes between
 <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(l-1\)</span>, <strong class="command">numpy.bincount</strong> will return the number of
 times each code appears therein.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">codes_cntrs16</span><span class="p">)</span>
@@ -753,7 +753,7 @@ or percentages (if we multiply them by 100):</p>
 <span class="c1">## array([43.75, 12.5 ,  6.25, 31.25,  6.25])</span>
 </pre></div>
 </div>
-<p>Hence, almost 31.25% of the top runners were from Poland
+<p>Almost 31.25% of the top runners were from Poland
 (this marathon is held in Warsaw after all…).</p>
 <div class="proof proof-type-exercise" id="id14">
 
@@ -794,7 +794,7 @@ when we study the <em>combinations</em> of levels of different variables.</p>
 <span class="c1">## array([&#39;20&#39;, &#39;30&#39;, &#39;50&#39;, &#39;40&#39;, &#39;60+&#39;], dtype=object)</span>
 </pre></div>
 </div>
-<p>We thus have <span class="math notranslate nohighlight">\(2\cdot 5=10\)</span> combinations thereof.
+<p>We have <span class="math notranslate nohighlight">\(2\cdot 5=10\)</span> combinations thereof.
 We can use <strong class="command">pandas.DataFrame.value_counts</strong> to determine
 the number of observations at each two-dimensional level:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts2</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -825,7 +825,7 @@ from the two factors:</p>
 <span class="c1">## M    879  2200  1708  541  170</span>
 </pre></div>
 </div>
-<p>Hence, for example, there were 19 women aged at least 60
+<p>For example, there were 19 women aged at least 60
 amongst the marathoners. Jolly good.</p>
 <p>The <em>marginal</em> (one dimensional) frequency distributions
 can be recreated by computing the rowwise and columnwise sums
@@ -883,7 +883,7 @@ with a combination of more than two categorical variables:</p>
 </div>
 <p>The display is in the <em>long</em> format (compare <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>),
 because we cannot nicely print a 3-dimensional array.
-However, we can always partially unstack the dataset,
+Yet, we can always partially unstack the dataset,
 for aesthetic reasons:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts3</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
 <span class="c1">##              count                              </span>
@@ -1152,15 +1152,15 @@ a single error is only due to a single cause.
 Also, we presume that each medication error has a similar degree of
 severity.</p>
 <p>Policy makers and quality controllers often rely on similar simplifications.
-Therefore, they most probably are going to be addressing only the
+They most probably are going to be addressing only the
 top causes. If we ever wondered why some processes (mal)function the way
-they do, there is a hint above. However, inventing something
+they do, there is a hint above. Inventing something
 more effective yet so simple at the same time requires much more effort.</p>
-<p>However, it would be also nice to report the number of cases
+<p>It would be also nice to report the number of cases
 where no mistakes are made and the cases where errors
-are insignificant; healthcare workers are doing a wonderful job
-to our communities, especially in the public system,
-why adding to their stress?</p>
+are insignificant. Healthcare workers are doing a wonderful job
+to our communities, especially in the public system.
+Why adding to their stress?</p>
 </div>
 <div class="section" id="heat-maps">
 <h3><span class="section-number">11.3.5. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this headline"></a></h3>
@@ -1249,7 +1249,7 @@ we will get the proportion:</p>
 <span class="c1">## 0.9265857779142989</span>
 </pre></div>
 </div>
-<p>Hence, ca. 93% of the runners were from Poland.
+<p>About 93% of the runners were from Poland.
 As this is greater than 0.5, <code class="docutils literal notranslate"><span class="pre">&quot;PL</span></code>” is definitely the mode.</p>
 <div class="proof proof-type-exercise" id="id26">
 
@@ -1548,8 +1548,8 @@ in Pearson’s chi-squared goodness-of-fit test.</p>
 <span class="c1">## 3715440.465191512</span>
 </pre></div>
 </div>
-<p>If the data are really independent, <span class="math notranslate nohighlight">\(T\)</span> follows the chi-squared
-distribution <span class="math notranslate nohighlight">\(n + m - 1\)</span>, hence the critical value <span class="math notranslate nohighlight">\(K\)</span> is equal to:</p>
+<p>If the data are really independent, <span class="math notranslate nohighlight">\(T\)</span> follows the chi-squared distribution
+<span class="math notranslate nohighlight">\(n + m - 1\)</span>. As a consequence, the critical value <span class="math notranslate nohighlight">\(K\)</span> is equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># significance level</span>
 <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="c1">## 32.90949040736021</span>
@@ -1581,10 +1581,9 @@ the mode is the interval corresponding to the
 highest bar (hopefully assuming there is only one).
 If we would like to obtain a single number, we can choose
 for example the middle of this interval as the mode.</p>
-<p>Of course, for numeric data, the mode will heavily depend
-on the binning; compare <a class="reference internal" href="210-vector.html#fig-income-histogram-binnumber"><span class="std std-numref">Figure 4.4</span></a>.
-To add to joy, recall that we can also apply logarithmic binning,
-just like in <a class="reference internal" href="230-distribution.html#fig-heights-lognormal"><span class="std std-numref">Figure 6.7</span></a>.
+<p>For numeric data, the mode will heavily depend
+on the coarseness and type of binning; compare
+<a class="reference internal" href="210-vector.html#fig-income-histogram-binnumber"><span class="std std-numref">Figure 4.4</span></a> and <a class="reference internal" href="230-distribution.html#fig-heights-lognormal"><span class="std std-numref">Figure 6.7</span></a>.
 Thus, the question “what is the most popular income” is overall a
 quite difficult one to answer.</p>
 <div class="proof proof-type-exercise" id="id31">
@@ -1609,8 +1608,8 @@ use Likert-type scales such as “strongly disagree” &lt; “disagree” &lt;
 <p>A linear ordering allows us to go beyond the mode. This is because,
 due to the existence of order statistics and observation ranks,
 we can also easily define sample quantiles.
-However, the standard methods for resolving ties will not work,
-hence we need to be careful.</p>
+Nevertheless, the standard methods for resolving ties will not work:
+we need to be careful.</p>
 <p>For example, median of a sample of student grades
 (P, P, C, D, HD) is C, but
 (P, P, C, D, HD, HD) is either C or D - we can choose one at random
@@ -1734,8 +1733,7 @@ chi-squared goodness-of-fit tests.</p>
 array of length <em>l</em>. In some other languages, e.g., R,
 we would use integers between 1 and <em>l</em> (inclusive).
 Nevertheless, a dataset creator is free to encode the labels
-however they want.
-For example, <code class="docutils literal notranslate"><span class="pre">DMDBORN4</span></code> in NHANES has:
+however they want. For example, <code class="docutils literal notranslate"><span class="pre">DMDBORN4</span></code> in NHANES has:
 1 (born in 50 US states or Washington, DC),
 2 (others),
 77 (refused to answer), and
@@ -1773,7 +1771,7 @@ is a better candidate.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-14T15:58:27+1000.
+        Last updated on 2022-07-15T15:34:13+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
