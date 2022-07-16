@@ -305,7 +305,7 @@ for instance:</p>
 <li><p>a person did not take part in the study anymore
 (attrition, death, etc.);</p></li>
 <li><p>an item was not applicable (e.g., number of minutes spent cycling weekly
-when someone answered they did not learn how to ride a bike yet);</p></li>
+when someone answered they did not learn to ride a bike yet);</p></li>
 <li><p>a piece of information was not collected, e.g., due to the lack
 of funding or a failure of a piece of equipment.</p></li>
 </ul>
@@ -392,9 +392,9 @@ of <strong class="command">numpy.mean</strong> on a <code class="docutils litera
 <span class="c1">## (134.73333333333332, nan)</span>
 </pre></div>
 </div>
-<p>This is quite an unfortunate behaviour, because this way we might
+<p>This is quite unfortunate behaviour as this way we might
 miss (sic!) the presence of missing values.
-It is therefore crucial to have the dataset carefully
+Therefore, it is crucial to have the dataset carefully
 pre-inspected.</p>
 <div style="margin-top: 1em"></div><p>Also, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> is of the floating-point type.
 As a consequence, it cannot be present in, amongst others, logical vectors.</p>
@@ -453,7 +453,7 @@ tend to refuse to answer specific questions);</p></li>
 (e.g., data was collected at different times,
 there might be significant differences within the groups
 that we cannot easily identify, e.g., amongst
-participants with background in mathematics where we did not ask
+participants with a background in mathematics where we did not ask
 about education or occupation).</p></li>
 </ul>
 <p>It is important to try to determine the reason for missingness,
@@ -468,7 +468,7 @@ Nonetheless, such a scheme will obviously not work for small datasets,
 where each observation is precious<a class="footnote-reference brackets" href="#footsmallsample" id="id3">2</a>.</p>
 <p>Also, we should not exercise data removal in situations where missingness
 is conditional (e.g., data only available for infants)
-or otherwise group-dependent (not-completely at random),
+or otherwise group-dependent (not completely at random),
 as, for example, it might result in an imbalanced dataset.</p>
 <div class="proof proof-type-exercise" id="id14">
 
@@ -516,7 +516,7 @@ This does not change the overall average but decreases the variance.</p>
 </pre></div>
 </div>
 <p>Similarly, we could consider replacing missing values
-with the median, or – in case of categorical data – the mode.</p>
+with the median, or – in the case of categorical data – the mode.</p>
 <div style="margin-top: 1em"></div><p>Furthermore, we expect heights to differ, on average, between sexes.
 Consequently, another basic imputation option is to replace
 the missing values with the corresponding within-group averages:</p>
@@ -527,7 +527,7 @@ the missing values with the corresponding within-group averages:</p>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Unfortunately, whichever imputation method we choose,
-it will artificially distort the data distribution
+will artificially distort the data distribution
 and introduce some kind of bias; see <a class="reference internal" href="#fig-mean-imputation"><span class="std std-numref">Figure 15.1</span></a>
 for the histograms of <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">xi</span></code>, and <code class="docutils literal notranslate"><span class="pre">xg</span></code>.
 These effects can be obscured if we increase the histogram bins’
@@ -558,7 +558,7 @@ averages corresponding to a patient’s sex
 <h3><span class="section-number">15.1.6. </span>Imputation by Classification and Regression (*)<a class="headerlink" href="#imputation-by-classification-and-regression" title="Permalink to this headline"></a></h3>
 <p>We can easily implement a missing value imputer
 based on averaging data from an observation’s
-non-missing nearest neighbours, compare <a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>
+non-missing nearest neighbours; compare <a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>
 and <a class="reference internal" href="430-group-by.html#sec-knn-classification"><span class="std std-numref">Section 12.3.1</span></a>.
 This is an extension of the simple idea of finding
 the most <em>similar</em> observation (with respect to chosen criteria)
@@ -573,7 +573,7 @@ predicted by those models.</p>
 called <em>multiple imputation</em> (see also <span id="id5">[<a class="reference internal" href="999-bibliography.html#id28">vB18</a>]</span>),
 where copies of the original datasets are created,
 missing values are imputed by sampling from some estimated distributions,
-inference is made, and then the results are aggregated.
+the inference is made, and then the results are aggregated.
 An example implementation  of such an algorithm is available
 in <strong class="command">sklearn.impute.IterativeImputer</strong>.</p>
 </div>
@@ -684,7 +684,7 @@ or <code class="docutils literal notranslate"><span class="pre">(+NN)</span> <sp
 (valid telephone numbers).</p></li>
 <li><p>Inspect whether all strings are valid country names.</p></li>
 <li><p>(*) Given a person’s date of birth, sex,
-and their Polish ID number <a class="reference external" href="https://en.wikipedia.org/wiki/PESEL">PESEL</a>,
+and Polish ID number <a class="reference external" href="https://en.wikipedia.org/wiki/PESEL">PESEL</a>,
 check if that ID is correct.</p></li>
 <li><p>(*) Determine if a string represents a correct International Bank Account
 Number (<a class="reference external" href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">IBAN</a>)
@@ -693,7 +693,7 @@ Number (<a class="reference external" href="https://en.wikipedia.org/wiki/Intern
 <li><p>(**) Using an external spell checker, determine if every string
 is a valid English word.</p></li>
 <li><p>(**) Using an external spell checker, ascertain that every string
-is a valid English noun in singular form.</p></li>
+is a valid English noun in the singular form.</p></li>
 <li><p>(**) Resolve all abbreviations by means of a custom dictionary,
 e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Kat.&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;Katherine&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Gr.&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;Grzegorz&quot;</span></code>.</p></li>
 </ol>
@@ -702,14 +702,14 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Kat.&qu
 <span id="sec-outliers"></span><h2><span class="section-number">15.4. </span>Outliers<a class="headerlink" href="#outliers" title="Permalink to this headline"></a></h2>
 <p>Another group of inspectionworthy observations consists of
 <em>outliers</em>. We can define them as the samples that reside
-at areas of substantially lower density than their neighbours.</p>
+in the areas of substantially lower density than their neighbours.</p>
 <p>Outliers might be present due to an error, or their being
 otherwise anomalous,
 but they may also simply be interesting, original, or novel.
 After all, statistics does not give any meaning to data items; humans do.</p>
 <p>What we do with outliers is a separate decision.
 We can get rid of them, correct them, replace them
-with a missing value (and then possibly impute), or analyse
+with a missing value (and then possibly impute), or analyse them
 separately.
 In particular, there is a separate subfield in statistics
 called extreme value theory that is interested in predicting
@@ -720,8 +720,8 @@ us stick with simpler settings.</p>
 <div class="section" id="the-3-2-iqr-rule-for-normally-distributed-data">
 <span id="sec-32iqr"></span><h3><span class="section-number">15.4.1. </span>The 3/2 IQR Rule for Normally-Distributed Data<a class="headerlink" href="#the-3-2-iqr-rule-for-normally-distributed-data" title="Permalink to this headline"></a></h3>
 <p>For unidimensional data (or individual columns in matrices
-and data frames), usually the first few smallest and largest
-observations should be inspected manually.
+and data frames), the first few smallest and largest
+observations should usually be inspected manually.
 It might be, for instance, the case that someone accidentally
 entered a patient’s height in metres instead of centimetres – such
 cases are easily detectable. A data scientist is like a detective.</p>
@@ -738,7 +738,7 @@ for the normal distribution N(μ, σ),
 the above interval corresponds to roughly
 <span class="math notranslate nohighlight">\([\mu-2.698\sigma, \mu+2.698\sigma]\)</span>,
 and the probability of obtaining a value outside of it
-is ca. 0.7%. In other words, for a sample size 1000 that is <em>truly</em>
+is ca. 0.7%. In other words, for a sample of size 1000 that is <em>truly</em>
 normally distributed (not contaminated by anything), only
 seven observations will be flagged.
 It is not a problem to inspect them by hand.</p>
@@ -776,7 +776,7 @@ as defined by the <code class="docutils literal notranslate"><span class="pre">R
 representing incomes, there might be nothing wrong, at least statistically
 speaking, with very large isolated observations.</p>
 <p>For well-separated multimodal distributions on the real line,
-outliers may sometimes also fall in-between the areas of high density.</p>
+outliers may sometimes also fall in between the areas of high density.</p>
 <div class="proof proof-type-example" id="id21">
 
     <div class="proof-title">
@@ -910,7 +910,7 @@ very end of the dataset. Ha.</p>
 methods. A quite straightforward approach is to check if there are any points
 within an observation’s radius of some assumed size <span class="math notranslate nohighlight">\(r&gt;0\)</span>. If that is not the
 case, we may consider it an outlier. This is a variation on the
-aforementioned 1-dimensional density estimation approach<a class="footnote-reference brackets" href="#footnorm2kde" id="id9">4</a>.</p>
+aforementioned unidimensional density estimation approach<a class="footnote-reference brackets" href="#footnorm2kde" id="id9">4</a>.</p>
 <div class="proof proof-type-example" id="id26">
 
     <div class="proof-title">
@@ -998,7 +998,7 @@ with data that might contain outliers.</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="footrna"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>(*) The R environment, on the other hand, has a built-in
+<dd><p>(*) The R environment, on the other hand, has built-in
 seamless support for missing values. It quite consistently
 honours the rule that operations on missing values
 yield an undefined result.</p>
@@ -1043,7 +1043,7 @@ see <span id="id10">[<a class="reference internal" href="999-bibliography.html#i
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-15T15:34:13+1000.
+        Last updated on 2022-07-16T14:59:45+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

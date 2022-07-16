@@ -282,7 +282,7 @@ recorded at a particular point in time;</p></li>
 e.g., frequency distributions giving counts for the corresponding
 categories or labels.</p></li>
 </ul>
-<p>In this part we will explore the most basic concepts related to the
+<p>In this chapter, we will explore the most basic concepts related to the
 wrangling of <em>time series</em>, i.e., signals indexed by discrete time.
 Usually, a time series is a sequence of measurements
 sampled at equally spaced moments, e.g.,
@@ -328,7 +328,7 @@ in <a class="reference internal" href="#fig-spokane-violinplot"><span class="std
 <p class="caption"><span class="caption-number">Figure 16.1 </span><span class="caption-text">Distribution of the midrange daily temperatures in Spokane in the period 1889-2021; observations are treated as a bag of unrelated items (temperature on a “randomly chosen day” in a version of planet Earth where there is no climate change)</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
 </div>
 <div style="margin-top: 1em"></div><p>When computing data aggregates or plotting histograms, the order of elements
-does not matter. Contrary to the <em>independent</em> measurements case,
+does not matter. Contrary to the case of the <em>independent</em> measurements,
 vectors representing time series do not have to be treated simply
 as mixed bags of unrelated items.</p>
 <div class="admonition important">
@@ -346,7 +346,7 @@ plotted as a function of time. What we see is often referred to as a
 <em>line chart</em>: data points are connected by straight line segments.
 There are some visible seasonal variations, such as, well, obviously,
 that winter is colder than summer.
-There is also some natural variability on the top of seasonal
+There is also some natural variability on top of seasonal
 patterns typical for the Northern Hemisphere.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temps</span><span class="p">[</span><span class="o">-</span><span class="mi">365</span><span class="p">:])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">364</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-07-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2021-12-31&quot;</span><span class="p">])</span>
@@ -369,13 +369,13 @@ Usually, we will be creating dates from strings, for instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2022-07-15&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2022-07-16&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-15T04:37:27&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-07-16T04:58:37&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -387,9 +387,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9188e+04])</span>
+<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9189e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.65785985e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.65794752e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -409,9 +409,9 @@ all dates in the YYYY-MM-DD format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2022-07-14&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2022-07-15&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-15T16:37:27&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-07-16T16:58:37&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -604,7 +604,7 @@ to restore the dataset in full:</p>
 <p>Consider the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching_data/master/marek/euraud-20200101-20200630-no-na.txt"><code class="docutils literal notranslate"><span class="pre">euraud-20200101-20200630-no-na</span></code></a> dataset
 which lists daily EUR/AUD exchange rates in the first half of 2020 (remember
 COVID-19?), with missing observations removed. Using <strong class="command">numpy.diff</strong>,
-compute the minimal, median, average, and maximal daily price <em>changes</em>.
+compute the minimum, median, average, and maximum daily price <em>changes</em>.
 Also, draw a box and whisker plot for these deltas.</p>
 </div></div><div class="proof proof-type-example" id="id15">
 
@@ -650,7 +650,7 @@ minute on average:</p>
 <span class="c1">## 11.839894504211724</span>
 </pre></div>
 </div>
-<p>The result is close to what we <em>expect</em>, i.e., <span class="math notranslate nohighlight">\(s=12\)</span> seconds between
+<p>The result is close to what we <em>expected</em>, i.e., <span class="math notranslate nohighlight">\(s=12\)</span> seconds between
 the events.</p>
 <p>We can convert the above to datetime
 (starting at a fixed calendar date) as follows.
@@ -728,7 +728,7 @@ dataset which gives the daily BTC/USD exchange rates in 2021:</p>
 <p>Write a function that converts it to a <em>lagged representation</em>, being a
 convenient form for some machine learning algorithms.</p>
 <ol class="simple">
-<li><p>Add the <code class="docutils literal notranslate"><span class="pre">Change</span></code> column giving by how much the price changed
+<li><p>Add the <code class="docutils literal notranslate"><span class="pre">Change</span></code> column that gives by how much the price changed
 since the previous day.</p></li>
 <li><p>Add the <code class="docutils literal notranslate"><span class="pre">Dir</span></code> column indicating if the change was positive or negative.</p></li>
 <li><p>Add the <code class="docutils literal notranslate"><span class="pre">Lag1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">Lag5</span></code> columns which give the <code class="docutils literal notranslate"><span class="pre">Change</span></code>s in
@@ -880,7 +880,7 @@ e.g., using a 1-year moving average:</p>
 (in our case, 365-ish days), we can draw
 a seasonal plot, where we have a separate curve for each
 season (here: year)
-and where all the series share the same x-axis (here: day of year);
+and where all the series share the same x-axis (here: the day of the year);
 see <a class="reference internal" href="#fig-spokane-seasonal"><span class="std std-numref">Figure 16.7</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">)</span>
@@ -900,7 +900,7 @@ see <a class="reference internal" href="#fig-spokane-seasonal"><span class="std 
 </div>
 <div class="figure align-default" id="id21">
 <span id="fig-spokane-seasonal"></span><img alt="../_images/spokane-seasonal-13.png" src="../_images/spokane-seasonal-13.png" />
-<p class="caption"><span class="caption-number">Figure 16.7 </span><span class="caption-text">Seasonal plot: Spokane temperatures vs day of year between 1970 and 2021</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
+<p class="caption"><span class="caption-number">Figure 16.7 </span><span class="caption-text">Seasonal plot:  Temperatures in Spokane vs the day of the year; years between 1970 and 2021</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
 </div>
 <div class="proof proof-type-exercise" id="id22">
 
@@ -1048,7 +1048,7 @@ see <a class="reference internal" href="#fig-currency-rel"><span class="std std-
 <span id="fig-currency-rel"></span><img alt="../_images/currency-rel-17.png" src="../_images/currency-rel-17.png" />
 <p class="caption"><span class="caption-number">Figure 16.9 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on the first day</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
 </div>
-<p>This way, e.g., relative EUR/AUD rate of ca. 1.15
+<p>This way, e.g., a relative EUR/AUD rate of ca. 1.15
 in mid-March means that if an Aussie bought some
 Euros on the first day, and then sold them three-ish months later,
 they would have 15% more wealth
@@ -1079,8 +1079,8 @@ y-axis.</p>
         
     </div><div class="proof-content">
 <p>(*)
-Draw the EUR/xxx  rates for your favourite currencies over a larger
-period of time. Use
+Draw the EUR/xxx rates for your favourite currencies over a larger period.
+Use
 <a class="reference external" href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html">data</a>
 downloaded from the European Central Bank. Add a few moving averages.
 For each year, identify the lowest and the highest rate.</p>
@@ -1173,18 +1173,18 @@ because there is some dependence
 observed in the time domain: a price of a stock that we observe
 today is influenced by what was happening yesterday.
 There might also be some seasonal patterns or trends under the hood.
-For some good introduction to forecasting, see
+For a good introduction to forecasting, see
 <span id="id2">[<a class="reference internal" href="999-bibliography.html#id33">HA21</a>, <a class="reference internal" href="999-bibliography.html#id34">OFK17</a>]</span>.
 Also, for data of this kind, employing statistical modelling
 techniques (<em>stochastic processes</em>) can make a lot of sense;
 see, e.g., <span id="id3">[<a class="reference internal" href="999-bibliography.html#id32">Tij03</a>]</span>.</p>
 <div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video are different,
-because <em>structured randomness</em> does not play dominant role there (unless
-it is noise that we would like to filter out).
+because <em>structured randomness</em> does not play a dominant role there (unless
+it is a noise that we would like to filter out).
 Instead, what is happening in the frequency (think: perceiving
 pitches when listening to music)
-or spatial (seeing green grass and sky on a photo) domain
-will play key role there.</p>
+or spatial (seeing green grass and sky in a photo) domain
+will play a key role there.</p>
 <p>Signal processing thus requires a distinct set of tools,
 e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
@@ -1263,7 +1263,7 @@ This dataset is considered for illustrational purposes only.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-15T15:34:13+1000.
+        Last updated on 2022-07-16T14:59:45+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

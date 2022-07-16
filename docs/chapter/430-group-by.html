@@ -352,7 +352,7 @@ as grouping variables, so that we can, e.g., summarise
 or visualise the data <em>in each group</em> separately, because
 it is likely that data distributions vary across different factor levels.
 This is much like having many data frames stored in one object,
-e.g., heights of women and men separately.</p>
+e.g., the heights of women and men separately.</p>
 <p><code class="docutils literal notranslate"><span class="pre">nhanes</span></code> is thus an example of heterogeneous data at their best.</p>
 <div class="section" id="basic-methods">
 <h2><span class="section-number">12.1. </span>Basic Methods<a class="headerlink" href="#basic-methods" title="Permalink to this headline"></a></h2>
@@ -588,16 +588,16 @@ corresponding to these categories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
     <span class="c1"># level is a string label</span>
     <span class="c1"># df is a data frame - we can do whatever we want</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> subjects with gender=`</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">`.&quot;</span><span class="p">)</span>
-<span class="c1">## There are 1 subjects with gender=`female`.</span>
-<span class="c1">## There are 4 subjects with gender=`male`.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> subject(s) with gender=`</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">`.&quot;</span><span class="p">)</span>
+<span class="c1">## There are 1 subject(s) with gender=`female`.</span>
+<span class="c1">## There are 4 subject(s) with gender=`male`.</span>
 </pre></div>
 </div>
 <p>We see that splitting followed by manual processing of the chunks
-in a loop is quite tedious in case where we would merely like to compute
+in a loop is quite tedious in the case where we would merely like to compute
 some basic aggregates.
 These scenarios are extremely common. No wonder why the <strong class="program">pandas</strong>
-developers introduced an additional, convenience interface
+developers introduced a convenient interface
 in the form of the <strong class="command">pandas.DataFrame.groupby</strong>
 and <strong class="command">pandas.Series.groupby</strong> methods and the <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code> classes.
@@ -877,8 +877,8 @@ does not honour our wish to use alternating lines styles
 (most likely due to a bug).</p>
 <div style="margin-top: 1em"></div><p>A two-sample Kolmogorov–Smirnov test can be used
 to check whether two ECDFs <span class="math notranslate nohighlight">\(\hat{F}_n'\)</span>
-(e.g., weight of the US-born participants)
-and <span class="math notranslate nohighlight">\(\hat{F}_m''\)</span> (e.g., weight of non-US-born persons)
+(e.g., the weight of the US-born participants)
+and <span class="math notranslate nohighlight">\(\hat{F}_m''\)</span> (e.g., the weight of non-US-born persons)
 are significantly different from each other:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1343,7 +1343,7 @@ what is the probability that this is indeed true?</p>
 <span class="c1">## 0.7250755287009063</span>
 </pre></div>
 </div>
-<p>When a classifier labels a vino as bad, in 73% cases
+<p>When a classifier labels a vino as bad, in 73% of cases
 it is veritably undrinkable.</p>
 <div style="margin-top: 1em"></div><p><em>Recall</em> (sensitivity, hit rate, or true positive rate)
 addresses the question:
@@ -1406,11 +1406,10 @@ aggregated into a single number:</p>
 </div></div></div>
 <div class="section" id="splitting-into-training-and-test-sets">
 <span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into Training and Test Sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Permalink to this headline"></a></h3>
-<p>The training set which was used as a source of knowledge about our
+<p>The training set was used as a source of knowledge about our
 problem domain. The <em>k</em>-nearest neighbour classifier is technically
 <em>model-free</em>. As a consequence, to generate a new prediction, we need
-to be able to query all the points in the database. They must be at hand
-at all times.</p>
+to be able to query all the points in the database every time.</p>
 <p>Nonetheless, most statistical/machine learning algorithms, by construction,
 generalise the patterns discovered in the dataset in the form
 of mathematical functions (oftentimes, very complicated ones),
@@ -1422,9 +1421,10 @@ would be a conceptually similar classifier, but it is beyond
 our introductory course.</p>
 <p>Either way, we used a separate <em>test set</em> to verify the quality
 of our classifier on so-far <em>unobserved</em> data, i.e., its <em>predictive</em>
-capabilities. This is because we do not want our model to overfit to training
-data and be completely useless when filling the gaps between
-the points it was exposed to. This is like being a student who
+capabilities. We do not want our model to fit to the
+training data too closely. This could lead to its being completely useless
+when filling the gaps between the points it was exposed to.
+This is like being a student who
 can only repeat what the teacher says, and when faced with a slightly
 different real-world problem, they panic and say complete gibberish.</p>
 <p>In the above example, the training and test sets were created by yours truly.
@@ -1457,9 +1457,9 @@ For each of them, we need to compute separate quality metrics,
 e.g., <em>F</em>-measures. Then, the classifier which yields the highest
 score is picked as the best.
 Unfortunately, if we do it recklessly,
-this can lead to <em>overfitting</em> to the test set – the obtained
-metrics might be too optimistic and can poorly reflect the real performance
-of the solution on future data.</p>
+this can lead to <em>overfitting</em>, this time with respect to the test set.
+The obtained metrics might be too optimistic and can poorly reflect
+the real performance of the solution on future data.</p>
 <p>Assuming that our dataset carries a decent number of observations,
 to overcome this problem, we can perform a random
 <em>training/validation/test split</em>:</p>
@@ -1478,9 +1478,8 @@ models in the same way.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>We would like  to obtain a good estimate of a classifier’s performance on
-previously unobserved data.
-For this reason, test (hold-out) sample must neither be used in the training
-nor in the validation phase (no cheating).</p>
+previously unobserved data. For this reason, the test (hold-out) sample
+must neither be used in the training nor the validation phase.</p>
 </div>
 <div class="proof proof-type-exercise" id="id52">
 
@@ -1539,9 +1538,9 @@ compute, say, the F-measure:</p>
 </tr>
 </tbody>
 </table>
-<p>At the end we can determine the average
-<em>F</em>-measure, <span class="math notranslate nohighlight">\((F_A+F_B+F_C+F_D+F_E)/5\)</span>,
-as a basis for assessing different classifiers’ quality.</p>
+<p>In the end, we can determine the average <em>F</em>-measure,
+<span class="math notranslate nohighlight">\((F_A+F_B+F_C+F_D+F_E)/5\)</span>, as a basis for assessing different
+classifiers’ quality.</p>
 <p>Once the best classifier is chosen, we can use the whole
 training sample to fit the final model and then consider the separate
 test sample to assess its quality.</p>
@@ -1558,7 +1557,7 @@ statistical learning.</p>
     </div><div class="proof-content">
 <p>(**)
 Redo the above exercise (assessing the wine colour classifiers),
-but this time maximising the <em>F</em>-measure
+but this time maximise the <em>F</em>-measure
 obtained by a 5-fold cross-validation.</p>
 </div></div></div>
 </div>
@@ -1600,8 +1599,7 @@ and their closest pivots is minimised:</p>
 \right\}
 \qquad\text{w.r.t. }{\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k}.
 \]</div>
-<p>Let us introduce the <em>label vector</em> <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span>
-such that:</p>
+<p>Let us introduce the <em>label vector</em> <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> such that:</p>
 <div class="math notranslate nohighlight">
 \[
 l_i = \mathrm{arg}\min_{j} \| \mathbf{x}_{i,\cdot} - \boldsymbol{c}_{j} \|^2,
@@ -1609,7 +1607,7 @@ l_i = \mathrm{arg}\min_{j} \| \mathbf{x}_{i,\cdot} - \boldsymbol{c}_{j} \|^2,
 <p>i.e., it is the index of the pivot closest to <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span>.</p>
 <p>We will consider all the points <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span>
 with <em>i</em> such that <span class="math notranslate nohighlight">\(l_i=j\)</span> as belonging to the same, <em>j</em>-th,
-<em>cluster</em> (point group). This way, <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> defines
+<em>cluster</em> (point group). This way <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> defines
 a <em>partition</em> of the original dataset
 into <em>k</em> nonempty, mutually disjoint subsets.</p>
 <p>Now, the above optimisation task can be equivalently rewritten as:</p>
@@ -1624,7 +1622,7 @@ This problem looks easier, but let us not be tricked;
 <span class="math notranslate nohighlight">\(l_i\)</span>s depend on <span class="math notranslate nohighlight">\(\boldsymbol{c}_j\)</span>s. They vary <em>together</em>.
 We have just made it less explicit.</p>
 <p>It can be shown that given a fixed label vector
-<span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> representing a partitioning,
+<span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> representing a partition,
 <span class="math notranslate nohighlight">\(\boldsymbol{c}_j\)</span> must be the centroid (<a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>)
 of the points assigned thereto:</p>
 <div class="math notranslate nohighlight">
@@ -1742,7 +1740,7 @@ and its perception being disturbed when a plot’s aspect ratio is not 1:1.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-An even simpler classifier that the <em>k</em>-nearest neighbours one
+An even simpler classifier than the <em>k</em>-nearest neighbours one
 described above builds upon the concept of the nearest centroids.
 Namely, it first determines the centroids (componentwise
 arithmetic means) of the points in each class. Then, a new point
@@ -1761,10 +1759,9 @@ e.g., all points on a dense equidistant grid.</p>
 <p>Unfortunately, the <em>k</em>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
-optimisation problem (e.g., <span id="id12">[<a class="reference internal" href="999-bibliography.html#id132">Lee11</a>]</span>).
-In other words, the search for the <em>truly</em>
-(i.e., globally) optimal solution takes impractically long time for larger
-<em>n</em> and <em>k</em>.</p>
+optimisation problem (e.g., <span id="id12">[<a class="reference internal" href="999-bibliography.html#id132">Lee11</a>]</span>). In other words, the search
+for the <em>truly</em> (i.e., globally) optimal solution takes,
+for larger <em>n</em> and <em>k</em>, an impractically long time.</p>
 <p>As a consequence, we must rely on some approximate algorithms
 which all have one drawback in common. Namely, whatever they return
 can be <em>suboptimal</em>. Hence, they can constitute a
@@ -1780,15 +1777,14 @@ to study this issue in more detail.
 This is because the discussed approach
 to clustering is not the only hard problem in data science
 (selecting an optimal set of independent variables with respect
-to AIC or BIC in linear regression being another example).</p>
+to AIC or BIC in linear regression is another example).</p>
 </div>
 <div class="section" id="lloyd-s-algorithm">
 <h3><span class="section-number">12.4.3. </span>Lloyd’s Algorithm<a class="headerlink" href="#lloyd-s-algorithm" title="Permalink to this headline"></a></h3>
-<p>Technically, there is no such thing as <em>the</em> <em>k</em>-means algorithm.
-There many procedures, based on many different heuristics,
-which attempt to solve the <em>k</em>-means problem.
-Unfortunately, neither of them is perfect:
-this is not possible.</p>
+<p>Technically, there is no such thing as <em>the</em> <em>k</em>-means <em>algorithm</em>.
+There are many procedures, based on numerous different heuristics,
+that attempt to solve the <em>k</em>-means <em>problem</em>. Unfortunately,
+neither of them is perfect. This is not possible.</p>
 <p>Perhaps the most widely known and easiest to understand
 method is traditionally attributed to Lloyd <span id="id13">[<a class="reference internal" href="999-bibliography.html#id131">Llo2)</a>]</span>.
 It is based on the fixed-point iteration and.
@@ -1826,9 +1822,9 @@ Otherwise, go to Step 2.</p></li>
         <span class="proof-type">Exercise 12.21</span>
         
     </div><div class="proof-content">
-<p>(*) Implement the Lloyd’s algorithm in the form of a function
+<p>(*) Implement the Lloyd algorithm in the form of a function
 <strong class="command">kmeans</strong><code class="code docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">C)</span></code>, where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the data matrix (<em>n</em>-by-<em>m</em>)
-and where the rows in <code class="docutils literal notranslate"><span class="pre">C</span></code>, being an <em>k</em>-by-<em>m</em> matrix,
+and where the rows in <code class="docutils literal notranslate"><span class="pre">C</span></code>, being a <em>k</em>-by-<em>m</em> matrix,
 give the initial cluster centres.</p>
 </div></div></div>
 <div class="section" id="local-minima">
@@ -1851,7 +1847,7 @@ looked beyond them, we could have found a superior solution.</p>
 <span id="fig-many-local-minima"></span><img alt="../_images/many-local-minima-21.png" src="../_images/many-local-minima-21.png" />
 <p class="caption"><span class="caption-number">Figure 12.11 </span><span class="caption-text">An example function (of only one variable; our problem is much higher-dimensional) with many local minima; how can we be sure there is no better minimum outside of the depicted interval?</span><a class="headerlink" href="#id58" title="Permalink to this image"></a></p>
 </div>
-<p>A variant of the Lloyd’s method is implemented
+<p>A variant of the Lloyd method is implemented
 in <strong class="command">scipy.cluster.vq.kmeans2</strong>, where the initial cluster
 centres are picked at random. Let us test its behaviour
 by analysing three chosen country-wise categories
@@ -2005,7 +2001,7 @@ see <a class="reference internal" href="#fig-wcss-local-minima"><span class="std
 <p class="caption"><span class="caption-number">Figure 12.12 </span><span class="caption-text">Within-cluster sum of squares at the results returned by different runs of the <em>k</em>-means algorithm; sometimes we might be very unlucky</span><a class="headerlink" href="#id60" title="Permalink to this image"></a></p>
 </div>
 <p>Also, <a class="reference internal" href="#fig-kmeans-suboptimal-centres"><span class="std std-numref">Figure 12.13</span></a> depicts
-all the cluster centres that the algorithm converged to.
+all the cluster centres to which the algorithm converged.
 We see that we should not be trusting the results
 generated by a single run of a heuristic solver to the <em>k</em>-means problem.</p>
 <div class="figure align-default" id="id61">
@@ -2033,7 +2029,7 @@ applies the aforementioned restarting.</p>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
-As an exercise, we suggest the reader to pass <code class="docutils literal notranslate"><span class="pre">n_init=100</span></code>, <code class="docutils literal notranslate"><span class="pre">n_init=1000</span></code>,
+As an exercise, pass <code class="docutils literal notranslate"><span class="pre">n_init=100</span></code>, <code class="docutils literal notranslate"><span class="pre">n_init=1000</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">n_init=10000</span></code> and determine the returned WCSS.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2042,8 +2038,8 @@ and <code class="docutils literal notranslate"><span class="pre">n_init=10000</s
 will make a tweak in the algorithm so that after an update to the package,
 the returned minimum will be better.
 This cannot be deemed a bug fix, though, as there are no bugs here.
-Improving the behaviour of the method on this example
-will lead to its degradation on others.
+Improving the behaviour of the method in this example
+will lead to its degradation in others.
 There is no free lunch in optimisation.</p>
 </div>
 <div class="admonition note">
@@ -2101,12 +2097,12 @@ see, e.g., <span id="id21">[<a class="reference internal" href="999-bibliography
 (see, e.g., <span id="id22">[<a class="reference internal" href="999-bibliography.html#id84">Gag21</a>, <a class="reference internal" href="999-bibliography.html#id112">Mul11</a>]</span>)
 are also noteworthy, because they do not require
 asking for a fixed number of clusters.
-Furthermore, density based algorithms (DBSCAN and its variants)
+Furthermore, density-based algorithms (DBSCAN and its variants)
 <span id="id23">[<a class="reference internal" href="999-bibliography.html#id86">CMZS15</a>, <a class="reference internal" href="999-bibliography.html#id87">EKSX96</a>, <a class="reference internal" href="999-bibliography.html#id88">Lin73</a>]</span>
 utilise the notion of fixed-radius search that we have introduced
 in <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
 <p>There are quite a few ways that aim to assess the quality of clustering
-results, but they meaningfulness is somewhat limited;
+results, but their meaningfulness is somewhat limited;
 see <span id="id24">[<a class="reference internal" href="999-bibliography.html#id7">GBC21</a>]</span> for discussion.</p>
 </div>
 <div class="section" id="exercises">
@@ -2173,8 +2169,8 @@ potential ties at random when computing the mode of the neighbours’ labels?</p
         <span class="proof-type">Exercise 12.32</span>
         
     </div><div class="proof-content">
-<p>What is the purpose of a training/test and training/validation/test set
-splits?</p>
+<p>What is the purpose of a training/test and a training/validation/test set
+split?</p>
 </div></div><div class="proof proof-type-exercise" id="id72">
 
     <div class="proof-title">
@@ -2204,18 +2200,17 @@ method?</p>
         
     </div><div class="proof-content">
 <p>Why restarting Lloyd’s algorithm many times is necessary?
-Why reports from data analysis that do not mention the number
-of restarts are not trustworthy?</p>
+Why are reports from data analysis that do not mention the number
+of restarts not trustworthy?</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="footoop"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
 <dd><p>(*) In this example, we called <strong class="command">pandas.GroupBy.mean</strong>.
-Note that it has a slightly different functionality
+Note that it has slightly different functionality
 from <strong class="command">pandas.DataFrame.mean</strong> and <strong class="command">pandas.Series.mean</strong>,
 which all needed to be implemented separately so that we can
 use them in complex operation chains.
-This is despite they all
-call the underlying <strong class="command">numpy.mean</strong> function.
+Still, they all call the underlying <strong class="command">numpy.mean</strong> function.
 Object-oriented programming has its pros (more expressive syntax)
 and cons (sometimes more redundancy in the API design).</p>
 </dd>
@@ -2262,10 +2257,10 @@ a solution to the <em>k</em>-means problem, from the practical
 point of view it does not really matter which one returns
 the best solution – they are merely our tools to achieve
 a higher goal. Ideally, we should run all of them
-a few times and just get the result that corresponds to the smallest
-WCSS. What matters is that we <em>did our best</em> to
-find the optimal set of cluster centres – and of course
-more approaches tested improve the chance of success.</p>
+many times and get the result that corresponds to the smallest
+WCSS. It is crucial to <em>do our best</em> to
+find the optimal set of cluster centres – the
+more approaches we test, the better the chance of success.</p>
 </dd>
 <dt class="label" id="footlucky"><span class="brackets"><a class="fn-backref" href="#id15">10</a></span></dt>
 <dd><p>Mind who is the benevolent dictator
@@ -2296,7 +2291,7 @@ that data analysts only stick with the default arguments.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-15T15:34:13+1000.
+        Last updated on 2022-07-16T14:59:45+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

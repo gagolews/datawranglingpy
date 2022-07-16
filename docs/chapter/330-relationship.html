@@ -1208,7 +1208,7 @@ at random therein, without any dependence structure
         
     </div><div class="proof-content">
 <p>Compare<a class="footnote-reference brackets" href="#footknnas" id="id7">7</a> the RMSE and MAE for the <em>k</em>-nearest neighbour
-regression curves depicted in the lefthandside of <a class="reference internal" href="#fig-knn-reg"><span class="std std-numref">Figure 9.7</span></a>.
+regression curves depicted in the lefthand side of <a class="reference internal" href="#fig-knn-reg"><span class="std std-numref">Figure 9.7</span></a>.
 Also, draw the residuals vs fitted plot.</p>
 </div></div><div style="margin-top: 1em"></div><p>For linear models fitted using the least squares method,
 it can be shown that it holds:</p>
@@ -1512,7 +1512,7 @@ some measurement error:</p>
 <p>which is not too far, but still somewhat<a class="footnote-reference brackets" href="#footmle" id="id10">9</a> distant from the true
 coefficients, 5 and 3.</p>
 <p>We can also fit a more flexible cubic polynomial,
-<span class="math notranslate nohighlight">\(y=c_1+c_2 x+c_3 x^2 + c_4 x_3\)</span>:</p>
+<span class="math notranslate nohighlight">\(y=c_1+c_2 x+c_3 x^2+c_4 x_3\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X0123</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="n">c0123</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X0123</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ssr0123</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">c0123</span> <span class="o">@</span> <span class="n">X0123</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -1571,12 +1571,12 @@ over the whole <span class="math notranslate nohighlight">\(D\)</span>:</p>
     \int_D (f(x)-\hat{f}(x))^2\, dx
 }.
 \]</div>
-<p>In case of polynomials and other simple functions,
-this can be computed analytically.
+<p>For polynomials and other simple functions,
+RMSE can be computed analytically.
 More generally, we can approximate it numerically by sampling the above
 at sufficiently many points and applying the trapezoidal rule
-(e.g., <span id="id11">[<a class="reference internal" href="999-bibliography.html#id140">PTVF07</a>]</span>).</p>
-<p>Let us fit a range of polynomial models of different degrees.</p>
+(e.g., <span id="id11">[<a class="reference internal" href="999-bibliography.html#id140">PTVF07</a>]</span>). As this can be an educative programming exercise,
+below we consider a range of polynomial models of different degrees.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cs</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">,</span> <span class="n">rmse_test</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>  <span class="c1"># result containers</span>
 <span class="n">ps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># polynomial degrees</span>
 <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span><span class="p">:</span>           <span class="c1"># for each polynomial degree:</span>
@@ -1664,7 +1664,7 @@ We should end this madness.</p>
 (<strong class="program">sklearn</strong>; <span id="id12">[<a class="reference internal" href="999-bibliography.html#id4">PVG+11</a>]</span>)
 is a huge Python package
 built on top of <strong class="program">numpy</strong>, <strong class="program">scipy</strong>, and <strong class="program">matplotlib</strong>.
-It has a nicely consistent API and implements or provides
+It has a consistent API and implements or provides
 wrappers for many regression, classification, clustering, and
 dimensionality reduction algorithms (amongst others).</p>
 <div class="admonition important">
@@ -1673,7 +1673,7 @@ dimensionality reduction algorithms (amongst others).</p>
 allows for fitting models even if we do not understand
 the mathematics behind them. This is dangerous – it is
 like driving a sports car without the necessary skills
-and, at the same time, wearing a blind fold.
+and, at the same time, wearing a blindfold.
 Advanced students and practitioners will appreciate it, but
 if used by beginners, it needs to be handled with care;
 we should not mistake something’s being easily accessible
@@ -1683,24 +1683,26 @@ procedure for which we are not able to provide its definition/mathematical
 properties/explain its idealised version using pseudocode,
 we should refrain from using it (see Rule#7).</p>
 </div>
-<p>Because of the above, we shall only present a quick demo the API of
-the <strong class="program">scikit-learn</strong> package.
+<p>Because of the above, we shall only present a quick demo of
+<strong class="program">scikit-learn</strong>’s API.
 Let us do that by fitting a multiple linear regression model
-for, again, weight as a function of arm and hip circumference:</p>
+for, again, weight as a function of the arm and the hip circumference:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>In <strong class="program">scikit-learn</strong>, once we construct an object representing
 the model to be fitted, the <strong class="command">fit</strong> method determines the optimal
 parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="kn">import</span> <span class="nn">sklearn.linear_model</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.linear_model</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lm</span><span class="o">.</span><span class="n">coef_</span>
 <span class="c1">## (-63.383425410947524, array([1.30457807, 0.8986582 ]))</span>
 </pre></div>
 </div>
-<p>We obtained the same solution as with <strong class="command">scipy.linalg.lstsq</strong>:
-it uses the same algorithm.</p>
+<p>We of course obtained the same solution
+as with <strong class="command">scipy.linalg.lstsq</strong>.</p>
 <p>Computing the predicted values can be done via the
 <strong class="command">predict</strong> method.
 For example, we can calculate the coefficient of determination:</p>
@@ -1745,8 +1747,8 @@ First, <strong class="command">scipy</strong>:</p>
 </div>
 <p>If we drew the fitted polynomial now (see <a class="reference internal" href="#fig-ill-cond"><span class="std std-numref">Figure 9.15</span></a>),
 we would see that the fit is unbelievably bad.
-The result returned by <strong class="command">scipy.linalg.lstsq</strong> in this case
-is not at all optimal. All coefficients are approximately equal to 0.</p>
+The result returned by <strong class="command">scipy.linalg.lstsq</strong>
+is now not at all optimal. All coefficients are approximately equal to 0.</p>
 <div style="margin-top: 1em"></div><p>It turns out that the fitting problem is extremely <em>ill-conditioned</em>
 (and it is not the algorithm’s fault): GDPs range from very small
 to very large ones. Furthermore, taking the powers of 4 thereof
@@ -1778,7 +1780,7 @@ the underlying computations. We are thus currently faced with a very
 ill-conditioned problem, because the above number is exceptionally large.
 We expect that if the values in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 or <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are perturbed even slightly,
-it can result in very large changes of the
+it can result in very large changes in the
 computed regression coefficients.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1923,7 +1925,7 @@ has a nice geometrical interpretation:</p>
 \cos\alpha,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha\)</span> is the angle between two given vectors
-<span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^n\)</span>,
+<span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^n\)</span>.
 In plain English, it is the product of the magnitudes of the two vectors
 and the cosine of the angle between them.</p>
 <p>We can obtain the cosine part by computing the dot product
@@ -1967,7 +1969,7 @@ inverse of the cosine function, i.e., arccosine.</p>
 <p class="admonition-title">Important</p>
 <p>If two vectors are collinear
 (<em>codirectional</em>, one is a scaled version of another, angle <span class="math notranslate nohighlight">\(0\)</span>),
-then <span class="math notranslate nohighlight">\(\cos 0 = 1\)</span>. If they point at opposite directions
+then <span class="math notranslate nohighlight">\(\cos 0 = 1\)</span>. If they point in opposite directions
 (<span class="math notranslate nohighlight">\(\pm\pi=\pm 180^\circ\)</span> angle), then <span class="math notranslate nohighlight">\(\cos \pm\pi=-1\)</span>.
 For vectors that are <em>orthogonal</em>
 (perpendicular, <span class="math notranslate nohighlight">\(\pm\frac{\pi}{2}=\pm 90^circ\)</span> angle),
@@ -1987,9 +1989,9 @@ the number of elements therein. If the vectors are
 centred, we can rewrite the formula equivalently as
 <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=
 \frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\cdot\frac{\boldsymbol{y}}{\|\boldsymbol{y}\|}\)</span> and thus <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})= \cos\alpha\)</span>.
-It is not easy to imagine
-vectors in high dimensional spaces, but at least the fact
-that <span class="math notranslate nohighlight">\(r\)</span> is bounded by -1 and 1 is implied from this observation.
+It is not easy to imagine vectors in high-dimensional spaces,
+but from this observation we can at least imply the fact
+that <span class="math notranslate nohighlight">\(r\)</span> is bounded between -1 and 1.
 In this context, being not linearly correlated corresponds to the vectors’
 orthogonality.</p>
 </div>
@@ -2141,9 +2143,10 @@ shifted linear combination of the columns in the original matrix:</p>
 \mathbf{x}_{\cdot,j} = t_j + \sum_{k=1}^m (s_{k, k} q_{k, j})
 \mathbf{x}_{\cdot, k}'.
 \]</div>
-<p>Computing such linear combinations of columns is not rare during
-a dataset’s preprocessing step, especially if they are on the
-same scale or are unitless. As a matter of fact,
+<p>The computing of such linear combinations of columns
+is not rare during a dataset’s preprocessing step,
+especially if they are on the same scale or are unitless.
+As a matter of fact,
 the standardisation itself is a form of scaling and translation.</p>
 <div class="proof proof-type-exercise" id="id52">
 
@@ -2152,8 +2155,8 @@ the standardisation itself is a form of scaling and translation.</p>
         
     </div><div class="proof-content">
 <p>Assume that we have a dataset with two columns,
-giving the number of apples and the number of oranges in a fresh veggie market
-clients’ baskets. What orthonormal and scaling transforms should be
+giving the number of apples and the number of oranges in clients’ baskets.
+What orthonormal and scaling transforms should be
 applied to obtain a matrix bearing the total number of fruits and
 surplus apples (e.g., a row <span class="math notranslate nohighlight">\((4, 7)\)</span> should be converted to <span class="math notranslate nohighlight">\((11, -3)\)</span>)?</p>
 </div></div></div>
@@ -2214,8 +2217,8 @@ round-off error):</p>
 <span id="sec-svd"></span><h3><span class="section-number">9.3.4. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline"></a></h3>
 <p>It turns out that given any real <em>n</em>-by-<em>m</em> matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 with <span class="math notranslate nohighlight">\(n\ge m\)</span>, we can find an interesting scaling and orthonormal
-transforms that, when applied on a dataset whose columns are already
-normalised, yield exactly <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+transform that, when applied on a dataset whose columns are already
+normalised, yields exactly <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 <p>Namely, the singular value decomposition (SVD in the so-called compact form)
 is a factorisation:</p>
 <div class="math notranslate nohighlight">
@@ -2328,7 +2331,7 @@ column variances).</p>
 </pre></div>
 </div>
 <p>As we said in <a class="reference internal" href="310-matrix.html#sec-visual-multidim"><span class="std std-numref">Section 7.4</span></a>,
-plotting is always done on a 2-dimensional surface (be it the computer
+the plotting is always done on a two-dimensional surface (be it the computer
 screen or book page). We can look at the dataset
 only from one <em>angle</em> at a time.</p>
 <p>In particular, a scatterplot matrix only depicts the dataset
@@ -2381,7 +2384,7 @@ of a centred dataset which we denote with <span class="math notranslate nohighli
 <p>we know that its first column has the highest variance,
 the second column has the second highest variability,
 and so on.
-It might indeed be worth to look at that dataset from that
+It might indeed be worth looking at that dataset from that
 <em>most informative</em> perspective.</p>
 <p><a class="reference internal" href="#fig-chainlink-svd"><span class="std std-numref">Figure 9.21</span></a> gives the scatter plot for <span class="math notranslate nohighlight">\(\mathbf{p}_{\cdot,1}\)</span>
 and <span class="math notranslate nohighlight">\(\mathbf{p}_{\cdot,2}\)</span>. Maybe this does not reveal the true
@@ -2411,7 +2414,7 @@ the Cartesian coordinate system is the most informative<a class="footnote-refere
 involving our brainstorming upon what happens along the projections onto
 the most variable dimensions.
 It can be used not only for data visualisation and deduplication,
-but also feature engineering (as in fact it creates new columns
+but also for feature engineering (as in fact it creates new columns
 that are linear combinations of existing ones).</p>
 <p>Let us consider a few chosen countrywise 2016
 <a class="reference external" href="https://ssi.wi.th-koeln.de/">Sustainable Society Indices</a>.</p>
@@ -2444,7 +2447,7 @@ that are linear combinations of existing ones).</p>
 <span class="c1">## [&#39;Albania&#39;, &#39;Algeria&#39;, &#39;Angola&#39;, &#39;Argentina&#39;, &#39;Armenia&#39;, &#39;Australia&#39;]</span>
 </pre></div>
 </div>
-<p>This is a 5-dimensional dataset. We cannot easily visualise it.
+<p>This is a five-dimensional dataset. We cannot easily visualise it.
 That the pairplot does not reveal much is left as an exercise.
 Let us thus perform the SVD decomposition of a standardised
 version of this dataset, <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>
@@ -2469,7 +2472,7 @@ We can compute them by calling:</p>
 </div>
 <p>As in some sense the variability within the first two components covers
 ca. 94% of the variability of the whole dataset,
-we can restrict ourselves only to a 2-dimensional projection
+we can restrict ourselves only to a two-dimensional projection
 of this dataset (actually, we are quite lucky here – or someone
 has selected these countrywise indices for us in a very
 clever fashion).</p>
@@ -2483,11 +2486,11 @@ rows in <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> that co
 </div>
 <p>The first row in <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> consists of similar values,
 but with different signs.
-We can consider them a scaled version of the average of
+We can consider them a scaled version of the average
 Energy Use (column 3), Greenhouse Gases (4), and
 MINUS Safe Sanitation (1), MINUS Healthy Life (2),
 MINUS Gross Domestic Product (5).
-We could call a measure of a country’s overall
+We could call this a measure of a country’s overall
 eco-unfriendliness(?), because countries with low Healthy Life and high
 Greenhouse Gasses will score highly on this scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># loadings – the 2nd principal axis</span>
@@ -2552,16 +2555,16 @@ We recommend <span id="id19">[<a class="reference internal" href="999-bibliograp
         <span class="proof-type">Exercise 9.16</span>
         
     </div><div class="proof-content">
-<p>What does linear correlation of 0.9 mean?
-How about rank correlation of 0.9?
-And linear correlation of 0.0?</p>
+<p>What does the linear correlation of 0.9 mean?
+How about the rank correlation of 0.9?
+And the linear correlation of 0.0?</p>
 </div></div><div class="proof proof-type-exercise" id="id60">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.17</span>
         
     </div><div class="proof-content">
-<p>How is the Spearman’s coefficient related to the Pearson’s one?</p>
+<p>How is Spearman’s coefficient related to Pearson’s one?</p>
 </div></div><div class="proof proof-type-exercise" id="id61">
 
     <div class="proof-title">
@@ -2628,10 +2631,8 @@ two normalised vectors?</p>
         <span class="proof-type">Exercise 9.26</span>
         
     </div><div class="proof-content">
-<p>How to verify if two vectors are orthonormal?
-What is an orthonormal projection?
-What is the inverse of an
-orthonormal matrix?</p>
+<p>How can we verify if two vectors are orthonormal? What is an orthonormal
+projection? What is the inverse of an orthonormal matrix?</p>
 </div></div><div class="proof proof-type-exercise" id="id70">
 
     <div class="proof-title">
@@ -2654,14 +2655,14 @@ of shape <em>n</em>-by-<em>m</em>.</p>
         <span class="proof-type">Exercise 9.29</span>
         
     </div><div class="proof-content">
-<p>How to obtain the first principal component of a given centred matrix?</p>
+<p>How can we obtain the first principal component of a given centred matrix?</p>
 </div></div><div class="proof proof-type-exercise" id="id73">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.30</span>
         
     </div><div class="proof-content">
-<p>How to compute the ratios of the variances explained by the
+<p>How can we compute the ratios of the variances explained by the
 consecutive principal components?</p>
 </div></div><hr class="footnotes docutils" />
 <dl class="footnote brackets">
@@ -2676,7 +2677,7 @@ The rest is silence.</p>
 <dt class="label" id="foothclust"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
 <dd><p>(**) This can be done automatically via some
 hierarchical clustering algorithm applied
-on the transformed correlation matrix, <span class="math notranslate nohighlight">\(1-|\mathbf{R}|\)</span>
+onto the transformed correlation matrix, <span class="math notranslate nohighlight">\(1-|\mathbf{R}|\)</span>
 or <span class="math notranslate nohighlight">\(1-\mathbf{R}^2\)</span>.</p>
 </dd>
 <dt class="label" id="footspearman"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
@@ -2700,14 +2701,14 @@ what we are doing.
 We see from the scatterplot of the involved variables
 that the data do not lie on a straight line perfectly.
 Each model is merely an idealisation/simplification of the described
-reality. It is wise to remind ourselves about that every now and then.</p>
+reality. It is wise to remind ourselves about that every so often.</p>
 </dd>
 <dt class="label" id="footknnas"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
 <dd><p>In <em>k</em>-nearest neighbour regression, we are not
 aiming to minimise anything in particular. If the model
 is good with respect to some metrics such as RMSE or MAE,
 we can consider ourselves
-lucky. Nevertheless, there are some asymptotic results that guarantee
+lucky. Nevertheless, some asymptotic results guarantee
 the optimality of the outcomes generated for large sample sizes
 (e.g., consistency), see, e.g., <span id="id21">[<a class="reference internal" href="999-bibliography.html#id78">DGL96</a>]</span>.</p>
 </dd>
@@ -2715,14 +2716,14 @@ the optimality of the outcomes generated for large sample sizes
 <dd><p>For a model that is <em>not</em> generated via least squares,
 the coefficient of determination can also be negative,
 particularly when the fit is extremely bad.
-Also note that this measure is dataset-dependent.
+Also, note that this measure is dataset-dependent.
 Therefore, it should not be used for comparing
-between models explaining different dependent variables.</p>
+models explaining different dependent variables.</p>
 </dd>
 <dt class="label" id="footmle"><span class="brackets"><a class="fn-backref" href="#id10">9</a></span></dt>
 <dd><p>For large <span class="math notranslate nohighlight">\(n\)</span>, we expect the pinpoint the true coefficients
-exactly. This is because in our scenario (independent,
-normally distributed errors with expectation of 0),
+exactly. This is because, in our scenario (independent,
+normally distributed errors with the expectation of 0),
 the least squares method is the maximum likelihood estimator
 of the model parameters. As a consequence, it is consistent.</p>
 </dd>
@@ -2747,7 +2748,7 @@ referred to as orthogonal ones.</p>
 <dd><p>(**) The Eckart–Young–Mirsky theorem states that
 <span class="math notranslate nohighlight">\(\mathbf{U}_{\cdot, :k} \mathbf{S}_{:k, :k} \mathbf{Q}_{:k, \cdot}\)</span>
 (where “<em>:k</em>” denotes “first <em>k</em> rows or columns”)
-is the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
+is the best rank-<em>k</em> approximation of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 with respect to both the Frobenius and spectral norms.</p>
 </dd>
 <dt class="label" id="footfun"><span class="brackets"><a class="fn-backref" href="#id17">14</a></span></dt>
@@ -2777,7 +2778,7 @@ to function properly. We need more maths in our lives.</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-15T15:34:13+1000.
+        Last updated on 2022-07-16T14:59:45+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
