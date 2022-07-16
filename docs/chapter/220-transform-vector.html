@@ -69,7 +69,7 @@
           
 
           
-            <a href="../index.html"> Minimalist Data Wrangling with Python [v0.5.2]
+            <a href="../index.html"> Minimalist Data Wrangling with Python [v1.0.0]
           
 
           
@@ -221,7 +221,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python [v0.5.2]</a>
+          <a href="../index.html">Minimalist Data Wrangling with Python [v1.0.0]</a>
         
       </nav>
 
@@ -621,7 +621,7 @@ is the average distance to the arithmetic mean:</p>
 \frac{ (x_1-\bar{x})^2 + (x_2-\bar{x})^2 + \dots + (x_n-\bar{x})^2 }{n}
 } =
 \sqrt{
-\frac{1}{n} \sum_{i=1}^n (x_i-\bar{x})^2,
+\frac{1}{n} \sum_{i=1}^n (x_i-\bar{x})^2.
 }
 \]</div>
 <p>Computing the above with <strong class="program">numpy</strong>:</p>
@@ -876,7 +876,7 @@ on different scales, as it is unit-less
 convert between metres and centimetres).</p>
 <p>The <em>Gini index</em>,
 widely used in economics, can also serve as a measure of relative
-dispersion, but assumes that all data points are nonnegative.</p>
+dispersion, but assumes that all data points are nonnegative:</p>
 <div class="math notranslate nohighlight">
 \[
 G = \frac{
@@ -1243,7 +1243,7 @@ squares, i.e., the Euclidean (<span class="math notranslate nohighlight">\(l_2\)
 x_1^2 + x_2^2 + \dots + x_n^2
 } = \sqrt{
 \sum_{i=1}^n x_i^2
-},
+}.
 \]</div>
 <p>Its special case for <em>n=2</em> we know well from high school:
 the length of a vector <span class="math notranslate nohighlight">\((a,b)\)</span>
@@ -1260,7 +1260,7 @@ think of the <em>sum of squares</em>.</p>
 \frac{x_2}{\| \boldsymbol{x} \|},
 \dots,
 \frac{x_n}{\| \boldsymbol{x} \|}
-\right)
+\right),
 \]</div>
 <p>can be determined via:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>  <span class="c1"># example vector</span>
@@ -1404,12 +1404,11 @@ Computer graphics is essentially discrete.</p>
         <span class="proof-type">Exercise 5.14</span>
         
     </div><div class="proof-content">
-<p>Based on the
+<p>Using a single line of code, compute the vector of BMIs of all persons
+based on the
 <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_height_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_height_2020</span></code></a>
 and
-<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a>
-datasets (discussed in the part on histograms), using a single line of code,
-compute the vector of BMIs of all persons.
+<a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/nhanes_adult_female_weight_2020.txt"><code class="docutils literal notranslate"><span class="pre">nhanes_adult_female_weight_2020</span></code></a> datasets.
 It is assumed that the <em>i</em>-th elements therein both refer to the same
 person.</p>
 </div></div></div>
@@ -1727,7 +1726,7 @@ in a given vector.</p>
 <p>Using mathematical notation, we can denote the former with:</p>
 <div class="math notranslate nohighlight">
 \[
-i = \mathrm{arg}\min_j x_j
+i = \mathrm{arg}\min_j x_j,
 \]</div>
 <p>and read it as: let <span class="math notranslate nohighlight">\(i\)</span> be the index of the smallest element in the sequence.
 Alternatively, it is the <em>argument of the minimum</em>, whenever:</p>
@@ -1806,20 +1805,19 @@ operator, because it tests exact equality.</p>
 </div>
 <p>When a comparison is needed, we need to take some error margin
 into account. Ideally, instead of testing <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></code>, we should either
-inspect the absolute error</p>
+inspect the <em>absolute error</em>:</p>
 <div class="math notranslate nohighlight">
 \[
-|x-y| \le \varepsilon
+|x-y| \le \varepsilon,
 \]</div>
-<p>or, assuming <span class="math notranslate nohighlight">\(y\neq 0\)</span>, the relative error</p>
+<p>or, assuming <span class="math notranslate nohighlight">\(y\neq 0\)</span>, the <em>relative error</em>:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{|x-y|}{|y|} \le \varepsilon,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\varepsilon\)</span> is some small error margin.</p>
-<p>For instance, <strong class="command">numpy.allclose</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>
-checks (by default) if for all corresponding elements in both vectors
-it holds
+<p>For instance, <strong class="command">numpy.allclose</strong><code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> checks (by default)
+if for all corresponding elements in both vectors it holds
 <strong class="command">numpy.abs</strong><code class="code docutils literal notranslate"><span class="pre">(x-y)</span> <span class="pre">&lt;=</span> <span class="pre">1e-8</span> <span class="pre">+</span> <span class="pre">1e-5*</span></code><strong class="command">numpy.abs</strong><code class="code docutils literal notranslate"><span class="pre">(y)</span></code>,
 which is a combination of both tests.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights_centred</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
@@ -2190,7 +2188,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-16T14:59:45+1000.
+        Last updated on 2022-07-16T16:27:26+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
