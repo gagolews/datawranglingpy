@@ -1,14 +1,21 @@
 # Minimalist Data Wrangling with Python
 
-> Any remarks and bug fixes are appreciated — please submit them via
-> this repository's *Issues* tracker. Thank you.
+*Minimalist Data Wrangling with Python* is envisaged as a student's first,
+broad, yet well-structured exposure to data science. We explore methods for
+cleaning data gathered from different sources, transforming, selecting, and
+extracting features, performing exploratory data analysis, dimensionality
+reduction, identifying naturally occurring data clusters, modelling patterns in
+data, comparing data between groups, and reporting the discoveries made.
 
-This repository hosts the HTML and PDF versions of the open-access (free!)
-textbook *Minimalist Data Wrangling with Python* by [Marek Gagolewski][1].
-You can read them at:
+You can read this open-access (free!) textbook at:
 
 * https://datawranglingpy.gagolewski.com/ (a browser-friendly version)
 * https://datawranglingpy.gagolewski.com/datawranglingpy.pdf (PDF)
+
+
+Any remarks and bug fixes are appreciated — please submit them via
+this repository's *Issues* tracker. Thank you.
+
 
 
 ## About the Author
@@ -30,7 +37,7 @@ among [others](https://github.com/gagolews)).
 
 --------------------------------------------------------------------------------
 
-Copyright (C) 2022, [Marek Gagolewski][1].
+Copyright (C) 2022, [Marek Gagolewski][1]. Some rights reserved.
 
 This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International][2] License
