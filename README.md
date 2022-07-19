@@ -1,11 +1,12 @@
 # Minimalist Data Wrangling with Python
 
-*Minimalist Data Wrangling with Python* is envisaged as a student's first,
-broad, yet well-structured exposure to data science. We explore methods for
+*Minimalist Data Wrangling with Python* is envisaged as a student's first
+introduction to data science, providing a high-level overview as well as
+discussing key concepts in detail. We explore methods for
 cleaning data gathered from different sources, transforming, selecting, and
-extracting features, performing exploratory data analysis, dimensionality
+extracting features, performing exploratory data analysis and dimensionality
 reduction, identifying naturally occurring data clusters, modelling patterns in
-data, comparing data between groups, and reporting the discoveries made.
+data, comparing data between groups, and reporting the results.
 
 You can read this open-access (free!) textbook at:
 
