@@ -6,7 +6,8 @@
 
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>6. Continuous Probability Distributions &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
@@ -44,6 +45,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/proof.js"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -268,8 +270,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="tex2jax_ignore mathjax_ignore section" id="continuous-probability-distributions">
-<span id="chap-distribution"></span><h1><span class="section-number">6. </span>Continuous Probability Distributions<a class="headerlink" href="#continuous-probability-distributions" title="Permalink to this headline"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="continuous-probability-distributions">
+<span id="chap-distribution"></span><h1><span class="section-number">6. </span>Continuous Probability Distributions<a class="headerlink" href="#continuous-probability-distributions" title="Permalink to this heading"></a></h1>
 <blockquote>
 <div><p><em>The online version of the open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
@@ -303,7 +305,7 @@ and the bin sizes are very small.</p>
 <p>As stated at the beginning, we do not intend this to be a course in
 probability theory and mathematical statistics.
 Rather, it precedes and motivates them
-(e.g., <span id="id2">[<a class="reference internal" href="999-bibliography.html#id44">DKLM05</a>, <a class="reference internal" href="999-bibliography.html#id47">Gen09</a>, <a class="reference internal" href="999-bibliography.html#id42">Gen20</a>]</span>). Therefore,
+(e.g., <span id="id2">[<a class="reference internal" href="999-bibliography.html#id44" title="F.M. Dekking, C. Kraaikamp, H.P. Lopuhaä, and L.E. Meester. A Modern Introduction to Probability and Statistics: Understanding Why and How. Springer, 2005.">DKLM05</a>, <a class="reference internal" href="999-bibliography.html#id47" title="J.E. Gentle. Computational Statistics. Springer-Verlag, 2009.">Gen09</a>, <a class="reference internal" href="999-bibliography.html#id42" title="J.E. Gentle. Theory of Statistics. book draft, 2020. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">Gen20</a>]</span>). Therefore,
 our definitions are out of necessity simplified so that they are digestible.
 For the purpose of our illustrations, we will consider
 the following characterisation.</p>
@@ -322,13 +324,13 @@ falling into the <span class="math notranslate nohighlight">\([a, b]\)</span> in
 </div>
 <p>Some distributions appear more frequently than others
 and appear to fit empirical data or parts thereof particularly well;
-compare <span id="id3">[<a class="reference internal" href="999-bibliography.html#id81">FEHP10</a>]</span>.
+compare <span id="id3">[<a class="reference internal" href="999-bibliography.html#id81" title="C. Forbes, M. Evans, N. Hastings, and B. Peacock. Statistical Distributions. Wiley, 2010.">FEHP10</a>]</span>.
 In this chapter, we review a few noteworthy probability distributions:
 the normal, log-normal, Pareto, and uniform families
 (we will also mention the chi-squared,
 Kolmogorov, and exponential ones in this course).</p>
-<div class="section" id="normal-distribution">
-<h2><span class="section-number">6.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this headline"></a></h2>
+<section id="normal-distribution">
+<h2><span class="section-number">6.1. </span>Normal Distribution<a class="headerlink" href="#normal-distribution" title="Permalink to this heading"></a></h2>
 <p>A <em>normal (Gaussian) distribution</em> has a prototypical,
 nicely symmetric, bell-shaped density.
 It is described by two parameters:
@@ -342,12 +344,14 @@ compare <a class="reference internal" href="#fig-normalpdf"><span class="std std
 f(x) = \frac{1}{\sqrt{2\pi \sigma^2}}
 \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right).
 \]</div>
-<div class="figure align-default" id="id25">
+<figure class="align-default" id="id25">
 <span id="fig-normalpdf"></span><img alt="../_images/normalpdf-1.png" src="../_images/normalpdf-1.png" />
-<p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">The probability density functions of some normal distributions N(μ, σ); note that μ is responsible for shifting and σ affects scaling/stretching of the probability mass</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
-</div>
-<div class="section" id="estimating-parameters">
-<h3><span class="section-number">6.1.1. </span>Estimating Parameters<a class="headerlink" href="#estimating-parameters" title="Permalink to this headline"></a></h3>
+<figcaption>
+<p><span class="caption-number">Figure 6.1 </span><span class="caption-text">The probability density functions of some normal distributions N(μ, σ); note that μ is responsible for shifting and σ affects scaling/stretching of the probability mass</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<section id="estimating-parameters">
+<h3><span class="section-number">6.1.1. </span>Estimating Parameters<a class="headerlink" href="#estimating-parameters" title="Permalink to this heading"></a></h3>
 <p>A course in statistics (which, again, this one is not,
 we are merely making an illustration here), may tell us
 that the sample arithmetic mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span>
@@ -393,17 +397,19 @@ so that the histogram bars are normalised
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id26">
+<figure class="align-default" id="id26">
 <span id="fig-heights-normal"></span><img alt="../_images/heights-normal-3.png" src="../_images/heights-normal-3.png" />
-<p class="caption"><span class="caption-number">Figure 6.2 </span><span class="caption-text">A histogram and the probability density function of the fitted normal distribution for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.2 </span><span class="caption-text">A histogram and the probability density function of the fitted normal distribution for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>At first glance, this is a genuinely nice match.
 Before proceeding with an overview of the ways to assess
 the goodness-of-fit more rigorously, we should praise the potential
 benefits of having an idealised <em>model</em> of our dataset at our disposal.</p>
-</div>
-<div class="section" id="data-models-are-useful">
-<h3><span class="section-number">6.1.2. </span>Data Models Are Useful<a class="headerlink" href="#data-models-are-useful" title="Permalink to this headline"></a></h3>
+</section>
+<section id="data-models-are-useful">
+<h3><span class="section-number">6.1.2. </span>Data Models Are Useful<a class="headerlink" href="#data-models-are-useful" title="Permalink to this heading"></a></h3>
 <p><em>If</em> (provided that, assuming that, on condition that)
 our sample is a realisation of independent random variables
 following a given distribution, or a data analyst judges that such an
@@ -454,12 +460,12 @@ are not normally distributed. Therefore, we must not
 refer to the above 2σ or 3σ rule in their case.
 A cow neither barks nor can it serve as a screwdriver. Period.</p>
 </div>
-</div>
-</div>
-<div class="section" id="assessing-goodness-of-fit">
-<h2><span class="section-number">6.2. </span>Assessing Goodness-of-Fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Permalink to this headline"></a></h2>
-<div class="section" id="comparing-cumulative-distribution-functions">
-<h3><span class="section-number">6.2.1. </span>Comparing Cumulative Distribution Functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="assessing-goodness-of-fit">
+<h2><span class="section-number">6.2. </span>Assessing Goodness-of-Fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Permalink to this heading"></a></h2>
+<section id="comparing-cumulative-distribution-functions">
+<h3><span class="section-number">6.2.1. </span>Comparing Cumulative Distribution Functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Permalink to this heading"></a></h3>
 <p>In the previous subsection, we were comparing densities and histograms.
 It turns out that there is a better way of assessing the extent to which
 a sample deviates from a hypothesised distribution.
@@ -489,10 +495,12 @@ the values of the theoretical CDF can be computed by calling <strong class="comm
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id28">
+<figure class="align-default" id="id28">
 <span id="fig-heights-cdf"></span><img alt="../_images/heights-cdf-5.png" src="../_images/heights-cdf-5.png" />
-<p class="caption"><span class="caption-number">Figure 6.3 </span><span class="caption-text">The empirical CDF and the fitted normal CDF for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; the fit is superb</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.3 </span><span class="caption-text">The empirical CDF and the fitted normal CDF for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; the fit is superb</span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This <em>looks</em> like a superb match.</p>
 <div class="proof proof-type-example" id="id29">
 
@@ -550,9 +558,9 @@ describes data quite well.
 This is indeed the case here: we may estimate the probability
 of someone being as tall as any given height
 with an error less than about 1.05%.</p>
-</div>
-<div class="section" id="comparing-quantiles">
-<span id="sec-qqplot"></span><h3><span class="section-number">6.2.2. </span>Comparing Quantiles<a class="headerlink" href="#comparing-quantiles" title="Permalink to this headline"></a></h3>
+</section>
+<section id="comparing-quantiles">
+<span id="sec-qqplot"></span><h3><span class="section-number">6.2.2. </span>Comparing Quantiles<a class="headerlink" href="#comparing-quantiles" title="Permalink to this heading"></a></h3>
 <p>A <em>Q-Q plot</em> (quantile-quantile or probability plot)
 is another graphical method for comparing two distributions.
 This time, instead of working with a cumulative distribution function <span class="math notranslate nohighlight">\(F\)</span>,
@@ -572,10 +580,12 @@ a value not greater than <span class="math notranslate nohighlight">\(x\)</span>
 chapter, then <span class="math notranslate nohighlight">\(Q\)</span> is exactly its inverse, i.e., it holds <span class="math notranslate nohighlight">\(Q(p)=F^{-1}(p)\)</span>
 for all <span class="math notranslate nohighlight">\(p\in(0, 1)\)</span>; compare <a class="reference internal" href="#fig-normalcdfvsquant"><span class="std std-numref">Figure 6.4</span></a>.</p>
 </div>
-<div class="figure align-default" id="id30">
+<figure class="align-default" id="id30">
 <span id="fig-normalcdfvsquant"></span><img alt="../_images/normalcdfvsquant-7.png" src="../_images/normalcdfvsquant-7.png" />
-<p class="caption"><span class="caption-number">Figure 6.4 </span><span class="caption-text">The cumulative distribution functions (left) and the quantile functions (being the inverse of the CDF; right) of some normal distributions</span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.4 </span><span class="caption-text">The cumulative distribution functions (left) and the quantile functions (being the inverse of the CDF; right) of some normal distributions</span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>The theoretical quantiles can be generated
 by the <strong class="command">scipy.stats.norm.ppf</strong> function.
 Here, <em>ppf</em> stands for the percent point function which is another
@@ -593,7 +603,7 @@ The sample quantiles that we introduced
 in <a class="reference internal" href="220-transform-vector.html#sec-quantiles"><span class="std std-numref">Section 5.1.1.3</span></a> are natural estimators
 of the theoretical quantile function.
 However, we also mentioned that there are quite a few possible
-definitions thereof in the literature; compare <span id="id7">[<a class="reference internal" href="999-bibliography.html#id9">HF96</a>]</span>.</p>
+definitions thereof in the literature; compare <span id="id7">[<a class="reference internal" href="999-bibliography.html#id9" title="R.J. Hyndman and Y. Fan. Sample quantiles in statistical packages. American Statistician, 50(4):361–365, 1996. doi:10.2307/2684934.">HF96</a>]</span>.</p>
 <p>For simplicity, instead of using <strong class="command">numpy.quantile</strong>,
 we will assume that the <span class="math notranslate nohighlight">\(\frac{i}{n+1}\)</span>-quantile<a class="footnote-reference brackets" href="#footprobplot" id="id8">5</a>
 is equal to <span class="math notranslate nohighlight">\(x_{(i)}\)</span>, i.e., the <em>i</em>-th smallest value in
@@ -625,10 +635,12 @@ the normal distribution family).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id31">
+<figure class="align-default" id="id31">
 <span id="fig-qq-heights"></span><img alt="../_images/qq-heights-9.png" src="../_images/qq-heights-9.png" />
-<p class="caption"><span class="caption-number">Figure 6.5 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; it’s a nice fit</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.5 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; it’s a nice fit</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>Ideally, the points are expected to be arranged on the <span class="math notranslate nohighlight">\(y=x\)</span> line
 (which was added for readability). This would happen if
 the sample quantiles matched the theoretical ones perfectly.
@@ -638,9 +650,9 @@ and the largest one was larger than expected),
 although it is quite a <em>normal</em> behaviour for small samples
 and certain distribution families.
 Still, we can say that we observe a very good fit.</p>
-</div>
-<div class="section" id="kolmogorovsmirnov-test">
-<span id="sec-ks-test"></span><h3><span class="section-number">6.2.3. </span>Kolmogorov–Smirnov Test (*)<a class="headerlink" href="#kolmogorovsmirnov-test" title="Permalink to this headline"></a></h3>
+</section>
+<section id="kolmogorovsmirnov-test">
+<span id="sec-ks-test"></span><h3><span class="section-number">6.2.3. </span>Kolmogorov–Smirnov Test (*)<a class="headerlink" href="#kolmogorovsmirnov-test" title="Permalink to this heading"></a></h3>
 <p>To be scientific, we should yearn for some more formal method that will
 enable us to test the null hypothesis stating that a given empirical distribution <span class="math notranslate nohighlight">\(\hat{F}_n\)</span> does not differ <em>significantly</em> from the
 theoretical continuous CDF <span class="math notranslate nohighlight">\(F\)</span>:</p>
@@ -672,10 +684,12 @@ follows the Kolmogorov distribution with parameter <span class="math notranslate
 <p>In other words, if we generate many samples of length <span class="math notranslate nohighlight">\(n\)</span> from <span class="math notranslate nohighlight">\(F\)</span>,
 and compute <span class="math notranslate nohighlight">\(\hat{D}_n\)</span>s for each of them,
 we expect it to be distributed like in <a class="reference internal" href="#fig-kolmogorovdistr"><span class="std std-numref">Figure 6.6</span></a>.</p>
-<div class="figure align-default" id="id32">
+<figure class="align-default" id="id32">
 <span id="fig-kolmogorovdistr"></span><img alt="../_images/kolmogorovdistr-11.png" src="../_images/kolmogorovdistr-11.png" />
-<p class="caption"><span class="caption-number">Figure 6.6 </span><span class="caption-text">Densities (left) and cumulative distribution functions (right) of some Kolmogorov distributions; the greater the sample size, the smaller the acceptable deviations between the theoretical and empirical CDFs</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.6 </span><span class="caption-text">Densities (left) and cumulative distribution functions (right) of some Kolmogorov distributions; the greater the sample size, the smaller the acceptable deviations between the theoretical and empirical CDFs</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>The choice <span class="math notranslate nohighlight">\(K_n\)</span> involves a trade-off between our desire to reject the
 null hypothesis when it is true (data really come from <span class="math notranslate nohighlight">\(F\)</span>) and
 to reject it when it is false (data follow some other distribution, i.e.,
@@ -703,12 +717,12 @@ that data are normally distributed. It is the presumption of innocence:
 they are normal enough.</p>
 <p>We will go back to this discussion in <a class="reference internal" href="#sec-natural-variability"><span class="std std-numref">Section 6.4.4</span></a>
 and <a class="reference internal" href="430-group-by.html#sec-ks-test2"><span class="std std-numref">Section 12.2.6</span></a>.</p>
-</div>
-</div>
-<div class="section" id="other-noteworthy-distributions">
-<h2><span class="section-number">6.3. </span>Other Noteworthy Distributions<a class="headerlink" href="#other-noteworthy-distributions" title="Permalink to this headline"></a></h2>
-<div class="section" id="log-normal-distribution">
-<h3><span class="section-number">6.3.1. </span>Log-normal Distribution<a class="headerlink" href="#log-normal-distribution" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="other-noteworthy-distributions">
+<h2><span class="section-number">6.3. </span>Other Noteworthy Distributions<a class="headerlink" href="#other-noteworthy-distributions" title="Permalink to this heading"></a></h2>
+<section id="log-normal-distribution">
+<h3><span class="section-number">6.3.1. </span>Log-normal Distribution<a class="headerlink" href="#log-normal-distribution" title="Permalink to this heading"></a></h3>
 <p>We say that a sample is <em>log-normally distributed</em>,
 if its logarithm is normally distributed.</p>
 <p>In particular, it is sometimes observed that the income of most<a class="footnote-reference brackets" href="#footmost" id="id11">8</a>
@@ -764,10 +778,12 @@ on the logarithmic scale (via <strong class="command">numpy.geomspace</strong>).
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id33">
+<figure class="align-default" id="id33">
 <span id="fig-heights-lognormal"></span><img alt="../_images/heights-lognormal-13.png" src="../_images/heights-lognormal-13.png" />
-<p class="caption"><span class="caption-number">Figure 6.7 </span><span class="caption-text">A histogram and the probability density function of the fitted log-normal distribution for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset, on log- (left) and original (right) scale</span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.7 </span><span class="caption-text">A histogram and the probability density function of the fitted log-normal distribution for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset, on log- (left) and original (right) scale</span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>Overall, this fit is not too bad.
 Nonetheless, we deal with only a sample of 1000 households here;
 the original UK Office of National Statistics <a class="reference external" href="https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/bulletins/householddisposableincomeandinequality/financialyear2020">data</a>
@@ -797,10 +813,12 @@ version).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id34">
+<figure class="align-default" id="id34">
 <span id="fig-qq-income"></span><img alt="../_images/qq-income-15.png" src="../_images/qq-income-15.png" />
-<p class="caption"><span class="caption-number">Figure 6.8 </span><span class="caption-text">Q-Q plots for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset vs a fitted log-normal (good fit; left) and normal (bad fit; right) distribution</span><a class="headerlink" href="#id34" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.8 </span><span class="caption-text">Q-Q plots for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset vs a fitted log-normal (good fit; left) and normal (bad fit; right) distribution</span><a class="headerlink" href="#id34" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
@@ -856,9 +874,9 @@ symmetric around μ.</p>
 <p>What is the fraction of people with earnings
 below the mean in our LN(10.3, 0.58) model?
 Hint: use <strong class="command">scipy.stats.lognorm.cdf</strong> to get the answer.</p>
-</div></div></div>
-<div class="section" id="pareto-distribution">
-<span id="sec-pareto"></span><h3><span class="section-number">6.3.2. </span>Pareto Distribution<a class="headerlink" href="#pareto-distribution" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="pareto-distribution">
+<span id="sec-pareto"></span><h3><span class="section-number">6.3.2. </span>Pareto Distribution<a class="headerlink" href="#pareto-distribution" title="Permalink to this heading"></a></h3>
 <p>Consider again the dataset
 on the populations of the US cities in the 2000 US Census:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -875,10 +893,12 @@ which the reader can inspect themself when they are feeling playful.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id38">
+<figure class="align-default" id="id38">
 <span id="fig-hist-cities"></span><img alt="../_images/hist-cities-17.png" src="../_images/hist-cities-17.png" />
-<p class="caption"><span class="caption-number">Figure 6.9 </span><span class="caption-text">Histogram of the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset; note the log-scale on the x-axis</span><a class="headerlink" href="#id38" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.9 </span><span class="caption-text">Histogram of the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset; note the log-scale on the x-axis</span><a class="headerlink" href="#id38" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This time, however, will be interested in not what is <em>typical</em>,
 but what is in some sense <em>anomalous</em> or <em>extreme</em>.
 Let us look again at the <em>truncated</em> version of the city size
@@ -901,7 +921,7 @@ double log-scale are arranged more or less in a straight line.
 There are many datasets
 that exhibit this behaviour; we say that they follow a <em>power law</em>
 (power in the arithmetic sense, not social one);
-see <span id="id12">[<a class="reference internal" href="999-bibliography.html#id40">CSN09</a>, <a class="reference internal" href="999-bibliography.html#id39">New05</a>]</span> for discussion.</p>
+see <span id="id12">[<a class="reference internal" href="999-bibliography.html#id40" title="A. Clauset, C.R. Shalizi, and M.E.J. Newman. Power-law distributions in empirical data. SIAM Review, 51(4):661–703, 2009. doi:10.1137/070710111.">CSN09</a>, <a class="reference internal" href="999-bibliography.html#id39" title="M.E.J. Newman. Power laws, Pareto distributions and Zipf's law. Contemporary Physics, pages 323–351, 2005. doi:10.1080/00107510500052444.">New05</a>]</span> for discussion.</p>
 <p>Let us introduce the <em>Pareto distribution</em> family which has a prototypical
 power law-like density. It is identified by two parameters:</p>
 <ul class="simple">
@@ -938,10 +958,12 @@ manually to generate what we see in <a class="reference internal" href="#fig-fit
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id39">
+<figure class="align-default" id="id39">
 <span id="fig-fit-pareto"></span><img alt="../_images/fit-pareto-19.png" src="../_images/fit-pareto-19.png" />
-<p class="caption"><span class="caption-number">Figure 6.10 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and the fitted density on a double log-scale</span><a class="headerlink" href="#id39" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.10 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset and the fitted density on a double log-scale</span><a class="headerlink" href="#id39" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p><a class="reference internal" href="#fig-qq-pareto"><span class="std std-numref">Figure 6.11</span></a> gives the corresponding Q-Q plot on
 a double logarithmic scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qq_plot</span><span class="p">(</span>  <span class="c1"># defined above</span>
@@ -955,10 +977,12 @@ a double logarithmic scale.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id40">
+<figure class="align-default" id="id40">
 <span id="fig-qq-pareto"></span><img alt="../_images/qq-pareto-21.png" src="../_images/qq-pareto-21.png" />
-<p class="caption"><span class="caption-number">Figure 6.11 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">large_cites</span></code> dataset vs the fitted Paretian model</span><a class="headerlink" href="#id40" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.11 </span><span class="caption-text">Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">large_cites</span></code> dataset vs the fitted Paretian model</span><a class="headerlink" href="#id40" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>We see that the populations of the largest cities are overestimated.
 The model could be better, but the cities are still growing, right?</p>
 <div class="proof proof-type-example" id="id41">
@@ -992,10 +1016,12 @@ with probabilities on the linear- and log-scale.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id42">
+<figure class="align-default" id="id42">
 <span id="fig-ccdf-pareto"></span><img alt="../_images/ccdf-pareto-23.png" src="../_images/ccdf-pareto-23.png" />
-<p class="caption"><span class="caption-number">Figure 6.12 </span><span class="caption-text">Empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale</span><a class="headerlink" href="#id42" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.12 </span><span class="caption-text">Empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale</span><a class="headerlink" href="#id42" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>In terms of the maximal absolute distance between the two functions,
 <span class="math notranslate nohighlight">\(\hat{D}_n\)</span>, from the left plot we see that the fit looks fairly good
 (let us stress that the log-scale overemphasises the relatively
@@ -1004,9 +1030,9 @@ the value of <span class="math notranslate nohighlight">\(\hat{D}_n\)</span>).</
 <p>That the Kolmogorov–Smirnov goodness-of-fit test
 rejects the hypothesis of Paretianity (at a significance level <span class="math notranslate nohighlight">\(0.1\%\)</span>)
 is left as an exercise to the reader.</p>
-</div></div></div>
-<div class="section" id="uniform-distribution">
-<h3><span class="section-number">6.3.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="uniform-distribution">
+<h3><span class="section-number">6.3.3. </span>Uniform Distribution<a class="headerlink" href="#uniform-distribution" title="Permalink to this heading"></a></h3>
 <p>Consider the Polish <em>Lotto</em> lottery, where 6 numbered balls
 <span class="math notranslate nohighlight">\(\{1,2,\dots,49\}\)</span> are drawn without replacement from an urn.
 We have a dataset that summarises the number of times
@@ -1048,10 +1074,12 @@ an outcome like <em>49.1253</em> as representing the 49th ball
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id43">
+<figure class="align-default" id="id43">
 <span id="fig-lotto"></span><img alt="../_images/lotto-25.png" src="../_images/lotto-25.png" />
-<p class="caption"><span class="caption-number">Figure 6.13 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id43" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.13 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset</span><a class="headerlink" href="#id43" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 6.13</span></a>, this model makes much sense, but again,
 some more rigorous statistical testing would be required to determine
 if someone has not been tampering with the lottery results, i.e.,
@@ -1083,9 +1111,9 @@ to be structured after all. Emerging patterns are plentiful,
 most often they are far from being uniformly distributed.
 Even more strikingly, they are subject to quantitative analysis.</p>
 </div>
-</div>
-<div class="section" id="distribution-mixtures">
-<span id="sec-mixtures"></span><h3><span class="section-number">6.3.4. </span>Distribution Mixtures (*)<a class="headerlink" href="#distribution-mixtures" title="Permalink to this headline"></a></h3>
+</section>
+<section id="distribution-mixtures">
+<span id="sec-mixtures"></span><h3><span class="section-number">6.3.4. </span>Distribution Mixtures (*)<a class="headerlink" href="#distribution-mixtures" title="Permalink to this heading"></a></h3>
 <p>Some datasets may fail to fit through simple models such as the ones
 described above. It may sometimes be due to their non-random behaviour:
 statistics gives just one means to create data idealisations,
@@ -1130,10 +1158,12 @@ the estimated coefficients should be taken with a pinch of chilli pepper.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id45">
+<figure class="align-default" id="id45">
 <span id="fig-mixture"></span><img alt="../_images/mixture-27.png" src="../_images/mixture-27.png" />
-<p class="caption"><span class="caption-number">Figure 6.14 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id45" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.14 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and a guesstimated mixture of three normal distributions</span><a class="headerlink" href="#id45" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>It will frequently be the case in data wrangling
@@ -1154,18 +1184,18 @@ in fact be explained by another categorical variable that
 divides the dataset into natural groups; compare
 <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>.</p>
 </div>
-</div>
-</div>
-<div class="section" id="generating-pseudorandom-numbers">
-<span id="sec-pseudorandom"></span><h2><span class="section-number">6.4. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="generating-pseudorandom-numbers">
+<span id="sec-pseudorandom"></span><h2><span class="section-number">6.4. </span>Generating Pseudorandom Numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Permalink to this heading"></a></h2>
 <p>A probability distribution is useful not only for describing a dataset.
 It also enables us to perform many experiments on data that we do not
 currently have, but we might obtain in the future,
 to test various scenarios and hypotheses.</p>
 <p>To do this, we can generate a random sample of
 independent (not related to each other) observations.</p>
-<div class="section" id="id13">
-<h3><span class="section-number">6.4.1. </span>Uniform Distribution<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h3>
+<section id="id13">
+<h3><span class="section-number">6.4.1. </span>Uniform Distribution<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
 <p>When most people say <em>random</em>, they implicitly mean
 <em>uniformly distributed</em>. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1184,9 +1214,9 @@ from the uniform distribution on the unit interval, i.e., U(0, 1).</p>
 and scaling the output of the random number generator
 on the unit interval using the formula
 <strong class="command">numpy.random.rand</strong><code class="code docutils literal notranslate"><span class="pre">(5)*25-10</span></code>.</p>
-</div>
-<div class="section" id="not-exactly-random">
-<span id="sec-seed"></span><h3><span class="section-number">6.4.2. </span>Not Exactly Random<a class="headerlink" href="#not-exactly-random" title="Permalink to this headline"></a></h3>
+</section>
+<section id="not-exactly-random">
+<span id="sec-seed"></span><h3><span class="section-number">6.4.2. </span>Not Exactly Random<a class="headerlink" href="#not-exactly-random" title="Permalink to this heading"></a></h3>
 <p>We generate numbers using a computer, which is purely
 deterministic. Hence, we shall refer to them as <em>pseudorandom</em>
 or random-like ones (albeit they are non-distinguishable from truly random,
@@ -1229,9 +1259,9 @@ the seed (for just one call to that function). For instance:</p>
 </pre></div>
 </div>
 <p>This gives the same sequence as above.</p>
-</div>
-<div class="section" id="sampling-from-other-distributions">
-<h3><span class="section-number">6.4.3. </span>Sampling from Other Distributions<a class="headerlink" href="#sampling-from-other-distributions" title="Permalink to this headline"></a></h3>
+</section>
+<section id="sampling-from-other-distributions">
+<h3><span class="section-number">6.4.3. </span>Sampling from Other Distributions<a class="headerlink" href="#sampling-from-other-distributions" title="Permalink to this heading"></a></h3>
 <p>Generating data from other distributions is possible too;
 there are many <strong class="command">rvs</strong> methods implemented
 in <strong class="program">scipy.stats</strong>.
@@ -1278,8 +1308,8 @@ on the unit interval is crucial, because sampling from other distributions
 usually involves transforming independent U(0, 1) variates.</p>
 <p>For instance, realisations of random variables following any continuous
 cumulative distribution function <span class="math notranslate nohighlight">\(F\)</span> can be constructed through
-the <em>inverse transform sampling</em> (see <span id="id14">[<a class="reference internal" href="999-bibliography.html#id46">Gen03</a>, <a class="reference internal" href="999-bibliography.html#id48">RC04</a>]</span>):</p>
-<ol class="simple">
+the <em>inverse transform sampling</em> (see <span id="id14">[<a class="reference internal" href="999-bibliography.html#id46" title="J.E. Gentle. Random Number Generation and Monte Carlo Methods. Springer-Verlag, 2003.">Gen03</a>, <a class="reference internal" href="999-bibliography.html#id48" title="C.P. Robert and G. Casella. Monte Carlo Statistical Methods. Springer-Verlag, 2004.">RC04</a>]</span>):</p>
+<ol class="arabic simple">
 <li><p>Generate a sample <span class="math notranslate nohighlight">\(x_1,\dots,x_n\)</span> independently from U(0, 1).</p></li>
 <li><p>Transform each <span class="math notranslate nohighlight">\(x_i\)</span> by applying the quantile function,
 <span class="math notranslate nohighlight">\(y_i=F^{-1}(x_i)\)</span>.</p></li>
@@ -1302,9 +1332,9 @@ distribution using inverse transform sampling.</p>
     </div><div class="proof-content">
 <p>(**) Generate 1000 pseudorandom numbers from the distribution
 mixture discussed in <a class="reference internal" href="#sec-mixtures"><span class="std std-numref">Section 6.3.4</span></a>.</p>
-</div></div></div>
-<div class="section" id="natural-variability">
-<span id="sec-natural-variability"></span><h3><span class="section-number">6.4.4. </span>Natural Variability<a class="headerlink" href="#natural-variability" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="natural-variability">
+<span id="sec-natural-variability"></span><h3><span class="section-number">6.4.4. </span>Natural Variability<a class="headerlink" href="#natural-variability" title="Permalink to this heading"></a></h3>
 <p>Even a sample truly generated from a specific distribution
 will deviate from it, sometimes considerably.
 Such effects will be especially visible for small sample sizes,
@@ -1328,10 +1358,12 @@ N(0, 1).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id49">
+<figure class="align-default" id="id49">
 <span id="fig-natural-variability"></span><img alt="../_images/natural-variability-29.png" src="../_images/natural-variability-29.png" />
-<p class="caption"><span class="caption-number">Figure 6.15 </span><span class="caption-text">All nine samples are normally distributed!</span><a class="headerlink" href="#id49" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 6.15 </span><span class="caption-text">All nine samples are normally distributed!</span><a class="headerlink" href="#id49" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>There is some ruggedness in the bar sizes that a naïve observer
 might try to interpret as something meaningful.
 A competent data scientist must train
@@ -1399,9 +1431,9 @@ and check the proportion of cases
 where we deem the sample distribution different from N(0, 1).
 Small differences in the location parameter <span class="math notranslate nohighlight">\(\mu\)</span> are usually
 ignored, and this improves with sample size <span class="math notranslate nohighlight">\(n\)</span>.</p>
-</div></div></div>
-<div class="section" id="adding-jitter-white-noise">
-<h3><span class="section-number">6.4.5. </span>Adding Jitter (White Noise)<a class="headerlink" href="#adding-jitter-white-noise" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="adding-jitter-white-noise">
+<h3><span class="section-number">6.4.5. </span>Adding Jitter (White Noise)<a class="headerlink" href="#adding-jitter-white-noise" title="Permalink to this heading"></a></h3>
 <p>We mentioned that measurements might be subject to observational
 error. Rounding can also occur as early as
 the data collection phase. In particular, our <code class="docutils literal notranslate"><span class="pre">heights</span></code>
@@ -1424,39 +1456,39 @@ U[-0.05, 0.05]:</p>
 </div>
 <p>Adding noise also might be performed for aesthetic reasons,
 e.g., when drawing scatterplots.</p>
-</div>
-</div>
-<div class="section" id="further-reading">
-<h2><span class="section-number">6.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="further-reading">
+<h2><span class="section-number">6.5. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading"></a></h2>
 <p>For an excellent general introductory course on probability
-and statistics, see <span id="id16">[<a class="reference internal" href="999-bibliography.html#id47">Gen09</a>, <a class="reference internal" href="999-bibliography.html#id42">Gen20</a>]</span>.
+and statistics, see <span id="id16">[<a class="reference internal" href="999-bibliography.html#id47" title="J.E. Gentle. Computational Statistics. Springer-Verlag, 2009.">Gen09</a>, <a class="reference internal" href="999-bibliography.html#id42" title="J.E. Gentle. Theory of Statistics. book draft, 2020. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">Gen20</a>]</span>.
 More advanced students are likely to enjoy the two
-classics <span id="id17">[<a class="reference internal" href="999-bibliography.html#id43">Bil95</a>, <a class="reference internal" href="999-bibliography.html#id41">Cra46</a>]</span>.
+classics <span id="id17">[<a class="reference internal" href="999-bibliography.html#id43" title="P. Billingsley. Probability and Measure. John Wiley &amp; Sons, 1995.">Bil95</a>, <a class="reference internal" href="999-bibliography.html#id41" title="H. Cramér. Mathematical Methods of Statistics. Princeton University Press, 1946. URL: https://archive.org/details/in.ernet.dli.2015.223699.">Cra46</a>]</span>.
 Topics in random number generation are covered in
-<span id="id18">[<a class="reference internal" href="999-bibliography.html#id46">Gen03</a>, <a class="reference internal" href="999-bibliography.html#id139">Knu97</a>, <a class="reference internal" href="999-bibliography.html#id48">RC04</a>]</span>.</p>
+<span id="id18">[<a class="reference internal" href="999-bibliography.html#id46" title="J.E. Gentle. Random Number Generation and Monte Carlo Methods. Springer-Verlag, 2003.">Gen03</a>, <a class="reference internal" href="999-bibliography.html#id139" title="D.E. Knuth. The Art of Computer Programming II: Seminumerical Algorithms. Addison-Wesley, 1997.">Knu97</a>, <a class="reference internal" href="999-bibliography.html#id48" title="C.P. Robert and G. Casella. Monte Carlo Statistical Methods. Springer-Verlag, 2004.">RC04</a>]</span>.</p>
 <p>For a more comprehensive introduction to exploratory data analysis,
-see the classical books by Tukey <span id="id19">[<a class="reference internal" href="999-bibliography.html#id143">Tuk62</a>, <a class="reference internal" href="999-bibliography.html#id142">Tuk77</a>]</span>
-and Tufte <span id="id20">[<a class="reference internal" href="999-bibliography.html#id141">Tuf01</a>]</span>.</p>
+see the classical books by Tukey <span id="id19">[<a class="reference internal" href="999-bibliography.html#id143" title="J.W. Tukey. The future of data analysis. Annals of Mathematical Statistics, 33(1):1–67, 1962. URL: https://projecteuclid.org/journalArticle/Download?urlId=10.1214%2Faoms%2F1177704711, doi:10.1214/aoms/1177704711.">Tuk62</a>, <a class="reference internal" href="999-bibliography.html#id142" title="J.W. Tukey. Exploratory Data Analysis. Addison-Wesley, 1977.">Tuk77</a>]</span>
+and Tufte <span id="id20">[<a class="reference internal" href="999-bibliography.html#id141" title="E.R. Tufte. The Visual Display of Quantitative Information. Graphics Press, 2001.">Tuf01</a>]</span>.</p>
 <div style="margin-top: 1em"></div><p>We took the logarithm of the log-normally distributed
 incomes and obtained a normally distributed sample.
 In statistical practice, it is not rare to apply different non-linear
 transforms of the input vectors at the data preprocessing stage (see, e.g.,
 <a class="reference internal" href="330-relationship.html#sec-linearisation"><span class="std std-numref">Section 9.2.6</span></a>). In particular, the Box–Cox (power) transform
-<span id="id21">[<a class="reference internal" href="999-bibliography.html#id144">BC64</a>]</span> is of the form <span class="math notranslate nohighlight">\(x\mapsto \frac{x^\lambda-1}{\lambda}\)</span>
+<span id="id21">[<a class="reference internal" href="999-bibliography.html#id144" title="G.E.P. Box and D.R. Cox. An analysis of transformations. Journal of the Royal Statistical Society. Series B (Methodological), 26(2):211–252, 1964.">BC64</a>]</span> is of the form <span class="math notranslate nohighlight">\(x\mapsto \frac{x^\lambda-1}{\lambda}\)</span>
 for some <span class="math notranslate nohighlight">\(\lambda\)</span>.
 Interestingly, in the limit as <span class="math notranslate nohighlight">\(\lambda\to 0\)</span>, this formula yields
 <span class="math notranslate nohighlight">\(x\mapsto \log x\)</span> which is exactly what we were applying in this chapter.</p>
-<p><span id="id22">[<a class="reference internal" href="999-bibliography.html#id40">CSN09</a>, <a class="reference internal" href="999-bibliography.html#id39">New05</a>]</span> give a nice overview of the power-law-like
+<p><span id="id22">[<a class="reference internal" href="999-bibliography.html#id40" title="A. Clauset, C.R. Shalizi, and M.E.J. Newman. Power-law distributions in empirical data. SIAM Review, 51(4):661–703, 2009. doi:10.1137/070710111.">CSN09</a>, <a class="reference internal" href="999-bibliography.html#id39" title="M.E.J. Newman. Power laws, Pareto distributions and Zipf's law. Contemporary Physics, pages 323–351, 2005. doi:10.1080/00107510500052444.">New05</a>]</span> give a nice overview of the power-law-like
 behaviour of some “rich” or otherwise extreme datasets.
 It is worth noting that the logarithm of a Paretian sample
 divided by the minimum follows an exponential distribution
 (which we discuss in <a class="reference internal" href="530-time-series.html#chap-time-series"><span class="std std-numref">Chapter 16</span></a>).
 For a comprehensive catalogue of statistical distributions,
 their properties, and relationships between them,
-see <span id="id23">[<a class="reference internal" href="999-bibliography.html#id81">FEHP10</a>]</span>.</p>
-</div>
-<div class="section" id="exercises">
-<h2><span class="section-number">6.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
+see <span id="id23">[<a class="reference internal" href="999-bibliography.html#id81" title="C. Forbes, M. Evans, N. Hastings, and B. Peacock. Statistical Distributions. Wiley, 2010.">FEHP10</a>]</span>.</p>
+</section>
+<section id="exercises">
+<h2><span class="section-number">6.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading"></a></h2>
 <div class="proof proof-type-exercise" id="id53">
 
     <div class="proof-title">
@@ -1509,7 +1541,7 @@ and a test’s power.</p>
 <dd><p>(*) This intuition is of course theoretically
 grounded and is based on the asymptotic behaviour of the histograms
 as the estimators of the underlying probability density function,
-see, e.g., <span id="id24">[<a class="reference internal" href="999-bibliography.html#id45">FD81</a>]</span> and the many references therein.</p>
+see, e.g., <span id="id24">[<a class="reference internal" href="999-bibliography.html#id45" title="D. Freedman and P. Diaconis. On the histogram as a density estimator: L₂ theory. Zeitschrift für Wahrscheinlichkeitstheorie und Verwandte Gebiete, 57:453–476, 1981.">FD81</a>]</span> and the many references therein.</p>
 </dd>
 <dt class="label" id="footmle"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
 <dd><p>(*) It might be the case that we will have to obtain
@@ -1568,8 +1600,8 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
 (the Glivenko–Cantelli theorem).</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -1587,7 +1619,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-19T10:58:34+1000.
+        Last updated on 2022-07-26T16:05:16+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.

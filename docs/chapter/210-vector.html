@@ -6,7 +6,8 @@
 
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>4. Unidimensional Numeric Data and Their Empirical Distribution &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
@@ -44,6 +45,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/proof.js"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -262,8 +264,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="tex2jax_ignore mathjax_ignore section" id="unidimensional-numeric-data-and-their-empirical-distribution">
-<span id="chap-vector"></span><h1><span class="section-number">4. </span>Unidimensional Numeric Data and Their Empirical Distribution<a class="headerlink" href="#unidimensional-numeric-data-and-their-empirical-distribution" title="Permalink to this headline"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="unidimensional-numeric-data-and-their-empirical-distribution">
+<span id="chap-vector"></span><h1><span class="section-number">4. </span>Unidimensional Numeric Data and Their Empirical Distribution<a class="headerlink" href="#unidimensional-numeric-data-and-their-empirical-distribution" title="Permalink to this heading"></a></h1>
 <blockquote>
 <div><p><em>The online version of the open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
@@ -306,20 +308,22 @@ Our data sample consists of 4221 points on the real line
 From <a class="reference internal" href="#fig-heights-jitter"><span class="std std-numref">Figure 4.1</span></a>, we see that
 merely looking at the numbers themselves tells us nothing.
 There are too many of them.</p>
-<div class="figure align-default" id="id19">
+<figure class="align-default" id="id19">
 <span id="fig-heights-jitter"></span><img alt="../_images/heights-jitter-1.png" src="../_images/heights-jitter-1.png" />
-<p class="caption"><span class="caption-number">Figure 4.1 </span><span class="caption-text">The <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset is comprised of independent points on the real line; we added some jitter on the y-axis for dramatic effects only: the points are too plentiful</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.1 </span><span class="caption-text">The <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset is comprised of independent points on the real line; we added some jitter on the y-axis for dramatic effects only: the points are too plentiful</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This is why we are interested in studying a multitude of methods
 that can bring some insight into the reality behind the numbers.
 For example, inspecting their distribution.</p>
-<div class="section" id="creating-vectors-in-numpy">
-<h2><span class="section-number">4.1. </span>Creating Vectors in <strong class="program">numpy</strong><a class="headerlink" href="#creating-vectors-in-numpy" title="Permalink to this headline"></a></h2>
+<section id="creating-vectors-in-numpy">
+<h2><span class="section-number">4.1. </span>Creating Vectors in <strong class="program">numpy</strong><a class="headerlink" href="#creating-vectors-in-numpy" title="Permalink to this heading"></a></h2>
 <p>In this chapter, we introduce basic ways to create <strong class="program">numpy</strong>
 vectors, which are an efficient data structure for
 storing and operating on numeric data just like the ones above.</p>
 <p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html"><strong class="program">numpy</strong></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id6">H+20</a>]</span> is an open-source add-on for numerical  computing
+<span id="id1">[<a class="reference internal" href="999-bibliography.html#id6" title="C.R. Harris and others. Array programming with NumPy. Nature, 585(7825):357–362, 2020. doi:10.1038/s41586-020-2649-2.">H+20</a>]</span> is an open-source add-on for numerical  computing
 written by Travis Oliphant and other developers
 in 2005 (although the project has a much longer
 <a class="reference external" href="https://scipy.github.io/old-wiki/pages/History_of_SciPy">history</a>
@@ -332,9 +336,9 @@ Perl (via <strong class="program">Perl Data Language</strong>),
 and some numerical analysis libraries such as <strong class="program">LAPACK</strong>,
 <strong class="program">GNU GSL</strong>, etc.</p>
 <p>Many other packages are built on top of <strong class="program">numpy</strong>,
-including: <strong class="program">scipy</strong> <span id="id2">[<a class="reference internal" href="999-bibliography.html#id5">V+20</a>]</span>,
-<strong class="program">pandas</strong> <span id="id3">[<a class="reference internal" href="999-bibliography.html#id15">McK17</a>]</span>, and
-<strong class="program">sklearn</strong> <span id="id4">[<a class="reference internal" href="999-bibliography.html#id4">PVG+11</a>]</span>.
+including: <strong class="program">scipy</strong> <span id="id2">[<a class="reference internal" href="999-bibliography.html#id5" title="P. Virtanen and others. SciPy 1.0: Fundamental algorithms for scientific computing in Python. Nature Methods, 17:261–272, 2020. doi:10.1038/s41592-019-0686-2.">V+20</a>]</span>,
+<strong class="program">pandas</strong> <span id="id3">[<a class="reference internal" href="999-bibliography.html#id15" title="W. McKinney. Python for Data Analysis. O'Reilly, 2017.">McK17</a>]</span>, and
+<strong class="program">sklearn</strong> <span id="id4">[<a class="reference internal" href="999-bibliography.html#id4" title="F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, J. Vanderplas, A. Passos, D. Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay. Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12:2825–2830, 2011.">PVG+11</a>]</span>.
 This is why we should study it in great detail.
 Whatever we learn about vectors will be beautifully transferable
 to the case of the processing of data frame columns.</p>
@@ -345,8 +349,8 @@ package under the <code class="docutils literal notranslate"><span class="pre">n
 </div>
 <p>Our code can now refer to the objects defined therein as
 <code class="docutils literal notranslate"><span class="pre">np.spam</span></code>, <code class="docutils literal notranslate"><span class="pre">np.bacon</span></code>, or <code class="docutils literal notranslate"><span class="pre">np.spam</span></code>.</p>
-<div class="section" id="enumerating-elements">
-<h3><span class="section-number">4.1.1. </span>Enumerating Elements<a class="headerlink" href="#enumerating-elements" title="Permalink to this headline"></a></h3>
+<section id="enumerating-elements">
+<h3><span class="section-number">4.1.1. </span>Enumerating Elements<a class="headerlink" href="#enumerating-elements" title="Permalink to this heading"></a></h3>
 <p>One way to create a vector is by calling the <strong class="command">numpy.array</strong> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">])</span>
 <span class="n">x</span>
@@ -424,9 +428,9 @@ We will point out in <a class="reference internal" href="510-text.html#chap-text
 any element with new content will result in the too-long strings’
 truncation. We will see that this can be remedied by calling
 <code class="docutils literal notranslate"><span class="pre">x.astype(&quot;&lt;U10&quot;)</span></code>.</p>
-</div>
-<div class="section" id="arithmetic-progressions">
-<h3><span class="section-number">4.1.2. </span>Arithmetic Progressions<a class="headerlink" href="#arithmetic-progressions" title="Permalink to this headline"></a></h3>
+</section>
+<section id="arithmetic-progressions">
+<h3><span class="section-number">4.1.2. </span>Arithmetic Progressions<a class="headerlink" href="#arithmetic-progressions" title="Permalink to this heading"></a></h3>
 <p><strong class="program">numpy</strong>’s <strong class="command">arange</strong> is similar to the built-in
 <strong class="command">range</strong>, but outputs a vector:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># from 0 to 10 (exclusive) by 2</span>
@@ -456,9 +460,9 @@ Always remember to gather information from first-hand sources.
 You should become a frequent visitor of this page (and similar ones).
 In particular, every so often it is a good idea to check out for
 significant updates at <a class="reference external" href="https://numpy.org/news/">https://numpy.org/news/</a>.</p>
-</div></div></div>
-<div class="section" id="repeating-values">
-<h3><span class="section-number">4.1.3. </span>Repeating Values<a class="headerlink" href="#repeating-values" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="repeating-values">
+<h3><span class="section-number">4.1.3. </span>Repeating Values<a class="headerlink" href="#repeating-values" title="Permalink to this heading"></a></h3>
 <p><strong class="command">numpy.repeat</strong> repeats <em>each</em> value a given number of times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="c1">## array([5, 5, 5, 5, 5, 5])</span>
@@ -488,9 +492,9 @@ with <em>recycling</em>:</p>
 and the result of <strong class="command">numpy.repeat</strong><code class="code docutils literal notranslate"><span class="pre">([1,</span> <span class="pre">2],</span> <span class="pre">3)</span></code>.</p>
 <p>See also<a class="footnote-reference brackets" href="#footseealso" id="id7">3</a> <strong class="command">numpy.zeros</strong> and <strong class="command">numpy.ones</strong> for
 some specialised versions of the above.</p>
-</div>
-<div class="section" id="numpy-r">
-<h3><span class="section-number">4.1.4. </span><strong class="command">numpy.r_</strong> (*)<a class="headerlink" href="#numpy-r" title="Permalink to this headline"></a></h3>
+</section>
+<section id="numpy-r">
+<h3><span class="section-number">4.1.4. </span><strong class="command">numpy.r_</strong> (*)<a class="headerlink" href="#numpy-r" title="Permalink to this heading"></a></h3>
 <p><strong class="command">numpy.r_</strong> gives perhaps the most flexible means for
 creating vectors involving quite a few of the aforementioned scenarios.
 Yet, it has a quirky syntax.</p>
@@ -530,9 +534,9 @@ End of story.</p>
 <span class="c1">## array([1. , 2. , 3. , 3. , 0. , 1. , 2. , 0. , 1.5, 3. ])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="generating-pseudorandom-variates">
-<h3><span class="section-number">4.1.5. </span>Generating Pseudorandom Variates<a class="headerlink" href="#generating-pseudorandom-variates" title="Permalink to this headline"></a></h3>
+</section>
+<section id="generating-pseudorandom-variates">
+<h3><span class="section-number">4.1.5. </span>Generating Pseudorandom Variates<a class="headerlink" href="#generating-pseudorandom-variates" title="Permalink to this heading"></a></h3>
 <p>The automatically attached <strong class="program">numpy.random</strong> module
 defines many functions to generate
 pseudorandom numbers. We will be discussing the reason
@@ -549,9 +553,9 @@ the uniform distribution on the unit interval:</p>
 <span class="c1">## array([7, 7, 4, 6, 6, 2, 1, 7, 2, 1, 8, 9, 5, 5, 9, 8, 1, 2, 6, 6])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="loading-data-from-files">
-<h3><span class="section-number">4.1.6. </span>Loading Data from Files<a class="headerlink" href="#loading-data-from-files" title="Permalink to this headline"></a></h3>
+</section>
+<section id="loading-data-from-files">
+<h3><span class="section-number">4.1.6. </span>Loading Data from Files<a class="headerlink" href="#loading-data-from-files" title="Permalink to this heading"></a></h3>
 <p>We will usually be reading whole heterogeneous tabular data sets
 using <strong class="command">pandas.read_csv</strong>, being the topic we shall cover
 in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>.</p>
@@ -568,10 +572,10 @@ See the code chunk at the beginning of this chapter for an example.</p>
 <p>Use <strong class="command">numpy.loadtxt</strong> to read the
 <a class="reference external" href="https://github.com/gagolews/teaching_data/blob/master/marek/population_largest_cities_unnamed.txt">population_largest_cities_unnamed</a> dataset
 from GitHub (click <em>Raw</em> to get access to its contents).</p>
-</div></div></div>
-</div>
-<div class="section" id="mathematical-notation">
-<h2><span class="section-number">4.2. </span>Mathematical Notation<a class="headerlink" href="#mathematical-notation" title="Permalink to this headline"></a></h2>
+</div></div></section>
+</section>
+<section id="mathematical-notation">
+<h2><span class="section-number">4.2. </span>Mathematical Notation<a class="headerlink" href="#mathematical-notation" title="Permalink to this heading"></a></h2>
 <p>Mathematically, we will be denoting number sequences
 with:</p>
 <div class="math notranslate nohighlight">
@@ -651,17 +655,17 @@ in certain formulae (e.g., in the definition of the type-7 quantiles
 in <a class="reference internal" href="220-transform-vector.html#sec-quantiles"><span class="std std-numref">Section 5.1.1.3</span></a>), we will be assuming that
 <span class="math notranslate nohighlight">\(x_{(0)}\)</span> is the same as <span class="math notranslate nohighlight">\(x_{(1)}\)</span> and <span class="math notranslate nohighlight">\(x_{(n+1)}\)</span> is equivalent
 to <span class="math notranslate nohighlight">\(x_{(n)}\)</span>.</p>
-</div>
-<div class="section" id="inspecting-the-data-distribution-with-histograms">
-<h2><span class="section-number">4.3. </span>Inspecting the Data Distribution with Histograms<a class="headerlink" href="#inspecting-the-data-distribution-with-histograms" title="Permalink to this headline"></a></h2>
+</section>
+<section id="inspecting-the-data-distribution-with-histograms">
+<h2><span class="section-number">4.3. </span>Inspecting the Data Distribution with Histograms<a class="headerlink" href="#inspecting-the-data-distribution-with-histograms" title="Permalink to this heading"></a></h2>
 <p><em>Histograms</em> are one of the most
 intuitive tools for depicting the empirical distribution of a
 data sample.
 We will be drawing them using the statistical data visualisation
 package called <a class="reference external" href="https://seaborn.pydata.org"><strong class="program">seaborn</strong></a>
-<span id="id10">[<a class="reference internal" href="999-bibliography.html#id50">Was21</a>]</span> (written by Michael Waskom),
+<span id="id10">[<a class="reference internal" href="999-bibliography.html#id50" title="M.L. Waskom. seaborn: Statistical data visualization. Journal of Open Source Software, 6(60):3021, 2021. doi:10.21105/joss.03021.">Was21</a>]</span> (written by Michael Waskom),
 which was built on top of the classic plotting library
-<a class="reference external" href="https://matplotlib.org/"><strong class="program">matplotlib</strong></a> <span id="id11">[<a class="reference internal" href="999-bibliography.html#id49">Hun07</a>]</span>
+<a class="reference external" href="https://matplotlib.org/"><strong class="program">matplotlib</strong></a> <span id="id11">[<a class="reference internal" href="999-bibliography.html#id49" title="J.D. Hunter. Matplotlib: A 2D graphics environment. Computing in Science &amp; Engineering, 9(3):90–95, 2007.">Hun07</a>]</span>
 (originally developed by John D. Hunter).
 Let us import both packages and set their traditional aliases:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -679,18 +683,20 @@ In many exercises, <strong class="program">seaborn</strong> might not even have
 the required functionality at all, and we will
 be using <strong class="program">matplotlib</strong> only, and nothing else.</p>
 </div>
-<div class="section" id="heights-a-bell-shaped-distribution">
-<h3><span class="section-number">4.3.1. </span><code class="docutils literal notranslate"><span class="pre">heights</span></code>: A Bell-Shaped Distribution<a class="headerlink" href="#heights-a-bell-shaped-distribution" title="Permalink to this headline"></a></h3>
+<section id="heights-a-bell-shaped-distribution">
+<h3><span class="section-number">4.3.1. </span><code class="docutils literal notranslate"><span class="pre">heights</span></code>: A Bell-Shaped Distribution<a class="headerlink" href="#heights-a-bell-shaped-distribution" title="Permalink to this heading"></a></h3>
 <p>Let us draw a histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset,
 see <a class="reference internal" href="#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id23">
+<figure class="align-default" id="id23">
 <span id="fig-heights-histogram-bins11"></span><img alt="../_images/heights-histogram-bins11-3.png" src="../_images/heights-histogram-bins11-3.png" />
-<p class="caption"><span class="caption-number">Figure 4.2 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; the empirical distribution is nicely bell-shaped</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.2 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset; the empirical distribution is nicely bell-shaped</span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>The data were split into 11 bins and plotted in such a way that
 the bar heights are proportional to the number of observations
 falling into each interval.
@@ -709,9 +715,9 @@ dataset using a <em>normal</em> distribution and obtain an excellent fit.
 In particular, we will mention that observations outside the
 interval <span class="math notranslate nohighlight">\([139, 181]\)</span> are very rare (probability less than 1%;
 via the <em>3σ rule</em>, i.e., expected value ± 3 standard deviations).</p>
-</div>
-<div class="section" id="income-a-right-skewed-distribution">
-<h3><span class="section-number">4.3.2. </span><code class="docutils literal notranslate"><span class="pre">income</span></code>: A Right-Skewed Distribution<a class="headerlink" href="#income-a-right-skewed-distribution" title="Permalink to this headline"></a></h3>
+</section>
+<section id="income-a-right-skewed-distribution">
+<h3><span class="section-number">4.3.2. </span><code class="docutils literal notranslate"><span class="pre">income</span></code>: A Right-Skewed Distribution<a class="headerlink" href="#income-a-right-skewed-distribution" title="Permalink to this heading"></a></h3>
 <p>For some of us, a normal distribution is a prototypical one – we might
 expect (wishfully think) that many phenomena yield similar regularities.
 And that is indeed the case<a class="footnote-reference brackets" href="#footclt" id="id13">7</a>,
@@ -731,10 +737,12 @@ for the financial year ending 2020.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id24">
+<figure class="align-default" id="id24">
 <span id="fig-income-histogram-bins20"></span><img alt="../_images/income-histogram-bins20-5.png" src="../_images/income-histogram-bins20-5.png" />
-<p class="caption"><span class="caption-number">Figure 4.3 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset; the distribution is right-skewed</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.3 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset; the distribution is right-skewed</span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>We normalised (<code class="docutils literal notranslate"><span class="pre">stat=&quot;percent&quot;</span></code>) the bar heights so that
 they all sum to 1 (or, equivalently, 100%), which resulted
 in a <em>probability histogram</em>.</p>
@@ -773,9 +781,9 @@ dataset in our data repository, giving corresponding weights
 (in kilograms) of the NHANES study participants.
 Draw a histogram. Does its shape resemble the
 <code class="docutils literal notranslate"><span class="pre">income</span></code> or <code class="docutils literal notranslate"><span class="pre">heights</span></code> distribution more?</p>
-</div></div></div>
-<div class="section" id="how-many-bins">
-<span id="sec-how-many-bins"></span><h3><span class="section-number">4.3.3. </span>How Many Bins?<a class="headerlink" href="#how-many-bins" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="how-many-bins">
+<span id="sec-how-many-bins"></span><h3><span class="section-number">4.3.3. </span>How Many Bins?<a class="headerlink" href="#how-many-bins" title="Permalink to this heading"></a></h3>
 <p>Unless some stronger assumptions about the data distribution
 are made, choosing the right number of bins is more art than science:</p>
 <ul class="simple">
@@ -791,10 +799,12 @@ are made, choosing the right number of bins is more art than science:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id26">
+<figure class="align-default" id="id26">
 <span id="fig-income-histogram-binnumber"></span><img alt="../_images/income-histogram-binnumber-7.png" src="../_images/income-histogram-binnumber-7.png" />
-<p class="caption"><span class="caption-number">Figure 4.4 </span><span class="caption-text">Too few and too many histogram bins (the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset)</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.4 </span><span class="caption-text">Too few and too many histogram bins (the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset)</span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>For example, in the histogram with 5 bins, we miss the information
 that the ca. £20,000 income is more popular than the ca. £10,000 one.
 (as given by the first two bars in <a class="reference internal" href="#fig-income-histogram-bins20"><span class="std std-numref">Figure 4.3</span></a>).</p>
@@ -850,40 +860,40 @@ especially if we present them like in the table below.</p>
 <table class="colwidths-auto docutils align-default" id="id27">
 <caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Incomes of selected British households; the bin edges are pleasantly round numbers</span><a class="headerlink" href="#id27" title="Permalink to this table"></a></caption>
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>income bracket [£1000s]</p></th>
-<th class="text-align:right head"><p>count</p></th>
+<tr class="row-odd"><th class="text-center head"><p>income bracket [£1000s]</p></th>
+<th class="text-right head"><p>count</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>0-200</p></td>
-<td class="text-align:right"><p>236</p></td>
+<tr class="row-even"><td class="text-center"><p>0-200</p></td>
+<td class="text-right"><p>236</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>200-400</p></td>
-<td class="text-align:right"><p>459</p></td>
+<tr class="row-odd"><td class="text-center"><p>200-400</p></td>
+<td class="text-right"><p>459</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>400-600</p></td>
-<td class="text-align:right"><p>191</p></td>
+<tr class="row-even"><td class="text-center"><p>400-600</p></td>
+<td class="text-right"><p>191</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>600-800</p></td>
-<td class="text-align:right"><p>64</p></td>
+<tr class="row-odd"><td class="text-center"><p>600-800</p></td>
+<td class="text-right"><p>64</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>800-1000</p></td>
-<td class="text-align:right"><p>26</p></td>
+<tr class="row-even"><td class="text-center"><p>800-1000</p></td>
+<td class="text-right"><p>26</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>1000-1200</p></td>
-<td class="text-align:right"><p>11</p></td>
+<tr class="row-odd"><td class="text-center"><p>1000-1200</p></td>
+<td class="text-right"><p>11</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>1200-1400</p></td>
-<td class="text-align:right"><p>10</p></td>
+<tr class="row-even"><td class="text-center"><p>1200-1400</p></td>
+<td class="text-right"><p>10</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>1400-1600</p></td>
-<td class="text-align:right"><p>2</p></td>
+<tr class="row-odd"><td class="text-center"><p>1400-1600</p></td>
+<td class="text-right"><p>2</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>1600-1800</p></td>
-<td class="text-align:right"><p>0</p></td>
+<tr class="row-even"><td class="text-center"><p>1600-1800</p></td>
+<td class="text-right"><p>0</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>1800-2000</p></td>
-<td class="text-align:right"><p>1</p></td>
+<tr class="row-odd"><td class="text-center"><p>1800-2000</p></td>
+<td class="text-right"><p>1</p></td>
 </tr>
 </tbody>
 </table>
@@ -937,9 +947,9 @@ on both <code class="docutils literal notranslate"><span class="pre">income</spa
 Each has its limitations, none is perfect, but some might be a good
 starting point for further fine-tuning.</p>
 </div></div><p>We will get back to the topic of manual data binning in <a class="reference internal" href="420-categorical.html#sec-binning"><span class="std std-numref">Section 11.1.4</span></a>.</p>
-</div>
-<div class="section" id="peds-a-bimodal-distribution-already-binned">
-<h3><span class="section-number">4.3.4. </span><code class="docutils literal notranslate"><span class="pre">peds</span></code>: A Bimodal Distribution (Already Binned)<a class="headerlink" href="#peds-a-bimodal-distribution-already-binned" title="Permalink to this headline"></a></h3>
+</section>
+<section id="peds-a-bimodal-distribution-already-binned">
+<h3><span class="section-number">4.3.4. </span><code class="docutils literal notranslate"><span class="pre">peds</span></code>: A Bimodal Distribution (Already Binned)<a class="headerlink" href="#peds-a-bimodal-distribution-already-binned" title="Permalink to this heading"></a></h3>
 <p>Here are the December 2021 hourly average
 <a class="reference external" href="http://www.pedestrian.melbourne.vic.gov.au/">pedestrian counts</a>
 near the Southern Cross Station in Melbourne:</p>
@@ -963,17 +973,19 @@ Instead, we can rely on a more low-level function,
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id31">
+<figure class="align-default" id="id31">
 <span id="fig-peds-histogram"></span><img alt="../_images/peds-histogram-9.png" src="../_images/peds-histogram-9.png" />
-<p class="caption"><span class="caption-number">Figure 4.5 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset; a bimodal (trimodal?) distribution</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.5 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset; a bimodal (trimodal?) distribution</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This is an example of a bimodal (or even trimodal)
 distribution: there is a morning peak and
 an evening peak (and some analysts
 probably would distinguish a lunchtime one too).</p>
-</div>
-<div class="section" id="matura-a-bell-shaped-distribution-almost">
-<h3><span class="section-number">4.3.5. </span><code class="docutils literal notranslate"><span class="pre">matura</span></code>: A Bell-Shaped Distribution (Almost)<a class="headerlink" href="#matura-a-bell-shaped-distribution-almost" title="Permalink to this headline"></a></h3>
+</section>
+<section id="matura-a-bell-shaped-distribution-almost">
+<h3><span class="section-number">4.3.5. </span><code class="docutils literal notranslate"><span class="pre">matura</span></code>: A Bell-Shaped Distribution (Almost)<a class="headerlink" href="#matura-a-bell-shaped-distribution-almost" title="Permalink to this heading"></a></h3>
 <p><a class="reference internal" href="#fig-matura-histogram"><span class="std std-numref">Figure 4.6</span></a> depicts a histogram of another
 interesting dataset which comes in an already pre-summarised form.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">matura</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -983,10 +995,12 @@ interesting dataset which comes in an already pre-summarised form.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id32">
+<figure class="align-default" id="id32">
 <span id="fig-matura-histogram"></span><img alt="../_images/matura-histogram-11.png" src="../_images/matura-histogram-11.png" />
-<p class="caption"><span class="caption-number">Figure 4.6 </span><span class="caption-text">Histogram of <code class="docutils literal notranslate"><span class="pre">matura</span></code> dataset; a bell-shaped distribution… almost</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.6 </span><span class="caption-text">Histogram of <code class="docutils literal notranslate"><span class="pre">matura</span></code> dataset; a bell-shaped distribution… almost</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This gives the <a class="reference external" href="https://cke.gov.pl/images/_EGZAMIN_MATURALNY_OD_2015/Informacje_o_wynikach/2019/sprawozdanie/Sprawozdanie%202019%20-%20J%C4%99zyk%20polski.pdf">distribution</a>
 of the 2019 Matura (end of high school) exam scores in Poland (in %) –
 Polish literature<a class="footnote-reference brackets" href="#footpllit" id="id15">9</a> at the basic level.</p>
@@ -1001,9 +1015,9 @@ beholder,</p></li>
 <p>it all starts to make sense.
 Without graphically depicting this dataset, we would not know
 that such (albeit lucky for some students) <em>anomalies</em> occurred.</p>
-</div>
-<div class="section" id="marathon-truncated-fastest-runners-a-left-skewed-distribution">
-<h3><span class="section-number">4.3.6. </span><code class="docutils literal notranslate"><span class="pre">marathon</span></code> (Truncated – Fastest Runners): A Left-Skewed Distribution<a class="headerlink" href="#marathon-truncated-fastest-runners-a-left-skewed-distribution" title="Permalink to this headline"></a></h3>
+</section>
+<section id="marathon-truncated-fastest-runners-a-left-skewed-distribution">
+<h3><span class="section-number">4.3.6. </span><code class="docutils literal notranslate"><span class="pre">marathon</span></code> (Truncated – Fastest Runners): A Left-Skewed Distribution<a class="headerlink" href="#marathon-truncated-fastest-runners-a-left-skewed-distribution" title="Permalink to this heading"></a></h3>
 <p>Next, let us consider the 37th PZU Warsaw Marathon (2015) results.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/marek/37_pzu_warsaw_marathon_mins.txt&quot;</span><span class="p">)</span>
@@ -1023,10 +1037,12 @@ see <a class="reference internal" href="#fig-marathon180-histogram"><span class=
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id33">
+<figure class="align-default" id="id33">
 <span id="fig-marathon180-histogram"></span><img alt="../_images/marathon180-histogram-13.png" src="../_images/marathon180-histogram-13.png" />
-<p class="caption"><span class="caption-number">Figure 4.7 </span><span class="caption-text">Histogram of a truncated version of the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset; the distribution is left-skewed</span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.7 </span><span class="caption-text">Histogram of a truncated version of the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset; the distribution is left-skewed</span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This was of course expected – there are only a few elite runners
 in the game. Yours truly wishes his personal best becomes &lt; 180 minutes
 someday. We shall see. Running is fun, and so is walking; why not take a
@@ -1039,9 +1055,9 @@ break for an hour and go outside?</p>
     </div><div class="proof-content">
 <p>Plot the histogram of the untruncated (complete) version of this
 dataset.</p>
-</div></div></div>
-<div class="section" id="log-scale-and-heavy-tailed-distributions">
-<span id="sec-cities"></span><h3><span class="section-number">4.3.7. </span>Log-Scale and Heavy-Tailed Distributions<a class="headerlink" href="#log-scale-and-heavy-tailed-distributions" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="log-scale-and-heavy-tailed-distributions">
+<span id="sec-cities"></span><h3><span class="section-number">4.3.7. </span>Log-Scale and Heavy-Tailed Distributions<a class="headerlink" href="#log-scale-and-heavy-tailed-distributions" title="Permalink to this heading"></a></h3>
 <p>Consider the dataset on the populations of cities in the 2000 US Census:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching_data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
@@ -1073,10 +1089,12 @@ the results’ intelligibility would be even worse.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id35">
+<figure class="align-default" id="id35">
 <span id="fig-large-cities-histogram"></span><img alt="../_images/large-cities-histogram-15.png" src="../_images/large-cities-histogram-15.png" />
-<p class="caption"><span class="caption-number">Figure 4.8 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset; it is extremely heavy-tailed</span><a class="headerlink" href="#id35" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.8 </span><span class="caption-text">Histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset; it is extremely heavy-tailed</span><a class="headerlink" href="#id35" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>This is why we should rather draw such a distribution
 on the <em>logarithmic</em> scale,
 see  <a class="reference internal" href="#fig-large-cities-histogram-log"><span class="std std-numref">Figure 4.9</span></a>.</p>
@@ -1084,10 +1102,12 @@ see  <a class="reference internal" href="#fig-large-cities-histogram-log"><span 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id36">
+<figure class="align-default" id="id36">
 <span id="fig-large-cities-histogram-log"></span><img alt="../_images/large-cities-histogram-log-17.png" src="../_images/large-cities-histogram-log-17.png" />
-<p class="caption"><span class="caption-number">Figure 4.9 </span><span class="caption-text">Another histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset; it is right-skewed even on a logarithmic scale</span><a class="headerlink" href="#id36" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.9 </span><span class="caption-text">Another histogram of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset; it is right-skewed even on a logarithmic scale</span><a class="headerlink" href="#id36" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>The log-scale on the x-axis does not increase
 linearly: it is not based on steps of equal sizes like 0,
 1,000,000, 2,000,000, …, and so forth.
@@ -1116,9 +1136,9 @@ Does it resemble a bell-shaped distribution?</p>
 Use <strong class="command">numpy.geomspace</strong> and <strong class="command">numpy.histogram</strong> to apply
 logarithmic binning of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset manually, i.e.,
 to create bins of equal lengths on the log-scale.</p>
-</div></div></div>
-<div class="section" id="cumulative-counts-and-the-empirical-cumulative-distribution-function">
-<span id="sec-ecdf"></span><h3><span class="section-number">4.3.8. </span>Cumulative Counts and the Empirical Cumulative Distribution Function<a class="headerlink" href="#cumulative-counts-and-the-empirical-cumulative-distribution-function" title="Permalink to this headline"></a></h3>
+</div></div></section>
+<section id="cumulative-counts-and-the-empirical-cumulative-distribution-function">
+<span id="sec-ecdf"></span><h3><span class="section-number">4.3.8. </span>Cumulative Counts and the Empirical Cumulative Distribution Function<a class="headerlink" href="#cumulative-counts-and-the-empirical-cumulative-distribution-function" title="Permalink to this heading"></a></h3>
 <p>Let us go back to the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset.
 The histogram in <a class="reference internal" href="#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a> told us that,
 amongst others, 28.6% (1206 of 4221) of women are approximately
@@ -1132,10 +1152,12 @@ ca. 166 cm tall (or that only 20% are taller than this height).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id39">
+<figure class="align-default" id="id39">
 <span id="fig-heights-cumulative-histogram"></span><img alt="../_images/heights-cumulative-histogram-19.png" src="../_images/heights-cumulative-histogram-19.png" />
-<p class="caption"><span class="caption-number">Figure 4.10 </span><span class="caption-text">Cumulative histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id39" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.10 </span><span class="caption-text">Cumulative histogram of the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id39" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <div style="margin-top: 1em"></div><p>Very similar is the plot of the <em>empirical cumulative
 distribution function</em> (ECDF), which for a sample
 <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> we denote as <span class="math notranslate nohighlight">\(\hat{F}_n\)</span>.
@@ -1173,10 +1195,12 @@ against them, see <a class="reference internal" href="#fig-heights-ecdf"><span c
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id40">
+<figure class="align-default" id="id40">
 <span id="fig-heights-ecdf"></span><img alt="../_images/heights-ecdf-21.png" src="../_images/heights-ecdf-21.png" />
-<p class="caption"><span class="caption-number">Figure 4.11 </span><span class="caption-text">Empirical cumulative distribution function for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id40" title="Permalink to this image"></a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Figure 4.11 </span><span class="caption-text">Empirical cumulative distribution function for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset</span><a class="headerlink" href="#id40" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
@@ -1191,10 +1215,10 @@ implementing the drawing of an ECDF.</p>
 can be considered a generalised inverse of the
 ECDF.</p>
 </div>
-</div>
-</div>
-<div class="section" id="exercises">
-<h2><span class="section-number">4.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+<section id="exercises">
+<h2><span class="section-number">4.4. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading"></a></h2>
 <div class="proof proof-type-exercise" id="id42">
 
     <div class="proof-title">
@@ -1320,11 +1344,11 @@ because the points are too plentiful.</p>
 <dt class="label" id="footlatex"><span class="brackets"><a class="fn-backref" href="#id17">11</a></span></dt>
 <dd><p>(*) We are using (La)TeX maths typesetting
 within <code class="docutils literal notranslate"><span class="pre">&quot;$...$&quot;</span></code> to obtain nice plot labels,
-see <span id="id18">[<a class="reference internal" href="999-bibliography.html#id8">O+21</a>]</span> for a good introduction.</p>
+see <span id="id18">[<a class="reference internal" href="999-bibliography.html#id8" title="T. Oetiker and others. The Not So Short Introduction to LaTeX 2ε. 2021. URL: https://tobi.oetiker.ch/lshort/lshort.pdf.">O+21</a>]</span> for a good introduction.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -1342,7 +1366,7 @@ see <span id="id18">[<a class="reference internal" href="999-bibliography.html#i
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-19T10:58:34+1000.
+        Last updated on 2022-07-26T16:05:16+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
