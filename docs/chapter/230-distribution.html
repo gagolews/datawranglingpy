@@ -1342,18 +1342,14 @@ mixture discussed in <a class="reference internal" href="#sec-mixtures"><span cl
 will deviate from it, sometimes considerably.
 Such effects will be especially visible for small sample sizes,
 but they usually disappear<a class="footnote-reference brackets" href="#footfts" id="id15">9</a> when the availability of data increases.</p>
-<p>For example, <a class="reference internal" href="#fig-natural-variability"><span class="std std-numref">Figure 6.15</span></a>
-depicts the histogram of nine different
-samples of size 100, all drawn independently from the normal distribution
-N(0, 1).</p>
+<p>For example, <a class="reference internal" href="#fig-natural-variability"><span class="std std-numref">Figure 6.15</span></a> depicts the histograms of nine
+different samples of size 100, all drawn independently from the
+standard normal distribution.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># width=height</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
-<span class="n">fx</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># PDF of N(0, 1)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
@@ -1364,14 +1360,15 @@ N(0, 1).</p>
 <figure class="align-default" id="id49">
 <span id="fig-natural-variability"></span><img alt="../_images/natural-variability-29.png" src="../_images/natural-variability-29.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.15 </span><span class="caption-text">All nine samples are normally distributed!</span><a class="headerlink" href="#id49" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Figure 6.15 </span><span class="caption-text">All nine samples are normally distributed</span><a class="headerlink" href="#id49" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>There is some ruggedness in the bar sizes that a naïve observer
 might try to interpret as something meaningful.
 A competent data scientist must train
-their eye to ignore such impurities that are only due to random effects
-(but should always be ready to detect those which are worth attention).</p>
+their eye to ignore such impurities
+(but should always be ready to detect those which are worth attention).
+In this case, they are only due to random effects.</p>
 <div class="proof proof-type-exercise" id="id50">
 
     <div class="proof-title">
@@ -1622,7 +1619,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
     <p>
         Copyright &#169; 2022 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
       <span class="lastupdated">
-        Last updated on 2022-07-27T12:23:37+1000.
+        Last updated on 2022-07-28T10:43:19+1000.
       </span>
     Built with <a href="https://sphinx-doc.org/">Sphinx</a>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a> theme.
