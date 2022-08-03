@@ -23,4 +23,6 @@ material or my learning something noteworthy. Please use the
 [*Issues*](https://github.com/gagolews/datawranglingpy/issues)
 tracker to notify me about these.
 
+Please spread the news about this project.
+
 Good luck!

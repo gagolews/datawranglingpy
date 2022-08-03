@@ -8,10 +8,12 @@ extracting features, performing exploratory data analysis and dimensionality
 reduction, identifying naturally occurring data clusters, modelling patterns in
 data, comparing data between groups, and reporting the results.
 
-You can read this open-access (free!) textbook at:
+You can read this open-access (non-profit, independent, and free) textbook at:
 
 * https://datawranglingpy.gagolewski.com/ (a browser-friendly version)
 * https://datawranglingpy.gagolewski.com/datawranglingpy.pdf (PDF)
+
+**Please spread the news about this project.**
 
 
 Any remarks and bug fixes are appreciated — please submit them via
