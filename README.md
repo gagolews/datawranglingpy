@@ -25,10 +25,10 @@ You can read it at:
 **Please spread the news about this project.**
 
 Also, consider citing this book as:
-[M. Gagolewski][1], *Minimalist Data Wrangling with Python*,
-Zenodo, Melbourne, 2022,
-doi:[10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
-url:<https://datawranglingpy.gagolewski.com/>.
+[Gagolewski M.][1] (2022), *Minimalist Data Wrangling with Python*,
+Zenodo, DOI:[10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
+<!-- ISBN:XXX -->
+URL:<https://datawranglingpy.gagolewski.com/>.
 
 Any remarks and bug fixes are appreciated — please submit them via
 this repository's *Issues* tracker. Thank you.
