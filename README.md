@@ -26,8 +26,9 @@ You can read it at:
 
 Also, consider citing this book as:
 [Gagolewski M.][1] (2022), *Minimalist Data Wrangling with Python*,
-Zenodo, DOI:[10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
-<!-- ISBN:XXX -->
+Zenodo,
+DOI:[10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
+ISBN:978-0-6455719-1-2,
 URL:<https://datawranglingpy.gagolewski.com/>.
 
 Any remarks and bug fixes are appreciated — please submit them via
