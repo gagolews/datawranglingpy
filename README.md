@@ -1,5 +1,7 @@
 # Minimalist Data Wrangling with Python
 
+<img src="docs/_static/img/cover.png" align="right" height="225" />
+
 *Minimalist Data Wrangling with Python* by [Marek Gagolewski][1]
 is envisaged as a student's first
 introduction to data science, providing a high-level overview as well as
@@ -27,9 +29,9 @@ You can read it at:
 Also, consider citing this book as:
 [Gagolewski M.][1] (2022), *Minimalist Data Wrangling with Python*,
 Zenodo,
-DOI:[10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
-ISBN:978-0-6455719-1-2,
-URL:<https://datawranglingpy.gagolewski.com/>.
+DOI: [10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
+ISBN: 978-0-6455719-1-2,
+URL: <https://datawranglingpy.gagolewski.com/>.
 
 Any remarks and bug fixes are appreciated — please submit them via
 this repository's *Issues* tracker. Thank you.
@@ -56,9 +58,9 @@ His research interests include machine learning, data aggregation and
 clustering, computational statistics, mathematical modelling
 (the science of science, sport, economics, etc.), and free (libre)
 data analysis software
-([{program}`stringi`](https://stringi.gagolewski.com) – one of the most
+([`stringi`](https://stringi.gagolewski.com) – one of the most
 often downloaded R packages,
-[{program}`genieclust`](https://genieclust.gagolewski.com) – a fast
+[`genieclust`](https://genieclust.gagolewski.com) – a fast
 and robust clustering algorithm in both Python and R,
 and many [others](https://github.com/gagolews)).
 
