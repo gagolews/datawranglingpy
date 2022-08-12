@@ -1,7 +1,7 @@
 Code of Conduct
 ===============
 
-This is a project conveyed in the author's free time.
+This is a project conveyed in its author's free time.
 It will most likely pass unnoticed, but if you happen to find it useful,
 informative, amusing, or stimulating, I am happy for you.
 
