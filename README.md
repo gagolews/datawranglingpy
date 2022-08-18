@@ -28,7 +28,7 @@ You can read it at:
 
 Also, consider citing this book as:
 [Gagolewski M.][1] (2022), *Minimalist Data Wrangling with Python*,
-Zenodo,
+Zenodo, Melbourne,
 DOI: [10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
 ISBN: 978-0-6455719-1-2,
 URL: <https://datawranglingpy.gagolewski.com/>.
@@ -41,11 +41,15 @@ this repository's *Issues* tracker. Thank you.
 ## About the Author
 
 [Marek Gagolewski][1]
-is currently a Senior Lecturer/Researcher in Applied AI at Deakin University
-in Melbourne, VIC, Australia and an Associate Professor in Data Science
-(on long-term leave) at the Faculty of Mathematics and Information Science,
-Warsaw University of Technology, Poland and Systems Research Institute
-of the Polish Academy of Sciences.
+is currently a Senior Lecturer in Applied AI at Deakin University in Melbourne,
+Australia and an Associate Professor in Data Science (on leave) at the Faculty
+of Mathematics and Information Science, Warsaw University of Technology, Poland.
+
+His research interests are related to data science, in particular: modelling
+complex phenomena, developing usable, general purpose algorithms, studying
+their analytical properties, and finding out how people use, misuse,
+understand, and misunderstand methods of data analysis in research, commercial,
+and decision making settings.
 
 He's an author of 85+ publications, including journal papers
 in outlets such as *Proceedings of the National Academy of Sciences (PNAS)*,
@@ -54,15 +58,13 @@ in outlets such as *Proceedings of the National Academy of Sciences (PNAS)*,
 *Information Sciences*, *Knowledge-Based Systems*,
 *IEEE Transactions on Fuzzy Systems*, and *Journal of Informetrics*.
 
-His research interests include machine learning, data aggregation and
-clustering, computational statistics, mathematical modelling
-(the science of science, sport, economics, etc.), and free (libre)
-data analysis software
-([`stringi`](https://stringi.gagolewski.com) – one of the most
-often downloaded R packages,
-[`genieclust`](https://genieclust.gagolewski.com) – a fast
-and robust clustering algorithm in both Python and R,
-and many [others](https://github.com/gagolews)).
+In his "spare" time, he writes books for his students and develops open-source
+(libre) data analysis software, such as
+[`stringi`](https://stringi.gagolewski.com) –
+one of the most often downloaded R packages,
+[`genieclust`](https://genieclust.gagolewski.com) – a fast and robust
+hierarchical clustering algorithm in both Python and R,
+and many [others](https://github.com/gagolews).
 
 
 --------------------------------------------------------------------------------

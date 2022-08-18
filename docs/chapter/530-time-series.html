@@ -322,6 +322,7 @@ First, the popular quantiles:</p>
 <p>A graphical summary of the data distribution is depicted
 in <a class="reference internal" href="#fig-spokane-violinplot"><span class="std std-numref">Figure 16.1</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">temps</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -345,7 +346,7 @@ measurements <em>depend</em> on each other, describe how they
 change over time, forecast future values, detect seasonal
 and long-time trends, and so forth.</p>
 </div>
-<p>In <a class="reference internal" href="#fig-spokane-1-linechart"><span class="std std-numref">Figure 16.2</span></a> we depict the data for 2021,
+<p>In <a class="reference internal" href="#fig-spokane-1-linechart"><span class="std std-numref">Figure 16.2</span></a>, we depict the data for 2021,
 plotted as a function of time. What we see is often referred to as a
 <em>line chart</em>: data points are connected by straight line segments.
 There are some visible seasonal variations, such as, well, obviously,
@@ -375,13 +376,13 @@ Usually, we will be creating dates from strings, for instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2022-08-17&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2022-08-18&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-08-17T05:34:02&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2022-08-18T07:55:43&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -393,9 +394,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9221e+04])</span>
+<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9222e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.66071444e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.66080934e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -415,9 +416,9 @@ all dates in the YYYY-MM-DD format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2022-08-16&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2022-08-17&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-08-17T17:34:02&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2022-08-18T19:55:43&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -504,7 +505,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;MM/DD/Y
         <span class="proof-type">Exercise 16.3</span>
         
     </div><div class="proof-content">
-<p>From the <a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less than 18 years old
+<p>From the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less than 18 years old
 (as of the current day).</p>
 </div></div><p>Several datetime functions and related properties can
 be referred to via the <strong class="command">pandas.Series.dt</strong> accessor
@@ -611,7 +612,7 @@ to restore the dataset in full:</p>
         <span class="proof-type">Exercise 16.5</span>
         
     </div><div class="proof-content">
-<p>Consider the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching-data/master/marek/euraud-20200101-20200630-no-na.txt"><code class="docutils literal notranslate"><span class="pre">euraud-20200101-20200630-no-na</span></code></a> dataset
+<p>Consider the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/euraud-20200101-20200630-no-na.txt"><code class="docutils literal notranslate"><span class="pre">euraud-20200101-20200630-no-na</span></code></a> dataset
 which lists daily EUR/AUD exchange rates in the first half of 2020 (remember
 COVID-19?), with missing observations removed. Using <strong class="command">numpy.diff</strong>,
 compute the minimum, median, average, and maximum daily price <em>changes</em>.
@@ -703,7 +704,7 @@ distribution.</p>
         
     </div><div class="proof-content">
 <p>(*)
-Consider the <a class="reference external" href="https://raw.githubusercontent.com/gagolews/teaching-data/master/marek/wait_times.txt"><code class="docutils literal notranslate"><span class="pre">wait_times</span></code></a> dataset
+Consider the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/wait_times.txt"><code class="docutils literal notranslate"><span class="pre">wait_times</span></code></a> dataset
 that gives the times between some consecutive events, in seconds.
 Estimate the event rate per hour. Draw a histogram representing the number
 of events per hour.</p>
@@ -713,7 +714,7 @@ of events per hour.</p>
         <span class="proof-type">Exercise 16.8</span>
         
     </div><div class="proof-content">
-<p>(*) Consider the <a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/marek/btcusd_ohlcv_2021_dates.csv"><code class="docutils literal notranslate"><span class="pre">btcusd_ohlcv_2021_dates</span></code></a>
+<p>(*) Consider the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/btcusd_ohlcv_2021_dates.csv"><code class="docutils literal notranslate"><span class="pre">btcusd_ohlcv_2021_dates</span></code></a>
 dataset which gives the daily BTC/USD exchange rates in 2021:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/btcusd_ohlcv_2021_dates.csv&quot;</span><span class="p">,</span>
@@ -772,7 +773,8 @@ For instance, the <em><span class="math notranslate nohighlight">\(k\)</span>-mo
 such that:</p>
 <div class="math notranslate nohighlight">
 \[
-y_i = \frac{1}{k} \sum_{j=1}^k x_{i+j-1},
+y_i = \frac{1}{k}\left( x_{i}+x_{i+1}+\dots+x_{i+k-1} \right)
+= \frac{1}{k} \sum_{j=1}^k x_{i+j-1},
 \]</div>
 <p>i.e., the arithmetic mean of <span class="math notranslate nohighlight">\(k\le n\)</span> consecutive observations
 starting at <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
@@ -830,7 +832,7 @@ of the 2nd day.</p>
 <em>smoothing</em> out all kinds of broadly conceived noise.
 To illustrate this, compare
 the temperature data for the last five years
-in <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a> to their averaged versions
+in <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a> to their averaged versions in
 <a class="reference internal" href="#fig-spokane-ma-linechart"><span class="std std-numref">Figure 16.5</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span>
 <span class="n">x30</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -948,7 +950,7 @@ by the average of its neighbours.</p></li>
         <span class="proof-type">Example 16.11</span>
         
     </div><div class="proof-content">
-<p>The classic <a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/r/air_quality_1973.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_1973</span></code></a> dataset gives some
+<p>The classic <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/r/air_quality_1973.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_1973</span></code></a> dataset gives some
 daily air quality measurements in New York, between May and September 1973.
 Let us impute the first few observations in the solar radiation column:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -982,7 +984,7 @@ Let us impute the first few observations in the solar radiation column:</p>
         <span class="proof-type">Exercise 16.12</span>
         
     </div><div class="proof-content">
-<p>(*) With the <a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
+<p>(*) With the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
 dataset:</p>
 <ol class="arabic">
 <li><p>Based on the hourly observations, compute the daily mean PM2.5
@@ -1037,7 +1039,7 @@ Let us draw the four time series; see <a class="reference internal" href="#fig-c
 <span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="s2">&quot;dotted&quot;</span><span class="p">,</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="s2">&quot;dashdot&quot;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">eurxxx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">eurxxx</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">styles</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">))</span>  <span class="c1"># a bit lower</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1289,7 +1291,7 @@ This dataset is considered for illustrational purposes only.</p>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
     theme.
       <span class="lastupdated">
-        Last updated on 2022-08-17T15:46:35+1000.
+        Last updated on 2022-08-18T19:19:02+1000.
       </span>
 
 

@@ -172,7 +172,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#clustering-tasks">12.4. Clustering Tasks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#k-means-method">12.4.1. <em>K</em>-Means Method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#solving-k-means-is-hard">12.4.2. Solving <em>K</em>-means is Hard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solving-k-means-is-hard">12.4.2. Solving <em>K</em>-means Is Hard</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lloyd-s-algorithm">12.4.3. Lloyd’s Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-minima">12.4.4. Local Minima</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#random-restarts">12.4.5. Random Restarts</a></li>
@@ -563,7 +563,7 @@ and 5 tallest women.</p>
 <section id="manual-splitting-into-subgroups">
 <h3><span class="section-number">12.1.3. </span>Manual Splitting into Subgroups (*)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this heading"></a></h3>
 <p>It turns out that <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects and their derivatives
-are <em>iterable</em> (compare <a class="reference internal" href="130-sequential.html#sec-iterable"><span class="std std-numref">Section 3.4</span></a>). As a consequence,
+are <em>iterable</em>; compare <a class="reference internal" href="130-sequential.html#sec-iterable"><span class="std std-numref">Section 3.4</span></a>. As a consequence,
 the grouped data frames and series can be easily processed manually
 in case where the built-in methods are insufficient (i.e.,
 not so rarely).</p>
@@ -814,9 +814,10 @@ are of different lengths.</p>
 <section id="scatterplots-with-group-information">
 <h3><span class="section-number">12.2.4. </span>Scatterplots with Group Information<a class="headerlink" href="#scatterplots-with-group-information" title="Permalink to this heading"></a></h3>
 <p>Scatterplots for grouped data can display category information
-using points of different shapes or colours, compare
+using points of different colours and/or styles, compare
 <a class="reference internal" href="#fig-height-weight-gender"><span class="std std-numref">Figure 12.4</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -984,7 +985,7 @@ of being cautious. This, in the long run, is more sustainable.</p>
 <p>Plotting quantiles in two samples against each other
 can also give us some further (informal) insight with regard to the
 possible distributional differences. <a class="reference internal" href="#fig-qqplot2"><span class="std std-numref">Figure 12.7</span></a> depicts an example
-Q-Q plot (compare <a class="reference internal" href="230-distribution.html#sec-qqplot"><span class="std std-numref">Section 6.2.2</span></a> for a one-sample version),
+Q-Q plot (see also the one-sample version in <a class="reference internal" href="230-distribution.html#sec-qqplot"><span class="std std-numref">Section 6.2.2</span></a>),
 where we see that the distributions have similar shapes (points
 more or less lie on a straight line), but they are shifted and/or
 scaled (if they were, they would be on the identity line).</p>
@@ -1035,8 +1036,8 @@ as well as a binary categorical variable stating whether a group of
 sommeliers deem a given beverage quite bad (1) or not (0).
 <a class="reference internal" href="#fig-wines"><span class="std std-numref">Figure 12.8</span></a> reveals
 that subpar wines are rather low in… alcohol and, to some extent, sugar.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sugar&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">wine_train</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sugar&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">wine_train</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;alcohol&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sugar&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">)</span>
@@ -1107,7 +1108,7 @@ and which are regression tasks?</p>
 <p>One of the simplest approaches to classification –
 good enough for such an introductory course –
 is based on the information about a test point’s nearest neighbours
-(compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>) living in the training sample.</p>
+living in the training sample; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
 <p>Fix <span class="math notranslate nohighlight">\(k\ge 1\)</span>.
 Namely, to classify some <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
 <ol class="arabic">
@@ -1198,13 +1199,15 @@ expect the classification accuracy to be good enough<a class="footnote-reference
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">)):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">yg12</span> <span class="o">=</span> <span class="n">knn_class</span><span class="p">(</span><span class="n">Xg12</span><span class="p">,</span> <span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;#DF536B&quot;</span><span class="p">])[</span><span class="n">y_train</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;#DF536B&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">yg12</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x1</span><span class="p">)),</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdGy_r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$k=</span><span class="si">{</span><span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gist_heat&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$k=</span><span class="si">{</span><span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;alcohol&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sugar&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sugar&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1513,7 +1516,7 @@ must neither be used in the training nor the validation phase.</p>
 for the <em>k</em>-nearest neighbour classification of the <code class="docutils literal notranslate"><span class="pre">color</span></code> variable
 based on standardised versions of
 some physicochemical features (chosen columns) of wines
-in the <a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a> dataset.
+in the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a> dataset.
 Create a 60/20/20% dataset split.
 For each <span class="math notranslate nohighlight">\(k=1, 3, 5, 7, 9\)</span>, compute the corresponding
 <em>F</em>-measure on the validation test.
@@ -1600,8 +1603,8 @@ into groups based only on the spatial structure of the points’
 relative densities.
 In the <em>k</em>-means method, which we discuss below,
 the cluster structure is determined based on
-the points’ proximity to <em>k</em> carefully chosen group centroids
-(compare <a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>).</p>
+the points’ proximity to <em>k</em> carefully chosen group centroids;
+compare <a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>.</p>
 <section id="k-means-method">
 <h3><span class="section-number">12.4.1. </span><em>K</em>-Means Method<a class="headerlink" href="#k-means-method" title="Permalink to this heading"></a></h3>
 <p>Fix <span class="math notranslate nohighlight">\(k \ge 2\)</span>.
@@ -1746,7 +1749,7 @@ the <em>k</em>-means method can only detect clusters of convex shapes
         
     </div><div class="proof-content">
 <p>Perform the clustering of the
-<a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/clustering/wut_isolation.csv"><code class="docutils literal notranslate"><span class="pre">wut_isolation</span></code></a>
+<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/clustering/wut_isolation.csv"><code class="docutils literal notranslate"><span class="pre">wut_isolation</span></code></a>
 dataset and notice how nonsensical, geometrically speaking,
 the returned clusters are.</p>
 </div></div><div class="proof proof-type-exercise" id="id56">
@@ -1756,7 +1759,7 @@ the returned clusters are.</p>
         
     </div><div class="proof-content">
 <p>Determine a clustering of the
-<a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/clustering/wut_twosplashes.csv"><code class="docutils literal notranslate"><span class="pre">wut_twosplashes</span></code></a>
+<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/clustering/wut_twosplashes.csv"><code class="docutils literal notranslate"><span class="pre">wut_twosplashes</span></code></a>
 dataset and display the results on a scatterplot.
 Compare them with those obtained on the standardised
 version of the dataset. Recall what we said about the Euclidean distance
@@ -1779,7 +1782,7 @@ e.g., all points on a dense equidistant grid.</p>
 </div>
 </section>
 <section id="solving-k-means-is-hard">
-<h3><span class="section-number">12.4.2. </span>Solving <em>K</em>-means is Hard<a class="headerlink" href="#solving-k-means-is-hard" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">12.4.2. </span>Solving <em>K</em>-means Is Hard<a class="headerlink" href="#solving-k-means-is-hard" title="Permalink to this heading"></a></h3>
 <p>Unfortunately, the <em>k</em>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
@@ -1864,7 +1867,7 @@ Still, it does not necessarily
 mean that they yield the <em>globally</em> optimal (the best possible) WCSS.
 We might as well get stuck in a <em>local</em> minimum, where there is no
 better positioning thereof in the <em>neighbourhoods</em> of the current
-cluster centres (compare <a class="reference internal" href="#fig-many-local-minima"><span class="std std-numref">Figure 12.11</span></a>). Yet, had we
+cluster centres; compare <a class="reference internal" href="#fig-many-local-minima"><span class="std std-numref">Figure 12.11</span></a>. Yet, had we
 looked beyond them, we could have found a superior solution.</p>
 </div>
 <figure class="align-default" id="id58">
@@ -2055,7 +2058,7 @@ applies the aforementioned restarting.</p>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.5467188958928</span>
+<span class="c1">## 437.54671889589287</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2090,7 +2093,7 @@ a pain, but we know better; compare Rule#9.</p>
         
     </div><div class="proof-content">
 <p>Run the <em>k</em>-means method, <span class="math notranslate nohighlight">\(k=8\)</span>, on the
-<a class="reference external" href="https://github.com/gagolews/teaching-data/blob/master/clustering/sipu_unbalance.csv"><code class="docutils literal notranslate"><span class="pre">sipu_unbalance</span></code></a>
+<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/clustering/sipu_unbalance.csv"><code class="docutils literal notranslate"><span class="pre">sipu_unbalance</span></code></a>
 dataset from many random sets of cluster centres.
 Note the value of the total within-cluster sum
 of squares. Also, plot the cluster centres discovered. Do they make sense?
@@ -2325,7 +2328,7 @@ that data analysts only stick with the default arguments.</p>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
     theme.
       <span class="lastupdated">
-        Last updated on 2022-08-17T15:46:35+1000.
+        Last updated on 2022-08-18T19:19:02+1000.
       </span>
 
 
