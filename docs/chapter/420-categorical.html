@@ -78,7 +78,7 @@
           </a>
 
           <div class="version">
-          An open-access textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.2
+          An Open-Access Textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.2
           </div>
 
 <!--
@@ -309,16 +309,16 @@ target variables in statistical classification tasks
 <section id="representing-and-generating-categorical-data">
 <h2><span class="section-number">11.1. </span>Representing and Generating Categorical Data<a class="headerlink" href="#representing-and-generating-categorical-data" title="Permalink to this heading"></a></h2>
 <p>Common ways to represent a categorical variable
-with <em>l</em> distinct levels <span class="math notranslate nohighlight">\(\{L_1,L_2,\dots,L_l\}\)</span>
+with <span class="math notranslate nohighlight">\(l\)</span> distinct levels <span class="math notranslate nohighlight">\(\{L_1,L_2,\dots,L_l\}\)</span>
 is by storing it as:</p>
 <ul class="simple">
 <li><p>a vector of strings,</p></li>
-<li><p>a vector of integers between 0 (inclusive) and <em>l</em> (exclusive<a class="footnote-reference brackets" href="#footidx" id="id1">1</a>).</p></li>
+<li><p>a vector of integers between 0 (inclusive) and <span class="math notranslate nohighlight">\(l\)</span> (exclusive<a class="footnote-reference brackets" href="#footidx" id="id1">1</a>).</p></li>
 </ul>
 <p>These two are easily interchangeable.</p>
 <p>For <span class="math notranslate nohighlight">\(l=2\)</span> (binary data), another convenient representation
 is by means of logical vectors. This can be extended to a so-called
-one-hot encoded representation using a logical vector of length <em>l</em>.</p>
+one-hot encoded representation using a logical vector of length <span class="math notranslate nohighlight">\(l\)</span>.</p>
 <div style="margin-top: 1em"></div><p>Let us consider the data on the original whereabouts of the top
 16 marathoners (the 37th PZU native Marathon dataset):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -541,10 +541,10 @@ of the <code class="docutils literal notranslate"><span class="pre">if</span></c
 </div></div></section>
 <section id="one-hot-encoding">
 <h3><span class="section-number">11.1.3. </span>One-Hot Encoding (*)<a class="headerlink" href="#one-hot-encoding" title="Permalink to this heading"></a></h3>
-<p>Let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> be a vector of <em>n</em>
+<p>Let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> be a vector of <span class="math notranslate nohighlight">\(n\)</span>
 integer labels in <span class="math notranslate nohighlight">\(\{0,...,l-1\}\)</span>.
 Its <em>one-hot</em> encoded version is a 0/1 (or, equivalently, logical)
-matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> of shape  <em>n</em>-by-<em>l</em>
+matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> of shape  <span class="math notranslate nohighlight">\(n\)</span>-by-<span class="math notranslate nohighlight">\(l\)</span>
 such that <span class="math notranslate nohighlight">\(r_{i,j}=1\)</span> if and only if <span class="math notranslate nohighlight">\(x_i = j\)</span>.</p>
 <p>For example, if <span class="math notranslate nohighlight">\(\boldsymbol{x}=(0, 1, 2, 1)\)</span> and <span class="math notranslate nohighlight">\(l=4\)</span>, then:</p>
 <div class="math notranslate nohighlight">
@@ -590,8 +590,8 @@ represented using character strings.</p>
     </div><div class="proof-content">
 <p>(*)
 We can also work with matrices like <span class="math notranslate nohighlight">\(\mathbf{P}\in[0,1]^{n\times l}\)</span>,
-where <span class="math notranslate nohighlight">\(p_{i,j}\)</span> denotes the probability of the <em>i</em>-th object’s
-belonging to the <em>j</em>-th class.
+where <span class="math notranslate nohighlight">\(p_{i,j}\)</span> denotes the probability of the <span class="math notranslate nohighlight">\(i\)</span>-th object’s
+belonging to the <span class="math notranslate nohighlight">\(j\)</span>-th class.
 Given an example matrix of this kind,
 verify that in each row the probabilities sum to 1 (up to a small
 numeric error).
@@ -624,7 +624,7 @@ it might be a good idea to communicate them in a binned form.</p>
 <p class="admonition-title">Note</p>
 <p>Rounding is a kind of binning. In particular, <strong class="command">numpy.round</strong>
 allows for rounding to the nearest tenths, hundredths, …,
-as well as tens, hundreds, …
+as well as tens, hundreds, ….
 It is useful if data are naturally imprecise, and we do not
 want to give the impression that it is otherwise.
 Nonetheless, rounding can easily introduce tied observations,
@@ -646,8 +646,8 @@ the interval where each value in <code class="docutils literal notranslate"><spa
 <span class="c1">## array([0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3])</span>
 </pre></div>
 </div>
-<p>By default, the intervals are of the form <em>(a, b]</em> (not including
-<em>a</em>, including <em>b</em>).
+<p>By default, the intervals are of the form <span class="math notranslate nohighlight">\((a, b]\)</span> (not including
+<span class="math notranslate nohighlight">\(a\)</span>, including <span class="math notranslate nohighlight">\(b\)</span>).
 Code 0 corresponds to values less than the first bin bound,
 whereas code 3 – greater than or equal to the last bound:</p>
 <p><strong class="command">pandas.cut</strong> gives us another interface to the same binning method.
@@ -939,7 +939,7 @@ will do the trick most of the time; see <a class="reference internal" href="#fig
 <p><span class="caption-number">Figure 11.1 </span><span class="caption-text">Runners’ age categories</span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <code class="docutils literal notranslate"><span class="pre">ind</span></code> vector gives the x-coordinates of the bars,
+<p>The <code class="docutils literal notranslate"><span class="pre">ind</span></code> vector gives the x-coordinates of the bars;
 here: consecutive integers.
 By calling <strong class="command">matplotlib.pyplot.xticks</strong>
 we assign them readable labels.</p>
@@ -949,7 +949,7 @@ we assign them readable labels.</p>
         <span class="proof-type">Exercise 11.10</span>
         
     </div><div class="proof-content">
-<p>Draw a bar plot for the 5 most prevalent foreign (i.e.,
+<p>Draw a bar plot for the five most prevalent foreign (i.e.,
 excluding Polish) marathoners’ original
 whereabouts which features an additional bar that represents
 “all other” countries.
@@ -1627,7 +1627,7 @@ we need to be careful.</p>
 (P, P, C, D, HD, HD) is either C or D - we can choose one at random
 or just report that the solution is ambiguous (C+? D-? C/D?).</p>
 <p>Another option, of course, is to treat ordinal data as numbers
-(e.g., F=0, P=1, …, HD=4). In the latter example, the median would
+(e.g., F = 0, P = 1, …, HD = 4). In the latter example, the median would
 be equal to 2.5.</p>
 <p>There are some cases, though, where the conversion of
 labels to consecutive integers is far from optimal – because
@@ -1742,8 +1742,8 @@ chi-squared goodness-of-fit tests.</p>
 <dl class="footnote brackets">
 <dt class="label" id="footidx"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>This coincides with the possible indexes into an
-array of length <em>l</em>. In some other languages, e.g., R,
-we would use integers between 1 and <em>l</em> (inclusive).
+array of length <span class="math notranslate nohighlight">\(l\)</span>. In some other languages, e.g., R,
+we would use integers between 1 and <span class="math notranslate nohighlight">\(l\)</span> (inclusive).
 Nevertheless, a dataset creator is free to encode the labels
 however they want. For example, <code class="docutils literal notranslate"><span class="pre">DMDBORN4</span></code> in NHANES has:
 1 (born in 50 US states or Washington, DC),
@@ -1787,7 +1787,7 @@ is a better candidate.</p>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
     theme.
       <span class="lastupdated">
-        Last updated on 2022-08-20T14:35:26+1000.
+        Last updated on 2022-08-22T12:12:07+1000.
       </span>
 
 
