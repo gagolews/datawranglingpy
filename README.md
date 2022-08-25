@@ -24,6 +24,12 @@ You can read it at:
 * <https://datawranglingpy.gagolewski.com/> (a browser-friendly version)
 * <https://datawranglingpy.gagolewski.com/datawranglingpy.pdf> (PDF)
 
+A printed version can be ordered from:
+
+* <https://www.amazon.com/dp/0645571911> (paperback)
+
+
+
 **Please spread the news about this project.**
 
 Also, consider citing this book as:
