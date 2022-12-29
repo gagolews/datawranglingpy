@@ -47,7 +47,7 @@ regions more cheaply.
 
 **Please spread the news about this project.**
 
-Also, consider citing this book as:
+Consider citing this book as:
 [Gagolewski M.][1] (2022), *Minimalist Data Wrangling with Python*,
 Zenodo, Melbourne,
 DOI: [10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
@@ -91,7 +91,7 @@ and many [others](https://github.com/gagolews).
 
 --------------------------------------------------------------------------------
 
-Copyright (C) 2022, [Marek Gagolewski][1]. Some rights reserved.
+Copyright (C) 2022–2023, [Marek Gagolewski][1]. Some rights reserved.
 
 This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International][2] License
