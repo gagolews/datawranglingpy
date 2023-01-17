@@ -490,12 +490,10 @@ for an example.</p>
 <h3><span class="section-number">12.1.1. </span>Aggregating Data in Groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
 with several well-known aggregation functions. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender        age     weight      height     bmival</span>
 <span class="c1">## 0  female  48.956580  78.351839  160.089189  30.489189</span>
 <span class="c1">## 1    male  49.653477  88.589932  173.759541  29.243620</span>
-<span class="c1">## </span>
-<span class="c1">## &lt;string&gt;:1: FutureWarning: The default value of numeric_only in DataFrameGroupBy.mean is deprecated. In a future version, numeric_only will default to False. Either specify numeric_only or select only columns which should be valid for the function.</span>
 </pre></div>
 </div>
 <p>The arithmetic mean was computed only
@@ -1179,9 +1177,9 @@ If a mode is nonunique, resolve the ties, for example, at random.</p></li>
 <em>k</em>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>).
 We only replaced the <em>quantitative</em> mean with the <em>qualitative</em> mode.</p>
 <p>This is a variation on the theme: if you don’t know what to do
-in a given situation, try to mimic what most of the other people around you
+in a given situation, try to mimic what the majority of people around you
 are doing. Or, if you don’t know what to think about a particular wine,
-but amongst the 5 similar ones (in terms of alcohol and sugar content)
+but amongst the five most similar ones (in terms of alcohol and sugar content)
 three were said to be awful, say that you don’t like it because it’s
 not sweet enough. Thanks to this, others will take you for a very
 refined wine taster.</p>
@@ -1207,7 +1205,7 @@ Instead, we apply what we have learned about <strong class="command">numpy</stro
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_class</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">nnis</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">k</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">nnls</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">nnis</span><span class="p">]</span>  <span class="c1"># same as: y_train[nnis.reshape(-1)].reshape(-1, k)</span>
-    <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">nnls</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">nnls</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>First, we fetched the indexes of each test point’s nearest neighbours
@@ -1222,15 +1220,15 @@ classified.</p>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_train</span><span class="o">.</span><span class="n">bad</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_class</span><span class="p">(</span><span class="n">Z_test</span><span class="p">,</span> <span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 <span class="n">y_pred</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># preview</span>
-<span class="c1">## &lt;string&gt;:4: FutureWarning: Unlike other reduction functions (e.g. `skew`, `kurtosis`), the default behavior of `mode` typically preserves the axis it acts along. In SciPy 1.11.0, this behavior will change: the default value of `keepdims` will become False, the `axis` over which the statistic is taken will be eliminated, and the value None will no longer be accepted. Set `keepdims` to True or False to avoid this warning.</span>
 <span class="c1">## array([1, 0, 0, 1, 1, 0, 1, 0, 0, 1])</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Unfortunately, <strong class="command">scipy.stats.mode</strong> does not resolve the possible
-ties at random. Nevertheless, in our case, <span class="math notranslate nohighlight">\(k\)</span> is odd and the number
-of possible classes is <span class="math notranslate nohighlight">\(l=2\)</span>. In this setting, the mode is always unique.</p>
+<p>Unfortunately, <strong class="command">scipy.stats.mode</strong> does not resolve possible
+ties at random: e.g., the mode of <span class="math notranslate nohighlight">\((1, 1, 1, 2, 2, 2)\)</span> is always 1.
+Nevertheless, in our case, <span class="math notranslate nohighlight">\(k\)</span> is odd and the number
+of possible classes is <span class="math notranslate nohighlight">\(l=2\)</span>, so the mode is always unique.</p>
 </div>
 <p><a class="reference internal" href="#fig-knn-class"><span class="std std-numref">Figure 12.9</span></a> shows how nearest neighbour classification
 categorises different regions of a section of the two-dimensional
@@ -2104,7 +2102,7 @@ applies the aforementioned restarting.</p>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.54671889589287</span>
+<span class="c1">## 437.5467188958928</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2374,7 +2372,7 @@ that data analysts only stick with the default arguments.</p>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
     theme.
       <span class="lastupdated">
-        Last updated on 2023-01-16T15:35:35+1100.
+        Last updated on 2023-01-17T13:22:10+1100.
       </span>
 
 
