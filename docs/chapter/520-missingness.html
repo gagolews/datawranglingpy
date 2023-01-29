@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8" />
 
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
 <meta content="2022" name="citation_date" />
@@ -409,7 +409,7 @@ and <strong class="command">pandas.DataFrameGroupBy.count</strong> methods.</p>
 <section id="computing-with-missing-values">
 <h3><span class="section-number">15.1.2. </span>Computing with Missing Values<a class="headerlink" href="#computing-with-missing-values" title="Permalink to this heading"></a></h3>
 <p>Our using <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to denote a missing
-piece of information is merely an ugly (but functional) hack<a class="footnote-reference brackets" href="#footrna" id="id2">1</a>.
+piece of information is merely an ugly (but functional) hack<a class="footnote-reference brackets" href="#footrna" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 The original use case for not-a-number is to represent
 the results of incorrect operations, e.g., logarithms of negative
 numbers or subtracting two infinite entities.
@@ -511,7 +511,7 @@ are suitable in specific cases.</p>
 <p>We may try removing (discarding) the rows or columns
 that feature at least one, some, or too many missing values.
 Nonetheless, such a scheme will obviously not work for small datasets,
-where each observation is precious<a class="footnote-reference brackets" href="#footsmallsample" id="id4">2</a>.</p>
+where each observation is precious<a class="footnote-reference brackets" href="#footsmallsample" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <p>Also, we should not exercise data removal in situations where missingness
 is conditional (e.g., data only available for infants)
 or otherwise group-dependent (not completely at random),
@@ -856,7 +856,7 @@ outliers at 0, 15, 45, and 50.</p>
 in <a class="reference internal" href="320-transform-matrix.html#sec-distances"><span class="std std-numref">Section 8.4</span></a>, can be used for estimating the underlying
 probability density function.
 Given a data sample <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>,
-let us consider<a class="footnote-reference brackets" href="#footkde" id="id9">3</a>:</p>
+let us consider<a class="footnote-reference brackets" href="#footkde" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>:</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{f}_r(z) = \frac{1}{2 r n} \sum_{i=1}^n |B_r(z)|,
@@ -969,7 +969,7 @@ very end of the dataset. Ha.</p>
 methods. A quite straightforward approach is to check if there are any points
 within an observation’s radius of some assumed size <span class="math notranslate nohighlight">\(r&gt;0\)</span>. If that is not the
 case, we may consider it an outlier. This is a variation on the
-aforementioned unidimensional density estimation approach<a class="footnote-reference brackets" href="#footnorm2kde" id="id10">4</a>.</p>
+aforementioned unidimensional density estimation approach<a class="footnote-reference brackets" href="#footnorm2kde" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 <div class="proof proof-type-example" id="id27">
 
     <div class="proof-title">
@@ -1058,34 +1058,38 @@ missing at random, and missing not at random?</p>
 <p>List some basic strategies for dealing
 with data that might contain outliers.</p>
 </div></div><hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="footrna"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>(*) The R environment, on the other hand, has built-in
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footrna" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>(*) The R environment, on the other hand, has built-in
 seamless support for missing values. It quite consistently
 honours the rule that operations on missing values
 yield an undefined result.</p>
-</dd>
-<dt class="label" id="footsmallsample"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
-<dd><p>On the other hand, if we want to infer from
+</aside>
+<aside class="footnote brackets" id="footsmallsample" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
+<p>On the other hand, if we want to infer from
 small datasets, we should ask ourselves whether this
 is a good idea at all… It might be better to refrain
 from any data analysis than to come up with conclusions
 that are likely to be unjustified.</p>
-</dd>
-<dt class="label" id="footkde"><span class="brackets"><a class="fn-backref" href="#id9">3</a></span></dt>
-<dd><p>This is an instance of a kernel density estimator,
+</aside>
+<aside class="footnote brackets" id="footkde" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">3</a><span class="fn-bracket">]</span></span>
+<p>This is an instance of a kernel density estimator,
 with the simplest kernel – a rectangular one.</p>
-</dd>
-<dt class="label" id="footnorm2kde"><span class="brackets"><a class="fn-backref" href="#id10">4</a></span></dt>
-<dd><p>(**) We can easily normalise the outputs to get
+</aside>
+<aside class="footnote brackets" id="footnorm2kde" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">4</a><span class="fn-bracket">]</span></span>
+<p>(**) We can easily normalise the outputs to get
 a true 2D kernel density estimator, but multivariate statistics
 is beyond the scope of this course.
 In particular, that data might have fixed marginal distributions
 (projections onto 1D) but their multidimensional images might be very
 different is beautifully described by the copula theory;
 see <span id="id11">[<a class="reference internal" href="999-bibliography.html#id80" title="Nelsen, R.B. (1999).  An Introduction to Copulas. Springer-Verlag.">60</a>]</span>.</p>
-</dd>
-</dl>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -1109,7 +1113,7 @@ see <span id="id11">[<a class="reference internal" href="999-bibliography.html#i
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
     theme.
       <span class="lastupdated">
-        Last updated on 2023-01-17T13:22:10+1100.
+        Last updated on 2023-01-29T19:30:17+1100.
       </span>
 
 
