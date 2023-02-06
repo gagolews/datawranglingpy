@@ -2,7 +2,7 @@
 
 
 <html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2022, Marek Gagolewski <https://www.gagolewski.com> -->
+<!-- Copyright (C) 2020-2023, Marek Gagolewski <https://www.gagolewski.com> -->
 
 <head>
   <meta charset="utf-8" />
@@ -10,8 +10,8 @@
   <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
-<meta content="2022" name="citation_date" />
-<meta content="2022" name="citation_publication_date" />
+<meta content="2023" name="citation_date" />
+<meta content="2023" name="citation_publication_date" />
 <meta content="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf" name="citation_pdf_url" />
 <meta content="https://datawranglingpy.gagolewski.com/" name="citation_public_url" />
 <meta content="10.5281/zenodo.6451068" name="citation_doi" />
@@ -72,6 +72,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/proof.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -101,7 +102,7 @@
           </a>
 
           <div class="version">
-          An Open-Access Textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.2.9004
+          An Open-Access Textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.3
           </div>
 
 <!--
@@ -288,7 +289,7 @@
            <div itemprop="articleBody">
             
   <section class="tex2jax_ignore mathjax_ignore" id="accessing-databases">
-<span id="chap-sql"></span><h1><span class="section-number">13. </span>Accessing Databases<a class="headerlink" href="#accessing-databases" title="Permalink to this heading"></a></h1>
+<span id="chap-sql"></span><h1><span class="section-number">13. </span>Accessing Databases<a class="headerlink" href="#accessing-databases" title="Permalink to this heading">¶</a></h1>
 <blockquote>
 <div><p><em>The open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
@@ -315,7 +316,7 @@ Refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy/issues">bug/typo reports/fixes</a>
 are appreciated.</em>
 <em>Also, make sure to check out my other book,
-<a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a> <span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2023).  Deep R Programming. Zenodo, Melbourne. early draft. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">33</a>]</span>.</em></p>
+<a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a> <span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2023).  Deep R Programming. Zenodo, Melbourne. early draft. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">34</a>]</span>.</em></p>
 </div></blockquote>
 <p><strong class="program">pandas</strong> is convenient for working with data that fit into memory
 and which can be stored in individual CSV files.
@@ -345,7 +346,7 @@ nor to design own databanks: this should be covered by a separate course
 on database systems; see, e.g., <span id="id3">[<a class="reference internal" href="999-bibliography.html#id78" title="Connolly, T., Begg, C. (2015).  Database Systems: A Practical Approach to Design, Implementation, and Management. Pearson.">15</a>, <a class="reference internal" href="999-bibliography.html#id76" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">19</a>]</span>.</p>
 </div>
 <section id="example-database">
-<h2><span class="section-number">13.1. </span>Example Database<a class="headerlink" href="#example-database" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">13.1. </span>Example Database<a class="headerlink" href="#example-database" title="Permalink to this heading">¶</a></h2>
 <p>In this chapter, we will be working with a simplified data dump
 of the Q&amp;A site
 <a class="reference external" href="https://travel.stackexchange.com">Travel Stack Exchange</a>, which we
@@ -436,14 +437,14 @@ In such a case, they are encoded with a not-a-number;
 compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>.</p>
 </div></div></section>
 <section id="exporting-data-to-a-database">
-<h2><span class="section-number">13.2. </span>Exporting Data to a Database<a class="headerlink" href="#exporting-data-to-a-database" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">13.2. </span>Exporting Data to a Database<a class="headerlink" href="#exporting-data-to-a-database" title="Permalink to this heading">¶</a></h2>
 <p>Let us establish a connection with the to-be
 SQLite database. In our case,
 this will be an ordinary file stored on the computer’s disk:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
 <span class="n">dbfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;travel.db&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dbfile</span><span class="p">)</span>
-<span class="c1">## /tmp/tmpcdnuyv8u/travel.db</span>
+<span class="c1">## /tmp/tmppbvrv1lz/travel.db</span>
 </pre></div>
 </div>
 <p>The above defines the file path (compare <a class="reference internal" href="#sec-file-paths"><span class="std std-numref">Section 13.6.1</span></a>)
@@ -500,7 +501,7 @@ of the <strong class="program">sqlite3</strong> package.</p>
 </div>
 </section>
 <section id="exercises-on-sql-vs-pandas">
-<h2><span class="section-number">13.3. </span>Exercises on SQL vs <strong class="program">pandas</strong><a class="headerlink" href="#exercises-on-sql-vs-pandas" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">13.3. </span>Exercises on SQL vs <strong class="program">pandas</strong><a class="headerlink" href="#exercises-on-sql-vs-pandas" title="Permalink to this heading">¶</a></h2>
 <p>We can use <strong class="program">pandas</strong> to fetch the results of any SQL query
 in the form of a data frame. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -556,7 +557,7 @@ before calling <strong class="command">pandas.testing.assert_frame_equal</strong
 we can invoke <code class="docutils literal notranslate"><span class="pre">DataFrame.sort_values</span></code> on both data frames to sort them
 with respect to 1 or 2 chosen columns.</p>
 </div></div><section id="filtering">
-<h3><span class="section-number">13.3.1. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.3.1. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this heading">¶</a></h3>
 <div class="proof proof-type-exercise" id="id10">
 
     <div class="proof-title">
@@ -610,7 +611,7 @@ set of conditions.</p>
 </div>
 </div></div></section>
 <section id="ordering">
-<h3><span class="section-number">13.3.2. </span>Ordering<a class="headerlink" href="#ordering" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.3.2. </span>Ordering<a class="headerlink" href="#ordering" title="Permalink to this heading">¶</a></h3>
 <div class="proof proof-type-exercise" id="id12">
 
     <div class="proof-title">
@@ -643,7 +644,7 @@ top five scoring questions).</p>
 <strong class="command">numpy.isnan</strong> or <strong class="command">pandas.isnull</strong>.</p>
 </div></div></section>
 <section id="removing-duplicates">
-<h3><span class="section-number">13.3.3. </span>Removing Duplicates<a class="headerlink" href="#removing-duplicates" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.3.3. </span>Removing Duplicates<a class="headerlink" href="#removing-duplicates" title="Permalink to this heading">¶</a></h3>
 <div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
@@ -715,7 +716,7 @@ Then, select only the unique pairs <code class="docutils literal notranslate"><s
 see <a class="reference internal" href="530-time-series.html#chap-time-series"><span class="std std-numref">Chapter 16</span></a>.</p>
 </div></div></section>
 <section id="grouping-and-aggregating">
-<h3><span class="section-number">13.3.4. </span>Grouping and Aggregating<a class="headerlink" href="#grouping-and-aggregating" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.3.4. </span>Grouping and Aggregating<a class="headerlink" href="#grouping-and-aggregating" title="Permalink to this heading">¶</a></h3>
 <div class="proof proof-type-exercise" id="id15">
 
     <div class="proof-title">
@@ -780,7 +781,7 @@ year.</p>
 is applied thereafter.</p>
 </div></div></section>
 <section id="joining">
-<h3><span class="section-number">13.3.5. </span>Joining<a class="headerlink" href="#joining" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.3.5. </span>Joining<a class="headerlink" href="#joining" title="Permalink to this heading">¶</a></h3>
 <div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
@@ -848,7 +849,7 @@ with the most up-votes.</p>
 </div>
 </div></div></section>
 <section id="solutions-to-exercises">
-<h3><span class="section-number">13.3.6. </span>Solutions to Exercises<a class="headerlink" href="#solutions-to-exercises" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.3.6. </span>Solutions to Exercises<a class="headerlink" href="#solutions-to-exercises" title="Permalink to this heading">¶</a></h3>
 <p>In this section we provide examples of solutions to the above exercises.</p>
 <div class="proof proof-type-example" id="id19">
 
@@ -1078,7 +1079,7 @@ that corresponds to the subquery.</p>
 </div></div></section>
 </section>
 <section id="closing-the-database-connection">
-<h2><span class="section-number">13.4. </span>Closing the Database Connection<a class="headerlink" href="#closing-the-database-connection" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">13.4. </span>Closing the Database Connection<a class="headerlink" href="#closing-the-database-connection" title="Permalink to this heading">¶</a></h2>
 <p>We said we should not forget about:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -1086,7 +1087,7 @@ that corresponds to the subquery.</p>
 <p>This gives some sense of closure. Such a relief.</p>
 </section>
 <section id="common-data-serialisation-formats-for-the-web">
-<span id="sec-json-xml"></span><h2><span class="section-number">13.5. </span>Common Data Serialisation Formats for the Web<a class="headerlink" href="#common-data-serialisation-formats-for-the-web" title="Permalink to this heading"></a></h2>
+<span id="sec-json-xml"></span><h2><span class="section-number">13.5. </span>Common Data Serialisation Formats for the Web<a class="headerlink" href="#common-data-serialisation-formats-for-the-web" title="Permalink to this heading">¶</a></h2>
 <p>CSV files are an all-round way to exchange <em>tabular</em> data between
 different programming and data analysis environments.</p>
 <p>For unstructured or non-tabularly-structured data, XML and JSON
@@ -1095,17 +1096,16 @@ especially for communicating with different Web APIs.</p>
 <p>It is recommended that we solve some of the following exercises
 to make sure we can fetch data in these formats.
 Sadly, often this will require some quite tedious labour,
-neither art nor science; see also <span id="id4">[<a class="reference internal" href="999-bibliography.html#id17" title="van der Loo, M., de Jonge, E. (2018).  Statistical Data Cleaning with Applications in R. John Wiley &amp; Sons.">86</a>]</span> and <span id="id5">[<a class="reference internal" href="999-bibliography.html#id18" title="Dasu, T., Johnson, T. (2003).  Exploratory Data Mining and Data Cleaning. John Wiley &amp; Sons.">18</a>]</span>.</p>
+neither art nor science; see also <span id="id4">[<a class="reference internal" href="999-bibliography.html#id17" title="van der Loo, M., de Jonge, E. (2018).  Statistical Data Cleaning with Applications in R. John Wiley &amp; Sons.">89</a>]</span> and <span id="id5">[<a class="reference internal" href="999-bibliography.html#id18" title="Dasu, T., Johnson, T. (2003).  Exploratory Data Mining and Data Cleaning. John Wiley &amp; Sons.">18</a>]</span>.</p>
 <div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 13.22</span>
         
     </div><div class="proof-content">
-<p>Consider the Web API for <a class="reference external" href="https://data.melbourne.vic.gov.au/Transport/On-street-Parking-Bay-Sensors/vh2v-4nfs">accessing</a> the on-street parking bay
+<p>Consider the Web API for <a class="reference external" href="https://data.melbourne.vic.gov.au/explore/dataset/on-street-parking-bay-sensors/api/">accessing</a> the on-street parking bay
 sensor data in Melbourne, VIC, Australia.
-Using, for example, the <strong class="program">json</strong> package, convert the <a class="reference external" href="https://data.melbourne.vic.gov.au/resource/vh2v-4nfs.json">data</a> in the JSON format
-to a data frame.</p>
+Using, for example, the <strong class="program">json</strong> package, convert the <a class="reference external" href="https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/on-street-parking-bay-sensors/exports/json">data</a> in the JSON format to a data frame.</p>
 </div></div><div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
@@ -1166,7 +1166,7 @@ and then import an archived version of one of the wikis hosted by the
 so that it can be stored in an SQLite database.</p>
 </div></div></section>
 <section id="working-with-many-files">
-<h2><span class="section-number">13.6. </span>Working with Many Files<a class="headerlink" href="#working-with-many-files" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">13.6. </span>Working with Many Files<a class="headerlink" href="#working-with-many-files" title="Permalink to this heading">¶</a></h2>
 <p>For the mass-processing of many files, it is worth knowing <em>of</em>
 the most basic functions for dealing with file paths, searching for files,
 etc. Usually, we will be looking up ways to complete specific
@@ -1176,9 +1176,9 @@ This is because – contrary to the basic operations of vectors, matrices,
 and data frames – these are not amongst the actions that we perform
 that often.</p>
 <p>Good development practices related to data storage are described
-in <span id="id6">[<a class="reference internal" href="999-bibliography.html#id146" title="Hart, E.M., et al. (2016).  Ten simple rules for digital data storage. PLOS Computational Biology, 12(10):1–12. DOI: 10.1371/journal.pcbi.1005097.">45</a>]</span>.</p>
+in <span id="id6">[<a class="reference internal" href="999-bibliography.html#id146" title="Hart, E.M., et al. (2016).  Ten simple rules for digital data storage. PLOS Computational Biology, 12(10):1–12. DOI: 10.1371/journal.pcbi.1005097.">46</a>]</span>.</p>
 <section id="file-paths">
-<span id="sec-file-paths"></span><h3><span class="section-number">13.6.1. </span>File Paths<a class="headerlink" href="#file-paths" title="Permalink to this heading"></a></h3>
+<span id="sec-file-paths"></span><h3><span class="section-number">13.6.1. </span>File Paths<a class="headerlink" href="#file-paths" title="Permalink to this heading">¶</a></h3>
 <p>UNIX-like operating systems, including GNU/Linux and macOS,
 use slashes, `<code class="docutils literal notranslate"><span class="pre">/</span></code>`, as path separators, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;/home/marek/file.csv&quot;</span></code>.
 Windows, however, uses backslashes, `<code class="docutils literal notranslate"><span class="pre">\</span></code>`, which have a special meaning
@@ -1241,7 +1241,7 @@ Load with <strong class="program">pandas.read_csv</strong> by passing
 (if you have not done so yet) using the <strong class="command">requests</strong> module.</p>
 </div></div></section>
 <section id="file-search">
-<h3><span class="section-number">13.6.2. </span>File Search<a class="headerlink" href="#file-search" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.6.2. </span>File Search<a class="headerlink" href="#file-search" title="Permalink to this heading">¶</a></h3>
 <p><strong class="command">glob.glob</strong> and <strong class="command">os.listdir</strong> can generate a list of files
 in a given directory (and possibly all its subdirectories).</p>
 <p><strong class="command">os.path.isdir</strong> and <strong class="command">os.path.isfile</strong> can be used to
@@ -1256,7 +1256,7 @@ determine the type of a given object in the file system.</p>
 size of all the files in a given directory and all its subdirectories.</p>
 </div></div></section>
 <section id="exception-handling">
-<h3><span class="section-number">13.6.3. </span>Exception Handling<a class="headerlink" href="#exception-handling" title="Permalink to this heading"></a></h3>
+<h3><span class="section-number">13.6.3. </span>Exception Handling<a class="headerlink" href="#exception-handling" title="Permalink to this heading">¶</a></h3>
 <p>Accessing resources on the disk or the internet
 can lead to errors, for example when the file is not found.
 The <strong class="command">try..except</strong> statement can be used if we want
@@ -1275,7 +1275,7 @@ to be able to react to any of the envisaged errors</p>
 <a class="reference external" href="https://docs.python.org/3/tutorial/errors.html">documentation</a>.</p>
 </section>
 <section id="file-connections">
-<span id="sec-file-connection"></span><h3><span class="section-number">13.6.4. </span>File Connections (*)<a class="headerlink" href="#file-connections" title="Permalink to this heading"></a></h3>
+<span id="sec-file-connection"></span><h3><span class="section-number">13.6.4. </span>File Connections (*)<a class="headerlink" href="#file-connections" title="Permalink to this heading">¶</a></h3>
 <p>Basic ways of opening and reading from/writing to file connections
 are described in the
 <a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html">documentation</a>.
@@ -1290,7 +1290,7 @@ to fetch.</p>
 </section>
 </section>
 <section id="exercises">
-<h2><span class="section-number">13.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading"></a></h2>
+<h2><span class="section-number">13.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
 <div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
@@ -1358,7 +1358,7 @@ This should be sufficient for most intermediate-level users.</p>
     and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
     theme.
       <span class="lastupdated">
-        Last updated on 2023-01-31T14:56:38+1100.
+        Last updated on 2023-02-06T10:33:24+1100.
       </span>
 
 
