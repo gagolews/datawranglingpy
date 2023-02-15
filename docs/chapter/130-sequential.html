@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-
-
-<html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2023, Marek Gagolewski <https://www.gagolewski.com> -->
-
-<head>
-  <meta charset="utf-8" />
-
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
 <meta content="2023" name="citation_date" />
@@ -30,113 +25,178 @@
 <meta content="INDEX,FOLLOW" name="robots" />
 <meta content="book" name="og:type" />
 <meta content="9780645571912" name="og:book:isbn" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4. Unidimensional Numeric Data and Their Empirical Distribution" href="210-vector.html" /><link rel="prev" title="2. Scalar Types and Control Structures in Python" href="120-scalar.html" />
+        <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/130-sequential.html" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>3. Sequential and Other Types in Python &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
-  
-
-  
-  
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-
-  
-  
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
-  
-
-  
-  
-
-  
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/130-sequential.html" />
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>3. Sequential and Other Types in Python - Minimalist Data Wrangling with Python</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/proof.js"></script>
     
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: red;
+  --color-brand-content: #CC3333;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: #ff2b53;
+  --color-brand-content: #dd3333;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: #ff2b53;
+  --color-brand-content: #dd3333;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
     
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. Unidimensional Numeric Data and Their Empirical Distribution" href="210-vector.html" />
-    <link rel="prev" title="2. Scalar Types and Control Structures in Python" href="120-scalar.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
 
-          
-            <a href="../index.html"> Minimalist Data Wrangling with Python
-          
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-          
-          </a>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
 
-          <div class="version">
-          An Open-Access Textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.3
-          </div>
 
-<!--
-          
-            
-            
-              <div class="version">
-                by Marek Gagolewski
-              </div>
-            
-          
--->
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search phrase..." />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Minimalist Data Wrangling with Python</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto colour theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky">
+
+<span class="sidebar-brand-text">
+<a class="sidebar-brand" href="../index.html">Minimalist Data Wrangling with Python</a>
+</span>
+<div class="sidebar-brand">
+An open-access textbook<br />
+by <a href='https://www.gagolewski.com' style="display: contents">Marek Gagolewski</a><br />
+v1.0.3.9001
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul>
+<form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">About</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com/">Author</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">This Book in PDF</a></li>
@@ -153,41 +213,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="110-setup.html">1. Getting Started with Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="120-scalar.html">2. Scalar Types and Control Structures in Python</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Sequential and Other Types in Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#sequential-types">3.1. Sequential Types</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lists">3.1.1. Lists</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tuples">3.1.2. Tuples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ranges">3.1.3. Ranges</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#strings-again">3.1.4. Strings (Again)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#working-with-sequences">3.2. Working with Sequences</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#extracting-elements">3.2.1. Extracting Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#slicing">3.2.2. Slicing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#modifying-elements">3.2.3. Modifying Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#searching-for-specific-elements">3.2.4. Searching for Specific Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#arithmetic-operators">3.2.5. Arithmetic Operators</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#dictionaries">3.3. Dictionaries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#iterable-types">3.4. Iterable Types</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-for-loop">3.4.1. The <strong class="command">for</strong> Loop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tuple-assignment">3.4.2. Tuple Assignment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#argument-unpacking">3.4.3. Argument Unpacking (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#variadic-arguments-args-and-kwargs">3.4.4. Variadic Arguments: <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> (*)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#object-references-and-copying">3.5. Object References and Copying (*)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#copying-references">3.5.1. Copying References</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pass-by-assignment">3.5.2. Pass by Assignment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#object-copies">3.5.3. Object Copies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#modify-in-place-or-return-a-modified-copy">3.5.4. Modify in Place or Return a Modified Copy?</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#further-reading">3.6. Further Reading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">3.7. Exercises</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">3. Sequential and Other Types in Python</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Unidimensional Data</span></p>
 <ul>
@@ -220,87 +246,47 @@
 <li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">References</a></li>
 </ul>
 
-            
-          
-        </div>
-        
+</div></div>
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">3. </span>Sequential and Other Types in Python</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-
-        
-        
-        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">GitHub</a>
-        
-
-
-        
-      </li>
-    
-  </ul>
-
-  
-  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
-      
-        <a href="210-vector.html" class="btn btn-neutral float-right" title="4. Unidimensional Numeric Data and Their Empirical Distribution" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-      
-      
-        <a href="120-scalar.html" class="btn btn-neutral float-left" title="2. Scalar Types and Control Structures in Python" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-      
-  </div>
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <section class="tex2jax_ignore mathjax_ignore" id="sequential-and-other-types-in-python">
-<span id="chap-sequential"></span><h1><span class="section-number">3. </span>Sequential and Other Types in Python<a class="headerlink" href="#sequential-and-other-types-in-python" title="Permalink to this heading">¶</a></h1>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/gagolews/datawranglingpy/issues/" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto colour theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section class="tex2jax_ignore mathjax_ignore" id="sequential-and-other-types-in-python">
+<span id="chap-sequential"></span><h1><span class="section-number">3. </span>Sequential and Other Types in Python<a class="headerlink" href="#sequential-and-other-types-in-python" title="Permalink to this heading">#</a></h1>
 <blockquote>
 <div><p><em>The open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
@@ -330,7 +316,7 @@ are appreciated.</em>
 <a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a> <span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2023).  Deep R Programming. Zenodo, Melbourne. early draft. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">34</a>]</span>.</em></p>
 </div></blockquote>
 <section id="sequential-types">
-<h2><span class="section-number">3.1. </span>Sequential Types<a class="headerlink" href="#sequential-types" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.1. </span>Sequential Types<a class="headerlink" href="#sequential-types" title="Permalink to this heading">#</a></h2>
 <p><em>Sequential</em> objects store data items that can be accessed
 by index (position). The three main types of sequential objects are:
 lists, tuples, and ranges.</p>
@@ -344,7 +330,7 @@ amongst sequential objects are such diverse classes as:</p>
 <li><p>strings.</p></li>
 </ul>
 <section id="lists">
-<h3><span class="section-number">3.1.1. </span>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.1.1. </span>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h3>
 <p><em>Lists</em> consist of arbitrary Python objects.
 They are created using square brackets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="n">j</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;six&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
@@ -373,7 +359,7 @@ For instance, we can append a new object at its end:</p>
 <p>The <strong class="command">list.append</strong> method modified <code class="docutils literal notranslate"><span class="pre">x</span></code> in place.</p>
 </section>
 <section id="tuples">
-<h3><span class="section-number">3.1.2. </span>Tuples<a class="headerlink" href="#tuples" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.1.2. </span>Tuples<a class="headerlink" href="#tuples" title="Permalink to this heading">#</a></h3>
 <p>Next, <em>tuples</em> are like lists, but they are <em>immutable</em> (read-only) – once
 created, they cannot be altered.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="p">(</span><span class="mi">3</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -411,7 +397,7 @@ them with confidence.</p>
 </div>
 </section>
 <section id="ranges">
-<h3><span class="section-number">3.1.3. </span>Ranges<a class="headerlink" href="#ranges" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.1.3. </span>Ranges<a class="headerlink" href="#ranges" title="Permalink to this heading">#</a></h3>
 <p>Objects defined by calling <strong class="command">range</strong><code class="code docutils literal notranslate"><span class="pre">(from,</span> <span class="pre">to)</span></code>
 or <strong class="command">range</strong><code class="code docutils literal notranslate"><span class="pre">(from,</span> <span class="pre">to,</span> <span class="pre">by)</span></code> represent arithmetic
 progressions of integers.
@@ -427,7 +413,7 @@ ordinary lists:</p>
 and that <code class="docutils literal notranslate"><span class="pre">by</span></code> defaults to 1.</p>
 </section>
 <section id="strings-again">
-<h3><span class="section-number">3.1.4. </span>Strings (Again)<a class="headerlink" href="#strings-again" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.1.4. </span>Strings (Again)<a class="headerlink" href="#strings-again" title="Permalink to this heading">#</a></h3>
 <p>Recall that we discussed character strings in <a class="reference internal" href="120-scalar.html#sec-strings-intro"><span class="std std-numref">Section 2.1.3</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lovely</span><span class="se">\n</span><span class="s2">spam&quot;</span><span class="p">)</span>
 <span class="c1">## lovely</span>
@@ -442,9 +428,9 @@ operations on text.</p>
 </section>
 </section>
 <section id="working-with-sequences">
-<h2><span class="section-number">3.2. </span>Working with Sequences<a class="headerlink" href="#working-with-sequences" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.2. </span>Working with Sequences<a class="headerlink" href="#working-with-sequences" title="Permalink to this heading">#</a></h2>
 <section id="extracting-elements">
-<span id="sec-extract-elem"></span><h3><span class="section-number">3.2.1. </span>Extracting Elements<a class="headerlink" href="#extracting-elements" title="Permalink to this heading">¶</a></h3>
+<span id="sec-extract-elem"></span><h3><span class="section-number">3.2.1. </span>Extracting Elements<a class="headerlink" href="#extracting-elements" title="Permalink to this heading">#</a></h3>
 <p>The index operator, `<strong class="command">[...]</strong>`, can be applied on any sequential
 object to extract an element at a position specified by a single integer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">]</span>
@@ -501,7 +487,7 @@ a call to a function <strong class="command">f</strong> with two arguments.</p>
 </div>
 </section>
 <section id="slicing">
-<span id="sec-slicing"></span><h3><span class="section-number">3.2.2. </span>Slicing<a class="headerlink" href="#slicing" title="Permalink to this heading">¶</a></h3>
+<span id="sec-slicing"></span><h3><span class="section-number">3.2.2. </span>Slicing<a class="headerlink" href="#slicing" title="Permalink to this heading">#</a></h3>
 <p>We can also use slices of the form <code class="docutils literal notranslate"><span class="pre">from:to</span></code>
 or <code class="docutils literal notranslate"><span class="pre">from:to:by</span></code> to select a subsequence of a given sequence.
 Slices are similar to ranges, but `<strong class="command">:</strong>` can only be used within
@@ -559,7 +545,7 @@ similarly, but there will be many more indexing options
 <a class="reference internal" href="410-data-frame.html#sec-df-indexing"><span class="std std-numref">Section 10.5</span></a>).</p>
 </section>
 <section id="modifying-elements">
-<h3><span class="section-number">3.2.3. </span>Modifying Elements<a class="headerlink" href="#modifying-elements" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.3. </span>Modifying Elements<a class="headerlink" href="#modifying-elements" title="Permalink to this heading">#</a></h3>
 <p>Lists are <em>mutable</em> – their state may be changed.
 The index operator can be used to replace the elements at given indexes.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">]</span>
@@ -590,7 +576,7 @@ them on a few example lists.</p>
 on tuples, ranges, and strings. In other words, they are immutable.</p>
 </div></div></section>
 <section id="searching-for-specific-elements">
-<h3><span class="section-number">3.2.4. </span>Searching for Specific Elements<a class="headerlink" href="#searching-for-specific-elements" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.4. </span>Searching for Specific Elements<a class="headerlink" href="#searching-for-specific-elements" title="Permalink to this heading">#</a></h3>
 <p>The <strong class="command">in</strong> operator and its negation, <strong class="command">not in</strong>,
 determine whether an element exists in a given sequence:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">7</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -615,7 +601,7 @@ determine whether an element exists in a given sequence:</p>
 and other classes.</p>
 </div></div></section>
 <section id="arithmetic-operators">
-<h3><span class="section-number">3.2.5. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.5. </span>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this heading">#</a></h3>
 <p>Some arithmetic operators were <em>overloaded</em> for certain sequential
 types, but they carry different meanings than those for integers
 and floats.</p>
@@ -638,7 +624,7 @@ lists, and tuples:</p>
 </section>
 </section>
 <section id="dictionaries">
-<h2><span class="section-number">3.3. </span>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3. </span>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this heading">#</a></h2>
 <p>Dictionaries (objects of type <code class="docutils literal notranslate"><span class="pre">dict</span></code>) are sets of <code class="docutils literal notranslate"><span class="pre">key:value</span></code> pairs,
 where the <code class="docutils literal notranslate"><span class="pre">values</span></code> (any Python object) can be accessed by <code class="docutils literal notranslate"><span class="pre">key</span></code>
 (usually a string<a class="footnote-reference brackets" href="#foothash" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
@@ -693,7 +679,7 @@ on the repositories starred by yours truly on GitHub.
 As an exercise, the reader is encouraged to inspect its structure.</p>
 </div></div></section>
 <section id="iterable-types">
-<span id="sec-iterable"></span><h2><span class="section-number">3.4. </span>Iterable Types<a class="headerlink" href="#iterable-types" title="Permalink to this heading">¶</a></h2>
+<span id="sec-iterable"></span><h2><span class="section-number">3.4. </span>Iterable Types<a class="headerlink" href="#iterable-types" title="Permalink to this heading">#</a></h2>
 <p>All the objects we discussed here are <em>iterable</em>. In other words,
 we can iterate through each element contained therein.</p>
 <p>In particular, the <strong class="command">list</strong> and <strong class="command">tuple</strong> <em>functions</em> take
@@ -731,7 +717,7 @@ at random using the index operator).</p>
 Check out the <strong class="command">enumerate</strong>, <strong class="command">zip</strong>, and <strong class="command">reversed</strong>
 functions and what kind of iterable objects they return.</p>
 </div></div><section id="the-for-loop">
-<h3><span class="section-number">3.4.1. </span>The <strong class="command">for</strong> Loop<a class="headerlink" href="#the-for-loop" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.1. </span>The <strong class="command">for</strong> Loop<a class="headerlink" href="#the-for-loop" title="Permalink to this heading">#</a></h3>
 <p>The <strong class="command">for</strong> loop iterates over every element in an iterable object,
 allowing us to perform a specific action.
 For example:</p>
@@ -806,7 +792,7 @@ the size of a given file, in bytes. Write a function that determines
 the total size of all the files in a given directory.</p>
 </div></div></section>
 <section id="tuple-assignment">
-<span id="sec-tuple-assign"></span><h3><span class="section-number">3.4.2. </span>Tuple Assignment<a class="headerlink" href="#tuple-assignment" title="Permalink to this heading">¶</a></h3>
+<span id="sec-tuple-assign"></span><h3><span class="section-number">3.4.2. </span>Tuple Assignment<a class="headerlink" href="#tuple-assignment" title="Permalink to this heading">#</a></h3>
 <p>We can create many variables in one line of code
 by using the syntax <code class="docutils literal notranslate"><span class="pre">tuple_of_ids</span> <span class="pre">=</span> <span class="pre">iterable_object</span></code>,
 which unpacks the iterable:</p>
@@ -910,7 +896,7 @@ assignment operator.</p>
 </div>
 </section>
 <section id="argument-unpacking">
-<h3><span class="section-number">3.4.3. </span>Argument Unpacking (*)<a class="headerlink" href="#argument-unpacking" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.3. </span>Argument Unpacking (*)<a class="headerlink" href="#argument-unpacking" title="Permalink to this heading">#</a></h3>
 <p>Sometimes we will need to call a function with many parameters
 or call a series of functions with similar arguments (e.g.,
 when plotting many objects using the same plotting style
@@ -950,7 +936,7 @@ equivalent:</p>
 </div>
 </section>
 <section id="variadic-arguments-args-and-kwargs">
-<h3><span class="section-number">3.4.4. </span>Variadic Arguments: <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> (*)<a class="headerlink" href="#variadic-arguments-args-and-kwargs" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.4. </span>Variadic Arguments: <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> (*)<a class="headerlink" href="#variadic-arguments-args-and-kwargs" title="Permalink to this heading">#</a></h3>
 <p>We can also construct a function that takes any number
 of positional or keyword arguments by including
 <code class="docutils literal notranslate"><span class="pre">*args</span></code> or <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> (those are customary names)
@@ -986,9 +972,9 @@ Study what <strong class="command">matplotlib.pyplot.plot</strong> uses them for
 </div></div></section>
 </section>
 <section id="object-references-and-copying">
-<span id="sec-copying"></span><h2><span class="section-number">3.5. </span>Object References and Copying (*)<a class="headerlink" href="#object-references-and-copying" title="Permalink to this heading">¶</a></h2>
+<span id="sec-copying"></span><h2><span class="section-number">3.5. </span>Object References and Copying (*)<a class="headerlink" href="#object-references-and-copying" title="Permalink to this heading">#</a></h2>
 <section id="copying-references">
-<h3><span class="section-number">3.5.1. </span>Copying References<a class="headerlink" href="#copying-references" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.5.1. </span>Copying References<a class="headerlink" href="#copying-references" title="Permalink to this heading">#</a></h3>
 <p>It is important to always keep in mind that when writing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
@@ -1014,7 +1000,7 @@ and <strong class="program">pandas</strong> data frames.</p>
 gives the same result as above is left as an exercise.</p>
 </section>
 <section id="pass-by-assignment">
-<h3><span class="section-number">3.5.2. </span>Pass by Assignment<a class="headerlink" href="#pass-by-assignment" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.5.2. </span>Pass by Assignment<a class="headerlink" href="#pass-by-assignment" title="Permalink to this heading">#</a></h3>
 <p>Arguments are passed to functions by assignment too.
 In other words, they behave as if `<strong class="command">=</strong>` was used – what we get
 is another reference to the existing object.</p>
@@ -1031,7 +1017,7 @@ is another reference to the existing object.</p>
 </div>
 </section>
 <section id="object-copies">
-<h3><span class="section-number">3.5.3. </span>Object Copies<a class="headerlink" href="#object-copies" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.5.3. </span>Object Copies<a class="headerlink" href="#object-copies" title="Permalink to this heading">#</a></h3>
 <p>If we find the above behaviour undesirable, we can always make
 a copy of an object. It is customary for the mutable objects
 to be equipped with a relevant method:</p>
@@ -1046,7 +1032,7 @@ to be equipped with a relevant method:</p>
 because it is now a different entity.</p>
 </section>
 <section id="modify-in-place-or-return-a-modified-copy">
-<span id="sec-inplace"></span><h3><span class="section-number">3.5.4. </span>Modify in Place or Return a Modified Copy?<a class="headerlink" href="#modify-in-place-or-return-a-modified-copy" title="Permalink to this heading">¶</a></h3>
+<span id="sec-inplace"></span><h3><span class="section-number">3.5.4. </span>Modify in Place or Return a Modified Copy?<a class="headerlink" href="#modify-in-place-or-return-a-modified-copy" title="Permalink to this heading">#</a></h3>
 <p>We now know that we <em>can</em> have functions or methods that
 change the state of a given object.
 Consequently, for all the functions we apply, it is important to
@@ -1109,7 +1095,7 @@ exceptions to them if they deem it more sensible or convenient.</p>
 </section>
 </section>
 <section id="further-reading">
-<h2><span class="section-number">3.6. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.6. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
 <p>Our overview of the Python language is by no means exhaustive.
 Still, it touches upon the most important topics from the perspective
 of data wrangling.</p>
@@ -1143,7 +1129,7 @@ in the <a class="reference external" href="https://docs.python.org/3/tutorial/in
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">3.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
@@ -1214,50 +1200,113 @@ displaying numerous ads.</p>
 </section>
 </section>
 
-
-           </div>
-           
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="210-vector.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><span class="section-number">4. </span>Unidimensional Numeric Data and Their Empirical Distribution</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="120-scalar.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><span class="section-number">2. </span>Scalar Types and Control Structures in Python</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+              
+              
+              Copyright &#169; 2022–2023 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>.
+              Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
+              Built with <a href="https://sphinx-doc.org/">Sphinx</a>
+              and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
+              Last updated on 2023-02-15T22:20:49+1100.
+              This site will never display any ads: it is a non-profit project.
+              It does not collect any data.
+            </div>
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="210-vector.html" class="btn btn-neutral float-right" title="4. Unidimensional Numeric Data and Their Empirical Distribution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="120-scalar.html" class="btn btn-neutral float-left" title="2. Scalar Types and Control Structures in Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        </div>
+        
+      </footer>
     </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            In this chapter
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">3. Sequential and Other Types in Python</a><ul>
+<li><a class="reference internal" href="#sequential-types">3.1. Sequential Types</a><ul>
+<li><a class="reference internal" href="#lists">3.1.1. Lists</a></li>
+<li><a class="reference internal" href="#tuples">3.1.2. Tuples</a></li>
+<li><a class="reference internal" href="#ranges">3.1.3. Ranges</a></li>
+<li><a class="reference internal" href="#strings-again">3.1.4. Strings (Again)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#working-with-sequences">3.2. Working with Sequences</a><ul>
+<li><a class="reference internal" href="#extracting-elements">3.2.1. Extracting Elements</a></li>
+<li><a class="reference internal" href="#slicing">3.2.2. Slicing</a></li>
+<li><a class="reference internal" href="#modifying-elements">3.2.3. Modifying Elements</a></li>
+<li><a class="reference internal" href="#searching-for-specific-elements">3.2.4. Searching for Specific Elements</a></li>
+<li><a class="reference internal" href="#arithmetic-operators">3.2.5. Arithmetic Operators</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dictionaries">3.3. Dictionaries</a></li>
+<li><a class="reference internal" href="#iterable-types">3.4. Iterable Types</a><ul>
+<li><a class="reference internal" href="#the-for-loop">3.4.1. The <strong class="command">for</strong> Loop</a></li>
+<li><a class="reference internal" href="#tuple-assignment">3.4.2. Tuple Assignment</a></li>
+<li><a class="reference internal" href="#argument-unpacking">3.4.3. Argument Unpacking (*)</a></li>
+<li><a class="reference internal" href="#variadic-arguments-args-and-kwargs">3.4.4. Variadic Arguments: <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> (*)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#object-references-and-copying">3.5. Object References and Copying (*)</a><ul>
+<li><a class="reference internal" href="#copying-references">3.5.1. Copying References</a></li>
+<li><a class="reference internal" href="#pass-by-assignment">3.5.2. Pass by Assignment</a></li>
+<li><a class="reference internal" href="#object-copies">3.5.3. Object Copies</a></li>
+<li><a class="reference internal" href="#modify-in-place-or-return-a-modified-copy">3.5.4. Modify in Place or Return a Modified Copy?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#further-reading">3.6. Further Reading</a></li>
+<li><a class="reference internal" href="#exercises">3.7. Exercises</a></li>
+</ul>
+</li>
+</ul>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        Copyright &#169; 2022–2023 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
-
-    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
-    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
-    theme.
-      <span class="lastupdated">
-        Last updated on 2023-02-06T10:33:24+1100.
-      </span>
-
-
-    This site will never display any ads: it is a non-profit project.
-    It does not collect any data.
-
-    </p>
-  </div> 
-
-</footer>
+          </div>
         </div>
       </div>
-
-    </section>
-
+      
+      
+    </aside>
   </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/proof.js"></script>
+    </body>
 </html>

@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-
-
-<html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2023, Marek Gagolewski <https://www.gagolewski.com> -->
-
-<head>
-  <meta charset="utf-8" />
-
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
 <meta content="2023" name="citation_date" />
@@ -30,115 +25,178 @@
 <meta content="INDEX,FOLLOW" name="robots" />
 <meta content="book" name="og:type" />
 <meta content="9780645571912" name="og:book:isbn" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="12. Processing Data in Groups" href="430-group-by.html" /><link rel="prev" title="10. Introducing Data Frames" href="410-data-frame.html" />
+        <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/420-categorical.html" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>11. Handling Categorical Data &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
-  
-
-  
-  
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-
-  
-  
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
-  
-
-  
-  
-
-  
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/420-categorical.html" />
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>11. Handling Categorical Data - Minimalist Data Wrangling with Python</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/proof.js"></script>
-        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: red;
+  --color-brand-content: #CC3333;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: #ff2b53;
+  --color-brand-content: #dd3333;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: #ff2b53;
+  --color-brand-content: #dd3333;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
     
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="12. Processing Data in Groups" href="430-group-by.html" />
-    <link rel="prev" title="10. Introducing Data Frames" href="410-data-frame.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
 
-          
-            <a href="../index.html"> Minimalist Data Wrangling with Python
-          
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-          
-          </a>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
 
-          <div class="version">
-          An Open-Access Textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.3
-          </div>
 
-<!--
-          
-            
-            
-              <div class="version">
-                by Marek Gagolewski
-              </div>
-            
-          
--->
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search phrase..." />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Minimalist Data Wrangling with Python</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto colour theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky">
+
+<span class="sidebar-brand-text">
+<a class="sidebar-brand" href="../index.html">Minimalist Data Wrangling with Python</a>
+</span>
+<div class="sidebar-brand">
+An open-access textbook<br />
+by <a href='https://www.gagolewski.com' style="display: contents">Marek Gagolewski</a><br />
+v1.0.3.9001
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul>
+<form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">About</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com/">Author</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">This Book in PDF</a></li>
@@ -172,42 +230,7 @@
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="410-data-frame.html">10. Introducing Data Frames</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">11. Handling Categorical Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#representing-and-generating-categorical-data">11.1. Representing and Generating Categorical Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#encoding-and-decoding-factors">11.1.1. Encoding and Decoding Factors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binary-data-as-logical-and-probability-vectors">11.1.2. Binary Data as Logical and Probability Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#one-hot-encoding">11.1.3. One-Hot Encoding (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binning-numeric-data-revisited">11.1.4. Binning Numeric Data (Revisited)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generating-pseudorandom-labels">11.1.5. Generating Pseudorandom Labels</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#frequency-distributions">11.2. Frequency Distributions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#counting">11.2.1. Counting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#two-way-contingency-tables-factor-combinations">11.2.2. Two-Way Contingency Tables: Factor Combinations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#combinations-of-even-more-factors">11.2.3. Combinations of Even More Factors</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#visualising-factors">11.3. Visualising Factors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bar-plots">11.3.1. Bar Plots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#political-marketing-and-statistics">11.3.2. Political Marketing and Statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pie-cha-don-t-even-trip">11.3.3. Pie Cha… Don’t Even Trip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pareto-charts">11.3.4. Pareto Charts (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#heat-maps">11.3.5. Heat Maps</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#aggregating-and-comparing-factors">11.4. Aggregating and Comparing Factors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#a-mode">11.4.1. A Mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binary-data-as-logical-vectors">11.4.2. Binary Data as Logical Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pearson-s-chi-squared-test">11.4.3. Pearson’s Chi-Squared Test (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#two-sample-pearson-s-chi-squared-test">11.4.4. Two-Sample Pearson’s Chi-Squared Test (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#measuring-association">11.4.5. Measuring Association (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#binned-numeric-data">11.4.6. Binned Numeric Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ordinal-data">11.4.7. Ordinal Data (*)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">11.5. Exercises</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">11. Handling Categorical Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="430-group-by.html">12. Processing Data in Groups</a></li>
 <li class="toctree-l1"><a class="reference internal" href="440-sql.html">13. Accessing Databases</a></li>
 </ul>
@@ -223,87 +246,47 @@
 <li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">References</a></li>
 </ul>
 
-            
-          
-        </div>
-        
+</div></div>
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">11. </span>Handling Categorical Data</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-
-        
-        
-        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">GitHub</a>
-        
-
-
-        
-      </li>
-    
-  </ul>
-
-  
-  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
-      
-        <a href="430-group-by.html" class="btn btn-neutral float-right" title="12. Processing Data in Groups" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-      
-      
-        <a href="410-data-frame.html" class="btn btn-neutral float-left" title="10. Introducing Data Frames" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-      
-  </div>
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <section class="tex2jax_ignore mathjax_ignore" id="handling-categorical-data">
-<span id="chap-categorical"></span><h1><span class="section-number">11. </span>Handling Categorical Data<a class="headerlink" href="#handling-categorical-data" title="Permalink to this heading">¶</a></h1>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/gagolews/datawranglingpy/issues/" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto colour theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section class="tex2jax_ignore mathjax_ignore" id="handling-categorical-data">
+<span id="chap-categorical"></span><h1><span class="section-number">11. </span>Handling Categorical Data<a class="headerlink" href="#handling-categorical-data" title="Permalink to this heading">#</a></h1>
 <blockquote>
 <div><p><em>The open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
@@ -353,7 +336,7 @@ men and women separately). Also, they may serve as
 target variables in statistical classification tasks
 (e.g., so that we can determine if an email is “spam” or “not spam”).</p>
 <section id="representing-and-generating-categorical-data">
-<h2><span class="section-number">11.1. </span>Representing and Generating Categorical Data<a class="headerlink" href="#representing-and-generating-categorical-data" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.1. </span>Representing and Generating Categorical Data<a class="headerlink" href="#representing-and-generating-categorical-data" title="Permalink to this heading">#</a></h2>
 <p>Common ways to represent a categorical variable
 with <span class="math notranslate nohighlight">\(l\)</span> distinct levels <span class="math notranslate nohighlight">\(\{L_1,L_2,\dots,L_l\}\)</span>
 is by storing it as:</p>
@@ -398,7 +381,7 @@ but it would sort the distinct values lexicographically.
 In other words, they would <em>not</em> be listed in the order of appearance.</p>
 </div>
 <section id="encoding-and-decoding-factors">
-<h3><span class="section-number">11.1.1. </span>Encoding and Decoding Factors<a class="headerlink" href="#encoding-and-decoding-factors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>Encoding and Decoding Factors<a class="headerlink" href="#encoding-and-decoding-factors" title="Permalink to this heading">#</a></h3>
 <p>To <em>encode</em> a label vector using a set of consecutive nonnegative
 integers, we can call <strong class="command">pandas.factorize</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">codes_cntrs16</span><span class="p">,</span> <span class="n">cat_cntrs16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span>  <span class="c1"># sort=False</span>
@@ -530,7 +513,7 @@ as ordinary strings, unless a relabelling on-the-fly is required:</p>
 </div>
 </section>
 <section id="binary-data-as-logical-and-probability-vectors">
-<span id="sec-binary-logical"></span><h3><span class="section-number">11.1.2. </span>Binary Data as Logical and Probability Vectors<a class="headerlink" href="#binary-data-as-logical-and-probability-vectors" title="Permalink to this heading">¶</a></h3>
+<span id="sec-binary-logical"></span><h3><span class="section-number">11.1.2. </span>Binary Data as Logical and Probability Vectors<a class="headerlink" href="#binary-data-as-logical-and-probability-vectors" title="Permalink to this heading">#</a></h3>
 <p><em>Binary data</em> is a special case of the qualitative setting,
 where we only have <span class="math notranslate nohighlight">\(l=2\)</span> categories.
 For example:</p>
@@ -586,13 +569,14 @@ Use <strong class="command">numpy.where</strong>, which can act as a vectorised 
 of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement.</p>
 </div></div></section>
 <section id="one-hot-encoding">
-<h3><span class="section-number">11.1.3. </span>One-Hot Encoding (*)<a class="headerlink" href="#one-hot-encoding" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.1.3. </span>One-Hot Encoding (*)<a class="headerlink" href="#one-hot-encoding" title="Permalink to this heading">#</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> be a vector of <span class="math notranslate nohighlight">\(n\)</span>
 integer labels in <span class="math notranslate nohighlight">\(\{0,...,l-1\}\)</span>.
 Its <em>one-hot</em> encoded version is a 0/1 (or, equivalently, logical)
 matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> of shape  <span class="math notranslate nohighlight">\(n\)</span>-by-<span class="math notranslate nohighlight">\(l\)</span>
 such that <span class="math notranslate nohighlight">\(r_{i,j}=1\)</span> if and only if <span class="math notranslate nohighlight">\(x_i = j\)</span>.</p>
 <p>For example, if <span class="math notranslate nohighlight">\(\boldsymbol{x}=(0, 1, 2, 1)\)</span> and <span class="math notranslate nohighlight">\(l=4\)</span>, then:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{R} = \left[
@@ -604,6 +588,7 @@ such that <span class="math notranslate nohighlight">\(r_{i,j}=1\)</span> if and
 \end{array}
 \right].
 \end{split}\]</div>
+</div>
 <p>One can easily verify that each row consists of one and only one 1
 (the number of 1s per one row is 1).
 Such a representation is adequate when solving
@@ -645,7 +630,7 @@ Then, decode such a matrix by choosing the greatest element
 in each row.</p>
 </div></div></section>
 <section id="binning-numeric-data-revisited">
-<span id="sec-binning"></span><h3><span class="section-number">11.1.4. </span>Binning Numeric Data (Revisited)<a class="headerlink" href="#binning-numeric-data-revisited" title="Permalink to this heading">¶</a></h3>
+<span id="sec-binning"></span><h3><span class="section-number">11.1.4. </span>Binning Numeric Data (Revisited)<a class="headerlink" href="#binning-numeric-data-revisited" title="Permalink to this heading">#</a></h3>
 <p>Numerical data can be converted to categorical via binning (quantisation).
 Even though this results in information loss,
 it may open some new possibilities. In fact,
@@ -746,7 +731,7 @@ can be used for generating equidistant bounds
 on linear and logarithmic scales, respectively.</p>
 </div></div></section>
 <section id="generating-pseudorandom-labels">
-<span id="sec-random-choice"></span><h3><span class="section-number">11.1.5. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this heading">¶</a></h3>
+<span id="sec-random-choice"></span><h3><span class="section-number">11.1.5. </span>Generating Pseudorandom Labels<a class="headerlink" href="#generating-pseudorandom-labels" title="Permalink to this heading">#</a></h3>
 <p><strong class="command">numpy.random.choice</strong> allows us to create a pseudorandom sample
 with categories picked with given probabilities:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
@@ -767,9 +752,9 @@ to be drawn in 5% of the cases, etc.</p>
 </section>
 </section>
 <section id="frequency-distributions">
-<h2><span class="section-number">11.2. </span>Frequency Distributions<a class="headerlink" href="#frequency-distributions" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2. </span>Frequency Distributions<a class="headerlink" href="#frequency-distributions" title="Permalink to this heading">#</a></h2>
 <section id="counting">
-<h3><span class="section-number">11.2.1. </span>Counting<a class="headerlink" href="#counting" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.2.1. </span>Counting<a class="headerlink" href="#counting" title="Permalink to this heading">#</a></h3>
 <p><strong class="command">pandas.Series.value_counts</strong> creates
 a frequency table in the form of a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object
 equipped with a readable index (element labels):</p>
@@ -812,7 +797,7 @@ or percentages (if we multiply them by 100):</p>
 together with the corresponding items in <code class="docutils literal notranslate"><span class="pre">cat_cntrs16</span></code>.</p>
 </div></div></section>
 <section id="two-way-contingency-tables-factor-combinations">
-<span id="sec-contingency-two"></span><h3><span class="section-number">11.2.2. </span>Two-Way Contingency Tables: Factor Combinations<a class="headerlink" href="#two-way-contingency-tables-factor-combinations" title="Permalink to this heading">¶</a></h3>
+<span id="sec-contingency-two"></span><h3><span class="section-number">11.2.2. </span>Two-Way Contingency Tables: Factor Combinations<a class="headerlink" href="#two-way-contingency-tables-factor-combinations" title="Permalink to this heading">#</a></h3>
 <p>Some datasets may feature many categorical columns,
 each having possibly different levels.
 Let us now consider all the runners in the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset:</p>
@@ -893,7 +878,7 @@ of <code class="docutils literal notranslate"><span class="pre">V</span></code>:
 </div>
 </section>
 <section id="combinations-of-even-more-factors">
-<h3><span class="section-number">11.2.3. </span>Combinations of Even More Factors<a class="headerlink" href="#combinations-of-even-more-factors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.2.3. </span>Combinations of Even More Factors<a class="headerlink" href="#combinations-of-even-more-factors" title="Permalink to this heading">#</a></h3>
 <p><strong class="command">pandas.DataFrame.value_counts</strong> can also be used
 with a combination of more than two categorical variables:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts3</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span>
@@ -951,12 +936,12 @@ but also we can store the results of such analyses
 </section>
 </section>
 <section id="visualising-factors">
-<h2><span class="section-number">11.3. </span>Visualising Factors<a class="headerlink" href="#visualising-factors" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.3. </span>Visualising Factors<a class="headerlink" href="#visualising-factors" title="Permalink to this heading">#</a></h2>
 <p>Methods for visualising categorical data are by no means
 fascinating (unless we use them as grouping variables in more complex
 datasets, but this is a topic that we cover in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>).</p>
 <section id="bar-plots">
-<h3><span class="section-number">11.3.1. </span>Bar Plots<a class="headerlink" href="#bar-plots" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.3.1. </span>Bar Plots<a class="headerlink" href="#bar-plots" title="Permalink to this heading">#</a></h3>
 <p>Example data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">([</span><span class="s2">&quot;20&quot;</span><span class="p">,</span> <span class="s2">&quot;30&quot;</span><span class="p">,</span> <span class="s2">&quot;40&quot;</span><span class="p">,</span> <span class="s2">&quot;50&quot;</span><span class="p">,</span> <span class="s2">&quot;60+&quot;</span><span class="p">])</span>
@@ -982,7 +967,7 @@ will do the trick most of the time; see <a class="reference internal" href="#fig
 <figure class="align-default" id="id16">
 <span id="fig-bar-country"></span><img alt="../_images/bar-country-1.png" src="../_images/bar-country-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.1 </span><span class="caption-text">Runners’ age categories</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.1 </span><span class="caption-text">Runners’ age categories</span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The <code class="docutils literal notranslate"><span class="pre">ind</span></code> vector gives the x-coordinates of the bars;
@@ -1017,7 +1002,7 @@ is a pleasant wrapper around <strong class="command">matplotlib.pyplot.bar</stro
 <figure class="align-default" id="id18">
 <span id="fig-bar-age-sex"></span><img alt="../_images/bar-age-sex-3.png" src="../_images/bar-age-sex-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.2 </span><span class="caption-text">Number of runners by age category and sex</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.2 </span><span class="caption-text">Number of runners by age category and sex</span><a class="headerlink" href="#id18" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id19">
@@ -1040,12 +1025,12 @@ data that have been normalised so that, for each sex, their sum is 100%.</p>
 <figure class="align-default" id="id21">
 <span id="fig-stacked-bar"></span><img alt="../_images/stacked-bar-5.png" src="../_images/stacked-bar-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.3 </span><span class="caption-text">An example stacked bar plot: Age distribution for different sexes amongst all the runners</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.3 </span><span class="caption-text">An example stacked bar plot: Age distribution for different sexes amongst all the runners</span><a class="headerlink" href="#id21" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div></section>
 <section id="political-marketing-and-statistics">
-<span id="sec-political-marketing"></span><h3><span class="section-number">11.3.2. </span>Political Marketing and Statistics<a class="headerlink" href="#political-marketing-and-statistics" title="Permalink to this heading">¶</a></h3>
+<span id="sec-political-marketing"></span><h3><span class="section-number">11.3.2. </span>Political Marketing and Statistics<a class="headerlink" href="#political-marketing-and-statistics" title="Permalink to this heading">#</a></h3>
 <p>Even such a simple chart as bar plot can be manipulated.
 In the second round of the presidential elections that
 were held in Poland in 2020, Andrzej Duda won against
@@ -1064,7 +1049,7 @@ media outlets:</p>
 <figure class="align-default" id="id22">
 <span id="fig-wybory1"></span><img alt="../_images/wybory1-7.png" src="../_images/wybory1-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.4 </span><span class="caption-text">Such a great victory! Wait… Just look at the y-axis tick marks.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.4 </span><span class="caption-text">Such a great victory! Wait… Just look at the y-axis tick marks.</span><a class="headerlink" href="#id22" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Another media conglomerate could have reported
@@ -1082,7 +1067,7 @@ it like in <a class="reference internal" href="#fig-wybory2"><span class="std st
 <figure class="align-default" id="id23">
 <span id="fig-wybory2"></span><img alt="../_images/wybory2-9.png" src="../_images/wybory2-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.5 </span><span class="caption-text">It was a draw! So close!</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.5 </span><span class="caption-text">It was a draw! So close!</span><a class="headerlink" href="#id23" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -1093,7 +1078,7 @@ this is unethical; compare Rule#9.</p>
 </div>
 </section>
 <section id="pie-cha-don-t-even-trip">
-<h3><span class="section-number">11.3.3. </span>Pie Cha… Don’t Even Trip<a class="headerlink" href="#pie-cha-don-t-even-trip" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.3.3. </span>Pie Cha… Don’t Even Trip<a class="headerlink" href="#pie-cha-don-t-even-trip" title="Permalink to this heading">#</a></h3>
 <p>We are definitely not going to discuss the infamous
 pie charts, because
 their use in data analysis has been widely criticised for a long time
@@ -1101,7 +1086,7 @@ their use in data analysis has been widely criticised for a long time
 Do not draw them. Ever. Good morning.</p>
 </section>
 <section id="pareto-charts">
-<h3><span class="section-number">11.3.4. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.3.4. </span>Pareto Charts (*)<a class="headerlink" href="#pareto-charts" title="Permalink to this heading">#</a></h3>
 <p>As a general (empirical) rule, it is usually the case
 that most instances of something’s happening (usually 70–90%)
 are due to only a few causes (10–30%). This is known as the <em>Pareto principle</em>
@@ -1181,7 +1166,7 @@ of the <strong class="program">matplotlib</strong> package is left as an exercis
 <figure class="align-default" id="id25">
 <span id="fig-pareto-chart"></span><img alt="../_images/pareto-chart-11.png" src="../_images/pareto-chart-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.6 </span><span class="caption-text">An example Pareto chart: the most frequent causes for medication errors</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.6 </span><span class="caption-text">An example Pareto chart: the most frequent causes for medication errors</span><a class="headerlink" href="#id25" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In <a class="reference internal" href="#fig-pareto-chart"><span class="std std-numref">Figure 11.6</span></a>, we can read that the first five causes
@@ -1219,7 +1204,7 @@ for our communities, especially in the public system.
 Why add to their stress?</p>
 </section>
 <section id="heat-maps">
-<h3><span class="section-number">11.3.5. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.3.5. </span>Heat Maps<a class="headerlink" href="#heat-maps" title="Permalink to this heading">#</a></h3>
 <p>Two-way contingency tables can be depicted by means of a heatmap,
 where each count influences the corresponding cell’s colour intensity;
 see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std std-numref">Figure 11.7</span></a>.</p>
@@ -1232,15 +1217,15 @@ see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std
 <figure class="align-default" id="id26">
 <span id="fig-heat-map-marathon"></span><img alt="../_images/heat-map-marathon-13.png" src="../_images/heat-map-marathon-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 11.7 </span><span class="caption-text">A heatmap for the marathoners’ sex and age category</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 11.7 </span><span class="caption-text">A heatmap for the marathoners’ sex and age category</span><a class="headerlink" href="#id26" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="aggregating-and-comparing-factors">
-<h2><span class="section-number">11.4. </span>Aggregating and Comparing Factors<a class="headerlink" href="#aggregating-and-comparing-factors" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.4. </span>Aggregating and Comparing Factors<a class="headerlink" href="#aggregating-and-comparing-factors" title="Permalink to this heading">#</a></h2>
 <section id="a-mode">
-<h3><span class="section-number">11.4.1. </span>A Mode<a class="headerlink" href="#a-mode" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.4.1. </span>A Mode<a class="headerlink" href="#a-mode" title="Permalink to this heading">#</a></h3>
 <p>The only operation on categorical data on which we can rely is counting.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">counts</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1287,7 +1272,7 @@ candidates:</p>
 we can pick one at random (calling <strong class="command">numpy.random.choice</strong>).</p>
 </section>
 <section id="binary-data-as-logical-vectors">
-<h3><span class="section-number">11.4.2. </span>Binary Data as Logical Vectors<a class="headerlink" href="#binary-data-as-logical-vectors" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.4.2. </span>Binary Data as Logical Vectors<a class="headerlink" href="#binary-data-as-logical-vectors" title="Permalink to this heading">#</a></h3>
 <p>Recall that we are used to representing binary data as logical
 vectors or, equivalently, vectors of 0s and 1s.</p>
 <p>Perhaps the most useful arithmetic operation on
@@ -1344,7 +1329,7 @@ and <code class="docutils literal notranslate"><span class="pre">p*q</span> <spa
 </div>
 </section>
 <section id="pearson-s-chi-squared-test">
-<span id="sec-chisq-test"></span><h3><span class="section-number">11.4.3. </span>Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#pearson-s-chi-squared-test" title="Permalink to this heading">¶</a></h3>
+<span id="sec-chisq-test"></span><h3><span class="section-number">11.4.3. </span>Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#pearson-s-chi-squared-test" title="Permalink to this heading">#</a></h3>
 <p>The Kolmogorov–Smirnov test that we described in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>
 verifies whether a given sample differs significantly from
 a hypothesised <em>continuous</em><a class="footnote-reference brackets" href="#footdiscreteks" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> distribution, i.e.,
@@ -1354,6 +1339,7 @@ and easy-to-understand test developed by Karl Pearson in 1900.
 It is supposed to judge whether the differences between the observed
 proportions <span class="math notranslate nohighlight">\(\hat{p}_1,\dots,\hat{p}_l\)</span> and the
 theoretical ones <span class="math notranslate nohighlight">\(p_1,\dots,p_l\)</span> are significantly large or not:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \left\{
@@ -1363,6 +1349,7 @@ H_1: &amp; \hat{p}_i\neq p_i\ \text{ for some }i=1,\dots,l &amp; \text{(alternat
 \end{array}
 \right.
 \end{split}\]</div>
+</div>
 <p>Having such a test is beneficial, e.g., when
 the data we have at hand are based on small surveys
 that are supposed to serve as estimates of what might be happening in
@@ -1378,10 +1365,12 @@ against the theoretical distribution <span class="math notranslate nohighlight">
 which states that there is a tie between the competitors
 (up to a sampling error).</p>
 <p>A natural test statistic is based on the relative squared differences:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \hat{T} = n \sum_{i=1}^l \frac{\left(\hat{p}_i-p_i\right)^2}{p_i}.
 \]</div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">516</span><span class="p">,</span> <span class="mi">1017</span>
 <span class="n">p_observed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">c</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
 <span class="n">p_expected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
@@ -1392,10 +1381,12 @@ which states that there is a tie between the competitors
 </div>
 <p>Similarly to the continuous case in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>,
 we should reject the null hypothesis, if:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \hat{T} \ge K.
 \]</div>
+</div>
 <p>The critical value <span class="math notranslate nohighlight">\(K\)</span> is computed based
 on the fact that, if the null hypothesis is true,
 <span class="math notranslate nohighlight">\(\hat{T}\)</span> follows the <span class="math notranslate nohighlight">\(\chi^2\)</span> (chi-squared, hence the name of the test)
@@ -1425,7 +1416,7 @@ claiming they would vote for Duda,
 that leads to the rejection of the null hypothesis.</p>
 </div></div></section>
 <section id="two-sample-pearson-s-chi-squared-test">
-<span id="sec-chisq-test2"></span><h3><span class="section-number">11.4.4. </span>Two-Sample Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#two-sample-pearson-s-chi-squared-test" title="Permalink to this heading">¶</a></h3>
+<span id="sec-chisq-test2"></span><h3><span class="section-number">11.4.4. </span>Two-Sample Pearson’s Chi-Squared Test (*)<a class="headerlink" href="#two-sample-pearson-s-chi-squared-test" title="Permalink to this heading">#</a></h3>
 <p>Let us consider the data depicted in <a class="reference internal" href="#fig-stacked-bar"><span class="std std-numref">Figure 11.3</span></a>
 and test whether the runners’ age distributions
 differ significantly between men and women.</p>
@@ -1462,6 +1453,7 @@ denoted as <span class="math notranslate nohighlight">\(\hat{p}_1',\dots,\hat{p}
 </div>
 <p>We would like to verify whether the corresponding proportions are equal
 (up to some sampling error):</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \left\{
@@ -1471,19 +1463,24 @@ H_1: &amp; \hat{p}_i'\neq \hat{p}_i''\ \text{ for some }i=1,\dots,l &amp; \text{
 \end{array}
 \right.
 \end{split}\]</div>
+</div>
 <p>In other words, we are interested whether the categorical data in the two
 groups come from the same discrete probability distribution.</p>
 <p>Taking the estimated expected proportions:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\bar{p}_i = \frac{n_i' \hat{p}_i' + n_i'' \hat{p}_i''}{n'+n''},\]</div>
+</div>
 <p>for all <span class="math notranslate nohighlight">\(i=1,\dots,l\)</span>,
 the test statistic this time is equal to:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \hat{T} =
 n'  \sum_{i=1}^l \frac{\left(\hat{p}_i' -\bar{p}_i\right)^2}{\bar{p}_i} +
 n'' \sum_{i=1}^l \frac{\left(\hat{p}_i''-\bar{p}_i\right)^2}{\bar{p}_i},
 \]</div>
+</div>
 <p>which is a variation on the one-sample theme
 presented in the previous subsection.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span><span class="o">*</span><span class="n">p1</span><span class="o">+</span><span class="n">n2</span><span class="o">*</span><span class="n">p2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n1</span><span class="o">+</span><span class="n">n2</span><span class="p">)</span>
@@ -1506,7 +1503,7 @@ we reject the null hypothesis. And so, the runners’ age distribution
 differs across sexes (at significance level 0.1%).</p>
 </section>
 <section id="measuring-association">
-<h3><span class="section-number">11.4.5. </span>Measuring Association (*)<a class="headerlink" href="#measuring-association" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.4.5. </span>Measuring Association (*)<a class="headerlink" href="#measuring-association" title="Permalink to this heading">#</a></h3>
 <p>Let us consider the Australian Bureau of Statistics
 <a class="reference external" href="https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey-first-results/2017-18">National Health Survey 2018</a>
 data on the prevalence of certain medical conditions
@@ -1551,11 +1548,14 @@ independent (there is no association between them)
 and 1 (the highest possible value) if they are tied.</p>
 <p>Given a two-way contingency table <span class="math notranslate nohighlight">\(C\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows and
 <span class="math notranslate nohighlight">\(m\)</span> columns and assuming that:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 T = \sum_{i=1}^n \sum_{j=1}^m \frac{(c_{i,j} - e_{i,j})^2}{e_{i,j}},
 \]</div>
+</div>
 <p>where:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 e_{i,j} = \frac{
@@ -1564,13 +1564,16 @@ e_{i,j} = \frac{
 \sum_{i=1}^n \sum_{j=1}^m c_{i,j}
 },
 \]</div>
+</div>
 <p>the Cramér coefficient is given by:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 V = \sqrt{
 \frac{T}{\min\{n-1, m-1\} \sum_{i=1}^n \sum_{j=1}^m c_{i,j}}
 }.
 \]</div>
+</div>
 <p>Here, <span class="math notranslate nohighlight">\(c_{i,j}\)</span> gives the actually observed counts and <span class="math notranslate nohighlight">\(e_{i, j}\)</span> denotes
 the number that we would expect to see
 if the two variables were really independent.</p>
@@ -1630,7 +1633,7 @@ Visualise them on some heatmaps and bar plots (including
 data grouped by sex and age).</p>
 </div></div></section>
 <section id="binned-numeric-data">
-<h3><span class="section-number">11.4.6. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">11.4.6. </span>Binned Numeric Data<a class="headerlink" href="#binned-numeric-data" title="Permalink to this heading">#</a></h3>
 <p>Generally, modes are meaningless for continuous data,
 where repeated values are – at least theoretically – highly unlikely.
 It might make sense to compute them on binned data, though.</p>
@@ -1656,7 +1659,7 @@ Play around with different numbers
 of bins on linear and logarithmic scales and see how they affect the mode.</p>
 </div></div></section>
 <section id="ordinal-data">
-<span id="sec-ordinal-data"></span><h3><span class="section-number">11.4.7. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this heading">¶</a></h3>
+<span id="sec-ordinal-data"></span><h3><span class="section-number">11.4.7. </span>Ordinal Data (*)<a class="headerlink" href="#ordinal-data" title="Permalink to this heading">#</a></h3>
 <p>The case where the categories can be linearly ordered,
 is called <em>ordinal data</em>. For instance,
 Australian university grades are: F (fail) &lt; P (pass) &lt; C (credit) &lt; D
@@ -1715,7 +1718,7 @@ to the true corresponding scores listed in the
 </div></div></section>
 </section>
 <section id="exercises">
-<h2><span class="section-number">11.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
@@ -1816,50 +1819,116 @@ is a better candidate.</p>
 </section>
 </section>
 
-
-           </div>
-           
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="430-group-by.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><span class="section-number">12. </span>Processing Data in Groups</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="410-data-frame.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><span class="section-number">10. </span>Introducing Data Frames</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+              
+              
+              Copyright &#169; 2022–2023 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>.
+              Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
+              Built with <a href="https://sphinx-doc.org/">Sphinx</a>
+              and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
+              Last updated on 2023-02-15T22:20:49+1100.
+              This site will never display any ads: it is a non-profit project.
+              It does not collect any data.
+            </div>
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="430-group-by.html" class="btn btn-neutral float-right" title="12. Processing Data in Groups" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="410-data-frame.html" class="btn btn-neutral float-left" title="10. Introducing Data Frames" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        </div>
+        
+      </footer>
     </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            In this chapter
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">11. Handling Categorical Data</a><ul>
+<li><a class="reference internal" href="#representing-and-generating-categorical-data">11.1. Representing and Generating Categorical Data</a><ul>
+<li><a class="reference internal" href="#encoding-and-decoding-factors">11.1.1. Encoding and Decoding Factors</a></li>
+<li><a class="reference internal" href="#binary-data-as-logical-and-probability-vectors">11.1.2. Binary Data as Logical and Probability Vectors</a></li>
+<li><a class="reference internal" href="#one-hot-encoding">11.1.3. One-Hot Encoding (*)</a></li>
+<li><a class="reference internal" href="#binning-numeric-data-revisited">11.1.4. Binning Numeric Data (Revisited)</a></li>
+<li><a class="reference internal" href="#generating-pseudorandom-labels">11.1.5. Generating Pseudorandom Labels</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#frequency-distributions">11.2. Frequency Distributions</a><ul>
+<li><a class="reference internal" href="#counting">11.2.1. Counting</a></li>
+<li><a class="reference internal" href="#two-way-contingency-tables-factor-combinations">11.2.2. Two-Way Contingency Tables: Factor Combinations</a></li>
+<li><a class="reference internal" href="#combinations-of-even-more-factors">11.2.3. Combinations of Even More Factors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#visualising-factors">11.3. Visualising Factors</a><ul>
+<li><a class="reference internal" href="#bar-plots">11.3.1. Bar Plots</a></li>
+<li><a class="reference internal" href="#political-marketing-and-statistics">11.3.2. Political Marketing and Statistics</a></li>
+<li><a class="reference internal" href="#pie-cha-don-t-even-trip">11.3.3. Pie Cha… Don’t Even Trip</a></li>
+<li><a class="reference internal" href="#pareto-charts">11.3.4. Pareto Charts (*)</a></li>
+<li><a class="reference internal" href="#heat-maps">11.3.5. Heat Maps</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aggregating-and-comparing-factors">11.4. Aggregating and Comparing Factors</a><ul>
+<li><a class="reference internal" href="#a-mode">11.4.1. A Mode</a></li>
+<li><a class="reference internal" href="#binary-data-as-logical-vectors">11.4.2. Binary Data as Logical Vectors</a></li>
+<li><a class="reference internal" href="#pearson-s-chi-squared-test">11.4.3. Pearson’s Chi-Squared Test (*)</a></li>
+<li><a class="reference internal" href="#two-sample-pearson-s-chi-squared-test">11.4.4. Two-Sample Pearson’s Chi-Squared Test (*)</a></li>
+<li><a class="reference internal" href="#measuring-association">11.4.5. Measuring Association (*)</a></li>
+<li><a class="reference internal" href="#binned-numeric-data">11.4.6. Binned Numeric Data</a></li>
+<li><a class="reference internal" href="#ordinal-data">11.4.7. Ordinal Data (*)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercises">11.5. Exercises</a></li>
+</ul>
+</li>
+</ul>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        Copyright &#169; 2022–2023 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
-
-    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
-    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
-    theme.
-      <span class="lastupdated">
-        Last updated on 2023-02-06T10:33:24+1100.
-      </span>
-
-
-    This site will never display any ads: it is a non-profit project.
-    It does not collect any data.
-
-    </p>
-  </div> 
-
-</footer>
+          </div>
         </div>
       </div>
-
-    </section>
-
+      
+      
+    </aside>
   </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/proof.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
 </html>

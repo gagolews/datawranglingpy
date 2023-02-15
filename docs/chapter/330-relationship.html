@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-
-
-<html class="writer-html5" lang="en" >
-<!-- Copyright (C) 2020-2023, Marek Gagolewski <https://www.gagolewski.com> -->
-
-<head>
-  <meta charset="utf-8" />
-
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
 <meta content="2023" name="citation_date" />
@@ -30,115 +25,178 @@
 <meta content="INDEX,FOLLOW" name="robots" />
 <meta content="book" name="og:type" />
 <meta content="9780645571912" name="og:book:isbn" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="10. Introducing Data Frames" href="410-data-frame.html" /><link rel="prev" title="8. Processing Multidimensional Data" href="320-transform-matrix.html" />
+        <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/330-relationship.html" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>9. Exploring Relationships Between Variables &mdash; Minimalist Data Wrangling with Python by Marek Gagolewski</title>
-  
-
-  
-  
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
-
-  
-  
-    <link rel="shortcut icon" href="../_static/favicon.png"/>
-  
-
-  
-  
-
-  
-    <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/330-relationship.html" />
-
-  
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>9. Exploring Relationships Between Variables - Minimalist Data Wrangling with Python</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/proof.js"></script>
-        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: red;
+  --color-brand-content: #CC3333;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: #ff2b53;
+  --color-brand-content: #dd3333;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --admonition-font-size: 95%;
+  --admonition-title-font-size: 95%;
+  --color-brand-primary: #ff2b53;
+  --color-brand-content: #dd3333;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
     
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="10. Introducing Data Frames" href="410-data-frame.html" />
-    <link rel="prev" title="8. Processing Multidimensional Data" href="320-transform-matrix.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
 
-          
-            <a href="../index.html"> Minimalist Data Wrangling with Python
-          
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-          
-          </a>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
 
-          <div class="version">
-          An Open-Access Textbook<br />    by <a style="color: inherit" href="https://www.gagolewski.com">Marek     Gagolewski</a><br />    v1.0.3
-          </div>
 
-<!--
-          
-            
-            
-              <div class="version">
-                by Marek Gagolewski
-              </div>
-            
-          
--->
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search phrase..." />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Minimalist Data Wrangling with Python</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto colour theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky">
+
+<span class="sidebar-brand-text">
+<a class="sidebar-brand" href="../index.html">Minimalist Data Wrangling with Python</a>
+</span>
+<div class="sidebar-brand">
+An open-access textbook<br />
+by <a href='https://www.gagolewski.com' style="display: contents">Marek Gagolewski</a><br />
+v1.0.3.9001
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul>
+<form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">About</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.gagolewski.com/">Author</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf">This Book in PDF</a></li>
@@ -167,46 +225,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. Multidimensional Numeric Data at a Glance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">8. Processing Multidimensional Data</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Exploring Relationships Between Variables</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#measuring-correlation">9.1. Measuring Correlation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pearson-s-linear-correlation-coefficient">9.1.1. Pearson’s Linear Correlation Coefficient</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#perfect-linear-correlation">9.1.1.1. Perfect Linear Correlation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#strong-linear-correlation">9.1.1.2. Strong Linear Correlation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#no-linear-correlation-does-not-imply-independence">9.1.1.3. No Linear Correlation Does Not Imply Independence</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#false-linear-correlations">9.1.1.4. False Linear Correlations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#correlation-is-not-causation">9.1.1.5. Correlation Is Not Causation</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#correlation-heatmap">9.1.2. Correlation Heatmap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linear-correlation-coefficients-on-transformed-data">9.1.3. Linear Correlation Coefficients on Transformed Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#spearman-s-rank-correlation-coefficient">9.1.4. Spearman’s Rank Correlation Coefficient</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#regression-tasks">9.2. Regression Tasks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#k-nearest-neighbour-regression">9.2.1. <em>K</em>-Nearest Neighbour Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#from-data-to-linear-models">9.2.2. From Data to (Linear) Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#least-squares-method">9.2.3. Least Squares Method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#analysis-of-residuals">9.2.4. Analysis of Residuals</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#multiple-regression">9.2.5. Multiple Regression</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#variable-transformation-and-linearisable-models">9.2.6. Variable Transformation and Linearisable Models (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#descriptive-vs-predictive-power">9.2.7. Descriptive vs Predictive Power (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fitting-regression-models-with-scikit-learn">9.2.8. Fitting Regression Models with <strong class="program">scikit-learn</strong> (*)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ill-conditioned-model-matrices">9.2.9. Ill-Conditioned Model Matrices (*)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#finding-interesting-combinations-of-variables">9.3. Finding Interesting Combinations of Variables (*)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dot-products-angles-collinearity-and-orthogonality">9.3.1. Dot Products, Angles, Collinearity, and Orthogonality</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#geometric-transformations-of-points">9.3.2. Geometric Transformations of Points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#matrix-inverse">9.3.3. Matrix Inverse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#singular-value-decomposition">9.3.4. Singular Value Decomposition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dimensionality-reduction-with-svd">9.3.5. Dimensionality Reduction with SVD</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#principal-component-analysis">9.3.6. Principal Component Analysis</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#further-reading">9.4. Further Reading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">9.5. Exercises</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">9. Exploring Relationships Between Variables</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heterogeneous Data</span></p>
 <ul>
@@ -227,87 +246,47 @@
 <li class="toctree-l1"><a class="reference internal" href="999-bibliography.html">References</a></li>
 </ul>
 
-            
-          
-        </div>
-        
+</div></div>
+
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Minimalist Data Wrangling with Python</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content style-external-links">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li><span class="section-number">9. </span>Exploring Relationships Between Variables</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-
-        
-        
-        <a class="github-button" href="https://github.com/gagolews/datawranglingpy" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gagolews/datawranglingpy on GitHub">GitHub</a>
-        
-
-
-        
-      </li>
-    
-  </ul>
-
-  
-  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
-      
-        <a href="410-data-frame.html" class="btn btn-neutral float-right" title="10. Introducing Data Frames" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-      
-      
-        <a href="320-transform-matrix.html" class="btn btn-neutral float-left" title="8. Processing Multidimensional Data" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-      
-  </div>
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <section class="tex2jax_ignore mathjax_ignore" id="exploring-relationships-between-variables">
-<span id="chap-relationship"></span><h1><span class="section-number">9. </span>Exploring Relationships Between Variables<a class="headerlink" href="#exploring-relationships-between-variables" title="Permalink to this heading">¶</a></h1>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/gagolews/datawranglingpy/issues/" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto colour theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section class="tex2jax_ignore mathjax_ignore" id="exploring-relationships-between-variables">
+<span id="chap-relationship"></span><h1><span class="section-number">9. </span>Exploring Relationships Between Variables<a class="headerlink" href="#exploring-relationships-between-variables" title="Permalink to this heading">#</a></h1>
 <blockquote>
 <div><p><em>The open-access textbook</em> Minimalist Data
 Wrangling with Python <em>by <a class="reference external" href="https://www.gagolewski.com">Marek Gagolewski</a>
@@ -372,7 +351,7 @@ features describing them, in this order:</p>
 This is why we will now be interested in quantifying the degree of
 association between the variables, modelling the possible functional relationships, and finding new interesting combinations of columns.</p>
 <section id="measuring-correlation">
-<h2><span class="section-number">9.1. </span>Measuring Correlation<a class="headerlink" href="#measuring-correlation" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.1. </span>Measuring Correlation<a class="headerlink" href="#measuring-correlation" title="Permalink to this heading">#</a></h2>
 <p>Scatterplots let us identify some simple patterns or structure in data.
 <a class="reference internal" href="310-matrix.html#fig-body-pairplot"><span class="std std-numref">Figure 7.4</span></a> indicates that higher hip
 circumferences <em>tend to</em> occur more often together with higher arm
@@ -382,8 +361,9 @@ about height.</p>
 (expressing as a single number) the degree of association
 between a set of pairs of points.</p>
 <section id="pearson-s-linear-correlation-coefficient">
-<span id="sec-pearson"></span><h3><span class="section-number">9.1.1. </span>Pearson’s Linear Correlation Coefficient<a class="headerlink" href="#pearson-s-linear-correlation-coefficient" title="Permalink to this heading">¶</a></h3>
+<span id="sec-pearson"></span><h3><span class="section-number">9.1.1. </span>Pearson’s Linear Correlation Coefficient<a class="headerlink" href="#pearson-s-linear-correlation-coefficient" title="Permalink to this heading">#</a></h3>
 <p>The Pearson <em>linear correlation</em> coefficient is given by:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 r(\boldsymbol{x}, \boldsymbol{y}) = \frac{1}{n} \sum_{i=1}^n
@@ -391,6 +371,7 @@ r(\boldsymbol{x}, \boldsymbol{y}) = \frac{1}{n} \sum_{i=1}^n
 \,
    \frac{y_i - \bar{y}}{s_{y}},
 \]</div>
+</div>
 <p>with <span class="math notranslate nohighlight">\(s_x, s_y\)</span> denoting the standard deviations
 and <span class="math notranslate nohighlight">\(\bar{x}, \bar{y}\)</span> being the means of
 <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> and
@@ -456,7 +437,7 @@ let us ignore it by then):</p>
 </pre></div>
 </div>
 <section id="perfect-linear-correlation">
-<h4><span class="section-number">9.1.1.1. </span>Perfect Linear Correlation<a class="headerlink" href="#perfect-linear-correlation" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">9.1.1.1. </span>Perfect Linear Correlation<a class="headerlink" href="#perfect-linear-correlation" title="Permalink to this heading">#</a></h4>
 <p>The aforementioned properties imply that
 <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=-1\)</span> if and only if
 <span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&lt;0\)</span> and any <span class="math notranslate nohighlight">\(b\)</span>
@@ -476,7 +457,7 @@ of the other variable; see <a class="reference internal" href="#fig-corr-ex-0"><
 <figure class="align-default" id="id24">
 <span id="fig-corr-ex-0"></span><img alt="../_images/corr-ex-0-1.png" src="../_images/corr-ex-0-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.1 </span><span class="caption-text">Perfect linear correlation (negative and positive)</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.1 </span><span class="caption-text">Perfect linear correlation (negative and positive)</span><a class="headerlink" href="#id24" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>A negative correlation means that when one variable
@@ -484,7 +465,7 @@ increases, the other one decreases (like: a car’s braking distance vs
 velocity).</p>
 </section>
 <section id="strong-linear-correlation">
-<h4><span class="section-number">9.1.1.2. </span>Strong Linear Correlation<a class="headerlink" href="#strong-linear-correlation" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">9.1.1.2. </span>Strong Linear Correlation<a class="headerlink" href="#strong-linear-correlation" title="Permalink to this heading">#</a></h4>
 <p>Next, if two variables are <em>more or less</em> linear functions
 of themselves, the correlations will be close to -1 or 1,
 with the degree of association diminishing as the linear relationship
@@ -502,7 +483,7 @@ becomes less and less evident; see <a class="reference internal" href="#fig-corr
 <figure class="align-default" id="id25">
 <span id="fig-corr-ex-1"></span><img alt="../_images/corr-ex-1-3.png" src="../_images/corr-ex-1-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.2 </span><span class="caption-text">Linear correlation coefficients for data with different amounts of noise</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.2 </span><span class="caption-text">Linear correlation coefficients for data with different amounts of noise</span><a class="headerlink" href="#id25" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Notice again that the arm and hip circumferences enjoy quite high positive
@@ -532,7 +513,7 @@ from making unjustified statements.</p>
 </div>
 </section>
 <section id="no-linear-correlation-does-not-imply-independence">
-<h4><span class="section-number">9.1.1.3. </span>No Linear Correlation Does Not Imply Independence<a class="headerlink" href="#no-linear-correlation-does-not-imply-independence" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">9.1.1.3. </span>No Linear Correlation Does Not Imply Independence<a class="headerlink" href="#no-linear-correlation-does-not-imply-independence" title="Permalink to this heading">#</a></h4>
 <p>For two independent variables, we expect the correlation coefficient
 be approximately equal to 0.
 Nevertheless, we should stress that correlation close to 0 does not
@@ -554,12 +535,12 @@ See <a class="reference internal" href="#fig-corr-ex-2"><span class="std std-num
 <figure class="align-default" id="id27">
 <span id="fig-corr-ex-2"></span><img alt="../_images/corr-ex-2-5.png" src="../_images/corr-ex-2-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.3 </span><span class="caption-text">Are all of these really uncorrelated?</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.3 </span><span class="caption-text">Are all of these really uncorrelated?</span><a class="headerlink" href="#id27" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="false-linear-correlations">
-<h4><span class="section-number">9.1.1.4. </span>False Linear Correlations<a class="headerlink" href="#false-linear-correlations" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">9.1.1.4. </span>False Linear Correlations<a class="headerlink" href="#false-linear-correlations" title="Permalink to this heading">#</a></h4>
 <p>What is more, sometimes we can detect <em>false</em> correlations –
 when data are functionally dependent, the relationship
 is not linear, but it kind of looks like linear.
@@ -578,7 +559,7 @@ Refer to <a class="reference internal" href="#fig-corr-ex-3"><span class="std st
 <figure class="align-default" id="id28">
 <span id="fig-corr-ex-3"></span><img alt="../_images/corr-ex-3-7.png" src="../_images/corr-ex-3-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.4 </span><span class="caption-text">Example non-linear relationships that look like linear, at least to Pearson’s <em>r</em></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.4 </span><span class="caption-text">Example non-linear relationships that look like linear, at least to Pearson’s <em>r</em></span><a class="headerlink" href="#id28" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>No single measure is perfect – we are trying to compress
@@ -587,7 +568,7 @@ there will be many different datasets, sometimes remarkably diverse,
 that will yield the same correlation value.</p>
 </section>
 <section id="correlation-is-not-causation">
-<h4><span class="section-number">9.1.1.5. </span>Correlation Is Not Causation<a class="headerlink" href="#correlation-is-not-causation" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">9.1.1.5. </span>Correlation Is Not Causation<a class="headerlink" href="#correlation-is-not-causation" title="Permalink to this heading">#</a></h4>
 <p>A high correlation degree (either positive or negative) does not
 mean that there is any <em>causal</em> relationship between the two variables.
 We cannot say that having large arm circumference affects hip size
@@ -625,7 +606,7 @@ coefficients; see <a class="reference internal" href="#sec-least-squares"><span 
 </section>
 </section>
 <section id="correlation-heatmap">
-<h3><span class="section-number">9.1.2. </span>Correlation Heatmap<a class="headerlink" href="#correlation-heatmap" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.1.2. </span>Correlation Heatmap<a class="headerlink" href="#correlation-heatmap" title="Permalink to this heading">#</a></h3>
 <p>Calling <strong class="command">numpy.corrcoef</strong><code class="code docutils literal notranslate"><span class="pre">(body.T)</span></code> (note the matrix
 transpose) allows for determining the linear correlation
 coefficients between all pairs of variables.</p>
@@ -645,7 +626,7 @@ coefficients between all pairs of variables.</p>
 <figure class="align-default" id="id30">
 <span id="fig-cor-heat"></span><img alt="../_images/cor-heat-9.png" src="../_images/cor-heat-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.5 </span><span class="caption-text">A correlation heatmap</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.5 </span><span class="caption-text">A correlation heatmap</span><a class="headerlink" href="#id30" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Notice that we ordered<a class="footnote-reference brackets" href="#foothclust" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> the columns to reveal some naturally
@@ -695,7 +676,7 @@ flattened (unidimensional) array. We had to use
 one.</p>
 </div></div></section>
 <section id="linear-correlation-coefficients-on-transformed-data">
-<h3><span class="section-number">9.1.3. </span>Linear Correlation Coefficients on Transformed Data<a class="headerlink" href="#linear-correlation-coefficients-on-transformed-data" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.1.3. </span>Linear Correlation Coefficients on Transformed Data<a class="headerlink" href="#linear-correlation-coefficients-on-transformed-data" title="Permalink to this heading">#</a></h3>
 <p>Pearson’s coefficient can of course also be applied
 on nonlinearly transformed versions of variables,
 e.g., logarithms (remember incomes?), squares, square roots, etc.</p>
@@ -732,7 +713,7 @@ a scatterplot.</p>
 <figure class="align-default" id="id32">
 <span id="fig-worldfactbook-gdp-life"></span><img alt="../_images/WorldFactbook-gdp-life-11.png" src="../_images/WorldFactbook-gdp-life-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatterplots for life expectancy vs gross domestic product (purchasing power parity) on linear (left-) and log-scale (righthand side)</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatterplots for life expectancy vs gross domestic product (purchasing power parity) on linear (left-) and log-scale (righthand side)</span><a class="headerlink" href="#id32" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>If we compute Pearson’s <span class="math notranslate nohighlight">\(r\)</span> between these two,
@@ -751,7 +732,7 @@ correlated with life expectancy:</p>
 <span class="math notranslate nohighlight">\(\boldsymbol{y}=a \log\boldsymbol{x}+b\)</span> could be an idea worth considering.</p>
 </section>
 <section id="spearman-s-rank-correlation-coefficient">
-<span id="sec-spearman"></span><h3><span class="section-number">9.1.4. </span>Spearman’s Rank Correlation Coefficient<a class="headerlink" href="#spearman-s-rank-correlation-coefficient" title="Permalink to this heading">¶</a></h3>
+<span id="sec-spearman"></span><h3><span class="section-number">9.1.4. </span>Spearman’s Rank Correlation Coefficient<a class="headerlink" href="#spearman-s-rank-correlation-coefficient" title="Permalink to this heading">#</a></h3>
 <p>Sometimes we might be interested in measuring
 the degree of any kind of <em>monotonic</em> correlation – to what extent
 one variable is an increasing or decreasing function
@@ -759,10 +740,12 @@ of another one (linear, logarithmic, quadratic over the positive
 domain, etc.).</p>
 <p>Spearman’s rank correlation coefficient  is frequently used
 in such a scenario:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \rho(\boldsymbol{x}, \boldsymbol{y}) = r(R(\boldsymbol{x}), R(\boldsymbol{y})),
 \]</div>
+</div>
 <p>which is<a class="footnote-reference brackets" href="#footspearman" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> the Pearson coefficient
 computed over vectors of the corresponding
 ranks of all the elements in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>
@@ -815,7 +798,7 @@ in the <code class="docutils literal notranslate"><span class="pre">world</span>
 </div></div></section>
 </section>
 <section id="regression-tasks">
-<span id="sec-regression"></span><h2><span class="section-number">9.2. </span>Regression Tasks<a class="headerlink" href="#regression-tasks" title="Permalink to this heading">¶</a></h2>
+<span id="sec-regression"></span><h2><span class="section-number">9.2. </span>Regression Tasks<a class="headerlink" href="#regression-tasks" title="Permalink to this heading">#</a></h2>
 <p>Let us assume that we are given a <em>training/reference</em> set of <span class="math notranslate nohighlight">\(n\)</span> points
 in an <span class="math notranslate nohighlight">\(m\)</span>-dimensional space represented as a matrix
 <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and a set of <span class="math notranslate nohighlight">\(n\)</span> corresponding
@@ -824,13 +807,15 @@ numeric outcomes <span class="math notranslate nohighlight">\(\boldsymbol{y}\in\
 between the <span class="math notranslate nohighlight">\(m\)</span> <em>independent/explanatory/predictor</em> variables
 and a chosen <em>dependent/response/predicted</em> variable
 that can be applied on any test point <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \hat{y}' = f(x_1', x_2', \dots, x_m'),
 \]</div>
+</div>
 <p>and which <em>approximates</em> the reference outcomes in a <em>usable</em> way.</p>
 <section id="k-nearest-neighbour-regression">
-<span id="sec-knn-regression"></span><h3><span class="section-number">9.2.1. </span><em>K</em>-Nearest Neighbour Regression<a class="headerlink" href="#k-nearest-neighbour-regression" title="Permalink to this heading">¶</a></h3>
+<span id="sec-knn-regression"></span><h3><span class="section-number">9.2.1. </span><em>K</em>-Nearest Neighbour Regression<a class="headerlink" href="#k-nearest-neighbour-regression" title="Permalink to this heading">#</a></h3>
 <p>A quite straightforward approach to regression
 relies on aggregating the reference outputs that are associated with
 a few nearest neighbours of the point <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span> tested;
@@ -843,6 +828,7 @@ for a fixed <span class="math notranslate nohighlight">\(k\ge 1\)</span> and any
 of the <span class="math notranslate nohighlight">\(k\)</span> points from
 <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> closest to <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>, i.e., ones that fulfil
 for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[ \|\mathbf{x}_{i_1,\cdot}-\boldsymbol{x}'\|
     \le\dots\le
@@ -850,6 +836,7 @@ for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)
     \le
     \| \mathbf{x}_{j,\cdot} -\boldsymbol{x}' \|.
     \]</div>
+</div>
 </li>
 <li><p>Return the arithmetic mean of <span class="math notranslate nohighlight">\((y_{i_1},\dots,y_{i_k})\)</span>
 as the result.</p></li>
@@ -865,16 +852,20 @@ that generates the predictions for each point in <code class="docutils literal n
 </div>
 <p>For example, let us try expressing weight (the 1st column) as a function
 of hip circumference (the 6th column) in the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \text{weight}=f_1(\text{hip circumference})   \qquad  (+ \text{some error}).
 \]</div>
+</div>
 <p>We can also model the life expectancy at birth in different countries
 (<code class="docutils literal notranslate"><span class="pre">world</span></code> dataset) as a function of their GDP per capita (PPP):</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \text{life expectancy}=f_2(\text{GDP per capita})   \qquad  (+ \text{some error}).
 \]</div>
+</div>
 <p>Both are instances of the <em>simple</em> regression problem,
 i.e., where there is only one independent variable (<span class="math notranslate nohighlight">\(m=1\)</span>).
 We can easily create an appealing visualisation thereof
@@ -912,7 +903,7 @@ for a few different <span class="math notranslate nohighlight">\(k\)</span>s.</p
 <figure class="align-default" id="id36">
 <span id="fig-knn-reg"></span><img alt="../_images/knn-reg-13.png" src="../_images/knn-reg-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><em>K</em>-nearest neighbour regression curves for example datasets; the greater the <em>k</em>, the more coarse-grained the approximation</span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><em>K</em>-nearest neighbour regression curves for example datasets; the greater the <em>k</em>, the more coarse-grained the approximation</span><a class="headerlink" href="#id36" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We obtained a <em>smoothened</em> version of the original dataset.
@@ -944,7 +935,7 @@ make the function undefined in sparsely populated regions of the domain.</p>
 </div>
 </section>
 <section id="from-data-to-linear-models">
-<span id="sec-linearmodel"></span><h3><span class="section-number">9.2.2. </span>From Data to (Linear) Models<a class="headerlink" href="#from-data-to-linear-models" title="Permalink to this heading">¶</a></h3>
+<span id="sec-linearmodel"></span><h3><span class="section-number">9.2.2. </span>From Data to (Linear) Models<a class="headerlink" href="#from-data-to-linear-models" title="Permalink to this heading">#</a></h3>
 <p>Unfortunately, to generate predictions for new data points,
 <em>k</em>-nearest neighbours regression requires
 that the training sample is available at all times.
@@ -960,23 +951,29 @@ or <span class="math notranslate nohighlight">\(f_{\mathbf{X}, \boldsymbol{y}}(\
 in the form of an easily interpretable mathematical function.
 A simple yet still quite flexible choice
 tackles regression problems via affine maps of the form:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 y = f(x_1, x_2, \dots, x_m) = c_1 x_1 + c_2 x_2 + \dots + c_m x_m + c_{m+1},
 \]</div>
+</div>
 <p>or, in matrix multiplication terms:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 y = \mathbf{c} \mathbf{x}^T + c_{m+1},
 \]</div>
+</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{c}=[c_1\ c_2\ \cdots\ c_m]\)</span>
 and <span class="math notranslate nohighlight">\(\mathbf{x}=[x_1\ x_2\ \cdots\ x_m]\)</span>.</p>
 <p>For <span class="math notranslate nohighlight">\(m=1\)</span>, the above simply defines a straight line,
 which we traditionally denote with:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 y = ax+b,
 \]</div>
+</div>
 <p>i.e., where we mapped <span class="math notranslate nohighlight">\(x_1 \mapsto x\)</span>, <span class="math notranslate nohighlight">\(c_1 \mapsto a\)</span> (slope),
 and <span class="math notranslate nohighlight">\(c_2 \mapsto b\)</span> (intercept).</p>
 <p>For <span class="math notranslate nohighlight">\(m&gt;1\)</span>, we obtain different hyperplanes (high-dimensional
@@ -986,12 +983,16 @@ generalisations of the notion of a plane).</p>
 <p>A separate intercept “<span class="math notranslate nohighlight">\(+c_{m+1}\)</span>” term in the defining equation
 can be quite inconvenient, notationwisely.
 We will thus restrict ourselves to linear maps like:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[y = \mathbf{c} \mathbf{x}^T,\]</div>
+</div>
 <p>but where we can possibly have an explicit constant-1 component somewhere
 <em>inside</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, for instance:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\mathbf{x} = [x_1\ x_2\ \cdots\ x_m\ 1].\]</div>
+</div>
 <p>Together with
 <span class="math notranslate nohighlight">\(\mathbf{c} = [c_1\ c_2\ \cdots\ c_m\ c_{m+1}]\)</span>,
 as trivially <span class="math notranslate nohighlight">\(c_{m+1}\cdot 1=c_{m+1}\)</span>,
@@ -1001,26 +1002,30 @@ is <span class="math notranslate nohighlight">\(m\)</span>-dimensional, regardle
 </div>
 </section>
 <section id="least-squares-method">
-<span id="sec-least-squares"></span><h3><span class="section-number">9.2.3. </span>Least Squares Method<a class="headerlink" href="#least-squares-method" title="Permalink to this heading">¶</a></h3>
+<span id="sec-least-squares"></span><h3><span class="section-number">9.2.3. </span>Least Squares Method<a class="headerlink" href="#least-squares-method" title="Permalink to this heading">#</a></h3>
 <p>A linear model is uniquely<a class="footnote-reference brackets" href="#footmodelserialise" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> encoded using only
 the coefficients <span class="math notranslate nohighlight">\(c_1,\dots,c_m\)</span>. To find them,
 for each point <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span> from the input (training) set,
 we typically desire the <em>predicted</em> value:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \hat{y}_i = f(x_{i,1}, x_{i,2}, \dots, x_{i,m})
 = f(\mathbf{x}_{i,\cdot}|\mathbf{c}) = \mathbf{c} \mathbf{x}_{i,\cdot}^T,
 \]</div>
+</div>
 <p>to be as <em>close</em> to the corresponding reference <span class="math notranslate nohighlight">\(y_i\)</span> as possible.</p>
 <p>There are many measures of <em>closeness</em>,
 but the most popular one<a class="footnote-reference brackets" href="#footwhyssr" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> uses the notion of
 the <em>sum of squared residuals</em> (true minus predicted outputs):</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathrm{SSR}(\boldsymbol{c}|\mathbf{X},\mathbf{y})
 = \sum_{i=1}^n \left( y_i - \hat{y}_i \right)^2
 = \sum_{i=1}^n \left( y_i - (c_1 x_{i,1} + c_2 x_{i,2} + \dots + c_m x_{i,m}) \right)^2,
 \]</div>
+</div>
 <p>which is a function of <span class="math notranslate nohighlight">\(\boldsymbol{c}=(c_1,\dots,c_m)\)</span>
 (for fixed <span class="math notranslate nohighlight">\(\mathbf{X},\mathbf{y}\)</span>).</p>
 <p>The <em>least squares</em> solution to the stated linear
@@ -1028,12 +1033,14 @@ regression problem will be defined by the coefficient vector <span class="math n
 that minimises the SSR.
 Based on what we said about matrix multiplication,
 this is equivalent to solving the optimisation task:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \text{minimise}\
 \left(\mathbf{y}-\mathbf{c} \mathbf{X}^T\right) \left(\mathbf{y}-\mathbf{c} \mathbf{X}^T\right)^T
 \qquad\text{w.r.t. }{(c_1,\dots,c_m)\in\mathbb{R}^m},
 \]</div>
+</div>
 <p>because
 <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}=\mathbf{c} \mathbf{X}^T\)</span> gives the predicted values
 as a row vector
@@ -1078,10 +1085,12 @@ matrix.</p>
 and express weight (the 1st column) as function
 of hip circumference (the 6th column)
 again, but this time using an affine map of the form<a class="footnote-reference brackets" href="#footerror" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \text{weight}=a\cdot\text{hip circumference} + b  \qquad (+ \text{some error}).
 \]</div>
+</div>
 <p>The <em>design (model) matrix</em> <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 and the reference <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>s are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_original</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">5</span><span class="p">]]</span>     <span class="c1"># a column vector</span>
@@ -1121,10 +1130,12 @@ The optimal coefficients vector (the one that minimises the SSR) is:</p>
 </pre></div>
 </div>
 <p>The estimated model is:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \text{weight}=1.305\cdot\text{hip circumference} -65.1 \qquad (+ \text{some error}).
 \]</div>
+</div>
 <p>Let us contemplate the fact that the model is nicely interpretable.
 For instance, as hip circumference increases, we expect the weights
 to be greater and greater.
@@ -1159,7 +1170,7 @@ indicates a quite good fit, but of course there is some natural variability.</p>
 <figure class="align-default" id="id37">
 <span id="fig-hip-weight-lm"></span><img alt="../_images/hip-weight-lm-15.png" src="../_images/hip-weight-lm-15.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.8 </span><span class="caption-text">The least squares line for weight vs hip circumference</span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.8 </span><span class="caption-text">The least squares line for weight vs hip circumference</span><a class="headerlink" href="#id37" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id38">
@@ -1176,7 +1187,7 @@ line, their scatter plots are vastly different.
 Reflect upon this toy example.</p>
 </div></div></section>
 <section id="analysis-of-residuals">
-<h3><span class="section-number">9.2.4. </span>Analysis of Residuals<a class="headerlink" href="#analysis-of-residuals" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.2.4. </span>Analysis of Residuals<a class="headerlink" href="#analysis-of-residuals" title="Permalink to this heading">#</a></h3>
 <p>The residuals (i.e., the estimation errors – what we expected vs what
 we got), for the chosen 6 observations are
 visualised in <a class="reference internal" href="#fig-residuals"><span class="std std-numref">Figure 9.9</span></a>.</p>
@@ -1188,7 +1199,7 @@ visualised in <a class="reference internal" href="#fig-residuals"><span class="s
 <figure class="align-default" id="id39">
 <span id="fig-residuals"></span><img alt="../_images/residuals-17.png" src="../_images/residuals-17.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.9 </span><span class="caption-text">Example residuals in a simple linear regression task</span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.9 </span><span class="caption-text">Example residuals in a simple linear regression task</span><a class="headerlink" href="#id39" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We wanted the squared residuals (on average – across all the points)
@@ -1200,17 +1211,21 @@ Nonetheless, it still does not mean that what we obtained
 constitutes a good fit to the training data.
 Thus, we need to perform the <em>analysis of residuals</em>.</p>
 <p>Interestingly, the average of residuals is always zero:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i) = 0.
 \]</div>
+</div>
 <p>Therefore, if we want to summarise the residuals into a single number,
 we should instead use, for example, the root mean squared error:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
  \mathrm{RMSE}(\mathbf{y}, \hat{\mathbf{y}})
  = \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i-\hat{y}_i)^2}.
 \]</div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 <span class="c1">## 6.948470091176111</span>
 </pre></div>
@@ -1218,11 +1233,13 @@ we should instead use, for example, the root mean squared error:</p>
 <p>Hopefully we can see that RMSE is a function of SSR that
 we sought to minimise above.</p>
 <p>Alternatively, we can compute the mean absolute error:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
  \mathrm{MAE}(\mathbf{y}, \hat{\mathbf{y}})
  = \frac{1}{n} \sum_{i=1}^n |y_i-\hat{y}_i|.
 \]</div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
 <span class="c1">## 5.207073583769202</span>
 </pre></div>
@@ -1266,7 +1283,7 @@ at random therein, without any dependence structure
 <figure class="align-default" id="id41">
 <span id="fig-resid-vs-fit"></span><img alt="../_images/resid-vs-fit-19.png" src="../_images/resid-vs-fit-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference; the variance of residuals slightly increases as <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases, which is not ideal, but it could be much worse than this</span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference; the variance of residuals slightly increases as <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases, which is not ideal, but it could be much worse than this</span><a class="headerlink" href="#id41" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id42">
@@ -1280,22 +1297,26 @@ regression curves depicted in the lefthand side of <a class="reference internal"
 Also, draw the residuals vs fitted plot.</p>
 </div></div><div style="margin-top: 1em"></div><p>For linear models fitted using the least squares method,
 it can be shown that it holds:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{n} \sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2 =
 \frac{1}{n} \sum_{i=1}^{n} \left(\hat{y}_i-\bar{\hat{y}}\right)^2 +
 \frac{1}{n} \sum_{i=1}^{n} \left(y_i-\hat{y}_i\right)^2.
 \]</div>
+</div>
 <p>In other words, the variance of the dependent variable (left)
 can be decomposed into the sum of the variance of the predictions
 and the averaged squared residuals.
 Multiplying the above by <span class="math notranslate nohighlight">\(n\)</span>, we have that
 the <em>total</em> sum of squares is equal to the
 <em>explained</em> sum of squares plus the <em>residual</em> sum of squares:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathrm{TSS} = \mathrm{ESS} + \mathrm{RSS}.
 \]</div>
+</div>
 <p>We of course yearn for ESS to be as close to TSS as possible.
 Equivalently, it would be jolly nice to have RSS equal to 0.</p>
 <p>The <em>coefficient of determination</em> (unadjusted R-Squared,
@@ -1304,12 +1325,14 @@ is a popular normalised, unitless measure
 that is easier to interpret than raw ESS or RSS
 when we have no domain-specific knowledge of the modelled problem.
 It is given by:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 R^2(\mathbf{y}, \hat{\mathbf{y}}) = \frac{\mathrm{ESS}}{\mathrm{TSS}}
 = 1 - \frac{\mathrm{RSS}}{\mathrm{TSS}}
 = 1-\frac{s_r^2}{s_y^2}.
 \]</div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">y_train</span><span class="o">-</span><span class="n">y_pred</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
 <span class="c1">## 0.8959634726270759</span>
 </pre></div>
@@ -1335,7 +1358,7 @@ But we do not go that far in this introductory course.</p>
 </div>
 </section>
 <section id="multiple-regression">
-<h3><span class="section-number">9.2.5. </span>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.2.5. </span>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Permalink to this heading">#</a></h3>
 <p>As another example, let us fit a model involving two
 independent variables, arm and hip circumference:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># append a column of 1s</span>
@@ -1346,8 +1369,10 @@ independent variables, arm and hip circumference:</p>
 </pre></div>
 </div>
 <p>We fitted the plane:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\text{weight} = 1.3\, \text{arm circumference} + 0.9\, \text{hip circumference}  -63.38 .\]</div>
+</div>
 <p>We skip the visualisation part, because we do not expect it to result
 in a readable plot: these are multidimensional data.
 The coefficient of determination is:</p>
@@ -1372,24 +1397,28 @@ We can predict the participants’ weights with better precision,
 at the cost of an increased model’s complexity.</p>
 </section>
 <section id="variable-transformation-and-linearisable-models">
-<span id="sec-linearisation"></span><h3><span class="section-number">9.2.6. </span>Variable Transformation and Linearisable Models (*)<a class="headerlink" href="#variable-transformation-and-linearisable-models" title="Permalink to this heading">¶</a></h3>
+<span id="sec-linearisation"></span><h3><span class="section-number">9.2.6. </span>Variable Transformation and Linearisable Models (*)<a class="headerlink" href="#variable-transformation-and-linearisable-models" title="Permalink to this heading">#</a></h3>
 <p>We are not restricted merely to linear functions
 of the input variables. By applying arbitrary
 transformations upon the columns of the design matrix, we can cover
 many diverse scenarios.</p>
 <p>For instance, a polynomial model involving two variables:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 g(v_1, v_2)
 = \beta_0 + \beta_1 v_1 + \beta_2 v_1^2 + \beta_3 v_1 v_2 + \beta_4 v_2 + \beta_5 v_2^2,
 \]</div>
+</div>
 <p>can be obtained by substituting
 <span class="math notranslate nohighlight">\(x_1=1\)</span>, <span class="math notranslate nohighlight">\(x_2=v_1\)</span>, <span class="math notranslate nohighlight">\(x_3=v_1^2\)</span>, <span class="math notranslate nohighlight">\(x_4=v_1 v_2\)</span>, <span class="math notranslate nohighlight">\(x_5=v_2\)</span>, <span class="math notranslate nohighlight">\(x_6=v_2^2\)</span>,
 and then fitting a linear model involving six variables:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 f(x_1, x_2, \dots, x_6) = c_1 x_1 + c_2 x_2 + \dots + x_6 x_6.
 \]</div>
+</div>
 <p>The design matrix is made of rubber, it can handle almost anything.
 If we have a linear model, but with respect to transformed
 data, the algorithm does not care. This is the beauty of the underlying
@@ -1471,7 +1500,7 @@ considered). The four models are depicted in
 <figure class="align-default" id="id43">
 <span id="fig-gdp-life-four-models"></span><img alt="../_images/gdp-life-four-models-21.png" src="../_images/gdp-life-four-models-21.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.11 </span><span class="caption-text">Different models for life expectancy vs GDP</span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.11 </span><span class="caption-text">Different models for life expectancy vs GDP</span><a class="headerlink" href="#id43" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id44">
@@ -1484,7 +1513,7 @@ considered). The four models are depicted in
 for each model as well as the scatterplots of residuals vs fitted values.</p>
 </div></div></section>
 <section id="descriptive-vs-predictive-power">
-<h3><span class="section-number">9.2.7. </span>Descriptive vs Predictive Power (*)<a class="headerlink" href="#descriptive-vs-predictive-power" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.2.7. </span>Descriptive vs Predictive Power (*)<a class="headerlink" href="#descriptive-vs-predictive-power" title="Permalink to this heading">#</a></h3>
 <p>We <em>approximated</em> the life vs GDP relationship
 using a few different functions. Nevertheless, we see that the above
 quadratic and cubic models possibly do not make
@@ -1509,10 +1538,12 @@ in many different ways, the simplest explanation should be chosen
 the greater the <span class="math notranslate nohighlight">\(R^2\)</span> coefficient will be.
 We can try correcting for this phenomenon
 by considering the <em>adjusted</em> <span class="math notranslate nohighlight">\(R^2\)</span>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \bar{R}^2(\mathbf{y},\hat{\mathbf{y}}) = 1 - (1-{R}^2(\mathbf{y}, \hat{\mathbf{y}}))\frac{n-1}{n-m-1},
 \]</div>
+</div>
 <p>which, to some extent, penalises more complex models.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1520,15 +1551,19 @@ by considering the <em>adjusted</em> <span class="math notranslate nohighlight">
 parameters, <span class="math notranslate nohighlight">\(m\)</span>, can also be useful in automated variable selection.
 For example, the Akaike Information Criterion is
 a popular measure given by:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathrm{AIC} = 2m+n\log(\mathrm{SSR})-n\log n.
 \]</div>
+</div>
 <p>Furthermore, the Bayes Information Criterion is defined via:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathrm{BIC} = m\log n+n\log(\mathrm{SSR})-n\log n.
 \]</div>
+</div>
 <p>Unfortunately, they are both dependent on the scale of <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>.</p>
 </div>
 <p>We should also be interested in a model’s <em>predictive</em> power –
@@ -1616,7 +1651,7 @@ see <a class="reference internal" href="#fig-true-model-vs-guess"><span class="s
 <figure class="align-default" id="id46">
 <span id="fig-true-model-vs-guess"></span><img alt="../_images/true-model-vs-guess-23.png" src="../_images/true-model-vs-guess-23.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.12 </span><span class="caption-text">The true (theoretical) model vs some guesstimates (fitted based on noisy data); more degrees of freedom is not always better</span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.12 </span><span class="caption-text">The true (theoretical) model vs some guesstimates (fitted based on noisy data); more degrees of freedom is not always better</span><a class="headerlink" href="#id46" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div><div class="proof proof-type-example" id="id47">
@@ -1637,12 +1672,14 @@ over the domain <span class="math notranslate nohighlight">\(D\)</span> (in our 
 and an empirically fitted model <span class="math notranslate nohighlight">\(\hat{f}\)</span>, we can compute
 the square root of the integrated squared error
 over the whole <span class="math notranslate nohighlight">\(D\)</span>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathrm{RMSE}(f, \hat{f}) = \sqrt{
     \int_D (f(x)-\hat{f}(x))^2\, dx
 }.
 \]</div>
+</div>
 <p>For polynomials and other simple functions,
 RMSE can be computed analytically.
 More generally, we can approximate it numerically by sampling the above
@@ -1676,7 +1713,7 @@ below we consider a range of polynomial models of different degrees.</p>
 <figure class="align-default" id="id48">
 <span id="fig-true-model-vs-polynomials-rmse"></span><img alt="../_images/true-model-vs-polynomials-rmse-25.png" src="../_images/true-model-vs-polynomials-rmse-25.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.13 </span><span class="caption-text">Small RMSE on training data does not necessarily imply good generalisation abilities</span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.13 </span><span class="caption-text">Small RMSE on training data does not necessarily imply good generalisation abilities</span><a class="headerlink" href="#id48" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In <a class="reference internal" href="#fig-true-model-vs-polynomials-rmse"><span class="std std-numref">Figure 9.13</span></a>, we see that a model’s
@@ -1697,7 +1734,7 @@ see <a class="reference internal" href="#fig-true-model-vs-polynomials"><span cl
 <figure class="align-default" id="id49">
 <span id="fig-true-model-vs-polynomials"></span><img alt="../_images/true-model-vs-polynomials-27.png" src="../_images/true-model-vs-polynomials-27.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.14 </span><span class="caption-text">Under- and overfitting to training data</span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.14 </span><span class="caption-text">Under- and overfitting to training data</span><a class="headerlink" href="#id49" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div><div class="admonition important">
@@ -1735,7 +1772,7 @@ Too many bad models go into production and make our daily lives harder.
 We should end this madness.</p>
 </section>
 <section id="fitting-regression-models-with-scikit-learn">
-<span id="sec-sklearnlm"></span><h3><span class="section-number">9.2.8. </span>Fitting Regression Models with <strong class="program">scikit-learn</strong> (*)<a class="headerlink" href="#fitting-regression-models-with-scikit-learn" title="Permalink to this heading">¶</a></h3>
+<span id="sec-sklearnlm"></span><h3><span class="section-number">9.2.8. </span>Fitting Regression Models with <strong class="program">scikit-learn</strong> (*)<a class="headerlink" href="#fitting-regression-models-with-scikit-learn" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://scikit-learn.org/stable/index.html"><strong class="program">scikit-learn</strong></a>
 (<strong class="program">sklearn</strong>; <span id="id13">[<a class="reference internal" href="999-bibliography.html#id5" title="Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., Duchesnay, E. (2011).  Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12:2825–2830.">71</a>]</span>)
 is a huge Python package
@@ -1793,7 +1830,7 @@ the score and what it measures?
 We should always be able to do that.</p>
 </section>
 <section id="ill-conditioned-model-matrices">
-<span id="sec-ill-condition"></span><h3><span class="section-number">9.2.9. </span>Ill-Conditioned Model Matrices (*)<a class="headerlink" href="#ill-conditioned-model-matrices" title="Permalink to this heading">¶</a></h3>
+<span id="sec-ill-condition"></span><h3><span class="section-number">9.2.9. </span>Ill-Conditioned Model Matrices (*)<a class="headerlink" href="#ill-conditioned-model-matrices" title="Permalink to this heading">#</a></h3>
 <p>Our approach to regression analysis relies on solving
 an optimisation problem (the method least squares).
 Nevertheless, sometimes the “optimal” solution that the algorithm returns
@@ -1910,6 +1947,7 @@ and standard deviation of the <em>j</em>-th column in <span class="math notransl
 If <span class="math notranslate nohighlight">\((d_1,\dots,d_{m-1})\)</span> is the least squares solution
 for <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, then the least squares solution to the underlying
 original regression problem is:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \boldsymbol{c}=\left(
@@ -1920,6 +1958,7 @@ original regression problem is:</p>
     \frac{d_{m-1}}{s_{m-1}}
 \right),
 \]</div>
+</div>
 <p>with the first term corresponding to the intercept.</p>
 <p>Let us test this approach with <strong class="command">scipy.linalg.lstsq</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1962,7 +2001,7 @@ is better than the polynomial one.</p>
 <figure class="align-default" id="id50">
 <span id="fig-ill-cond"></span><img alt="../_images/ill-cond-29.png" src="../_images/ill-cond-29.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can result in the resulting models’ being very wrong</span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can result in the resulting models’ being very wrong</span><a class="headerlink" href="#id50" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -1992,26 +2031,30 @@ to many different scenarios ourselves.</p>
 </section>
 </section>
 <section id="finding-interesting-combinations-of-variables">
-<span id="sec-pca"></span><h2><span class="section-number">9.3. </span>Finding Interesting Combinations of Variables (*)<a class="headerlink" href="#finding-interesting-combinations-of-variables" title="Permalink to this heading">¶</a></h2>
+<span id="sec-pca"></span><h2><span class="section-number">9.3. </span>Finding Interesting Combinations of Variables (*)<a class="headerlink" href="#finding-interesting-combinations-of-variables" title="Permalink to this heading">#</a></h2>
 <section id="dot-products-angles-collinearity-and-orthogonality">
-<span id="sec-dot-cosine"></span><h3><span class="section-number">9.3.1. </span>Dot Products, Angles, Collinearity, and Orthogonality<a class="headerlink" href="#dot-products-angles-collinearity-and-orthogonality" title="Permalink to this heading">¶</a></h3>
+<span id="sec-dot-cosine"></span><h3><span class="section-number">9.3.1. </span>Dot Products, Angles, Collinearity, and Orthogonality<a class="headerlink" href="#dot-products-angles-collinearity-and-orthogonality" title="Permalink to this heading">#</a></h3>
 <p>It turns out that the dot product (<a class="reference internal" href="320-transform-matrix.html#sec-matrix-multiply"><span class="std std-numref">Section 8.3</span></a>)
 has a nice geometrical interpretation:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \boldsymbol{x}\cdot\boldsymbol{y} = \|\boldsymbol{x}\|\, \|\boldsymbol{y}\|\,
 \cos\alpha,
 \]</div>
+</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha\)</span> is the angle between two given vectors
 <span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^n\)</span>.
 In plain English, it is the product of the magnitudes of the two vectors
 and the cosine of the angle between them.</p>
 <p>We can obtain the cosine part by computing the dot product
 of the <em>normalised</em> vectors, i.e., such that their magnitudes are equal to 1:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \cos\alpha = \frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\cdot\frac{\boldsymbol{y}}{\|\boldsymbol{y}\|}.
 \]</div>
+</div>
 <p>For example, consider two vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>,
 <span class="math notranslate nohighlight">\(\boldsymbol{u}=(1/2, 0)\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{v}=(\sqrt{2}/2, \sqrt{2}/2)\)</span>,
 which are depicted in <a class="reference internal" href="#fig-two-vectors-angle"><span class="std std-numref">Figure 9.16</span></a>.</p>
@@ -2042,7 +2085,7 @@ inverse of the cosine function, i.e., arccosine.</p>
 <figure class="align-default" id="id52">
 <span id="fig-two-vectors-angle"></span><img alt="../_images/two-vectors-angle-31.png" src="../_images/two-vectors-angle-31.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.16 </span><span class="caption-text">Example vectors and the angle between them</span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.16 </span><span class="caption-text">Example vectors and the angle between them</span><a class="headerlink" href="#id52" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -2077,7 +2120,7 @@ orthogonality.</p>
 </div>
 </section>
 <section id="geometric-transformations-of-points">
-<span id="sec-geometric-transform"></span><h3><span class="section-number">9.3.2. </span>Geometric Transformations of Points<a class="headerlink" href="#geometric-transformations-of-points" title="Permalink to this heading">¶</a></h3>
+<span id="sec-geometric-transform"></span><h3><span class="section-number">9.3.2. </span>Geometric Transformations of Points<a class="headerlink" href="#geometric-transformations-of-points" title="Permalink to this heading">#</a></h3>
 <p>For certain square matrices of size <em>m</em>-by-<em>m</em>,
 matrix multiplication can be thought of as an application
 of the corresponding geometrical transformation of points in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span></p>
@@ -2085,6 +2128,7 @@ of the corresponding geometrical transformation of points in <span class="math n
 which we treat as representing the coordinates of
 <em>n</em> points in an <em>m</em>-dimensional space.
 For instance, if we are given a diagonal matrix:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{S}=\mathrm{diag}(s_1, s_2,\dots, s_m)=
@@ -2097,8 +2141,10 @@ s_1 &amp; 0 &amp; \dots &amp; 0 \\
 \end{array}
 \right],
 \end{split}\]</div>
+</div>
 <p>then <span class="math notranslate nohighlight">\(\mathbf{X} \mathbf{S}\)</span> represents <em>scaling</em> (stretching) with respect
 to the individual axes of the coordinate system, because:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{X} \mathbf{S} =
@@ -2112,6 +2158,7 @@ s_1 x_{n,1} &amp; s_2 x_{n,2} &amp; \dots &amp; s_m x_{n,m} \\
 \end{array}
 \right].
 \end{split}\]</div>
+</div>
 <p>In <strong class="program">numpy</strong>, this can be implemented without
 referring to the matrix multiplication.
 A notation like <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">*</span> <span class="pre">np.array([s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sm]).reshape(1,</span> <span class="pre">-1)</span></code>
@@ -2137,6 +2184,7 @@ of the dot products of normalised orthogonal vectors.</p>
 </div>
 <p>In particular, for any angle <span class="math notranslate nohighlight">\(\alpha\)</span>, the matrix representing
 the corresponding rotation in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{R}(\alpha) = \left[
@@ -2146,9 +2194,11 @@ the corresponding rotation in <span class="math notranslate nohighlight">\(\math
 \end{array}
 \right],
 \end{split}\]</div>
+</div>
 <p>is orthonormal (which can be easily verified using the basic
 trigonometric equalities).</p>
 <p>Furthermore:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \left[
@@ -2165,6 +2215,7 @@ trigonometric equalities).</p>
 \end{array}
 \right],
 \end{split}\]</div>
+</div>
 <p>represent the two reflections, one
 against the x- and the other against the y-axis, respectively.
 Both are orthonormal matrices as well.</p>
@@ -2174,6 +2225,7 @@ Both are orthonormal matrices as well.</p>
 </pre></div>
 </div>
 <p>and its scaled, rotated, and translated (shifted) version:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbf{X} =
@@ -2193,6 +2245,7 @@ Both are orthonormal matrices as well.</p>
 \end{array}
 \right].
 \end{split}\]</div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 <span class="n">S</span>
@@ -2212,7 +2265,7 @@ Both are orthonormal matrices as well.</p>
 <figure class="align-default" id="id53">
 <span id="fig-geom-trans"></span><img alt="../_images/geom-trans-33.png" src="../_images/geom-trans-33.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version</span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version</span><a class="headerlink" href="#id53" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We can consider <span class="math notranslate nohighlight">\(\mathbf{X}=\mathbf{X}' \mathbf{S} \mathbf{Q} + \mathbf{t}\)</span>
@@ -2220,11 +2273,13 @@ a version of <span class="math notranslate nohighlight">\(\mathbf{X}'\)</span> i
 see <a class="reference internal" href="#fig-geom-trans"><span class="std std-numref">Figure 9.17</span></a>.
 Each column in the transformed matrix is a
 shifted linear combination of the columns in the original matrix:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathbf{x}_{\cdot,j} = t_j + \sum_{k=1}^m (s_{k, k} q_{k, j})
 \mathbf{x}_{\cdot, k}'.
 \]</div>
+</div>
 <p>The computing of such linear combinations of columns
 is not rare during a dataset’s preprocessing step,
 especially if they are on the same scale or are unitless.
@@ -2243,14 +2298,16 @@ applied to obtain a matrix bearing the total number of fruits and
 surplus apples (e.g., a row <span class="math notranslate nohighlight">\((4, 7)\)</span> should be converted to <span class="math notranslate nohighlight">\((11, -3)\)</span>)?</p>
 </div></div></section>
 <section id="matrix-inverse">
-<span id="sec-matrix-inverse"></span><h3><span class="section-number">9.3.3. </span>Matrix Inverse<a class="headerlink" href="#matrix-inverse" title="Permalink to this heading">¶</a></h3>
+<span id="sec-matrix-inverse"></span><h3><span class="section-number">9.3.3. </span>Matrix Inverse<a class="headerlink" href="#matrix-inverse" title="Permalink to this heading">#</a></h3>
 <p>The <em>inverse</em> of a square matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
 (if it exists) is denoted with <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> – it is the matrix
 fulfilling the identity:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathbf{A}^{-1} \mathbf{A} = \mathbf{A} \mathbf{A}^{-1} = \mathbf{I}.
 \]</div>
+</div>
 <p>Noting that the identity matrix <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the neutral element
 of the matrix multiplication, the above is thus the analogue
 of the inverse of a scalar: something like
@@ -2272,11 +2329,13 @@ this is also equivalent to
 transformations.
 Knowing that <span class="math notranslate nohighlight">\(\mathbf{X} = \mathbf{X}'\mathbf{S}\mathbf{Q}+\mathbf{t}\)</span>,
 we can recreate the original matrix by applying:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X}' = (\mathbf{X}-\mathbf{t}) (\mathbf{S}\mathbf{Q})^{-1}
 = (\mathbf{X}-\mathbf{t}) \mathbf{Q}^{-1} \mathbf{S}^{-1}.
 \]</div>
+</div>
 <p>It is worth knowing that if <span class="math notranslate nohighlight">\(\mathbf{S}=\mathrm{diag}(s_1,s_2,\dots,s_m)\)</span>
 is a diagonal matrix, then its inverse is
 <span class="math notranslate nohighlight">\(\mathbf{S}^{-1} = \mathrm{diag}(1/s_1,1/s_2,\dots,1/s_m)\)</span>,
@@ -2286,10 +2345,12 @@ is always equal to its transpose,
 <span class="math notranslate nohighlight">\(\mathbf{Q}^{-1}=\mathbf{Q}^T\)</span>.
 Luckily, we will not be inverting other matrices in this introductory course.</p>
 <p>As a consequence:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X}' = (\mathbf{X}-\mathbf{t}) \mathbf{Q}^{T} (1/\mathbf{S}).
 \]</div>
+</div>
 <p>Let us verify this numerically (testing equality up to some inherent
 round-off error):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">Xp</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="o">-</span><span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="n">Q</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span>
@@ -2298,15 +2359,17 @@ round-off error):</p>
 </div>
 </section>
 <section id="singular-value-decomposition">
-<span id="sec-svd"></span><h3><span class="section-number">9.3.4. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this heading">¶</a></h3>
+<span id="sec-svd"></span><h3><span class="section-number">9.3.4. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this heading">#</a></h3>
 <p>It turns out that given any real <em>n</em>-by-<em>m</em> matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
 with <span class="math notranslate nohighlight">\(n\ge m\)</span>, we can find an interesting scaling and orthonormal
 transform that, when applied on a dataset whose columns are already
 normalised, yields exactly <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 <p>Namely, the singular value decomposition (SVD in the so-called compact form)
 is a factorisation:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\mathbf{X} = \mathbf{U}\mathbf{S}\mathbf{Q},\]</div>
+</div>
 <p>where:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbf{U}\)</span> is an <em>n</em>-by-<em>m</em> semi-orthonormal matrix
@@ -2405,12 +2468,12 @@ column variances).</p>
 <figure class="align-default" id="id55">
 <span id="fig-principal-directions"></span><img alt="../_images/principal-directions-35.png" src="../_images/principal-directions-35.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.18 </span><span class="caption-text">Principal directions of an example dataset (scaled so that they are proportional to the standard deviations along them)</span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.18 </span><span class="caption-text">Principal directions of an example dataset (scaled so that they are proportional to the standard deviations along them)</span><a class="headerlink" href="#id55" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="dimensionality-reduction-with-svd">
-<h3><span class="section-number">9.3.5. </span>Dimensionality Reduction with SVD<a class="headerlink" href="#dimensionality-reduction-with-svd" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.3.5. </span>Dimensionality Reduction with SVD<a class="headerlink" href="#dimensionality-reduction-with-svd" title="Permalink to this heading">#</a></h3>
 <p>Let us consider the following example three-dimensional dataset.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chainlink</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/clustering/fcps_chainlink.csv&quot;</span><span class="p">)</span>
@@ -2430,7 +2493,7 @@ from the perspective of the axes of the Cartesian coordinate system
 <figure class="align-default" id="id56">
 <span id="fig-chainlink-pairplot"></span><img alt="../_images/chainlink-pairplot-37.png" src="../_images/chainlink-pairplot-37.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.19 </span><span class="caption-text">Views from the perspective of the main axes</span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.19 </span><span class="caption-text">Views from the perspective of the main axes</span><a class="headerlink" href="#id56" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>These viewpoints by no means must reveal the true geometric
@@ -2455,26 +2518,30 @@ hopefully visible <a class="reference internal" href="#fig-chainlink-rotated"><s
 <figure class="align-default" id="id57">
 <span id="fig-chainlink-rotated"></span><img alt="../_images/chainlink-rotated-39.png" src="../_images/chainlink-rotated-39.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.20 </span><span class="caption-text">Different views on the same dataset</span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.20 </span><span class="caption-text">Different views on the same dataset</span><a class="headerlink" href="#id57" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>It turns out that we may find a noteworthy viewpoint using the SVD.
 Namely, we can perform the decomposition
 of a centred dataset which we denote with <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathbf{X} = \mathbf{U}\mathbf{S}\mathbf{Q}.
 \]</div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.linalg</span>
 <span class="n">X_centered</span> <span class="o">=</span> <span class="n">chainlink</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">chainlink</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_centered</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then, considering its rotated/reflected version:</p>
+<div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathbf{P}=\mathbf{X} \mathbf{Q}^{-1} = \mathbf{U}\mathbf{S},
 \]</div>
+</div>
 <p>we know that its first column has the highest variance,
 the second column has the second highest variability,
 and so on.
@@ -2494,7 +2561,7 @@ ones (from the pairplot).</p>
 <figure class="align-default" id="id58">
 <span id="fig-chainlink-svd"></span><img alt="../_images/chainlink-svd-41.png" src="../_images/chainlink-svd-41.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes</span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes</span><a class="headerlink" href="#id58" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What we just did is a kind of <em>dimensionality reduction</em>.
@@ -2505,7 +2572,7 @@ the Cartesian coordinate system is the most informative<a class="footnote-refere
 (in terms of having the highest variance along these axes).</p>
 </section>
 <section id="principal-component-analysis">
-<h3><span class="section-number">9.3.6. </span>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">9.3.6. </span>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">#</a></h3>
 <p><em>Principal component analysis</em> (PCA) is a fancy name for the entire process
 involving our brainstorming upon what happens along the projections onto
 the most variable dimensions.
@@ -2620,13 +2687,13 @@ but it might be an interesting one for some practitioners.</p>
 <figure class="align-default" id="id59">
 <span id="fig-pca-country"></span><img alt="../_images/pca-country-43.png" src="../_images/pca-country-43.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.22 </span><span class="caption-text">An example principal component analysis of countries</span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Figure 9.22 </span><span class="caption-text">An example principal component analysis of countries</span><a class="headerlink" href="#id59" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="further-reading">
-<h2><span class="section-number">9.4. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.4. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
 <p>Other approaches to regression via linear models
 include ridge and lasso, the latter having the nice property of
 automatically getting rid of noninformative variables from the model.
@@ -2641,7 +2708,7 @@ for more advanced students.
 Computing-oriented students should check out <span id="id21">[<a class="reference internal" href="999-bibliography.html#id157" title="Monahan, J.F. (2011).  Numerical Methods of Statistics. Cambridge University Press.">64</a>]</span>.</p>
 </section>
 <section id="exercises">
-<h2><span class="section-number">9.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <div class="proof proof-type-exercise" id="id60">
 
     <div class="proof-title">
@@ -2876,50 +2943,120 @@ to function properly. We need more maths in our lives.</p>
 </section>
 </section>
 
-
-           </div>
-           
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="410-data-frame.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><span class="section-number">10. </span>Introducing Data Frames</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="320-transform-matrix.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><span class="section-number">8. </span>Processing Multidimensional Data</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+              
+              
+              Copyright &#169; 2022–2023 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>.
+              Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
+              Built with <a href="https://sphinx-doc.org/">Sphinx</a>
+              and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
+              Last updated on 2023-02-15T22:20:49+1100.
+              This site will never display any ads: it is a non-profit project.
+              It does not collect any data.
+            </div>
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="410-data-frame.html" class="btn btn-neutral float-right" title="10. Introducing Data Frames" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="320-transform-matrix.html" class="btn btn-neutral float-left" title="8. Processing Multidimensional Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        </div>
+        
+      </footer>
     </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            In this chapter
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">9. Exploring Relationships Between Variables</a><ul>
+<li><a class="reference internal" href="#measuring-correlation">9.1. Measuring Correlation</a><ul>
+<li><a class="reference internal" href="#pearson-s-linear-correlation-coefficient">9.1.1. Pearson’s Linear Correlation Coefficient</a><ul>
+<li><a class="reference internal" href="#perfect-linear-correlation">9.1.1.1. Perfect Linear Correlation</a></li>
+<li><a class="reference internal" href="#strong-linear-correlation">9.1.1.2. Strong Linear Correlation</a></li>
+<li><a class="reference internal" href="#no-linear-correlation-does-not-imply-independence">9.1.1.3. No Linear Correlation Does Not Imply Independence</a></li>
+<li><a class="reference internal" href="#false-linear-correlations">9.1.1.4. False Linear Correlations</a></li>
+<li><a class="reference internal" href="#correlation-is-not-causation">9.1.1.5. Correlation Is Not Causation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#correlation-heatmap">9.1.2. Correlation Heatmap</a></li>
+<li><a class="reference internal" href="#linear-correlation-coefficients-on-transformed-data">9.1.3. Linear Correlation Coefficients on Transformed Data</a></li>
+<li><a class="reference internal" href="#spearman-s-rank-correlation-coefficient">9.1.4. Spearman’s Rank Correlation Coefficient</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#regression-tasks">9.2. Regression Tasks</a><ul>
+<li><a class="reference internal" href="#k-nearest-neighbour-regression">9.2.1. <em>K</em>-Nearest Neighbour Regression</a></li>
+<li><a class="reference internal" href="#from-data-to-linear-models">9.2.2. From Data to (Linear) Models</a></li>
+<li><a class="reference internal" href="#least-squares-method">9.2.3. Least Squares Method</a></li>
+<li><a class="reference internal" href="#analysis-of-residuals">9.2.4. Analysis of Residuals</a></li>
+<li><a class="reference internal" href="#multiple-regression">9.2.5. Multiple Regression</a></li>
+<li><a class="reference internal" href="#variable-transformation-and-linearisable-models">9.2.6. Variable Transformation and Linearisable Models (*)</a></li>
+<li><a class="reference internal" href="#descriptive-vs-predictive-power">9.2.7. Descriptive vs Predictive Power (*)</a></li>
+<li><a class="reference internal" href="#fitting-regression-models-with-scikit-learn">9.2.8. Fitting Regression Models with <strong class="program">scikit-learn</strong> (*)</a></li>
+<li><a class="reference internal" href="#ill-conditioned-model-matrices">9.2.9. Ill-Conditioned Model Matrices (*)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#finding-interesting-combinations-of-variables">9.3. Finding Interesting Combinations of Variables (*)</a><ul>
+<li><a class="reference internal" href="#dot-products-angles-collinearity-and-orthogonality">9.3.1. Dot Products, Angles, Collinearity, and Orthogonality</a></li>
+<li><a class="reference internal" href="#geometric-transformations-of-points">9.3.2. Geometric Transformations of Points</a></li>
+<li><a class="reference internal" href="#matrix-inverse">9.3.3. Matrix Inverse</a></li>
+<li><a class="reference internal" href="#singular-value-decomposition">9.3.4. Singular Value Decomposition</a></li>
+<li><a class="reference internal" href="#dimensionality-reduction-with-svd">9.3.5. Dimensionality Reduction with SVD</a></li>
+<li><a class="reference internal" href="#principal-component-analysis">9.3.6. Principal Component Analysis</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#further-reading">9.4. Further Reading</a></li>
+<li><a class="reference internal" href="#exercises">9.5. Exercises</a></li>
+</ul>
+</li>
+</ul>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        Copyright &#169; 2022–2023 by <a href="https://www.gagolewski.com">Marek Gagolewski</a>. Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
-
-    Built with <a href="https://sphinx-doc.org/">Sphinx</a>
-    and a customised <a href="https://github.com/rtfd/sphinx_rtd_theme">rtd</a>
-    theme.
-      <span class="lastupdated">
-        Last updated on 2023-02-06T10:33:24+1100.
-      </span>
-
-
-    This site will never display any ads: it is a non-profit project.
-    It does not collect any data.
-
-    </p>
-  </div> 
-
-</footer>
+          </div>
         </div>
       </div>
-
-    </section>
-
+      
+      
+    </aside>
   </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/proof.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
 </html>
