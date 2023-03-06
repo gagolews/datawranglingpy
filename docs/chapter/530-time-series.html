@@ -339,7 +339,7 @@ or highest yearly temperatures recorded in some location.</p>
 <p>Consider the midrange<a class="footnote-reference brackets" href="#footmidrange" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> daily temperatures in degrees Celsius
 at the Spokane International Airport (Spokane, WA, US)
 between 1889-08-01 (first observation) and 2021-12-31 (last observation).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/spokane_temperature.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -364,8 +364,8 @@ First, the popular quantiles:</p>
 </div>
 <p>A graphical summary of the data distribution is depicted
 in <a class="reference internal" href="#fig-spokane-violinplot"><span class="std std-numref">Figure 16.1</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">temps</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showextrema</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">temps</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -420,13 +420,13 @@ Usually, we will be creating dates from strings, for instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2023-01-30&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-03-06&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with datetimes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-01-30T06:14:35&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-03-06T08:13:34&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -438,9 +438,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9387e+04])</span>
+<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9422e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.67505928e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.67809041e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -460,9 +460,9 @@ all dates in the YYYY-MM-DD format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2023-01-29&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-03-05&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-01-30T18:14:35&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-03-06T20:13:34&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -1082,7 +1082,7 @@ all sampled at the same <em>n</em> points in time
 (e.g., <em>m</em> different stocks on <em>n</em> consecutive days).</p>
 <p>Consider the currency exchange rates
 for the first half of 2020:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eurxxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eurxxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/eurxxx-20200101-20200630-no-na.csv&quot;</span><span class="p">,</span>
     <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 <span class="n">eurxxx</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview</span>
@@ -1099,7 +1099,7 @@ for the first half of 2020:</p>
 EUR/CNY (Chinese Yuans), EUR/GBP (British Pounds),
 and EUR/PLN (Polish Złotys), in this order.
 Let us draw the four time series; see <a class="reference internal" href="#fig-currency-abs"><span class="std std-numref">Figure 16.8</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/euraud-20200101-20200630-dates.txt&quot;</span><span class="p">,</span>
     <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AUD&quot;</span><span class="p">,</span> <span class="s2">&quot;CNY&quot;</span><span class="p">,</span> <span class="s2">&quot;GBP&quot;</span><span class="p">,</span> <span class="s2">&quot;PLN&quot;</span><span class="p">]</span>
@@ -1177,7 +1177,7 @@ For each year, identify the lowest and the highest rate.</p>
 <section id="candlestick-plots">
 <h3><span class="section-number">16.3.6. </span>Candlestick Plots (*)<a class="headerlink" href="#candlestick-plots" title="Permalink to this heading">#</a></h3>
 <p>Consider the BTC/USD data for 2021:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">btcusd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">btcusd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/btcusd_ohlcv_2021.csv&quot;</span><span class="p">,</span>
     <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 <span class="n">btcusd</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># preview (we skip the Volume column for readability)</span>
@@ -1374,7 +1374,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-02-20T18:45:20+1100.
+              Last updated on 2023-03-06T19:16:08+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

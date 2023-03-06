@@ -405,11 +405,11 @@ or the arithmetic mean of the two middle values otherwise:</p>
 </ul>
 <p>They can be computed using the <strong class="command">numpy.mean</strong> and
 <strong class="command">numpy.median</strong> functions.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="c1">## (160.13679222932953, 160.1)</span>
-<span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
 <span class="c1">## (35779.994, 30042.0)</span>
@@ -771,11 +771,11 @@ describe whether an empirical distribution is heavy- or thin-tailed.</p>
 <p>A <em>box and whisker</em> plot (<em>box plot</em> for short)
 depicts some noteworthy features of a data sample.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 1st subplot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;heights&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;heights&quot;</span><span class="p">])</span>  <span class="c1"># label at y=1</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 2nd subplot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">income</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">])</span>  <span class="c1"># label at y=1</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -835,9 +835,9 @@ If they do, it is marked with a distinctive symbol.</p>
         
     </div><div class="proof-content">
 <p>Call
-<strong class="command">matplotlib.pyplot.plot</strong><code class="code docutils literal notranslate"><span class="pre">(</span></code><strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">(..data..),</span> <span class="pre">0,</span> <span class="pre">&quot;wX&quot;)</span></code>
-after <strong class="command">seaborn.boxplot</strong> to mark the arithmetic mean with
-a white cross.</p>
+<strong class="command">matplotlib.pyplot.plot</strong><code class="code docutils literal notranslate"><span class="pre">(</span></code><strong class="command">numpy.mean</strong><code class="code docutils literal notranslate"><span class="pre">(..data..),</span> <span class="pre">0,</span> <span class="pre">&quot;bX&quot;)</span></code> to mark the arithmetic mean with a blue cross.
+Alternatively, pass <code class="docutils literal notranslate"><span class="pre">showmeans=True</span></code> (amongst others)
+to <strong class="command">matplotlib.pyplot.boxplot</strong>.</p>
 </div></div><p>Box plots are particularly beneficial for comparing data samples with each
 other (e.g., body measures of men and women separately),
 both in terms of the relative shift (location)
@@ -851,15 +851,16 @@ as well as spread and skewness; see, e.g., <a class="reference internal" href="4
 <p>(*)
 We may also sometimes be interested in a <em>violin plot</em>
 (<a class="reference internal" href="#fig-violinplot-income"><span class="std std-numref">Figure 5.3</span></a>),
-which combines a box plot (although with no outliers marked)
-and the so-called kernel density estimator
-(which is a smoothened version of a histogram; see <a class="reference internal" href="520-missingness.html#sec-kde-1d"><span class="std std-numref">Section 15.4.2</span></a>).</p>
+which depicts the so-called kernel density estimator,
+being a smoothened version of a histogram; see <a class="reference internal" href="520-missingness.html#sec-kde-1d"><span class="std std-numref">Section 15.4.2</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 1st subplot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">heights</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;heights&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showextrema</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;heights&quot;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># 2 rows, 1 column, 2nd subplot</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">income</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showextrema</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -2292,7 +2293,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-02-20T18:45:20+1100.
+              Last updated on 2023-03-06T19:16:08+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

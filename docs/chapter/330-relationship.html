@@ -318,10 +318,9 @@ are appreciated.</em>
 <p>Let us go back to National Health and Nutrition Examination Survey
 (NHANES study) excerpt that we were playing with in
 <a class="reference internal" href="310-matrix.html#sec-visual-multidim"><span class="std std-numref">Section 7.4</span></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">body</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>  <span class="c1"># convert to matrix</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip first row (column names)</span>
 <span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview: 6 first rows, all columns</span>
 <span class="c1">## array([[ 97.1, 160.2,  34.7,  40.8,  35.8, 126.1, 117.9],</span>
 <span class="c1">##        [ 91.1, 152.7,  33.5,  33. ,  38.5, 125.5, 103.1],</span>
@@ -338,11 +337,11 @@ features describing them, in this order:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
     <span class="s2">&quot;height&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;arm len&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;leg len&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;arm circ&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;hip circ&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;waist circ&quot;</span>
+    <span class="s2">&quot;arm len.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;leg len.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;arm circ.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hip circ.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;waist circ.&quot;</span>
 <span class="p">])</span>
 </pre></div>
 </div>
@@ -423,7 +422,7 @@ that does not change the sign of elements).</p></li>
 </ol>
 </div>
 <p>To get more insight, below we shall illustrate some interesting
-<em>correlations</em> using the following function
+<em>correlations</em> using the following helper function
 that draws a scatter plot and prints out Pearson’s <span class="math notranslate nohighlight">\(r\)</span>
 (and Spearman’s <span class="math notranslate nohighlight">\(\rho\)</span> which we discuss in <a class="reference internal" href="#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>;
 let us ignore it by then):</p>
@@ -535,7 +534,7 @@ See <a class="reference internal" href="#fig-corr-ex-2"><span class="std std-num
 <figure class="align-default" id="id27">
 <span id="fig-corr-ex-2"></span><img alt="../_images/corr-ex-2-5.png" src="../_images/corr-ex-2-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.3 </span><span class="caption-text">Are all of these really uncorrelated?</span><a class="headerlink" href="#id27" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.3 </span><span class="caption-text">Are all of these variable pairs really uncorrelated?</span><a class="headerlink" href="#id27" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -609,17 +608,38 @@ coefficients; see <a class="reference internal" href="#sec-least-squares"><span 
 <h3><span class="section-number">9.1.2. </span>Correlation Heatmap<a class="headerlink" href="#correlation-heatmap" title="Permalink to this heading">#</a></h3>
 <p>Calling <strong class="command">numpy.corrcoef</strong><code class="code docutils literal notranslate"><span class="pre">(body.T)</span></code> (note the matrix
 transpose) allows for determining the linear correlation
-coefficients between all pairs of variables.</p>
-<p>We can depict them nicely on a heatmap; see <a class="reference internal" href="#fig-cor-heat"><span class="std std-numref">Figure 9.5</span></a>.</p>
+coefficients between all pairs of variables.
+We can depict them nicely on a heatmap based
+on a fancified call to <strong class="command">matplotlib.pyplot.imshow</strong>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="k">def</span> <span class="nf">corrheatmap</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draws a correlation heatmap, given:</span>
+<span class="sd">    * R - matrix of correlation coefficients between all pairs of variables,</span>
+<span class="sd">    * labels - list of column names</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># plot the heatmap using a custom colour palette</span>
+    <span class="c1"># (correlations are in [-1, 1])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;RdBu&quot;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># add text labels</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span><span class="o">&lt;</span><span class="mf">0.5</span> <span class="k">else</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#fig-cor-heat"><span class="std std-numref">Figure 9.5</span></a> for the plot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
-    <span class="n">R</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)],</span>
-    <span class="n">xticklabels</span><span class="o">=</span><span class="n">body_columns</span><span class="p">[</span><span class="n">order</span><span class="p">],</span>
-    <span class="n">yticklabels</span><span class="o">=</span><span class="n">body_columns</span><span class="p">[</span><span class="n">order</span><span class="p">],</span>
-    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">corrheatmap</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)],</span> <span class="n">body_columns</span><span class="p">[</span><span class="n">order</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -666,7 +686,7 @@ and repeating items:</p>
 <span class="n">pos</span>  <span class="c1"># (row, column)</span>
 <span class="c1">## (0, 5)</span>
 <span class="n">body_columns</span><span class="p">[</span> <span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span> <span class="p">]</span>  <span class="c1"># indexing by a tuple has a different meaning</span>
-<span class="c1">## array([&#39;weight&#39;, &#39;hip circ&#39;], dtype=&#39;&lt;U10&#39;)</span>
+<span class="c1">## array([&#39;weight&#39;, &#39;hip circ.&#39;], dtype=&#39;&lt;U11&#39;)</span>
 </pre></div>
 </div>
 <p>Weight and hip circumference is the most strongly correlated pair.</p>
@@ -674,6 +694,15 @@ and repeating items:</p>
 flattened (unidimensional) array. We had to use
 <strong class="command">numpy.unravel_index</strong> to convert it to a two-dimensional
 one.</p>
+</div></div><div class="proof proof-type-example" id="id32">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 9.4</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Use <strong class="command">seaborn.heatmap</strong> to draw the correlation
+heatmap.</p>
 </div></div></section>
 <section id="linear-correlation-coefficients-on-transformed-data">
 <h3><span class="section-number">9.1.3. </span>Linear Correlation Coefficients on Transformed Data<a class="headerlink" href="#linear-correlation-coefficients-on-transformed-data" title="Permalink to this heading">#</a></h3>
@@ -684,10 +713,9 @@ e.g., logarithms (remember incomes?), squares, square roots, etc.</p>
 <a class="reference external" href="https://www.cia.gov/the-world-factbook/">World Factbook</a>,
 where we have data on gross domestic product per capita (based
 on purchasing power parity) and life expectancy at birth in many countries.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/world_factbook_2020_subset1.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>  <span class="c1"># convert to matrix</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip first row (column names)</span>
 <span class="n">world</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview</span>
 <span class="c1">## array([[ 2000. ,    52.8],</span>
 <span class="c1">##        [12500. ,    79. ],</span>
@@ -710,10 +738,10 @@ a scatterplot.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id32">
+<figure class="align-default" id="id33">
 <span id="fig-worldfactbook-gdp-life"></span><img alt="../_images/WorldFactbook-gdp-life-11.png" src="../_images/WorldFactbook-gdp-life-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatterplots for life expectancy vs gross domestic product (purchasing power parity) on linear (left-) and log-scale (righthand side)</span><a class="headerlink" href="#id32" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatterplots for life expectancy vs gross domestic product (purchasing power parity) on linear (left-) and log-scale (righthand side)</span><a class="headerlink" href="#id33" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>If we compute Pearson’s <span class="math notranslate nohighlight">\(r\)</span> between these two,
@@ -769,28 +797,28 @@ monotone transformations of the input variables
 </div>
 <p>This is because such transformations do not change the observations’
 ranks (or only reverse them).</p>
-<div class="proof proof-type-exercise" id="id33">
+<div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.4</span>
+        <span class="proof-type">Exercise 9.5</span>
         
     </div><div class="proof-content">
 <p>We included the <span class="math notranslate nohighlight">\(\rho\)</span>s in all the outputs generated
 by our <strong class="command">plot_corr</strong> function. Review all the above figures.</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+</div></div><div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.5</span>
+        <span class="proof-type">Exercise 9.6</span>
         
     </div><div class="proof-content">
 <p>Apply <strong class="command">numpy.corrcoef</strong>
 and <strong class="command">scipy.stats.rankdata</strong> (with the appropriate <code class="docutils literal notranslate"><span class="pre">axis</span></code> argument)
 to compute the Spearman correlation matrix for all the variable
 pairs in <code class="docutils literal notranslate"><span class="pre">body</span></code>. Draw it on a heatmap.</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.6</span>
+        <span class="proof-type">Exercise 9.7</span>
         
     </div><div class="proof-content">
 <p>(*) Draw the scatterplots of the ranks of each column
@@ -900,10 +928,10 @@ for a few different <span class="math notranslate nohighlight">\(k\)</span>s.</p
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id36">
+<figure class="align-default" id="id37">
 <span id="fig-knn-reg"></span><img alt="../_images/knn-reg-13.png" src="../_images/knn-reg-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><em>K</em>-nearest neighbour regression curves for example datasets; the greater the <em>k</em>, the more coarse-grained the approximation</span><a class="headerlink" href="#id36" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><em>K</em>-nearest neighbour regression curves for example datasets; the greater the <em>k</em>, the more coarse-grained the approximation</span><a class="headerlink" href="#id37" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We obtained a <em>smoothened</em> version of the original dataset.
@@ -1167,16 +1195,16 @@ indicates a quite good fit, but of course there is some natural variability.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id37">
+<figure class="align-default" id="id38">
 <span id="fig-hip-weight-lm"></span><img alt="../_images/hip-weight-lm-15.png" src="../_images/hip-weight-lm-15.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.8 </span><span class="caption-text">The least squares line for weight vs hip circumference</span><a class="headerlink" href="#id37" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.8 </span><span class="caption-text">The least squares line for weight vs hip circumference</span><a class="headerlink" href="#id38" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id38">
+<div class="proof proof-type-exercise" id="id39">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.7</span>
+        <span class="proof-type">Exercise 9.8</span>
         
     </div><div class="proof-content">
 <p>The <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/r/anscombe.csv">Anscombe quartet</a>
@@ -1196,10 +1224,10 @@ visualised in <a class="reference internal" href="#fig-residuals"><span class="s
 <span class="c1">## array([ -0.23, -12.17,   5.61,   9.17,   5.56,  -5.36])</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id39">
+<figure class="align-default" id="id40">
 <span id="fig-residuals"></span><img alt="../_images/residuals-17.png" src="../_images/residuals-17.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.9 </span><span class="caption-text">Example residuals in a simple linear regression task</span><a class="headerlink" href="#id39" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.9 </span><span class="caption-text">Example residuals in a simple linear regression task</span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We wanted the squared residuals (on average – across all the points)
@@ -1246,10 +1274,10 @@ we sought to minimise above.</p>
 </div>
 <p>MAE is nicely interpretable, because it measures by
 how many kilograms we err <em>on average</em>. Not bad.</p>
-<div class="proof proof-type-exercise" id="id40">
+<div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.8</span>
+        <span class="proof-type">Exercise 9.9</span>
         
     </div><div class="proof-content">
 <p>Fit a regression line
@@ -1280,16 +1308,16 @@ at random therein, without any dependence structure
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id41">
+<figure class="align-default" id="id42">
 <span id="fig-resid-vs-fit"></span><img alt="../_images/resid-vs-fit-19.png" src="../_images/resid-vs-fit-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference; the variance of residuals slightly increases as <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases, which is not ideal, but it could be much worse than this</span><a class="headerlink" href="#id41" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference; the variance of residuals slightly increases as <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases, which is not ideal, but it could be much worse than this</span><a class="headerlink" href="#id42" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id42">
+<div class="proof proof-type-exercise" id="id43">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.9</span>
+        <span class="proof-type">Exercise 9.10</span>
         
     </div><div class="proof-content">
 <p>Compare<a class="footnote-reference brackets" href="#footknnas" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> the RMSE and MAE for the <em>k</em>-nearest neighbour
@@ -1497,16 +1525,16 @@ considered). The four models are depicted in
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id43">
+<figure class="align-default" id="id44">
 <span id="fig-gdp-life-four-models"></span><img alt="../_images/gdp-life-four-models-21.png" src="../_images/gdp-life-four-models-21.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.11 </span><span class="caption-text">Different models for life expectancy vs GDP</span><a class="headerlink" href="#id43" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.11 </span><span class="caption-text">Different models for life expectancy vs GDP</span><a class="headerlink" href="#id44" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id44">
+<div class="proof proof-type-exercise" id="id45">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.10</span>
+        <span class="proof-type">Exercise 9.11</span>
         
     </div><div class="proof-content">
 <p>Draw box plots and histograms of residuals
@@ -1586,10 +1614,10 @@ for an imaginary country with $500,000 per capita GDP:</p>
 </pre></div>
 </div>
 <p>Nonsense.</p>
-<div class="proof proof-type-example" id="id45">
+<div class="proof proof-type-example" id="id46">
 
     <div class="proof-title">
-        <span class="proof-type">Example 9.11</span>
+        <span class="proof-type">Example 9.12</span>
         
     </div><div class="proof-content">
 <p>Let us consider the following theoretical illustration.
@@ -1648,16 +1676,16 @@ see <a class="reference internal" href="#fig-true-model-vs-guess"><span class="s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id46">
+<figure class="align-default" id="id47">
 <span id="fig-true-model-vs-guess"></span><img alt="../_images/true-model-vs-guess-23.png" src="../_images/true-model-vs-guess-23.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.12 </span><span class="caption-text">The true (theoretical) model vs some guesstimates (fitted based on noisy data); more degrees of freedom is not always better</span><a class="headerlink" href="#id46" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.12 </span><span class="caption-text">The true (theoretical) model vs some guesstimates (fitted based on noisy data); more degrees of freedom is not always better</span><a class="headerlink" href="#id47" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-</div></div><div class="proof proof-type-example" id="id47">
+</div></div><div class="proof proof-type-example" id="id48">
 
     <div class="proof-title">
-        <span class="proof-type">Example 9.12</span>
+        <span class="proof-type">Example 9.13</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -1710,10 +1738,10 @@ below we consider a range of polynomial models of different degrees.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id48">
+<figure class="align-default" id="id49">
 <span id="fig-true-model-vs-polynomials-rmse"></span><img alt="../_images/true-model-vs-polynomials-rmse-25.png" src="../_images/true-model-vs-polynomials-rmse-25.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.13 </span><span class="caption-text">Small RMSE on training data does not necessarily imply good generalisation abilities</span><a class="headerlink" href="#id48" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.13 </span><span class="caption-text">Small RMSE on training data does not necessarily imply good generalisation abilities</span><a class="headerlink" href="#id49" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In <a class="reference internal" href="#fig-true-model-vs-polynomials-rmse"><span class="std std-numref">Figure 9.13</span></a>, we see that a model’s
@@ -1731,10 +1759,10 @@ see <a class="reference internal" href="#fig-true-model-vs-polynomials"><span cl
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id49">
+<figure class="align-default" id="id50">
 <span id="fig-true-model-vs-polynomials"></span><img alt="../_images/true-model-vs-polynomials-27.png" src="../_images/true-model-vs-polynomials-27.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.14 </span><span class="caption-text">Under- and overfitting to training data</span><a class="headerlink" href="#id49" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.14 </span><span class="caption-text">Under- and overfitting to training data</span><a class="headerlink" href="#id50" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div><div class="admonition important">
@@ -1998,20 +2026,20 @@ is better than the polynomial one.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id50">
+<figure class="align-default" id="id51">
 <span id="fig-ill-cond"></span><img alt="../_images/ill-cond-29.png" src="../_images/ill-cond-29.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can result in the resulting models’ being very wrong</span><a class="headerlink" href="#id50" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can result in the resulting models’ being very wrong</span><a class="headerlink" href="#id51" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Always check the model matrix’s condition number.</p>
 </div>
-<div class="proof proof-type-exercise" id="id51">
+<div class="proof proof-type-exercise" id="id52">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.13</span>
+        <span class="proof-type">Exercise 9.14</span>
         
     </div><div class="proof-content">
 <p>Check the condition numbers of all the models fitted so far in this chapter
@@ -2082,10 +2110,10 @@ inverse of the cosine function, i.e., arccosine.</p>
 </pre></div>
 </div>
 <p>Notice that we converted the angle from radians to degrees.</p>
-<figure class="align-default" id="id52">
+<figure class="align-default" id="id53">
 <span id="fig-two-vectors-angle"></span><img alt="../_images/two-vectors-angle-31.png" src="../_images/two-vectors-angle-31.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.16 </span><span class="caption-text">Example vectors and the angle between them</span><a class="headerlink" href="#id52" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.16 </span><span class="caption-text">Example vectors and the angle between them</span><a class="headerlink" href="#id53" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -2262,10 +2290,10 @@ Both are orthonormal matrices as well.</p>
 <span class="n">X</span> <span class="o">=</span> <span class="n">Xp</span> <span class="o">@</span> <span class="n">S</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">+</span> <span class="n">t</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id53">
+<figure class="align-default" id="id54">
 <span id="fig-geom-trans"></span><img alt="../_images/geom-trans-33.png" src="../_images/geom-trans-33.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version</span><a class="headerlink" href="#id53" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version</span><a class="headerlink" href="#id54" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We can consider <span class="math notranslate nohighlight">\(\mathbf{X}=\mathbf{X}' \mathbf{S} \mathbf{Q} + \mathbf{t}\)</span>
@@ -2285,10 +2313,10 @@ is not rare during a dataset’s preprocessing step,
 especially if they are on the same scale or are unitless.
 As a matter of fact,
 the standardisation itself is a form of scaling and translation.</p>
-<div class="proof proof-type-exercise" id="id54">
+<div class="proof proof-type-exercise" id="id55">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.14</span>
+        <span class="proof-type">Exercise 9.15</span>
         
     </div><div class="proof-content">
 <p>Assume that we have a dataset with two columns,
@@ -2465,17 +2493,17 @@ column variances).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id55">
+<figure class="align-default" id="id56">
 <span id="fig-principal-directions"></span><img alt="../_images/principal-directions-35.png" src="../_images/principal-directions-35.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.18 </span><span class="caption-text">Principal directions of an example dataset (scaled so that they are proportional to the standard deviations along them)</span><a class="headerlink" href="#id55" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.18 </span><span class="caption-text">Principal directions of an example dataset (scaled so that they are proportional to the standard deviations along them)</span><a class="headerlink" href="#id56" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="dimensionality-reduction-with-svd">
 <h3><span class="section-number">9.3.5. </span>Dimensionality Reduction with SVD<a class="headerlink" href="#dimensionality-reduction-with-svd" title="Permalink to this heading">#</a></h3>
 <p>Let us consider the following example three-dimensional dataset.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chainlink</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chainlink</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/clustering/fcps_chainlink.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2485,15 +2513,16 @@ screen or book page). We can look at the dataset
 only from one <em>angle</em> at a time.</p>
 <p>In particular, a scatterplot matrix only depicts the dataset
 from the perspective of the axes of the Cartesian coordinate system
-(standard basis); see <a class="reference internal" href="#fig-chainlink-pairplot"><span class="std std-numref">Figure 9.19</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chainlink</span><span class="p">))</span>
-<span class="c1"># plt.show()  # not needed :/</span>
+(standard basis); see <a class="reference internal" href="#fig-chainlink-pairplot"><span class="std std-numref">Figure 9.19</span></a>
+(we used a function we defined in <a class="reference internal" href="310-matrix.html#sec-pairplot"><span class="std std-numref">Section 7.4.3</span></a>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pairplot</span><span class="p">(</span><span class="n">chainlink</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;axis1&quot;</span><span class="p">,</span> <span class="s2">&quot;axis2&quot;</span><span class="p">,</span> <span class="s2">&quot;axis3&quot;</span><span class="p">])</span>  <span class="c1"># our function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id56">
+<figure class="align-default" id="id57">
 <span id="fig-chainlink-pairplot"></span><img alt="../_images/chainlink-pairplot-37.png" src="../_images/chainlink-pairplot-37.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.19 </span><span class="caption-text">Views from the perspective of the main axes</span><a class="headerlink" href="#id56" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.19 </span><span class="caption-text">Views from the perspective of the main axes</span><a class="headerlink" href="#id57" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>These viewpoints by no means must reveal the true geometric
@@ -2515,10 +2544,10 @@ hopefully visible <a class="reference internal" href="#fig-chainlink-rotated"><s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id57">
+<figure class="align-default" id="id58">
 <span id="fig-chainlink-rotated"></span><img alt="../_images/chainlink-rotated-39.png" src="../_images/chainlink-rotated-39.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.20 </span><span class="caption-text">Different views on the same dataset</span><a class="headerlink" href="#id57" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.20 </span><span class="caption-text">Different views on the same dataset</span><a class="headerlink" href="#id58" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>It turns out that we may find a noteworthy viewpoint using the SVD.
@@ -2558,10 +2587,10 @@ ones (from the pairplot).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id58">
+<figure class="align-default" id="id59">
 <span id="fig-chainlink-svd"></span><img alt="../_images/chainlink-svd-41.png" src="../_images/chainlink-svd-41.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes</span><a class="headerlink" href="#id58" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes</span><a class="headerlink" href="#id59" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What we just did is a kind of <em>dimensionality reduction</em>.
@@ -2684,10 +2713,10 @@ but it might be an interesting one for some practitioners.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id59">
+<figure class="align-default" id="id60">
 <span id="fig-pca-country"></span><img alt="../_images/pca-country-43.png" src="../_images/pca-country-43.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.22 </span><span class="caption-text">An example principal component analysis of countries</span><a class="headerlink" href="#id59" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.22 </span><span class="caption-text">An example principal component analysis of countries</span><a class="headerlink" href="#id60" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -2709,124 +2738,124 @@ Computing-oriented students should check out <span id="id21">[<a class="referenc
 </section>
 <section id="exercises">
 <h2><span class="section-number">9.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
-<div class="proof proof-type-exercise" id="id60">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 9.15</span>
-        
-    </div><div class="proof-content">
-<p>Why correlation is not causation?</p>
-</div></div><div class="proof proof-type-exercise" id="id61">
+<div class="proof proof-type-exercise" id="id61">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.16</span>
         
     </div><div class="proof-content">
-<p>What does the linear correlation of 0.9 mean?
-How about the rank correlation of 0.9?
-And the linear correlation of 0.0?</p>
+<p>Why correlation is not causation?</p>
 </div></div><div class="proof proof-type-exercise" id="id62">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.17</span>
         
     </div><div class="proof-content">
-<p>How is Spearman’s coefficient related to Pearson’s one?</p>
+<p>What does the linear correlation of 0.9 mean?
+How about the rank correlation of 0.9?
+And the linear correlation of 0.0?</p>
 </div></div><div class="proof proof-type-exercise" id="id63">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.18</span>
         
     </div><div class="proof-content">
-<p>State the optimisation problem behind the least squares fitting
-of linear models.</p>
+<p>How is Spearman’s coefficient related to Pearson’s one?</p>
 </div></div><div class="proof proof-type-exercise" id="id64">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.19</span>
         
     </div><div class="proof-content">
-<p>What are the different ways of the numerical summarising of residuals?</p>
+<p>State the optimisation problem behind the least squares fitting
+of linear models.</p>
 </div></div><div class="proof proof-type-exercise" id="id65">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.20</span>
         
     </div><div class="proof-content">
-<p>Why is it important for the residuals to be homoscedastic?</p>
+<p>What are the different ways of the numerical summarising of residuals?</p>
 </div></div><div class="proof proof-type-exercise" id="id66">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.21</span>
         
     </div><div class="proof-content">
-<p>Is a more complex model always better?</p>
+<p>Why is it important for the residuals to be homoscedastic?</p>
 </div></div><div class="proof proof-type-exercise" id="id67">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.22</span>
         
     </div><div class="proof-content">
-<p>Why should extrapolation be handled with care?</p>
+<p>Is a more complex model always better?</p>
 </div></div><div class="proof proof-type-exercise" id="id68">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.23</span>
         
     </div><div class="proof-content">
-<p>Why did we say that novice users should refrain from using
-<strong class="program">scikit-learn</strong>?</p>
+<p>Why should extrapolation be handled with care?</p>
 </div></div><div class="proof proof-type-exercise" id="id69">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.24</span>
         
     </div><div class="proof-content">
-<p>What is the condition number of a model matrix and why should we
-always check it?</p>
+<p>Why did we say that novice users should refrain from using
+<strong class="program">scikit-learn</strong>?</p>
 </div></div><div class="proof proof-type-exercise" id="id70">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.25</span>
         
     </div><div class="proof-content">
-<p>What is the geometrical interpretation of the dot product of
-two normalised vectors?</p>
+<p>What is the condition number of a model matrix and why should we
+always check it?</p>
 </div></div><div class="proof proof-type-exercise" id="id71">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.26</span>
         
     </div><div class="proof-content">
-<p>How can we verify if two vectors are orthonormal? What is an orthonormal
-projection? What is the inverse of an orthonormal matrix?</p>
+<p>What is the geometrical interpretation of the dot product of
+two normalised vectors?</p>
 </div></div><div class="proof proof-type-exercise" id="id72">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.27</span>
         
     </div><div class="proof-content">
-<p>What is the inverse of a diagonal matrix?</p>
+<p>How can we verify if two vectors are orthonormal? What is an orthonormal
+projection? What is the inverse of an orthonormal matrix?</p>
 </div></div><div class="proof proof-type-exercise" id="id73">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.28</span>
         
     </div><div class="proof-content">
-<p>Characterise the general properties of the three matrices obtained
-by performing the singular value decomposition of a given matrix
-of shape <em>n</em>-by-<em>m</em>.</p>
+<p>What is the inverse of a diagonal matrix?</p>
 </div></div><div class="proof proof-type-exercise" id="id74">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.29</span>
         
     </div><div class="proof-content">
-<p>How can we obtain the first principal component of a given centred matrix?</p>
+<p>Characterise the general properties of the three matrices obtained
+by performing the singular value decomposition of a given matrix
+of shape <em>n</em>-by-<em>m</em>.</p>
 </div></div><div class="proof proof-type-exercise" id="id75">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.30</span>
+        
+    </div><div class="proof-content">
+<p>How can we obtain the first principal component of a given centred matrix?</p>
+</div></div><div class="proof proof-type-exercise" id="id76">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.31</span>
         
     </div><div class="proof-content">
 <p>How can we compute the ratios of the variances explained by the
@@ -2844,10 +2873,10 @@ The rest is silence.</p>
 </aside>
 <aside class="footnote brackets" id="foothclust" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
-<p>(**) This can be done automatically via some
+<p>(**) This can be done automatically by some
 hierarchical clustering algorithm applied
-onto the transformed correlation matrix, <span class="math notranslate nohighlight">\(1-|\mathbf{R}|\)</span>
-or <span class="math notranslate nohighlight">\(1-\mathbf{R}^2\)</span>.</p>
+onto the correlation matrix converted to a distance one,
+e.g., <span class="math notranslate nohighlight">\(1-|\mathbf{R}|\)</span> or <span class="math notranslate nohighlight">\(1-\mathbf{R}^2\)</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footspearman" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
@@ -2978,7 +3007,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-02-20T18:45:20+1100.
+              Last updated on 2023-03-06T19:16:08+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

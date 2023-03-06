@@ -397,7 +397,7 @@ the smaller the error).</p>
 <p>Recall the <code class="docutils literal notranslate"><span class="pre">heights</span></code> (females from the NHANES study)
 dataset and its bell-shaped histogram
 in <a class="reference internal" href="210-vector.html#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/nhanes_adult_female_height_2020.txt&quot;</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">n</span>
@@ -420,13 +420,14 @@ this estimator has slightly better statistical properties.</p>
 (i.e., the PDF of N(160.1, 7.06) which we can compute using
 <strong class="command">scipy.stats.norm.pdf</strong>),
 on top of the histogram; see <a class="reference internal" href="#fig-heights-normal"><span class="std std-numref">Figure 6.2</span></a>.
-We pass <code class="docutils literal notranslate"><span class="pre">stat=&quot;density&quot;</span></code> to <strong class="command">seaborn.histplot</strong>
-so that the histogram bars are normalised
-(i.e., the total area of these rectangles sums to 1).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+We pass <code class="docutils literal notranslate"><span class="pre">density=True</span></code> to <strong class="command">matplotlib.pyplot.hist</strong>
+to normalise the bars’ heights so that
+their total area sums to 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">heights</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PDF of N(</span><span class="si">{</span><span class="n">mu</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -774,16 +775,14 @@ if its logarithm is normally distributed.</p>
 <p>In particular, it is sometimes observed that the income of most<a class="footnote-reference brackets" href="#footmost" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>
 individuals is distributed, at least approximately, log-normally.
 Let us investigate whether this is the case for UK taxpayers.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/uk_income_simulated_2020.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The plotting of the histogram of the logarithm of
-income is left as an exercise (we can pass <code class="docutils literal notranslate"><span class="pre">log_scale=True</span></code>
-to <strong class="command">seaborn.histplot</strong>; we will plot it soon anyway
-in a different way).
-We proceed directly with the
-fitting of a log-normal model, LN(μ, σ).
+<p>The plotting of the histogram of the logarithm of income is left as an
+exercise (we will do it anyway soon).
+We proceed directly with the fitting of a log-normal model,
+LN(μ, σ).
 The fitting process is similar to the normal case, but this time
 we determine the mean and standard deviation based on the logarithms of data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lmu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">income</span><span class="p">))</span>
@@ -792,35 +791,30 @@ we determine the mean and standard deviation based on the logarithms of data:</p
 <span class="c1">## (10.314409794364623, 0.5816585197803816)</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="#fig-heights-lognormal"><span class="std std-numref">Figure 6.7</span></a> depicts the fitted probability density
-function together with the histograms on the log- and original scale.
-When creating this plot, there are two pitfalls, though.
-Firstly, <strong class="command">scipy.stats.lognorm</strong>
+<p>We need to take note of the fact that <strong class="command">scipy.stats.lognorm</strong>
 encodes the distribution via the parameter <span class="math notranslate nohighlight">\(s\)</span> equal to <span class="math notranslate nohighlight">\(\sigma\)</span>
 and scale equal to <span class="math notranslate nohighlight">\(e^\mu\)</span>. Computing the PDF at different points
-is done as follows:</p>
+must done as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="mi">101</span><span class="p">)</span>
 <span class="n">fx</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">lsigma</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lmu</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Second, passing both <code class="docutils literal notranslate"><span class="pre">log_scale=True</span></code> and <code class="docutils literal notranslate"><span class="pre">stat=&quot;density&quot;</span></code>
-to <strong class="command">seaborn.histplot</strong> does not normalise the values on the
-y-axis correctly. To make the histogram on the log-scale
-comparable with the true density, we need to turn on the log-scale
-and pass the manually generated bins that are equidistant
-on the logarithmic scale (via <strong class="command">numpy.geomspace</strong>).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="mi">30</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>And now:</p>
+<p><a class="reference internal" href="#fig-heights-lognormal"><span class="std std-numref">Figure 6.7</span></a> depicts the fitted probability density
+function together with the histograms on the log- and original scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>  <span class="c1"># own bins!</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>  <span class="c1"># log-scale on the x-axis</span>
+<span class="n">logbins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">income</span><span class="p">),</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">logbins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>  <span class="c1"># log-scale on the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PDF of LN(</span><span class="si">{</span><span class="n">lmu</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">lsigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -926,7 +920,7 @@ Hint: use <strong class="command">scipy.stats.lognorm.cdf</strong> to get the an
 <span id="sec-pareto"></span><h3><span class="section-number">6.3.2. </span>Pareto Distribution<a class="headerlink" href="#pareto-distribution" title="Permalink to this heading">#</a></h3>
 <p>Consider again the dataset
 on the populations of the US cities in the 2000 US Census:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">cities</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cities</span><span class="p">)</span>  <span class="c1"># number of cities, total population</span>
 <span class="c1">## (19447, 175062893.0)</span>
@@ -936,7 +930,10 @@ on the populations of the US cities in the 2000 US Census:</p>
 of the city sizes with the populations on the log-scale.
 It kind of looks like a log-normal distribution again,
 which the reader can inspect themself when they are feeling playful.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">log_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logbins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">cities</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cities</span><span class="p">),</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">logbins</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -959,10 +956,10 @@ just like in <a class="reference internal" href="210-vector.html#sec-cities"><sp
 </pre></div>
 </div>
 <p>Plotting the above on a double logarithmic scale
-can be performed by passing <code class="docutils literal notranslate"><span class="pre">log_scale=(True,</span> <span class="pre">True)</span></code>
-to <strong class="command">seaborn.histplot</strong>, which is left as an exercise.
+can be performed by calling <strong class="command">plt.yscale</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;log&quot;)</span></code>,
+which is left as an exercise.
 Anyway, doing so will lead to a similar picture
-as in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 6.10</span></a>.
+as in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 6.10</span></a> below.
 This reveals something remarkable: the bar tops on the
 double log-scale are arranged more or less in a straight line.
 There are many datasets
@@ -993,16 +990,16 @@ the mean of the scaled logarithms of our observations:</p>
 <span class="c1">## 0.9496171695997675</span>
 </pre></div>
 </div>
-<p>We noticed that comparing the theoretical densities and an empirical
-histogram on a log-scale is quite problematic for <strong class="command">seaborn</strong>.
-Therefore, to generate what we see in <a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 6.10</span></a>,
-we must apply the logarithmic binning manually again.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">21</span><span class="p">)</span>  <span class="c1"># bin boundaries</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">),</span> <span class="s2">&quot;r--&quot;</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PDF of P(</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<p><a class="reference internal" href="#fig-fit-pareto"><span class="std std-numref">Figure 6.10</span></a> allows us to compare the theoretical density
+and an empirical histogram on the log-scale.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logbins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">21</span><span class="p">)</span>  <span class="c1"># bin boundaries</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">large_cities</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">logbins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">logbins</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">logbins</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">),</span>
+    <span class="s2">&quot;r--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;PDF of P(</span><span class="si">{</span><span class="n">alpha</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1086,7 +1083,7 @@ is left as an exercise to the reader.</p>
 <span class="math notranslate nohighlight">\(\{1,2,\dots,49\}\)</span> are drawn without replacement from an urn.
 We have a dataset that summarises the number of times
 each ball has been drawn in all the games in the period 1957–2016.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lotto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lotto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/lotto_table.txt&quot;</span><span class="p">)</span>
 <span class="n">lotto</span>
 <span class="c1">## array([720., 720., 714., 752., 719., 753., 701., 692., 716., 694., 716.,</span>
@@ -1178,7 +1175,7 @@ which might be worth giving a study (and then try).</p>
 pedestrian counts near the Southern Cross Station in Melbourne
 might be a good instance of such a scenario;
 compare <a class="reference internal" href="210-vector.html#fig-peds-histogram"><span class="std std-numref">Figure 4.5</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">peds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/southern_cross_station_peds_2019_dec.txt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1399,7 +1396,8 @@ standard normal distribution.</p>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
@@ -1700,7 +1698,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-02-20T18:45:20+1100.
+              Last updated on 2023-03-06T19:16:08+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
