@@ -537,18 +537,40 @@ e.g., the 0.5-quantile is the same as the 50th percentile.</p>
 <span class="c1">## array([  5750.  ,  20669.75,  30042.  ,  44123.75, 199969.  ])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id23">
+<div class="proof proof-type-example" id="id23">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.3</span>
+        <span class="proof-type">Example 5.3</span>
         
     </div><div class="proof-content">
-<p>What is the income bracket for 95% of the <em>most typical</em> UK
-taxpayers? In other words, determine the 2.5- and 97.5-percentiles.</p>
+<p>The same as above, but now printed neatly using f-strings;
+see <a class="reference internal" href="120-scalar.html#sec-f-strings"><span class="std std-numref">Section 2.1.3.1</span></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">qheights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">wh</span><span class="p">)</span>
+<span class="n">qincome</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">wh</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;          heights     income&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wh</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;q_</span><span class="si">{</span><span class="n">wh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;4g</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">qheights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">10.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">qincome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">10.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1">##           heights     income</span>
+<span class="c1">## q_0        131.10    5750.00</span>
+<span class="c1">## q_0.25     155.30   20669.75</span>
+<span class="c1">## q_0.5      160.10   30042.00</span>
+<span class="c1">## q_0.75     164.80   44123.75</span>
+<span class="c1">## q_1        189.30  199969.00</span>
+</pre></div>
+</div>
 </div></div><div class="proof proof-type-exercise" id="id24">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.4</span>
+        
+    </div><div class="proof-content">
+<p>What is the income bracket for 95% of the <em>most typical</em> UK
+taxpayers? In other words, determine the 2.5- and 97.5-percentiles.</p>
+</div></div><div class="proof proof-type-exercise" id="id25">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.5</span>
         
     </div><div class="proof-content">
 <p>Compute the <em>midrange</em> of <code class="docutils literal notranslate"><span class="pre">income</span></code> and <code class="docutils literal notranslate"><span class="pre">heights</span></code>,
@@ -588,10 +610,10 @@ See <a class="reference internal" href="#fig-quantile7"><span class="std std-num
 <p>Notice that for <span class="math notranslate nohighlight">\(p=0.5\)</span> we get the median regardless
 of whether <span class="math notranslate nohighlight">\(n\)</span> is even or not.</p>
 </div>
-<figure class="align-default" id="id25">
+<figure class="align-default" id="id26">
 <span id="fig-quantile7"></span><img alt="../_images/quantile7-1.png" src="../_images/quantile7-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(q_p\)</span> as a function of <span class="math notranslate nohighlight">\(p\)</span> for example vectors of length 5 (left subfigure) and 6 (right)</span><a class="headerlink" href="#id25" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(q_p\)</span> as a function of <span class="math notranslate nohighlight">\(p\)</span> for example vectors of length 5 (left subfigure) and 6 (right)</span><a class="headerlink" href="#id26" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -779,10 +801,10 @@ depicts some noteworthy features of a data sample.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id26">
+<figure class="align-default" id="id27">
 <span id="fig-boxplot-income-heights"></span><img alt="../_images/boxplot-income-heights-3.png" src="../_images/boxplot-income-heights-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box plots</span><a class="headerlink" href="#id26" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box plots</span><a class="headerlink" href="#id27" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Each box plot (compare <a class="reference internal" href="#fig-boxplot-income-heights"><span class="std std-numref">Figure 5.2</span></a>)
@@ -828,10 +850,10 @@ on either side; see <a class="reference internal" href="520-missingness.html#sec
 <p>Box plots are based solely on sample quantiles.
 Most of the statistical packages <em>do not</em> draw the arithmetic mean.
 If they do, it is marked with a distinctive symbol.</p>
-<div class="proof proof-type-exercise" id="id27">
+<div class="proof proof-type-exercise" id="id28">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.5</span>
+        <span class="proof-type">Exercise 5.6</span>
         
     </div><div class="proof-content">
 <p>Call
@@ -842,10 +864,10 @@ to <strong class="command">matplotlib.pyplot.boxplot</strong>.</p>
 other (e.g., body measures of men and women separately),
 both in terms of the relative shift (location)
 as well as spread and skewness; see, e.g., <a class="reference internal" href="430-group-by.html#fig-gender-usborn-bmi"><span class="std std-numref">Figure 12.1</span></a>.</p>
-<div class="proof proof-type-example" id="id28">
+<div class="proof proof-type-example" id="id29">
 
     <div class="proof-title">
-        <span class="proof-type">Example 5.6</span>
+        <span class="proof-type">Example 5.7</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -864,10 +886,10 @@ being a smoothened version of a histogram; see <a class="reference internal" hre
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id29">
+<figure class="align-default" id="id30">
 <span id="fig-violinplot-income"></span><img alt="../_images/violinplot-income-5.png" src="../_images/violinplot-income-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.3 </span><span class="caption-text">Example violin plots</span><a class="headerlink" href="#id29" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.3 </span><span class="caption-text">Example violin plots</span><a class="headerlink" href="#id30" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div></section>
@@ -1023,10 +1045,10 @@ function increases very rapidly; see <a class="reference internal" href="#fig-lo
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id30">
+<figure class="align-default" id="id31">
 <span id="fig-log-exp"></span><img alt="../_images/log-exp-7.png" src="../_images/log-exp-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right)</span><a class="headerlink" href="#id30" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right)</span><a class="headerlink" href="#id31" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div style="margin-top: 1em"></div><p>Logarithms of different bases and non-natural exponential functions are
@@ -1045,10 +1067,10 @@ For example:</p>
 </pre></div>
 </div>
 <p>Take note of the warning and the not-a-number (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) generated.</p>
-<div class="proof proof-type-exercise" id="id31">
+<div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.7</span>
+        <span class="proof-type">Exercise 5.8</span>
         
     </div><div class="proof-content">
 <p>Check that when using the log-scale on the x-axis
@@ -1071,10 +1093,10 @@ see <a class="reference internal" href="#fig-cos"><span class="std std-numref">F
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id32">
+<figure class="align-default" id="id33">
 <span id="fig-cos"></span><img alt="../_images/cos-9.png" src="../_images/cos-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine</span><a class="headerlink" href="#id32" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine</span><a class="headerlink" href="#id33" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Some identities worth memorising:</p>
@@ -1147,10 +1169,10 @@ pairwise distances between multidimensional points; see
 which geometrically we can interpret as scaling
 (stretching or shrinking) and shifting (translating),
 see <a class="reference internal" href="#fig-scale-shift"><span class="std std-numref">Figure 5.6</span></a> for an illustration.</p>
-<figure class="align-default" id="id33">
+<figure class="align-default" id="id34">
 <span id="fig-scale-shift"></span><img alt="../_images/scale-shift-11.png" src="../_images/scale-shift-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of an example vector</span><a class="headerlink" href="#id33" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of an example vector</span><a class="headerlink" href="#id34" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -1233,18 +1255,18 @@ normal family, we <em>expect</em> that 95% of observations should
 have z-scores between -2 and 2.
 Further, z-scores less than -3 and greater than 3 are highly unlikely.</p>
 </div>
-<div class="proof proof-type-exercise" id="id34">
+<div class="proof proof-type-exercise" id="id35">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.8</span>
+        <span class="proof-type">Exercise 5.9</span>
         
     </div><div class="proof-content">
 <p>We have a patient whose height z-score is 1 and
 weight z-score is -1. How can we interpret this information?</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+</div></div><div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.9</span>
+        <span class="proof-type">Exercise 5.10</span>
         
     </div><div class="proof-content">
 <p>How about a patient whose weight z-score is 0
@@ -1324,10 +1346,10 @@ think of the <em>sum of squares</em>.</p>
 <span class="c1">## array([ 0.13834289,  0.69171446, -0.55337157,  0.27668579,  0.34585723])</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id36">
+<div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.10</span>
+        <span class="proof-type">Exercise 5.11</span>
         
     </div><div class="proof-content">
 <p>Normalisation is similar to standardisation if data are
@@ -1359,10 +1381,10 @@ the Manhattan (<span class="math notranslate nohighlight">\(l_1\)</span>) norm:<
 whose normalised versions can be interpreted as <em>probabilities</em>
 or <em>proportions</em>: values between 0 and 1 which sum to 1 (or, equivalently,
 100%).</p>
-<div class="proof proof-type-example" id="id37">
+<div class="proof proof-type-example" id="id38">
 
     <div class="proof-title">
-        <span class="proof-type">Example 5.11</span>
+        <span class="proof-type">Example 5.12</span>
         
     </div><div class="proof-content">
 <p>Given some binned data:</p>
@@ -1410,10 +1432,10 @@ and <span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\
 is less standard in mathematics (for instance multiplication
 might denote the dot product), but in <strong class="program">numpy</strong>
 it is really convenient.</p>
-<div class="proof proof-type-example" id="id38">
+<div class="proof proof-type-example" id="id39">
 
     <div class="proof-title">
-        <span class="proof-type">Example 5.12</span>
+        <span class="proof-type">Example 5.13</span>
         
     </div><div class="proof-content">
 <p>Let us compute
@@ -1429,10 +1451,10 @@ i.e., <span class="math notranslate nohighlight">\(h=-\sum_{i=1}^n p_i\, \log p_
 minus (change sign), an aggregation function (sum),
 a vectorised mathematical function (log),
 and an elementwise multiplication of two vectors of the same lengths.</p>
-</div></div><div class="proof proof-type-example" id="id39">
+</div></div><div class="proof proof-type-example" id="id40">
 
     <div class="proof-title">
-        <span class="proof-type">Example 5.13</span>
+        <span class="proof-type">Example 5.14</span>
         
     </div><div class="proof-content">
 <p>Let us assume that – for whatever reason – we would like to
@@ -1452,19 +1474,19 @@ to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id40">
+<figure class="align-default" id="id41">
 <span id="fig-vectorised-easy"></span><img alt="../_images/vectorised-easy-13.png" src="../_images/vectorised-easy-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one; we used different line styles so that the plot is readable also when printed in black and white</span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one; we used different line styles so that the plot is readable also when printed in black and white</span><a class="headerlink" href="#id41" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Decreasing the number of points in <code class="docutils literal notranslate"><span class="pre">x</span></code> will reveal that the
 plotting function merely draws a series of straight-line segments.
 Computer graphics is essentially discrete.</p>
-</div></div><div class="proof proof-type-exercise" id="id41">
+</div></div><div class="proof proof-type-exercise" id="id42">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.14</span>
+        <span class="proof-type">Exercise 5.15</span>
         
     </div><div class="proof-content">
 <p>Using a single line of code, compute the vector of BMIs of all persons
@@ -1572,10 +1594,10 @@ Therefore, the bracketing of the comparisons is obligatory.</p>
 </div>
 <p>means “elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> between 20 and 40”
 (greater than or equal to 20 and less than or equal to 40).</p>
-<div class="proof proof-type-exercise" id="id42">
+<div class="proof proof-type-exercise" id="id43">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.15</span>
+        <span class="proof-type">Exercise 5.16</span>
         
     </div><div class="proof-content">
 <p>Compute the BMIs only of the women whose height is between 150 and 170 cm.</p>
@@ -1663,10 +1685,10 @@ of a given vector, i.e., determines the order statistics.</p>
 </div>
 <p>The <strong class="command">sort</strong> method (as in: <code class="docutils literal notranslate"><span class="pre">x.sort()</span></code>), on the other hand,
 sorts the vector in place (and returns nothing).</p>
-<div class="proof proof-type-exercise" id="id43">
+<div class="proof proof-type-exercise" id="id44">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.16</span>
+        <span class="proof-type">Exercise 5.17</span>
         
     </div><div class="proof-content">
 <p>Readers interested more in chaos than in bringing order
@@ -1701,10 +1723,10 @@ a given vector with duplicates removed.</p>
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id44">
+<div class="proof proof-type-exercise" id="id45">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.17</span>
+        <span class="proof-type">Exercise 5.18</span>
         
     </div><div class="proof-content">
 <p>Play with the <code class="docutils literal notranslate"><span class="pre">return_index</span></code> argument to <strong class="command">numpy.unique</strong>
@@ -1754,10 +1776,10 @@ And so on.</p>
 about the underlying data distribution) that are based on ranks.
 In particular, in <a class="reference internal" href="330-relationship.html#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>,
 we cover the Spearman correlation coefficient.</p>
-<div class="proof proof-type-exercise" id="id45">
+<div class="proof proof-type-exercise" id="id46">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.18</span>
+        <span class="proof-type">Exercise 5.19</span>
         
     </div><div class="proof-content">
 <p>Consult the manual page of
@@ -1814,10 +1836,10 @@ For example:</p>
 </div>
 <p>It is a version of <strong class="command">numpy.argmax</strong> that lets us decide
 what we would like to do with the tied maxima (there are two).</p>
-<div class="proof proof-type-exercise" id="id46">
+<div class="proof proof-type-exercise" id="id47">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.19</span>
+        <span class="proof-type">Exercise 5.20</span>
         
     </div><div class="proof-content">
 <p>Let <code class="docutils literal notranslate"><span class="pre">x</span></code> be a vector with possible ties.
@@ -1915,10 +1937,10 @@ the fact that the inputs themselves are not necessarily ideal
 makes the estimate <em>approximate</em> as well. We can only hope
 that these errors will more or less cancel out in the computations.</p>
 </div>
-<div class="proof proof-type-exercise" id="id47">
+<div class="proof proof-type-exercise" id="id48">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.20</span>
+        <span class="proof-type">Exercise 5.21</span>
         
     </div><div class="proof-content">
 <p>Compute the BMIs of all females in the NHANES study.
@@ -2009,18 +2031,18 @@ to rely on vectorised <strong class="program">numpy</strong> functions.
 Still, if the corresponding operations are unavailable
 (e.g., string processing, reading many files),
 list comprehensions provide a reasonable replacement therefor.</p>
-<div class="proof proof-type-exercise" id="id48">
+<div class="proof proof-type-exercise" id="id49">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.21</span>
+        <span class="proof-type">Exercise 5.22</span>
         
     </div><div class="proof-content">
 <p>Write equivalent versions of the above expressions
 using vectorised <strong class="program">numpy</strong> functions.</p>
-</div></div><div class="proof proof-type-exercise" id="id49">
+</div></div><div class="proof proof-type-exercise" id="id50">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.22</span>
+        <span class="proof-type">Exercise 5.23</span>
         
     </div><div class="proof-content">
 <p>Write equivalent versions of the above expressions
@@ -2031,27 +2053,27 @@ an empty list that will store the result).</p>
 </section>
 <section id="exercises">
 <h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
-<div class="proof proof-type-exercise" id="id50">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 5.23</span>
-        
-    </div><div class="proof-content">
-<p>What are some benefits of using a <strong class="program">numpy</strong> vector
-over an ordinary Python list? What are the drawbacks?</p>
-</div></div><div class="proof proof-type-exercise" id="id51">
+<div class="proof proof-type-exercise" id="id51">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.24</span>
         
     </div><div class="proof-content">
-<p>How can we interpret the possibly different values
-of the arithmetic mean, median, standard deviation, interquartile range,
-and skewness, when comparing between heights of men and women?</p>
+<p>What are some benefits of using a <strong class="program">numpy</strong> vector
+over an ordinary Python list? What are the drawbacks?</p>
 </div></div><div class="proof proof-type-exercise" id="id52">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.25</span>
+        
+    </div><div class="proof-content">
+<p>How can we interpret the possibly different values
+of the arithmetic mean, median, standard deviation, interquartile range,
+and skewness, when comparing between heights of men and women?</p>
+</div></div><div class="proof proof-type-exercise" id="id53">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.26</span>
         
     </div><div class="proof-content">
 <p>There is something scientific and magical about <em>numbers</em>
@@ -2061,10 +2083,10 @@ there is a risk that a party may be cherry-picking – reporting
 the one that portrays the analysed entity in a good or bad light. For instance,
 reporting the mean instead of the median or vice versa.
 Is there anything that can be done about it?</p>
-</div></div><div class="proof proof-type-exercise" id="id53">
+</div></div><div class="proof proof-type-exercise" id="id54">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 5.26</span>
+        <span class="proof-type">Exercise 5.27</span>
         
     </div><div class="proof-content">
 <p>Even though, mathematically speaking, all measures can be computed on all
@@ -2075,26 +2097,26 @@ and bell-shaped (e.g., this can be a bimodal distribution).
 This is why we always need to visualise our data.
 Give some examples of datasets and measures where we should be critical
 of the obtained results.</p>
-</div></div><div class="proof proof-type-exercise" id="id54">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 5.27</span>
-        
-    </div><div class="proof-content">
-<p>Give some examples where simple data preprocessing
-can drastically change the values of chosen sample aggregates.</p>
 </div></div><div class="proof proof-type-exercise" id="id55">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.28</span>
         
     </div><div class="proof-content">
-<p>Give the mathematical definitions, use cases, and interpretations
-of standardisation, normalisation, and min-max scaling.</p>
+<p>Give some examples where simple data preprocessing
+can drastically change the values of chosen sample aggregates.</p>
 </div></div><div class="proof proof-type-exercise" id="id56">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.29</span>
+        
+    </div><div class="proof-content">
+<p>Give the mathematical definitions, use cases, and interpretations
+of standardisation, normalisation, and min-max scaling.</p>
+</div></div><div class="proof proof-type-exercise" id="id57">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.30</span>
         
     </div><div class="proof-content">
 <p>How are <strong class="command">numpy.log</strong> and <strong class="command">numpy.exp</strong> related to each other?
@@ -2103,66 +2125,56 @@ How about <strong class="command">numpy.log</strong> vs <strong class="command">
 <strong class="command">numpy.min</strong> vs <strong class="command">numpy.argmin</strong>,
 <strong class="command">numpy.sort</strong> vs <strong class="command">numpy.argsort</strong>,  and
 <strong class="command">scipy.stats.rankdata</strong> vs <strong class="command">numpy.argsort</strong>?</p>
-</div></div><div class="proof proof-type-exercise" id="id57">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 5.30</span>
-        
-    </div><div class="proof-content">
-<p>What is the difference between
-<strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
-and <strong class="command">numpy.round</strong>?</p>
 </div></div><div class="proof proof-type-exercise" id="id58">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.31</span>
         
     </div><div class="proof-content">
-<p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
-lengths?</p>
+<p>What is the difference between
+<strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
+and <strong class="command">numpy.round</strong>?</p>
 </div></div><div class="proof proof-type-exercise" id="id59">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.32</span>
         
     </div><div class="proof-content">
-<p>List the four ways to index a vector.</p>
+<p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
+lengths?</p>
 </div></div><div class="proof proof-type-exercise" id="id60">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.33</span>
         
     </div><div class="proof-content">
-<p>What is wrong with the expression
-<code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
-How about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
+<p>List the four ways to index a vector.</p>
 </div></div><div class="proof proof-type-exercise" id="id61">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.34</span>
         
     </div><div class="proof-content">
-<p>What does it mean that slicing returns a view on existing data?</p>
+<p>What is wrong with the expression
+<code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
+How about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
 </div></div><div class="proof proof-type-exercise" id="id62">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.35</span>
         
     </div><div class="proof-content">
-<p>(**) Reflect on the
-<a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein/">famous</a>
-saying: <em>not everything that can be counted counts,
-and not everything that counts can be counted</em>.</p>
+<p>What does it mean that slicing returns a view on existing data?</p>
 </div></div><div class="proof proof-type-exercise" id="id63">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.36</span>
         
     </div><div class="proof-content">
-<p>(**) Being a data scientist can be a frustrating job, especially
-when you care for some causes.
-Reflect on: <em>some things that count can be counted,
-but we will not count them, because there’s no budget for them.</em></p>
+<p>(**) Reflect on the
+<a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein/">famous</a>
+saying: <em>not everything that can be counted counts,
+and not everything that counts can be counted</em>.</p>
 </div></div><div class="proof proof-type-exercise" id="id64">
 
     <div class="proof-title">
@@ -2170,14 +2182,24 @@ but we will not count them, because there’s no budget for them.</em></p>
         
     </div><div class="proof-content">
 <p>(**) Being a data scientist can be a frustrating job, especially
-when you care for the truth.
+when you care for some causes.
 Reflect on: <em>some things that count can be counted,
-but we will not count them, because some people might be offended
-or find it unpleasant.</em></p>
+but we will not count them, because there’s no budget for them.</em></p>
 </div></div><div class="proof proof-type-exercise" id="id65">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.38</span>
+        
+    </div><div class="proof-content">
+<p>(**) Being a data scientist can be a frustrating job, especially
+when you care for the truth.
+Reflect on: <em>some things that count can be counted,
+but we will not count them, because some people might be offended
+or find it unpleasant.</em></p>
+</div></div><div class="proof proof-type-exercise" id="id66">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.39</span>
         
     </div><div class="proof-content">
 <p>(**) Assume you were to establish your own nation on some island
@@ -2293,7 +2315,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-03-14T17:18:36+1100.
+              Last updated on 2023-03-14T17:46:07+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
