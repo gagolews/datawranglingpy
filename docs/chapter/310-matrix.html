@@ -371,8 +371,9 @@ We can read them quite easily with <strong class="command">numpy.genfromtxt</str
     <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip first row (column names)</span>
 </pre></div>
 </div>
-<p>Note that the file specifies column names (the first non-comment line),
-therefore we had to skip it manually (more on matrix indexing later).
+<p>Note that the file specifies column names (the first non-comment line;
+we suggest inspecting the above CSV file in a web browser).
+Therefore, we had to skip it manually (more on matrix indexing later).
 Here is a preview of the first few rows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># six first rows, all columns</span>
 <span class="c1">## array([[ 97.1, 160.2,  34.7,  40.8,  35.8, 126.1, 117.9],</span>
@@ -390,7 +391,7 @@ where the consecutive columns give the following body measurements
 of adult females:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="s2">&quot;weight (kg)&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;standing height (cm)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;standing height (cm)&quot;</span><span class="p">,</span>   <span class="c1"># we know `heights` from the previous chapters</span>
     <span class="s2">&quot;upper arm len. (cm)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;upper leg len. (cm)&quot;</span><span class="p">,</span>
     <span class="s2">&quot;arm circ. (cm)&quot;</span><span class="p">,</span>
@@ -446,7 +447,7 @@ Each of them will constitute a separate row of the resulting matrix.</p>
 </div>
 <p>yields a 3-by-1 one (we call it a <em>column vector</em>,
 but it is a special matrix — we will soon learn that shapes
-can make a significant difference), and</p>
+can make a significant difference), and:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="p">])</span>
 <span class="c1">## array([[1, 2, 3, 4]])</span>
 </pre></div>
@@ -466,7 +467,7 @@ a single pair of square brackets:</p>
 <h3><span class="section-number">7.1.3. </span>Repeating  Arrays<a class="headerlink" href="#repeating-arrays" title="Permalink to this heading">#</a></h3>
 <p>The previously mentioned <strong class="command">numpy.tile</strong> and <strong class="command">numpy.repeat</strong>
 can also generate some nice matrices.
-For instance,</p>
+For instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## array([[1, 2, 3, 4],</span>
 <span class="c1">##        [1, 2, 3, 4],</span>
@@ -543,9 +544,10 @@ to form a new matrix:</p>
         <span class="proof-type">Exercise 7.2</span>
         
     </div><div class="proof-content">
-<p>Perform similar operations
-using <strong class="command">numpy.append</strong>, <strong class="command">numpy.vstack</strong>, <strong class="command">numpy.hstack</strong>,
-<strong class="command">numpy.concatenate</strong>, and (*) <strong class="command">numpy.c_</strong>.</p>
+<p>Perform similar operations using <strong class="command">numpy.append</strong>,
+<strong class="command">numpy.vstack</strong>, <strong class="command">numpy.hstack</strong>,
+<strong class="command">numpy.concatenate</strong>, and (*) <strong class="command">numpy.c_</strong>.
+Are the worth taking note of, or are they redundant?</p>
 </div></div><div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
@@ -706,7 +708,7 @@ displayed in spreadsheets, we are correct, because
 the latter was inspired by the former.</p>
 <p>We see that
 <span class="math notranslate nohighlight">\(x_{i,j}\in\mathbb{R}\)</span> denotes
-the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row (e.g., the <span class="math notranslate nohighlight">\(i\)</span>-th <em>observation</em>)
+the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row (e.g., the <span class="math notranslate nohighlight">\(i\)</span>-th <em>observation</em> or <em>case</em>)
 and the <span class="math notranslate nohighlight">\(j\)</span>-th column (e.g., the <span class="math notranslate nohighlight">\(j\)</span>-th <em>feature</em> or <em>variable</em>), for every
 <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, <span class="math notranslate nohighlight">\(j=1,\dots,m\)</span>.</p>
 <p>In particular, if <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> denoted the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset,
@@ -930,11 +932,11 @@ can be constructed from a given sequence of elements by calling:</p>
 </pre></div>
 </div>
 <p>This is an example of tabular (“structured”) data. The important property is
-that the elements in each row describe the same person.
-We can freely reorder all the columns at the same time
-(change the order of participants).
-Still, sorting a single column and leaving the other ones
-unchanged will be semantically invalid.</p>
+that the elements in each row describe the same person. We can freely reorder
+all the columns at the same time (change the order of participants), and this
+dataset will make the same sense
+(but sorting a single column and leaving the other ones
+unchanged will be semantically invalid).</p>
 <p>Mathematically, we consider the above as
 a set of 4221 points in a seven-dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^7\)</span>.
 Let us discuss how we can try visualising different
@@ -979,18 +981,25 @@ corresponding to the person of the smallest height:</p>
 <p>Locate them in <a class="reference internal" href="#fig-body-scatter-1-3"><span class="std std-numref">Figure 7.1</span></a>.</p>
 </div></div><p>As the points are abundant, normally we cannot easily see
 <em>where</em> most of them are located.
-To remedy this, we applied the simple trick
+As a remedy, we applied the simple trick
 of plotting the points using a semi-transparent colour.
+This gave a kind of a density estimate.
 Here, the colour specifier was of the form <code class="docutils literal notranslate"><span class="pre">#rrggbbaa</span></code>,
 giving the intensity of the red, green, blue, and alpha (opaqueness)
-channel in three series of two hexadecimal digits (between <code class="docutils literal notranslate"><span class="pre">00</span></code> = 0
+channel in four series of two hexadecimal digits (between <code class="docutils literal notranslate"><span class="pre">00</span></code> = 0
 and <code class="docutils literal notranslate"><span class="pre">ff</span></code> = 255).</p>
 <p>Overall, the plot reveals that there is a <em>general tendency</em>
 for small heights and small upper leg lengths to occur frequently together.
-The same with larger pairs. In <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a>,
-we explore some measures of correlation that will enable
-us to quantify the degree of association
-between variable pairs.</p>
+The same with larger pairs.
+As there is some natural variability, this of course
+does not mean that <em>always</em> the taller the person, the longer
+her legs. They just seem to be longer <em>on average</em>.
+For example, looking at people of height equal to about 160 cm,
+their upper leg length can be anywhere between 25 ad 50 cm (range).
+But we expect the majority to lie somewhere between 35 and 40 cm.</p>
+<p>In <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a>,
+we explore two measures of correlation that will enable
+us to quantify the degree of association between variable pairs.</p>
 </section>
 <section id="d-data-and-beyond">
 <h3><span class="section-number">7.4.2. </span>3D Data and Beyond<a class="headerlink" href="#d-data-and-beyond" title="Permalink to this heading">#</a></h3>
@@ -1162,11 +1171,11 @@ in the form of a scatterplot matrix; see <a class="reference internal" href="#fi
 what would that be?), therefore we printed out the feature labels
 on the main diagonal.</p>
 <p>A scatterplot matrix can be a valuable tool for identifying
-interesting combinations of columns in our datasets.
+noteworthy combinations of columns in our datasets.
 We see that some pairs of variables are more “structured”
 than others, e.g., hip circumference and weight are more or less
 aligned on a straight line.
-This is why in <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a> we will be interested in
+This is why in <a class="reference internal" href="330-relationship.html#chap-relationship"><span class="std std-numref">Chapter 9</span></a>, we will be interested in
 describing the possible relationships between the variables.</p>
 <div class="proof proof-type-exercise" id="id20">
 
@@ -1312,7 +1321,7 @@ find funny. Ha.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-03-21T17:06:16+1100.
+              Last updated on 2023-03-28T15:51:01+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
