@@ -509,7 +509,9 @@ In particular, it is not uncommon in social sciences to
 consider 0.6 a decent degree of correlation, but this is like
 building on sand. If a dataset at hand does not provide us with
 strong evidence, it is our ethical duty to refrain ourselves
-from making unjustified statements.</p>
+from making unjustified statements.
+It is better to remain silent than to talk gibberish and misled
+the recipients of our exercises on data analysis.</p>
 </div>
 </section>
 <section id="no-linear-correlation-does-not-imply-independence">
@@ -565,7 +567,7 @@ Refer to <a class="reference internal" href="#fig-corr-ex-3"><span class="std st
 <p>No single measure is perfect – we are trying to compress
 <span class="math notranslate nohighlight">\(2n\)</span> data points into a single number — it is obvious that
 there will be many different datasets, sometimes remarkably diverse,
-that will yield the same correlation value.</p>
+that will yield the same correlation degree.</p>
 </section>
 <section id="correlation-is-not-causation">
 <h4><span class="section-number">9.1.1.5. </span>Correlation Is Not Causation<a class="headerlink" href="#correlation-is-not-causation" title="Permalink to this heading">#</a></h4>
@@ -608,8 +610,8 @@ coefficients; see <a class="reference internal" href="#sec-least-squares"><span 
 <section id="correlation-heatmap">
 <h3><span class="section-number">9.1.2. </span>Correlation Heatmap<a class="headerlink" href="#correlation-heatmap" title="Permalink to this heading">#</a></h3>
 <p>Calling <strong class="command">numpy.corrcoef</strong><code class="code docutils literal notranslate"><span class="pre">(body.T)</span></code> (note the matrix
-transpose) allows for determining the linear correlation
-coefficients between all pairs of variables.
+transpose) determines the linear correlation
+coefficients between all pairs of variables in our dataset.
 We can depict them nicely on a heatmap based
 on a fancified call to <strong class="command">matplotlib.pyplot.imshow</strong>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
@@ -633,13 +635,19 @@ on a fancified call to <strong class="command">matplotlib.pyplot.imshow</strong>
                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span><span class="o">&lt;</span><span class="mf">0.5</span> <span class="k">else</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
+        <span class="n">labelbottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labeltop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
+        <span class="n">labelleft</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labelright</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#fig-cor-heat"><span class="std std-numref">Figure 9.5</span></a> for the plot.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># note the transpose!</span>
+<span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># chiefly for aesthetics</span>
 <span class="n">corrheatmap</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">order</span><span class="p">)],</span> <span class="n">body_columns</span><span class="p">[</span><span class="n">order</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -3008,7 +3016,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-03-28T15:51:01+1100.
+              Last updated on 2023-04-05T14:52:34+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
