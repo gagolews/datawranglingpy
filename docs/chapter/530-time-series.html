@@ -390,7 +390,7 @@ measurements <em>depend</em> on each other, describe how they
 change over time, forecast future values, detect seasonal
 and long-time trends, and so forth.</p>
 </div>
-<p>In <a class="reference internal" href="#fig-spokane-1-linechart"><span class="std std-numref">Figure 16.2</span></a>, we depict the data for 2021,
+<p><a class="reference internal" href="#fig-spokane-1-linechart"><span class="std std-numref">Figure 16.2</span></a> depicts the data for 2021,
 plotted as a function of time. What we see is often referred to as a
 <em>line chart</em> (line graph): data points are connected by straight line
 segments.
@@ -421,13 +421,13 @@ Usually, we will be creating dates from strings, for instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2023-04-26&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-05-01&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-04-26T04:29:42&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-05-01T00:55:24&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -439,9 +439,9 @@ the number of days or seconds since the so-called <em>Unix Epoch</em>,
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9473e+04])</span>
+<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9478e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.68248338e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.68290252e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -461,9 +461,9 @@ all dates in the YYYY-MM-DD format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2023-04-25&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-04-30&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-04-26T16:29:42&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-05-01T12:55:24&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -702,7 +702,7 @@ f(x) = \tfrac{1}{s} e^{-x/s},
 \]</div>
 </div>
 <p>and <span class="math notranslate nohighlight">\(f(x)=0\)</span> otherwise.
-We should be careful: some textbooks choose the parametrisation by
+We need to be careful: some textbooks choose the parametrisation by
 <span class="math notranslate nohighlight">\(\lambda=1/s\)</span> instead of <span class="math notranslate nohighlight">\(s\)</span>. The <strong class="program">scipy</strong> package also uses this
 convention.</p>
 <div style="margin-top: 1em"></div><p>Here is a pseudorandom sample where there are five events per
@@ -1265,7 +1265,7 @@ because there is some dependence
 observed in the time domain: a price of a stock that we observe
 today is influenced by what was happening yesterday.
 There might also be some seasonal patterns or trends under the hood.
-For a good introduction to forecasting; see
+For a comprehensive introduction to forecasting; see
 <span id="id3">[<a class="reference internal" href="999-bibliography.html#id34" title="Hyndman, R.J. and Athanasopoulos, G. (2021).  Forecasting: Principles and Practice. OTexts. URL: https://otexts.com/fpp3/.">52</a>, <a class="reference internal" href="999-bibliography.html#id35" title="Ord, J.K., Fildes, R., and Kourentzes, N. (2017).  Principles of Business Forecasting. Wessex Press.">70</a>]</span>.
 Also, for data of this kind, employing statistical modelling
 techniques (<em>stochastic processes</em>) can make a lot of sense;
@@ -1283,7 +1283,7 @@ convolution) filters. This course obviously cannot be about everything
 (also because it requires some more advanced calculus skills that we
 did not assume the reader to have at this time);
 but see, e.g., <span id="id5">[<a class="reference internal" href="999-bibliography.html#id32" title="Smith, S.W. (2002).  The Scientist and Engineer's Guide to Digital Signal Processing. Newnes. URL: https://www.dspguide.com/.">82</a>, <a class="reference internal" href="999-bibliography.html#id31" title="Steiglitz, K. (1996).  A Digital Signal Processing Primer: With Applications to Digital Audio and Computer Music. Pearson.">83</a>]</span>.</p>
-<p>Nevertheless, we should keep in mind that these are not completely
+<p>Nevertheless, keep in mind that these are not completely
 independent domains. For example, we can extract various features of audio
 signals (e.g., overall loudness, timbre, and danceability of each
 recording in a large song database) and then treat them as tabular
@@ -1375,7 +1375,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-04-28T20:23:31+1000.
+              Last updated on 2023-05-01T10:56:44+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

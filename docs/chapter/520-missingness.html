@@ -360,7 +360,7 @@ of funding or a failure of a piece of equipment.</p></li>
 <p>Sometimes missing values are specially encoded, especially
 in CSV files, e.g., with <code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">9999</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.inf</span></code>, <code class="docutils literal notranslate"><span class="pre">-numpy.inf</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">None</span></code>,  strings such as  <code class="docutils literal notranslate"><span class="pre">&quot;NA&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;N/A&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Not</span> <span class="pre">Applicable&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;---&quot;</span></code> – we should always inspect
+<code class="docutils literal notranslate"><span class="pre">&quot;N/A&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Not</span> <span class="pre">Applicable&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;---&quot;</span></code>. This is why we must always inspect
 our datasets carefully.
 To assure consistent representation, we can convert
 them to <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (as in: <code class="docutils literal notranslate"><span class="pre">numpy.nan</span></code>) in numeric (floating-point)
@@ -512,7 +512,7 @@ are suitable in specific cases.</p>
 that feature at least one, some, or too many missing values.
 Nonetheless, such a scheme will obviously not work for small datasets,
 where each observation is precious<a class="footnote-reference brackets" href="#footsmallsample" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
-<p>Also, we should not exercise data removal in situations where missingness
+<p>Also, we ought not to exercise data removal in situations where missingness
 is conditional (e.g., data only available for infants)
 or otherwise group-dependent (not completely at random),
 as, for example, it might result in an imbalanced dataset.</p>
@@ -632,9 +632,9 @@ in <strong class="command">sklearn.impute.IterativeImputer</strong>.</p>
 <p>Censored data frequently appear in the context of reliability, risk analysis,
 and biostatistics, where the observed objects might <em>fail</em>
 (e.g., break down, die, withdraw; compare, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id30" title="Modarres, M., Kaminskiy, M.P., and Krivtsov, V. (2016).  Reliability Engineering and Risk Analysis: A Practical Guide. CRC Press.">63</a>]</span>).
-Our introductory course cannot obviously cover everything,
-but a beginner analyst should at least be aware of such data being a
-thing. In particular:</p>
+Our introductory course cannot obviously cover everything.
+However, a beginner analyst needs to be at least aware of
+the existence of:</p>
 <ul class="simple">
 <li><p><em>right-censored</em> data: we only know that the actual value
 is above the recorded one (e.g., we stopped the experiment
@@ -675,8 +675,8 @@ or deleted clients’ accounts);</p></li>
 <p>and so forth.</p>
 <p>To be able to identify and handle incorrect data, we need specific
 knowledge of a particular domain. Optimally, basic data validation
-techniques should already be employed on the data collection stage,
-for instance when a user submits an online form.</p>
+techniques are already employed on the data collection stage.
+For instance, when a user submits an online form.</p>
 <p>There can be many tools that can assist us with identifying erroneous
 observations, e.g., spell checkers such as
 <a class="reference external" href="https://hunspell.github.io/"><strong class="program">hunspell</strong></a>.</p>
@@ -778,10 +778,10 @@ For data that are expected to come from a normal distribution,
 everything that does not fall into the interval
 <span class="math notranslate nohighlight">\([Q_1-1.5\mathrm{IQR}, Q_3+1.5\mathrm{IQR}]\)</span> can be considered
 suspicious. This definition is based on quartiles only,
-so it should not be affected by potential outliers
+so it is not affected by potential outliers
 (they are robust aggregates; compare <span id="id10">[<a class="reference internal" href="999-bibliography.html#id158" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">50</a>]</span>).
 Plus, the magic constant 1.5 is nicely round and thus easy to memorise
-(good for some practitioners). It is not too small and not too large;
+(an attractive feature). It is not too small and not too large;
 for the normal distribution N(μ, σ),
 the above interval corresponds to roughly
 <span class="math notranslate nohighlight">\([\mu-2.698\sigma, \mu+2.698\sigma]\)</span>,
@@ -833,8 +833,8 @@ outliers may sometimes also fall in between the areas of high density.</p>
     </div><div class="proof-content">
 <p>That neither box plots themselves,
 nor the <span class="math notranslate nohighlight">\(1.5\mathrm{IQR}\)</span> rule might not be ideal tools for multimodal
-data is exemplified in <a class="reference internal" href="#fig-blobs2"><span class="std std-numref">Figure 15.2</span></a>, where we have
-a mixture of N(10, 1) and N(25, 1) samples and 4 potential
+data is exemplified in <a class="reference internal" href="#fig-blobs2"><span class="std std-numref">Figure 15.2</span></a>. Here, we have
+a mixture of N(10, 1) and N(25, 1) samples and four potential
 outliers at 0, 15, 45, and 50.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/blobs2.txt&quot;</span><span class="p">)</span>
@@ -854,8 +854,8 @@ outliers at 0, 15, 45, and 50.</p>
 <p><span class="caption-number">Figure 15.2 </span><span class="caption-text">With box plots, we may fail to detect some outliers</span><a class="headerlink" href="#id26" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-</div></div><p>Fixed-radius search techniques, which we discussed
-in <a class="reference internal" href="320-transform-matrix.html#sec-distances"><span class="std std-numref">Section 8.4</span></a>, can be used for estimating the underlying
+</div></div><p>Fixed-radius search techniques discussed in <a class="reference internal" href="320-transform-matrix.html#sec-distances"><span class="std std-numref">Section 8.4</span></a>
+can be used for estimating the underlying
 probability density function.
 Given a data sample <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>,
 let us consider<a class="footnote-reference brackets" href="#footkde" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>:</p>
@@ -891,7 +891,7 @@ can be flagged for further inspection:</p>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#fig-kde-1d"><span class="std std-numref">Figure 15.3</span></a> for an illustration of <span class="math notranslate nohighlight">\(\hat{f}_r\)</span>.
-Of course, <span class="math notranslate nohighlight">\(r\)</span> should be chosen with care – just like the number
+Of course, <span class="math notranslate nohighlight">\(r\)</span> must be chosen with care, just like the number
 of bins in a histogram.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">dz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">query_ball_point</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="p">))</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
@@ -1032,8 +1032,8 @@ with missing values in numeric vectors.</p>
         <span class="proof-type">Exercise 15.14</span>
         
     </div><div class="proof-content">
-<p>Why we should be very explicit about the way we handle missing
-and other suspicious data? Is it a good idea to mark as missing
+<p>Why we ought to be very explicit about the way we handle missing
+and other suspicious data? Is it advisable to mark as missing
 (or remove completely) the observations
 that we <em>dislike</em> or otherwise deem <em>inappropriate</em>, <em>controversial</em>,
 <em>dangerous</em>, <em>incompatible with our political views</em>, etc.?</p>
@@ -1134,7 +1134,7 @@ see <span id="id14">[<a class="reference internal" href="999-bibliography.html#i
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-04-28T20:23:31+1000.
+              Last updated on 2023-05-01T10:56:44+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

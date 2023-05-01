@@ -441,8 +441,8 @@ to a combination of levels in two qualitative columns:</p>
 <span class="c1">## dtype: int64</span>
 </pre></div>
 </div>
-<p>This yields a <code class="docutils literal notranslate"><span class="pre">Series</span></code> with a hierarchical index (as
-discussed in <a class="reference internal" href="410-data-frame.html#sec-df-index"><span class="std std-numref">Section 10.1.3</span></a>). Nevertheless, we can always call
+<p>This yields a <code class="docutils literal notranslate"><span class="pre">Series</span></code> with a hierarchical index (<a class="reference internal" href="410-data-frame.html#sec-df-index"><span class="std std-numref">Section 10.1.3</span></a>).
+Nevertheless, we can always call
 <strong class="command">reset_index</strong> to convert it to standalone columns:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender       bmicat  counts</span>
@@ -781,9 +781,9 @@ Check <code class="docutils literal notranslate"><span class="pre">ylim</span></
 </div></div></section>
 <section id="series-of-bar-plots">
 <h3><span class="section-number">12.2.2. </span>Series of bar plots<a class="headerlink" href="#series-of-bar-plots" title="Permalink to this heading">#</a></h3>
-<p>In <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 12.2</span></a>, on the other hand,
-we have a bar plot representing a contingency table
-(obtained in a different way than in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>):</p>
+<p>On the other hand, <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 12.2</span></a>
+shows a bar plot representing a contingency table.
+It was obtained in a different way than in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;counts&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bmicat&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="p">(</span>
@@ -981,13 +981,14 @@ differ significantly.</p>
 between distributions that is explainable due to sampling effects
 (the assumed randomness of the data generation process).
 For large sample sizes, even very small deviations<a class="footnote-reference brackets" href="#footerrdev" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> will be
-deemed <em>statistically significant</em>, but it does not mean that we should
-consider them as <em>practically significant</em>.
-For instance, if a very costly, environmentally unfriendly,
-and generally inconvenient for everyone upgrade leads to a process’
-improvement such that we reject the null hypothesis stating that two
-distributions are equal, but it turns out that the gains are ca. 0.5%,
-the good old common sense should be applied.</p>
+deemed <em>statistically significant</em>, but it does not mean that we
+consider them as <em>practically significant</em>.</p>
+<p>For instance, we might discover that a very costly, environmentally
+unfriendly, and generally inconvenient for everyone upgrade leads
+to a process’ improvement: we reject the null hypothesis stating that two
+distributions are equal. Nevertheless, a careful inspection
+told us that the gains are ca. 0.5%. In such a case, it is worthwhile
+to apply good old common sense and refrain from implementing it.</p>
 </div>
 <div class="proof proof-type-exercise" id="id45">
 
@@ -1139,8 +1140,7 @@ and which are regression tasks?</p>
 <p>What kind of data should you gather to tackle them?</p>
 </div></div><section id="k-nearest-neighbour-classification">
 <span id="sec-knn-classification"></span><h3><span class="section-number">12.3.1. </span><em>K</em>-nearest neighbour classification<a class="headerlink" href="#k-nearest-neighbour-classification" title="Permalink to this heading">#</a></h3>
-<p>One of the simplest approaches to classification –
-good enough for such an introductory course –
+<p>One of the simplest approaches to classification
 is based on the information about a test point’s nearest neighbours
 living in the training sample; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
 <p>Fix <span class="math notranslate nohighlight">\(k\ge 1\)</span>.
@@ -1191,7 +1191,7 @@ Thus, we first compute the z-scores for the training set:</p>
 </pre></div>
 </div>
 <p>Let us stress that we referred to the aggregates computed
-for the training set. This is a good example of a situation where
+for the training set. This is a representative example of a situation where
 we cannot simply use a built-in method from <strong class="command">pandas</strong>.
 Instead, we apply what we have learned about <strong class="command">numpy</strong>.</p>
 <p>To make the predictions, we will use the following function:</p>
@@ -1227,7 +1227,7 @@ of possible classes is <span class="math notranslate nohighlight">\(l=2\)</span>
 categorises different regions of a section of the two-dimensional
 plane. The greater the <span class="math notranslate nohighlight">\(k\)</span>, the smoother the decision boundaries.
 Naturally, in regions corresponding to few training points, we do not
-expect the classification accuracy to be good enough<a class="footnote-reference brackets" href="#football" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
+expect the classification accuracy to be acceptable<a class="footnote-reference brackets" href="#football" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">xg1</span><span class="p">,</span> <span class="n">xg2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
@@ -1318,7 +1318,7 @@ in terms of the distribution of label counts:</p>
 </pre></div>
 </div>
 <p>It turns out that the majority of the wines (330 out of 500)
-in our sample are <em>truly</em> good.
+in our sample are <em>truly</em> delicious.
 Notice that a dummy classifier which labels <em>all</em> the wines as great
 would have accuracy of 66%. Our <em>k</em>-nearest neighbour approach
 to wine quality assessment is not that usable after all.</p>
@@ -1382,7 +1382,7 @@ into account:</p>
 \frac{\text{TN}+\text{TP}}{\text{TN}+\text{TP}+\text{FN}+\text{FP}}.
 \]</div>
 </div>
-<p>Consequently, it might not be a good metric in imbalanced
+<p>Consequently, it might not be a valid metric in imbalanced
 classification problems.</p>
 <p>There are, fortunately, some more meaningful measures in the case where
 class 1 is less prevalent and where mispredicting it is considered
@@ -1510,15 +1510,15 @@ phase is complete.</p>
 </section>
 <section id="validating-many-models-parameter-selection">
 <span id="sec-model-validation"></span><h3><span class="section-number">12.3.4. </span>Validating many models (parameter selection) (*)<a class="headerlink" href="#validating-many-models-parameter-selection" title="Permalink to this heading">#</a></h3>
-<p>In statistical modelling, there usually are many
-<em>hyperparameters</em> that should be tweaked. For example:</p>
+<p>In statistical modelling, there often are many
+<em>hyperparameters</em> that need to be tweaked. For example:</p>
 <ul class="simple">
 <li><p>which independent variables should be used for model building,</p></li>
-<li><p>how they should be preprocessed; e.g., which of them should be
+<li><p>what is the best way to preprocess them; e.g., which of them should be
 standardised,</p></li>
-<li><p>if an algorithm has some tunable parameters, what is the best combination
-thereof; for instance, which <span class="math notranslate nohighlight">\(k\)</span> should we use in the <em>k</em>-nearest
-neighbours search.</p></li>
+<li><p>if an algorithm has some tunable parameters, what is their
+best combination; for instance, which <span class="math notranslate nohighlight">\(k\)</span> should we use in the
+<em>k</em>-nearest neighbours search.</p></li>
 </ul>
 <p>At initial stages of data analysis, we usually tune them up by trial and
 error. Later, but this is already beyond the scope of this introductory
@@ -1551,7 +1551,7 @@ We can validate different regression
 models in the same way.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>We would like  to obtain a good estimate of a classifier’s performance on
+<p>We would like to obtain a valid estimate of a classifier’s performance on
 previously unobserved data. For this reason, the test (hold-out) sample
 must neither be used in the training nor the validation phase.</p>
 </div>
@@ -1987,7 +1987,7 @@ at the returned cluster centres is equal to:</p>
 <span class="c1">## 446.5221283436733</span>
 </pre></div>
 </div>
-<p>Is it good or not necessarily? We are unable to tell.
+<p>Is it acceptable or not necessarily? We are unable to tell.
 What we can do, however, is to run the algorithm again,
 this time from a different starting point:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>  <span class="c1"># different seed - different initial centres</span>
@@ -2145,7 +2145,7 @@ The <em>k</em>-means method is <em>overall</em> quite usable,
 but we must always be cautious.</p>
 <p>We recommend always performing at least 100 random restarts.
 Also, if a report from data analysis does not say anything about
-the number of tries performed, we should assume that the results
+the number of tries performed, we are advised to assume that the results
 are gibberish<a class="footnote-reference brackets" href="#footr" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>. People will complain about our being
 a pain, but we know better; compare Rule#9.</p>
 </div>
@@ -2183,7 +2183,7 @@ following cluster centres which are close to the global minimum.</p>
 </section>
 <section id="further-reading">
 <h2><span class="section-number">12.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
-<p>An overall good introduction to classification is <span id="id18">[<a class="reference internal" href="999-bibliography.html#id53" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn/.">47</a>]</span>
+<p>An overall noteworthy introduction to classification is <span id="id18">[<a class="reference internal" href="999-bibliography.html#id53" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn/.">47</a>]</span>
 and <span id="id19">[<a class="reference internal" href="999-bibliography.html#id54" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop/.">8</a>]</span>.
 Nevertheless, as we said earlier, we recommend going through
 a solid course in matrix algebra and mathematical statistics
@@ -2193,11 +2193,11 @@ For advanced theoretical (probabilistic, information-theoretic) results,
 see, e.g., <span id="id22">[<a class="reference internal" href="999-bibliography.html#id119" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">9</a>, <a class="reference internal" href="999-bibliography.html#id79" title="Devroye, L., Györfi, L., and Lugosi, G. (1996).  A Probabilistic Theory of Pattern Recognition. Springer. DOI: 10.1007/978-1-4612-0711-5.">22</a>]</span>.</p>
 <p>Hierarchical clustering algorithms
 (see, e.g., <span id="id23">[<a class="reference internal" href="999-bibliography.html#id85" title="Gagolewski, M. (2021).  genieclust: Fast and robust hierarchical clustering. SoftwareX, 15:100722. URL: https://genieclust.gagolewski.com, DOI: 10.1016/j.softx.2021.100722.">32</a>, <a class="reference internal" href="999-bibliography.html#id113" title="Müllner, D. (2011).  Modern hierarchical, agglomerative clustering algorithms. arXiv:1109.2378 [stat.ML]. URL: https://arxiv.org/abs/1109.2378v1.">65</a>]</span>)
-are also noteworthy, because they do not require
+are also worthwhile, because they do not require
 asking for a fixed number of clusters.
 Furthermore, density-based algorithms (DBSCAN and its variants)
 <span id="id24">[<a class="reference internal" href="999-bibliography.html#id87" title="Campello, R.J.G.B., Moulavi, D., Zimek, A., and Sander, J. (2015).  Hierarchical density estimates for data clustering, visualization, and outlier detection. ACM Transactions on Knowledge Discovery from Data, 10(1):5:1–5:51. DOI: 10.1145/2733381.">12</a>, <a class="reference internal" href="999-bibliography.html#id88" title="Ester, M., Kriegel, H.P., Sander, J., and Xu, X. (1996).  A density-based algorithm for discovering clusters in large spatial databases with noise. In: Proc. KDD'96, pp. 226–231.">25</a>, <a class="reference internal" href="999-bibliography.html#id89" title="Ling, R.F. (1973).  A probability theory of cluster analysis. Journal of the American Statistical Association, 68(341):159–164. DOI: 10.1080/01621459.1973.10481356.">59</a>]</span>
-utilise the notion of fixed-radius search that we have introduced
+utilise the notion of fixed-radius search that we introduced
 in <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
 <p>There are quite a few ways that aim to assess the quality of clustering
 results, but their meaningfulness is somewhat limited;
@@ -2363,7 +2363,7 @@ each aiming to approximate
 a solution to the <em>k</em>-means problem, from the practical
 point of view it does not really matter which one returns
 the best solution – they are merely our tools to achieve
-a higher goal. Ideally, we should run all of them
+a higher goal. Ideally, we could run all of them
 many times and get the result that corresponds to the smallest
 WCSS. It is crucial to <em>do our best</em> to
 find the optimal set of cluster centres – the
@@ -2419,7 +2419,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-04-28T20:23:31+1000.
+              Last updated on 2023-05-01T10:56:44+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
