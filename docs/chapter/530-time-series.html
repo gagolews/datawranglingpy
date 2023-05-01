@@ -427,7 +427,7 @@ Usually, we will be creating dates from strings, for instance:</p>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-05-01T04:49:38&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-05-01T09:10:44&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -441,7 +441,7 @@ the number of days or seconds since the <em>UNIX Epoch</em>,
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9478e+04])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.26500000e+03, 1.68291658e+09])</span>
+<span class="c1">## array([7.26500000e+03, 1.68293224e+09])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -463,7 +463,7 @@ to the <code class="docutils literal notranslate"><span class="pre">numpy.timede
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
 <span class="c1">##        &#39;2023-04-30&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-05-01T16:49:38&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-05-01T21:10:44&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -694,7 +694,8 @@ it takes a bank teller to interact with a customer
 called queuing theory that deals with this type of modelling).</p>
 <div style="margin-top: 1em"></div><p>An exponential family is identified by the scale parameter
 <span class="math notranslate nohighlight">\(s &gt; 0\)</span>, being at the same time its expected value.
-The probability density function of Exp(<em>s</em>) is given for <span class="math notranslate nohighlight">\(x\ge 0\)</span> by:</p>
+The probability density function of <span class="math notranslate nohighlight">\(\mathrm{Exp}(s)\)</span>
+is given for <span class="math notranslate nohighlight">\(x\ge 0\)</span> by:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
@@ -708,8 +709,8 @@ convention.</p>
 <div style="margin-top: 1em"></div><p>Here is a pseudorandom sample where there are five events per
 minute on average:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-<span class="n">λ</span> <span class="o">=</span> <span class="mi">60</span><span class="o">/</span><span class="mi">5</span>  <span class="c1"># 5 events per 60 seconds on average</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">λ</span><span class="p">)</span>
+<span class="n">l</span> <span class="o">=</span> <span class="mi">60</span><span class="o">/</span><span class="mi">5</span>  <span class="c1"># 5 events per 60 seconds on average</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">d</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># preview</span>
 <span class="c1">## array([14.307,  4.045,  3.087,  9.617, 15.253,  6.601, 47.412, 13.856])</span>
 </pre></div>
@@ -1077,10 +1078,10 @@ the average PM2.5 was greater than in the preceding day.</p></li>
 <section id="plotting-multidimensional-time-series">
 <h3><span class="section-number">16.3.5. </span>Plotting multidimensional time series<a class="headerlink" href="#plotting-multidimensional-time-series" title="Permalink to this heading">#</a></h3>
 <p>Multidimensional time series stored in the form of
-an <em>n</em>-by-<em>m</em> matrix are best viewed as <em>m</em> time series –
+an <span class="math notranslate nohighlight">\(n\times m\)</span> matrix are best viewed as <span class="math notranslate nohighlight">\(m\)</span> time series –
 possibly but not necessarily related to each other –
-all sampled at the same <em>n</em> points in time
-(e.g., <em>m</em> different stocks on <em>n</em> consecutive days).</p>
+all sampled at the same <span class="math notranslate nohighlight">\(n\)</span> points in time
+(e.g., <span class="math notranslate nohighlight">\(m\)</span> different stocks on <span class="math notranslate nohighlight">\(n\)</span> consecutive days).</p>
 <p>Consider the currency exchange rates
 for the first half of 2020:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eurxxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1301,9 +1302,9 @@ see, e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.
         <span class="proof-type">Exercise 16.20</span>
         
     </div><div class="proof-content">
-<p>Assume we have a time series with <em>n</em> observations.
-What is a 1- and an <em>n</em>-moving average?
-Which one is smoother, a <em>(0.01n)</em>- or a <em>(0.1n)</em>- one?</p>
+<p>Assume we have a time series with <span class="math notranslate nohighlight">\(n\)</span> observations.
+What is a <span class="math notranslate nohighlight">\(1\)</span>- and an <span class="math notranslate nohighlight">\(n\)</span>-moving average?
+Which one is smoother, a <span class="math notranslate nohighlight">\((0.01n)\)</span>- or a <span class="math notranslate nohighlight">\((0.1n)\)</span>- one?</p>
 </div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
@@ -1375,7 +1376,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-01T15:49:55+1000.
+              Last updated on 2023-05-01T19:12:03+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

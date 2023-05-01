@@ -1857,7 +1857,7 @@ In such a case, implementing the set-theoretic operations
 is relatively easy, as we can refer to the <strong class="command">pandas.Series.isin</strong>
 method.</p>
 <p>First, <span class="math notranslate nohighlight">\(A\cap B\)</span> (intersection),
-includes only the rows that are <em>both</em> in <em>A</em> and in <em>B</em>:</p>
+includes only the rows that are <em>both</em> in <span class="math notranslate nohighlight">\(A\)</span> and in <span class="math notranslate nohighlight">\(B\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
 <span class="c1">##                   Name   BirthDate</span>
 <span class="c1">## 4        Micha Kitchen  17.09.1930</span>
@@ -1869,7 +1869,7 @@ includes only the rows that are <em>both</em> in <em>A</em> and in <em>B</em>:</
 </pre></div>
 </div>
 <p>Second, <span class="math notranslate nohighlight">\(A\smallsetminus B\)</span> (difference), gives all
-the rows that are in <em>A</em> <em>but not</em> in <em>B</em>:</p>
+the rows that are in <span class="math notranslate nohighlight">\(A\)</span> <em>but not</em> in <span class="math notranslate nohighlight">\(B\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
 <span class="c1">##                 Name   BirthDate</span>
 <span class="c1">## 0   Paitoon Ornwimol  26.06.1958</span>
@@ -1878,8 +1878,8 @@ the rows that are in <em>A</em> <em>but not</em> in <em>B</em>:</p>
 <span class="c1">## 3      Nedeljko Bukv  19.12.1921</span>
 </pre></div>
 </div>
-<p>Third, <span class="math notranslate nohighlight">\(A\cup B\)</span> (union), returns the rows that exist in <em>A</em> <em>or</em>
-are in <em>B</em>:</p>
+<p>Third, <span class="math notranslate nohighlight">\(A\cup B\)</span> (union), returns the rows that exist in <span class="math notranslate nohighlight">\(A\)</span> <em>or</em>
+are in <span class="math notranslate nohighlight">\(B\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]))</span>
 <span class="c1">##                   Name   BirthDate</span>
 <span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
@@ -2000,8 +2000,8 @@ both datasets:</p>
 <span class="c1">## 2  a2  b2  c2</span>
 </pre></div>
 </div>
-<p>The <em>left join</em> of <em>A</em> with <em>B</em> guarantees to return all the records from <em>A</em>,
-even those which are not matched by anything in <em>B</em>.</p>
+<p>The <em>left join</em> of <span class="math notranslate nohighlight">\(A\)</span> with <span class="math notranslate nohighlight">\(B\)</span> guarantees to return all the records
+from <span class="math notranslate nohighlight">\(A\)</span>, even those which are not matched by anything in <span class="math notranslate nohighlight">\(B\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x   y    z</span>
 <span class="c1">## 0  a0  b0   c0</span>
@@ -2011,7 +2011,8 @@ even those which are not matched by anything in <em>B</em>.</p>
 <span class="c1">## 4  a3  b3  NaN</span>
 </pre></div>
 </div>
-<p>The <em>right join</em> of <em>A</em> with <em>B</em> is the same as the left join of <em>B</em> with <em>A</em>:</p>
+<p>The <em>right join</em> of <span class="math notranslate nohighlight">\(A\)</span> with <span class="math notranslate nohighlight">\(B\)</span> is the same as the left join of
+<span class="math notranslate nohighlight">\(B\)</span> with <span class="math notranslate nohighlight">\(A\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
 <span class="c1">##     x    y   z</span>
 <span class="c1">## 0  a0   b0  c0</span>
@@ -2295,7 +2296,7 @@ where we can work with data frames (e.g., base R or Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-01T15:49:55+1000.
+              Last updated on 2023-05-01T19:12:03+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
