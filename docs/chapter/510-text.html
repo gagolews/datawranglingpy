@@ -575,7 +575,7 @@ using the broadest possible <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 <p>This allows for the encoding of missing values by means
-of the <code class="docutils literal notranslate"><span class="pre">None</span></code> object (which is of type <code class="docutils literal notranslate"><span class="pre">None</span></code>, not <code class="docutils literal notranslate"><span class="pre">str</span></code>);
+of the <code class="docutils literal notranslate"><span class="pre">None</span></code> object (which is of the type <code class="docutils literal notranslate"><span class="pre">None</span></code>, not <code class="docutils literal notranslate"><span class="pre">str</span></code>);
 compare <a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>.</p>
 <p>Vectorised versions of base string operations
 are available via the <strong class="command">pandas.Series.str</strong> accessor.
@@ -676,7 +676,7 @@ for string handling, with the latter being more powerful.
 After all, <strong class="program">numpy</strong> is a workhorse for <em>numerical</em> computing.
 Still, some readers might find the following useful.</p>
 <p>As mentioned in our introduction to <strong class="program">numpy</strong> vectors,
-objects of type <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> can store not only numeric and logical
+objects of the type <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> can store not only numeric and logical
 data, but also character strings. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;egg&quot;</span><span class="p">])</span>
 <span class="n">x</span>
@@ -684,7 +684,7 @@ data, but also character strings. For example:</p>
 </pre></div>
 </div>
 <p>Here, the data type “<code class="docutils literal notranslate"><span class="pre">&lt;U5</span></code>” means
-that we deal with Unicode strings of length no greater than 5.
+that we deal with Unicode strings of length no greater than five.
 Unfortunately, replacing elements with too long a content
 will result in truncated strings:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;buckwheat&quot;</span>
@@ -854,7 +854,7 @@ nicely formatted objects programmatically.</p>
 <p>Inclusion of textual representation of data stored in existing
 objects can easily be done using f-strings
 (formatted string literals; see <a class="reference internal" href="120-scalar.html#sec-f-strings"><span class="std std-numref">Section 2.1.3.1</span></a>)
-of type <code class="docutils literal notranslate"><span class="pre">f&quot;...{expression}...&quot;</span></code>. For instance:</p>
+of the type <code class="docutils literal notranslate"><span class="pre">f&quot;...{expression}...&quot;</span></code>. For instance:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159265358979323846</span>
 <span class="sa">f</span><span class="s2">&quot;π = </span><span class="si">{</span><span class="n">pi</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="c1">## &#39;π = 3.14&#39;</span>
@@ -1080,7 +1080,7 @@ Otherwise, the above would have to be written as “<code class="docutils litera
 <p>If we had not insisted on matching at the word boundaries (i.e.,
 if we used the simple <code class="docutils literal notranslate"><span class="pre">&quot;ni+&quot;</span></code> regex instead),
 we would also match the <code class="docutils literal notranslate"><span class="pre">&quot;ni&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">&quot;knights&quot;</span></code>.</p>
-<div style="margin-top: 1em"></div><p>The <strong class="command">re.search</strong> function returns an object of class <code class="docutils literal notranslate"><span class="pre">re.Match</span></code>
+<div style="margin-top: 1em"></div><p>The <strong class="command">re.search</strong> function returns an object of the class <code class="docutils literal notranslate"><span class="pre">re.Match</span></code>
 that enables us to get some more information about the first match:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bni+\b&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="n">r</span><span class="o">.</span><span class="n">start</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">r</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
@@ -1189,7 +1189,7 @@ If we intend to seek matches to the same pattern in many
 different strings without the use of <strong class="program">pandas</strong>,
 it might be faster to pre-compile a regex first, and
 then use the <strong class="command">re.Pattern.findall</strong> method instead or <strong class="command">re.findall</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bni+\b&quot;</span><span class="p">)</span>  <span class="c1"># returns an object of class `re.Pattern`</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bni+\b&quot;</span><span class="p">)</span>  <span class="c1"># returns an object of the class `re.Pattern`</span>
 <span class="n">p</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;We&#39;re the Spanish Inquisition ni! ni! niiiii! nininiiiiiiiii!&quot;</span><span class="p">)</span>
 <span class="c1">## [&#39;ni&#39;, &#39;ni&#39;, &#39;niiiii&#39;]</span>
 </pre></div>
@@ -1854,7 +1854,7 @@ see <span id="id19">[<a class="reference internal" href="999-bibliography.html#i
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-01T19:12:03+1000.
+              Last updated on 2023-05-02T17:27:33+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

@@ -531,7 +531,7 @@ because each of them defines a slightly different set of methods.</p>
 <p>uses <strong class="command">pandas.DataFrame.mean</strong> (which yields a <code class="docutils literal notranslate"><span class="pre">Series</span></code>).</p>
 <p>Look up these two methods in the <strong class="program">pandas</strong> manual.
 Note that their argument list is slightly different.</p>
-</div></div><p>Objects of class <code class="docutils literal notranslate"><span class="pre">Series</span></code> are vector-like:</p>
+</div></div><p>Objects of the class <code class="docutils literal notranslate"><span class="pre">Series</span></code> are vector-like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">shape</span>
 <span class="c1">## (5,)</span>
 <span class="n">s</span><span class="o">.</span><span class="n">dtype</span>
@@ -573,7 +573,7 @@ because the <code class="docutils literal notranslate"><span class="pre">name</s
 <p>Another important class is called <code class="docutils literal notranslate"><span class="pre">Index</span></code><a class="footnote-reference brackets" href="#footindex" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
 We use it for storing element or axes labels.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">index</span></code> (lowercase) <em>slot</em> of a data frame stores an
-object of class <code class="docutils literal notranslate"><span class="pre">Index</span></code> (or one of its derivatives)
+object of the class <code class="docutils literal notranslate"><span class="pre">Index</span></code> (or one of its derivatives)
 that gives the row names:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span>  <span class="c1"># row labels</span>
 <span class="c1">## RangeIndex(start=0, stop=5, step=1)</span>
@@ -740,7 +740,7 @@ our rescue:</p>
 </pre></div>
 </div>
 <p>All <strong class="program">numpy</strong> functions can be applied directly on individual
-columns, i.e., objects of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>, because they are vector-like.</p>
+columns, i.e., objects of the type <code class="docutils literal notranslate"><span class="pre">Series</span></code>, because they are vector-like.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>  <span class="c1"># extract the `u` column (gives a Series; see below)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="c1">## array([0.23, 0.55, 0.72])</span>
@@ -840,7 +840,7 @@ and return an object of the same type as the input one.</p>
 </pre></div>
 </div>
 <p>When applying the binary arithmetic, relational,
-and logical operators on an object of class <code class="docutils literal notranslate"><span class="pre">Series</span></code> and
+and logical operators on an object of the class <code class="docutils literal notranslate"><span class="pre">Series</span></code> and
 a scalar or a <strong class="program">numpy</strong> vector, the operations are performed
 elementwisely – a style with which we are already familiar.</p>
 <p>For instance, here is a standardised version of the <code class="docutils literal notranslate"><span class="pre">u</span></code> column:</p>
@@ -951,7 +951,7 @@ multiplied by each (there was only one) element labelled <code class="docutils l
 <code class="docutils literal notranslate"><span class="pre">Series</span></code>. For <code class="docutils literal notranslate"><span class="pre">d</span></code>, there were no matches, hence the result’s being marked
 as missing; compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>.
 Thus, this behaves like a full outer join-type operation;
-see <a class="reference internal" href="#sec-join"><span class="std std-numref">Section 10.6.4</span></a>.</p>
+see <a class="reference internal" href="#sec-join"><span class="std std-numref">Section 10.6.3</span></a>.</p>
 <p>The above is different from <em>elementwise</em> vectorisation in <strong class="program">numpy</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="c1">## array([     1,     20,   3000,  40000, 500000])</span>
@@ -965,7 +965,7 @@ the two packages.</p>
 <span id="sec-series-indexing"></span><h2><span class="section-number">10.4. </span>Indexing <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects<a class="headerlink" href="#indexing-series-objects" title="Permalink to this heading">#</a></h2>
 <p>Recall that each <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> object
 is equipped with a slot called <code class="docutils literal notranslate"><span class="pre">index</span></code>, which is
-an object of class <code class="docutils literal notranslate"><span class="pre">Index</span></code> (or subclass thereof),
+an object of the class <code class="docutils literal notranslate"><span class="pre">Index</span></code> (or subclass thereof),
 giving the row and element labels, respectively.
 It turns out that we may apply
 the <em>index</em> operator, <code class="docutils literal notranslate"><span class="pre">[...]</span></code>, to subset  these objects
@@ -1083,7 +1083,7 @@ But in this case, we can write:</p>
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
-<p>The result is always of type <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
+<p>The result is always of the type <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
 <p>Slicing behaves differently as the range is <em>inclusive</em>
 (sic!<a class="footnote-reference brackets" href="#footinclusive" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>) at both sides:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
@@ -1127,7 +1127,7 @@ we will be returning <em>all</em> (sic!<a class="footnote-reference brackets" hr
 the <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> accessor.
 It is worth stressing that, fortunately, its behaviour
 is consistent with its <strong class="program">numpy</strong> counterpart, i.e.,
-the ordinary square brackets applied on objects of class <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>.</p>
+the ordinary square brackets applied on objects of the class <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>.</p>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># the same: c.iloc[0]</span>
 <span class="c1">## 0.7</span>
@@ -1257,7 +1257,9 @@ This improves the readability in contexts such as:</p>
 </div>
 <p>This accessor is, sadly, not universal.
 We can verify this by considering a data frame featuring
-a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code> (which clashes with a built-in method).</p>
+a column named, e.g., <code class="docutils literal notranslate"><span class="pre">mean</span></code>, which clashes with a built-in method.
+As a workaround, we should either use  <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
+or rename the column, for instance, like <code class="docutils literal notranslate"><span class="pre">Mean</span></code> or <code class="docutils literal notranslate"><span class="pre">MEAN</span></code>.</p>
 </div>
 <div class="proof proof-type-exercise" id="id20">
 
@@ -1740,24 +1742,22 @@ To switch to a mergesort-like method (timsort), we should pass
 <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>, <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>,
 and <strong class="command">numpy.argsort</strong>.</p>
 </div></div></section>
-<section id="stacking-and-unstacking-long-and-wide-forms">
-<span id="sec-stack"></span><h3><span class="section-number">10.6.2. </span>Stacking and unstacking (long and wide forms)<a class="headerlink" href="#stacking-and-unstacking-long-and-wide-forms" title="Permalink to this heading">#</a></h3>
+<section id="stacking-and-unstacking-long-tall-and-wide-forms">
+<span id="sec-stack"></span><h3><span class="section-number">10.6.2. </span>Stacking and unstacking (long/tall and wide forms)<a class="headerlink" href="#stacking-and-unstacking-long-tall-and-wide-forms" title="Permalink to this heading">#</a></h3>
 <p>Let us discuss some further ways to transform
 data frames, that benefit from, make sense because of,
-or are possible due to their being able to store
-data of different types.</p>
-<p>The above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the so-called <em>long</em> format,
-where all measurements are <em>stacked</em> one after/below another.
-Such a form is quite convenient for the storing of data,
-especially when there are few recorded values, but many possible
-combinations of levels (sparse data).</p>
-<p>The long format might not necessarily be optimal in all data processing
+or are possible because they can have columns of various types.</p>
+<p>The above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the so-called <em>long</em> (<em>tall</em>) format.
+All measurements are <em>stacked</em> one after/below another.
+Such a form is quite convenient for data storage,
+especially when there are only a few recorded values,
+but many possible combinations of levels (sparse data).</p>
+<p>The long format might not be optimal in all data processing
 activities, though; compare <span id="id9">[<a class="reference internal" href="999-bibliography.html#id38" title="Wickham, H. (2014).  Tidy data. Journal of Statistical Software, 59(10):1–23. DOI: 10.18637/jss.v059.i10.">93</a>]</span>.
-In the matrix processing part of this book,
+In the part of this book on matrix processing,
 it was much more natural for us to have a single <em>observation</em>
-(e.g., data for each measurement station) in each row.</p>
-<p>We can <em>unstack</em> the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame
-(convert to the <em>wide</em> format) quite easily:</p>
+in each row (e.g., data for each measurement station).</p>
+<p>We can <em>unstack</em> the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame quite easily:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
 <span class="n">air_wide</span>
 <span class="c1">## param_id         BPM2.5        NO2</span>
@@ -1775,6 +1775,7 @@ it was much more natural for us to have a single <em>observation</em>
 <span class="c1">## Traralgon      8.024735   5.776333</span>
 </pre></div>
 </div>
+<p>This is the so-called <em>wide</em> format.</p>
 <p>The missing values are denoted with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s (not-a-number);
 see <a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a> for more details.
 Interestingly, we got a hierarchical index in the <code class="docutils literal notranslate"><span class="pre">columns</span></code> (sic!) slot,
@@ -1810,131 +1811,15 @@ Nevertheless, passing <code class="docutils literal notranslate"><span class="pr
 the combinations of <code class="docutils literal notranslate"><span class="pre">location</span></code> and <code class="docutils literal notranslate"><span class="pre">param</span></code> for which the readings
 are not provided.</p>
 </section>
-<section id="set-theoretic-operations-and-removing-duplicates">
-<h3><span class="section-number">10.6.3. </span>Set-theoretic operations and removing duplicates<a class="headerlink" href="#set-theoretic-operations-and-removing-duplicates" title="Permalink to this heading">#</a></h3>
-<p>Here are two not at all disjoint sets of imaginary persons:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/some_birth_dates1.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">A</span>
-<span class="c1">##                   Name   BirthDate</span>
-<span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
-<span class="c1">## 1         Antónia Lata  20.05.1935</span>
-<span class="c1">## 2    Bertoldo Mallozzi  17.08.1972</span>
-<span class="c1">## 3        Nedeljko Bukv  19.12.1921</span>
-<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
-<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
-<span class="c1">## 6         Paul Meckler  29.09.1968</span>
-<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
-<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
-<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
-</pre></div>
-</div>
-<p>and:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/some_birth_dates2.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">B</span>
-<span class="c1">##                    Name   BirthDate</span>
-<span class="c1">## 0    Hushang Naigamwala  25.08.1991</span>
-<span class="c1">## 1              Zhen Wei  16.11.1975</span>
-<span class="c1">## 2         Micha Kitchen  17.09.1930</span>
-<span class="c1">## 3           Jodoc Alwin  16.11.1969</span>
-<span class="c1">## 4            Igor Mazał  14.05.2004</span>
-<span class="c1">## 5       Katarzyna Lasko  20.10.1971</span>
-<span class="c1">## 6   Duchanee Panomyaong  19.06.1952</span>
-<span class="c1">## 7       Mefodiy Shachar  01.10.1914</span>
-<span class="c1">## 8          Paul Meckler  29.09.1968</span>
-<span class="c1">## 9         Noe Tae-Woong  11.07.1970</span>
-<span class="c1">## 10         Åge Trelstad  07.03.1935</span>
-</pre></div>
-</div>
-<p>In both datasets, there is a single categorical column whose
-elements uniquely identify each record (i.e., <code class="docutils literal notranslate"><span class="pre">Name</span></code>).
-In the language of relational databases, we would call it
-the <em>primary key</em>.
-In such a case, implementing the set-theoretic operations
-is relatively easy, as we can refer to the <strong class="command">pandas.Series.isin</strong>
-method.</p>
-<p>First, <span class="math notranslate nohighlight">\(A\cap B\)</span> (intersection),
-includes only the rows that are <em>both</em> in <span class="math notranslate nohighlight">\(A\)</span> and in <span class="math notranslate nohighlight">\(B\)</span>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
-<span class="c1">##                   Name   BirthDate</span>
-<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
-<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
-<span class="c1">## 6         Paul Meckler  29.09.1968</span>
-<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
-<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
-<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
-</pre></div>
-</div>
-<p>Second, <span class="math notranslate nohighlight">\(A\smallsetminus B\)</span> (difference), gives all
-the rows that are in <span class="math notranslate nohighlight">\(A\)</span> <em>but not</em> in <span class="math notranslate nohighlight">\(B\)</span>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
-<span class="c1">##                 Name   BirthDate</span>
-<span class="c1">## 0   Paitoon Ornwimol  26.06.1958</span>
-<span class="c1">## 1       Antónia Lata  20.05.1935</span>
-<span class="c1">## 2  Bertoldo Mallozzi  17.08.1972</span>
-<span class="c1">## 3      Nedeljko Bukv  19.12.1921</span>
-</pre></div>
-</div>
-<p>Third, <span class="math notranslate nohighlight">\(A\cup B\)</span> (union), returns the rows that exist in <span class="math notranslate nohighlight">\(A\)</span> <em>or</em>
-are in <span class="math notranslate nohighlight">\(B\)</span>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]))</span>
-<span class="c1">##                   Name   BirthDate</span>
-<span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
-<span class="c1">## 1         Antónia Lata  20.05.1935</span>
-<span class="c1">## 2    Bertoldo Mallozzi  17.08.1972</span>
-<span class="c1">## 3        Nedeljko Bukv  19.12.1921</span>
-<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
-<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
-<span class="c1">## 6         Paul Meckler  29.09.1968</span>
-<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
-<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
-<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
-<span class="c1">## 0   Hushang Naigamwala  25.08.1991</span>
-<span class="c1">## 1             Zhen Wei  16.11.1975</span>
-<span class="c1">## 3          Jodoc Alwin  16.11.1969</span>
-<span class="c1">## 4           Igor Mazał  14.05.2004</span>
-<span class="c1">## 9        Noe Tae-Woong  11.07.1970</span>
-</pre></div>
-</div>
-<p>There are no duplicate rows in any of the above outputs.</p>
-<div class="proof proof-type-exercise" id="id30">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.18</span>
-        
-    </div><div class="proof-content">
-<p>Determine
-<span class="math notranslate nohighlight">\((A\cup B) \smallsetminus (A\cap B) = (A\smallsetminus B)\cup(B\smallsetminus A)\)</span>
-(symmetric difference).</p>
-</div></div><div class="proof proof-type-exercise" id="id31">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 10.19</span>
-        
-    </div><div class="proof-content">
-<p>(*)
-Determine the union, intersection, and difference of the
-<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_sample1.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample1</span></code></a>
-and
-<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_sample2.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample2</span></code></a> datasets,
-where there is no column uniquely identifying the observations.
-Hint: consider using
-<strong class="command">pandas.concat</strong> and
-<strong class="command">pandas.DataFrame.duplicated</strong> or
-<strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
-</div></div></section>
 <section id="joining-merging">
-<span id="sec-join"></span><h3><span class="section-number">10.6.4. </span>Joining (merging)<a class="headerlink" href="#joining-merging" title="Permalink to this heading">#</a></h3>
+<span id="sec-join"></span><h3><span class="section-number">10.6.3. </span>Joining (merging)<a class="headerlink" href="#joining-merging" title="Permalink to this heading">#</a></h3>
 <p>In database design, it is common to normalise
 the datasets. We do this to avoid the duplication of information
 and pathologies stemming from them (e.g., <span id="id10">[<a class="reference internal" href="999-bibliography.html#id76" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">19</a>]</span>).</p>
-<div class="proof proof-type-example" id="id32">
+<div class="proof proof-type-example" id="id30">
 
     <div class="proof-title">
-        <span class="proof-type">Example 10.20</span>
+        <span class="proof-type">Example 10.18</span>
         
     </div><div class="proof-content">
 <p>The above air quality parameters
@@ -1942,7 +1827,8 @@ are separately described in another data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/air_quality_2018_param.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">param</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">param_std_unit_of_measure</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">param_std_unit_of_measure</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">param</span>
 <span class="c1">##   param_id                   param_name   unit      param_short_name</span>
 <span class="c1">## 0      API      Airborne particle index   none  Visibility Reduction</span>
 <span class="c1">## 1   BPM2.5  BAM  Particles &lt; 2.5 micron  ug/m3                 PM2.5</span>
@@ -2033,30 +1919,30 @@ union of the left and the right join:</p>
 <span class="c1">## 5  a4  NaN   c3</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id33">
+<div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.21</span>
+        <span class="proof-type">Exercise 10.19</span>
         
     </div><div class="proof-content">
 <p>Join
 <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/air_quality_2018_value.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_value</span></code></a>
 with <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/air_quality_2018_point.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_point</span></code></a>,
 and then with <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/air_quality_2018_param.csv"><code class="docutils literal notranslate"><span class="pre">air_quality_2018_param</span></code></a>.</p>
-</div></div><div class="proof proof-type-exercise" id="id34">
+</div></div><div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.22</span>
+        <span class="proof-type">Exercise 10.20</span>
         
     </div><div class="proof-content">
 <p>Normalise
 <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/air_quality_2018.csv.gz"><code class="docutils literal notranslate"><span class="pre">air_quality_2018</span></code></a>
 so that you get the three separate data frames mentioned in the previous
 exercise (<code class="docutils literal notranslate"><span class="pre">value</span></code>, <code class="docutils literal notranslate"><span class="pre">point</span></code>, and <code class="docutils literal notranslate"><span class="pre">param</span></code>).</p>
-</div></div><div class="proof proof-type-exercise" id="id35">
+</div></div><div class="proof proof-type-exercise" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 10.23</span>
+        <span class="proof-type">Exercise 10.21</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -2070,6 +1956,122 @@ This token is mentioned in numerous datasets, including:</p>
 <li><p>and <a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/continuousnhanes/default.aspx?BeginYear=2017">many more</a>.</p></li>
 </ul>
 <p>Join a few chosen datasets that you find interesting.</p>
+</div></div></section>
+<section id="set-theoretic-operations-and-removing-duplicates">
+<h3><span class="section-number">10.6.4. </span>Set-theoretic operations and removing duplicates<a class="headerlink" href="#set-theoretic-operations-and-removing-duplicates" title="Permalink to this heading">#</a></h3>
+<p>Here are two not at all disjoint sets of imaginary persons:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching-data/master/marek/some_birth_dates1.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">A</span>
+<span class="c1">##                   Name   BirthDate</span>
+<span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
+<span class="c1">## 1         Antónia Lata  20.05.1935</span>
+<span class="c1">## 2    Bertoldo Mallozzi  17.08.1972</span>
+<span class="c1">## 3        Nedeljko Bukv  19.12.1921</span>
+<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
+<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 6         Paul Meckler  29.09.1968</span>
+<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
+<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
+</pre></div>
+</div>
+<p>and:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;teaching-data/master/marek/some_birth_dates2.csv&quot;</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">B</span>
+<span class="c1">##                    Name   BirthDate</span>
+<span class="c1">## 0    Hushang Naigamwala  25.08.1991</span>
+<span class="c1">## 1              Zhen Wei  16.11.1975</span>
+<span class="c1">## 2         Micha Kitchen  17.09.1930</span>
+<span class="c1">## 3           Jodoc Alwin  16.11.1969</span>
+<span class="c1">## 4            Igor Mazał  14.05.2004</span>
+<span class="c1">## 5       Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 6   Duchanee Panomyaong  19.06.1952</span>
+<span class="c1">## 7       Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 8          Paul Meckler  29.09.1968</span>
+<span class="c1">## 9         Noe Tae-Woong  11.07.1970</span>
+<span class="c1">## 10         Åge Trelstad  07.03.1935</span>
+</pre></div>
+</div>
+<p>In both datasets, there is a single categorical column whose
+elements uniquely identify each record (i.e., <code class="docutils literal notranslate"><span class="pre">Name</span></code>).
+In the language of relational databases, we would call it
+the <em>primary key</em>.
+In such a case, implementing the set-theoretic operations
+is relatively easy, as we can refer to the <strong class="command">pandas.Series.isin</strong>
+method.</p>
+<p>First, <span class="math notranslate nohighlight">\(A\cap B\)</span> (intersection),
+includes only the rows that are <em>both</em> in <span class="math notranslate nohighlight">\(A\)</span> and in <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
+<span class="c1">##                   Name   BirthDate</span>
+<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
+<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 6         Paul Meckler  29.09.1968</span>
+<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
+<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
+</pre></div>
+</div>
+<p>Second, <span class="math notranslate nohighlight">\(A\smallsetminus B\)</span> (difference), gives all
+the rows that are in <span class="math notranslate nohighlight">\(A\)</span> <em>but not</em> in <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]</span>
+<span class="c1">##                 Name   BirthDate</span>
+<span class="c1">## 0   Paitoon Ornwimol  26.06.1958</span>
+<span class="c1">## 1       Antónia Lata  20.05.1935</span>
+<span class="c1">## 2  Bertoldo Mallozzi  17.08.1972</span>
+<span class="c1">## 3      Nedeljko Bukv  19.12.1921</span>
+</pre></div>
+</div>
+<p>Third, <span class="math notranslate nohighlight">\(A\cup B\)</span> (union), returns the rows that exist in <span class="math notranslate nohighlight">\(A\)</span> <em>or</em>
+are in <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">B</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span> <span class="p">:]))</span>
+<span class="c1">##                   Name   BirthDate</span>
+<span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
+<span class="c1">## 1         Antónia Lata  20.05.1935</span>
+<span class="c1">## 2    Bertoldo Mallozzi  17.08.1972</span>
+<span class="c1">## 3        Nedeljko Bukv  19.12.1921</span>
+<span class="c1">## 4        Micha Kitchen  17.09.1930</span>
+<span class="c1">## 5      Mefodiy Shachar  01.10.1914</span>
+<span class="c1">## 6         Paul Meckler  29.09.1968</span>
+<span class="c1">## 7      Katarzyna Lasko  20.10.1971</span>
+<span class="c1">## 8         Åge Trelstad  07.03.1935</span>
+<span class="c1">## 9  Duchanee Panomyaong  19.06.1952</span>
+<span class="c1">## 0   Hushang Naigamwala  25.08.1991</span>
+<span class="c1">## 1             Zhen Wei  16.11.1975</span>
+<span class="c1">## 3          Jodoc Alwin  16.11.1969</span>
+<span class="c1">## 4           Igor Mazał  14.05.2004</span>
+<span class="c1">## 9        Noe Tae-Woong  11.07.1970</span>
+</pre></div>
+</div>
+<p>There are no duplicate rows in any of the above outputs.</p>
+<div class="proof proof-type-exercise" id="id34">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.22</span>
+        
+    </div><div class="proof-content">
+<p>Determine
+<span class="math notranslate nohighlight">\((A\cup B) \smallsetminus (A\cap B) = (A\smallsetminus B)\cup(B\smallsetminus A)\)</span>
+(symmetric difference).</p>
+</div></div><div class="proof proof-type-exercise" id="id35">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 10.23</span>
+        
+    </div><div class="proof-content">
+<p>(*)
+Determine the union, intersection, and difference of the
+<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_sample1.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample1</span></code></a>
+and
+<a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_sample2.csv"><code class="docutils literal notranslate"><span class="pre">wine_sample2</span></code></a> datasets,
+where there is no column uniquely identifying the observations.
+Hint: consider using
+<strong class="command">pandas.concat</strong> and
+<strong class="command">pandas.DataFrame.duplicated</strong> or
+<strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
 </div></div></section>
 <section id="and-too-many-more">
 <h3><span class="section-number">10.6.5. </span>…and (too) many more<a class="headerlink" href="#and-too-many-more" title="Permalink to this heading">#</a></h3>
@@ -2296,7 +2298,7 @@ where we can work with data frames (e.g., base R or Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-01T19:12:03+1000.
+              Last updated on 2023-05-02T17:27:33+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2343,9 +2345,9 @@ where we can work with data frames (e.g., base R or Julia with
 </li>
 <li><a class="reference internal" href="#further-operations-on-data-frames">10.6. Further operations on data frames</a><ul>
 <li><a class="reference internal" href="#sorting">10.6.1. Sorting</a></li>
-<li><a class="reference internal" href="#stacking-and-unstacking-long-and-wide-forms">10.6.2. Stacking and unstacking (long and wide forms)</a></li>
-<li><a class="reference internal" href="#set-theoretic-operations-and-removing-duplicates">10.6.3. Set-theoretic operations and removing duplicates</a></li>
-<li><a class="reference internal" href="#joining-merging">10.6.4. Joining (merging)</a></li>
+<li><a class="reference internal" href="#stacking-and-unstacking-long-tall-and-wide-forms">10.6.2. Stacking and unstacking (long/tall and wide forms)</a></li>
+<li><a class="reference internal" href="#joining-merging">10.6.3. Joining (merging)</a></li>
+<li><a class="reference internal" href="#set-theoretic-operations-and-removing-duplicates">10.6.4. Set-theoretic operations and removing duplicates</a></li>
 <li><a class="reference internal" href="#and-too-many-more">10.6.5. …and (too) many more</a></li>
 </ul>
 </li>
