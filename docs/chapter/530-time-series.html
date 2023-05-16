@@ -421,27 +421,28 @@ Usually, we will be creating dates from strings, for instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2023-05-03&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-05-16&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-05-03T05:25:03&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-05-16T09:16:55&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Internally, the above are represented as
-the number of days or seconds since the <em>UNIX Epoch</em>,
+the number of days (<code class="docutils literal notranslate"><span class="pre">datetime64[D]</span></code>) or seconds
+(<code class="docutils literal notranslate"><span class="pre">datetime64[s]</span></code>) since the <em>UNIX Epoch</em>,
 1970-01-01T00:00:00 in the UTC time zone.</p>
 </div>
 <p>Let us verify the above statement:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([-2.9372e+04,  0.0000e+00,  1.0000e+00,  1.8992e+04,  1.9480e+04])</span>
-<span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="c1">## array([7.2650000e+03, 1.6830915e+09])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19493])</span>
+<span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1">## array([      7265, 1684228615])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -451,8 +452,8 @@ the number of days or seconds since the <em>UNIX Epoch</em>,
         <span class="proof-type">Exercise 16.1</span>
         
     </div><div class="proof-content">
-<p>(*) Write a regular expression that extracts
-all dates in the YYYY-MM-DD format from a
+<p>(*) Compose a regular expression that extracts
+all dates in the <em>YYYY-MM-DD</em> format from a
 (possibly long) string and converts them to <code class="docutils literal notranslate"><span class="pre">datetime64</span></code>.</p>
 </div></div></section>
 <section id="time-differences">
@@ -461,9 +462,9 @@ all dates in the YYYY-MM-DD format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2023-05-02&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-05-15&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-05-03T17:25:03&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-05-16T21:16:55&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -495,7 +496,7 @@ data frames:</p>
 <span class="c1">## 4 1889-08-05  18.3</span>
 </pre></div>
 </div>
-<p>Interestingly, if we ask the <code class="docutils literal notranslate"><span class="pre">date</span></code> column
+<p>When we ask the <code class="docutils literal notranslate"><span class="pre">date</span></code> column
 to become the data frame’s <code class="docutils literal notranslate"><span class="pre">index</span></code> (i.e., row labels),
 we will be able select date ranges quite easily
 with <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and string slices
@@ -518,10 +519,9 @@ with <strong class="command">loc</strong><code class="code docutils literal notr
         
     </div><div class="proof-content">
 <p>Based on the above, we can plot the data for the last five years quite
-easily; see <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a>.
-Note that the x-axis labels are generated automatically.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+easily; see <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">temp</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -553,10 +553,19 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;MM/DD/Y
 <p>From the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/marek/birth_dates.csv"><code class="docutils literal notranslate"><span class="pre">birth_dates</span></code></a> dataset, select all people less than 18 years old
 (as of the current day).</p>
 </div></div><p>Several date-time functions and related properties can
-be referred to via the <strong class="command">pandas.Series.dt</strong> accessor
-(similarly to <strong class="command">pandas.Series.str</strong> discussed in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>).
-In particular, they deliver a convenient means for extracting different
-date or time fields, such as
+be referred to via the <strong class="command">pandas.Series.dt</strong> accessor,
+which is similar to <strong class="command">pandas.Series.str</strong> discussed
+in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>.</p>
+<p>For instance, converting date-time objects to strings
+following custom format specifiers can be performed with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.%m.%Y&quot;</span><span class="p">)</span>
+<span class="c1">## 0    05.04.1991</span>
+<span class="c1">## 1    14.07.2022</span>
+<span class="c1">## 2    21.12.2042</span>
+<span class="c1">## dtype: object</span>
+</pre></div>
+</div>
+<p>We can also extract different date or time <em>fields</em>, such as
 <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">dayofyear</span></code>,
 <code class="docutils literal notranslate"><span class="pre">hour</span></code>, <code class="docutils literal notranslate"><span class="pre">minute</span></code>, <code class="docutils literal notranslate"><span class="pre">second</span></code>, etc.
 For instance:</p>
@@ -572,18 +581,10 @@ For instance:</p>
 <span class="c1">## 2  2042     12   21</span>
 </pre></div>
 </div>
-<p>In some contexts, converting date-time objects
-to strings following custom formats might also be noteworthy:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.%m.%Y&quot;</span><span class="p">)</span>
-<span class="c1">## 0    05.04.1991</span>
-<span class="c1">## 1    14.07.2022</span>
-<span class="c1">## 2    21.12.2042</span>
-<span class="c1">## dtype: object</span>
-</pre></div>
-</div>
-<p>Interestingly, <strong class="command">pandas.to_datetime</strong> can also convert data frames
-with columns named <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day</span></code>, etc., back to date-time
-objects directly:</p>
+<p>The other way around, we should note that
+<strong class="command">pandas.to_datetime</strong> can convert data frames
+with columns named <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day</span></code>, etc., to date-time
+objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dates_ymd</span><span class="p">)</span>
 <span class="c1">## 0   1991-04-05</span>
 <span class="c1">## 1   2022-07-14</span>
@@ -796,7 +797,7 @@ dataset which gives the daily BTC/USD exchange rates in 2021:</p>
 <span class="c1">## 11 2021-01-12  33922.961</span>
 </pre></div>
 </div>
-<p>Write a function that converts it to a <em>lagged representation</em>, being a
+<p>Author a function that converts it to a <em>lagged representation</em>, being a
 convenient form for some machine learning algorithms.</p>
 <ol class="arabic simple">
 <li><p>Add the <code class="docutils literal notranslate"><span class="pre">Change</span></code> column that gives by how much the price changed
@@ -825,7 +826,7 @@ the five preceding days.</p></li>
 <section id="smoothing-with-moving-averages">
 <h3><span class="section-number">16.3.2. </span>Smoothing with moving averages<a class="headerlink" href="#smoothing-with-moving-averages" title="Permalink to this heading">#</a></h3>
 <p>With time series it makes sense to consider processing whole batches of
-consecutive points, because there is a time dependence between them.
+consecutive points as there is a time dependence between them.
 In particular, we can consider computing different
 aggregates inside <em>rolling windows</em> of a particular size.
 For instance, the <em><span class="math notranslate nohighlight">\(k\)</span>-moving average</em> of a given sequence
@@ -1139,7 +1140,7 @@ see <a class="reference internal" href="#fig-currency-rel"><span class="std std-
 <p><span class="caption-number">Figure 16.9 </span><span class="caption-text">EUR/AUD, EUR/CNY, EUR/GBP, and EUR/PLN exchange rates relative to the prices on the first day</span><a class="headerlink" href="#id28" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>This way, e.g., a relative EUR/AUD rate of ca. 1.15
+<p>This way, e.g., a relative EUR/AUD rate of c. 1.15
 in mid-March means that if an Aussie bought some
 Euros on the first day, and then sold them three-ish months later,
 they would have 15% more wealth
@@ -1261,9 +1262,9 @@ which we would like to describe or compare at some level
 of generality (think: health data on patients being
 subject to two treatment plans that we wish
 to evaluate).</p>
-<p>From this perspective, time series are already quite distinct,
-because there is some dependence
-observed in the time domain: a price of a stock that we observe
+<p>From this perspective, time series are already quite distinct:
+there is some dependence observed in the time domain.
+For instance, a price of a stock that we observe
 today is influenced by what was happening yesterday.
 There might also be some seasonal patterns or trends under the hood.
 For a comprehensive introduction to forecasting; see
@@ -1271,13 +1272,13 @@ For a comprehensive introduction to forecasting; see
 Also, for data of this kind, employing statistical modelling
 techniques (<em>stochastic processes</em>) can make a lot of sense;
 see, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id33" title="Tijms, H.C. (2003).  A First Course in Stochastic Models. Wiley.">84</a>]</span>.</p>
-<div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video are different,
-because <em>structured randomness</em> does not play a dominant role there (unless
-it is a noise that we would like to filter out).
+<div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video are different
+because <em>structured randomness</em> does not play a dominant role there
+(unless it is a noise that we would like to filter out).
 Instead, what is happening in the frequency (think: perceiving
 pitches when listening to music)
 or spatial (seeing green grass and sky in a photo) domain
-will play a key role there.</p>
+should be of interest.</p>
 <p>Signal processing thus requires a distinct set of tools,
 e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
@@ -1376,7 +1377,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-03T18:29:46+1000.
+              Last updated on 2023-05-16T19:18:13+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

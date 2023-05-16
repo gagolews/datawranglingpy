@@ -964,7 +964,7 @@ at the domain boundaries (here: in the left and right part of the plots).</p>
 to the distances to the neighbours (closer inputs are
 considered more important).</p>
 <p>Also, instead of few nearest neighbours, we can
-easily implement some form of fixed-radius search regression,
+easily compose some form of fixed-radius search regression,
 by simply replacing <span class="math notranslate nohighlight">\(N_k(\boldsymbol{x}')\)</span>
 with <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span>; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.
 Yet, note that this way we might
@@ -1034,7 +1034,7 @@ We will thus restrict ourselves to linear maps like:</p>
 <span class="math notranslate nohighlight">\(\mathbf{c} = [c_1\ c_2\ \cdots\ c_m\ c_{m+1}]\)</span>,
 as trivially <span class="math notranslate nohighlight">\(c_{m+1}\cdot 1=c_{m+1}\)</span>,
 this new setting is equivalent to the original one.</p>
-<p>Without loss in generality, from now on we assume that <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>
+<p>Without loss of generality, from now on we assume that <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>
 is <span class="math notranslate nohighlight">\(m\)</span>-dimensional, regardless of its having a constant-1 inside or not.</p>
 </div>
 </section>
@@ -1104,15 +1104,14 @@ of finding a hyperplane for which
 <p>This optimisation task can be solved analytically
 (compute the partial derivatives of SSR with respect to
 each <span class="math notranslate nohighlight">\(c_1,\dots,c_m\)</span>, equate them to 0, and solve a simple system
-of linear equations). This results in
+of linear equations). This spawns
 <span class="math notranslate nohighlight">\(\mathbf{c} = \mathbf{y} \mathbf{X} (\mathbf{X}^T \mathbf{X})^{-1}\)</span>,
 where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> is the inverse of a matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>,
 i.e., the matrix such that
 <span class="math notranslate nohighlight">\(\mathbf{A} \mathbf{A}^{-1}=\mathbf{A}^{-1} \mathbf{A} =\mathbf{I}\)</span>;
 compare <strong class="command">numpy.linalg.inv</strong>.
-As inverting larger matrices directly is not too robust,
-numerically speaking, we prefer relying upon some more
-specialised algorithms to determine the solution.</p>
+As inverting larger matrices directly is not too robust numerically,
+we would rather rely on a more specialised algorithm.</p>
 <p>The <strong class="command">scipy.linalg.lstsq</strong> function that we use below
 provides a quite numerically stable (yet, see <a class="reference internal" href="#sec-ill-condition"><span class="std std-numref">Section 9.2.9</span></a>)
 procedure that is based on the singular value decomposition of the model
@@ -1281,7 +1280,7 @@ we sought to minimise above.</p>
 <span class="c1">## 5.207073583769202</span>
 </pre></div>
 </div>
-<p>MAE is nicely interpretable, because it measures by
+<p>MAE is nicely interpretable: it measures by
 how many kilograms we err <em>on average</em>. Not bad.</p>
 <div class="proof proof-type-exercise" id="id41">
 
@@ -1410,7 +1409,7 @@ independent variables, arm and hip circumference:</p>
 <div class="math notranslate nohighlight">
 \[\text{weight} = 1.3\, \text{arm circumference} + 0.9\, \text{hip circumference}  -63.38 .\]</div>
 </div>
-<p>We skip the visualisation part, because we do not expect it to result
+<p>We skip the visualisation part for we do not expect it to result
 in a readable plot: these are multidimensional data.
 The coefficient of determination is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">c</span> <span class="o">@</span> <span class="n">X_train</span><span class="o">.</span><span class="n">T</span>
@@ -1811,26 +1810,25 @@ We need to end this madness.</p>
 <section id="fitting-regression-models-with-scikit-learn">
 <span id="sec-sklearnlm"></span><h3><span class="section-number">9.2.8. </span>Fitting regression models with <strong class="program">scikit-learn</strong> (*)<a class="headerlink" href="#fitting-regression-models-with-scikit-learn" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://scikit-learn.org/stable/index.html"><strong class="program">scikit-learn</strong></a>
-(<strong class="program">sklearn</strong>; <span id="id13">[<a class="reference internal" href="999-bibliography.html#id5" title="Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., and Duchesnay, E. (2011).  Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12:2825–2830.">71</a>]</span>)
-is a huge Python package
-built on top of <strong class="program">numpy</strong>, <strong class="program">scipy</strong>, and <strong class="program">matplotlib</strong>.
-It has a consistent API and implements or provides
-wrappers for many regression, classification, clustering, and
+(<strong class="program">sklearn</strong>; <span id="id13">[<a class="reference internal" href="999-bibliography.html#id5" title="Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., and Duchesnay, E. (2011).  Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12:2825–2830.">71</a>]</span>) is a huge Python package
+built on top of <strong class="program">numpy</strong>, <strong class="program">scipy</strong>,
+and <strong class="program">matplotlib</strong>. It has a consistent API and implements or
+provides wrappers for many regression, classification, clustering, and
 dimensionality reduction algorithms (amongst others).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p><strong class="program">sklearn</strong> is very convenient but
 allows for fitting models even if we do not understand
-the mathematics behind them. This is dangerous – it is
+the mathematics behind them. This is dangerous: it is
 like driving a sports car without the necessary skills
 and, at the same time, wearing a blindfold.
 Advanced students and practitioners will appreciate it, but
-if used by beginners, it needs to be handled with care;
-we should not mistake something’s being easily accessible
+if used by beginners, it needs to be handled with care.
+We should not mistake something’s being easily accessible
 with its being safe to use.
-Remember that if we are given a function implementing some
-procedure for which we are not able to provide its definition/mathematical
-properties/explain its idealised version using pseudocode,
+Remember that if we are given a procedure for which we are not able
+to provide its definition/mathematical properties/explain
+its idealised version using pseudocode,
 we are expected to refrain from using it (see Rule#7).</p>
 </div>
 <p>Because of the above, we shall only present a quick demo of
@@ -1885,7 +1883,7 @@ dataset.</p>
 <span class="n">cs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>We store the estimated model coefficients in a dictionary,
+<p>We store the estimated model coefficients in a dictionary
 because many methods will follow next.
 First, <strong class="command">scipy</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -1901,17 +1899,17 @@ The result returned by <strong class="command">scipy.linalg.lstsq</strong>
 is now not at all optimal. All coefficients are approximately equal to 0.</p>
 <div style="margin-top: 1em"></div><p>It turns out that the fitting problem is extremely <em>ill-conditioned</em>
 (and it is not the algorithm’s fault): GDPs range from very small
-to very large ones. Furthermore, taking the powers of 4 thereof
-results in numbers of ever greater range.
+to very large ones. Furthermore, taking them to the 4th power
+breeds numbers of ever greater range.
 Finding the least squares solution involves some form of matrix inverse
 (not necessarily directly) and our model matrix may be close to singular
 (one that is not invertible).</p>
 <p>As a measure of the model matrix’s ill-conditioning,
 we often use the so-called <em>condition number</em>, denoted
-<span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)\)</span>,
-being the ratio of the largest to the smallest so-called
-<em>singular values</em><a class="footnote-reference brackets" href="#footsingularvalue" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> of <span class="math notranslate nohighlight">\(\mathbf{X}^T\)</span>.
-They are returned by the <strong class="command">scipy.linalg.lstsq</strong> method itself:</p>
+<span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)\)</span>. It is
+the ratio of the largest to the smallest so-called
+<em>singular values</em><a class="footnote-reference brackets" href="#footsingularvalue" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> of <span class="math notranslate nohighlight">\(\mathbf{X}^T\)</span>,
+which are returned by the <strong class="command">scipy.linalg.lstsq</strong> method itself:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>    <span class="c1"># singular values of X_train.T</span>
 <span class="n">s</span>
 <span class="c1">## array([5.63097211e+20, 7.90771769e+14, 4.48366565e+09, 6.77575417e+04,</span>
@@ -1926,11 +1924,10 @@ The condition number <span class="math notranslate nohighlight">\(\kappa(\mathbf
 </div>
 <p>As a rule of thumb, if the condition number is <span class="math notranslate nohighlight">\(10^k\)</span>,
 we are losing <span class="math notranslate nohighlight">\(k\)</span> digits of numerical precision when performing
-the underlying computations. We are thus currently faced with a very
-ill-conditioned problem, because the above number is exceptionally large.
-We expect that if the values in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-or <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are perturbed even slightly,
-it can result in very large changes in the
+the underlying computations. As the above number is exceptionally large,
+we are thus currently faced with a very ill-conditioned problem.
+If the values in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> or <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are perturbed even
+slightly, we might expect significant changes in the
 computed regression coefficients.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2038,7 +2035,7 @@ is better than the polynomial one.</p>
 <figure class="align-default" id="id51">
 <span id="fig-ill-cond"></span><img alt="../_images/ill-cond-29.png" src="../_images/ill-cond-29.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can result in the resulting models’ being very wrong</span><a class="headerlink" href="#id51" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can give a very wrong model</span><a class="headerlink" href="#id51" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -2180,7 +2177,7 @@ s_1 &amp; 0 &amp; \dots &amp; 0 \\
 \end{split}\]</div>
 </div>
 <p>then <span class="math notranslate nohighlight">\(\mathbf{X} \mathbf{S}\)</span> represents <em>scaling</em> (stretching) with respect
-to the individual axes of the coordinate system, because:</p>
+to the individual axes of the coordinate system because:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -2196,7 +2193,7 @@ s_1 x_{n,1} &amp; s_2 x_{n,2} &amp; \dots &amp; s_m x_{n,m} \\
 \right].
 \end{split}\]</div>
 </div>
-<p>In <strong class="program">numpy</strong>, this can be implemented without
+<p>The above can be expressed in <strong class="program">numpy</strong> without
 referring to the matrix multiplication.
 A notation like <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">*</span> <span class="pre">np.array([s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sm]).reshape(1,</span> <span class="pre">-1)</span></code>
 will suffice (elementwise multiplication and proper shape broadcasting).</p>
@@ -2672,7 +2669,7 @@ We can compute them by calling:</p>
 </pre></div>
 </div>
 <p>As in some sense the variability within the first two components covers
-ca. 94% of the variability of the whole dataset,
+c. 94% of the variability of the whole dataset,
 we can restrict ourselves only to a two-dimensional projection
 of this dataset (actually, we are quite lucky here – or someone
 has selected these countrywise indices for us in a very
@@ -2692,7 +2689,7 @@ Energy Use (column 3), Greenhouse Gases (4), and
 MINUS Safe Sanitation (1), MINUS Healthy Life (2),
 MINUS Gross Domestic Product (5).
 We could call this a measure of a country’s overall
-eco-unfriendliness(?), because countries with low Healthy Life and high
+eco-unfriendliness(?) because countries with low Healthy Life and high
 Greenhouse Gasses will score highly on this scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># loadings – the 2nd principal axis</span>
 <span class="c1">## array([ 0.52,  0.5 ,  0.52,  0.45, -0.02])</span>
@@ -2935,8 +2932,8 @@ models explaining different dependent variables.</p>
 </aside>
 <aside class="footnote brackets" id="footmle" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">9</a><span class="fn-bracket">]</span></span>
-<p>For large <span class="math notranslate nohighlight">\(n\)</span>, we expect the pinpoint the true coefficients
-exactly. This is because, in our scenario (independent,
+<p>For large <span class="math notranslate nohighlight">\(n\)</span>, we expect to pinpoint the true coefficients
+exactly. In our scenario (independent,
 normally distributed errors with the expectation of 0),
 the least squares method is the maximum likelihood estimator
 of the model parameters. As a consequence, it is consistent.</p>
@@ -2972,8 +2969,8 @@ with respect to both the Frobenius and spectral norms.</p>
 <aside class="footnote brackets" id="footfun" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">14</a><span class="fn-bracket">]</span></span>
 <p>Although someone might take these results seriously
-and write, for example, a research thesis about it.
-Mathematics – unlike the brains of ordinary mortals –
+and scribble a research thesis about it.
+Mathematics, unlike the brains of ordinary mortals,
 does not need our imperfect interpretations/fairy tales
 to function properly. We need more maths in our lives.</p>
 </aside>
@@ -3016,7 +3013,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-03T18:29:46+1000.
+              Last updated on 2023-05-16T19:18:13+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

@@ -348,7 +348,7 @@ together with demographics
 whose country of birth (the US or not) is well-defined.
 Let us recode the <code class="docutils literal notranslate"><span class="pre">usborn</span></code> and <code class="docutils literal notranslate"><span class="pre">gender</span></code> variables (for readability)
 and introduce the BMI categories:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># NOT: nhanes.usborn = ..., it will not work</span>
     <span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>       <span class="c1"># recode usborn</span>
 <span class="p">)</span>
@@ -379,10 +379,10 @@ Unless we had encoded qualitative variables as integers,
 this would not be possible with plain matrices,
 at least not with a single one.</p>
 <p>In this section, we will treat the categorical columns
-as grouping variables, so that we can, e.g., summarise
-or visualise the data <em>in each group</em> separately, because
+as grouping variables. This way, we will be able to e.g., summarise
+or visualise the data <em>in each group</em> separately. Suffice it to say that
 it is likely that data distributions vary across different factor levels.
-This is much like having many data frames stored in one object,
+It is much like having many data frames stored in one object,
 e.g., the heights of women and men separately.</p>
 <p><code class="docutils literal notranslate"><span class="pre">nhanes</span></code> is thus an example of heterogeneous data at their best.</p>
 <section id="basic-methods">
@@ -404,8 +404,7 @@ and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</
 <p>When we wish to browse the list of available attributes
 in the <strong class="program">pandas</strong> manual, it is worth knowing that
 <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> are separate types.
-Still, they have many methods and slots in common,
-because they both inherit from (extend) the <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> class.</p>
+Still, they have many methods and slots in common.</p>
 </div>
 <div class="proof proof-type-exercise" id="id27">
 
@@ -572,7 +571,7 @@ objects.</p>
 <span class="k">def</span> <span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">nhanes</span><span class="p">[</span><span class="s2">&quot;height_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">nhanes</span><span class="o">.</span>
     <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]]</span><span class="o">.</span>
     <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span>
@@ -589,10 +588,8 @@ objects.</p>
 </pre></div>
 </div>
 <p>The new column gives the <em>relative</em> z-scores:
-a woman with a relative z-score of 0
-has height of 160.1 cm, whereas
-a man with the same z-score has
-height of 173.8 cm.</p>
+a woman with a relative z-score of 0 has height of 160.1 cm, whereas
+a man with the same z-score has height of 173.8 cm.</p>
 <p>We can check that the means and standard deviations
 in both groups are equal to 0 and 1:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
@@ -607,9 +604,9 @@ in both groups are equal to 0 and 1:</p>
 <span class="c1">## male    173.759541  7.701323  3.145329e-16  1.0</span>
 </pre></div>
 </div>
-<p>Interestingly, it is likely a bug in <strong class="program">pandas</strong> that
-<code class="docutils literal notranslate"><span class="pre">groupby(&quot;gender&quot;).aggregate([np.std])</span></code> somewhat passes <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>
-to <strong class="command">numpy.std</strong>, hence our using a custom function.</p>
+<p>Note that we needed to use a custom function for computing the standard
+deviation with <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code>. This is likely a bug in <strong class="program">pandas</strong> that
+<strong class="command">nhanes.groupby</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;gender&quot;).</span></code><strong class="command">aggregate</strong><code class="code docutils literal notranslate"><span class="pre">([np.std])</span></code> somewhat passes <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> to <strong class="command">numpy.std</strong>,</p>
 <div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
@@ -854,11 +851,9 @@ differ significantly from each other.</p>
 <section id="semitransparent-histograms">
 <h3><span class="section-number">12.2.3. </span>Semitransparent histograms<a class="headerlink" href="#semitransparent-histograms" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="#fig-hist-transparent-weight-usborn"><span class="std std-numref">Figure 12.3</span></a> illustrates
-that playing with semitransparent objects can make comparisons
-easy. By passing <code class="docutils literal notranslate"><span class="pre">common_norm=False</span></code>, we scaled each density
-histogram separately, which is the behaviour we desire if samples
-are of different lengths.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span>
+that playing with semitransparent objects
+can make comparisons more intuitive (the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> argument).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span>
     <span class="n">element</span><span class="o">=</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">common_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -869,6 +864,9 @@ are of different lengths.</p>
 <p><span class="caption-number">Figure 12.3 </span><span class="caption-text">The weight distribution of the US-born participants has a higher mean and variance</span><a class="headerlink" href="#id39" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>By passing <code class="docutils literal notranslate"><span class="pre">common_norm=False</span></code>, we scaled each histogram separately,
+so that it represents a density function (are under each curve is 1).
+It is the behaviour we desire when the samples are of different lengths.</p>
 </section>
 <section id="scatter-plots-with-group-information">
 <h3><span class="section-number">12.2.4. </span>Scatter plots with group information<a class="headerlink" href="#scatter-plots-with-group-information" title="Permalink to this heading">#</a></h3>
@@ -945,7 +943,7 @@ for US and non-US born participants.</p>
 </figcaption>
 </figure>
 <p>We have used manual splitting of the <code class="docutils literal notranslate"><span class="pre">weight</span></code> column
-into subgroups and then plotted the two ECDFs separately,
+into subgroups and then plotted the two ECDFs separately
 because a call to
 <strong class="command">seaborn.ecdfplot</strong><code class="code docutils literal notranslate"><span class="pre">(data=nhanes,</span> <span class="pre">x=&quot;weight&quot;,</span> <span class="pre">hue=&quot;usborn&quot;)</span></code>
 does not honour our wish to use alternating lines styles
@@ -973,9 +971,8 @@ discussed in <a class="reference internal" href="230-distribution.html#sec-ks-te
 \[\hat{D}_{n,m} = \sup_{t\in\mathbb{R}} | \hat{F}_n'(t) - \hat{F}_m''(t) |.\]</div>
 </div>
 <p>Computing the above is slightly trickier than
-in the previous case<a class="footnote-reference brackets" href="#footintroalgs" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>,
-but luckily an appropriate procedure is already implemented
-in <strong class="program">scipy.stats</strong>:</p>
+in the previous case<a class="footnote-reference brackets" href="#footintroalgs" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Luckily,
+an appropriate procedure is available in <strong class="program">scipy.stats</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x12</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span>
 <span class="n">x1</span> <span class="o">=</span> <span class="n">x12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;yes&quot;</span><span class="p">]</span>  <span class="c1"># first sample</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="n">x12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;no&quot;</span><span class="p">]</span>   <span class="c1"># second sample</span>
@@ -1037,7 +1034,7 @@ of <span class="math notranslate nohighlight">\(\alpha=5\%\)</span>, which is of
 Many stakeholders aggressively push towards
 constant improvements in terms of inventing bigger, better, faster,
 more efficient things. In this context, larger <span class="math notranslate nohighlight">\(\alpha\)</span> allows for
-generating more <em>sensational</em> discoveries. This is because it considers
+generating more <em>sensational</em> discoveries: it considers
 smaller differences as already significant.
 This all adds to what we call the reproducibility crisis
 in the empirical sciences.</p>
@@ -1201,11 +1198,12 @@ If a mode is nonunique, resolve the ties, for example, at random.</p></li>
 We only replaced the <em>quantitative</em> mean with the <em>qualitative</em> mode.</p>
 <p>This is a variation on the theme: if you don’t know what to do
 in a given situation, try to mimic what the majority of people around you
-are doing. Or, if you don’t know what to think about a particular wine,
-but amongst the five most similar ones (in terms of alcohol and sugar content)
-three were said to be awful, say that you don’t like it because it’s
-not sweet enough. Thanks to this, others will take you for a very
-refined wine taster.</p>
+are doing or saying. For instance, if you don’t know what to think
+about a particular wine, discover that amongst the five most
+similar ones (in terms of alcohol and sugar content)
+three are said to be awful. Now you can claim that you don’t like
+it because it’s not sweet enough. Thanks to this, others will
+take you for a very refined wine taster.</p>
 <p>Let us apply a 5-nearest neighbour classifier on the standardised version
 of the dataset. As we are about to use a technique based on pairwise
 distances, it would be best if the variables were on the same scale.
@@ -1417,11 +1415,11 @@ classification problems.</p>
 <p>There are, fortunately, some more meaningful measures in the case where
 class 1 is less prevalent and where mispredicting it is considered
 more hazardous than making an inaccurate prediction with respect to class 0.
-This is because most will agree that it is better to be surprised
+After all, most will agree that it is better to be surprised
 by a vino mislabelled as bad, than be disappointed with
 a highly recommended product where we have already
 built some expectations around it.
-Further, not getting diagnosed as having COVID-19 where we are genuinely
+Further, getting a virus infection not recognised where we are genuinely
 sick can be more dangerous for the people around us than
 being asked to stay at home with nothing but a headache.</p>
 <div style="margin-top: 1em"></div><p><em>Precision</em> answers the question: If the classifier outputs 1,
@@ -1558,9 +1556,8 @@ heuristics (e.g., greedy optimisers such as hill climbing).</p>
 <p>These always involve verifying the performance of <em>many</em> different classifiers,
 for example, 1-, 3-, 9, and 15-nearest neighbours-based ones.
 For each of them, we need to compute separate quality metrics,
-e.g., F-measures. Then, the classifier which yields the highest
-score is picked as the best.
-Unfortunately, if we do it recklessly,
+e.g., F-measures. Then, we promote the classifier which enjoys
+the highest score. Unfortunately, if we do it recklessly,
 this can lead to <em>overfitting</em>, this time with respect to the test set.
 The obtained metrics might be too optimistic and can poorly reflect
 the real performance of the solution on future data.</p>
@@ -1885,9 +1882,10 @@ possibly meaningless solution.</p>
 <p>The documentation of <strong class="command">scipy.cluster.vq.kmeans2</strong> is, of course,
 honest about it. It states that the method <em>attempts to minimise the
 Euclidean distance between observations and centroids</em>.
-Further, <strong class="command">sklearn.cluster.KMeans</strong>, implementing a similar algorithm,
-mentions that the procedure <em>is very fast […], but it falls in local minima.
-That is why it can be useful to restart it several times.</em></p>
+Further, <strong class="command">sklearn.cluster.KMeans</strong>, which implements a similar
+algorithm, mentions that the procedure <em>is very fast […],
+but it falls in local minima. That is why it can be useful to restart it
+several times.</em></p>
 <p>To understand what it all means, it will be very educational
 to study this issue in more detail.
 This is because the discussed approach
@@ -1969,7 +1967,7 @@ looked beyond them, we could have found a superior solution.</p>
 <p><span class="caption-number">Figure 12.11 </span><span class="caption-text">An example function (of only one variable; our problem is much higher-dimensional) with many local minima; How can we be sure there is no better minimum outside of the depicted interval?</span><a class="headerlink" href="#id59" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>A variant of the Lloyd method is implemented
+<p>A variant of the Lloyd method is given
 in <strong class="command">scipy.cluster.vq.kmeans2</strong>, where the initial cluster
 centres are picked at random. Let us test its behaviour
 by analysing three chosen country-wise categories
@@ -2141,7 +2139,7 @@ generated by a single run of a heuristic solver to the <span class="math notrans
         
     </div><div class="proof-content">
 <p>(*)
-The <strong class="program">scikit-learn</strong> package implements an algorithm that is similar
+The <strong class="program">scikit-learn</strong> package has an algorithm that is similar
 to the Lloyd’s one. The method is equipped with
 the <code class="docutils literal notranslate"><span class="pre">n_init</span></code> parameter (which defaults to 10) which automatically
 applies the aforementioned restarting.</p>
@@ -2151,7 +2149,7 @@ applies the aforementioned restarting.</p>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.5467188958928</span>
+<span class="c1">## 437.54671889589287</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2223,7 +2221,7 @@ For advanced theoretical (probabilistic, information-theoretic) results,
 see, e.g., <span id="id22">[<a class="reference internal" href="999-bibliography.html#id119" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">9</a>, <a class="reference internal" href="999-bibliography.html#id79" title="Devroye, L., Györfi, L., and Lugosi, G. (1996).  A Probabilistic Theory of Pattern Recognition. Springer. DOI: 10.1007/978-1-4612-0711-5.">22</a>]</span>.</p>
 <p>Hierarchical clustering algorithms
 (see, e.g., <span id="id23">[<a class="reference internal" href="999-bibliography.html#id85" title="Gagolewski, M. (2021).  genieclust: Fast and robust hierarchical clustering. SoftwareX, 15:100722. URL: https://genieclust.gagolewski.com, DOI: 10.1016/j.softx.2021.100722.">32</a>, <a class="reference internal" href="999-bibliography.html#id113" title="Müllner, D. (2011).  Modern hierarchical, agglomerative clustering algorithms. arXiv:1109.2378 [stat.ML]. URL: https://arxiv.org/abs/1109.2378v1.">65</a>]</span>)
-are also worthwhile, because they do not require
+are also worthwhile as they do not require
 asking for a fixed number of clusters.
 Furthermore, density-based algorithms (DBSCAN and its variants)
 <span id="id24">[<a class="reference internal" href="999-bibliography.html#id87" title="Campello, R.J.G.B., Moulavi, D., Zimek, A., and Sander, J. (2015).  Hierarchical density estimates for data clustering, visualization, and outlier detection. ACM Transactions on Knowledge Discovery from Data, 10(1):5:1–5:51. DOI: 10.1145/2733381.">12</a>, <a class="reference internal" href="999-bibliography.html#id88" title="Ester, M., Kriegel, H.P., Sander, J., and Xu, X. (1996).  A density-based algorithm for discovering clusters in large spatial databases with noise. In: Proc. KDD'96, pp. 226–231.">25</a>, <a class="reference internal" href="999-bibliography.html#id89" title="Ling, R.F. (1973).  A probability theory of cluster analysis. Journal of the American Statistical Association, 68(341):159–164. DOI: 10.1080/01621459.1973.10481356.">59</a>]</span>
@@ -2362,7 +2360,7 @@ of p-values. Most practitioners tend to misunderstand them anyway.</p>
 </aside>
 <aside class="footnote brackets" id="football" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">5</a><span class="fn-bracket">]</span></span>
-<p>(*) As an exercise, we could implement a fixed-radius
+<p>(*) As an exercise, we could author a fixed-radius
 classifier; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.
 In sparsely populated regions, the decision might be
 “unknown”.</p>
@@ -2449,7 +2447,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-03T18:29:46+1000.
+              Last updated on 2023-05-16T19:18:13+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

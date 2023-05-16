@@ -405,7 +405,7 @@ a quantitative type. Arithmetic operations thereon do not really make sense.</p>
 </div>
 <p>The values between <span class="math notranslate nohighlight">\(0\)</span> (inclusive) and <span class="math notranslate nohighlight">\(5\)</span> (exclusive) can be used
 to index a given array of length <span class="math notranslate nohighlight">\(l=5\)</span>.
-As a consequence, to <em>decode</em> our factor, we can simply write:</p>
+As a consequence, to <em>decode</em> our factor, we can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
 <span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
@@ -418,7 +418,7 @@ As a consequence, to <em>decode</em> our factor, we can simply write:</p>
 <span class="c1">##        &#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Poland&#39;, &#39;Poland&#39;], dtype=&#39;&lt;U8&#39;)</span>
 </pre></div>
 </div>
-<p>This is an instance of the <em>relabelling</em> of a categorical variable.</p>
+<p>It is an instance of the <em>relabelling</em> of a categorical variable.</p>
 <div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
@@ -435,7 +435,7 @@ changing the order of labels and permuting the numeric codes:</p>
 </div>
 <p>Then we make use of the fact that <strong class="command">numpy.argsort</strong>
 applied on a vector representing a permutation,
-determines its very inverse:</p>
+determines its very <em>inverse</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_codes_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">new_codes</span><span class="p">)[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
 <span class="n">new_codes_cntrs16</span>
 <span class="c1">## array([1, 1, 1, 4, 1, 1, 4, 2, 0, 0, 3, 0, 1, 1, 0, 0])</span>
@@ -611,7 +611,7 @@ represented using character strings.</p>
         <span class="proof-type">Example 11.5</span>
         
     </div><div class="proof-content">
-<p>Write a function to decode a one-hot encoded matrix.</p>
+<p>Compose a function to decode a one-hot encoded matrix.</p>
 </div></div><div class="proof proof-type-example" id="id13">
 
     <div class="proof-title">
@@ -631,21 +631,19 @@ in each row.</p>
 <section id="binning-numeric-data-revisited">
 <span id="sec-binning"></span><h3><span class="section-number">11.1.4. </span>Binning numeric data (revisited)<a class="headerlink" href="#binning-numeric-data-revisited" title="Permalink to this heading">#</a></h3>
 <p>Numerical data can be converted to categorical via binning (quantisation).
-Even though this results in information loss,
+Even though this causes information loss,
 it may open some new possibilities. In fact,
 we needed binning to draw all the histograms in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>.
 Also, reporting observation counts in each bin instead of raw data
 enables us to include them in printed reports (in the form of tables).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>As strong proponents of openness and transparency,
-we always encourage all entities (governments, universities,
-non-profits, corporations, etc.)
-to share raw, unabridged versions of their datasets under the terms
-of some open data license.
-This is to enable public scrutiny and to get
-the most out of the possibilities they can bring for
-benefit of the community.</p>
+<p>We are strong proponents of openness and transparency. Thus, we always
+encourage all entities (governments, universities, non-profits, corporations,
+etc.) to share raw, unabridged versions of their datasets under the terms
+of some open data license. This is to enable public scrutiny and to get
+the most out of the possibilities they can bring for benefit of the
+community.</p>
 <p>Of course, sometimes the sharing of unprocessed information
 can violate the privacy of the subjects. In such a case,
 it might be worthwhile to communicate them in a binned form.</p>
@@ -911,7 +909,7 @@ with a combination of more than two categorical variables:</p>
 <span class="c1">## 17      SK   M  60+      1</span>
 </pre></div>
 </div>
-<p>The display is in the <em>long</em> format (compare <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>),
+<p>The display is in the <em>long</em> format (compare <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>)
 because we cannot nicely print a three-dimensional array.
 Yet, we can always partially unstack the dataset,
 for aesthetic reasons:</p>
@@ -929,7 +927,7 @@ for aesthetic reasons:</p>
 </div>
 <p>Let us again appreciate how versatile is the concept
 of data frames. Not only can we represent data to be investigated
-(one row per observation, variables possibly of mixed types),
+(one row per observation, variables possibly of mixed types)
 but also we can store the results of such analyses
 (neatly formatted tables).</p>
 </section>
@@ -1087,8 +1085,7 @@ this is unethical; compare Rule#9.</p>
 </section>
 <section id="pie-don-t-even-trip">
 <h3><span class="section-number">11.3.3. </span>Pie… don’t even trip<a class="headerlink" href="#pie-don-t-even-trip" title="Permalink to this heading">#</a></h3>
-<p>We are definitely not going to discuss the infamous
-pie charts, because
+<p>We are definitely not going to discuss the infamous pie charts because
 their use in data analysis has been widely criticised for a long time
 (it is difficult to judge the ratios of areas of their slices).
 Do not draw them. Ever. Good morning.</p>
@@ -1108,7 +1105,7 @@ are due to only a few causes (10–30%). This is known as the <em>Pareto princip
 <p><a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a> modelled
 the US cities’ population dataset using the Pareto distribution
 (the very same Pareto, but a different, yet related mathematical object).
-We discovered that only ca. 14% of the settlements (those
+We discovered that only c. 14% of the settlements (those
 with 10 000 or more inhabitants) are home to as much as
 84% of the population. Hence, we may say that this data domain
 follows the Pareto rule.</p>
@@ -1151,7 +1148,7 @@ approximately. They include bar plots with some extras:</p>
 <li><p>bars are listed in decreasing order,</p></li>
 <li><p>the cumulative percentage curve is added.</p></li>
 </ul>
-<p>The plotting of the Pareto chart is a little tricky,
+<p>The plotting of the Pareto chart is a little tricky
 because it involves using two different Y axes
 (as usual, fine-tuning the figure and studying the manual
 of the <strong class="program">matplotlib</strong> package is left as an exercise.)</p>
@@ -1178,7 +1175,7 @@ of the <strong class="program">matplotlib</strong> package is left as an exercis
 </figcaption>
 </figure>
 <p><a class="reference internal" href="#fig-pareto-chart"><span class="std std-numref">Figure 11.6</span></a> shows that the first five causes
-(less than 40%) correspond to ca. 85% of the medication errors.
+(less than 40%) correspond to c. 85% of the medication errors.
 More precisely, the cumulative probabilities are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">med</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">med</span><span class="p">)</span>
 <span class="c1">## Dose missed          0.213953</span>
@@ -1292,7 +1289,7 @@ logical vectors is the sum. For example:</p>
 </pre></div>
 </div>
 <p>This gave the number of elements that are equal to <code class="docutils literal notranslate"><span class="pre">&quot;PL&quot;</span></code>
-(because the sum of 0s and 1s is equal to the number of 1s in the sequence).
+because the sum of 0s and 1s is equal to the number of 1s in the sequence.
 Note that <code class="docutils literal notranslate"><span class="pre">(country</span> <span class="pre">==</span> <span class="pre">&quot;PL&quot;)</span></code> is a logical vector that
 represents a binary categorical variable
 with levels: not-Poland (<code class="docutils literal notranslate"><span class="pre">False</span></code>) and Poland (<code class="docutils literal notranslate"><span class="pre">True</span></code>).</p>
@@ -1676,8 +1673,8 @@ Australian university grades are: F (fail) &lt; P (pass) &lt; C (credit) &lt; D
 (distinction) &lt; HD (high distinction), some questionnaires
 use Likert-type scales such as “strongly disagree” &lt; “disagree” &lt;
 “neutral” &lt; “agree” &lt; “strongly agree”, etc.</p>
-<p>A linear ordering allows us to go beyond the mode. This is because,
-due to the existence of order statistics and observation ranks,
+<p>A linear ordering allows us to go beyond the mode.
+Due to the existence of order statistics and observation ranks,
 we can also easily define sample quantiles.
 Nevertheless, the standard methods for resolving ties will not work:
 we need to be careful.</p>
@@ -1689,9 +1686,9 @@ or just report that the solution is ambiguous (C+? D-? C/D?).</p>
 (e.g., F = 0, P = 1, …, HD = 4). In the latter example, the median would
 be equal to 2.5.</p>
 <p>There are some cases, though, where the conversion of
-labels to consecutive integers is far from optimal – because
-it gives the impression that the “distance” between different
-levels is always equal (linear).</p>
+labels to consecutive integers is far from optimal.
+For instance, where it gives the impression that the “distance”
+between different levels is always equal (linear).</p>
 <div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
@@ -1864,7 +1861,7 @@ is a better candidate.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-03T18:29:46+1000.
+              Last updated on 2023-05-16T19:18:13+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
