@@ -442,7 +442,7 @@ this will be an ordinary file stored on the computer’s disk:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
 <span class="n">dbfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;travel.db&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dbfile</span><span class="p">)</span>
-<span class="c1">## /tmp/tmpw7a7ul9_/travel.db</span>
+<span class="c1">## /tmp/tmplzrcz029/travel.db</span>
 </pre></div>
 </div>
 <p>The above defines the file path (compare <a class="reference internal" href="#sec-file-paths"><span class="std std-numref">Section 13.6.1</span></a>)
@@ -710,7 +710,7 @@ Then, select only the unique pairs <code class="docutils literal notranslate"><s
 </pre></div>
 </div>
 <p>Hint: use
-<code class="docutils literal notranslate"><span class="pre">Badges.Date.astype(&quot;datetime64&quot;).dt.strftime(&quot;%Y&quot;).astype(&quot;float&quot;)</span></code>;
+<code class="docutils literal notranslate"><span class="pre">Badges.Date.astype(&quot;datetime64[s]&quot;).dt.strftime(&quot;%Y&quot;).astype(&quot;float&quot;)</span></code>;
 see <a class="reference internal" href="530-time-series.html#chap-time-series"><span class="std std-numref">Chapter 16</span></a>.</p>
 </div></div></section>
 <section id="grouping-and-aggregating">
@@ -936,7 +936,7 @@ method:</p>
 <p>For <code class="docutils literal notranslate"><span class="pre">res6a</span></code>, we first need to add a new column to the copy of <code class="docutils literal notranslate"><span class="pre">Badges</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Badges2</span> <span class="o">=</span> <span class="n">Badges</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># otherwise we would destroy the original object</span>
 <span class="n">Badges2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -959,7 +959,7 @@ method:</p>
 <p>For <code class="docutils literal notranslate"><span class="pre">res7a</span></code>, we can use <strong class="command">pandas.DataFrameGroupBy.aggregate</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Badges2</span> <span class="o">=</span> <span class="n">Badges</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">Badges2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">res7b</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">Badges2</span><span class="o">.</span>
@@ -992,7 +992,7 @@ differently. For testing, we need to reorder them in the same way:</p>
 <p>For <code class="docutils literal notranslate"><span class="pre">res8a</span></code>, we first count the number of values in each group:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Badges2</span> <span class="o">=</span> <span class="n">Badges</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">Badges2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="n">Badges2</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">res8b</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">Badges2</span><span class="o">.</span>
@@ -1371,7 +1371,7 @@ This should be sufficient for most intermediate-level users.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-05-16T19:18:13+1000.
+              Last updated on 2023-05-22T13:54:00+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
