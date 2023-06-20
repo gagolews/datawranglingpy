@@ -493,27 +493,27 @@ or <code class="docutils literal notranslate"><span class="pre">from:to:by</span
 Slices are similar to ranges, but `<strong class="command">:</strong>` can only be used within
 square brackets.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="s2">&quot;four&quot;</span><span class="p">,</span> <span class="s2">&quot;five&quot;</span><span class="p">]</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># from 2nd to 5th (exclusive)</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># from the second to the fifth (exclusive)</span>
 <span class="c1">## [&#39;two&#39;, &#39;three&#39;, &#39;four&#39;]</span>
-<span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># from last to first (exclusive) by every 2nd backwards</span>
+<span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># from last to first (exclusive) by every second backwards</span>
 <span class="c1">## [&#39;five&#39;, &#39;three&#39;]</span>
 </pre></div>
 </div>
 <p>In fact, <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> are optional – when omitted, they default to one
 of the sequence boundaries.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>  <span class="c1"># from 3rd to end</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>  <span class="c1"># from the third element to the end</span>
 <span class="c1">## [&#39;four&#39;, &#39;five&#39;]</span>
 <span class="n">x</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># first two</span>
 <span class="c1">## [&#39;one&#39;, &#39;two&#39;]</span>
 <span class="n">x</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># none (first zero)</span>
 <span class="c1">## []</span>
-<span class="n">x</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># every 2nd from the start</span>
+<span class="n">x</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># every second element from the start</span>
 <span class="c1">## [&#39;one&#39;, &#39;three&#39;, &#39;five&#39;]</span>
 <span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># elements in reverse order</span>
 <span class="c1">## [&#39;five&#39;, &#39;four&#39;, &#39;three&#39;, &#39;two&#39;, &#39;one&#39;]</span>
 </pre></div>
 </div>
-<p>And, of course, they can be applied on other sequential objects as well:</p>
+<p>Slicing can be applied on other sequential objects as well:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;spam, bacon, spam, and eggs&quot;</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span>  <span class="c1"># fetch a substring</span>
 <span class="c1">## &#39;spam&#39;</span>
 </pre></div>
@@ -529,12 +529,12 @@ is crucial.</p>
 <span class="c1">## &#39;one&#39;</span>
 </pre></div>
 </div>
-<p>gives the object <em>at</em> that index.</p>
+<p>It gave the object <em>at</em> that index. Moreover:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># subsetting (indexing with a slice)</span>
 <span class="c1">## [&#39;one&#39;]</span>
 </pre></div>
 </div>
-<p>gives the object of the same type as <code class="docutils literal notranslate"><span class="pre">x</span></code> (here, a list)
+<p>It gave the object of the same type as <code class="docutils literal notranslate"><span class="pre">x</span></code> (here, a list)
 featuring the items at that indexes (in this case, only the first object,
 but a slice can potentially select any number of elements, including
 none).</p>
@@ -1070,7 +1070,7 @@ that changes the state of the argument:</p>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># modifies x in place, returns nothing</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="c1">## [1, 3, 2, 5, 4]</span>
+<span class="c1">## [1, 3, 4, 2, 5]</span>
 </pre></div>
 </div>
 <p>Later we will learn about the <code class="docutils literal notranslate"><span class="pre">Series</span></code> class in <strong class="program">pandas</strong>,
@@ -1244,7 +1244,7 @@ displaying numerous ads.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-06-19T15:07:06+1000.
+              Last updated on 2023-06-20T15:19:54+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

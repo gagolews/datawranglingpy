@@ -420,13 +420,13 @@ Usually, we will be creating dates from strings. For instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2023-06-19&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-06-20&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-06-19T05:05:51&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-06-20T05:16:24&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -439,9 +439,9 @@ the number of days (<code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([-29372,      0,      1,  18992,  19527])</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19528])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([      7265, 1687151151])</span>
+<span class="c1">## array([      7265, 1687238184])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -461,9 +461,9 @@ all dates in the <em>YYYY-MM-DD</em> format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2023-06-18&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-06-19&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-06-19T17:05:51&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-06-20T17:16:24&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -816,7 +816,7 @@ the five preceding days.</p></li>
 <span class="c1">## 2021-01-12 33923 -1643.69 dec -2789.78 -1898.11 -543.06 1426.57 2546.68</span>
 </pre></div>
 </div>
-<p>In the 6th row (representing 2021-01-12),
+<p>In the sixth row (representing 2021-01-12),
 <code class="docutils literal notranslate"><span class="pre">Lag1</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">Change</span></code> on 2021-01-11,
 <code class="docutils literal notranslate"><span class="pre">Lag2</span></code> gives the <code class="docutils literal notranslate"><span class="pre">Change</span></code> on 2021-01-10, and so forth.</p>
 <p>To spice things up, make sure your code can generate any number
@@ -840,7 +840,7 @@ y_i = \frac{1}{k}\left( x_{i}+x_{i+1}+\dots+x_{i+k-1} \right)
 </div>
 <p>i.e., the arithmetic mean of <span class="math notranslate nohighlight">\(k\le n\)</span> consecutive observations
 starting at <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
-<div style="margin-top: 1em"></div><p>For example, here are the temperatures in the last 7 days of
+<div style="margin-top: 1em"></div><p>For example, here are the temperatures in the last seven days of
 December 2011:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:,</span> <span class="p">:]</span>
 <span class="n">x</span>
@@ -869,14 +869,14 @@ December 2011:</p>
 </pre></div>
 </div>
 <p>We get, in this order: the mean of the first three observations;
-the mean of the 2nd, 3rd, and 4th items;
-then the mean of the 3rd, 4th, and 5th; and so forth.
+the mean of the second, third, and fourth items;
+then the mean of the third, fourth, and fifth; and so forth.
 Notice that the observations were centred in such a way
 that we have the same number of missing values at the start
 and end of the series.
-This way, we treat the first 3-day moving average
+This way, we treat the first three-day moving average
 (the average of the temperatures on the first three days) as representative
-of the 2nd day.</p>
+of the second day.</p>
 <p>And now for something completely different; the 5-moving average:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="c1">##              temp</span>
@@ -919,13 +919,13 @@ in <a class="reference internal" href="#fig-spokane-5-linechart"><span class="st
     </div><div class="proof-content">
 <p>(*) Other aggregation functions can be applied in rolling windows as well.
 Draw, in the same figure,
-the plots of the 1-year moving minimums, medians, and maximums.</p>
+the plots of the one-year moving minimums, medians, and maximums.</p>
 </div></div></section>
 <section id="detecting-trends-and-seasonal-patterns">
 <h3><span class="section-number">16.3.3. </span>Detecting trends and seasonal patterns<a class="headerlink" href="#detecting-trends-and-seasonal-patterns" title="Permalink to this heading">#</a></h3>
 <p>Thanks to windowed aggregation, we can also detect general trends
 (when using longish windows). For instance, below we compute
-the 10-year moving averages for the last 50-odd years’ worth
+the ten-year moving averages for the last 50-odd years’ worth
 of data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span>
 <span class="n">x10y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">3653</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -937,7 +937,7 @@ of data:</p>
 </div>
 <p>Seasonal patterns can be revealed by
 smoothening out the detrended version of the data,
-e.g., using a 1-year moving average:</p>
+e.g., using a one-year moving average:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xd1y</span> <span class="o">=</span> <span class="n">xd</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">365</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1376,7 +1376,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-06-19T15:07:06+1000.
+              Last updated on 2023-06-20T15:19:54+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
