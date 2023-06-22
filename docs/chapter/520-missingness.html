@@ -367,7 +367,7 @@ columns or to Python’s <code class="docutils literal notranslate"><span class=
 <p>Vectorised functions such as <strong class="command">numpy.isnan</strong> (or, more generally,
 <strong class="command">numpy.isfinite</strong>) and <strong class="command">pandas.isnull</strong>
 as well as <strong class="command">isna</strong> methods for the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> classes
-can be used to verify whether an item is missing or not.</p>
+verify whether an item is missing or not.</p>
 <p>For instance, here are the counts and proportions of missing
 values in selected columns of <code class="docutils literal notranslate"><span class="pre">nhanes</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">)</span>  <span class="c1"># top 5 only</span>
@@ -487,7 +487,7 @@ we need to do it manually:</p>
 <section id="missing-at-random-or-not">
 <h3><span class="section-number">15.1.3. </span>Missing at random or not?<a class="headerlink" href="#missing-at-random-or-not" title="Permalink to this heading">#</a></h3>
 <p>At a general level (from the mathematical modelling perspective),
-we may distinguish between a few missingness patterns; see <span id="id3">[<a class="reference internal" href="999-bibliography.html#id28" title="Rubin, D.B. (1976).  Inference and missing data. Biometrika, 63(3):581–590.">80</a>]</span>:</p>
+we may distinguish between a few missingness patterns; see <span id="id3">[<a class="reference internal" href="999-bibliography.html#id30" title="Rubin, D.B. (1976).  Inference and missing data. Biometrika, 63(3):581–590.">81</a>]</span>:</p>
 <ul class="simple">
 <li><p><em>missing completely at random</em>: reasons are unrelated to data
 and probabilities of cases’ being missing are all the same;</p></li>
@@ -616,8 +616,8 @@ the missing observations can be replaced by the values
 predicted by those models.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(**) Rubin (e.g., in <span id="id5">[<a class="reference internal" href="999-bibliography.html#id27" title="Little, R.J.A. and Rubin, D.B. (2002).  Statistical Analysis with Missing Data. John Wiley &amp; Sons.">60</a>]</span>) suggests the use of a procedure
-called <em>multiple imputation</em> (see also <span id="id6">[<a class="reference internal" href="999-bibliography.html#id29" title="van Buuren, S. (2018).  Flexible Imputation of Missing Data. CRC Press. URL: https://stefvanbuuren.name/fimd.">88</a>]</span>),
+<p>(**) Rubin (e.g., in <span id="id5">[<a class="reference internal" href="999-bibliography.html#id29" title="Little, R.J.A. and Rubin, D.B. (2002).  Statistical Analysis with Missing Data. John Wiley &amp; Sons.">60</a>]</span>) suggests the use of a procedure
+called <em>multiple imputation</em> (see also <span id="id6">[<a class="reference internal" href="999-bibliography.html#id31" title="van Buuren, S. (2018).  Flexible Imputation of Missing Data. CRC Press. URL: https://stefvanbuuren.name/fimd.">89</a>]</span>),
 where copies of the original datasets are created,
 missing values are imputed by sampling from some estimated distributions,
 the inference is made, and then the results are aggregated.
@@ -630,7 +630,7 @@ in <strong class="command">sklearn.impute.IterativeImputer</strong>.</p>
 <h2><span class="section-number">15.2. </span>Censored and interval data (*)<a class="headerlink" href="#censored-and-interval-data" title="Permalink to this heading">#</a></h2>
 <p>Censored data frequently appear in the context of reliability, risk analysis,
 and biostatistics, where the observed objects might <em>fail</em>
-(e.g., break down, die, withdraw; compare, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id30" title="Modarres, M., Kaminskiy, M.P., and Krivtsov, V. (2016).  Reliability Engineering and Risk Analysis: A Practical Guide. CRC Press.">63</a>]</span>).
+(e.g., break down, die, withdraw; compare, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id32" title="Modarres, M., Kaminskiy, M.P., and Krivtsov, V. (2016).  Reliability Engineering and Risk Analysis: A Practical Guide. CRC Press.">64</a>]</span>).
 Our introductory course cannot obviously cover everything.
 However, a beginner analyst needs to be at least aware of
 the existence of:</p>
@@ -761,9 +761,9 @@ separately.
 In particular, there is a separate subfield in statistics
 called extreme value theory that is interested in predicting
 the distribution of very large observations (e.g., for modelling
-floods, extreme rainfall, or temperatures); see, e.g., <span id="id8">[<a class="reference internal" href="999-bibliography.html#id3" title="Beirlant, J., Goegebeur, Y., Teugels, J., and Segers, J. (2004).  Statistics of Extremes: Theory and Applications. Wiley. DOI: 10.1002/0470012382.">5</a>]</span>.
+floods, extreme rainfall, or temperatures); see, e.g., <span id="id8">[<a class="reference internal" href="999-bibliography.html#id5" title="Beirlant, J., Goegebeur, Y., Teugels, J., and Segers, J. (2004).  Statistics of Extremes: Theory and Applications. Wiley. DOI: 10.1002/0470012382.">5</a>]</span>.
 But this is a topic for a more advanced course;
-see, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id158" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">50</a>]</span>. By then, let us stick with some simpler settings.</p>
+see, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id159" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">50</a>]</span>. By then, let us stick with some simpler settings.</p>
 <section id="the-3-2-iqr-rule-for-normally-distributed-data">
 <span id="sec-32iqr"></span><h3><span class="section-number">15.4.1. </span>The 3/2 IQR rule for normally-distributed data<a class="headerlink" href="#the-3-2-iqr-rule-for-normally-distributed-data" title="Permalink to this heading">#</a></h3>
 <p>For unidimensional data (or individual columns in matrices
@@ -778,7 +778,7 @@ everything that does not fall into the interval
 <span class="math notranslate nohighlight">\([Q_1-1.5\mathrm{IQR}, Q_3+1.5\mathrm{IQR}]\)</span> can be considered
 suspicious. This definition is based on quartiles only,
 so it is not affected by potential outliers
-(they are robust aggregates; compare <span id="id10">[<a class="reference internal" href="999-bibliography.html#id158" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">50</a>]</span>).
+(they are robust aggregates; compare <span id="id10">[<a class="reference internal" href="999-bibliography.html#id159" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">50</a>]</span>).
 Plus, the magic constant 1.5 is nicely round and thus easy to memorise
 (an attractive feature). It is not too small and not too large;
 for the normal distribution <span class="math notranslate nohighlight">\(\mathrm{N}(\mu, \sigma)\)</span>,
@@ -970,7 +970,7 @@ very end of the dataset. Ha.</p>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Handling multidimensional data requires slightly more sophisticated
-methods; see, e.g., <span id="id12">[<a class="reference internal" href="999-bibliography.html#id153" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>]</span>.
+methods; see, e.g., <span id="id12">[<a class="reference internal" href="999-bibliography.html#id154" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>]</span>.
 A quite straightforward approach is to check if there are any points
 within an observation’s radius of some assumed size <span class="math notranslate nohighlight">\(r&gt;0\)</span>. If that is not the
 case, we may consider it an outlier. This is a variation on the
@@ -1090,7 +1090,7 @@ is beyond the scope of this course.
 In particular, that data might have fixed marginal distributions
 (projections onto 1D) but their multidimensional images might be very
 different is beautifully described by the copula theory;
-see <span id="id14">[<a class="reference internal" href="999-bibliography.html#id80" title="Nelsen, R.B. (1999).  An Introduction to Copulas. Springer-Verlag.">66</a>]</span>.</p>
+see <span id="id14">[<a class="reference internal" href="999-bibliography.html#id81" title="Nelsen, R.B. (1999).  An Introduction to Copulas. Springer-Verlag.">67</a>]</span>.</p>
 </aside>
 </aside>
 </section>
@@ -1131,7 +1131,7 @@ see <span id="id14">[<a class="reference internal" href="999-bibliography.html#i
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-06-20T15:19:54+1000.
+              Last updated on 2023-06-22T11:46:49+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

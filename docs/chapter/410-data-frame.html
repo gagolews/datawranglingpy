@@ -319,7 +319,7 @@ Make sure to check out the author’s other book,
 analysis exercises and other numerical computations of various kinds.
 Although theoretically possible otherwise, in practice
 we only store elements of the same type therein, most often numbers.</p>
-<p><a class="reference external" href="https://pandas.pydata.org/"><strong class="program">pandas</strong></a> <span id="id2">[<a class="reference internal" href="999-bibliography.html#id16" title="McKinney, W. (2022).  Python for Data Analysis. O'Reilly. URL: https://wesmckinney.com/book.">62</a>]</span>
+<p><a class="reference external" href="https://pandas.pydata.org/"><strong class="program">pandas</strong></a> <span id="id2">[<a class="reference internal" href="999-bibliography.html#id18" title="McKinney, W. (2022).  Python for Data Analysis. O'Reilly. URL: https://wesmckinney.com/book.">63</a>]</span>
 is amongst over <a class="reference external" href="https://libraries.io/pypi/numpy">one hundred thousand</a>
 open-source packages and repositories that use <strong class="program">numpy</strong> to provide
 additional data wrangling functionality.
@@ -445,7 +445,7 @@ is also supported; compare <a class="reference internal" href="440-sql.html#sec-
         <span class="proof-type">Exercise 10.2</span>
         
     </div><div class="proof-content">
-<p>Check out the other <strong class="command">pandas.read_*</strong> functions
+<p>Check out other <strong class="command">pandas.read_*</strong> functions
 in the <strong class="program">pandas</strong> documentation.
 We will be discussing some of them later.</p>
 </div></div><section id="data-frames-are-matrix-like">
@@ -1168,9 +1168,9 @@ e.g., be an ordinary <strong class="program">numpy</strong> vector.</p>
 <span id="sec-df-indexing"></span><h2><span class="section-number">10.5. </span>Indexing data frames<a class="headerlink" href="#indexing-data-frames" title="Permalink to this heading">#</a></h2>
 <section id="loc-and-iloc">
 <h3><span class="section-number">10.5.1. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc-and-iloc" title="Permalink to this heading">#</a></h3>
-<p>For data frames, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> and <code class="docutils literal notranslate"><span class="pre">loc</span></code> can be used too,
-but they now require two arguments which serve as row and column
-selectors. For example:</p>
+<p>For data frames, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> and <code class="docutils literal notranslate"><span class="pre">loc</span></code> can be applied too.
+Now, however, they require <em>two</em> arguments: a row and a column
+selector. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
@@ -1188,10 +1188,10 @@ selectors. For example:</p>
 <span class="c1">## 4  0.72 -1.62  sausage</span>
 </pre></div>
 </div>
-<p>selects the rows where the values in the <code class="docutils literal notranslate"><span class="pre">u</span></code>
+<p>It selected the rows where the values in the <code class="docutils literal notranslate"><span class="pre">u</span></code>
 column are greater than 0.5 and then
 returns all columns between <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> (inclusive!).</p>
-<p>Furthermore,</p>
+<p>Furthermore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>
 <span class="c1">##       u      w</span>
 <span class="c1">## 0  0.70   spam</span>
@@ -1199,7 +1199,7 @@ returns all columns between <code class="docutils literal notranslate"><span cla
 <span class="c1">## 2  0.23   spam</span>
 </pre></div>
 </div>
-<p>fetches the first three rows (by position; <code class="docutils literal notranslate"><span class="pre">iloc</span></code> is necessary)
+<p>It fetched the first three rows (by position; <code class="docutils literal notranslate"><span class="pre">iloc</span></code> is necessary)
 and then selects two indicated columns.</p>
 <p>Compare this to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>  <span class="c1"># df[:3, [&quot;u&quot;, &quot;w&quot;]] does not even work; please don&#39;t</span>
@@ -1749,7 +1749,7 @@ Such a form is quite convenient for data storage,
 especially where there are only a few recorded values
 but many possible combinations of levels (sparse data).</p>
 <p>The long format might not be optimal in all data processing
-activities, though; compare <span id="id9">[<a class="reference internal" href="999-bibliography.html#id38" title="Wickham, H. (2014).  Tidy data. Journal of Statistical Software, 59(10):1–23. DOI: 10.18637/jss.v059.i10.">93</a>]</span>.
+activities, though; compare <span id="id9">[<a class="reference internal" href="999-bibliography.html#id40" title="Wickham, H. (2014).  Tidy data. Journal of Statistical Software, 59(10):1–23. DOI: 10.18637/jss.v059.i10.">95</a>]</span>.
 In the part of this book on matrix processing,
 it was much more natural for us to have a single <em>observation</em>
 in each row (e.g., data for each measurement station).</p>
@@ -1811,7 +1811,7 @@ are not provided.</p>
 <span id="sec-join"></span><h3><span class="section-number">10.6.3. </span>Joining (merging)<a class="headerlink" href="#joining-merging" title="Permalink to this heading">#</a></h3>
 <p>In database design, it is common to normalise
 the datasets. We do this to avoid the duplication of information
-and pathologies stemming from them (e.g., <span id="id10">[<a class="reference internal" href="999-bibliography.html#id76" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">19</a>]</span>).</p>
+and pathologies stemming from them (e.g., <span id="id10">[<a class="reference internal" href="999-bibliography.html#id77" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">19</a>]</span>).</p>
 <div class="proof proof-type-example" id="id30">
 
     <div class="proof-title">
@@ -2201,7 +2201,7 @@ they work.</p>
 <aside class="footnote brackets" id="footdf" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
 <p>Data frames were first introduced in the 1991 version
-of the S language <span id="id12">[<a class="reference internal" href="999-bibliography.html#id37" title="Chambers, J.M. and Hastie, T. (1991).  Statistical Models in S. Wadsworth &amp; Brooks/Cole.">13</a>]</span>.</p>
+of the S language <span id="id12">[<a class="reference internal" href="999-bibliography.html#id39" title="Chambers, J.M. and Hastie, T. (1991).  Statistical Models in S. Wadsworth &amp; Brooks/Cole.">13</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footgoback" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
@@ -2293,7 +2293,7 @@ where we can work with data frames; e.g., base R and Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-06-20T15:19:54+1000.
+              Last updated on 2023-06-22T11:46:49+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

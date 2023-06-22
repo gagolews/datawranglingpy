@@ -420,13 +420,13 @@ Usually, we will be creating dates from strings. For instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2023-06-20&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-06-21&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-06-20T05:16:24&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-06-21T08:24:17&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -439,9 +439,9 @@ the number of days (<code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([-29372,      0,      1,  18992,  19528])</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19529])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([      7265, 1687238184])</span>
+<span class="c1">## array([      7265, 1687335857])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -461,15 +461,14 @@ all dates in the <em>YYYY-MM-DD</em> format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2023-06-19&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-06-20&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-06-20T17:16:24&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-06-21T20:24:17&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
-<p>Also, <strong class="command">numpy.arange</strong> (and <strong class="command">pandas.date_range</strong>)
-can be used to generate sequences of equidistant
-date-times:</p>
+<p>Also, <strong class="command">numpy.arange</strong> (see also <strong class="command">pandas.date_range</strong>)
+generates a sequence of equidistant date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="s2">&quot;1889-08-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">dates</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>   <span class="c1"># preview</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1889-08-02&#39;, &#39;1889-08-03&#39;], dtype=&#39;datetime64[D]&#39;)</span>
@@ -567,7 +566,7 @@ following custom format specifiers can be performed with:</p>
 <p>We can also extract different date or time <em>fields</em>, such as
 <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day</span></code>, <code class="docutils literal notranslate"><span class="pre">dayofyear</span></code>,
 <code class="docutils literal notranslate"><span class="pre">hour</span></code>, <code class="docutils literal notranslate"><span class="pre">minute</span></code>, <code class="docutils literal notranslate"><span class="pre">second</span></code>, etc.
-For instance:</p>
+For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates_ymd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">year</span>  <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
     <span class="n">month</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
@@ -1267,10 +1266,10 @@ For instance, a price of a stock that we observe
 today is influenced by what was happening yesterday.
 There might also be some seasonal patterns or trends under the hood.
 For a comprehensive introduction to forecasting; see
-<span id="id3">[<a class="reference internal" href="999-bibliography.html#id34" title="Hyndman, R.J. and Athanasopoulos, G. (2021).  Forecasting: Principles and Practice. OTexts. URL: https://otexts.com/fpp3.">52</a>, <a class="reference internal" href="999-bibliography.html#id35" title="Ord, J.K., Fildes, R., and Kourentzes, N. (2017).  Principles of Business Forecasting. Wessex Press.">70</a>]</span>.
+<span id="id3">[<a class="reference internal" href="999-bibliography.html#id36" title="Hyndman, R.J. and Athanasopoulos, G. (2021).  Forecasting: Principles and Practice. OTexts. URL: https://otexts.com/fpp3.">52</a>, <a class="reference internal" href="999-bibliography.html#id37" title="Ord, J.K., Fildes, R., and Kourentzes, N. (2017).  Principles of Business Forecasting. Wessex Press.">71</a>]</span>.
 Also, for data of this kind, employing statistical modelling
 techniques (<em>stochastic processes</em>) can make a lot of sense;
-see, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id33" title="Tijms, H.C. (2003).  A First Course in Stochastic Models. Wiley.">84</a>]</span>.</p>
+see, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id35" title="Tijms, H.C. (2003).  A First Course in Stochastic Models. Wiley.">85</a>]</span>.</p>
 <div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video are different
 because <em>structured randomness</em> does not play a dominant role there
 (unless it is a noise that we would like to filter out).
@@ -1283,7 +1282,7 @@ e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
 (also because it requires some more advanced calculus skills that we
 did not assume the reader to have at this time);
-but see, e.g., <span id="id5">[<a class="reference internal" href="999-bibliography.html#id32" title="Smith, S.W. (2002).  The Scientist and Engineer's Guide to Digital Signal Processing. Newnes. URL: https://www.dspguide.com/.">82</a>, <a class="reference internal" href="999-bibliography.html#id31" title="Steiglitz, K. (1996).  A Digital Signal Processing Primer: With Applications to Digital Audio and Computer Music. Pearson.">83</a>]</span>.</p>
+but see, e.g., <span id="id5">[<a class="reference internal" href="999-bibliography.html#id34" title="Smith, S.W. (2002).  The Scientist and Engineer's Guide to Digital Signal Processing. Newnes. URL: https://www.dspguide.com/.">83</a>, <a class="reference internal" href="999-bibliography.html#id33" title="Steiglitz, K. (1996).  A Digital Signal Processing Primer: With Applications to Digital Audio and Computer Music. Pearson.">84</a>]</span>.</p>
 <p>Nevertheless, keep in mind that these are not completely
 independent domains. For example, we can extract various features of audio
 signals (e.g., overall loudness, timbre, and danceability of each
@@ -1292,7 +1291,7 @@ data to be analysed using the techniques described in this course.
 Moreover, machine learning (e.g., convolutional neural networks)
 algorithms may also be used for tasks such as object detection
 on images or optical character recognition;
-see, e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.html#id55" title="Goodfellow, I., Bengio, Y., and Courville, A. (2016).  Deep Learning. MIT Press. URL: https://www.deeplearningbook.org/.">42</a>]</span>.</p>
+see, e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.html#id57" title="Goodfellow, I., Bengio, Y., and Courville, A. (2016).  Deep Learning. MIT Press. URL: https://www.deeplearningbook.org/.">42</a>]</span>.</p>
 </section>
 <section id="exercises">
 <h2><span class="section-number">16.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
@@ -1376,7 +1375,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-06-20T15:19:54+1000.
+              Last updated on 2023-06-22T11:46:49+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
