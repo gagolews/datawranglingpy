@@ -1160,7 +1160,7 @@ and which are regression tasks?</p>
 <li><p>Predict a market stock price (good luck with that).</p></li>
 <li><p>Assess credit risk.</p></li>
 <li><p>Detect tumour tissues in medical images.</p></li>
-<li><p>Predict time-to-recovery of cancer patients.</p></li>
+<li><p>Predict the time-to-recovery of cancer patients.</p></li>
 <li><p>Recognise smiling faces on photographs (kind of creepy).</p></li>
 <li><p>Detect unattended luggage in airport security camera footage.</p></li>
 </ul>
@@ -1464,7 +1464,7 @@ will detect it?</p>
 </div>
 <p>Only 48% of the really bad wines will be filtered out
 by the classifier.</p>
-<div style="margin-top: 1em"></div><p><em>F-measure</em> (or <span class="math notranslate nohighlight">\(F_1\)</span>-measure), is the harmonic<a class="footnote-reference brackets" href="#foothar" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> mean of
+<div style="margin-top: 1em"></div><p>The <em>F measure</em> (or <span class="math notranslate nohighlight">\(F_1\)</span> measure), is the harmonic<a class="footnote-reference brackets" href="#foothar" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> mean of
 precision and recall in the case where we would rather have them
 aggregated into a single number:</p>
 <div class="math-wrapper docutils container">
@@ -1556,7 +1556,7 @@ heuristics (e.g., greedy optimisers such as hill climbing).</p>
 <p>These always involve verifying the performance of <em>many</em> different classifiers,
 for example, 1-, 3-, 9, and 15-nearest neighbours-based ones.
 For each of them, we need to compute separate quality metrics,
-e.g., F-measures. Then, we promote the classifier which enjoys
+e.g., the F measures. Then, we promote the classifier which enjoys
 the highest score. Unfortunately, if we do it recklessly,
 this can lead to <em>overfitting</em>, this time with respect to the test set.
 The obtained metrics might be too optimistic and can poorly reflect
@@ -1573,7 +1573,7 @@ the best one,</p></li>
 <li><p><em>test (hold-out) sample</em> (e.g., the remaining 20%) – used to assess
 the goodness of fit of the best classifier.</p></li>
 </ul>
-<p>This common-sense approach is not limited to classification.
+<p>This common sense-based approach is not limited to classification.
 We can validate different regression
 models in the same way.</p>
 <div class="admonition important">
@@ -1595,7 +1595,7 @@ some physicochemical features (chosen columns) of wines
 in the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a> dataset.
 Create a 60/20/20% dataset split.
 For each <span class="math notranslate nohighlight">\(k=1, 3, 5, 7, 9\)</span>, compute the corresponding
-F-measure on the validation test.
+F measure on the validation test.
 Evaluate the quality of the best classifier on the test set.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1608,13 +1608,13 @@ training set randomly into five disjoint parts: <span class="math notranslate no
 (more or less of the same size). We use each
 combination of four chunks as training sets and the remaining part
 as the validation set, for which we generate the predictions and then
-compute, say, the F-measure:</p>
+compute, say, the F measure:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>training set</p></th>
 <th class="head"><p>validation set</p></th>
-<th class="head"><p>F-measure</p></th>
+<th class="head"><p>F measure</p></th>
 </tr>
 </thead>
 <tbody>
@@ -1641,7 +1641,7 @@ compute, say, the F-measure:</p>
 </tbody>
 </table>
 </div>
-<p>In the end, we can determine the average F-measure,
+<p>In the end, we can determine the average F measure,
 <span class="math notranslate nohighlight">\((F_A+F_B+F_C+F_D+F_E)/5\)</span>, as a basis for assessing different
 classifiers’ quality.</p>
 <p>Once the best classifier is chosen, we can use the whole
@@ -1660,7 +1660,7 @@ statistical learning.</p>
     </div><div class="proof-content">
 <p>(**)
 Redo the above exercise (assessing the wine colour classifiers),
-but this time maximise the F-measure
+but this time maximise the F measure
 obtained by a 5-fold cross-validation.</p>
 </div></div></section>
 </section>
@@ -1967,7 +1967,7 @@ looked beyond them, we could have found a superior solution.</p>
 <p>A variant of the Lloyd method is given
 in <strong class="command">scipy.cluster.vq.kmeans2</strong>, where the initial cluster
 centres are picked at random. Let us test its behaviour
-by analysing three chosen country-wise categories
+by analysing three chosen categories
 from the 2016 <a class="reference external" href="https://ssi.wi.th-koeln.de/">Sustainable Society Indices</a>
 dataset.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -2146,7 +2146,7 @@ applies the aforementioned restarting.</p>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3, n_init=10)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.54671889589287</span>
+<span class="c1">## 437.5467188958928</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2335,7 +2335,7 @@ from <strong class="command">pandas.DataFrame.mean</strong> and <strong class="c
 which all needed to be implemented separately so that we can
 use them in complex operation chains.
 Still, they all call the underlying <strong class="command">numpy.mean</strong> function.
-Object-oriented programming has its pros (more expressive syntax)
+Object-orientated programming has its pros (more expressive syntax)
 and cons (sometimes more redundancy in the API design).</p>
 </aside>
 <aside class="footnote brackets" id="footintroalgs" role="note">
@@ -2444,7 +2444,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-06-22T11:46:49+1000.
+              Last updated on 2023-06-23T13:35:00+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
