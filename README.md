@@ -83,7 +83,7 @@ in outlets such as *Proceedings of the National Academy of Sciences (PNAS)*,
 
 In his "spare" time, he writes books for his students
 (check out his [*Deep R Programming*](https://deepr.gagolewski.com/))
-and develops open-source (libre) data analysis software, such as
+and develops open-source data analysis software, such as
 [`stringi`](https://stringi.gagolewski.com/) (one of the most often downloaded
 R packages),
 [`genieclust`](https://genieclust.gagolewski.com/) (a fast and robust
