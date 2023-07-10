@@ -38,10 +38,7 @@ A **printed version** can be ordered from
 [SE](https://amazon.se/dp/0645571911)
 [UK](https://amazon.co.uk/dp/0645571911)
 [US](https://amazon.com/dp/0645571911).
-Note that the author gets 0% revenue from sales
-(price = cost of printing + Amazon fee).
-Let him know if you find a vendor who can deliver this book to some geographic
-regions more cheaply.
+
 
 
 
