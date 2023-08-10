@@ -419,13 +419,13 @@ Usually, we will be creating dates from strings. For instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2023-06-28&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-08-10&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-06-28T02:55:20&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2023-08-10T10:29:46&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -438,9 +438,9 @@ the number of days (<code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([-29372,      0,      1,  18992,  19536])</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19579])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([      7265, 1687920920])</span>
+<span class="c1">## array([      7265, 1691663386])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -460,9 +460,9 @@ all dates in the <em>YYYY-MM-DD</em> format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2023-06-27&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2023-08-09&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-06-28T14:55:20&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2023-08-10T22:29:46&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -957,8 +957,7 @@ e.g., using a one-year moving average:</p>
 curve for each season (here: year) and where all the series share
 the same x-axis (here: the day of the year);
 see <a class="reference internal" href="#fig-spokane-seasonal"><span class="std std-numref">Figure 16.7</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
-<span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">2022</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>                     <span class="c1"># selected years only</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">year</span><span class="p">,</span> <span class="p">:]</span>
@@ -1374,7 +1373,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-08-06T15:22:20+0200.
+              Last updated on 2023-08-10T12:31:00+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
