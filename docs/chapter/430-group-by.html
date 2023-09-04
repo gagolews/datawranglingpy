@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
 <meta content="2023" name="citation_date" />
@@ -28,13 +28,13 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="13. Accessing databases" href="440-sql.html" /><link rel="prev" title="11. Handling categorical data" href="420-categorical.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-group-by.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
         <title>12. Processing data in groups - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3f409c7f" />
     
     
 
@@ -188,7 +188,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9004
+v1.0.3.9005
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -286,7 +286,7 @@ v1.0.3.9004
         </div>
         <article role="main">
           <section class="tex2jax_ignore mathjax_ignore" id="processing-data-in-groups">
-<span id="chap-group-by"></span><h1><span class="section-number">12. </span>Processing data in groups<a class="headerlink" href="#processing-data-in-groups" title="Permalink to this heading">#</a></h1>
+<span id="chap-group-by"></span><h1><span class="section-number">12. </span>Processing data in groups<a class="headerlink" href="#processing-data-in-groups" title="Link to this heading">#</a></h1>
 <blockquote>
 <div><p><em>The open-access textbook</em> Minimalist Data Wrangling with Python <em>by
 <a class="reference external" href="https://www.gagolewski.com/">Marek Gagolewski</a>
@@ -384,7 +384,7 @@ It is much like having many data frames stored in one object,
 e.g., the heights of women and men separately.</p>
 <p><code class="docutils literal notranslate"><span class="pre">nhanes</span></code> is thus an example of heterogeneous data at their best.</p>
 <section id="basic-methods">
-<h2><span class="section-number">12.1. </span>Basic methods<a class="headerlink" href="#basic-methods" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">12.1. </span>Basic methods<a class="headerlink" href="#basic-methods" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are equipped with the <strong class="command">groupby</strong>
 methods, which assist in performing a wide range
 of operations in data groups defined by one
@@ -425,7 +425,7 @@ method determines the number of observations in each group:</p>
 <p>It returns an object of the type <code class="docutils literal notranslate"><span class="pre">Series</span></code>.
 We can also perform the grouping with respect
 to a combination of levels in two qualitative columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 <span class="c1">## gender  bmicat     </span>
 <span class="c1">## female  underweight      93</span>
 <span class="c1">##         normal         1161</span>
@@ -441,7 +441,9 @@ to a combination of levels in two qualitative columns:</p>
 <p>This yields a <code class="docutils literal notranslate"><span class="pre">Series</span></code> with a hierarchical index (<a class="reference internal" href="410-data-frame.html#sec-df-index"><span class="std std-numref">Section 10.1.3</span></a>).
 Nevertheless, we can always call
 <strong class="command">reset_index</strong> to convert it to standalone columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender       bmicat  counts</span>
 <span class="c1">## 0  female  underweight      93</span>
 <span class="c1">## 1  female       normal    1161</span>
@@ -469,7 +471,7 @@ for an example.</p>
 <strong class="command">pandas.GroupBy.count</strong> and <strong class="command">pandas.GroupBy.size</strong> methods
 (by reading their documentation).</p>
 </div></div><section id="aggregating-data-in-groups">
-<h3><span class="section-number">12.1.1. </span>Aggregating data in groups<a class="headerlink" href="#aggregating-data-in-groups" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.1.1. </span>Aggregating data in groups<a class="headerlink" href="#aggregating-data-in-groups" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
 with several well-known aggregation functions. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -502,6 +504,8 @@ works well on it.</p>
 <span class="c1">## 5    male       normal  173.443855</span>
 <span class="c1">## 6    male   overweight  173.051685</span>
 <span class="c1">## 7    male        obese  174.617851</span>
+<span class="c1">## </span>
+<span class="c1">## &lt;string&gt;:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.</span>
 </pre></div>
 </div>
 <p>Further, the most common aggregates that we described in
@@ -525,7 +529,7 @@ to get a more readable (“tall”) result.</p>
 to apply a custom list of functions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
     <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)[[</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span>
-    <span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="nb">len</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span>
     <span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 <span class="c1">##    gender      height                      weight                 </span>
@@ -545,7 +549,7 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
     <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span>
     <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span>
-    <span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">mr</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">mr</span><span class="p">])</span><span class="o">.</span>
     <span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 <span class="c1">##    gender      height              weight         </span>
@@ -557,7 +561,7 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 </div>
 </section>
 <section id="transforming-data-in-groups">
-<h3><span class="section-number">12.1.2. </span>Transforming data in groups<a class="headerlink" href="#transforming-data-in-groups" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.1.2. </span>Transforming data in groups<a class="headerlink" href="#transforming-data-in-groups" title="Link to this heading">#</a></h3>
 <p>We can easily transform individual columns relative to different
 data groups by means of the <strong class="command">transform</strong> method for <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>
 objects.</p>
@@ -592,7 +596,7 @@ in both groups are equal to 0 and 1:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
     <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]]</span><span class="o">.</span>
     <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span>
-    <span class="n">aggregate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">std0</span><span class="p">])</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">std0</span><span class="p">])</span>
 <span class="p">)</span>
 <span class="c1">##             height              height_std     </span>
 <span class="c1">##               mean      std0          mean std0</span>
@@ -614,7 +618,7 @@ deviation with <code class="docutils literal notranslate"><span class="pre">ddof
 and the five tallest women.</p>
 </div></div></section>
 <section id="manual-splitting-into-subgroups">
-<h3><span class="section-number">12.1.3. </span>Manual splitting into subgroups (*)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.1.3. </span>Manual splitting into subgroups (*)<a class="headerlink" href="#manual-splitting-into-subgroups" title="Link to this heading">#</a></h3>
 <p>It turns out that <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects and their derivatives
 are <em>iterable</em>; compare <a class="reference internal" href="130-sequential.html#sec-iterable"><span class="std std-numref">Section 3.4</span></a>. As a consequence,
 the grouped data frames and series can be easily processed manually
@@ -712,6 +716,8 @@ first occurrences of each series of identical labels:</p>
 </div>
 <p>This can now be used for dividing the sorted data frame into chunks:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes_grp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">nhanes_srt</span><span class="p">,</span> <span class="n">where</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>  <span class="c1"># where[0] is not interesting</span>
+<span class="c1">## /home/gagolews/.virtualenvs/python3-default/lib/python3.11/site-packages/numpy/core/fromnumeric.py:59: FutureWarning: &#39;DataFrame.swapaxes&#39; is deprecated and will be removed in a future version. Please use &#39;DataFrame.transpose&#39; instead.</span>
+<span class="c1">##   return bound(*args, **kwds)</span>
 </pre></div>
 </div>
 <p>We obtained a list of data frames split at rows specified by <code class="docutils literal notranslate"><span class="pre">where[1:]</span></code>.
@@ -764,11 +770,11 @@ two criteria).</p>
 </div></div></section>
 </section>
 <section id="plotting-data-in-groups">
-<span id="sec-groupby-plot"></span><h2><span class="section-number">12.2. </span>Plotting data in groups<a class="headerlink" href="#plotting-data-in-groups" title="Permalink to this heading">#</a></h2>
+<span id="sec-groupby-plot"></span><h2><span class="section-number">12.2. </span>Plotting data in groups<a class="headerlink" href="#plotting-data-in-groups" title="Link to this heading">#</a></h2>
 <p>The <strong class="program">seaborn</strong> package is particularly convenient for
 plotting grouped data – it is highly interoperable with <strong class="program">pandas</strong>.</p>
 <section id="series-of-box-plots">
-<h3><span class="section-number">12.2.1. </span>Series of box plots<a class="headerlink" href="#series-of-box-plots" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.2.1. </span>Series of box plots<a class="headerlink" href="#series-of-box-plots" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="#fig-gender-usborn-bmi"><span class="std std-numref">Figure 12.1</span></a> depicts a box plot with four
 boxes side by side:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;bmival&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span>
@@ -779,7 +785,7 @@ boxes side by side:</p>
 <figure class="align-default" id="id33">
 <span id="fig-gender-usborn-bmi"></span><img alt="../_images/gender-usborn-bmi-1.png" src="../_images/gender-usborn-bmi-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.1 </span><span class="caption-text">The distribution of BMIs for different genders and countries of birth.</span><a class="headerlink" href="#id33" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.1 </span><span class="caption-text">The distribution of BMIs for different genders and countries of birth.</span><a class="headerlink" href="#id33" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let us contemplate for a while how easy it is now to compare
@@ -804,7 +810,7 @@ above box plot using <strong class="command">matplotlib.pyplot.plot</strong>.
 Check <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to determine the range on the y-axis.</p>
 </div></div></section>
 <section id="series-of-bar-plots">
-<h3><span class="section-number">12.2.2. </span>Series of bar plots<a class="headerlink" href="#series-of-bar-plots" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.2.2. </span>Series of bar plots<a class="headerlink" href="#series-of-bar-plots" title="Link to this heading">#</a></h3>
 <p>On the other hand, <a class="reference internal" href="#fig-gender-bmicat"><span class="std std-numref">Figure 12.2</span></a>
 shows a bar plot representing a contingency table.
 It was obtained in a different way from that used
@@ -813,7 +819,7 @@ in <a class="reference internal" href="420-categorical.html#chap-categorical"><s
     <span class="n">y</span><span class="o">=</span><span class="s2">&quot;counts&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bmicat&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="p">(</span>
         <span class="n">nhanes</span><span class="o">.</span>
-        <span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">])</span><span class="o">.</span>
+        <span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span>
         <span class="n">size</span><span class="p">()</span><span class="o">.</span>
         <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span>
         <span class="n">reset_index</span><span class="p">()</span>
@@ -825,7 +831,7 @@ in <a class="reference internal" href="420-categorical.html#chap-categorical"><s
 <figure class="align-default" id="id36">
 <span id="fig-gender-bmicat"></span><img alt="../_images/gender-bmicat-3.png" src="../_images/gender-bmicat-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.2 </span><span class="caption-text">Number of persons for each gender and BMI category.</span><a class="headerlink" href="#id36" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.2 </span><span class="caption-text">Number of persons for each gender and BMI category.</span><a class="headerlink" href="#id36" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id37">
@@ -847,7 +853,7 @@ whether the BMI category distributions for men and women
 differ significantly from each other.</p>
 </div></div></section>
 <section id="semitransparent-histograms">
-<h3><span class="section-number">12.2.3. </span>Semitransparent histograms<a class="headerlink" href="#semitransparent-histograms" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.2.3. </span>Semitransparent histograms<a class="headerlink" href="#semitransparent-histograms" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="#fig-hist-transparent-weight-usborn"><span class="std std-numref">Figure 12.3</span></a> illustrates
 that playing with semitransparent objects
 can make comparisons more intuitive (the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> argument).</p>
@@ -859,7 +865,7 @@ can make comparisons more intuitive (the <code class="docutils literal notransla
 <figure class="align-default" id="id39">
 <span id="fig-hist-transparent-weight-usborn"></span><img alt="../_images/hist-transparent-weight-usborn-5.png" src="../_images/hist-transparent-weight-usborn-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.3 </span><span class="caption-text">The weight distribution of the US-born participants has a higher mean and variance.</span><a class="headerlink" href="#id39" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.3 </span><span class="caption-text">The weight distribution of the US-born participants has a higher mean and variance.</span><a class="headerlink" href="#id39" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>By passing <code class="docutils literal notranslate"><span class="pre">common_norm=False</span></code>, we scaled each histogram separately,
@@ -867,7 +873,7 @@ so that it represents a density function (are under each curve is 1).
 It is the behaviour we desire when the samples are of different lengths.</p>
 </section>
 <section id="scatter-plots-with-group-information">
-<h3><span class="section-number">12.2.4. </span>Scatter plots with group information<a class="headerlink" href="#scatter-plots-with-group-information" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.2.4. </span>Scatter plots with group information<a class="headerlink" href="#scatter-plots-with-group-information" title="Link to this heading">#</a></h3>
 <p>Scatter plots for grouped data can display category information
 using points of different colours and/or styles, compare
 <a class="reference internal" href="#fig-height-weight-gender"><span class="std std-numref">Figure 12.4</span></a>.</p>
@@ -879,12 +885,12 @@ using points of different colours and/or styles, compare
 <figure class="align-default" id="id40">
 <span id="fig-height-weight-gender"></span><img alt="../_images/height-weight-gender-7.png" src="../_images/height-weight-gender-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.4 </span><span class="caption-text">Weight vs height grouped by gender.</span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.4 </span><span class="caption-text">Weight vs height grouped by gender.</span><a class="headerlink" href="#id40" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="grid-trellis-plots">
-<span id="sec-trellis"></span><h3><span class="section-number">12.2.5. </span>Grid (trellis) plots<a class="headerlink" href="#grid-trellis-plots" title="Permalink to this heading">#</a></h3>
+<span id="sec-trellis"></span><h3><span class="section-number">12.2.5. </span>Grid (trellis) plots<a class="headerlink" href="#grid-trellis-plots" title="Link to this heading">#</a></h3>
 <p>Grid plot (also known as trellis, panel, conditioning, or lattice plots)
 are a way to visualise data separately for each factor level.
 All the plots share the same coordinate ranges which makes them easily
@@ -892,14 +898,14 @@ comparable. For instance, <a class="reference internal" href="#fig-grid-weight">
 of histograms of weights grouped by a combination of two
 categorical variables.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span>
-<span class="n">grid</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
-<span class="c1"># plt.show()  # not required...</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <figure class="align-default" id="id41">
 <span id="fig-grid-weight"></span><img alt="../_images/grid-weight-9.png" src="../_images/grid-weight-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.5 </span><span class="caption-text">Distribution of weights for different genders and countries of birth.</span><a class="headerlink" href="#id41" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.5 </span><span class="caption-text">Distribution of weights for different genders and countries of birth.</span><a class="headerlink" href="#id41" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id42">
@@ -924,7 +930,7 @@ so far (e.g., histograms, bar plots, scatter plots).</p>
 grouped by BMI category and gender.</p>
 </div></div></section>
 <section id="kolmogorovsmirnov-test-for-comparing-ecdfs">
-<span id="sec-ks-test2"></span><h3><span class="section-number">12.2.6. </span>Kolmogorov–Smirnov test for comparing ECDFs (*)<a class="headerlink" href="#kolmogorovsmirnov-test-for-comparing-ecdfs" title="Permalink to this heading">#</a></h3>
+<span id="sec-ks-test2"></span><h3><span class="section-number">12.2.6. </span>Kolmogorov–Smirnov test for comparing ECDFs (*)<a class="headerlink" href="#kolmogorovsmirnov-test-for-comparing-ecdfs" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="#fig-ecdf-weight-usborn"><span class="std std-numref">Figure 12.6</span></a> compares the empirical
 cumulative distribution functions of the weight distributions
 for US and non-US born participants.</p>
@@ -937,7 +943,7 @@ for US and non-US born participants.</p>
 <figure class="align-default" id="id44">
 <span id="fig-ecdf-weight-usborn"></span><img alt="../_images/ecdf-weight-usborn-11.png" src="../_images/ecdf-weight-usborn-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.6 </span><span class="caption-text">Empirical cumulative distribution functions of weight distributions for different birthplaces.</span><a class="headerlink" href="#id44" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.6 </span><span class="caption-text">Empirical cumulative distribution functions of weight distributions for different birthplaces.</span><a class="headerlink" href="#id44" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We have used manual splitting of the <code class="docutils literal notranslate"><span class="pre">weight</span></code> column
@@ -1041,7 +1047,7 @@ of being cautious. This, in the long run, is more sustainable.</p>
 </div>
 </section>
 <section id="comparing-quantiles">
-<h3><span class="section-number">12.2.7. </span>Comparing quantiles<a class="headerlink" href="#comparing-quantiles" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.2.7. </span>Comparing quantiles<a class="headerlink" href="#comparing-quantiles" title="Link to this heading">#</a></h3>
 <p>Plotting quantiles in two samples against each other
 can also give us some further (informal) insight with regard to the
 possible distributional differences. <a class="reference internal" href="#fig-qqplot2"><span class="std std-numref">Figure 12.7</span></a> depicts an example
@@ -1068,7 +1074,7 @@ scaled (if they were, they would be on the identity line).</p>
 <figure class="align-default" id="id46">
 <span id="fig-qqplot2"></span><img alt="../_images/qqplot2-13.png" src="../_images/qqplot2-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.7 </span><span class="caption-text">A two-sample Q-Q plot.</span><a class="headerlink" href="#id46" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.7 </span><span class="caption-text">A two-sample Q-Q plot.</span><a class="headerlink" href="#id46" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Notice that we interpolated between the quantiles in a larger sample
@@ -1076,7 +1082,7 @@ to match the length of the shorter vector.</p>
 </section>
 </section>
 <section id="classification-tasks">
-<h2><span class="section-number">12.3. </span>Classification tasks<a class="headerlink" href="#classification-tasks" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">12.3. </span>Classification tasks<a class="headerlink" href="#classification-tasks" title="Link to this heading">#</a></h2>
 <p>Let us consider a small sample of white, rather sweet wines
 from a much larger <a class="reference external" href="http://archive.ics.uci.edu/ml/datasets/Wine+Quality">wine quality</a> dataset.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wine_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1107,7 +1113,7 @@ that subpar wines are rather low in… alcohol and, to some extent, sugar.</p>
 <figure class="align-default" id="id47">
 <span id="fig-wines"></span><img alt="../_images/wines-15.png" src="../_images/wines-15.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.8 </span><span class="caption-text">Scatter plot for sugar vs alcohol content for white, rather sweet wines, and whether they are considered bad (1) or drinkable (0) by some experts.</span><a class="headerlink" href="#id47" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.8 </span><span class="caption-text">Scatter plot for sugar vs alcohol content for white, rather sweet wines, and whether they are considered bad (1) or drinkable (0) by some experts.</span><a class="headerlink" href="#id47" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Someone answer the door! We have a delivery of
@@ -1164,7 +1170,7 @@ and which are regression tasks?</p>
 </ul>
 <p>What kind of data should you gather to tackle them?</p>
 </div></div><section id="k-nearest-neighbour-classification">
-<span id="sec-knn-classification"></span><h3><span class="section-number">12.3.1. </span><em>K</em>-nearest neighbour classification<a class="headerlink" href="#k-nearest-neighbour-classification" title="Permalink to this heading">#</a></h3>
+<span id="sec-knn-classification"></span><h3><span class="section-number">12.3.1. </span><em>K</em>-nearest neighbour classification<a class="headerlink" href="#k-nearest-neighbour-classification" title="Link to this heading">#</a></h3>
 <p>One of the simplest approaches to classification
 is based on the information about a test point’s nearest neighbours
 living in the training sample; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
@@ -1277,7 +1283,7 @@ expect the classification accuracy to be acceptable<a class="footnote-reference 
 <figure class="align-default" id="id49">
 <span id="fig-knn-class"></span><img alt="../_images/knn-class-17.png" src="../_images/knn-class-17.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.9 </span><span class="caption-text"><span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classification of a whole, dense, two-dimensional grid of points for different <span class="math notranslate nohighlight">\(k\)</span>.</span><a class="headerlink" href="#id49" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.9 </span><span class="caption-text"><span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classification of a whole, dense, two-dimensional grid of points for different <span class="math notranslate nohighlight">\(k\)</span>.</span><a class="headerlink" href="#id49" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-example" id="id50">
@@ -1301,7 +1307,7 @@ by calling:</p>
 </div>
 </div></div></section>
 <section id="assessing-the-quality-of-predictions">
-<span id="sec-classifier-metrics"></span><h3><span class="section-number">12.3.2. </span>Assessing the quality of predictions<a class="headerlink" href="#assessing-the-quality-of-predictions" title="Permalink to this heading">#</a></h3>
+<span id="sec-classifier-metrics"></span><h3><span class="section-number">12.3.2. </span>Assessing the quality of predictions<a class="headerlink" href="#assessing-the-quality-of-predictions" title="Link to this heading">#</a></h3>
 <p>It is time to reveal the truth: our test wines, it turns out,
 have already been assessed by some experts.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1378,7 +1384,7 @@ the output predicted by a classifier, i.e., they indicate whether some
 <span class="math notranslate nohighlight">\(\hat{y}_i'\)</span> is equal to 1 and 0, respectively.</p>
 <div class="table-wrapper colwidths-auto docutils container" id="id51">
 <table class="docutils align-default" id="id51">
-<caption><span class="caption-number">Table 12.1 </span><span class="caption-text">The different cases of true vs predicted labels in a binary classification task <span class="math notranslate nohighlight">\((l=2)\)</span></span><a class="headerlink" href="#id51" title="Permalink to this table">#</a></caption>
+<caption><span class="caption-number">Table 12.1 </span><span class="caption-text">The different cases of true vs predicted labels in a binary classification task <span class="math notranslate nohighlight">\((l=2)\)</span></span><a class="headerlink" href="#id51" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
 <th class="head"><p><span class="math notranslate nohighlight">\(y_i'=0\)</span></p></th>
@@ -1505,7 +1511,7 @@ aggregated into a single number:</p>
 </ul>
 </div></div></section>
 <section id="splitting-into-training-and-test-sets">
-<span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into training and test sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Permalink to this heading">#</a></h3>
+<span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into training and test sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Link to this heading">#</a></h3>
 <p>The training set was used as a source of knowledge about our
 problem domain. The <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classifier is technically
 <em>model-free</em>. As a consequence, to generate a new prediction, we need
@@ -1535,7 +1541,7 @@ where some <em>test</em> observations become available after the learning
 phase is complete.</p>
 </section>
 <section id="validating-many-models-parameter-selection">
-<span id="sec-model-validation"></span><h3><span class="section-number">12.3.4. </span>Validating many models (parameter selection) (*)<a class="headerlink" href="#validating-many-models-parameter-selection" title="Permalink to this heading">#</a></h3>
+<span id="sec-model-validation"></span><h3><span class="section-number">12.3.4. </span>Validating many models (parameter selection) (*)<a class="headerlink" href="#validating-many-models-parameter-selection" title="Link to this heading">#</a></h3>
 <p>In statistical modelling, there often are many
 <em>hyperparameters</em> that need to be tweaked. For example:</p>
 <ul class="simple">
@@ -1663,7 +1669,7 @@ obtained by a 5-fold cross-validation.</p>
 </div></div></section>
 </section>
 <section id="clustering-tasks">
-<span id="sec-kmeans"></span><h2><span class="section-number">12.4. </span>Clustering tasks<a class="headerlink" href="#clustering-tasks" title="Permalink to this heading">#</a></h2>
+<span id="sec-kmeans"></span><h2><span class="section-number">12.4. </span>Clustering tasks<a class="headerlink" href="#clustering-tasks" title="Link to this heading">#</a></h2>
 <p>So far, we have been implicitly assuming that either
 each dataset comes from a single homogeneous distribution,
 or we have a categorical variable that naturally defines the
@@ -1680,7 +1686,7 @@ discuss below, the cluster structure is determined based on
 the points’ proximity to <span class="math notranslate nohighlight">\(k\)</span> carefully chosen group centroids;
 compare <a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>.</p>
 <section id="k-means-method">
-<h3><span class="section-number">12.4.1. </span><em>K</em>-means method<a class="headerlink" href="#k-means-method" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.4.1. </span><em>K</em>-means method<a class="headerlink" href="#k-means-method" title="Link to this heading">#</a></h3>
 <p>Fix <span class="math notranslate nohighlight">\(k \ge 2\)</span>.
 In the <span class="math notranslate nohighlight">\(k\)</span>-means method<a class="footnote-reference brackets" href="#footkmeans" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>, we seek <span class="math notranslate nohighlight">\(k\)</span> pivot points,
 <span class="math notranslate nohighlight">\(\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k\in\mathbb{R}^m\)</span>,
@@ -1779,7 +1785,7 @@ very natural partitioning of this dataset into two clusters.</p>
 <figure class="align-default" id="id55">
 <span id="fig-two-blobs-clusters"></span><img alt="../_images/two-blobs-clusters-19.png" src="../_images/two-blobs-clusters-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.10 </span><span class="caption-text">Two clusters discovered by the <span class="math notranslate nohighlight">\(k\)</span>-means method. Cluster centroids are marked separately.</span><a class="headerlink" href="#id55" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.10 </span><span class="caption-text">Two clusters discovered by the <span class="math notranslate nohighlight">\(k\)</span>-means method. Cluster centroids are marked separately.</span><a class="headerlink" href="#id55" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Here are the cluster sizes:</p>
@@ -1864,7 +1870,7 @@ e.g., all points on a dense equidistant grid.</p>
 </div>
 </section>
 <section id="solving-k-means-is-hard">
-<h3><span class="section-number">12.4.2. </span>Solving <em>k</em>-means is hard<a class="headerlink" href="#solving-k-means-is-hard" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.4.2. </span>Solving <em>k</em>-means is hard<a class="headerlink" href="#solving-k-means-is-hard" title="Link to this heading">#</a></h3>
 <p>Unfortunately, the <span class="math notranslate nohighlight">\(k\)</span>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
@@ -1890,7 +1896,7 @@ to clustering is not the only hard problem in data science
 to AIC or BIC in linear regression is another example).</p>
 </section>
 <section id="lloyd-algorithm">
-<h3><span class="section-number">12.4.3. </span>Lloyd algorithm<a class="headerlink" href="#lloyd-algorithm" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.4.3. </span>Lloyd algorithm<a class="headerlink" href="#lloyd-algorithm" title="Link to this heading">#</a></h3>
 <p>Technically, there is no such thing as <em>the</em> <span class="math notranslate nohighlight">\(k\)</span>-means <em>algorithm</em>.
 There are many procedures, based on numerous different heuristics,
 that attempt to solve the <span class="math notranslate nohighlight">\(k\)</span>-means <em>problem</em>. Unfortunately,
@@ -1941,7 +1947,7 @@ and where the rows in <code class="docutils literal notranslate"><span class="pr
 give the initial cluster centres.</p>
 </div></div></section>
 <section id="local-minima">
-<span id="sec-local-minima"></span><h3><span class="section-number">12.4.4. </span>Local minima<a class="headerlink" href="#local-minima" title="Permalink to this heading">#</a></h3>
+<span id="sec-local-minima"></span><h3><span class="section-number">12.4.4. </span>Local minima<a class="headerlink" href="#local-minima" title="Link to this heading">#</a></h3>
 <p>The way the above algorithm is constructed implies what follows.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1959,7 +1965,7 @@ looked beyond them, we could have found a superior solution.</p>
 <figure class="align-default" id="id59">
 <span id="fig-many-local-minima"></span><img alt="../_images/many-local-minima-21.png" src="../_images/many-local-minima-21.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.11 </span><span class="caption-text">An example function (of only one variable; our problem is much higher-dimensional) with many local minima. How can we be sure there is no better minimum outside of the depicted interval?</span><a class="headerlink" href="#id59" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.11 </span><span class="caption-text">An example function (of only one variable; our problem is much higher-dimensional) with many local minima. How can we be sure there is no better minimum outside of the depicted interval?</span><a class="headerlink" href="#id59" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>A variant of the Lloyd method is given
@@ -2072,7 +2078,7 @@ suboptimal solutions.</p>
 <p>(*) Determine which countries are affected.</p>
 </div></div></section>
 <section id="random-restarts">
-<h3><span class="section-number">12.4.5. </span>Random restarts<a class="headerlink" href="#random-restarts" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">12.4.5. </span>Random restarts<a class="headerlink" href="#random-restarts" title="Link to this heading">#</a></h3>
 <p>There will never be any guarantees, but we can increase
 the probability of generating a satisfactory solution by simply
 restarting the method multiple times from many randomly chosen points
@@ -2114,7 +2120,7 @@ see <a class="reference internal" href="#fig-wcss-local-minima"><span class="std
 <figure class="align-default" id="id61">
 <span id="fig-wcss-local-minima"></span><img alt="../_images/wcss-local-minima-23.png" src="../_images/wcss-local-minima-23.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.12 </span><span class="caption-text">Within-cluster sum of squares at the results returned by different runs of the <span class="math notranslate nohighlight">\(k\)</span>-means algorithm. Sometimes we might be very unlucky.</span><a class="headerlink" href="#id61" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.12 </span><span class="caption-text">Within-cluster sum of squares at the results returned by different runs of the <span class="math notranslate nohighlight">\(k\)</span>-means algorithm. Sometimes we might be very unlucky.</span><a class="headerlink" href="#id61" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Also, <a class="reference internal" href="#fig-kmeans-suboptimal-centres"><span class="std std-numref">Figure 12.13</span></a> depicts
@@ -2124,7 +2130,7 @@ generated by a single run of a heuristic solver to the <span class="math notrans
 <figure class="align-default" id="id62">
 <span id="fig-kmeans-suboptimal-centres"></span><img alt="../_images/kmeans-suboptimal-centres-25.png" src="../_images/kmeans-suboptimal-centres-25.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.13 </span><span class="caption-text">Traces of different cluster centres our k-means algorithm converged to. Some are definitely not optimal, and therefore the method must be restarted a few times to increase the likelihood of pinpointing the true solution.</span><a class="headerlink" href="#id62" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 12.13 </span><span class="caption-text">Traces of different cluster centres our k-means algorithm converged to. Some are definitely not optimal, and therefore the method must be restarted a few times to increase the likelihood of pinpointing the true solution.</span><a class="headerlink" href="#id62" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-example" id="id63">
@@ -2205,7 +2211,7 @@ following cluster centres which are close to the global minimum.</p>
 </div></div></section>
 </section>
 <section id="further-reading">
-<h2><span class="section-number">12.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">12.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
 <p>An overall noteworthy introduction to classification is <span id="id18">[<a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">47</a>]</span>
 and <span id="id19">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">8</a>]</span>.
 Nevertheless, as we said earlier, we recommend going through
@@ -2227,7 +2233,7 @@ results, but their meaningfulness is somewhat limited;
 see <span id="id25">[<a class="reference internal" href="999-bibliography.html#id10" title="Gagolewski, M., Bartoszuk, M., and Cena, A. (2021).  Are cluster validity measures (in)valid? Information Sciences, 581:620–636. DOI: 10.1016/j.ins.2021.10.004.">36</a>]</span> for discussion.</p>
 </section>
 <section id="exercises">
-<h2><span class="section-number">12.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">12.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="proof proof-type-exercise" id="id65">
 
     <div class="proof-title">
@@ -2325,7 +2331,7 @@ Why are reports from data analysis that do not mention the number
 of restarts not trustworthy?</p>
 </div></div><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footoop" role="note">
+<aside class="footnote brackets" id="footoop" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
 <p>(*) In this example, we called <strong class="command">pandas.GroupBy.mean</strong>.
 Note that it has slightly different functionality
@@ -2336,7 +2342,7 @@ Still, they all call the underlying <strong class="command">numpy.mean</strong> 
 Object-orientated programming has its pros (more expressive syntax)
 and cons (sometimes more redundancy in the API design).</p>
 </aside>
-<aside class="footnote brackets" id="footintroalgs" role="note">
+<aside class="footnote brackets" id="footintroalgs" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
 <p>Remember that this is an introductory course,
 and we are still being very generous here.
@@ -2344,28 +2350,28 @@ We encourage the readers to upskill themselves (later, of course)
 not only in mathematics, but also in programming
 (e.g., algorithms and data structures).</p>
 </aside>
-<aside class="footnote brackets" id="footerrdev" role="note">
+<aside class="footnote brackets" id="footerrdev" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">3</a><span class="fn-bracket">]</span></span>
 <p>Including those that are merely due to round-off errors.</p>
 </aside>
-<aside class="footnote brackets" id="footpvalue" role="note">
+<aside class="footnote brackets" id="footpvalue" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">4</a><span class="fn-bracket">]</span></span>
 <p>For similar reasons, we do not introduce the notion
 of p-values. Most practitioners tend to misunderstand them anyway.</p>
 </aside>
-<aside class="footnote brackets" id="football" role="note">
+<aside class="footnote brackets" id="football" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">5</a><span class="fn-bracket">]</span></span>
 <p>(*) As an exercise, we could author a fixed-radius
 classifier; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.
 In sparsely populated regions, the decision might be
 “unknown”.</p>
 </aside>
-<aside class="footnote brackets" id="foothar" role="note">
+<aside class="footnote brackets" id="foothar" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">6</a><span class="fn-bracket">]</span></span>
 <p>(*) For any vector of nonnegative values,
 its minimum <span class="math notranslate nohighlight">\(\le\)</span> its harmonic mean <span class="math notranslate nohighlight">\(\le\)</span> its arithmetic mean.</p>
 </aside>
-<aside class="footnote brackets" id="footkmeans" role="note">
+<aside class="footnote brackets" id="footkmeans" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">7</a><span class="fn-bracket">]</span></span>
 <p>We do not have to denote the number of clusters
 with <span class="math notranslate nohighlight">\(k\)</span>. We could be speaking about the <span class="math notranslate nohighlight">\(2\)</span>-means, <span class="math notranslate nohighlight">\(3\)</span>-means,
@@ -2375,11 +2381,11 @@ brand name, let us thus refrain from adding to their confusion.
 Interestingly, another widely known algorithm
 is called fuzzy (weighted) <span class="math notranslate nohighlight">\(c\)</span>-means <span id="id26">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">6</a>]</span>.</p>
 </aside>
-<aside class="footnote brackets" id="footvoronoi" role="note">
+<aside class="footnote brackets" id="footvoronoi" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">8</a><span class="fn-bracket">]</span></span>
 <p>(*) And its relation to Voronoi diagrams.</p>
 </aside>
-<aside class="footnote brackets" id="footkmeansdoesntmatter" role="note">
+<aside class="footnote brackets" id="footkmeansdoesntmatter" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">9</a><span class="fn-bracket">]</span></span>
 <p>If we have many different heuristics,
 each aiming to approximate
@@ -2392,12 +2398,12 @@ WCSS. It is crucial to <em>do our best</em> to
 find the optimal set of cluster centres – the
 more approaches we test, the better the chance of success.</p>
 </aside>
-<aside class="footnote brackets" id="footlucky" role="note">
+<aside class="footnote brackets" id="footlucky" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id16">10</a><span class="fn-bracket">]</span></span>
 <p>Mind who is the benevolent dictator
 of the pseudorandom number generator’s seed.</p>
 </aside>
-<aside class="footnote brackets" id="footr" role="note">
+<aside class="footnote brackets" id="footr" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">11</a><span class="fn-bracket">]</span></span>
 <p>For instance, R’s <strong class="command">stats::kmeans</strong>
 automatically uses <code class="docutils literal notranslate"><span class="pre">nstart=1</span></code>. It is not rare, unfortunately,
@@ -2442,7 +2448,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-08-23T10:36:12+0200.
+              Last updated on 2023-09-04T15:13:19+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2508,10 +2514,10 @@ that data analysts only stick with the default arguments.</p>
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/scripts/furo.js"></script>
+</div><script src="../_static/documentation_options.js?v=32b344a2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

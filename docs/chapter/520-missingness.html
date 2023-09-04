@@ -1,8 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
 <meta content="2023" name="citation_date" />
@@ -28,13 +28,13 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="16. Time series" href="530-time-series.html" /><link rel="prev" title="14. Text data" href="510-text.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/520-missingness.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
+    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
         <title>15. Missing, censored, and questionable data - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3f409c7f" />
     
     
 
@@ -188,7 +188,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9004
+v1.0.3.9005
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -286,7 +286,7 @@ v1.0.3.9004
         </div>
         <article role="main">
           <section class="tex2jax_ignore mathjax_ignore" id="missing-censored-and-questionable-data">
-<span id="chap-missingness"></span><h1><span class="section-number">15. </span>Missing, censored, and questionable data<a class="headerlink" href="#missing-censored-and-questionable-data" title="Permalink to this heading">#</a></h1>
+<span id="chap-missingness"></span><h1><span class="section-number">15. </span>Missing, censored, and questionable data<a class="headerlink" href="#missing-censored-and-questionable-data" title="Link to this heading">#</a></h1>
 <blockquote>
 <div><p><em>The open-access textbook</em> Minimalist Data Wrangling with Python <em>by
 <a class="reference external" href="https://www.gagolewski.com/">Marek Gagolewski</a>
@@ -321,7 +321,7 @@ that was always the case, but it is not.</p>
 methods for dealing with <em>suspicious</em> observations:
 outliers, missing, censored, imprecise, and incorrect data.</p>
 <section id="missing-data">
-<span id="sec-missing-data"></span><h2><span class="section-number">15.1. </span>Missing data<a class="headerlink" href="#missing-data" title="Permalink to this heading">#</a></h2>
+<span id="sec-missing-data"></span><h2><span class="section-number">15.1. </span>Missing data<a class="headerlink" href="#missing-data" title="Link to this heading">#</a></h2>
 <p>Let us consider an excerpt from National Health and Nutrition Examination
 Survey that we played with in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -354,7 +354,7 @@ when someone answered they did not learn to ride a bike yet);</p></li>
 of funding or a failure of a piece of equipment.</p></li>
 </ul>
 <section id="representing-and-detecting-missing-values">
-<h3><span class="section-number">15.1.1. </span>Representing and detecting missing values<a class="headerlink" href="#representing-and-detecting-missing-values" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">15.1.1. </span>Representing and detecting missing values<a class="headerlink" href="#representing-and-detecting-missing-values" title="Link to this heading">#</a></h3>
 <p>Sometimes missing values are specially encoded, especially
 in CSV files, e.g., with <code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">9999</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.inf</span></code>, <code class="docutils literal notranslate"><span class="pre">-numpy.inf</span></code>,
 or <code class="docutils literal notranslate"><span class="pre">None</span></code>,  strings such as  <code class="docutils literal notranslate"><span class="pre">&quot;NA&quot;</span></code>,
@@ -405,7 +405,7 @@ in <code class="docutils literal notranslate"><span class="pre">nhanes</span></c
 and <strong class="command">pandas.DataFrameGroupBy.count</strong> methods.</p>
 </div></div></section>
 <section id="computing-with-missing-values">
-<h3><span class="section-number">15.1.2. </span>Computing with missing values<a class="headerlink" href="#computing-with-missing-values" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">15.1.2. </span>Computing with missing values<a class="headerlink" href="#computing-with-missing-values" title="Link to this heading">#</a></h3>
 <p>Our using <code class="docutils literal notranslate"><span class="pre">NaN</span></code> to denote a missing
 piece of information is merely an ugly (but functional) hack<a class="footnote-reference brackets" href="#footrna" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 The original use case for not-a-number is to represent
@@ -484,7 +484,7 @@ we need to do it manually:</p>
 <p>Read the <strong class="program">pandas</strong> <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html">documentation</a> about missing value handling.</p>
 </div></div></section>
 <section id="missing-at-random-or-not">
-<h3><span class="section-number">15.1.3. </span>Missing at random or not?<a class="headerlink" href="#missing-at-random-or-not" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">15.1.3. </span>Missing at random or not?<a class="headerlink" href="#missing-at-random-or-not" title="Link to this heading">#</a></h3>
 <p>At a general level (from the mathematical modelling perspective),
 we may distinguish between a few missingness patterns; see <span id="id3">[<a class="reference internal" href="999-bibliography.html#id30" title="Rubin, D.B. (1976).  Inference and missing data. Biometrika, 63(3):581–590.">81</a>]</span>:</p>
 <ul class="simple">
@@ -505,7 +505,7 @@ This will usually imply the kinds of techniques that
 are suitable in specific cases.</p>
 </section>
 <section id="discarding-missing-values">
-<h3><span class="section-number">15.1.4. </span>Discarding missing values<a class="headerlink" href="#discarding-missing-values" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">15.1.4. </span>Discarding missing values<a class="headerlink" href="#discarding-missing-values" title="Link to this heading">#</a></h3>
 <p>We may try removing (discarding) rows or columns
 that carry at least one, some, or too many missing values.
 Nonetheless, such a scheme will obviously not work for small datasets,
@@ -535,7 +535,7 @@ cases, and <strong class="command">numpy.isnan</strong> or <strong class="comman
 can be applied otherwise.</em></p>
 </div></div></section>
 <section id="mean-imputation">
-<h3><span class="section-number">15.1.5. </span>Mean imputation<a class="headerlink" href="#mean-imputation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">15.1.5. </span>Mean imputation<a class="headerlink" href="#mean-imputation" title="Link to this heading">#</a></h3>
 <p>When we cannot afford or it is inappropriate/inconvenient to proceed with
 the removal of missing observations or columns,
 we may try applying some missing value <em>imputation</em>
@@ -580,7 +580,7 @@ No surprise here: we added to the sample many identical values.</p>
 <figure class="align-default" id="id19">
 <span id="fig-mean-imputation"></span><img alt="../_images/mean-imputation-1.png" src="../_images/mean-imputation-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 15.1 </span><span class="caption-text">The mean imputation distorts the data distribution.</span><a class="headerlink" href="#id19" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 15.1 </span><span class="caption-text">The mean imputation distorts the data distribution.</span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id20">
@@ -601,7 +601,7 @@ averages corresponding to a patient’s sex
 </ol>
 </div></div></section>
 <section id="imputation-by-classification-and-regression">
-<h3><span class="section-number">15.1.6. </span>Imputation by classification and regression (*)<a class="headerlink" href="#imputation-by-classification-and-regression" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">15.1.6. </span>Imputation by classification and regression (*)<a class="headerlink" href="#imputation-by-classification-and-regression" title="Link to this heading">#</a></h3>
 <p>We can easily compose a missing value imputer
 based on averaging data from an observation’s
 non-missing nearest neighbours; compare <a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>
@@ -626,7 +626,7 @@ in <strong class="command">sklearn.impute.IterativeImputer</strong>.</p>
 </section>
 </section>
 <section id="censored-and-interval-data">
-<h2><span class="section-number">15.2. </span>Censored and interval data (*)<a class="headerlink" href="#censored-and-interval-data" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">15.2. </span>Censored and interval data (*)<a class="headerlink" href="#censored-and-interval-data" title="Link to this heading">#</a></h2>
 <p>Censored data frequently appear in the context of reliability, risk analysis,
 and biostatistics, where the observed objects might <em>fail</em>
 (e.g., break down, die, withdraw; compare, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id32" title="Modarres, M., Kaminskiy, M.P., and Krivtsov, V. (2016).  Reliability Engineering and Risk Analysis: A Practical Guide. CRC Press.">64</a>]</span>).
@@ -652,7 +652,7 @@ that deal with <em>interval computations</em>, and some data analysis
 methods exist for dealing with such a scenario.</p>
 </section>
 <section id="incorrect-data">
-<span id="sec-data-validation-exercises"></span><h2><span class="section-number">15.3. </span>Incorrect data<a class="headerlink" href="#incorrect-data" title="Permalink to this heading">#</a></h2>
+<span id="sec-data-validation-exercises"></span><h2><span class="section-number">15.3. </span>Incorrect data<a class="headerlink" href="#incorrect-data" title="Link to this heading">#</a></h2>
 <p><em>Missing data</em> can already be marked in a given sample.
 But we also might be willing to mark some existing values
 as missing, e.g., when they are incorrect.
@@ -745,7 +745,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Kat.&qu
 </ol>
 </div></div></section>
 <section id="outliers">
-<span id="sec-outliers"></span><h2><span class="section-number">15.4. </span>Outliers<a class="headerlink" href="#outliers" title="Permalink to this heading">#</a></h2>
+<span id="sec-outliers"></span><h2><span class="section-number">15.4. </span>Outliers<a class="headerlink" href="#outliers" title="Link to this heading">#</a></h2>
 <p>Another group of inspectionworthy observations consists of
 <em>outliers</em>. We can define them as the samples that reside
 in the areas of substantially lower density than their neighbours.</p>
@@ -764,7 +764,7 @@ floods, extreme rainfall, or temperatures); see, e.g., <span id="id8">[<a class=
 But this is a topic for a more advanced course;
 see, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id159" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">50</a>]</span>. By then, let us stick with some simpler settings.</p>
 <section id="the-3-2-iqr-rule-for-normally-distributed-data">
-<span id="sec-32iqr"></span><h3><span class="section-number">15.4.1. </span>The 3/2 IQR rule for normally-distributed data<a class="headerlink" href="#the-3-2-iqr-rule-for-normally-distributed-data" title="Permalink to this heading">#</a></h3>
+<span id="sec-32iqr"></span><h3><span class="section-number">15.4.1. </span>The 3/2 IQR rule for normally-distributed data<a class="headerlink" href="#the-3-2-iqr-rule-for-normally-distributed-data" title="Link to this heading">#</a></h3>
 <p>For unidimensional data (or individual columns in matrices
 and data frames), the first few smallest and largest
 observations should usually be inspected manually.
@@ -817,7 +817,7 @@ and see if they make sense.</p>
 as defined by the <code class="docutils literal notranslate"><span class="pre">RIAGENDR</span></code> column.</p>
 </div></div></section>
 <section id="unidimensional-density-estimation">
-<span id="sec-kde-1d"></span><h3><span class="section-number">15.4.2. </span>Unidimensional density estimation (*)<a class="headerlink" href="#unidimensional-density-estimation" title="Permalink to this heading">#</a></h3>
+<span id="sec-kde-1d"></span><h3><span class="section-number">15.4.2. </span>Unidimensional density estimation (*)<a class="headerlink" href="#unidimensional-density-estimation" title="Link to this heading">#</a></h3>
 <p>For skewed distributions such as the ones
 representing incomes, there might be nothing wrong, at least statistically
 speaking, with very large isolated observations.</p>
@@ -849,7 +849,7 @@ samples and four potential outliers at <span class="math notranslate nohighlight
 <figure class="align-default" id="id26">
 <span id="fig-blobs2"></span><img alt="../_images/blobs2-3.png" src="../_images/blobs2-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 15.2 </span><span class="caption-text">With box plots, we may fail to detect some outliers.</span><a class="headerlink" href="#id26" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 15.2 </span><span class="caption-text">With box plots, we may fail to detect some outliers.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div><p>Fixed-radius search techniques discussed in <a class="reference internal" href="320-transform-matrix.html#sec-distances"><span class="std std-numref">Section 8.4</span></a>
@@ -902,12 +902,12 @@ of bins in a histogram.</p>
 <figure class="align-default" id="id27">
 <span id="fig-kde-1d"></span><img alt="../_images/kde-1d-5.png" src="../_images/kde-1d-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 15.3 </span><span class="caption-text">Density estimation based on fixed-radius search.</span><a class="headerlink" href="#id27" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 15.3 </span><span class="caption-text">Density estimation based on fixed-radius search.</span><a class="headerlink" href="#id27" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="multidimensional-density-estimation">
-<span id="sec-kde-2d"></span><h3><span class="section-number">15.4.3. </span>Multidimensional density estimation (*)<a class="headerlink" href="#multidimensional-density-estimation" title="Permalink to this heading">#</a></h3>
+<span id="sec-kde-2d"></span><h3><span class="section-number">15.4.3. </span>Multidimensional density estimation (*)<a class="headerlink" href="#multidimensional-density-estimation" title="Link to this heading">#</a></h3>
 <p>By far we should have become used to the fact that unidimensional data
 projections might lead to our losing too much information.
 Some values can seem perfectly fine when they are considered
@@ -937,7 +937,7 @@ in <a class="reference internal" href="#fig-blobs1-uni"><span class="std std-num
 <figure class="align-default" id="id28">
 <span id="fig-blobs1-uni"></span><img alt="../_images/blobs1-uni-7.png" src="../_images/blobs1-uni-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 15.4 </span><span class="caption-text">One-dimensional projections of the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset.</span><a class="headerlink" href="#id28" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 15.4 </span><span class="caption-text">One-dimensional projections of the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>There is nothing suspicious here. Or is there?</p>
@@ -951,7 +951,7 @@ reveals that the data consist of two quite well-separable blobs:</p>
 <figure class="align-default" id="id29">
 <span id="fig-blobs1-multi"></span><img alt="../_images/blobs1-multi-9.png" src="../_images/blobs1-multi-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 15.5 </span><span class="caption-text">Scatter plot of the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset.</span><a class="headerlink" href="#id29" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 15.5 </span><span class="caption-text">Scatter plot of the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset.</span><a class="headerlink" href="#id29" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>There are a few observations that we might mark as outliers.
@@ -1002,13 +1002,13 @@ potential outlier; see <a class="reference internal" href="#fig-blobs1-eps"><spa
 <figure class="align-default" id="id31">
 <span id="fig-blobs1-eps"></span><img alt="../_images/blobs1-eps-11.png" src="../_images/blobs1-eps-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 15.6 </span><span class="caption-text">Outlier detection based on a fixed-radius search for the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset.</span><a class="headerlink" href="#id31" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Figure 15.6 </span><span class="caption-text">Outlier detection based on a fixed-radius search for the <code class="docutils literal notranslate"><span class="pre">blobs1</span></code> dataset.</span><a class="headerlink" href="#id31" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div></section>
 </section>
 <section id="exercises">
-<h2><span class="section-number">15.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">15.5. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="proof proof-type-exercise" id="id32">
 
     <div class="proof-title">
@@ -1063,12 +1063,12 @@ missing at random, and missing not at random?</p>
 with data that might contain outliers.</p>
 </div></div><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="footrna" role="note">
+<aside class="footnote brackets" id="footrna" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p>(*) The R environment, on the other hand, supports
 missing values out-of-the-box.</p>
 </aside>
-<aside class="footnote brackets" id="footsmallsample" role="note">
+<aside class="footnote brackets" id="footsmallsample" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
 <p>On the other hand, if we want to infer from
 small datasets, we should ask ourselves whether this
@@ -1076,12 +1076,12 @@ is a good idea at all… It might be better to refrain
 from any data analysis than to come up with conclusions
 that are likely to be unjustified.</p>
 </aside>
-<aside class="footnote brackets" id="footkde" role="note">
+<aside class="footnote brackets" id="footkde" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">3</a><span class="fn-bracket">]</span></span>
 <p>This is an instance of a kernel density estimator,
 with the simplest kernel: a rectangular one.</p>
 </aside>
-<aside class="footnote brackets" id="footnorm2kde" role="note">
+<aside class="footnote brackets" id="footnorm2kde" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">4</a><span class="fn-bracket">]</span></span>
 <p>(**) We can easily normalise the outputs to get
 a true 2D kernel density estimator, but multivariate statistics
@@ -1130,7 +1130,7 @@ see <span id="id14">[<a class="reference internal" href="999-bibliography.html#i
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-08-23T10:36:12+0200.
+              Last updated on 2023-09-04T15:13:19+1000.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1181,10 +1181,10 @@ see <span id="id14">[<a class="reference internal" href="999-bibliography.html#i
       
     </aside>
   </div>
-</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/scripts/furo.js"></script>
+</div><script src="../_static/documentation_options.js?v=32b344a2"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
