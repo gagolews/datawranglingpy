@@ -1,6 +1,5 @@
-# Minimalist Data Wrangling with Python
-
-<img src="docs/_static/img/cover.png" align="right" height="225" />
+<a href="https://datawranglingpy.gagolewski.com/"><img src="docs/_static/img/cover.png" align="right" height="225" /></a>
+# [Minimalist Data Wrangling with Python](https://datawranglingpy.gagolewski.com/)
 
 *Minimalist Data Wrangling with Python* by [Marek Gagolewski][1]
 is envisaged as a student's first
@@ -60,9 +59,7 @@ this repository's *Issues* tracker. Thank you.
 
 Dr habil. [Marek Gagolewski][1]
 is currently a Senior Lecturer in Data Science/Applied AI
-at Deakin University in Melbourne,
-Australia and an Associate Professor at the Systems
-Research Institute, Polish Academy of Sciences.
+at Deakin University in Melbourne, Australia.
 
 His research interests are related to data science, in particular: modelling
 complex phenomena, developing usable, general-purpose algorithms, studying
