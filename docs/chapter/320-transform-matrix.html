@@ -28,13 +28,13 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="9. Exploring relationships between variables" href="330-relationship.html" /><link rel="prev" title="7. Multidimensional numeric data at a glance" href="310-matrix.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/320-transform-matrix.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
         <title>8. Processing multidimensional data - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3f409c7f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
     
     
 
@@ -181,6 +181,9 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky">
+<div class="sidebar-logo-container">
+  <a class="sidebar-brand" href="../index.html"><img class="sidebar-logo" src="https://www.gagolewski.com/_static/img/datawranglingpy.png" alt="Logo"/></a>
+</div>
 
 <span class="sidebar-brand-text">
 <a class="sidebar-brand" href="../index.html">Minimalist Data Wrangling with Python</a>
@@ -1038,7 +1041,7 @@ For example:</p>
 <span class="c1">##        [ 2,  0,  3,  1]])</span>
 </pre></div>
 </div>
-<p>Mathematically, we can denote the above with:</p>
+<p>Mathematically, we can denote the above by:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1266,7 +1269,7 @@ and <span class="math notranslate nohighlight">\(\mathbf{Y}\in\mathbb{R}^{k\time
 <strong class="command">scipy.spatial.distance.cdist</strong>.
 We need to be careful, though. They bring about
 a distance matrix of size <span class="math notranslate nohighlight">\(n\times k\)</span>, which can become quite large.
-For instance, for <span class="math notranslate nohighlight">\(n=k=100{,}000\)</span>, we need roughly 80 GB of RAM
+For instance, for <span class="math notranslate nohighlight">\(n=k=100 000\)</span>, we need roughly 80 GB of RAM
 to store it.</p>
 <p>Here are the distances between all the pairs of points in the same
 dataset.</p>
@@ -1288,9 +1291,10 @@ dataset.</p>
 <p>Hence, <span class="math notranslate nohighlight">\(d_{i,j}=\|\mathbf{x}_{i,\cdot}-\mathbf{x}_{j,\cdot}\|\)</span>.
 That we have zeros on the diagonal
 is due to the fact that <span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|= 0\)</span>
-if and only if <span class="math notranslate nohighlight">\(\boldsymbol{u} = \boldsymbol{v}\)</span>.
-Furthermore, <span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|=\|\boldsymbol{v} - \boldsymbol{u}\|\)</span>, which implies the symmetry of <span class="math notranslate nohighlight">\(\mathbf{D}\)</span>,
-i.e., it holds <span class="math notranslate nohighlight">\(\mathbf{D}^T=\mathbf{D}\)</span></p>
+if and only if <span class="math notranslate nohighlight">\(\boldsymbol{u} = \boldsymbol{v}\)</span>. Furthermore,
+<span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|=\|\boldsymbol{v} - \boldsymbol{u}\|\)</span>,
+which implies the symmetry of <span class="math notranslate nohighlight">\(\mathbf{D}\)</span>,
+i.e., it holds <span class="math notranslate nohighlight">\(\mathbf{D}^T=\mathbf{D}\)</span>.</p>
 <p><a class="reference internal" href="#fig-euclid-dist-ex"><span class="std std-numref">Figure 8.2</span></a>
 illustrates all six non-trivial pairwise distances.
 Let us emphasise that our perception of distance is disturbed.
@@ -1330,19 +1334,17 @@ and classification (<a class="reference internal" href="430-group-by.html#sec-kn
 <li><p>density estimation (which we can use outlier detection,
 see <a class="reference internal" href="520-missingness.html#sec-outliers"><span class="std std-numref">Section 15.4</span></a>).</p></li>
 </ul>
-<p>In the sequel, whenever we apply them,
-we will be assuming that data have been
-appropriately preprocessed: in particular, that columns
+<p>In the sequel, whenever we apply them, we assume that data have been
+appropriately preprocessed. In particular, expect that columns
 are on the same scale (e.g., are standardised). Otherwise, computing sums
 of their squared differences might not make sense at all.</p>
 </div>
 </section>
 <section id="centroids">
 <span id="sec-centroid"></span><h3><span class="section-number">8.4.2. </span>Centroids<a class="headerlink" href="#centroids" title="Link to this heading">#</a></h3>
-<p>So far we have been only discussing ways to aggregate unidimensional data
-(for instance, each matrix column separately).
-It turns out that some summaries can be generalised
-to the multidimensional case.</p>
+<p>So far we have been only discussing ways to aggregate unidimensional data,
+e.g., each matrix column separately. It turns out that some
+of the introduced summaries can be generalised to the multidimensional case.</p>
 <p>For instance, it can be shown that the arithmetic mean of
 a vector <span class="math notranslate nohighlight">\((x_1,\dots,x_n)\)</span> is a point <span class="math notranslate nohighlight">\(c\)</span> that
 minimises the sum of the <em>squared</em> unidimensional distances
@@ -1371,21 +1373,22 @@ the point <span class="math notranslate nohighlight">\(\boldsymbol{c}\in\mathbb{
 \frac{1}{n} \sum_{i=1}^n \mathbf{x}_{i, \cdot},
 \]</div>
 </div>
-<p>which is the componentwise arithmetic mean, i.e., its <span class="math notranslate nohighlight">\(j\)</span>-th component is:</p>
+<p>which is the componentwise arithmetic mean. In other words, its <span class="math notranslate nohighlight">\(j\)</span>-th
+component is given by:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 c_j = \frac{1}{n} \sum_{i=1}^n x_{i, j}.
 \]</div>
 </div>
-<p>For instance, the centroid of the dataset depicted in
+<p>For example, the centroid of the dataset depicted in
 <a class="reference internal" href="#fig-euclid-dist-ex"><span class="std std-numref">Figure 8.2</span></a> is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">c</span>
 <span class="c1">## array([0.125, 0.5  ])</span>
 </pre></div>
 </div>
-<p>Centroids are, amongst others, the basis for the <span class="math notranslate nohighlight">\(k\)</span>-means
+<p>Centroids are the basis for the <span class="math notranslate nohighlight">\(k\)</span>-means
 clustering method that we discuss in <a class="reference internal" href="430-group-by.html#sec-kmeans"><span class="std std-numref">Section 12.4</span></a>.</p>
 </section>
 <section id="multidimensional-dispersion-and-other-aggregates">
@@ -1762,7 +1765,7 @@ but let us stick with the traditional name.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-09-06T11:17:24+1000.
+              Last updated on 2023-11-05T13:32:41+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

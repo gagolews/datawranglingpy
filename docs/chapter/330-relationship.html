@@ -28,13 +28,13 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="10. Introducing data frames" href="410-data-frame.html" /><link rel="prev" title="8. Processing multidimensional data" href="320-transform-matrix.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/330-relationship.html" />
 
-    <link rel="shortcut icon" href="../_static/favicon.png"/><!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.2.5 and Furo 2023.08.19 -->
         <title>9. Exploring relationships between variables - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=3f409c7f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
     
     
 
@@ -181,6 +181,9 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky">
+<div class="sidebar-logo-container">
+  <a class="sidebar-brand" href="../index.html"><img class="sidebar-logo" src="https://www.gagolewski.com/_static/img/datawranglingpy.png" alt="Logo"/></a>
+</div>
 
 <span class="sidebar-brand-text">
 <a class="sidebar-brand" href="../index.html">Minimalist Data Wrangling with Python</a>
@@ -358,8 +361,8 @@ about height.</p>
 <p>Let us explore some basic means for measuring
 (expressing as a single number) the degree of association
 between a set of pairs of points.</p>
-<section id="pearson-linear-correlation-coefficient">
-<span id="sec-pearson"></span><h3><span class="section-number">9.1.1. </span>Pearson linear correlation coefficient<a class="headerlink" href="#pearson-linear-correlation-coefficient" title="Link to this heading">#</a></h3>
+<section id="pearson-s-linear-correlation-coefficient">
+<span id="sec-pearson"></span><h3><span class="section-number">9.1.1. </span>Pearson’s linear correlation coefficient<a class="headerlink" href="#pearson-s-linear-correlation-coefficient" title="Link to this heading">#</a></h3>
 <p>The Pearson <em>linear correlation</em> coefficient is given by:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -768,26 +771,25 @@ correlated with life expectancy:</p>
 <p>which means that modelling our data via
 <span class="math notranslate nohighlight">\(\boldsymbol{y}=a \log\boldsymbol{x}+b\)</span> could be an idea worth considering.</p>
 </section>
-<section id="spearman-rank-correlation-coefficient">
-<span id="sec-spearman"></span><h3><span class="section-number">9.1.4. </span>Spearman rank correlation coefficient<a class="headerlink" href="#spearman-rank-correlation-coefficient" title="Link to this heading">#</a></h3>
+<section id="spearman-s-rank-correlation-coefficient">
+<span id="sec-spearman"></span><h3><span class="section-number">9.1.4. </span>Spearman’s rank correlation coefficient<a class="headerlink" href="#spearman-s-rank-correlation-coefficient" title="Link to this heading">#</a></h3>
 <p>Sometimes we might be interested in measuring
 the degree of any kind of <em>monotonic</em> correlation – to what extent
 one variable is an increasing or decreasing function
 of another one (linear, logarithmic, quadratic over the positive
-domain, etc.).</p>
-<p>Spearman’s rank correlation coefficient  is frequently used
-in such a scenario:</p>
+domain, etc.). In such a scenario, the Spearman <em>rank correlation</em>
+coefficient is frequently used:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
 \rho(\boldsymbol{x}, \boldsymbol{y}) = r(R(\boldsymbol{x}), R(\boldsymbol{y})),
 \]</div>
 </div>
-<p>which is<a class="footnote-reference brackets" href="#footspearman" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> the Pearson coefficient
+<p>which is<a class="footnote-reference brackets" href="#footspearman" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> the Pearson linear coefficient
 computed over vectors of the corresponding
 ranks of all the elements in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>
-(denoted with <span class="math notranslate nohighlight">\(R(\boldsymbol{x})\)</span> and <span class="math notranslate nohighlight">\(R(\boldsymbol{y})\)</span>, respectively).</p>
-<p>Hence, the two following calls are equivalent:</p>
+(denoted by <span class="math notranslate nohighlight">\(R(\boldsymbol{x})\)</span> and <span class="math notranslate nohighlight">\(R(\boldsymbol{y})\)</span>, respectively).
+Hence, the two following calls are equivalent:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.8275220380818622</span>
 <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span>
@@ -799,13 +801,13 @@ ranks of all the elements in <span class="math notranslate nohighlight">\(\bolds
 </div>
 <p>Let us point out that this measure is invariant with respect to
 monotone transformations of the input variables
-(up to the sign):</p>
+(up to the sign).
+This is because they do not change the observations’
+ranks (or only reverse them).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## -0.8275220380818622</span>
 </pre></div>
 </div>
-<p>This is because such transformations do not change the observations’
-ranks (or only reverse them).</p>
 <div class="proof proof-type-exercise" id="id34">
 
     <div class="proof-title">
@@ -1004,7 +1006,7 @@ y = \mathbf{c} \mathbf{x}^T + c_{m+1},
 <p>where <span class="math notranslate nohighlight">\(\mathbf{c}=[c_1\ c_2\ \cdots\ c_m]\)</span>
 and <span class="math notranslate nohighlight">\(\mathbf{x}=[x_1\ x_2\ \cdots\ x_m]\)</span>.</p>
 <p>For <span class="math notranslate nohighlight">\(m=1\)</span>, the above simply defines a straight line,
-which we traditionally denote with:</p>
+which we traditionally denote by:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
@@ -2334,7 +2336,7 @@ applied to obtain a matrix that gives the total number of fruits and
 <section id="matrix-inverse">
 <span id="sec-matrix-inverse"></span><h3><span class="section-number">9.3.3. </span>Matrix inverse<a class="headerlink" href="#matrix-inverse" title="Link to this heading">#</a></h3>
 <p>The <em>inverse</em> of a square matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
-(if it exists) is denoted with <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> – it is the matrix
+(if it exists) is denoted by <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>. It is the matrix
 fulfilling the identity:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
@@ -2558,7 +2560,7 @@ hopefully visible <a class="reference internal" href="#fig-chainlink-rotated"><s
 </figure>
 <p>It turns out that we may find a noteworthy viewpoint using the SVD.
 Namely, we can perform the decomposition
-of a centred dataset which we denote with <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
+of a centred dataset which we denote by <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
 <div class="math-wrapper docutils container">
 <div class="math notranslate nohighlight">
 \[
@@ -3013,7 +3015,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-09-06T11:17:24+1000.
+              Last updated on 2023-11-05T13:32:41+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -3036,7 +3038,7 @@ to function properly. We need more maths in our lives.</p>
             <ul>
 <li><a class="reference internal" href="#">9. Exploring relationships between variables</a><ul>
 <li><a class="reference internal" href="#measuring-correlation">9.1. Measuring correlation</a><ul>
-<li><a class="reference internal" href="#pearson-linear-correlation-coefficient">9.1.1. Pearson linear correlation coefficient</a><ul>
+<li><a class="reference internal" href="#pearson-s-linear-correlation-coefficient">9.1.1. Pearson’s linear correlation coefficient</a><ul>
 <li><a class="reference internal" href="#perfect-linear-correlation">9.1.1.1. Perfect linear correlation</a></li>
 <li><a class="reference internal" href="#strong-linear-correlation">9.1.1.2. Strong linear correlation</a></li>
 <li><a class="reference internal" href="#no-linear-correlation-does-not-imply-independence">9.1.1.3. No linear correlation does not imply independence</a></li>
@@ -3046,7 +3048,7 @@ to function properly. We need more maths in our lives.</p>
 </li>
 <li><a class="reference internal" href="#correlation-heat-map">9.1.2. Correlation heat map</a></li>
 <li><a class="reference internal" href="#linear-correlation-coefficients-on-transformed-data">9.1.3. Linear correlation coefficients on transformed data</a></li>
-<li><a class="reference internal" href="#spearman-rank-correlation-coefficient">9.1.4. Spearman rank correlation coefficient</a></li>
+<li><a class="reference internal" href="#spearman-s-rank-correlation-coefficient">9.1.4. Spearman’s rank correlation coefficient</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#regression-tasks">9.2. Regression tasks</a><ul>

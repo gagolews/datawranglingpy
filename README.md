@@ -1,8 +1,9 @@
+<!-- NOTE EDIT in *-src; *-public is a clone! -->
+
 <a href="https://datawranglingpy.gagolewski.com/"><img src="docs/_static/img/cover.png" align="right" height="225" /></a>
 # [Minimalist Data Wrangling with Python](https://datawranglingpy.gagolewski.com/)
 
-*Minimalist Data Wrangling with Python* by [Marek Gagolewski][1]
-is envisaged as a student's first
+*Minimalist Data Wrangling with Python* is envisaged as a student's first
 introduction to data science, providing a high-level overview as well as
 discussing key concepts in detail. We explore methods for
 cleaning data gathered from different sources, transforming, selecting, and
@@ -11,17 +12,16 @@ reduction, identifying naturally occurring data clusters, modelling patterns in
 data, comparing data between groups, and reporting the results.
 
 For many students around the world, educational resources are hardly
-affordable. Therefore, the author has decided that this book should remain
-an independent, non-profit, open-access project.
-Whilst, for some people, the presence of a "designer tag" from a
-major publisher might still be a proxy for quality, it is his hope
-that this publication will prove useful to those who seek knowledge for
-knowledge's sake.
-
-You can read it at:
+affordable. Therefore, I have decided that this book should remain
+an independent, non-profit, open-access project. You can read it at:
 
 * <https://datawranglingpy.gagolewski.com/> (a browser-friendly version)
 * <https://datawranglingpy.gagolewski.com/datawranglingpy.pdf> (PDF)
+
+Whilst, for some people, the presence of a "designer tag" from a
+major publisher might still be a proxy for quality, it is my hope
+that this publication will prove useful to those who seek knowledge for
+knowledge's sake.
 
 A **printed version** can be ordered from
 [Amazon](https://www.amazon.com/dp/0645571911):
@@ -37,8 +37,7 @@ A **printed version** can be ordered from
 [SE](https://amazon.se/dp/0645571911)
 [UK](https://amazon.co.uk/dp/0645571911)
 [US](https://amazon.com/dp/0645571911).
-
-
+I receive no revenue from sales.
 
 
 **Please spread the news about this project.**
@@ -94,4 +93,4 @@ This material is licensed under the Creative Commons
 (CC BY-NC-ND 4.0).
 
 [1]: https://www.gagolewski.com/
-[2]: https://creativecommons.org/licenses/by-nc-nd/4.0/
+[2]: https://creativecommons.org/licenses/by-nc-nd/4.0
