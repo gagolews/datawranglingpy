@@ -18,26 +18,13 @@ an independent, non-profit, open-access project. You can read it at:
 * <https://datawranglingpy.gagolewski.com/> (a browser-friendly version)
 * <https://datawranglingpy.gagolewski.com/datawranglingpy.pdf> (PDF)
 
+You can also order a
+[paper copy](https://datawranglingpy.gagolewski.com/order-paper-copy.html).
+
 Whilst, for some people, the presence of a "designer tag" from a
 major publisher might still be a proxy for quality, it is my hope
 that this publication will prove useful to those who seek knowledge for
 knowledge's sake.
-
-A **printed version** can be ordered from
-[Amazon](https://www.amazon.com/dp/0645571911):
-[AU](https://amazon.com.au/dp/0645571911)
-[CA](https://amazon.ca/dp/0645571911)
-[DE](https://amazon.de/dp/0645571911)
-[ES](https://amazon.es/dp/0645571911)
-[FR](https://amazon.fr/dp/0645571911)
-[IT](https://amazon.it/dp/0645571911)
-[JP](https://amazon.co.jp/dp/0645571911)
-[NL](https://amazon.nl/dp/0645571911)
-[PL](https://amazon.pl/dp/0645571911)
-[SE](https://amazon.se/dp/0645571911)
-[UK](https://amazon.co.uk/dp/0645571911)
-[US](https://amazon.com/dp/0645571911).
-I receive no revenue from sales.
 
 
 **Please spread the news about this project.**
