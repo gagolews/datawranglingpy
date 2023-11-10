@@ -635,14 +635,25 @@ the <code class="docutils literal notranslate"><span class="pre">dict</span></co
 <span class="c1">## [1, 2, 3]</span>
 </pre></div>
 </div>
-<p>In this context, <code class="docutils literal notranslate"><span class="pre">x[0]</span></code> is not valid – it is not an object of sequential type;
-a key of <code class="docutils literal notranslate"><span class="pre">0</span></code> does not exist in a given dictionary.</p>
-<div style="margin-top: 1em"></div><p>The <strong class="command">in</strong> operator checks whether a given key exists:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">x</span>  <span class="c1"># a tuple of 4 tests&#39; results</span>
+<p>In this context, <code class="docutils literal notranslate"><span class="pre">x[0]</span></code> is not valid and raises an error: a dictionary
+is not an object of sequential type; a key of <code class="docutils literal notranslate"><span class="pre">0</span></code> does not exist in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p>If we are unsure whether a specific key is defined, we can use the
+<strong class="command">in</strong> operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;a&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">x</span>  <span class="c1"># a tuple of four tests&#39; results</span>
 <span class="c1">## (True, True, True, False)</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>We can also add new elements to a dictionary:</p>
+<p>There is also a method called <strong class="command">get</strong>, which
+returns an element associated with a given key, or something else
+(by default, <code class="docutils literal notranslate"><span class="pre">None</span></code>) if we have a mismatch:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="c1">## [1, 2, 3]</span>
+<span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>  <span class="c1"># if missing, returns None by default</span>
+<span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+<span class="c1">## &#39;unknown&#39;</span>
+</pre></div>
+</div>
+<div style="margin-top: 1em"></div><p>We can also add new elements to a dictionary using the following syntax:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;more spam!&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## {&#39;a&#39;: [1, 2, 3], &#39;b&#39;: 7, &#39;z&#39;: &#39;spam!&#39;, &#39;f&#39;: &#39;more spam!&#39;}</span>
@@ -706,18 +717,20 @@ functions and what kind of iterable objects they return.</p>
 </div></div><section id="the-for-loop">
 <h3><span class="section-number">3.4.1. </span>The <strong class="command">for</strong> loop<a class="headerlink" href="#the-for-loop" title="Link to this heading">#</a></h3>
 <p>The <strong class="command">for</strong> loop iterates over every element in an iterable object,
-allowing us to perform a specific action. For instance:</p>
+allowing us to perform a specific action. For instance,
+we can get access to each item in a list as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;three&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="n">j</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="kc">False</span><span class="p">]</span>  <span class="c1"># some iterable object</span>
-<span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>   <span class="c1"># for every element in `x`, let&#39;s call it `el`</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>  <span class="c1"># do something on `el`</span>
+<span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>   <span class="c1"># for every element in `x`, let&#39;s call it `el`...</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>  <span class="c1"># ... do something on `el`</span>
 <span class="c1">## 1</span>
 <span class="c1">## two</span>
 <span class="c1">## [&#39;three&#39;, 3j, 3]</span>
 <span class="c1">## False</span>
 </pre></div>
 </div>
-<p>Another example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+<p>Another common pattern is to traverse a list using indexes
+of all the elements:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>  <span class="c1"># for i = 0, 1, ..., len(x)-1</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;: &quot;</span><span class="p">)</span>  <span class="c1"># sep=&quot; &quot; is the default (element separator)</span>
 <span class="c1">## 0: 1</span>
 <span class="c1">## 1: two</span>
@@ -725,9 +738,13 @@ allowing us to perform a specific action. For instance:</p>
 <span class="c1">## 3: False</span>
 </pre></div>
 </div>
-<p>One more example, where we compute (and print using f-strings;
-see <a class="reference internal" href="120-scalar.html#sec-f-strings"><span class="std std-numref">Section 2.1.3.1</span></a>) the elementwise product
-of two vectors of equal lengths:</p>
+<div class="proof proof-type-example" id="id10">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.7</span>
+        
+    </div><div class="proof-content">
+<p>Let us compute the <em>elementwise product</em> of two vectors of equal lengths:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>   <span class="mi">3</span><span class="p">,</span>    <span class="mi">4</span><span class="p">,</span>     <span class="mi">5</span><span class="p">]</span>  <span class="c1"># for testing</span>
 <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">]</span>  <span class="c1"># just a test</span>
 <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># result list – start with an empty one</span>
@@ -742,13 +759,43 @@ of two vectors of equal lengths:</p>
 <span class="c1">## The product of      5 and  10000 is  50000</span>
 </pre></div>
 </div>
-<p>The resulting list:</p>
+<p>The items were printed with a little help of f-strings;
+see <a class="reference internal" href="120-scalar.html#sec-f-strings"><span class="std std-numref">Section 2.1.3.1</span></a>. Here is the resulting list:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="c1">## [1, 20, 300, 4000, 50000]</span>
 </pre></div>
 </div>
-<p>Yet another example: here is
-a function that determines the minimum of a given iterable object
+</div></div><div class="proof proof-type-example" id="id11">
+
+    <div class="proof-title">
+        <span class="proof-type">Example 3.8</span>
+        
+    </div><div class="proof-content">
+<p>A dictionary may be useful for recoding lists of labels:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>  <span class="c1"># from=to</span>
+    <span class="n">apple</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="n">pear</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+    <span class="n">kiwi</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>And now:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;pear&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;kiwi&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;kiwi&quot;</span><span class="p">]</span>
+<span class="n">recoded_x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">fruit</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="n">recoded_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">map</span><span class="p">[</span><span class="n">fruit</span><span class="p">])</span>  <span class="c1"># or, e.g., map.get(fruit, &quot;unknown&quot;)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">recoded_x</span><span class="p">)</span>
+<span class="c1">## [&#39;red&#39;, &#39;yellow&#39;, &#39;red&#39;, &#39;green&#39;, &#39;red&#39;, &#39;green&#39;]</span>
+</pre></div>
+</div>
+</div></div><div class="proof proof-type-exercise" id="id12">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 3.9</span>
+        
+    </div><div class="proof-content">
+<p>Here is a function that determines the minimum of a given iterable object
 (compare the built-in <strong class="command">min</strong> function,
 see <strong class="command">help</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;min&quot;)</span></code>).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -764,18 +811,22 @@ see <strong class="command">help</strong><code class="code docutils literal notr
     <span class="k">return</span> <span class="n">curmin</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id10">
+<p>Note that due to the use of <code class="docutils literal notranslate"><span class="pre">math.inf</span></code>, the function operates
+under the assumption that all elements in <code class="docutils literal notranslate"><span class="pre">x</span></code> are numeric.
+Try to rewrite it in such a way that it will work correctly, e.g.,
+in the case of lists of strings.</p>
+</div></div><div class="proof proof-type-exercise" id="id13">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 3.7</span>
+        <span class="proof-type">Exercise 3.10</span>
         
     </div><div class="proof-content">
 <p>Author some basic versions (using the <strong class="command">for</strong> loop) of the built-in
 <strong class="command">max</strong>, <strong class="command">sum</strong>, <strong class="command">any</strong>, and <strong class="command">all</strong> functions.</p>
-</div></div><div class="proof proof-type-exercise" id="id11">
+</div></div><div class="proof proof-type-exercise" id="id14">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 3.8</span>
+        <span class="proof-type">Exercise 3.11</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -853,10 +904,10 @@ can be verified as follows:</p>
 </pre></div>
 </div>
 <p>because a tuple is a sequential object.</p>
-<div class="proof proof-type-example" id="id12">
+<div class="proof proof-type-example" id="id15">
 
     <div class="proof-title">
-        <span class="proof-type">Example 3.9</span>
+        <span class="proof-type">Example 3.12</span>
         
     </div><div class="proof-content">
 <p>(*) Knowing that the <strong class="command">dict.items</strong> method generates an
@@ -954,10 +1005,10 @@ in their parameter list:</p>
 On the other hand, <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is a dictionary
 that stores all keyword arguments that are not mentioned in the function’s
 parameter list.</p>
-<div class="proof proof-type-exercise" id="id13">
+<div class="proof proof-type-exercise" id="id16">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 3.10</span>
+        <span class="proof-type">Exercise 3.13</span>
         
     </div><div class="proof-content">
 <p>From time to time, we will be coming across
@@ -1124,54 +1175,54 @@ in the <a class="reference external" href="https://docs.python.org/3/tutorial/in
 </section>
 <section id="exercises">
 <h2><span class="section-number">3.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<div class="proof proof-type-exercise" id="id14">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 3.11</span>
-        
-    </div><div class="proof-content">
-<p>Name the sequential objects we introduced.</p>
-</div></div><div class="proof proof-type-exercise" id="id15">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 3.12</span>
-        
-    </div><div class="proof-content">
-<p>Is every iterable object sequential?</p>
-</div></div><div class="proof proof-type-exercise" id="id16">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 3.13</span>
-        
-    </div><div class="proof-content">
-<p>Is <code class="docutils literal notranslate"><span class="pre">dict</span></code> an instance of a sequential type?</p>
-</div></div><div class="proof proof-type-exercise" id="id17">
+<div class="proof proof-type-exercise" id="id17">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 3.14</span>
         
     </div><div class="proof-content">
-<p>What is the meaning of `<strong class="command">+</strong>` and `<strong class="command">*</strong>` operations
-on strings and lists?</p>
+<p>Name the sequential objects we introduced.</p>
 </div></div><div class="proof proof-type-exercise" id="id18">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 3.15</span>
         
     </div><div class="proof-content">
-<p>Given a list <code class="docutils literal notranslate"><span class="pre">x</span></code> of numeric scalars, how can we create a new list
-of the same length giving the squares of all the elements in the former?</p>
+<p>Is every iterable object sequential?</p>
 </div></div><div class="proof proof-type-exercise" id="id19">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 3.16</span>
         
     </div><div class="proof-content">
-<p>(*) How can we make an object copy and when should we do so?</p>
+<p>Is <code class="docutils literal notranslate"><span class="pre">dict</span></code> an instance of a sequential type?</p>
 </div></div><div class="proof proof-type-exercise" id="id20">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 3.17</span>
+        
+    </div><div class="proof-content">
+<p>What is the meaning of `<strong class="command">+</strong>` and `<strong class="command">*</strong>` operations
+on strings and lists?</p>
+</div></div><div class="proof proof-type-exercise" id="id21">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 3.18</span>
+        
+    </div><div class="proof-content">
+<p>Given a list <code class="docutils literal notranslate"><span class="pre">x</span></code> of numeric scalars, how can we create a new list
+of the same length giving the squares of all the elements in the former?</p>
+</div></div><div class="proof proof-type-exercise" id="id22">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 3.19</span>
+        
+    </div><div class="proof-content">
+<p>(*) How can we make an object copy and when should we do so?</p>
+</div></div><div class="proof proof-type-exercise" id="id23">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 3.20</span>
         
     </div><div class="proof-content">
 <p>What is the difference between <code class="docutils literal notranslate"><span class="pre">x[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">x[1]</span></code>, <code class="docutils literal notranslate"><span class="pre">x[:0]</span></code>, and <code class="docutils literal notranslate"><span class="pre">x[:1]</span></code>,
@@ -1229,7 +1280,7 @@ displaying numerous ads.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-07T09:51:07+1100.
+              Last updated on 2023-11-10T10:59:52+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
