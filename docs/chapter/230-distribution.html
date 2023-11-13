@@ -191,7 +191,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9005
+v1.0.3.9011
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1503,18 +1503,41 @@ either uniformly or normally distributed.</p>
 <p>Adding noise also might be performed for aesthetic reasons,
 e.g., when drawing scatter plots.</p>
 </section>
+<section id="independence-assumption">
+<h3><span class="section-number">6.4.6. </span>Independence assumption<a class="headerlink" href="#independence-assumption" title="Link to this heading">#</a></h3>
+<p>Let us generate nine binary digits in a random fashion:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">251</span><span class="p">)</span>  <span class="c1"># HIDDEN</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">9</span><span class="p">)</span>
+<span class="c1">## array([1, 1, 1, 1, 1, 1, 1, 1, 1])</span>
+</pre></div>
+</div>
+<p>We can consider ourselves very lucky; all numbers are the same.
+So, the next number <em>must</em> be a “zero”, finally, right?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">## array([1])</span>
+</pre></div>
+</div>
+<p>Wrong. The numbers we generate are <em>independent</em> of each other.
+There is no history. In the above model of randomness (Bernoulli trials;
+two possible outcomes with the same probability), there is a 50% chance
+of obtaining a “one” <em>regardless</em> of how many “ones” were observed
+previously.</p>
+<p>We should not seek patterns where there are none. Our brain forms
+expectations about the world, which are difficult to overcome.
+But the reality could not care less about what we consider it to be.</p>
+</section>
 </section>
 <section id="further-reading">
 <h2><span class="section-number">6.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
 <p>For an excellent general introductory course on probability
-and statistics; see <span id="id17">[<a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">38</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">40</a>]</span>
+and statistics, see <span id="id17">[<a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">38</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">40</a>]</span>
 and also <span id="id18">[<a class="reference internal" href="999-bibliography.html#id155" title="Ross, S.M. (2020).  Introduction to Probability and Statistics for Engineers and Scientists. Academic Press.">79</a>]</span>.
 More advanced students are likely to enjoy other
 classics such as <span id="id19">[<a class="reference internal" href="999-bibliography.html#id157" title="Bartoszyński, R. and Niewiadomska-Bugaj, M. (2007).  Probability and Statistical Inference. Wiley.">4</a>, <a class="reference internal" href="999-bibliography.html#id46" title="Billingsley, P. (1995).  Probability and Measure. John Wiley &amp; Sons.">7</a>, <a class="reference internal" href="999-bibliography.html#id44" title="Cramér, H. (1946).  Mathematical Methods of Statistics. Princeton University Press. URL: https://archive.org/details/in.ernet.dli.2015.223699.">17</a>, <a class="reference internal" href="999-bibliography.html#id156" title="Feller, W. (1950).  An Introduction to Probability Theory and Its Applications: Volume I. Wiley.">26</a>]</span>.
 To go beyond the fundamentals, check out <span id="id20">[<a class="reference internal" href="999-bibliography.html#id106" title="Efron, B. and Hastie, T. (2016).  Computer Age Statistical Inference: Algorithms, Evidence, and Data Science. Cambridge University Press.">24</a>]</span>.
 Topics in random number generation are covered in
 <span id="id21">[<a class="reference internal" href="999-bibliography.html#id49" title="Gentle, J.E. (2003).  Random Number Generation and Monte Carlo Methods. Springer.">37</a>, <a class="reference internal" href="999-bibliography.html#id141" title="Knuth, D.E. (1997).  The Art of Computer Programming II: Seminumerical Algorithms. Addison-Wesley.">56</a>, <a class="reference internal" href="999-bibliography.html#id51" title="Robert, C.P. and Casella, G. (2004).  Monte Carlo Statistical Methods. Springer-Verlag.">78</a>]</span>.</p>
-<p>For a more comprehensive introduction to exploratory data analysis,
+<p>For a more detailed introduction to exploratory data analysis,
 see the classical books by Tukey <span id="id22">[<a class="reference internal" href="999-bibliography.html#id145" title="Tukey, J.W. (1962).  The future of data analysis. Annals of Mathematical Statistics, 33(1):1–67. URL: https://projecteuclid.org/journalArticle/Download?urlId=10.1214%2Faoms%2F1177704711, DOI: 10.1214/aoms/1177704711.">87</a>, <a class="reference internal" href="999-bibliography.html#id144" title="Tukey, J.W. (1977).  Exploratory Data Analysis. Addison-Wesley.">88</a>]</span>
 and Tufte <span id="id23">[<a class="reference internal" href="999-bibliography.html#id143" title="Tufte, E.R. (2001).  The Visual Display of Quantitative Information. Graphics Press.">86</a>]</span>.</p>
 <div style="margin-top: 1em"></div><p>We took the logarithm of the log-normally distributed
@@ -1697,7 +1720,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-10T10:59:52+1100.
+              Last updated on 2023-11-13T20:52:56+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1743,6 +1766,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
 <li><a class="reference internal" href="#sampling-from-other-distributions">6.4.3. Sampling from other distributions</a></li>
 <li><a class="reference internal" href="#natural-variability">6.4.4. Natural variability</a></li>
 <li><a class="reference internal" href="#adding-jitter-white-noise">6.4.5. Adding jitter (white noise)</a></li>
+<li><a class="reference internal" href="#independence-assumption">6.4.6. Independence assumption</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#further-reading">6.5. Further reading</a></li>
@@ -1758,7 +1782,7 @@ own; see <a class="reference internal" href="#sec-pareto"><span class="std std-n
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=32b344a2"></script>
+</div><script src="../_static/documentation_options.js?v=aa0d8e41"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
