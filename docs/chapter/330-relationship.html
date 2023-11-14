@@ -33,8 +33,10 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cc2833c3" />
     
     
 
@@ -320,7 +322,7 @@ are appreciated. Make sure to check out
 <span class="c1">## (4221, 7)</span>
 </pre></div>
 </div>
-<p>We thus have <span class="math notranslate nohighlight">\(n=4221\)</span> participants and seven different
+<p>We thus have <span class="math">\(n=4221\)</span> participants and seven different
 features describing them, in this order:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body_columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
@@ -351,7 +353,7 @@ between a set of pairs of points.</p>
 <span id="sec-pearson"></span><h3><span class="section-number">9.1.1. </span>Pearson’s linear correlation coefficient<a class="headerlink" href="#pearson-s-linear-correlation-coefficient" title="Link to this heading">#</a></h3>
 <p>The Pearson <em>linear correlation</em> coefficient is given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 r(\boldsymbol{x}, \boldsymbol{y}) = \frac{1}{n} \sum_{i=1}^n
    \frac{x_i - \bar{x}}{s_{x}}
@@ -359,10 +361,10 @@ r(\boldsymbol{x}, \boldsymbol{y}) = \frac{1}{n} \sum_{i=1}^n
    \frac{y_i - \bar{y}}{s_{y}},
 \]</div>
 </div>
-<p>with <span class="math notranslate nohighlight">\(s_x, s_y\)</span> denoting the standard deviations
-and <span class="math notranslate nohighlight">\(\bar{x}, \bar{y}\)</span> being the means of
-<span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> and
-<span class="math notranslate nohighlight">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span>, respectively.</p>
+<p>with <span class="math">\(s_x, s_y\)</span> denoting the standard deviations
+and <span class="math">\(\bar{x}, \bar{y}\)</span> being the means of
+<span class="math">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span> and
+<span class="math">\(\boldsymbol{y}=(y_1,\dots,y_n)\)</span>, respectively.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Look carefully: we are computing the mean of the pairwise
@@ -370,7 +372,7 @@ products of standardised versions of the two vectors.
 It is a normalised measure of how they <em>vary together</em>
 (co-variance).</p>
 <p>(*) Furthermore, <a class="reference internal" href="#sec-dot-cosine"><span class="std std-numref">Section 9.3.1</span></a> mentions that
-<span class="math notranslate nohighlight">\(r\)</span> is the cosine of the angle between
+<span class="math">\(r\)</span> is the cosine of the angle between
 centred and normalised versions of the vectors.</p>
 </div>
 <p>Here is how we can compute it manually:</p>
@@ -390,28 +392,28 @@ centred and normalised versions of the vectors.</p>
 <p>Note the <code class="docutils literal notranslate"><span class="pre">[0]</span></code> part: the function returns more than we actually need.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Basic properties of Pearson’s <span class="math notranslate nohighlight">\(r\)</span> include:</p>
+<p>Basic properties of Pearson’s <span class="math">\(r\)</span> include:</p>
 <ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>
+<li><p><span class="math">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>
 (symmetric);</p></li>
-<li><p><span class="math notranslate nohighlight">\(|r(\boldsymbol{x}, \boldsymbol{y})| \le 1\)</span>
+<li><p><span class="math">\(|r(\boldsymbol{x}, \boldsymbol{y})| \le 1\)</span>
 (bounded from below by -1 and from above by 1);</p></li>
-<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=1\)</span> if and only if
-<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&gt;0\)</span> and any <span class="math notranslate nohighlight">\(b\)</span>,
+<li><p><span class="math">\(r(\boldsymbol{x}, \boldsymbol{y})=1\)</span> if and only if
+<span class="math">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math">\(a&gt;0\)</span> and any <span class="math">\(b\)</span>,
 (reaches the maximum when one variable is an increasing
 linear function of the other one);</p></li>
-<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, -\boldsymbol{y})=-r(\boldsymbol{x}, \boldsymbol{y})\)</span>
+<li><p><span class="math">\(r(\boldsymbol{x}, -\boldsymbol{y})=-r(\boldsymbol{x}, \boldsymbol{y})\)</span>
 (negative scaling (reflection) of one variable changes the sign of the
 coefficient);</p></li>
-<li><p><span class="math notranslate nohighlight">\(r(\boldsymbol{x}, a\boldsymbol{y}+b)=r(\boldsymbol{x}, \boldsymbol{y})\)</span>
-for any <span class="math notranslate nohighlight">\(a&gt;0\)</span> and <span class="math notranslate nohighlight">\(b\)</span> (invariant to translation and scaling of inputs
+<li><p><span class="math">\(r(\boldsymbol{x}, a\boldsymbol{y}+b)=r(\boldsymbol{x}, \boldsymbol{y})\)</span>
+for any <span class="math">\(a&gt;0\)</span> and <span class="math">\(b\)</span> (invariant to translation and scaling of inputs
 that does not change the sign of elements).</p></li>
 </ol>
 </div>
 <p>To get more insight, below we shall illustrate some interesting
 <em>correlations</em> using the following helper function
-that draws a scatter plot and prints out Pearson’s <span class="math notranslate nohighlight">\(r\)</span>
-(and Spearman’s <span class="math notranslate nohighlight">\(\rho\)</span> discussed in <a class="reference internal" href="#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>;
+that draws a scatter plot and prints out Pearson’s <span class="math">\(r\)</span>
+(and Spearman’s <span class="math">\(\rho\)</span> discussed in <a class="reference internal" href="#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>;
 let us ignore it by then):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes_eq</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -425,12 +427,12 @@ let us ignore it by then):</p>
 <section id="perfect-linear-correlation">
 <h4><span class="section-number">9.1.1.1. </span>Perfect linear correlation<a class="headerlink" href="#perfect-linear-correlation" title="Link to this heading">#</a></h4>
 <p>The aforementioned properties imply that
-<span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=-1\)</span> if and only if
-<span class="math notranslate nohighlight">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math notranslate nohighlight">\(a&lt;0\)</span> and any <span class="math notranslate nohighlight">\(b\)</span>
+<span class="math">\(r(\boldsymbol{x}, \boldsymbol{y})=-1\)</span> if and only if
+<span class="math">\(\boldsymbol{y}=a\boldsymbol{x}+b\)</span> for some <span class="math">\(a&lt;0\)</span> and any <span class="math">\(b\)</span>
 (reaches the minimum when variables are
 decreasing linear functions of each other)
 Furthermore, a variable is trivially
-perfectly correlated with itself, <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{x})=1\)</span>.</p>
+perfectly correlated with itself, <span class="math">\(r(\boldsymbol{x}, \boldsymbol{x})=1\)</span>.</p>
 <p>Consequently, we get perfect <em>linear correlation</em> (-1 or 1) when
 one variable is a scaled and shifted version (linear function)
 of the other variable; see <a class="reference internal" href="#fig-corr-ex-0"><span class="std std-numref">Figure 9.1</span></a>.</p>
@@ -485,7 +487,7 @@ presented here.</p>
     </div><div class="proof-content">
 <p>Draw a series of similar plots but
 for the case of negatively correlated point pairs,
-e.g., <span class="math notranslate nohighlight">\(y=-2x+5\)</span>.</p>
+e.g., <span class="math">\(y=-2x+5\)</span>.</p>
 </div></div><div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>As a rule of thumb, linear correlation degree of
@@ -508,7 +510,7 @@ the recipients of our exercises on data analysis.</p>
 be approximately equal to 0.
 Nevertheless, correlation close to 0 does not
 necessarily mean that two variables are unrelated to each other.
-Pearson’s <span class="math notranslate nohighlight">\(r\)</span> is a <em>linear</em> correlation coefficient, so we
+Pearson’s <span class="math">\(r\)</span> is a <em>linear</em> correlation coefficient, so we
 are quantifying only<a class="footnote-reference brackets" href="#footpearsonks" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> these types of relationships.
 See <a class="reference internal" href="#fig-corr-ex-2"><span class="std std-numref">Figure 9.3</span></a> for an illustration of this fact.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># width=height</span>
@@ -551,11 +553,11 @@ Refer to <a class="reference internal" href="#fig-corr-ex-3"><span class="std st
 <figure class="align-default" id="id28">
 <span id="fig-corr-ex-3"></span><img alt="../_images/corr-ex-3-7.png" src="../_images/corr-ex-3-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.4 </span><span class="caption-text">Example nonlinear relationships that look like linear, at least to Pearson’s <span class="math notranslate nohighlight">\(r\)</span>.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.4 </span><span class="caption-text">Example nonlinear relationships that look like linear, at least to Pearson’s <span class="math">\(r\)</span>.</span><a class="headerlink" href="#id28" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>No single measure is perfect – we are trying to compress
-<span class="math notranslate nohighlight">\(2n\)</span> data points into a single number — it is obvious that
+<span class="math">\(2n\)</span> data points into a single number — it is obvious that
 there will be many different datasets, sometimes remarkably diverse,
 that will yield the same correlation degree.</p>
 </section>
@@ -591,8 +593,8 @@ Find similar patterns in sets of health conditions.</p>
 where we would like to
 identify a transformation that expresses a variable
 as a function of one or more other features.
-For instance, when we say that <span class="math notranslate nohighlight">\(y\)</span> can be modelled approximately by <span class="math notranslate nohighlight">\(ax+b\)</span>,
-regression analysis can identify the best matching <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>
+For instance, when we say that <span class="math">\(y\)</span> can be modelled approximately by <span class="math">\(ax+b\)</span>,
+regression analysis can identify the best matching <span class="math">\(a\)</span> and <span class="math">\(b\)</span>
 coefficients; see <a class="reference internal" href="#sec-least-squares"><span class="std std-numref">Section 9.2.3</span></a> for more details.</p>
 </div>
 </section>
@@ -656,7 +658,7 @@ correlated.</p>
 is trivially correlated with itself.
 Interestingly, this heat map is symmetric
 which is due to the property
-<span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>.</p>
+<span class="math">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>.</p>
 <div class="proof proof-type-example" id="id31">
 
     <div class="proof-title">
@@ -742,7 +744,7 @@ a scatter plot.</p>
 <p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatter plots for life expectancy vs gross domestic product (purchasing power parity) on linear (left) and log-scale (right).</span><a class="headerlink" href="#id33" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>If we compute Pearson’s <span class="math notranslate nohighlight">\(r\)</span> between these two,
+<p>If we compute Pearson’s <span class="math">\(r\)</span> between these two,
 we will note a quite weak linear correlation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.6564719454863747</span>
@@ -755,7 +757,7 @@ correlated with life expectancy:</p>
 </pre></div>
 </div>
 <p>which means that modelling our data via
-<span class="math notranslate nohighlight">\(\boldsymbol{y}=a \log\boldsymbol{x}+b\)</span> could be an idea worth considering.</p>
+<span class="math">\(\boldsymbol{y}=a \log\boldsymbol{x}+b\)</span> could be an idea worth considering.</p>
 </section>
 <section id="spearman-s-rank-correlation-coefficient">
 <span id="sec-spearman"></span><h3><span class="section-number">9.1.4. </span>Spearman’s rank correlation coefficient<a class="headerlink" href="#spearman-s-rank-correlation-coefficient" title="Link to this heading">#</a></h3>
@@ -766,15 +768,15 @@ of another one (linear, logarithmic, quadratic over the positive
 domain, etc.). In such a scenario, the Spearman <em>rank correlation</em>
 coefficient is frequently used:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \rho(\boldsymbol{x}, \boldsymbol{y}) = r(R(\boldsymbol{x}), R(\boldsymbol{y})),
 \]</div>
 </div>
 <p>which is<a class="footnote-reference brackets" href="#footspearman" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> the Pearson linear coefficient
 computed over vectors of the corresponding
-ranks of all the elements in <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>
-(denoted by <span class="math notranslate nohighlight">\(R(\boldsymbol{x})\)</span> and <span class="math notranslate nohighlight">\(R(\boldsymbol{y})\)</span>, respectively).
+ranks of all the elements in <span class="math">\(\boldsymbol{x}\)</span> and <span class="math">\(\boldsymbol{y}\)</span>
+(denoted by <span class="math">\(R(\boldsymbol{x})\)</span> and <span class="math">\(R(\boldsymbol{y})\)</span>, respectively).
 Hence, the two following calls are equivalent:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">world</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">world</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.8275220380818622</span>
@@ -800,7 +802,7 @@ ranks (or only reverse them).</p>
         <span class="proof-type">Exercise 9.5</span>
         
     </div><div class="proof-content">
-<p>We included the <span class="math notranslate nohighlight">\(\rho\)</span>s in all the outputs generated
+<p>We included the <span class="math">\(\rho\)</span>s in all the outputs generated
 by our <strong class="command">plot_corr</strong> function. Review all the above figures.</p>
 </div></div><div class="proof proof-type-exercise" id="id35">
 
@@ -824,16 +826,16 @@ in the <code class="docutils literal notranslate"><span class="pre">world</span>
 </section>
 <section id="regression-tasks">
 <span id="sec-regression"></span><h2><span class="section-number">9.2. </span>Regression tasks<a class="headerlink" href="#regression-tasks" title="Link to this heading">#</a></h2>
-<p>Let us assume that we are given a <em>training/reference</em> set of <span class="math notranslate nohighlight">\(n\)</span> points
-in an <span class="math notranslate nohighlight">\(m\)</span>-dimensional space represented as a matrix
-<span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and a set of <span class="math notranslate nohighlight">\(n\)</span> corresponding
-numeric outcomes <span class="math notranslate nohighlight">\(\boldsymbol{y}\in\mathbb{R}^n\)</span>.
+<p>Let us assume that we are given a <em>training/reference</em> set of <span class="math">\(n\)</span> points
+in an <span class="math">\(m\)</span>-dimensional space represented as a matrix
+<span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and a set of <span class="math">\(n\)</span> corresponding
+numeric outcomes <span class="math">\(\boldsymbol{y}\in\mathbb{R}^n\)</span>.
 <em>Regression</em> aims to find a function
-between the <span class="math notranslate nohighlight">\(m\)</span> <em>independent/explanatory/predictor</em> variables
+between the <span class="math">\(m\)</span> <em>independent/explanatory/predictor</em> variables
 and a chosen <em>dependent/response/predicted</em> variable
-that can be applied on any test point <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
+that can be applied on any test point <span class="math">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \hat{y}' = f(x_1', x_2', \dots, x_m'),
 \]</div>
@@ -843,18 +845,18 @@ that can be applied on any test point <span class="math notranslate nohighlight"
 <span id="sec-knn-regression"></span><h3><span class="section-number">9.2.1. </span><em>K</em>-nearest neighbour regression<a class="headerlink" href="#k-nearest-neighbour-regression" title="Link to this heading">#</a></h3>
 <p>A quite straightforward approach to regression
 relies on aggregating the reference outputs that are associated with
-a few nearest neighbours of the point <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span> tested;
+a few nearest neighbours of the point <span class="math">\(\boldsymbol{x}'\)</span> tested;
 compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
-<p>In <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour regression,
-for a fixed <span class="math notranslate nohighlight">\(k\ge 1\)</span> and any given <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>,
-<span class="math notranslate nohighlight">\(\hat{y}=f(\boldsymbol{x}')\)</span> is computed as follows.</p>
+<p>In <span class="math">\(k\)</span>-nearest neighbour regression,
+for a fixed <span class="math">\(k\ge 1\)</span> and any given <span class="math">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>,
+<span class="math">\(\hat{y}=f(\boldsymbol{x}')\)</span> is computed as follows.</p>
 <ol class="arabic">
-<li><p>Find the indices <span class="math notranslate nohighlight">\(N_k(\boldsymbol{x}')=\{i_1,\dots,i_k\}\)</span>
-of the <span class="math notranslate nohighlight">\(k\)</span> points from
-<span class="math notranslate nohighlight">\(\mathbf{X}\)</span> closest to <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>, i.e., ones that fulfil
-for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
+<li><p>Find the indices <span class="math">\(N_k(\boldsymbol{x}')=\{i_1,\dots,i_k\}\)</span>
+of the <span class="math">\(k\)</span> points from
+<span class="math">\(\mathbf{X}\)</span> closest to <span class="math">\(\boldsymbol{x}'\)</span>, i.e., ones that fulfil
+for all <span class="math">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[ \|\mathbf{x}_{i_1,\cdot}-\boldsymbol{x}'\|
     \le\dots\le
     \| \mathbf{x}_{i_k,\cdot} -\boldsymbol{x}' \|
@@ -863,7 +865,7 @@ for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)
     \]</div>
 </div>
 </li>
-<li><p>Return the arithmetic mean of <span class="math notranslate nohighlight">\((y_{i_1},\dots,y_{i_k})\)</span>
+<li><p>Return the arithmetic mean of <span class="math">\((y_{i_1},\dots,y_{i_k})\)</span>
 as the result.</p></li>
 </ol>
 <p>Here is a straightforward implementation
@@ -878,7 +880,7 @@ that generates the predictions for each point in <code class="docutils literal n
 <p>For example, let us try expressing weight (the first column) as a function
 of hip circumference (the sixth column) in the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{weight}=f_1(\text{hip circumference})   \qquad  (+ \text{some error}).
 \]</div>
@@ -886,13 +888,13 @@ of hip circumference (the sixth column) in the <code class="docutils literal not
 <p>We can also model the life expectancy at birth in different countries
 (<code class="docutils literal notranslate"><span class="pre">world</span></code> dataset) as a function of their GDP per capita (PPP):</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{life expectancy}=f_2(\text{GDP per capita})   \qquad  (+ \text{some error}).
 \]</div>
 </div>
 <p>Both are instances of the <em>simple</em> regression problem,
-i.e., where there is only one independent variable (<span class="math notranslate nohighlight">\(m=1\)</span>).
+i.e., where there is only one independent variable (<span class="math">\(m=1\)</span>).
 We can easily create an appealing visualisation thereof
 by means of the following function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_regress_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">num_test_points</span><span class="o">=</span><span class="mi">1001</span><span class="p">):</span>
@@ -911,7 +913,7 @@ by means of the following function:</p>
 </pre></div>
 </div>
 <p><a class="reference internal" href="#fig-knn-reg"><span class="std std-numref">Figure 9.7</span></a> depicts the fitted functions
-for a few different <span class="math notranslate nohighlight">\(k\)</span>s.</p>
+for a few different <span class="math">\(k\)</span>s.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">knn_regress_plot</span><span class="p">(</span><span class="n">body</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;hip circumference&quot;</span><span class="p">)</span>
@@ -928,7 +930,7 @@ for a few different <span class="math notranslate nohighlight">\(k\)</span>s.</p
 <figure class="align-default" id="id37">
 <span id="fig-knn-reg"></span><img alt="../_images/knn-reg-13.png" src="../_images/knn-reg-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour regression curves for example datasets. The greater the <span class="math notranslate nohighlight">\(k\)</span>, the more coarse-grained the approximation.</span><a class="headerlink" href="#id37" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><span class="math">\(k\)</span>-nearest neighbour regression curves for example datasets. The greater the <span class="math">\(k\)</span>, the more coarse-grained the approximation.</span><a class="headerlink" href="#id37" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We obtained a <em>smoothened</em> version of the original dataset.
@@ -937,9 +939,9 @@ manner is reflected by the (figurative) error term in the above equations.
 Its role is to emphasise the existence of some natural data variability;
 after all, one’s weight is not purely determined by their hip size
 and life is not all about money.</p>
-<p>For small <span class="math notranslate nohighlight">\(k\)</span> we adapt to the data points better.
+<p>For small <span class="math">\(k\)</span> we adapt to the data points better.
 This can be worthwhile unless data are very noisy.
-The greater the <span class="math notranslate nohighlight">\(k\)</span>, the smoother the approximation
+The greater the <span class="math">\(k\)</span>, the smoother the approximation
 at the cost of losing fine detail and restricted usability
 at the domain boundaries (here: in the left and right part of the plots).</p>
 <p>Usually, the number of neighbours is chosen by trial and error
@@ -948,13 +950,13 @@ at the domain boundaries (here: in the left and right part of the plots).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(**) Some methods use weighted arithmetic means for aggregating the
-<span class="math notranslate nohighlight">\(k\)</span> reference outputs, with weights inversely proportional
+<span class="math">\(k\)</span> reference outputs, with weights inversely proportional
 to the distances to the neighbours (closer inputs are
 considered more important).</p>
 <p>Also, instead of few nearest neighbours, we can
 easily compose some form of fixed-radius search regression,
-by simply replacing <span class="math notranslate nohighlight">\(N_k(\boldsymbol{x}')\)</span>
-with <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span>; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.
+by simply replacing <span class="math">\(N_k(\boldsymbol{x}')\)</span>
+with <span class="math">\(B_r(\boldsymbol{x}')\)</span>; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.
 Yet, note that this way we might
 make the function undefined in sparsely populated regions of the domain.</p>
 </div>
@@ -962,104 +964,104 @@ make the function undefined in sparsely populated regions of the domain.</p>
 <section id="from-data-to-linear-models">
 <span id="sec-linearmodel"></span><h3><span class="section-number">9.2.2. </span>From data to (linear) models<a class="headerlink" href="#from-data-to-linear-models" title="Link to this heading">#</a></h3>
 <p>Unfortunately, to generate predictions for new data points,
-<span class="math notranslate nohighlight">\(k\)</span>-nearest neighbours regression requires
+<span class="math">\(k\)</span>-nearest neighbours regression requires
 that the training sample is available at all times.
 It does not <em>synthesise</em> or <em>simplify</em> the inputs;
 instead, it works as a kind of a black box.
 If we were to provide a mathematical equation for the generated
 prediction, it would be disgustingly long and obscure.</p>
-<p>In such cases, to emphasise that <span class="math notranslate nohighlight">\(f\)</span> is dependent on the training sample,
+<p>In such cases, to emphasise that <span class="math">\(f\)</span> is dependent on the training sample,
 we sometimes use the more explicit notation
-<span class="math notranslate nohighlight">\(f(\boldsymbol{x}' | \mathbf{X}, \boldsymbol{y})\)</span>
-or <span class="math notranslate nohighlight">\(f_{\mathbf{X}, \boldsymbol{y}}(\boldsymbol{x}')\)</span>.</p>
+<span class="math">\(f(\boldsymbol{x}' | \mathbf{X}, \boldsymbol{y})\)</span>
+or <span class="math">\(f_{\mathbf{X}, \boldsymbol{y}}(\boldsymbol{x}')\)</span>.</p>
 <p>In many contexts we might prefer creating a data <em>model</em> instead,
 in the form of an easily interpretable mathematical function.
 A simple yet still quite flexible choice
 tackles regression problems via affine maps of the form:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 y = f(x_1, x_2, \dots, x_m) = c_1 x_1 + c_2 x_2 + \dots + c_m x_m + c_{m+1},
 \]</div>
 </div>
 <p>or, in matrix multiplication terms:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 y = \mathbf{c} \mathbf{x}^T + c_{m+1},
 \]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{c}=[c_1\ c_2\ \cdots\ c_m]\)</span>
-and <span class="math notranslate nohighlight">\(\mathbf{x}=[x_1\ x_2\ \cdots\ x_m]\)</span>.</p>
-<p>For <span class="math notranslate nohighlight">\(m=1\)</span>, the above simply defines a straight line,
+<p>where <span class="math">\(\mathbf{c}=[c_1\ c_2\ \cdots\ c_m]\)</span>
+and <span class="math">\(\mathbf{x}=[x_1\ x_2\ \cdots\ x_m]\)</span>.</p>
+<p>For <span class="math">\(m=1\)</span>, the above simply defines a straight line,
 which we traditionally denote by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 y = ax+b,
 \]</div>
 </div>
-<p>i.e., where we mapped <span class="math notranslate nohighlight">\(x_1 \mapsto x\)</span>, <span class="math notranslate nohighlight">\(c_1 \mapsto a\)</span> (slope),
-and <span class="math notranslate nohighlight">\(c_2 \mapsto b\)</span> (intercept).</p>
-<p>For <span class="math notranslate nohighlight">\(m&gt;1\)</span>, we obtain different hyperplanes (high-dimensional
+<p>i.e., where we mapped <span class="math">\(x_1 \mapsto x\)</span>, <span class="math">\(c_1 \mapsto a\)</span> (slope),
+and <span class="math">\(c_2 \mapsto b\)</span> (intercept).</p>
+<p>For <span class="math">\(m&gt;1\)</span>, we obtain different hyperplanes (high-dimensional
 generalisations of the notion of a plane).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>A separate intercept term “<span class="math notranslate nohighlight">\(+c_{m+1}\)</span>” in the defining equation
+<p>A separate intercept term “<span class="math">\(+c_{m+1}\)</span>” in the defining equation
 can be quite inconvenient to handle.
 We will thus restrict ourselves to linear maps like:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[y = \mathbf{c} \mathbf{x}^T,\]</div>
 </div>
 <p>but where we can possibly have an explicit constant-1 component somewhere
-<em>inside</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>. For instance:</p>
+<em>inside</em> <span class="math">\(\mathbf{x}\)</span>. For instance:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\mathbf{x} = [x_1\ x_2\ \cdots\ x_m\ 1].\]</div>
 </div>
 <p>Together with
-<span class="math notranslate nohighlight">\(\mathbf{c} = [c_1\ c_2\ \cdots\ c_m\ c_{m+1}]\)</span>,
-as trivially <span class="math notranslate nohighlight">\(c_{m+1}\cdot 1=c_{m+1}\)</span>,
+<span class="math">\(\mathbf{c} = [c_1\ c_2\ \cdots\ c_m\ c_{m+1}]\)</span>,
+as trivially <span class="math">\(c_{m+1}\cdot 1=c_{m+1}\)</span>,
 this new setting is equivalent to the original one.</p>
-<p>Without loss of generality, from now on we assume that <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>
-is <span class="math notranslate nohighlight">\(m\)</span>-dimensional, regardless of its having a constant-1 inside or not.</p>
+<p>Without loss of generality, from now on we assume that <span class="math">\(\mathbf{x}\)</span>
+is <span class="math">\(m\)</span>-dimensional, regardless of its having a constant-1 inside or not.</p>
 </div>
 </section>
 <section id="least-squares-method">
 <span id="sec-least-squares"></span><h3><span class="section-number">9.2.3. </span>Least squares method<a class="headerlink" href="#least-squares-method" title="Link to this heading">#</a></h3>
 <p>A linear model is uniquely<a class="footnote-reference brackets" href="#footmodelserialise" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> encoded using only
-the coefficients <span class="math notranslate nohighlight">\(c_1,\dots,c_m\)</span>. To find them,
-for each point <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span> from the input (training) set,
+the coefficients <span class="math">\(c_1,\dots,c_m\)</span>. To find them,
+for each point <span class="math">\(\mathbf{x}_{i,\cdot}\)</span> from the input (training) set,
 we typically desire the <em>predicted</em> value:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \hat{y}_i = f(x_{i,1}, x_{i,2}, \dots, x_{i,m})
 = f(\mathbf{x}_{i,\cdot}|\mathbf{c}) = \mathbf{c} \mathbf{x}_{i,\cdot}^T,
 \]</div>
 </div>
-<p>to be as <em>close</em> to the corresponding reference <span class="math notranslate nohighlight">\(y_i\)</span> as possible.</p>
+<p>to be as <em>close</em> to the corresponding reference <span class="math">\(y_i\)</span> as possible.</p>
 <p>There are many measures of <em>closeness</em>,
 but the most popular one<a class="footnote-reference brackets" href="#footwhyssr" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> uses the notion of
 the <em>sum of squared residuals</em> (true minus predicted outputs):</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathrm{SSR}(\boldsymbol{c}|\mathbf{X},\mathbf{y})
 = \sum_{i=1}^n \left( y_i - \hat{y}_i \right)^2
 = \sum_{i=1}^n \left( y_i - (c_1 x_{i,1} + c_2 x_{i,2} + \dots + c_m x_{i,m}) \right)^2,
 \]</div>
 </div>
-<p>which is a function of <span class="math notranslate nohighlight">\(\boldsymbol{c}=(c_1,\dots,c_m)\)</span>
-(for fixed <span class="math notranslate nohighlight">\(\mathbf{X},\mathbf{y}\)</span>).</p>
+<p>which is a function of <span class="math">\(\boldsymbol{c}=(c_1,\dots,c_m)\)</span>
+(for fixed <span class="math">\(\mathbf{X},\mathbf{y}\)</span>).</p>
 <p>The <em>least squares</em> solution to the stated linear
-regression problem will be defined by the coefficient vector <span class="math notranslate nohighlight">\(\boldsymbol{c}\)</span>
+regression problem will be defined by the coefficient vector <span class="math">\(\boldsymbol{c}\)</span>
 that minimises the SSR.
 Based on what we said about matrix multiplication,
 this is equivalent to solving the optimisation task:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{minimise}\
 \left(\mathbf{y}-\mathbf{c} \mathbf{X}^T\right) \left(\mathbf{y}-\mathbf{c} \mathbf{X}^T\right)^T
@@ -1067,11 +1069,11 @@ this is equivalent to solving the optimisation task:</p>
 \]</div>
 </div>
 <p>because
-<span class="math notranslate nohighlight">\(\hat{\mathbf{y}}=\mathbf{c} \mathbf{X}^T\)</span> gives the predicted values
+<span class="math">\(\hat{\mathbf{y}}=\mathbf{c} \mathbf{X}^T\)</span> gives the predicted values
 as a row vector
 (the diligent readers are encouraged to check that on a piece of paper now),
-<span class="math notranslate nohighlight">\(\mathbf{r}=\mathbf{y}-\hat{\mathbf{y}}\)</span> computes all the <span class="math notranslate nohighlight">\(n\)</span> residuals,
-and <span class="math notranslate nohighlight">\(\mathbf{r}\mathbf{r}^T\)</span> gives their sum of squares.</p>
+<span class="math">\(\mathbf{r}=\mathbf{y}-\hat{\mathbf{y}}\)</span> computes all the <span class="math">\(n\)</span> residuals,
+and <span class="math">\(\mathbf{r}\mathbf{r}^T\)</span> gives their sum of squares.</p>
 <p>The method of least squares is one of the
 simplest and most natural approaches to regression analysis
 (curve fitting). Its theoretical foundations (calculus…) were developed
@@ -1080,23 +1082,23 @@ more than 200 years ago by Gauss and then were polished by Legendre.</p>
 <p class="admonition-title">Note</p>
 <p>(*)
 Had the points lain on a hyperplane exactly (the interpolation problem),
-<span class="math notranslate nohighlight">\(\mathbf{y} = \mathbf{c} \mathbf{X}^T\)</span> would have an exact solution,
+<span class="math">\(\mathbf{y} = \mathbf{c} \mathbf{X}^T\)</span> would have an exact solution,
 equivalent to solving the linear system of equations
-<span class="math notranslate nohighlight">\(\mathbf{y}-\mathbf{c} \mathbf{X}^T =\mathbf{0}\)</span>.
+<span class="math">\(\mathbf{y}-\mathbf{c} \mathbf{X}^T =\mathbf{0}\)</span>.
 However, in our setting we assume that there might be some
 measurement errors or other discrepancies between the reality and the
 theoretical model. To account for this,
 we are trying to solve a more general problem
 of finding a hyperplane for which
-<span class="math notranslate nohighlight">\(\|\mathbf{y}-\mathbf{c} \mathbf{X}^T\|^2\)</span> is as small as possible.</p>
+<span class="math">\(\|\mathbf{y}-\mathbf{c} \mathbf{X}^T\|^2\)</span> is as small as possible.</p>
 <p>This optimisation task can be solved analytically
 (compute the partial derivatives of SSR with respect to
-each <span class="math notranslate nohighlight">\(c_1,\dots,c_m\)</span>, equate them to 0, and solve a simple system
+each <span class="math">\(c_1,\dots,c_m\)</span>, equate them to 0, and solve a simple system
 of linear equations). This spawns
-<span class="math notranslate nohighlight">\(\mathbf{c} = \mathbf{y} \mathbf{X} (\mathbf{X}^T \mathbf{X})^{-1}\)</span>,
-where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> is the inverse of a matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>,
+<span class="math">\(\mathbf{c} = \mathbf{y} \mathbf{X} (\mathbf{X}^T \mathbf{X})^{-1}\)</span>,
+where <span class="math">\(\mathbf{A}^{-1}\)</span> is the inverse of a matrix <span class="math">\(\mathbf{A}\)</span>,
 i.e., the matrix such that
-<span class="math notranslate nohighlight">\(\mathbf{A} \mathbf{A}^{-1}=\mathbf{A}^{-1} \mathbf{A} =\mathbf{I}\)</span>;
+<span class="math">\(\mathbf{A} \mathbf{A}^{-1}=\mathbf{A}^{-1} \mathbf{A} =\mathbf{I}\)</span>;
 compare <strong class="command">numpy.linalg.inv</strong>.
 As inverting larger matrices directly is not too robust numerically,
 we would rather rely on a more specialised algorithm.</p>
@@ -1110,22 +1112,22 @@ and express weight (the first column) as function
 of hip circumference (the sixth column)
 again, but this time using an affine map of the form<a class="footnote-reference brackets" href="#footerror" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{weight}=a\cdot\text{hip circumference} + b  \qquad (+ \text{some error}).
 \]</div>
 </div>
-<p>The <em>design (model) matrix</em> <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-and the reference <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>s are:</p>
+<p>The <em>design (model) matrix</em> <span class="math">\(\mathbf{X}\)</span>
+and the reference <span class="math">\(\boldsymbol{y}\)</span>s are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_original</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">5</span><span class="p">]]</span>     <span class="c1"># a column vector</span>
 <span class="n">X_train</span> <span class="o">=</span> <span class="n">x_original</span><span class="o">**</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># hip circumference, 1s</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">body</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>          <span class="c1"># weight</span>
 </pre></div>
 </div>
 <p>We used the vectorised exponentiation operator
-to convert each <span class="math notranslate nohighlight">\(x_i\)</span> (the <span class="math notranslate nohighlight">\(i\)</span>-th hip circumference) to a pair
-<span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}=(x_i^1, x_i^0) = (x_i, 1)\)</span>, which is a nice trick
-to append a column of <span class="math notranslate nohighlight">\(1\)</span>s to a matrix.
+to convert each <span class="math">\(x_i\)</span> (the <span class="math">\(i\)</span>-th hip circumference) to a pair
+<span class="math">\(\mathbf{x}_{i,\cdot}=(x_i^1, x_i^0) = (x_i, 1)\)</span>, which is a nice trick
+to append a column of <span class="math">\(1\)</span>s to a matrix.
 This way, we included the intercept term in the model
 (as discussed in <a class="reference internal" href="#sec-linearmodel"><span class="std std-numref">Section 9.2.2</span></a>).
 Here is a preview:</p>
@@ -1155,7 +1157,7 @@ The optimal coefficients vector (the one that minimises the SSR) is:</p>
 </div>
 <p>The estimated model is:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{weight}=1.305\cdot\text{hip circumference} -65.1 \qquad (+ \text{some error}).
 \]</div>
@@ -1236,7 +1238,7 @@ constitutes a good fit to the training data.
 Thus, we need to perform the <em>analysis of residuals</em>.</p>
 <p>Interestingly, the average of residuals is always zero:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i) = 0.
 \]</div>
@@ -1244,7 +1246,7 @@ Thus, we need to perform the <em>analysis of residuals</em>.</p>
 <p>Therefore, if we want to summarise the residuals into a single number,
 we can use, for example, the root mean squared error instead:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
  \mathrm{RMSE}(\mathbf{y}, \hat{\mathbf{y}})
  = \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i-\hat{y}_i)^2}.
@@ -1258,7 +1260,7 @@ we can use, for example, the root mean squared error instead:</p>
 we sought to minimise above.</p>
 <p>Alternatively, we can compute the mean absolute error:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
  \mathrm{MAE}(\mathbf{y}, \hat{\mathbf{y}})
  = \frac{1}{n} \sum_{i=1}^n |y_i-\hat{y}_i|.
@@ -1285,9 +1287,9 @@ explanatory variable?</p>
 <p class="admonition-title">Note</p>
 <p>Generally, fitting simple (involving one independent variable)
 linear models can only make sense for highly linearly correlated variables.
-Interestingly, if <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> are both standardised,
-and <span class="math notranslate nohighlight">\(r\)</span> is their Pearson’s coefficient, then the least squares
-solution is given by <span class="math notranslate nohighlight">\(y=rx\)</span>.</p>
+Interestingly, if <span class="math">\(\boldsymbol{y}\)</span> and <span class="math">\(\boldsymbol{x}\)</span> are both standardised,
+and <span class="math">\(r\)</span> is their Pearson’s coefficient, then the least squares
+solution is given by <span class="math">\(y=rx\)</span>.</p>
 </div>
 <p>To verify whether a fitted model is not extremely wrong
 (e.g., when we fit a linear model to data that clearly follows
@@ -1307,7 +1309,7 @@ at random therein, without any dependence structure
 <figure class="align-default" id="id42">
 <span id="fig-resid-vs-fit"></span><img alt="../_images/resid-vs-fit-19.png" src="../_images/resid-vs-fit-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference. The variance of residuals slightly increases as <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases. This is not ideal, but it could be much worse than this.</span><a class="headerlink" href="#id42" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference. The variance of residuals slightly increases as <span class="math">\(\hat{y}_i\)</span> increases. This is not ideal, but it could be much worse than this.</span><a class="headerlink" href="#id42" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id43">
@@ -1316,13 +1318,13 @@ at random therein, without any dependence structure
         <span class="proof-type">Exercise 9.10</span>
         
     </div><div class="proof-content">
-<p>Compare<a class="footnote-reference brackets" href="#footknnas" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> the RMSE and MAE for the <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour
+<p>Compare<a class="footnote-reference brackets" href="#footknnas" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> the RMSE and MAE for the <span class="math">\(k\)</span>-nearest neighbour
 regression curves depicted in the left side of <a class="reference internal" href="#fig-knn-reg"><span class="std std-numref">Figure 9.7</span></a>.
 Also, draw the residuals vs fitted plot.</p>
 </div></div><div style="margin-top: 1em"></div><p>For linear models fitted using the least squares method,
 it can be shown that it holds:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \frac{1}{n} \sum_{i=1}^{n} \left(y_i-\bar{y}\right)^2 =
 \frac{1}{n} \sum_{i=1}^{n} \left(\hat{y}_i-\bar{\hat{y}}\right)^2 +
@@ -1332,11 +1334,11 @@ it can be shown that it holds:</p>
 <p>In other words, the variance of the dependent variable (left)
 can be decomposed into the sum of the variance of the predictions
 and the averaged squared residuals.
-Multiplying the above by <span class="math notranslate nohighlight">\(n\)</span>, we have that
+Multiplying the above by <span class="math">\(n\)</span>, we have that
 the <em>total</em> sum of squares is equal to the
 <em>explained</em> sum of squares plus the <em>residual</em> sum of squares:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathrm{TSS} = \mathrm{ESS} + \mathrm{RSS}.
 \]</div>
@@ -1350,7 +1352,7 @@ that is easier to interpret than raw ESS or RSS
 when we have no domain-specific knowledge of the modelled problem.
 It is given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 R^2(\mathbf{y}, \hat{\mathbf{y}}) = \frac{\mathrm{ESS}}{\mathrm{TSS}}
 = 1 - \frac{\mathrm{RSS}}{\mathrm{TSS}}
@@ -1365,9 +1367,9 @@ R^2(\mathbf{y}, \hat{\mathbf{y}}) = \frac{\mathrm{ESS}}{\mathrm{TSS}}
 is thus the proportion of variance of the
 dependent variable explained by the independent variables in the model.
 The closer it is to 1, the better.
-A dummy model that always returns the mean of <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>
+A dummy model that always returns the mean of <span class="math">\(\boldsymbol{y}\)</span>
 gives R-squared of 0.</p>
-<p>In our case, <span class="math notranslate nohighlight">\(R^2\simeq 0.9\)</span> is quite high, which indicates a
+<p>In our case, <span class="math">\(R^2\simeq 0.9\)</span> is quite high, which indicates a
 rather good fit.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1394,7 +1396,7 @@ independent variables, arm and hip circumference:</p>
 </div>
 <p>We fitted the plane:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\text{weight} = 1.3\, \text{arm circumference} + 0.9\, \text{hip circumference}  -63.38 .\]</div>
 </div>
 <p>We skip the visualisation part for we do not expect it to result
@@ -1428,17 +1430,17 @@ transformations upon the columns of the design matrix, we can cover
 many diverse scenarios.</p>
 <p>For instance, a polynomial model involving two variables:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 g(v_1, v_2)
 = \beta_0 + \beta_1 v_1 + \beta_2 v_1^2 + \beta_3 v_1 v_2 + \beta_4 v_2 + \beta_5 v_2^2,
 \]</div>
 </div>
 <p>can be obtained by substituting
-<span class="math notranslate nohighlight">\(x_1=1\)</span>, <span class="math notranslate nohighlight">\(x_2=v_1\)</span>, <span class="math notranslate nohighlight">\(x_3=v_1^2\)</span>, <span class="math notranslate nohighlight">\(x_4=v_1 v_2\)</span>, <span class="math notranslate nohighlight">\(x_5=v_2\)</span>, <span class="math notranslate nohighlight">\(x_6=v_2^2\)</span>,
+<span class="math">\(x_1=1\)</span>, <span class="math">\(x_2=v_1\)</span>, <span class="math">\(x_3=v_1^2\)</span>, <span class="math">\(x_4=v_1 v_2\)</span>, <span class="math">\(x_5=v_2\)</span>, <span class="math">\(x_6=v_2^2\)</span>,
 and then fitting a linear model involving six variables:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 f(x_1, x_2, \dots, x_6) = c_1 x_1 + c_2 x_2 + \dots + x_6 x_6.
 \]</div>
@@ -1447,19 +1449,19 @@ f(x_1, x_2, \dots, x_6) = c_1 x_1 + c_2 x_2 + \dots + x_6 x_6.
 If we have a linear model, but with respect to transformed
 data, the algorithm does not care. This is the beauty of the underlying
 mathematics; see also <span id="id10">[<a class="reference internal" href="999-bibliography.html#id146" title="Box, G.E.P. and Cox, D.R. (1964).  An analysis of transformations. Journal of the Royal Statistical Society. Series B (Methodological), 26(2):211–252.">10</a>]</span>.</p>
-<p>A creative modeller can also turn models such as <span class="math notranslate nohighlight">\(u=c e^{av}\)</span> into <span class="math notranslate nohighlight">\(y=ax+b\)</span>
-by replacing <span class="math notranslate nohighlight">\(y=\log u\)</span>, <span class="math notranslate nohighlight">\(x=v\)</span>, and <span class="math notranslate nohighlight">\(b=\log c\)</span>. There are numerous
+<p>A creative modeller can also turn models such as <span class="math">\(u=c e^{av}\)</span> into <span class="math">\(y=ax+b\)</span>
+by replacing <span class="math">\(y=\log u\)</span>, <span class="math">\(x=v\)</span>, and <span class="math">\(b=\log c\)</span>. There are numerous
 possibilities based on the properties
-of the <span class="math notranslate nohighlight">\(\log\)</span> and <span class="math notranslate nohighlight">\(\exp\)</span> functions listed in <a class="reference internal" href="220-transform-vector.html#sec-vecfun"><span class="std std-numref">Section 5.2</span></a>.
+of the <span class="math">\(\log\)</span> and <span class="math">\(\exp\)</span> functions listed in <a class="reference internal" href="220-transform-vector.html#sec-vecfun"><span class="std std-numref">Section 5.2</span></a>.
 We call them <em>linearisable models</em>.</p>
 <div style="margin-top: 1em"></div><p>As an example, let us model the life expectancy at birth
 in different countries as a function of their GDP per capita (PPP).</p>
 <p>We will consider four different models:</p>
 <ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(y=c_1+c_2 x\)</span> (linear),</p></li>
-<li><p><span class="math notranslate nohighlight">\(y=c_1+c_2 x+c_3x^2\)</span> (quadratic),</p></li>
-<li><p><span class="math notranslate nohighlight">\(y=c_1+c_2 x+c_3x^2+c_4x^3\)</span> (cubic),</p></li>
-<li><p><span class="math notranslate nohighlight">\(y=c_1+c_2\log x\)</span> (logarithmic).</p></li>
+<li><p><span class="math">\(y=c_1+c_2 x\)</span> (linear),</p></li>
+<li><p><span class="math">\(y=c_1+c_2 x+c_3x^2\)</span> (quadratic),</p></li>
+<li><p><span class="math">\(y=c_1+c_2 x+c_3x^2+c_4x^3\)</span> (cubic),</p></li>
+<li><p><span class="math">\(y=c_1+c_2\log x\)</span> (logarithmic).</p></li>
 </ol>
 <p>Here are the helper functions that create the model matrices:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_model_matrix1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -1558,11 +1560,11 @@ in many different ways, the simplest explanation should be chosen
 <em>without necessity</em>).</p>
 </div>
 <p>In particular, the more independent variables we have in the model,
-the greater the <span class="math notranslate nohighlight">\(R^2\)</span> coefficient will be.
+the greater the <span class="math">\(R^2\)</span> coefficient will be.
 We can try correcting for this phenomenon
-by considering the <em>adjusted</em> <span class="math notranslate nohighlight">\(R^2\)</span>:</p>
+by considering the <em>adjusted</em> <span class="math">\(R^2\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \bar{R}^2(\mathbf{y},\hat{\mathbf{y}}) = 1 - (1-{R}^2(\mathbf{y}, \hat{\mathbf{y}}))\frac{n-1}{n-m-1},
 \]</div>
@@ -1571,23 +1573,23 @@ by considering the <em>adjusted</em> <span class="math notranslate nohighlight">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(**) Model quality measures adjusted for the number of model
-parameters, <span class="math notranslate nohighlight">\(m\)</span>, can also be useful in automated variable selection.
+parameters, <span class="math">\(m\)</span>, can also be useful in automated variable selection.
 For example, the Akaike Information Criterion is
 a popular measure given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathrm{AIC} = 2m+n\log(\mathrm{SSR})-n\log n.
 \]</div>
 </div>
 <p>Furthermore, the Bayes Information Criterion is defined via:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathrm{BIC} = m\log n+n\log(\mathrm{SSR})-n\log n.
 \]</div>
 </div>
-<p>Unfortunately, they are both dependent on the scale of <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>.</p>
+<p>Unfortunately, they are both dependent on the scale of <span class="math">\(\boldsymbol{y}\)</span>.</p>
 </div>
 <p>We should also be interested in a model’s <em>predictive</em> power, i.e.,
 how well does it generalise to data points that we do not have now
@@ -1616,12 +1618,12 @@ for an imaginary country with $500 000 per capita GDP:</p>
         
     </div><div class="proof-content">
 <p>Let us consider the following theoretical illustration.
-Assume that a true model of some reality is <span class="math notranslate nohighlight">\(y=5+3x^3\)</span>.</p>
+Assume that a true model of some reality is <span class="math">\(y=5+3x^3\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">true_model</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Still, for some reason we are only able to gather a small (<span class="math notranslate nohighlight">\(n=25\)</span>)
+<p>Still, for some reason we are only able to gather a small (<span class="math">\(n=25\)</span>)
 sample from this model. What is even worse, it is subject to
 some measurement error:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -1629,7 +1631,7 @@ some measurement error:</p>
 <span class="n">y</span> <span class="o">=</span> <span class="n">true_model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># true_model(x) + noise</span>
 </pre></div>
 </div>
-<p>The least-squares fitting of <span class="math notranslate nohighlight">\(y=c_1+c_2 x^3\)</span> to the above gives:</p>
+<p>The least-squares fitting of <span class="math">\(y=c_1+c_2 x^3\)</span> to the above gives:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X03</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="n">c03</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X03</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ssr03</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">c03</span> <span class="o">@</span> <span class="n">X03</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -1640,7 +1642,7 @@ some measurement error:</p>
 <p>which is not too far, but still somewhat<a class="footnote-reference brackets" href="#footmle" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> distant from the true
 coefficients, 5 and 3.</p>
 <p>We can also fit a more flexible cubic polynomial,
-<span class="math notranslate nohighlight">\(y=c_1+c_2 x+c_3 x^2+c_4 x_3\)</span>:</p>
+<span class="math">\(y=c_1+c_2 x+c_3 x^2+c_4 x_3\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X0123</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="n">c0123</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X0123</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ssr0123</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">c0123</span> <span class="o">@</span> <span class="n">X0123</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -1656,7 +1658,7 @@ course explains <em>the training data</em> better:</p>
 </div>
 <p>Yet, it is farther away from the <em>truth</em>
 (which, whilst performing the fitting task based only on given
-<span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span>, is unknown).
+<span class="math">\(\boldsymbol{x}\)</span> and <span class="math">\(\boldsymbol{y}\)</span>, is unknown).
 We may thus say that the first model <em>generalises</em>
 better on yet-to-be-observed data;
 see <a class="reference internal" href="#fig-true-model-vs-guess"><span class="std std-numref">Figure 9.12</span></a> for an illustration.</p>
@@ -1690,13 +1692,13 @@ of the averaged deviation from the reference values.
 They are subject to error themselves, though.
 Even though they are our best-shot approximation of the truth,
 they should be taken with a degree of scepticism.</p>
-<p>In the above example, given the true (reference) model <span class="math notranslate nohighlight">\(f\)</span> defined
-over the domain <span class="math notranslate nohighlight">\(D\)</span> (in our case, <span class="math notranslate nohighlight">\(f(x)=5+3x^3\)</span> and <span class="math notranslate nohighlight">\(D=[0,1]\)</span>)
-and an empirically fitted model <span class="math notranslate nohighlight">\(\hat{f}\)</span>, we can compute
+<p>In the above example, given the true (reference) model <span class="math">\(f\)</span> defined
+over the domain <span class="math">\(D\)</span> (in our case, <span class="math">\(f(x)=5+3x^3\)</span> and <span class="math">\(D=[0,1]\)</span>)
+and an empirically fitted model <span class="math">\(\hat{f}\)</span>, we can compute
 the square root of the integrated squared error
-over the whole <span class="math notranslate nohighlight">\(D\)</span>:</p>
+over the whole <span class="math">\(D\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathrm{RMSE}(f, \hat{f}) = \sqrt{
     \int_D (f(x)-\hat{f}(x))^2\, dx
@@ -1894,9 +1896,9 @@ Finding the least squares solution involves some form of matrix inverse
 (one that is not invertible).</p>
 <p>As a measure of the model matrix’s ill-conditioning,
 we often use the <em>condition number</em>, denoted
-<span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)\)</span>. It is
+<span class="math">\(\kappa(\mathbf{X}^T)\)</span>. It is
 the ratio of the largest to the smallest
-<em>singular values</em><a class="footnote-reference brackets" href="#footsingularvalue" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> of <span class="math notranslate nohighlight">\(\mathbf{X}^T\)</span>,
+<em>singular values</em><a class="footnote-reference brackets" href="#footsingularvalue" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> of <span class="math">\(\mathbf{X}^T\)</span>,
 which are returned by the <strong class="command">scipy.linalg.lstsq</strong> method itself:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>    <span class="c1"># singular values of X_train.T</span>
 <span class="n">s</span>
@@ -1905,16 +1907,16 @@ which are returned by the <strong class="command">scipy.linalg.lstsq</strong> me
 </pre></div>
 </div>
 <p>Note that they are already sorted nonincreasingly.
-The condition number <span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)\)</span> is equal to:</p>
+The condition number <span class="math">\(\kappa(\mathbf{X}^T)\)</span> is equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># condition number (largest/smallest singular value)</span>
 <span class="c1">## 9.774017021683106e+19</span>
 </pre></div>
 </div>
-<p>As a rule of thumb, if the condition number is <span class="math notranslate nohighlight">\(10^k\)</span>,
-we are losing <span class="math notranslate nohighlight">\(k\)</span> digits of numerical precision when performing
+<p>As a rule of thumb, if the condition number is <span class="math">\(10^k\)</span>,
+we are losing <span class="math">\(k\)</span> digits of numerical precision when performing
 the underlying computations. As the above number is exceptionally large,
 we are thus currently faced with a very ill-conditioned problem.
-If the values in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> or <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are perturbed even
+If the values in <span class="math">\(\mathbf{X}\)</span> or <span class="math">\(\mathbf{y}\)</span> are perturbed even
 slightly, we might expect significant changes in the
 computed regression coefficients.</p>
 <div class="admonition note">
@@ -1922,13 +1924,13 @@ computed regression coefficients.</p>
 <p>(**) The least squares regression problem can be solved by means
 of the singular value decomposition of the model matrix,
 see <a class="reference internal" href="#sec-svd"><span class="std std-numref">Section 9.3.4</span></a>.
-Let <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{S}\mathbf{Q}\)</span> be the SVD of
-<span class="math notranslate nohighlight">\(\mathbf{X}^T\)</span>.
-Then <span class="math notranslate nohighlight">\(\mathbf{c} = \mathbf{U} \mathbf{S}^{-1} \mathbf{Q} \mathbf{y}\)</span>,
-with <span class="math notranslate nohighlight">\(\mathbf{S}^{-1}=\mathrm{diag}(1/s_{1,1},\dots,1/s_{m,m})\)</span>.
-As <span class="math notranslate nohighlight">\(s_{1,1}\ge\dots\ge s_{m,m}\)</span> gives the singular
-values of <span class="math notranslate nohighlight">\(\mathbf{X}^T\)</span>, the aforementioned
-condition number can simply be computed as <span class="math notranslate nohighlight">\(s_{1,1}/s_{m,m}\)</span>.</p>
+Let <span class="math">\(\mathbf{U}\mathbf{S}\mathbf{Q}\)</span> be the SVD of
+<span class="math">\(\mathbf{X}^T\)</span>.
+Then <span class="math">\(\mathbf{c} = \mathbf{U} \mathbf{S}^{-1} \mathbf{Q} \mathbf{y}\)</span>,
+with <span class="math">\(\mathbf{S}^{-1}=\mathrm{diag}(1/s_{1,1},\dots,1/s_{m,m})\)</span>.
+As <span class="math">\(s_{1,1}\ge\dots\ge s_{m,m}\)</span> gives the singular
+values of <span class="math">\(\mathbf{X}^T\)</span>, the aforementioned
+condition number can simply be computed as <span class="math">\(s_{1,1}/s_{m,m}\)</span>.</p>
 </div>
 <div style="margin-top: 1em"></div><p>Let us verify the method used by <strong class="program">scikit-learn</strong>.
 As it fits the intercept separately, we expect it to be slightly
@@ -1961,16 +1963,16 @@ inverse is prone to enormous numerical errors.
 One way of dealing with this is to remove highly correlated variables
 (the multicollinearity problem). Interestingly, standardisation can
 <em>sometimes</em> make the fitting more numerically stable.</p>
-<p>Let <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> be a standardised version of the model matrix
-<span class="math notranslate nohighlight">\(\mathbf{X}\)</span> with the intercept part (the column of <span class="math notranslate nohighlight">\(1\)</span>s) not included,
-i.e., with <span class="math notranslate nohighlight">\(\mathbf{z}_{\cdot,j} = (\mathbf{x}_{\cdot,j}-\bar{x}_j)/s_j\)</span>
-where <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and <span class="math notranslate nohighlight">\(s_j\)</span> denotes the arithmetic mean
-and standard deviation of the <span class="math notranslate nohighlight">\(j\)</span>-th column in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.
-If <span class="math notranslate nohighlight">\((d_1,\dots,d_{m-1})\)</span> is the least squares solution
-for <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>, then the least squares solution to the underlying
+<p>Let <span class="math">\(\mathbf{Z}\)</span> be a standardised version of the model matrix
+<span class="math">\(\mathbf{X}\)</span> with the intercept part (the column of <span class="math">\(1\)</span>s) not included,
+i.e., with <span class="math">\(\mathbf{z}_{\cdot,j} = (\mathbf{x}_{\cdot,j}-\bar{x}_j)/s_j\)</span>
+where <span class="math">\(\bar{x}_j\)</span> and <span class="math">\(s_j\)</span> denotes the arithmetic mean
+and standard deviation of the <span class="math">\(j\)</span>-th column in <span class="math">\(\mathbf{X}\)</span>.
+If <span class="math">\((d_1,\dots,d_{m-1})\)</span> is the least squares solution
+for <span class="math">\(\mathbf{Z}\)</span>, then the least squares solution to the underlying
 original regression problem is:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \boldsymbol{c}=\left(
     \bar{y}-\sum_{j=1}^{m-1} \frac{d_j}{s_j} \bar{x}_j,
@@ -2059,26 +2061,26 @@ to many different scenarios ourselves.</p>
 <p>Let us note that the dot product (<a class="reference internal" href="320-transform-matrix.html#sec-matrix-multiply"><span class="std std-numref">Section 8.3</span></a>)
 has a nice geometrical interpretation:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \boldsymbol{x}\cdot\boldsymbol{y} = \|\boldsymbol{x}\|\, \|\boldsymbol{y}\|\,
 \cos\alpha,
 \]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> is the angle between two given vectors
-<span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^n\)</span>.
+<p>where <span class="math">\(\alpha\)</span> is the angle between two given vectors
+<span class="math">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^n\)</span>.
 In plain English, it is the product of the magnitudes of the two vectors
 and the cosine of the angle between them.</p>
 <p>We can retrieve the cosine part by computing the dot product
 of the <em>normalised</em> vectors, i.e., such that their magnitudes are equal to 1:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \cos\alpha = \frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\cdot\frac{\boldsymbol{y}}{\|\boldsymbol{y}\|}.
 \]</div>
 </div>
-<p>For example, consider two vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>,
-<span class="math notranslate nohighlight">\(\boldsymbol{u}=(1/2, 0)\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{v}=(\sqrt{2}/2, \sqrt{2}/2)\)</span>,
+<p>For example, consider two vectors in <span class="math">\(\mathbb{R}^2\)</span>,
+<span class="math">\(\boldsymbol{u}=(1/2, 0)\)</span> and <span class="math">\(\boldsymbol{v}=(\sqrt{2}/2, \sqrt{2}/2)\)</span>,
 which are depicted in <a class="reference internal" href="#fig-two-vectors-angle"><span class="std std-numref">Figure 9.16</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
@@ -2113,160 +2115,160 @@ inverse of the cosine function, i.e., arccosine.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If two vectors are collinear
-(<em>codirectional</em>, one is a scaled version of another, angle <span class="math notranslate nohighlight">\(0\)</span>),
-then <span class="math notranslate nohighlight">\(\cos 0 = 1\)</span>. If they point in opposite directions
-(<span class="math notranslate nohighlight">\(\pm\pi=\pm 180^\circ\)</span> angle), then <span class="math notranslate nohighlight">\(\cos \pm\pi=-1\)</span>.
+(<em>codirectional</em>, one is a scaled version of another, angle <span class="math">\(0\)</span>),
+then <span class="math">\(\cos 0 = 1\)</span>. If they point in opposite directions
+(<span class="math">\(\pm\pi=\pm 180^\circ\)</span> angle), then <span class="math">\(\cos \pm\pi=-1\)</span>.
 For vectors that are <em>orthogonal</em>
-(perpendicular, <span class="math notranslate nohighlight">\(\pm\frac{\pi}{2}=\pm 90^\circ\)</span> angle),
-we get <span class="math notranslate nohighlight">\(\cos\pm\frac{\pi}{2}=0\)</span>.</p>
+(perpendicular, <span class="math">\(\pm\frac{\pi}{2}=\pm 90^\circ\)</span> angle),
+we get <span class="math">\(\cos\pm\frac{\pi}{2}=0\)</span>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(**)
-The standard deviation <span class="math notranslate nohighlight">\(s\)</span> of a vector <span class="math notranslate nohighlight">\(\boldsymbol{x}\in\mathbb{R}^n\)</span>
+The standard deviation <span class="math">\(s\)</span> of a vector <span class="math">\(\boldsymbol{x}\in\mathbb{R}^n\)</span>
 that has already been centred (whose components’ mean is 0)
-is a scaled version of its magnitude, i.e., <span class="math notranslate nohighlight">\(s = \|\boldsymbol{x}\|/\sqrt{n}\)</span>.
+is a scaled version of its magnitude, i.e., <span class="math">\(s = \|\boldsymbol{x}\|/\sqrt{n}\)</span>.
 Looking at the definition of the Pearson linear correlation coefficient
 (<a class="reference internal" href="#sec-pearson"><span class="std std-numref">Section 9.1.1</span></a>),
 we see that it is the dot product of the standardised versions
-of two vectors <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{y}\)</span> divided by
+of two vectors <span class="math">\(\boldsymbol{x}\)</span> and <span class="math">\(\boldsymbol{y}\)</span> divided by
 the number of elements therein. If the vectors are
 centred, we can rewrite the formula equivalently as
-<span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})=
-\frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\cdot\frac{\boldsymbol{y}}{\|\boldsymbol{y}\|}\)</span> and thus <span class="math notranslate nohighlight">\(r(\boldsymbol{x}, \boldsymbol{y})= \cos\alpha\)</span>.
+<span class="math">\(r(\boldsymbol{x}, \boldsymbol{y})=
+\frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\cdot\frac{\boldsymbol{y}}{\|\boldsymbol{y}\|}\)</span> and thus <span class="math">\(r(\boldsymbol{x}, \boldsymbol{y})= \cos\alpha\)</span>.
 It is not easy to imagine vectors in high-dimensional spaces,
 but from this observation we can at least imply the fact
-that <span class="math notranslate nohighlight">\(r\)</span> is bounded between -1 and 1.
+that <span class="math">\(r\)</span> is bounded between -1 and 1.
 In this context, being not linearly correlated corresponds to the vectors’
 orthogonality.</p>
 </div>
 </section>
 <section id="geometric-transformations-of-points">
 <span id="sec-geometric-transform"></span><h3><span class="section-number">9.3.2. </span>Geometric transformations of points<a class="headerlink" href="#geometric-transformations-of-points" title="Link to this heading">#</a></h3>
-<p>For certain square matrices of size <span class="math notranslate nohighlight">\(m\times m\)</span>,
+<p>For certain square matrices of size <span class="math">\(m\times m\)</span>,
 matrix multiplication can be thought of as an application
-of the corresponding geometrical transformation of points in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span></p>
-<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> be a matrix of shape <span class="math notranslate nohighlight">\(n\times m\)</span>,
+of the corresponding geometrical transformation of points in <span class="math">\(\mathbb{R}^m\)</span></p>
+<p>Let <span class="math">\(\mathbf{X}\)</span> be a matrix of shape <span class="math">\(n\times m\)</span>,
 which we treat as representing the coordinates of
-<span class="math notranslate nohighlight">\(n\)</span> points in an <span class="math notranslate nohighlight">\(m\)</span>-dimensional space.
+<span class="math">\(n\)</span> points in an <span class="math">\(m\)</span>-dimensional space.
 For instance, if we are given a diagonal matrix:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{S}=\mathrm{diag}(s_1, s_2,\dots, s_m)=
 \left[
 \begin{array}{cccc}
-s_1 &amp; 0 &amp; \dots &amp; 0 \\
-0 &amp; s_2 &amp; \dots &amp; 0 \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-0 &amp; 0 &amp; \dots &amp; s_m \\
+s_1 & 0 & \dots & 0 \\
+0 & s_2 & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & s_m \\
 \end{array}
 \right],
-\end{split}\]</div>
+\]</div>
 </div>
-<p>then <span class="math notranslate nohighlight">\(\mathbf{X} \mathbf{S}\)</span> represents <em>scaling</em> (stretching) with respect
+<p>then <span class="math">\(\mathbf{X} \mathbf{S}\)</span> represents <em>scaling</em> (stretching) with respect
 to the individual axes of the coordinate system because:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X} \mathbf{S} =
 \left[
 \begin{array}{cccc}
-s_1 x_{1,1} &amp; s_2 x_{1,2} &amp; \dots &amp; s_m x_{1,m} \\
-s_1 x_{2,1} &amp; s_2 x_{2,2} &amp; \dots &amp; s_m x_{2,m} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-s_1 x_{n-1,1} &amp; s_2 x_{n-1,2} &amp; \dots &amp; s_m x_{n-1,m} \\
-s_1 x_{n,1} &amp; s_2 x_{n,2} &amp; \dots &amp; s_m x_{n,m} \\
+s_1 x_{1,1} & s_2 x_{1,2} & \dots & s_m x_{1,m} \\
+s_1 x_{2,1} & s_2 x_{2,2} & \dots & s_m x_{2,m} \\
+\vdots & \vdots & \ddots & \vdots \\
+s_1 x_{n-1,1} & s_2 x_{n-1,2} & \dots & s_m x_{n-1,m} \\
+s_1 x_{n,1} & s_2 x_{n,2} & \dots & s_m x_{n,m} \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>The above can be expressed in <strong class="program">numpy</strong> without
 referring to the matrix multiplication.
 A notation like <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">*</span> <span class="pre">np.array([s1,</span> <span class="pre">s2,</span> <span class="pre">...,</span> <span class="pre">sm]).reshape(1,</span> <span class="pre">-1)</span></code>
 will suffice (elementwise multiplication and proper shape broadcasting).</p>
-<div style="margin-top: 1em"></div><p>Furthermore, let <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is an <em>orthonormal</em><a class="footnote-reference brackets" href="#footortho" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a> matrix, i.e.,
+<div style="margin-top: 1em"></div><p>Furthermore, let <span class="math">\(\mathbf{Q}\)</span> is an <em>orthonormal</em><a class="footnote-reference brackets" href="#footortho" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a> matrix, i.e.,
 a square matrix whose columns and rows
 are unit vectors (normalised), all orthogonal to each other:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\| \mathbf{q}_{i,\cdot} \| = 1\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{q}_{i,\cdot}\cdot\mathbf{q}_{k,\cdot} = 0\)</span> for all <span class="math notranslate nohighlight">\(i,k\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\| \mathbf{q}_{\cdot,j} \| = 1\)</span> for all <span class="math notranslate nohighlight">\(j\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{q}_{\cdot,j}\cdot\mathbf{q}_{\cdot,k} = 0\)</span> for all <span class="math notranslate nohighlight">\(j,k\)</span>.</p></li>
+<li><p><span class="math">\(\| \mathbf{q}_{i,\cdot} \| = 1\)</span> for all <span class="math">\(i\)</span>,</p></li>
+<li><p><span class="math">\(\mathbf{q}_{i,\cdot}\cdot\mathbf{q}_{k,\cdot} = 0\)</span> for all <span class="math">\(i,k\)</span>,</p></li>
+<li><p><span class="math">\(\| \mathbf{q}_{\cdot,j} \| = 1\)</span> for all <span class="math">\(j\)</span>,</p></li>
+<li><p><span class="math">\(\mathbf{q}_{\cdot,j}\cdot\mathbf{q}_{\cdot,k} = 0\)</span> for all <span class="math">\(j,k\)</span>.</p></li>
 </ul>
-<p>In such a case, <span class="math notranslate nohighlight">\(\mathbf{X}\mathbf{Q}\)</span> represents a combination
+<p>In such a case, <span class="math">\(\mathbf{X}\mathbf{Q}\)</span> represents a combination
 of rotations and reflections.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>By definition, a matrix <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>
+<p>By definition, a matrix <span class="math">\(\mathbf{Q}\)</span>
 is <em>orthonormal</em> if and only if
-<span class="math notranslate nohighlight">\(\mathbf{Q}^T \mathbf{Q} = \mathbf{Q} \mathbf{Q}^T = \mathbf{I}\)</span>.
-It is due to the <span class="math notranslate nohighlight">\(\cos\pm\frac{\pi}{2}=0\)</span> interpretation
+<span class="math">\(\mathbf{Q}^T \mathbf{Q} = \mathbf{Q} \mathbf{Q}^T = \mathbf{I}\)</span>.
+It is due to the <span class="math">\(\cos\pm\frac{\pi}{2}=0\)</span> interpretation
 of the dot products of normalised orthogonal vectors.</p>
 </div>
-<p>In particular, the matrix representing the rotation in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>
-about the origin <span class="math notranslate nohighlight">\((0, 0)\)</span> by the counterclockwise angle <span class="math notranslate nohighlight">\(\alpha\)</span>:</p>
+<p>In particular, the matrix representing the rotation in <span class="math">\(\mathbb{R}^2\)</span>
+about the origin <span class="math">\((0, 0)\)</span> by the counterclockwise angle <span class="math">\(\alpha\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{R}(\alpha) = \left[
 \begin{array}{cc}
- \cos \alpha &amp; \sin\alpha \\
--\sin \alpha &amp; \cos\alpha \\
+ \cos \alpha & \sin\alpha \\
+-\sin \alpha & \cos\alpha \\
 \end{array}
 \right],
-\end{split}\]</div>
+\]</div>
 </div>
 <p>is orthonormal (which can be easily verified using the basic
 trigonometric equalities).
 Furthermore:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \left[
 \begin{array}{cc}
- 1 &amp; 0 \\
- 0 &amp; -1 \\
+ 1 & 0 \\
+ 0 & -1 \\
 \end{array}
 \right]
 \quad\text{ and }\quad
 \left[
 \begin{array}{cc}
- -1 &amp; 0 \\
- 0 &amp; 1 \\
+ -1 & 0 \\
+ 0 & 1 \\
 \end{array}
 \right],
-\end{split}\]</div>
+\]</div>
 </div>
 <p>represent the two reflections, one
 against the x- and the other against the y-axis, respectively.
 Both are orthonormal matrices too.</p>
-<div style="margin-top: 1em"></div><p>Consider a dataset <span class="math notranslate nohighlight">\(\mathbf{X}'\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>:</p>
+<div style="margin-top: 1em"></div><p>Consider a dataset <span class="math">\(\mathbf{X}'\)</span> in <span class="math">\(\mathbb{R}^2\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 <span class="n">Xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span>
 </pre></div>
 </div>
 <p>and its scaled, rotated, and translated (shifted) version:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X} =
 \mathbf{X}'\ \left[
 \begin{array}{cc}
- 2 &amp; 0 \\
-0 &amp; 0.5 \\
+ 2 & 0 \\
+0 & 0.5 \\
 \end{array}
 \right]\ \left[
 \begin{array}{cc}
- \cos \frac{\pi}{6} &amp; \sin\frac{\pi}{6} \\
--\sin \frac{\pi}{6} &amp; \cos\frac{\pi}{6} \\
+ \cos \frac{\pi}{6} & \sin\frac{\pi}{6} \\
+-\sin \frac{\pi}{6} & \cos\frac{\pi}{6} \\
 \end{array}
 \right] + \left[
 \begin{array}{cc}
-3 &amp; 2 \\
+3 & 2 \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
@@ -2290,13 +2292,13 @@ Both are orthonormal matrices too.</p>
 <p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version.</span><a class="headerlink" href="#id54" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>We can consider <span class="math notranslate nohighlight">\(\mathbf{X}=\mathbf{X}' \mathbf{S} \mathbf{Q} + \mathbf{t}\)</span>
-a version of <span class="math notranslate nohighlight">\(\mathbf{X}'\)</span> in a new coordinate system (basis),
+<p>We can consider <span class="math">\(\mathbf{X}=\mathbf{X}' \mathbf{S} \mathbf{Q} + \mathbf{t}\)</span>
+a version of <span class="math">\(\mathbf{X}'\)</span> in a new coordinate system (basis),
 see <a class="reference internal" href="#fig-geom-trans"><span class="std std-numref">Figure 9.17</span></a>.
 Each column in the transformed matrix is a
 shifted linear combination of the columns in the original matrix:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathbf{x}_{\cdot,j} = t_j + \sum_{k=1}^m (s_{k, k} q_{k, j})
 \mathbf{x}_{\cdot, k}'.
@@ -2317,58 +2319,58 @@ the standardisation itself is a form of scaling and translation.</p>
 of apples and the number of oranges in clients’ baskets.
 What orthonormal and scaling transforms should be
 applied to obtain a matrix that gives the total number of fruits and
-<em>surplus</em> apples (e.g., to convert a row <span class="math notranslate nohighlight">\((4, 7)\)</span> to <span class="math notranslate nohighlight">\((11, -3)\)</span>)?</p>
+<em>surplus</em> apples (e.g., to convert a row <span class="math">\((4, 7)\)</span> to <span class="math">\((11, -3)\)</span>)?</p>
 </div></div></section>
 <section id="matrix-inverse">
 <span id="sec-matrix-inverse"></span><h3><span class="section-number">9.3.3. </span>Matrix inverse<a class="headerlink" href="#matrix-inverse" title="Link to this heading">#</a></h3>
-<p>The <em>inverse</em> of a square matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
-(if it exists) is denoted by <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>. It is the matrix
+<p>The <em>inverse</em> of a square matrix <span class="math">\(\mathbf{A}\)</span>
+(if it exists) is denoted by <span class="math">\(\mathbf{A}^{-1}\)</span>. It is the matrix
 fulfilling the identity:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathbf{A}^{-1} \mathbf{A} = \mathbf{A} \mathbf{A}^{-1} = \mathbf{I}.
 \]</div>
 </div>
-<p>Noting that the identity matrix <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the neutral element
+<p>Noting that the identity matrix <span class="math">\(\mathbf{I}\)</span> is the neutral element
 of the matrix multiplication, the above is thus the analogue
 of the inverse of a scalar: something like
-<span class="math notranslate nohighlight">\(3 \cdot 3^{-1} = 3\cdot \frac{1}{3} = \frac{1}{3} \cdot 3 = 1\)</span>.</p>
+<span class="math">\(3 \cdot 3^{-1} = 3\cdot \frac{1}{3} = \frac{1}{3} \cdot 3 = 1\)</span>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>For any invertible matrices of admissible shapes,
 it might be shown that the following noteworthy properties hold:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\((\mathbf{A}^{-1})^T = (\mathbf{A}^T)^{-1}\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\((\mathbf{A}\mathbf{B})^{-1} = \mathbf{B}^{-1} \mathbf{A}^{-1}\)</span>,</p></li>
-<li><p>a matrix equality <span class="math notranslate nohighlight">\(\mathbf{A}=\mathbf{B}\mathbf{C}\)</span> holds if and only if
-<span class="math notranslate nohighlight">\(\mathbf{A} \mathbf{C}^{-1}=\mathbf{B}\mathbf{C}\mathbf{C}^{-1}=\mathbf{B}\)</span>;
+<li><p><span class="math">\((\mathbf{A}^{-1})^T = (\mathbf{A}^T)^{-1}\)</span>,</p></li>
+<li><p><span class="math">\((\mathbf{A}\mathbf{B})^{-1} = \mathbf{B}^{-1} \mathbf{A}^{-1}\)</span>,</p></li>
+<li><p>a matrix equality <span class="math">\(\mathbf{A}=\mathbf{B}\mathbf{C}\)</span> holds if and only if
+<span class="math">\(\mathbf{A} \mathbf{C}^{-1}=\mathbf{B}\mathbf{C}\mathbf{C}^{-1}=\mathbf{B}\)</span>;
 this is also equivalent to
-<span class="math notranslate nohighlight">\(\mathbf{B}^{-1} \mathbf{A}=\mathbf{B}^{-1} \mathbf{B}\mathbf{C}=\mathbf{C}\)</span>.</p></li>
+<span class="math">\(\mathbf{B}^{-1} \mathbf{A}=\mathbf{B}^{-1} \mathbf{B}\mathbf{C}=\mathbf{C}\)</span>.</p></li>
 </ul>
 </div>
 <p>Matrix inverse  to identify the inverses of geometrical
 transformations.
-Knowing that <span class="math notranslate nohighlight">\(\mathbf{X} = \mathbf{X}'\mathbf{S}\mathbf{Q}+\mathbf{t}\)</span>,
+Knowing that <span class="math">\(\mathbf{X} = \mathbf{X}'\mathbf{S}\mathbf{Q}+\mathbf{t}\)</span>,
 we can recreate the original matrix by applying:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathbf{X}' = (\mathbf{X}-\mathbf{t}) (\mathbf{S}\mathbf{Q})^{-1}
 = (\mathbf{X}-\mathbf{t}) \mathbf{Q}^{-1} \mathbf{S}^{-1}.
 \]</div>
 </div>
-<p>It is worth knowing that if <span class="math notranslate nohighlight">\(\mathbf{S}=\mathrm{diag}(s_1,s_2,\dots,s_m)\)</span>
+<p>It is worth knowing that if <span class="math">\(\mathbf{S}=\mathrm{diag}(s_1,s_2,\dots,s_m)\)</span>
 is a diagonal matrix, then its inverse is
-<span class="math notranslate nohighlight">\(\mathbf{S}^{-1} = \mathrm{diag}(1/s_1,1/s_2,\dots,1/s_m)\)</span>,
-which we can denote as <span class="math notranslate nohighlight">\((1/\mathbf{S})\)</span>.
-In addition, the inverse of an orthonormal matrix <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>
+<span class="math">\(\mathbf{S}^{-1} = \mathrm{diag}(1/s_1,1/s_2,\dots,1/s_m)\)</span>,
+which we can denote as <span class="math">\((1/\mathbf{S})\)</span>.
+In addition, the inverse of an orthonormal matrix <span class="math">\(\mathbf{Q}\)</span>
 is always equal to its transpose,
-<span class="math notranslate nohighlight">\(\mathbf{Q}^{-1}=\mathbf{Q}^T\)</span>.
+<span class="math">\(\mathbf{Q}^{-1}=\mathbf{Q}^T\)</span>.
 Luckily, we will not be inverting other matrices in this introductory course.</p>
 <p>As a consequence:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathbf{X}' = (\mathbf{X}-\mathbf{t}) \mathbf{Q}^{T} (1/\mathbf{S}).
 \]</div>
@@ -2382,24 +2384,24 @@ round-off error):</p>
 </section>
 <section id="singular-value-decomposition">
 <span id="sec-svd"></span><h3><span class="section-number">9.3.4. </span>Singular value decomposition<a class="headerlink" href="#singular-value-decomposition" title="Link to this heading">#</a></h3>
-<p>It turns out that given any real <span class="math notranslate nohighlight">\(n\times m\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-with <span class="math notranslate nohighlight">\(n\ge m\)</span>, we can find an interesting scaling and orthonormal
+<p>It turns out that given any real <span class="math">\(n\times m\)</span> matrix <span class="math">\(\mathbf{X}\)</span>
+with <span class="math">\(n\ge m\)</span>, we can find an interesting scaling and orthonormal
 transform that, when applied on a dataset whose columns are already
-normalised, yields exactly <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+normalised, yields exactly <span class="math">\(\mathbf{X}\)</span>.</p>
 <p>Namely, the singular value decomposition (SVD in the so-called compact form)
 is a factorisation:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\mathbf{X} = \mathbf{U}\mathbf{S}\mathbf{Q},\]</div>
 </div>
 <p>where:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\mathbf{U}\)</span> is an <span class="math notranslate nohighlight">\(n\times m\)</span> semi-orthonormal matrix
+<li><p><span class="math">\(\mathbf{U}\)</span> is an <span class="math">\(n\times m\)</span> semi-orthonormal matrix
 (its columns are orthonormal vectors;
-it holds <span class="math notranslate nohighlight">\(\mathbf{U}^T \mathbf{U} = \mathbf{I}\)</span>),</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{S}\)</span> is an <span class="math notranslate nohighlight">\(m\times m\)</span> diagonal matrix such
-that <span class="math notranslate nohighlight">\(s_{1,1}\ge s_{2,2}\ge\dots\ge s_{m,m}\ge 0\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is an <span class="math notranslate nohighlight">\(m\times m\)</span> orthonormal matrix.</p></li>
+it holds <span class="math">\(\mathbf{U}^T \mathbf{U} = \mathbf{I}\)</span>),</p></li>
+<li><p><span class="math">\(\mathbf{S}\)</span> is an <span class="math">\(m\times m\)</span> diagonal matrix such
+that <span class="math">\(s_{1,1}\ge s_{2,2}\ge\dots\ge s_{m,m}\ge 0\)</span>,</p></li>
+<li><p><span class="math">\(\mathbf{Q}\)</span> is an <span class="math">\(m\times m\)</span> orthonormal matrix.</p></li>
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -2423,8 +2425,8 @@ have already been centred (so that their column means are all 0).</p>
 <span class="c1">##        [ 0.01025205, -0.0128136 ]])</span>
 </pre></div>
 </div>
-<p>The norms of all the columns in <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> are all equal to 1
-(and hence standard deviations are <span class="math notranslate nohighlight">\(1/\sqrt{n}\)</span>).
+<p>The norms of all the columns in <span class="math">\(\mathbf{U}\)</span> are all equal to 1
+(and hence standard deviations are <span class="math">\(1/\sqrt{n}\)</span>).
 Consequently, they are on the same scale:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># compare</span>
 <span class="c1">## (array([0.01, 0.01]), 0.01)</span>
@@ -2432,18 +2434,18 @@ Consequently, they are on the same scale:</p>
 </div>
 <p>What is more, they are orthogonal: their dot products
 are all equal to 0. Regarding what we said about Pearson’s
-linear correlation coefficient and its relation to dot products of normalised vectors, we imply that the columns in <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> are not
+linear correlation coefficient and its relation to dot products of normalised vectors, we imply that the columns in <span class="math">\(\mathbf{U}\)</span> are not
 linearly correlated. In some sense, they form <em>independent</em> dimensions.</p>
-<p>Now, it holds <span class="math notranslate nohighlight">\(\mathbf{S} = \mathrm{diag}(s_1,\dots,s_m)\)</span>,
+<p>Now, it holds <span class="math">\(\mathbf{S} = \mathrm{diag}(s_1,\dots,s_m)\)</span>,
 with the elements on the diagonal being:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span>
 <span class="c1">## array([49.72180455, 12.5126241 ])</span>
 </pre></div>
 </div>
-<p>The elements on the main diagonal of <span class="math notranslate nohighlight">\(\mathbf{S}\)</span>
-are used to scale the corresponding columns in <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>.
+<p>The elements on the main diagonal of <span class="math">\(\mathbf{S}\)</span>
+are used to scale the corresponding columns in <span class="math">\(\mathbf{U}\)</span>.
 The fact that they are ordered decreasingly
-means that the first column in <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{S}\)</span>
+means that the first column in <span class="math">\(\mathbf{U}\mathbf{S}\)</span>
 has the greatest standard deviation,
 the second column has the second greatest variability,
 and so forth.</p>
@@ -2453,29 +2455,29 @@ and so forth.</p>
 <span class="c1">## array([0.49721805, 0.12512624])</span>
 </pre></div>
 </div>
-<p>Multiplying <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{S}\)</span> by <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> simply
+<p>Multiplying <span class="math">\(\mathbf{U}\mathbf{S}\)</span> by <span class="math">\(\mathbf{Q}\)</span> simply
 rotates and/or reflects the dataset.
-This brings  <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{S}\)</span> to a new coordinate system
+This brings  <span class="math">\(\mathbf{U}\mathbf{S}\)</span> to a new coordinate system
 where, by construction, the dataset projected onto the direction
-determined by the first row in <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>, i.e., <span class="math notranslate nohighlight">\(\mathbf{q}_{1,\cdot}\)</span>
+determined by the first row in <span class="math">\(\mathbf{Q}\)</span>, i.e., <span class="math">\(\mathbf{q}_{1,\cdot}\)</span>
 has the largest variance,
-projection onto <span class="math notranslate nohighlight">\(\mathbf{q}_{2,\cdot}\)</span> has the second largest variance,
+projection onto <span class="math">\(\mathbf{q}_{2,\cdot}\)</span> has the second largest variance,
 and so on.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Q</span>
 <span class="c1">## array([[ 0.86781968,  0.49687926],</span>
 <span class="c1">##        [-0.49687926,  0.86781968]])</span>
 </pre></div>
 </div>
-<p>This is why we refer to the rows in <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>
+<p>This is why we refer to the rows in <span class="math">\(\mathbf{Q}\)</span>
 as <em>principal directions</em> (or <em>components</em>).
 Their scaled versions (proportional
 to the standard deviations along them) are depicted in
 <a class="reference internal" href="#fig-principal-directions"><span class="std std-numref">Figure 9.18</span></a>.
 Note that we have more or less recreated the steps needed
-to construct <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> from <span class="math notranslate nohighlight">\(\mathbf{X}'\)</span> above
-(by the way we generated <span class="math notranslate nohighlight">\(\mathbf{X}'\)</span>, we expect it to
+to construct <span class="math">\(\mathbf{X}\)</span> from <span class="math">\(\mathbf{X}'\)</span> above
+(by the way we generated <span class="math">\(\mathbf{X}'\)</span>, we expect it to
 have linearly uncorrelated columns;
-yet, <span class="math notranslate nohighlight">\(\mathbf{X}'\)</span> and <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> have different
+yet, <span class="math">\(\mathbf{X}'\)</span> and <span class="math">\(\mathbf{U}\)</span> have different
 column variances).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_centred</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_centred</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span>
@@ -2546,9 +2548,9 @@ hopefully visible <a class="reference internal" href="#fig-chainlink-rotated"><s
 </figure>
 <p>It turns out that we may find a noteworthy viewpoint using the SVD.
 Namely, we can perform the decomposition
-of a centred dataset which we denote by <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
+of a centred dataset which we denote by <span class="math">\(\mathbf{X}\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathbf{X} = \mathbf{U}\mathbf{S}\mathbf{Q}.
 \]</div>
@@ -2560,7 +2562,7 @@ of a centred dataset which we denote by <span class="math notranslate nohighligh
 </div>
 <p>Then, considering its rotated/reflected version:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \mathbf{P}=\mathbf{X} \mathbf{Q}^{-1} = \mathbf{U}\mathbf{S},
 \]</div>
@@ -2570,8 +2572,8 @@ the second column has the second highest variability,
 and so on.
 It might indeed be worth looking at that dataset from that
 <em>most informative</em> perspective.</p>
-<p><a class="reference internal" href="#fig-chainlink-svd"><span class="std std-numref">Figure 9.21</span></a> gives the scatter plot for <span class="math notranslate nohighlight">\(\mathbf{p}_{\cdot,1}\)</span>
-and <span class="math notranslate nohighlight">\(\mathbf{p}_{\cdot,2}\)</span>. Maybe this does not reveal the true
+<p><a class="reference internal" href="#fig-chainlink-svd"><span class="std std-numref">Figure 9.21</span></a> gives the scatter plot for <span class="math">\(\mathbf{p}_{\cdot,1}\)</span>
+and <span class="math">\(\mathbf{p}_{\cdot,2}\)</span>. Maybe this does not reveal the true
 geometric structure of the dataset (no single two-dimensional projection
 can do that), but at least it is better than the initial
 ones (from the pairs plot).</p>
@@ -2589,7 +2591,7 @@ ones (from the pairs plot).</p>
 </figure>
 <p>What we just did is a kind of <em>dimensionality reduction</em>.
 We found a viewpoint (in the form of an orthonormal matrix, being
-a mixture of rotations and reflections) on <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
+a mixture of rotations and reflections) on <span class="math">\(\mathbf{X}\)</span>
 such that its orthonormal projection onto the first two axes of
 the Cartesian coordinate system is the most informative<a class="footnote-reference brackets" href="#footrankkapprox" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a>
 (in terms of having the highest variance along these axes).</p>
@@ -2636,14 +2638,14 @@ that are linear combinations of existing ones).</p>
 <p>This is a five-dimensional dataset. We cannot easily visualise it.
 Observing that the pairs plot does not reveal too much is left as an exercise.
 Let us thus perform the SVD decomposition of a standardised
-version of this dataset, <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span>
+version of this dataset, <span class="math">\(\mathbf{Z}\)</span>
 (recall that the centring is necessary, at the very least).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The standard deviations of the data projected onto
-the consecutive principal components (columns in <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{S}\)</span>) are:</p>
+the consecutive principal components (columns in <span class="math">\(\mathbf{U}\mathbf{S}\)</span>) are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="c1">## array([2.02953531, 0.7529221 , 0.3943008 , 0.31897889, 0.23848286])</span>
 </pre></div>
@@ -2662,15 +2664,15 @@ we can restrict ourselves only to a two-dimensional projection
 of this dataset (actually, we are quite lucky here – or someone
 has selected these countrywise indices for us in a very
 clever fashion).</p>
-<p>The rows in <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> define the <em>loadings</em>, which
+<p>The rows in <span class="math">\(\mathbf{Q}\)</span> define the <em>loadings</em>, which
 give the coefficients defining the linear combinations of the
-rows in <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> that correspond to the principal components.</p>
+rows in <span class="math">\(\mathbf{Z}\)</span> that correspond to the principal components.</p>
 <p>Let us try to interpret them.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># loadings – the first principal axis</span>
 <span class="c1">## array([-0.43, -0.43,  0.44,  0.45, -0.47])</span>
 </pre></div>
 </div>
-<p>The first row in <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> consists of similar values,
+<p>The first row in <span class="math">\(\mathbf{Q}\)</span> consists of similar values,
 but with different signs.
 We can consider them a scaled version of the average
 Energy Use (column 3), Greenhouse Gases (4), and
@@ -2683,7 +2685,7 @@ Greenhouse Gasses will score highly on this scale.</p>
 <span class="c1">## array([ 0.52,  0.5 ,  0.52,  0.45, -0.02])</span>
 </pre></div>
 </div>
-<p>The second row in <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> defines a scaled version of the average
+<p>The second row in <span class="math">\(\mathbf{Q}\)</span> defines a scaled version of the average
 of Safe Sanitation (1), Healthy Life (2), Energy Use (3),
 and Greenhouse Gases (4), almost completely ignoring the GDP (5).
 Can we call it a measure of industrialisation? Something like this.
@@ -2839,7 +2841,7 @@ projection? What is the inverse of an orthonormal matrix?</p>
     </div><div class="proof-content">
 <p>Characterise the general properties of the three matrices obtained
 by performing the singular value decomposition of a given matrix
-of shape <span class="math notranslate nohighlight">\(n\times m\)</span>.</p>
+of shape <span class="math">\(n\times m\)</span>.</p>
 </div></div><div class="proof proof-type-exercise" id="id75">
 
     <div class="proof-title">
@@ -2871,7 +2873,7 @@ The rest is silence.</p>
 <p>(**) This can be done automatically by some
 hierarchical clustering algorithm applied
 onto the correlation matrix converted to a distance one,
-e.g., <span class="math notranslate nohighlight">\(1-|\mathbf{R}|\)</span> or <span class="math notranslate nohighlight">\(1-\mathbf{R}^2\)</span>.</p>
+e.g., <span class="math">\(1-|\mathbf{R}|\)</span> or <span class="math">\(1-\mathbf{R}^2\)</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footspearman" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
@@ -2882,7 +2884,7 @@ data, we do not consider it a totally new method.</p>
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
 <p>To memorise the model
 for further reference, we only need to serialise
-its <span class="math notranslate nohighlight">\(m\)</span> coefficients, e.g., in a JSON or CSV file.</p>
+its <span class="math">\(m\)</span> coefficients, e.g., in a JSON or CSV file.</p>
 </aside>
 <aside class="footnote brackets" id="footwhyssr" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">5</a><span class="fn-bracket">]</span></span>
@@ -2901,7 +2903,7 @@ reality. It is wise to remind ourselves about that every so often.</p>
 </aside>
 <aside class="footnote brackets" id="footknnas" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">7</a><span class="fn-bracket">]</span></span>
-<p>In <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour regression, we are not
+<p>In <span class="math">\(k\)</span>-nearest neighbour regression, we are not
 aiming to minimise anything in particular. If the model
 is performing well with respect to some metrics such as RMSE or MAE,
 we can consider ourselves
@@ -2920,7 +2922,7 @@ models explaining different dependent variables.</p>
 </aside>
 <aside class="footnote brackets" id="footmle" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">9</a><span class="fn-bracket">]</span></span>
-<p>For large <span class="math notranslate nohighlight">\(n\)</span>, we expect to pinpoint the true coefficients
+<p>For large <span class="math">\(n\)</span>, we expect to pinpoint the true coefficients
 exactly. In our scenario (independent,
 normally distributed errors with the expectation of 0),
 the least squares method is the maximum likelihood estimator
@@ -2935,8 +2937,8 @@ difficult; see <a class="reference internal" href="430-group-by.html#sec-local-m
 <aside class="footnote brackets" id="footsingularvalue" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">11</a><span class="fn-bracket">]</span></span>
 <p>(**) Being themselves the square roots of eigenvalues
-of <span class="math notranslate nohighlight">\(\mathbf{X}^T \mathbf{X}\)</span>. Equivalently,
-<span class="math notranslate nohighlight">\(\kappa(\mathbf{X}^T)=\|(\mathbf{X}^T)^{-1}\|\, \|\mathbf{X}^T\|\)</span>
+of <span class="math">\(\mathbf{X}^T \mathbf{X}\)</span>. Equivalently,
+<span class="math">\(\kappa(\mathbf{X}^T)=\|(\mathbf{X}^T)^{-1}\|\, \|\mathbf{X}^T\|\)</span>
 with respect to the spectral norm. Seriously, we really need linear
 algebra when we even remotely think about practising data science.
 Let us add it to our life skills bucket list.</p>
@@ -2949,9 +2951,9 @@ referred to as orthogonal ones.</p>
 <aside class="footnote brackets" id="footrankkapprox" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">13</a><span class="fn-bracket">]</span></span>
 <p>(**) The Eckart–Young–Mirsky theorem states that
-<span class="math notranslate nohighlight">\(\mathbf{U}_{\cdot, :k} \mathbf{S}_{:k, :k} \mathbf{Q}_{:k, \cdot}\)</span>
-(where “<span class="math notranslate nohighlight">\(:k\)</span>” denotes “first <span class="math notranslate nohighlight">\(k\)</span> rows or columns”)
-is the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
+<span class="math">\(\mathbf{U}_{\cdot, :k} \mathbf{S}_{:k, :k} \mathbf{Q}_{:k, \cdot}\)</span>
+(where “<span class="math">\(:k\)</span>” denotes “first <span class="math">\(k\)</span> rows or columns”)
+is the best rank-<span class="math">\(k\)</span> approximation of <span class="math">\(\mathbf{X}\)</span>
 with respect to both the Frobenius and spectral norms.</p>
 </aside>
 <aside class="footnote brackets" id="footfun" role="doc-footnote">
@@ -3001,7 +3003,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-13T20:52:56+1100.
+              Last updated on 2023-11-14T15:11:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -3076,7 +3078,8 @@ to function properly. We need more maths in our lives.</p>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/katex.min.js?v=deb2f140"></script>
+    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

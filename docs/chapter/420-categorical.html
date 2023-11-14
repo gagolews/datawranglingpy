@@ -33,8 +33,10 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cc2833c3" />
     
     
 
@@ -325,16 +327,16 @@ target variables in statistical classification tasks
 <section id="representing-and-generating-categorical-data">
 <h2><span class="section-number">11.1. </span>Representing and generating categorical data<a class="headerlink" href="#representing-and-generating-categorical-data" title="Link to this heading">#</a></h2>
 <p>Common ways to represent a categorical variable
-with <span class="math notranslate nohighlight">\(l\)</span> distinct levels <span class="math notranslate nohighlight">\(\{L_1,L_2,\dots,L_l\}\)</span>
+with <span class="math">\(l\)</span> distinct levels <span class="math">\(\{L_1,L_2,\dots,L_l\}\)</span>
 is by storing it as:</p>
 <ul class="simple">
 <li><p>a vector of strings,</p></li>
-<li><p>a vector of integers between 0 (inclusive) and <span class="math notranslate nohighlight">\(l\)</span> (exclusive<a class="footnote-reference brackets" href="#footidx" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p></li>
+<li><p>a vector of integers between 0 (inclusive) and <span class="math">\(l\)</span> (exclusive<a class="footnote-reference brackets" href="#footidx" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p></li>
 </ul>
 <p>These two are easily interchangeable.</p>
-<p>For <span class="math notranslate nohighlight">\(l=2\)</span> (binary data), another convenient representation
+<p>For <span class="math">\(l=2\)</span> (binary data), another convenient representation
 is by means of logical vectors. This can be extended to a so-called
-one-hot encoded representation using a logical vector of length <span class="math notranslate nohighlight">\(l\)</span>.</p>
+one-hot encoded representation using a logical vector of length <span class="math">\(l\)</span>.</p>
 <div style="margin-top: 1em"></div><p>Let us consider the data on the original whereabouts of the top
 16 marathoners (the 37th PZU native Marathon dataset):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -356,9 +358,9 @@ the set of distinct categories:</p>
 <span class="c1">## array([&#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;IL&#39;], dtype=&#39;&lt;U2&#39;)</span>
 </pre></div>
 </div>
-<p>Hence, <code class="docutils literal notranslate"><span class="pre">cntrs16</span></code> is a categorical vector of length <span class="math notranslate nohighlight">\(n=16\)</span>
+<p>Hence, <code class="docutils literal notranslate"><span class="pre">cntrs16</span></code> is a categorical vector of length <span class="math">\(n=16\)</span>
 (<strong class="command">len</strong><code class="code docutils literal notranslate"><span class="pre">(cntrs16)</span></code>)
-with data assuming one of <span class="math notranslate nohighlight">\(l=5\)</span> different levels
+with data assuming one of <span class="math">\(l=5\)</span> different levels
 (<strong class="command">len</strong><code class="code docutils literal notranslate"><span class="pre">(cat_cntrs16)</span></code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -390,8 +392,8 @@ indicate that there were no runners from Australia in the top 16.</p>
 a set of integers, it does not mean that they become instances of
 a quantitative type. Arithmetic operations thereon do not really make sense.</p>
 </div>
-<p>The values between <span class="math notranslate nohighlight">\(0\)</span> (inclusive) and <span class="math notranslate nohighlight">\(5\)</span> (exclusive) can be used
-to index a given array of length <span class="math notranslate nohighlight">\(l=5\)</span>.
+<p>The values between <span class="math">\(0\)</span> (inclusive) and <span class="math">\(5\)</span> (exclusive) can be used
+to index a given array of length <span class="math">\(l=5\)</span>.
 As a consequence, to <em>decode</em> our factor, we can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
 <span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
@@ -501,7 +503,7 @@ as ordinary strings, unless a relabelling on the fly is required:</p>
 <section id="binary-data-as-logical-and-probability-vectors">
 <span id="sec-binary-logical"></span><h3><span class="section-number">11.1.2. </span>Binary data as logical and probability vectors<a class="headerlink" href="#binary-data-as-logical-and-probability-vectors" title="Link to this heading">#</a></h3>
 <p><em>Binary data</em> is a special case of the qualitative setting,
-where we only have <span class="math notranslate nohighlight">\(l=2\)</span> categories.
+where we only have <span class="math">\(l=2\)</span> categories.
 For example:</p>
 <ul class="simple">
 <li><p>0, e.g., healthy/fail/off/non-spam/absent/…),</p></li>
@@ -535,7 +537,7 @@ For example:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>It is not rare to work with vectors of probabilities,
-where the <span class="math notranslate nohighlight">\(i\)</span>-th element therein, say <code class="docutils literal notranslate"><span class="pre">p[i]</span></code>, denotes the likelihood of
+where the <span class="math">\(i\)</span>-th element therein, say <code class="docutils literal notranslate"><span class="pre">p[i]</span></code>, denotes the likelihood of
 an observation’s belonging to the class 1.
 Consequently, the probability of being a member of the class 0 is <code class="docutils literal notranslate"><span class="pre">1-p[i]</span></code>.
 In the case where we would rather work with <em>crisp</em>
@@ -549,38 +551,38 @@ to get a logical vector.</p>
         
     </div><div class="proof-content">
 <p>Given a numeric vector <code class="docutils literal notranslate"><span class="pre">x</span></code>, create a vector of the same length
-as <code class="docutils literal notranslate"><span class="pre">x</span></code> whose <span class="math notranslate nohighlight">\(i\)</span>-th element is equal to <code class="docutils literal notranslate"><span class="pre">&quot;yes&quot;</span></code>
+as <code class="docutils literal notranslate"><span class="pre">x</span></code> whose <span class="math">\(i\)</span>-th element is equal to <code class="docutils literal notranslate"><span class="pre">&quot;yes&quot;</span></code>
 if <code class="docutils literal notranslate"><span class="pre">x[i]</span></code> is in the unit interval and to <code class="docutils literal notranslate"><span class="pre">&quot;no&quot;</span></code> otherwise.
 Use <strong class="command">numpy.where</strong>, which can act as a vectorised version
 of the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement.</p>
 </div></div></section>
 <section id="one-hot-encoding">
 <h3><span class="section-number">11.1.3. </span>One-hot encoding (*)<a class="headerlink" href="#one-hot-encoding" title="Link to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> be a vector of <span class="math notranslate nohighlight">\(n\)</span>
-integer labels in <span class="math notranslate nohighlight">\(\{0,...,l-1\}\)</span>.
+<p>Let <span class="math">\(\boldsymbol{x}\)</span> be a vector of <span class="math">\(n\)</span>
+integer labels in <span class="math">\(\{0,...,l-1\}\)</span>.
 Its <em>one-hot</em>-encoded version is a 0/1 (or, equivalently, logical)
-matrix <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> of shape  <span class="math notranslate nohighlight">\(n\times l\)</span>
-such that <span class="math notranslate nohighlight">\(r_{i,j}=1\)</span> if and only if <span class="math notranslate nohighlight">\(x_i = j\)</span>.</p>
-<p>For example, if <span class="math notranslate nohighlight">\(\boldsymbol{x}=(0, 1, 2, 1)\)</span> and <span class="math notranslate nohighlight">\(l=4\)</span>, then:</p>
+matrix <span class="math">\(\mathbf{R}\)</span> of shape  <span class="math">\(n\times l\)</span>
+such that <span class="math">\(r_{i,j}=1\)</span> if and only if <span class="math">\(x_i = j\)</span>.</p>
+<p>For example, if <span class="math">\(\boldsymbol{x}=(0, 1, 2, 1)\)</span> and <span class="math">\(l=4\)</span>, then:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{R} = \left[
 \begin{array}{cccc}
-1 &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 1 &amp; 0 \\
-0 &amp; 1 &amp; 0 &amp; 0 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>One can easily verify that each row consists of one and only one 1
 (the number of 1s per one row is 1).
 Such a representation is adequate when solving
-a multiclass classification problem by means of <span class="math notranslate nohighlight">\(l\)</span> binary classifiers.
+a multiclass classification problem by means of <span class="math">\(l\)</span> binary classifiers.
 For example, if <em>spam</em>, <em>bacon</em>, and <em>hot dogs</em> are on the menu,
-then <em>spam</em> is encoded as <span class="math notranslate nohighlight">\((1, 0, 0)\)</span>, i.e.,
+then <em>spam</em> is encoded as <span class="math">\((1, 0, 0)\)</span>, i.e.,
 yeah-spam, nah-bacon, and nah-hot dog.
 We can build three binary classifiers, each narrowly specialising
 in sniffing one particular type of food.</p>
@@ -606,9 +608,9 @@ represented using character strings.</p>
         
     </div><div class="proof-content">
 <p>(*)
-We can also work with matrices like <span class="math notranslate nohighlight">\(\mathbf{P}\in[0,1]^{n\times l}\)</span>,
-where <span class="math notranslate nohighlight">\(p_{i,j}\)</span> denotes the probability of the <span class="math notranslate nohighlight">\(i\)</span>-th object’s
-belonging to the <span class="math notranslate nohighlight">\(j\)</span>-th class.
+We can also work with matrices like <span class="math">\(\mathbf{P}\in[0,1]^{n\times l}\)</span>,
+where <span class="math">\(p_{i,j}\)</span> denotes the probability of the <span class="math">\(i\)</span>-th object’s
+belonging to the <span class="math">\(j\)</span>-th class.
 Given an example matrix of this kind,
 verify that in each row the probabilities sum to 1 (up to a small
 numeric error).
@@ -661,8 +663,8 @@ the interval where each value in <code class="docutils literal notranslate"><spa
 <span class="c1">## array([0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3])</span>
 </pre></div>
 </div>
-<p>By default, the intervals are of the form <span class="math notranslate nohighlight">\((a, b]\)</span> (not including
-<span class="math notranslate nohighlight">\(a\)</span>, including <span class="math notranslate nohighlight">\(b\)</span>).
+<p>By default, the intervals are of the form <span class="math">\((a, b]\)</span> (not including
+<span class="math">\(a\)</span>, including <span class="math">\(b\)</span>).
 The code 0 corresponds to values less than the first bin edge,
 whereas the code 3 represent items
 greater than or equal to the last boundary.</p>
@@ -755,7 +757,7 @@ equipped with a readable index (element labels):</p>
 <p>By default, data are ordered with respect to the counts,
 decreasingly.</p>
 <p>If we <em>already</em> have an array of integer codes between
-<span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(l-1\)</span>, <strong class="command">numpy.bincount</strong> will return the number of
+<span class="math">\(0\)</span> and <span class="math">\(l-1\)</span>, <strong class="command">numpy.bincount</strong> will return the number of
 times each code appears therein.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts_cntrs16</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">codes_cntrs16</span><span class="p">)</span>
 <span class="n">counts_cntrs16</span>
@@ -810,7 +812,7 @@ when we study the <em>combinations</em> of levels of different variables.</p>
 <span class="c1">## array([&#39;20&#39;, &#39;30&#39;, &#39;50&#39;, &#39;40&#39;, &#39;60+&#39;], dtype=object)</span>
 </pre></div>
 </div>
-<p>We have <span class="math notranslate nohighlight">\(2\cdot 5=10\)</span> combinations thereof.
+<p>We have <span class="math">\(2\cdot 5=10\)</span> combinations thereof.
 We can use <strong class="command">pandas.DataFrame.value_counts</strong> to determine
 the number of observations at each two-dimensional level:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts2</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -1333,36 +1335,36 @@ it works for <em>numeric</em> data.</p>
 <p>For binned/categorical data, we can use a classical
 and easy-to-understand test developed by Karl Pearson in 1900.
 It is supposed to judge whether the differences between the observed
-proportions <span class="math notranslate nohighlight">\(\hat{p}_1,\dots,\hat{p}_l\)</span> and the
-theoretical ones <span class="math notranslate nohighlight">\(p_1,\dots,p_l\)</span> are significantly large or not:</p>
+proportions <span class="math">\(\hat{p}_1,\dots,\hat{p}_l\)</span> and the
+theoretical ones <span class="math">\(p_1,\dots,p_l\)</span> are significantly large or not:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \left\{
 \begin{array}{rll}
-H_0: &amp; \hat{p}_i=p_i\ \text{ for all }i=1,\dots,l &amp; \text{(null hypothesis)}\\
-H_1: &amp; \hat{p}_i\neq p_i\ \text{ for some }i=1,\dots,l &amp; \text{(alternative hypothesis)} \\
+H_0: & \hat{p}_i=p_i\ \text{ for all }i=1,\dots,l & \text{(null hypothesis)}\\
+H_1: & \hat{p}_i\neq p_i\ \text{ for some }i=1,\dots,l & \text{(alternative hypothesis)} \\
 \end{array}
 \right.
-\end{split}\]</div>
+\]</div>
 </div>
 <p>Having such a test is beneficial, e.g., when
 the data we have at hand are based on small surveys
 that are supposed to serve as estimates of what might be happening in
 a larger population.</p>
 <p>Going back to our political example from <a class="reference internal" href="#sec-political-marketing"><span class="std std-numref">Section 11.3.2</span></a>,
-it turns out that one of the pre-election polls indicated that <span class="math notranslate nohighlight">\(c=516\)</span>
-out of <span class="math notranslate nohighlight">\(n=1017\)</span> people would vote for the first candidate.
-We have <span class="math notranslate nohighlight">\(\hat{p}_1=50.74\%\)</span> (Duda)
-and <span class="math notranslate nohighlight">\(\hat{p}_2=49.26\%\)</span> (Trzaskowski).
+it turns out that one of the pre-election polls indicated that <span class="math">\(c=516\)</span>
+out of <span class="math">\(n=1017\)</span> people would vote for the first candidate.
+We have <span class="math">\(\hat{p}_1=50.74\%\)</span> (Duda)
+and <span class="math">\(\hat{p}_2=49.26\%\)</span> (Trzaskowski).
 If we would like to test whether the observed proportions
 are significantly different from each other, we could test them
-against the theoretical distribution <span class="math notranslate nohighlight">\(p_1=50\%\)</span> and <span class="math notranslate nohighlight">\(p_2=50\%\)</span>,
+against the theoretical distribution <span class="math">\(p_1=50\%\)</span> and <span class="math">\(p_2=50\%\)</span>,
 which states that there is a tie between the competitors
 (up to a sampling error).</p>
 <p>A natural test statistic is based on the relative squared differences:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \hat{T} = n \sum_{i=1}^l \frac{\left(\hat{p}_i-p_i\right)^2}{p_i}.
 \]</div>
@@ -1378,15 +1380,15 @@ which states that there is a tie between the competitors
 <p>Similarly to the continuous case in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>,
 we reject the null hypothesis, if:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \hat{T} \ge K.
 \]</div>
 </div>
-<p>The critical value <span class="math notranslate nohighlight">\(K\)</span> is computed based
+<p>The critical value <span class="math">\(K\)</span> is computed based
 on the fact that, if the null hypothesis is true,
-<span class="math notranslate nohighlight">\(\hat{T}\)</span> follows the <span class="math notranslate nohighlight">\(\chi^2\)</span> (chi-squared, hence the name of the test)
-distribution with <span class="math notranslate nohighlight">\(l-1\)</span> degrees of freedom,
+<span class="math">\(\hat{T}\)</span> follows the <span class="math">\(\chi^2\)</span> (chi-squared, hence the name of the test)
+distribution with <span class="math">\(l-1\)</span> degrees of freedom,
 see <strong class="command">scipy.stats.chi2</strong>.</p>
 <p>We thus need to query the theoretical quantile function to determine
 the test statistic that is not exceeded in 99.9% of the trials
@@ -1396,18 +1398,18 @@ the test statistic that is not exceeded in 99.9% of the trials
 <span class="c1">## 10.827566170662733</span>
 </pre></div>
 </div>
-<p>As <span class="math notranslate nohighlight">\(\hat{T} &lt; K\)</span> (because <span class="math notranslate nohighlight">\(0.22 &lt; 10.83\)</span>), we cannot deem
+<p>As <span class="math">\(\hat{T} &lt; K\)</span> (because <span class="math">\(0.22 &lt; 10.83\)</span>), we cannot deem
 the two proportions significantly different.
 In other words, this poll did not indicate (at the significance
-level <span class="math notranslate nohighlight">\(0.1\%\)</span>) any of the candidates as a clear winner.</p>
+level <span class="math">\(0.1\%\)</span>) any of the candidates as a clear winner.</p>
 <div class="proof proof-type-exercise" id="id29">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 11.15</span>
         
     </div><div class="proof-content">
-<p>Assuming <span class="math notranslate nohighlight">\(n=1017\)</span>,
-determine the smallest <span class="math notranslate nohighlight">\(c\)</span>, i.e., the number of respondents
+<p>Assuming <span class="math">\(n=1017\)</span>,
+determine the smallest <span class="math">\(c\)</span>, i.e., the number of respondents
 claiming they would vote for Duda,
 that leads to the rejection of the null hypothesis.</p>
 </div></div></section>
@@ -1424,9 +1426,9 @@ differ significantly between men and women.</p>
 <span class="c1">## array([ 879, 2200, 1708,  541,  170])</span>
 </pre></div>
 </div>
-<p>There are <span class="math notranslate nohighlight">\(l=5\)</span> age categories.
+<p>There are <span class="math">\(l=5\)</span> age categories.
 First, denote the total number of observations
-in both groups with <span class="math notranslate nohighlight">\(n'\)</span> and <span class="math notranslate nohighlight">\(n''\)</span>.</p>
+in both groups with <span class="math">\(n'\)</span> and <span class="math">\(n''\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span>
@@ -1434,14 +1436,14 @@ in both groups with <span class="math notranslate nohighlight">\(n'\)</span> and
 </pre></div>
 </div>
 <p>The observed proportions in the first group (females),
-denoted as <span class="math notranslate nohighlight">\(\hat{p}_1',\dots,\hat{p}_l'\)</span>, are, respectively:</p>
+denoted as <span class="math">\(\hat{p}_1',\dots,\hat{p}_l'\)</span>, are, respectively:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">/</span><span class="n">n1</span>
 <span class="n">p1</span>
 <span class="c1">## array([0.23692004, 0.44323791, 0.25863771, 0.04244817, 0.01875617])</span>
 </pre></div>
 </div>
 <p>Here are the proportions in the second group (males),
-<span class="math notranslate nohighlight">\(\hat{p}_1'',\dots,\hat{p}_l''\)</span>:</p>
+<span class="math">\(\hat{p}_1'',\dots,\hat{p}_l''\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">/</span><span class="n">n2</span>
 <span class="n">p2</span>
 <span class="c1">## array([0.15987632, 0.40014551, 0.31065842, 0.09839942, 0.03092033])</span>
@@ -1450,27 +1452,27 @@ denoted as <span class="math notranslate nohighlight">\(\hat{p}_1',\dots,\hat{p}
 <p>We would like to verify whether the corresponding proportions are equal
 (up to some sampling error):</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \left\{
 \begin{array}{rll}
-H_0: &amp; \hat{p}_i'=\hat{p}_i''\ \text{ for all }i=1,\dots,l &amp; \text{(null hypothesis)}\\
-H_1: &amp; \hat{p}_i'\neq \hat{p}_i''\ \text{ for some }i=1,\dots,l &amp; \text{(alternative hypothesis)} \\
+H_0: & \hat{p}_i'=\hat{p}_i''\ \text{ for all }i=1,\dots,l & \text{(null hypothesis)}\\
+H_1: & \hat{p}_i'\neq \hat{p}_i''\ \text{ for some }i=1,\dots,l & \text{(alternative hypothesis)} \\
 \end{array}
 \right.
-\end{split}\]</div>
+\]</div>
 </div>
 <p>In other words, we are interested whether the categorical data in the two
 groups come from the same discrete probability distribution.</p>
 <p>Taking the estimated expected proportions:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\bar{p}_i = \frac{n_i' \hat{p}_i' + n_i'' \hat{p}_i''}{n'+n''},\]</div>
 </div>
-<p>for all <span class="math notranslate nohighlight">\(i=1,\dots,l\)</span>,
+<p>for all <span class="math">\(i=1,\dots,l\)</span>,
 the test statistic this time is equal to:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \hat{T} =
 n'  \sum_{i=1}^l \frac{\left(\hat{p}_i' -\bar{p}_i\right)^2}{\bar{p}_i} +
@@ -1487,14 +1489,14 @@ presented in the previous subsection.</p>
 </div>
 <p>It can be shown that, if the null hypothesis is true,
 the test statistic <em>approximately</em> follows
-the <span class="math notranslate nohighlight">\(\chi^2\)</span> distribution with <span class="math notranslate nohighlight">\(l-1\)</span> degrees of freedom<a class="footnote-reference brackets" href="#recipesdof" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
-The critical value <span class="math notranslate nohighlight">\(K\)</span> is equal to:</p>
+the <span class="math">\(\chi^2\)</span> distribution with <span class="math">\(l-1\)</span> degrees of freedom<a class="footnote-reference brackets" href="#recipesdof" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
+The critical value <span class="math">\(K\)</span> is equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># significance level</span>
 <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">## 18.46682695290317</span>
 </pre></div>
 </div>
-<p>As <span class="math notranslate nohighlight">\(\hat{T} \ge K\)</span> (because <span class="math notranslate nohighlight">\(75.31 \ge 18.47\)</span>),
+<p>As <span class="math">\(\hat{T} \ge K\)</span> (because <span class="math">\(75.31 \ge 18.47\)</span>),
 we reject the null hypothesis. And so, the runners’ age distribution
 differs across sexes (at significance level 0.1%).</p>
 </section>
@@ -1537,22 +1539,22 @@ as a function of age. Here is the extracted contingency table:</p>
 <span class="c1">## Osteoporosis                             36000   312000   564000</span>
 </pre></div>
 </div>
-<p>Cramér’s <span class="math notranslate nohighlight">\(V\)</span> is one of a few ways
+<p>Cramér’s <span class="math">\(V\)</span> is one of a few ways
 to measure the degree of association between two categorical variables.
 It is equal to 0 (the lowest possible value) if the two variables are
 independent (there is no association between them)
 and 1 (the highest possible value) if they are tied.</p>
-<p>Given a two-way contingency table <span class="math notranslate nohighlight">\(C\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows and
-<span class="math notranslate nohighlight">\(m\)</span> columns and assuming that:</p>
+<p>Given a two-way contingency table <span class="math">\(C\)</span> with <span class="math">\(n\)</span> rows and
+<span class="math">\(m\)</span> columns and assuming that:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 T = \sum_{i=1}^n \sum_{j=1}^m \frac{(c_{i,j} - e_{i,j})^2}{e_{i,j}},
 \]</div>
 </div>
 <p>where:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 e_{i,j} = \frac{
 \left(\sum_{k=1}^m c_{i,k}\right)  \left(\sum_{k=1}^n c_{k,j}\right)
@@ -1563,14 +1565,14 @@ e_{i,j} = \frac{
 </div>
 <p>the Cramér coefficient is given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 V = \sqrt{
 \frac{T}{\min\{n-1, m-1\} \sum_{i=1}^n \sum_{j=1}^m c_{i,j}}
 }.
 \]</div>
 </div>
-<p>Here, <span class="math notranslate nohighlight">\(c_{i,j}\)</span> gives the actually observed counts and <span class="math notranslate nohighlight">\(e_{i, j}\)</span> denotes
+<p>Here, <span class="math">\(c_{i,j}\)</span> gives the actually observed counts and <span class="math">\(e_{i, j}\)</span> denotes
 the number that we would expect to see
 if the two variables were really independent.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">contingency</span><span class="o">.</span><span class="n">association</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
@@ -1587,7 +1589,7 @@ are more prevalent in some age groups than others.</p>
         <span class="proof-type">Exercise 11.16</span>
         
     </div><div class="proof-content">
-<p>Compute the Cramér <span class="math notranslate nohighlight">\(V\)</span> using only <strong class="program">numpy</strong> functions.</p>
+<p>Compute the Cramér <span class="math">\(V\)</span> using only <strong class="program">numpy</strong> functions.</p>
 </div></div><div class="proof proof-type-example" id="id31">
 
     <div class="proof-title">
@@ -1595,9 +1597,9 @@ are more prevalent in some age groups than others.</p>
         
     </div><div class="proof-content">
 <p>(**)
-We can easily verify the hypothesis whether <span class="math notranslate nohighlight">\(V\)</span> does not differ
-significantly from <span class="math notranslate nohighlight">\(0\)</span>, i.e., whether the variables are independent.
-Looking at <span class="math notranslate nohighlight">\(T\)</span>, we see that this is essentially the test statistic
+We can easily verify the hypothesis whether <span class="math">\(V\)</span> does not differ
+significantly from <span class="math">\(0\)</span>, i.e., whether the variables are independent.
+Looking at <span class="math">\(T\)</span>, we see that this is essentially the test statistic
 in Pearson’s chi-squared goodness-of-fit test.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">E</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">C</span><span class="o">-</span><span class="n">E</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">E</span><span class="p">)</span>
@@ -1605,15 +1607,15 @@ in Pearson’s chi-squared goodness-of-fit test.</p>
 <span class="c1">## 3715440.465191512</span>
 </pre></div>
 </div>
-<p>If the data are really independent, <span class="math notranslate nohighlight">\(T\)</span> follows the chi-squared distribution
-<span class="math notranslate nohighlight">\(n + m - 1\)</span>. As a consequence, the critical value <span class="math notranslate nohighlight">\(K\)</span> is equal to:</p>
+<p>If the data are really independent, <span class="math">\(T\)</span> follows the chi-squared distribution
+<span class="math">\(n + m - 1\)</span>. As a consequence, the critical value <span class="math">\(K\)</span> is equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>  <span class="c1"># significance level</span>
 <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="c1">## 32.90949040736021</span>
 </pre></div>
 </div>
-<p>As <span class="math notranslate nohighlight">\(T\)</span> is much greater than <span class="math notranslate nohighlight">\(K\)</span>, we conclude
-(at significance level <span class="math notranslate nohighlight">\(0.1\%\)</span>) that
+<p>As <span class="math">\(T\)</span> is much greater than <span class="math">\(K\)</span>, we conclude
+(at significance level <span class="math">\(0.1\%\)</span>) that
 the health conditions are not independent of age.</p>
 </div></div><div class="proof proof-type-exercise" id="id32">
 
@@ -1782,14 +1784,14 @@ chi-squared goodness-of-fit tests.</p>
         <span class="proof-type">Exercise 11.29</span>
         
     </div><div class="proof-content">
-<p>(*) How is Cramér’s <span class="math notranslate nohighlight">\(V\)</span> defined and what values does it take?</p>
+<p>(*) How is Cramér’s <span class="math">\(V\)</span> defined and what values does it take?</p>
 </div></div><hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footidx" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p>This coincides with the possible indexes into an
-array of length <span class="math notranslate nohighlight">\(l\)</span>. In some other languages, e.g., R,
-we would use integers between 1 and <span class="math notranslate nohighlight">\(l\)</span> (inclusive).
+array of length <span class="math">\(l\)</span>. In some other languages, e.g., R,
+we would use integers between 1 and <span class="math">\(l\)</span> (inclusive).
 Nevertheless, a dataset creator is free to encode the labels
 however they want. For example, <code class="docutils literal notranslate"><span class="pre">DMDBORN4</span></code> in NHANES has:
 1 (born in 50 US states or Washington, DC),
@@ -1806,9 +1808,9 @@ way than in <a class="reference internal" href="230-distribution.html#sec-ks-tes
 <aside class="footnote brackets" id="recipesdof" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">3</a><span class="fn-bracket">]</span></span>
 <p>Notice that <span id="id7">[<a class="reference internal" href="999-bibliography.html#id142" title="Press, W.H., Teukolsky, S.A., Vetterling, W.T., and Flannery, B.P. (2007).  Numerical Recipes. The Art of Scientific Computing. Cambridge University Press.">74</a>]</span> in Section 14.3
-recommends <span class="math notranslate nohighlight">\(l\)</span> degrees of freedom, but we do not agree with
+recommends <span class="math">\(l\)</span> degrees of freedom, but we do not agree with
 this rather informal reasoning.
-Also, simple Monte Carlo simulations suggest that <span class="math notranslate nohighlight">\(l-1\)</span>
+Also, simple Monte Carlo simulations suggest that <span class="math">\(l-1\)</span>
 is a better candidate.</p>
 </aside>
 </aside>
@@ -1850,7 +1852,7 @@ is a better candidate.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-13T20:52:56+1100.
+              Last updated on 2023-11-14T15:11:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1921,7 +1923,8 @@ is a better candidate.</p>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/katex.min.js?v=deb2f140"></script>
+    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

@@ -33,8 +33,10 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cc2833c3" />
     
     
 
@@ -334,18 +336,18 @@ transformed accordingly.</p>
 <p>takes the square of every element.</p>
 <p>More generally, we will be denoting such operations with:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 f(\mathbf{X})=
 \left[
 \begin{array}{cccc}
-f(x_{1,1}) &amp; f(x_{1,2}) &amp; \cdots &amp; f(x_{1,m}) \\
-f(x_{2,1}) &amp; f(x_{2,2}) &amp; \cdots &amp; f(x_{2,m}) \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-f(x_{n,1}) &amp; f(x_{n,2}) &amp; \cdots &amp; f(x_{n,m}) \\
+f(x_{1,1}) & f(x_{1,2}) & \cdots & f(x_{1,m}) \\
+f(x_{2,1}) & f(x_{2,2}) & \cdots & f(x_{2,m}) \\
+\vdots & \vdots & \ddots & \vdots \\
+f(x_{n,1}) & f(x_{n,2}) & \cdots & f(x_{n,m}) \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 </section>
 <section id="componentwise-aggregation">
@@ -427,20 +429,20 @@ over all matrix elements. For example:</p>
 </pre></div>
 </div>
 <p>It changed the sign of every element, which is, mathematically,
-an instance of multiplying a matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> by a scalar <span class="math notranslate nohighlight">\(c\)</span>:</p>
+an instance of multiplying a matrix <span class="math">\(\mathbf{X}\)</span> by a scalar <span class="math">\(c\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 c\mathbf{X}=
 \left[
 \begin{array}{cccc}
-cx_{1,1} &amp; cx_{1,2} &amp; \cdots &amp; cx_{1,m} \\
-cx_{2,1} &amp; cx_{2,2} &amp; \cdots &amp; cx_{2,m} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-cx_{n,1} &amp; cx_{n,2} &amp; \cdots &amp; cx_{n,m} \\
+cx_{1,1} & cx_{1,2} & \cdots & cx_{1,m} \\
+cx_{2,1} & cx_{2,2} & \cdots & cx_{2,m} \\
+\vdots & \vdots & \ddots & \vdots \\
+cx_{n,1} & cx_{n,2} & \cdots & cx_{n,m} \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>Furthermore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">**</span><span class="mi">2</span>
@@ -477,23 +479,23 @@ on the <em>corresponding</em> elements:</p>
 <span class="c1">##        [0.8, 0.8, 0.2, 0. ]])</span>
 </pre></div>
 </div>
-<p>multiplies each <span class="math notranslate nohighlight">\(a_{i,j}\)</span> by the corresponding <span class="math notranslate nohighlight">\(b_{i,j}\)</span>.</p>
+<p>multiplies each <span class="math">\(a_{i,j}\)</span> by the corresponding <span class="math">\(b_{i,j}\)</span>.</p>
 <p>This extends on the idea from algebra that given
-<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> with <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(m\)</span> columns each,
-the result of <span class="math notranslate nohighlight">\(+\)</span> (or <span class="math notranslate nohighlight">\(-\)</span>) would be for instance:</p>
+<span class="math">\(\mathbf{A}\)</span>, <span class="math">\(\mathbf{B}\)</span> with <span class="math">\(n\)</span> rows and <span class="math">\(m\)</span> columns each,
+the result of <span class="math">\(+\)</span> (or <span class="math">\(-\)</span>) would be for instance:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{A} + \mathbf{B}=
 \left[
 \begin{array}{cccc}
-a_{1,1}+b_{1,1} &amp; a_{1,2}+b_{1,2} &amp; \cdots &amp; a_{1,m}+b_{1,m} \\
-a_{2,1}+b_{2,1} &amp; a_{2,2}+b_{2,2} &amp; \cdots &amp; a_{2,m}+b_{2,m} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-a_{n,1}+b_{n,1} &amp; a_{n,2}+b_{n,2} &amp; \cdots &amp; a_{n,m}+b_{n,m} \\
+a_{1,1}+b_{1,1} & a_{1,2}+b_{1,2} & \cdots & a_{1,m}+b_{1,m} \\
+a_{2,1}+b_{2,1} & a_{2,2}+b_{2,2} & \cdots & a_{2,m}+b_{2,m} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n,1}+b_{n,1} & a_{n,2}+b_{n,2} & \cdots & a_{n,m}+b_{n,m} \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>Thanks to the matrix-matrix and matrix-scalar operations
 we can perform various tests on a per-element basis, e.g.,</p>
@@ -511,15 +513,15 @@ we can perform various tests on a per-element basis, e.g.,</p>
     </div><div class="proof-content">
 <p>(*)
 <a class="reference internal" href="#fig-ex-contourf"><span class="std std-numref">Figure 8.1</span></a> depicts a (filled) contour plot
-of Himmelblau’s function, <span class="math notranslate nohighlight">\(f(x,y)=(x^{2}+y-11)^{2}+(x+y^{2}-7)^{2}\)</span>,
-for <span class="math notranslate nohighlight">\(x\in[-5, 5]\)</span> and <span class="math notranslate nohighlight">\(y\in[-4, 4]\)</span>.
+of Himmelblau’s function, <span class="math">\(f(x,y)=(x^{2}+y-11)^{2}+(x+y^{2}-7)^{2}\)</span>,
+for <span class="math">\(x\in[-5, 5]\)</span> and <span class="math">\(y\in[-4, 4]\)</span>.
 To draw it, we probed 250 points from the two said
 ranges and called <strong class="command">numpy.meshgrid</strong> to generate
 two matrices, both of shape 250 by 250,
 giving the x- and y-coordinates of all the points on
 the corresponding two-dimensional grid.
 Thanks to this, we were able to use vectorised mathematical operations
-to compute the values of <span class="math notranslate nohighlight">\(f\)</span> thereon.</p>
+to compute the values of <span class="math">\(f\)</span> thereon.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 <span class="n">xg</span><span class="p">,</span> <span class="n">yg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -568,9 +570,9 @@ of probe points:</p>
 <span class="c1">##        [340., 130., 520.]])</span>
 </pre></div>
 </div>
-<p>gives a matrix <span class="math notranslate nohighlight">\(\mathbf{Z}\)</span> such that
-<span class="math notranslate nohighlight">\(z_{i,j}\)</span> is generated by considering the <span class="math notranslate nohighlight">\(i\)</span>-th element in <code class="docutils literal notranslate"><span class="pre">y</span></code>
-and the <span class="math notranslate nohighlight">\(j\)</span>-th item in <code class="docutils literal notranslate"><span class="pre">x</span></code>, which is exactly what we desired.</p>
+<p>gives a matrix <span class="math">\(\mathbf{Z}\)</span> such that
+<span class="math">\(z_{i,j}\)</span> is generated by considering the <span class="math">\(i\)</span>-th element in <code class="docutils literal notranslate"><span class="pre">y</span></code>
+and the <span class="math">\(j\)</span>-th item in <code class="docutils literal notranslate"><span class="pre">x</span></code>, which is exactly what we desired.</p>
 </div></div></section>
 <section id="matrix-vs-any-vector">
 <h4><span class="section-number">8.1.3.3. </span>Matrix vs any vector<a class="headerlink" href="#matrix-vs-any-vector" title="Link to this heading">#</a></h4>
@@ -592,7 +594,7 @@ an <em>n×1</em> column vector:</p>
 </div>
 <p>recycles the row vector over all rows (top to bottom).</p>
 <p>If one operand is a one-dimensional array or a list of length
-<span class="math notranslate nohighlight">\(m\)</span>, it will be treated as a row vector. For example:</p>
+<span class="math">\(m\)</span>, it will be treated as a row vector. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># matrix - vector</span>
 <span class="c1">## array([[-0.133,  0.067,  0.067, -0.   ],</span>
 <span class="c1">##        [-0.333, -0.333,  0.067,  0.3  ],</span>
@@ -605,19 +607,19 @@ An explicit <code class="docutils literal notranslate"><span class="pre">.reshap
 notation, we will allow adding and subtracting row vectors
 from matrices of compatible sizes:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X}+\mathbf{t}=
 \mathbf{X}+[ t_1\ t_2\ \cdots\ t_m ]=
 \left[
 \begin{array}{cccc}
-x_{1,1} + t_1 &amp; x_{1,2} + t_2 &amp; \dots &amp; x_{1,m} + t_m \\
-x_{2,1} + t_1 &amp; x_{2,2} + t_2 &amp; \dots &amp; x_{2,m} + t_m \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-x_{n,1} + t_1 &amp; x_{n,2} + t_2 &amp; \dots &amp; x_{n,m} + t_m \\
+x_{1,1} + t_1 & x_{1,2} + t_2 & \dots & x_{1,m} + t_m \\
+x_{2,1} + t_1 & x_{2,2} + t_2 & \dots & x_{2,m} + t_m \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n,1} + t_1 & x_{n,2} + t_2 & \dots & x_{n,m} + t_m \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>This corresponds to shifting (translating) every row
 in the matrix.</p>
@@ -664,7 +666,7 @@ but not with respect to all three arguments.</p>
 by means of arithmetic operators, which all accept the kind of
 shape broadcasting that we discuss in this section.
 Consequently, calling <strong class="command">numpy.meshgrid</strong> in that example
-to evaluate <span class="math notranslate nohighlight">\(f\)</span> on a grid of points was not really necessary:</p>
+to evaluate <span class="math">\(f\)</span> on a grid of points was not really necessary:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">xg</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -989,19 +991,19 @@ For example:</p>
 <p>Matrix algebra is at the core of all the methods used in data analysis
 with the matrix multiply being the most fundamental operation therein
 (e.g., <span id="id3">[<a class="reference internal" href="999-bibliography.html#id76" title="Deisenroth, M.P., Faisal, A.A., and Ong, C.S. (2020).  Mathematics for Machine Learning. Cambridge University Press. URL: https://mml-book.github.io/.">20</a>, <a class="reference internal" href="999-bibliography.html#id135" title="Gentle, J.E. (2017).  Matrix Algebra: Theory, Computations and Applications in Statistics. Springer.">39</a>]</span>).</p>
-<p>Given <span class="math notranslate nohighlight">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span>
-and <span class="math notranslate nohighlight">\(\mathbf{B}\in\mathbb{R}^{p\times m}\)</span>, their <em>multiply</em> is a matrix
-<span class="math notranslate nohighlight">\(\mathbf{C}=\mathbf{A}\mathbf{B}\in\mathbb{R}^{n\times m}\)</span>
-such that <span class="math notranslate nohighlight">\(c_{i,j}\)</span> is the sum of the <span class="math notranslate nohighlight">\(i\)</span>-th row in <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
-and the <span class="math notranslate nohighlight">\(j\)</span>-th column in <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> multiplied elementwisely:</p>
+<p>Given <span class="math">\(\mathbf{A}\in\mathbb{R}^{n\times p}\)</span>
+and <span class="math">\(\mathbf{B}\in\mathbb{R}^{p\times m}\)</span>, their <em>multiply</em> is a matrix
+<span class="math">\(\mathbf{C}=\mathbf{A}\mathbf{B}\in\mathbb{R}^{n\times m}\)</span>
+such that <span class="math">\(c_{i,j}\)</span> is the sum of the <span class="math">\(i\)</span>-th row in <span class="math">\(\mathbf{A}\)</span>
+and the <span class="math">\(j\)</span>-th column in <span class="math">\(\mathbf{B}\)</span> multiplied elementwisely:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 c_{i,j} = a_{i, 1} b_{1, j} + a_{i, 2} b_{2, j} + \dots + a_{i, p} b_{p, j}
 = \sum_{k=1}^p a_{i,k} b_{k, j},
 \]</div>
 </div>
-<p>for <span class="math notranslate nohighlight">\(i=1,\dots,n\)</span> and <span class="math notranslate nohighlight">\(j=1,\dots,m\)</span>.
+<p>for <span class="math">\(i=1,\dots,n\)</span> and <span class="math">\(j=1,\dots,m\)</span>.
 For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
@@ -1029,43 +1031,43 @@ For example:</p>
 </div>
 <p>Mathematically, we can denote the above by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \left[
 \begin{array}{ccc}
-1 &amp; 0 &amp; 1 \\
-2 &amp; 2 &amp; 1 \\
-3 &amp; 2 &amp; 0 \\
-\mathbf{1} &amp; \mathbf{2} &amp; \mathbf{3} \\
-0 &amp; 0 &amp; 1 \\
+1 & 0 & 1 \\
+2 & 2 & 1 \\
+3 & 2 & 0 \\
+\mathbf{1} & \mathbf{2} & \mathbf{3} \\
+0 & 0 & 1 \\
 \end{array}
 \right]
 \,
 \left[
 \begin{array}{cccc}
-1 &amp;  0 &amp; \mathbf{0} &amp; 0 \\
-0 &amp;  4 &amp; \mathbf{1} &amp; 3 \\
-2 &amp;  0 &amp; \mathbf{3} &amp; 1 \\
+1 &  0 & \mathbf{0} & 0 \\
+0 &  4 & \mathbf{1} & 3 \\
+2 &  0 & \mathbf{3} & 1 \\
 \end{array}
 \right]
 =
 \left[
 \begin{array}{cccc}
-3 &amp;  0 &amp;  3 &amp;  1 \\
-4 &amp;  8 &amp;  5 &amp;  7 \\
-3 &amp;  8 &amp;  2 &amp;  6 \\
-7 &amp;  8 &amp; \mathbf{11} &amp;  9 \\
-2 &amp;  0 &amp;  3 &amp;  1 \\
+3 &  0 &  3 &  1 \\
+4 &  8 &  5 &  7 \\
+3 &  8 &  2 &  6 \\
+7 &  8 & \mathbf{11} &  9 \\
+2 &  0 &  3 &  1 \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>For example, the element in the fourth row and the third column,
-<span class="math notranslate nohighlight">\(c_{4,3}\)</span> takes the fourth row in the left matrix
-<span class="math notranslate nohighlight">\(\mathbf{a}_{4,\cdot}=[1\ 2\ 3]\)</span>
-and the third column in the right matrix <span class="math notranslate nohighlight">\(\mathbf{b}_{\cdot,3}=[0\ 1\ 3]^T\)</span>
+<span class="math">\(c_{4,3}\)</span> takes the fourth row in the left matrix
+<span class="math">\(\mathbf{a}_{4,\cdot}=[1\ 2\ 3]\)</span>
+and the third column in the right matrix <span class="math">\(\mathbf{b}_{\cdot,3}=[0\ 1\ 3]^T\)</span>
 (they are marked in bold), multiplies the corresponding elements and
-computes their sum, i.e., <span class="math notranslate nohighlight">\(c_{4,3}=1\cdot 0 + 2\cdot 1 + 3\cdot 3 = 11\)</span>.</p>
+computes their sum, i.e., <span class="math">\(c_{4,3}=1\cdot 0 + 2\cdot 1 + 3\cdot 3 = 11\)</span>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Matrix multiplication can only be performed on two
@@ -1086,13 +1088,13 @@ must match the number of rows in the right operand.</p>
 <span class="c1">##        [3, 4]])</span>
 </pre></div>
 </div>
-<p>We matrix-multiplied <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> by the identity matrix <span class="math notranslate nohighlight">\(\mathbf{I}\)</span>,
+<p>We matrix-multiplied <span class="math">\(\mathbf{A}\)</span> by the identity matrix <span class="math">\(\mathbf{I}\)</span>,
 which is the neutral element of the said operation.
-This is why the result is identical to <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p>
+This is why the result is identical to <span class="math">\(\mathbf{A}\)</span>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In most textbooks, just like in this one,
-<span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{B}\)</span> always denotes the <em>matrix</em> multiplication.
+<span class="math">\(\mathbf{A}\mathbf{B}\)</span> always denotes the <em>matrix</em> multiplication.
 This is a very different operation from the <em>elementwise</em> multiplication.</p>
 </div>
 <p>Compare the above to:</p>
@@ -1108,7 +1110,7 @@ This is a very different operation from the <em>elementwise</em> multiplication.
         
     </div><div class="proof-content">
 <p>(*) Show that
-<span class="math notranslate nohighlight">\((\mathbf{A}\mathbf{B})^T=\mathbf{B}^T \mathbf{A}^T\)</span>.
+<span class="math">\((\mathbf{A}\mathbf{B})^T=\mathbf{B}^T \mathbf{A}^T\)</span>.
 Also notice that, typically, matrix multiplication
 is not commutative.</p>
 </div></div><div class="admonition note">
@@ -1116,32 +1118,32 @@ is not commutative.</p>
 <p>By definition, matrix multiplication gives a convenient means for denoting
 sums of products of corresponding elements in many pairs of vectors,
 which we refer to as dot products.</p>
-<p>Given two vectors <span class="math notranslate nohighlight">\(\boldsymbol{x}, \boldsymbol{y} \in \mathbb{R}^p\)</span>,
+<p>Given two vectors <span class="math">\(\boldsymbol{x}, \boldsymbol{y} \in \mathbb{R}^p\)</span>,
 their <em>dot (or scalar) product</em> is given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \boldsymbol{x} \cdot \boldsymbol{y} = \sum_{i=1}^p x_i y_i.
 \]</div>
 </div>
 <p>In matrix multiplication terms,
-if <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a row vector
-and <span class="math notranslate nohighlight">\(\mathbf{y}^T\)</span> is a column vector,
-then the above can be written as <span class="math notranslate nohighlight">\(\mathbf{x} \mathbf{y}^T\)</span>.
+if <span class="math">\(\mathbf{x}\)</span> is a row vector
+and <span class="math">\(\mathbf{y}^T\)</span> is a column vector,
+then the above can be written as <span class="math">\(\mathbf{x} \mathbf{y}^T\)</span>.
 The result is a single number.</p>
 </div>
 <p>In particular, a dot product of a vector and itself:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \boldsymbol{x} \cdot \boldsymbol{x} = \sum_{i=1}^p x_i^2,
 \]</div>
 </div>
-<p>is the square of the Euclidean norm of <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>,
+<p>is the square of the Euclidean norm of <span class="math">\(\boldsymbol{x}\)</span>,
 which is used to measure the <em>magnitude</em> of a vector
 (<a class="reference internal" href="220-transform-vector.html#sec-normalisation"><span class="std std-numref">Section 5.3.2.3</span></a>):</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \|\boldsymbol{x}\| = \sqrt{\sum_{i=1}^p x_i^2}
 =\sqrt{\boldsymbol{x} \cdot \boldsymbol{x}}
@@ -1150,8 +1152,8 @@ which is used to measure the <em>magnitude</em> of a vector
 </div>
 <p>It is worth pointing out that
 the Euclidean norm fulfils (amongst others) the condition
-that <span class="math notranslate nohighlight">\(\|\boldsymbol{x}\|=0\)</span> if and only if
-<span class="math notranslate nohighlight">\(\boldsymbol{x}=\mathbf{0}=(0,0,\dots,0)\)</span>.
+that <span class="math">\(\|\boldsymbol{x}\|=0\)</span> if and only if
+<span class="math">\(\boldsymbol{x}=\mathbf{0}=(0,0,\dots,0)\)</span>.
 The same naturally holds for its square.</p>
 <div class="proof proof-type-exercise" id="id19">
 
@@ -1159,10 +1161,10 @@ The same naturally holds for its square.</p>
         <span class="proof-type">Exercise 8.8</span>
         
     </div><div class="proof-content">
-<p>Show that <span class="math notranslate nohighlight">\(\mathbf{A}^T \mathbf{A}\)</span>
+<p>Show that <span class="math">\(\mathbf{A}^T \mathbf{A}\)</span>
 gives the matrix that consists of the dot products of all the pairs
-of columns in <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>
-and <span class="math notranslate nohighlight">\(\mathbf{A} \mathbf{A}^T\)</span> stores the dot products of all the
+of columns in <span class="math">\(\mathbf{A}\)</span>
+and <span class="math">\(\mathbf{A} \mathbf{A}^T\)</span> stores the dot products of all the
 pairs of rows.</p>
 </div></div><p><a class="reference internal" href="330-relationship.html#sec-geometric-transform"><span class="std std-numref">Section 9.3.2</span></a> will note
 that matrix multiplication can be used as a way to express
@@ -1186,12 +1188,12 @@ We know it from school, where we measured how two points
 are far away from each other using a ruler.</p>
 <section id="the-euclidean-metric">
 <h3><span class="section-number">8.4.1. </span>The Euclidean metric<a class="headerlink" href="#the-euclidean-metric" title="Link to this heading">#</a></h3>
-<p>Given two points in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
-<span class="math notranslate nohighlight">\(\boldsymbol{u}=(u_1,\dots,u_m)\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{v}=(v_1,\dots,v_m)\)</span>,
+<p>Given two points in <span class="math">\(\mathbb{R}^m\)</span>,
+<span class="math">\(\boldsymbol{u}=(u_1,\dots,u_m)\)</span> and <span class="math">\(\boldsymbol{v}=(v_1,\dots,v_m)\)</span>,
 the <em>Euclidean metric</em> is defined in terms of the corresponding Euclidean
 norm:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \|\boldsymbol{u} - \boldsymbol{v}\| = \sqrt{
 (u_1-v_1)^2 + (u_2-v_2)^2 + \dots + (u_m-v_m)^2
@@ -1207,10 +1209,10 @@ between the corresponding coordinates.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Given two vectors of equal lengths
-<span class="math notranslate nohighlight">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^m\)</span>,
+<span class="math">\(\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^m\)</span>,
 the dot product of their difference:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 (\boldsymbol{x}-\boldsymbol{y})\cdot (\boldsymbol{x}-\boldsymbol{y})
 = (\mathbf{x}-\mathbf{y}) (\mathbf{x}-\mathbf{y})^T
@@ -1219,8 +1221,8 @@ the dot product of their difference:</p>
 </div>
 <p>is nothing else than the square of the Euclidean distance between them.</p>
 <p>In particular,
-for unidimensional data (<span class="math notranslate nohighlight">\(m=1\)</span>),
-we have <span class="math notranslate nohighlight">\(\|\boldsymbol{u}-\boldsymbol{v}\|=|u_1-v_1|\)</span>,
+for unidimensional data (<span class="math">\(m=1\)</span>),
+we have <span class="math">\(\|\boldsymbol{u}-\boldsymbol{v}\|=|u_1-v_1|\)</span>,
 i.e., the absolute value of the difference.</p>
 </div>
 <div class="proof proof-type-exercise" id="id20">
@@ -1229,33 +1231,33 @@ i.e., the absolute value of the difference.</p>
         <span class="proof-type">Exercise 8.9</span>
         
     </div><div class="proof-content">
-<p>Consider the following matrix <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{4\times 2}\)</span>:</p>
+<p>Consider the following matrix <span class="math">\(\mathbf{X}\in\mathbb{R}^{4\times 2}\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X} = \left[\begin{array}{cc}
-0 &amp; 0 \\
-1 &amp; 0 \\
--\frac{3}{2} &amp; 1 \\
-1 &amp; 1 \\
+0 & 0 \\
+1 & 0 \\
+-\frac{3}{2} & 1 \\
+1 & 1 \\
 \end{array}\right].
-\end{split}\]</div>
+\]</div>
 </div>
 <p>Calculate (by hand):
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{2,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{3,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{4,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{4,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{3,\cdot}\|\)</span>,
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{1,\cdot}\|\)</span>, and
-<span class="math notranslate nohighlight">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{1,\cdot}\|\)</span>.</p>
+<span class="math">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{2,\cdot}\|\)</span>,
+<span class="math">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{3,\cdot}\|\)</span>,
+<span class="math">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{4,\cdot}\|\)</span>,
+<span class="math">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{4,\cdot}\|\)</span>,
+<span class="math">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{3,\cdot}\|\)</span>,
+<span class="math">\(\|\mathbf{x}_{1,\cdot} - \mathbf{x}_{1,\cdot}\|\)</span>, and
+<span class="math">\(\|\mathbf{x}_{2,\cdot} - \mathbf{x}_{1,\cdot}\|\)</span>.</p>
 </div></div><p>The distances between all the possible pairs of rows
-in two matrices <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
-and <span class="math notranslate nohighlight">\(\mathbf{Y}\in\mathbb{R}^{k\times m}\)</span> can be computed by calling
+in two matrices <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
+and <span class="math">\(\mathbf{Y}\in\mathbb{R}^{k\times m}\)</span> can be computed by calling
 <strong class="command">scipy.spatial.distance.cdist</strong>.
 We need to be careful, though. They bring about
-a distance matrix of size <span class="math notranslate nohighlight">\(n\times k\)</span>, which can become quite large.
-For instance, for <span class="math notranslate nohighlight">\(n=k=100 000\)</span>, we need roughly 80 GB of RAM
+a distance matrix of size <span class="math">\(n\times k\)</span>, which can become quite large.
+For instance, for <span class="math">\(n=k=100 000\)</span>, we need roughly 80 GB of RAM
 to store it.</p>
 <p>Here are the distances between all the pairs of points in the same
 dataset.</p>
@@ -1274,13 +1276,13 @@ dataset.</p>
 <span class="c1">##        [1.41421356, 1.        , 2.5       , 0.        ]])</span>
 </pre></div>
 </div>
-<p>Hence, <span class="math notranslate nohighlight">\(d_{i,j}=\|\mathbf{x}_{i,\cdot}-\mathbf{x}_{j,\cdot}\|\)</span>.
+<p>Hence, <span class="math">\(d_{i,j}=\|\mathbf{x}_{i,\cdot}-\mathbf{x}_{j,\cdot}\|\)</span>.
 That we have zeros on the diagonal
-is due to the fact that <span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|= 0\)</span>
-if and only if <span class="math notranslate nohighlight">\(\boldsymbol{u} = \boldsymbol{v}\)</span>. Furthermore,
-<span class="math notranslate nohighlight">\(\|\boldsymbol{u} - \boldsymbol{v}\|=\|\boldsymbol{v} - \boldsymbol{u}\|\)</span>,
-which implies the symmetry of <span class="math notranslate nohighlight">\(\mathbf{D}\)</span>,
-i.e., it holds <span class="math notranslate nohighlight">\(\mathbf{D}^T=\mathbf{D}\)</span>.</p>
+is due to the fact that <span class="math">\(\|\boldsymbol{u} - \boldsymbol{v}\|= 0\)</span>
+if and only if <span class="math">\(\boldsymbol{u} = \boldsymbol{v}\)</span>. Furthermore,
+<span class="math">\(\|\boldsymbol{u} - \boldsymbol{v}\|=\|\boldsymbol{v} - \boldsymbol{u}\|\)</span>,
+which implies the symmetry of <span class="math">\(\mathbf{D}\)</span>,
+i.e., it holds <span class="math">\(\mathbf{D}^T=\mathbf{D}\)</span>.</p>
 <p><a class="reference internal" href="#fig-euclid-dist-ex"><span class="std std-numref">Figure 8.2</span></a>
 illustrates all six non-trivial pairwise distances.
 Let us emphasise that our perception of distance is disturbed.
@@ -1313,8 +1315,8 @@ or set the axis limits manually (which is left as an exercise).</p>
 computing pairwise distances, including:</p>
 <ul class="simple">
 <li><p>multidimensional data aggregation (see below),</p></li>
-<li><p><span class="math notranslate nohighlight">\(k\)</span>-means clustering (<a class="reference internal" href="430-group-by.html#sec-kmeans"><span class="std std-numref">Section 12.4</span></a>),</p></li>
-<li><p><span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>)
+<li><p><span class="math">\(k\)</span>-means clustering (<a class="reference internal" href="430-group-by.html#sec-kmeans"><span class="std std-numref">Section 12.4</span></a>),</p></li>
+<li><p><span class="math">\(k\)</span>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>)
 and classification (<a class="reference internal" href="430-group-by.html#sec-knn-classification"><span class="std std-numref">Section 12.3.1</span></a>),</p></li>
 <li><p>missing value imputation (<a class="reference internal" href="520-missingness.html#sec-missing-data"><span class="std std-numref">Section 15.1</span></a>),</p></li>
 <li><p>density estimation (which we can use outlier detection,
@@ -1332,16 +1334,16 @@ of their squared differences might not make sense at all.</p>
 e.g., each matrix column separately. It turns out that some
 of the introduced summaries can be generalised to the multidimensional case.</p>
 <p>For instance, it can be shown that the arithmetic mean of
-a vector <span class="math notranslate nohighlight">\((x_1,\dots,x_n)\)</span> is a point <span class="math notranslate nohighlight">\(c\)</span> that
+a vector <span class="math">\((x_1,\dots,x_n)\)</span> is a point <span class="math">\(c\)</span> that
 minimises the sum of the <em>squared</em> unidimensional distances
-between itself and all the <span class="math notranslate nohighlight">\(x_i\)</span>s, i.e.,
-<span class="math notranslate nohighlight">\(\sum_{i=1}^n \|x_i-c\|^2=\sum_{i=1}^n (x_i-c)^2\)</span>.</p>
+between itself and all the <span class="math">\(x_i\)</span>s, i.e.,
+<span class="math">\(\sum_{i=1}^n \|x_i-c\|^2=\sum_{i=1}^n (x_i-c)^2\)</span>.</p>
 <p>We can define the <em>centroid</em> of a dataset
-<span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> as
-the point <span class="math notranslate nohighlight">\(\boldsymbol{c}\in\mathbb{R}^m\)</span> to which the overall
+<span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> as
+the point <span class="math">\(\boldsymbol{c}\in\mathbb{R}^m\)</span> to which the overall
 <em>squared</em> distance is the smallest:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{minimise}\ \sum_{i=1}^n \| \mathbf{x}_{i,\cdot}-\boldsymbol{c}\|^2
 \qquad\text{w.r.t. }\boldsymbol{c}.
@@ -1349,7 +1351,7 @@ the point <span class="math notranslate nohighlight">\(\boldsymbol{c}\in\mathbb{
 </div>
 <p>It can be shown that the solution to the above is:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \boldsymbol{c} =
 \frac{1}{n}\left(
@@ -1359,10 +1361,10 @@ the point <span class="math notranslate nohighlight">\(\boldsymbol{c}\in\mathbb{
 \frac{1}{n} \sum_{i=1}^n \mathbf{x}_{i, \cdot},
 \]</div>
 </div>
-<p>which is the componentwise arithmetic mean. In other words, its <span class="math notranslate nohighlight">\(j\)</span>-th
+<p>which is the componentwise arithmetic mean. In other words, its <span class="math">\(j\)</span>-th
 component is given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 c_j = \frac{1}{n} \sum_{i=1}^n x_{i, j}.
 \]</div>
@@ -1374,7 +1376,7 @@ c_j = \frac{1}{n} \sum_{i=1}^n x_{i, j}.
 <span class="c1">## array([0.125, 0.5  ])</span>
 </pre></div>
 </div>
-<p>Centroids are the basis for the <span class="math notranslate nohighlight">\(k\)</span>-means
+<p>Centroids are the basis for the <span class="math">\(k\)</span>-means
 clustering method that we discuss in <a class="reference internal" href="430-group-by.html#sec-kmeans"><span class="std std-numref">Section 12.4</span></a>.</p>
 </section>
 <section id="multidimensional-dispersion-and-other-aggregates">
@@ -1382,7 +1384,7 @@ clustering method that we discuss in <a class="reference internal" href="430-gro
 <p>Furthermore, as a measure of multidimensional dispersion,
 we can consider the natural generalisation of the standard deviation:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 s=
 \sqrt{
@@ -1393,7 +1395,7 @@ s=
 \]</div>
 </div>
 <p>being the square root of the average squared distance
-to the centroid. Notice that <span class="math notranslate nohighlight">\(s\)</span> is a single number.</p>
+to the centroid. Notice that <span class="math">\(s\)</span> is a single number.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 <span class="c1">## 1.1388041973930374</span>
 </pre></div>
@@ -1409,8 +1411,8 @@ could serve as an analogue of the minimal and maximal observation.</p>
 <p>Furthermore, the componentwise median does not behave nicely
 (it may, for example, fall outside the convex hull). Instead,
 we usually consider a different generalisation of the median:
-the point <span class="math notranslate nohighlight">\(\boldsymbol{m}\)</span> which minimises the sum of distances (not squared),
-<span class="math notranslate nohighlight">\(\sum_{i=1}^n \| \mathbf{x}_{i,\cdot}-\boldsymbol{m}\|\)</span>.
+the point <span class="math">\(\boldsymbol{m}\)</span> which minimises the sum of distances (not squared),
+<span class="math">\(\sum_{i=1}^n \| \mathbf{x}_{i,\cdot}-\boldsymbol{m}\|\)</span>.
 Sadly, it does not have an analytic solution, but
 it can be determined algorithmically.</p>
 </div>
@@ -1427,15 +1429,15 @@ due to its low popularity amongst practitioners.</p>
 <p>Several data analysis techniques rely upon
 aggregating information about what is happening in the
 <em>local neighbourhoods</em> of the points.
-Let <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> be a dataset
-and <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span> be some point, not necessarily
-from <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>. We have two options:</p>
+Let <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> be a dataset
+and <span class="math">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span> be some point, not necessarily
+from <span class="math">\(\mathbf{X}\)</span>. We have two options:</p>
 <ul>
-<li><p><em>fixed-radius search</em>: for some radius <span class="math notranslate nohighlight">\(r&gt;0\)</span>,
-we seek the indexes of all the points in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> whose distance to
-<span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span> is not greater than <span class="math notranslate nohighlight">\(r\)</span>:</p>
+<li><p><em>fixed-radius search</em>: for some radius <span class="math">\(r&gt;0\)</span>,
+we seek the indexes of all the points in <span class="math">\(\mathbf{X}\)</span> whose distance to
+<span class="math">\(\boldsymbol{x}'\)</span> is not greater than <span class="math">\(r\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
     B_r(\boldsymbol{x}') = \left\{
     i: \|\mathbf{x}_{i,\cdot} - \boldsymbol{x}'\| \le r
@@ -1443,20 +1445,20 @@ we seek the indexes of all the points in <span class="math notranslate nohighlig
     \]</div>
 </div>
 </li>
-<li><p><em>few nearest neighbour search</em>: for some (usually small) integer <span class="math notranslate nohighlight">\(k\ge 1\)</span>,
-we seek the indexes of the <span class="math notranslate nohighlight">\(k\)</span> points in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-which are the closest to <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>:</p>
+<li><p><em>few nearest neighbour search</em>: for some (usually small) integer <span class="math">\(k\ge 1\)</span>,
+we seek the indexes of the <span class="math">\(k\)</span> points in <span class="math">\(\mathbf{X}\)</span>
+which are the closest to <span class="math">\(\boldsymbol{x}'\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
     N_k(\boldsymbol{x}') = \{
     i_1, i_2, \dots, i_k
     \},
     \]</div>
 </div>
-<p>such that for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
+<p>such that for all <span class="math">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
     \| \mathbf{x}_{i_1,\cdot} -\boldsymbol{x}'\|
     \le
@@ -1471,15 +1473,15 @@ which are the closest to <span class="math notranslate nohighlight">\(\boldsymbo
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>In <span class="math notranslate nohighlight">\(\mathbb{R}^1\)</span>,
-<span class="math notranslate nohighlight">\(B_r(\boldsymbol{x'})\)</span> is an interval of length <span class="math notranslate nohighlight">\(2r\)</span>
-centred at <span class="math notranslate nohighlight">\(\boldsymbol{x'}\)</span>,
-i.e., <span class="math notranslate nohighlight">\([x_1'-r, x_1'+r]\)</span>.
-In <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>,
-<span class="math notranslate nohighlight">\(B_r(\boldsymbol{x}')\)</span> is a circle of radius <span class="math notranslate nohighlight">\(r\)</span>
-centred at <span class="math notranslate nohighlight">\((x_1', x_2')\)</span>.
-More generally, we call <span class="math notranslate nohighlight">\(B_r(\boldsymbol{x})\)</span>
-an <span class="math notranslate nohighlight">\(m\)</span>-dimensional (Euclidean) ball or a solid hypersphere.</p>
+<p>In <span class="math">\(\mathbb{R}^1\)</span>,
+<span class="math">\(B_r(\boldsymbol{x'})\)</span> is an interval of length <span class="math">\(2r\)</span>
+centred at <span class="math">\(\boldsymbol{x'}\)</span>,
+i.e., <span class="math">\([x_1'-r, x_1'+r]\)</span>.
+In <span class="math">\(\mathbb{R}^2\)</span>,
+<span class="math">\(B_r(\boldsymbol{x}')\)</span> is a circle of radius <span class="math">\(r\)</span>
+centred at <span class="math">\((x_1', x_2')\)</span>.
+More generally, we call <span class="math">\(B_r(\boldsymbol{x})\)</span>
+an <span class="math">\(m\)</span>-dimensional (Euclidean) ball or a solid hypersphere.</p>
 </div>
 <p>Here is an example dataset, consisting of some randomly generated points
 (see <a class="reference internal" href="#fig-euclid-search-ex"><span class="std std-numref">Figure 8.3</span></a>).</p>
@@ -1489,21 +1491,21 @@ an <span class="math notranslate nohighlight">\(m\)</span>-dimensional (Euclidea
 </pre></div>
 </div>
 <p>Local neighbourhoods can be determined
-by computing the distances between each point in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>
-and <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>.</p>
+by computing the distances between each point in <span class="math">\(\mathbf{X}\)</span>
+and <span class="math">\(\boldsymbol{x}'\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.spatial.distance</span>
 <span class="n">D</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>For instance, here are the indexes
-of the points in <span class="math notranslate nohighlight">\(B_{0.75}(\boldsymbol{x}')\)</span>:</p>
+of the points in <span class="math">\(B_{0.75}(\boldsymbol{x}')\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">D</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">B</span>
 <span class="c1">## array([ 1, 11, 14, 16, 24])</span>
 </pre></div>
 </div>
-<p>And here are the 11 nearest neighbours, <span class="math notranslate nohighlight">\(N_{11}(\boldsymbol{x}')\)</span>:</p>
+<p>And here are the 11 nearest neighbours, <span class="math">\(N_{11}(\boldsymbol{x}')\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))[:</span><span class="n">k</span><span class="p">]</span>
 <span class="n">N</span>
@@ -1543,18 +1545,18 @@ would look like an ellipse).</p>
 it is better to rely on dedicated spatial search data structures,
 especially if we have a large number of neighbourhood-related queries.
 <strong class="program">scipy</strong> implements such a search algorithm based on the
-so-called <span class="math notranslate nohighlight">\(K\)</span>-dimensional trees (<span class="math notranslate nohighlight">\(K\)</span>-d trees<a class="footnote-reference brackets" href="#footkd" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>).</p>
+so-called <span class="math">\(K\)</span>-dimensional trees (<span class="math">\(K\)</span>-d trees<a class="footnote-reference brackets" href="#footkd" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-In <span class="math notranslate nohighlight">\(K\)</span>-d trees, the data space is partitioned into hyperrectangles
+In <span class="math">\(K\)</span>-d trees, the data space is partitioned into hyperrectangles
 along the axes of the Cartesian coordinate system
 (standard basis). Thanks to such a representation,
 all subareas which are too far from the point of interest
 can be pruned to speed up the search.</p>
 </div>
 <p>Let us create the data structure for searching within the
-above <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> matrix.</p>
+above <span class="math">\(\mathbf{X}\)</span> matrix.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.spatial</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
@@ -1568,7 +1570,7 @@ pivot points.</p>
 <span class="p">])</span>
 </pre></div>
 </div>
-<p>Here are the results for the fixed radius searches <span class="math notranslate nohighlight">\((r=0.75)\)</span>:</p>
+<p>Here are the results for the fixed radius searches <span class="math">\((r=0.75)\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">.</span><span class="n">query_ball_point</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
 <span class="c1">## array([list([1, 11, 14, 16, 24]), list([20]), list([])], dtype=object)</span>
 </pre></div>
@@ -1577,7 +1579,7 @@ pivot points.</p>
 points at the same time. As a result, we received a list-like object
 storing three lists representing the indexes of interest. Note that in the
 case of the third point, there are no elements
-in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> within the range (ball) of interest, hence the empty index
+in <span class="math">\(\mathbf{X}\)</span> within the range (ball) of interest, hence the empty index
 list.</p>
 <p>And here are the five nearest neighbours:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">,</span> <span class="n">indexes</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># returns a tuple of length 2</span>
@@ -1602,10 +1604,10 @@ of pivot points) and five columns (the number of neighbours sought).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-We expect the <span class="math notranslate nohighlight">\(K\)</span>-d trees to be much faster than the brute-force approach
+We expect the <span class="math">\(K\)</span>-d trees to be much faster than the brute-force approach
 (where we compute all pairwise distances) in low-dimensional spaces.
 Nonetheless, due to the phenomenon called the <em>curse of dimensionality</em>,
-sometimes already for <span class="math notranslate nohighlight">\(m\ge 5\)</span> the speed gains might be very small;
+sometimes already for <span class="math">\(m\ge 5\)</span> the speed gains might be very small;
 see, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id120" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">9</a>]</span>.</p>
 </div>
 </section>
@@ -1689,7 +1691,7 @@ search?</p>
         <span class="proof-type">Exercise 8.19</span>
         
     </div><div class="proof-content">
-<p>(*) When <span class="math notranslate nohighlight">\(K\)</span>-d trees or other spatial search data structures might
+<p>(*) When <span class="math">\(K\)</span>-d trees or other spatial search data structures might
 be better than a brute-force search with
 <strong class="command">scipy.spatial.distance.cdist</strong>?</p>
 </div></div><hr class="footnotes docutils" />
@@ -1702,14 +1704,14 @@ which we cover in <a class="reference internal" href="#sec-matrix-multiply"><spa
 <aside class="footnote brackets" id="footmanydistances" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">2</a><span class="fn-bracket">]</span></span>
 <p>There are many possible distances,
-allowing to measure the similarity of points not only in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>,
+allowing to measure the similarity of points not only in <span class="math">\(\mathbb{R}^m\)</span>,
 but also character strings (e.g., the Levenshtein metric),
 ratings (e.g., cosine dissimilarity), etc. There is even an
 encyclopedia of distances, <span id="id10">[<a class="reference internal" href="999-bibliography.html#id112" title="Deza, M.M. and Deza, E. (2014).  Encyclopedia of Distances. Springer.">23</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footkd" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">3</a><span class="fn-bracket">]</span></span>
-<p>In our context, we like referring to them as <span class="math notranslate nohighlight">\(m\)</span>-d trees more,
+<p>In our context, we like referring to them as <span class="math">\(m\)</span>-d trees more,
 but let us stick with the traditional name.</p>
 </aside>
 </aside>
@@ -1751,7 +1753,7 @@ but let us stick with the traditional name.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-13T20:52:56+1100.
+              Last updated on 2023-11-14T15:11:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1821,7 +1823,8 @@ but let us stick with the traditional name.</p>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/katex.min.js?v=deb2f140"></script>
+    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

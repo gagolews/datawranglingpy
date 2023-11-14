@@ -33,8 +33,10 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cc2833c3" />
     
     
 
@@ -942,25 +944,25 @@ because a call to
 does not honour our wish to use alternating lines styles
 (most likely due to a bug).</p>
 <div style="margin-top: 1em"></div><p>A two-sample Kolmogorov–Smirnov test can be used
-to check whether two ECDFs <span class="math notranslate nohighlight">\(\hat{F}_n'\)</span>
+to check whether two ECDFs <span class="math">\(\hat{F}_n'\)</span>
 (e.g., the weight of the US-born participants)
-and <span class="math notranslate nohighlight">\(\hat{F}_m''\)</span> (e.g., the weight of non-US-born persons)
+and <span class="math">\(\hat{F}_m''\)</span> (e.g., the weight of non-US-born persons)
 are significantly different from each other:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \left\{
 \begin{array}{rll}
-H_0: &amp; \hat{F}_n' = \hat{F}_n'' &amp; \text{(null hypothesis)}\\
-H_1: &amp; \hat{F}_n' \neq \hat{F}_n'' &amp; \text{(two-sided alternative)} \\
+H_0: & \hat{F}_n' = \hat{F}_n'' & \text{(null hypothesis)}\\
+H_1: & \hat{F}_n' \neq \hat{F}_n'' & \text{(two-sided alternative)} \\
 \end{array}
 \right.
-\end{split}\]</div>
+\]</div>
 </div>
 <p>The test statistic will be a variation of the one-sample setting
 discussed in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>. Namely, let:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[\hat{D}_{n,m} = \sup_{t\in\mathbb{R}} | \hat{F}_n'(t) - \hat{F}_m''(t) |.\]</div>
 </div>
 <p>Computing the above is slightly trickier than
@@ -974,11 +976,11 @@ an appropriate procedure is available in <strong class="program">scipy.stats</st
 <span class="c1">## 0.22068075889911914</span>
 </pre></div>
 </div>
-<p>Assuming significance level <span class="math notranslate nohighlight">\(\alpha=0.001\)</span>,
-the critical value is approximately (for larger <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(m\)</span>)
+<p>Assuming significance level <span class="math">\(\alpha=0.001\)</span>,
+the critical value is approximately (for larger <span class="math">\(n\)</span> and <span class="math">\(m\)</span>)
 equal to:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 K_{n,m} = \sqrt{
 -\frac{ \log(\alpha/2) (n+m) }{ 2nm }
@@ -991,8 +993,8 @@ K_{n,m} = \sqrt{
 </pre></div>
 </div>
 <p>As usual, we reject the null hypothesis
-when <span class="math notranslate nohighlight">\(\hat{D}_{n,m}\ge K_{n,m}\)</span>, which is exactly the case here
-(at significance level <span class="math notranslate nohighlight">\(0.1\%\)</span>).
+when <span class="math">\(\hat{D}_{n,m}\ge K_{n,m}\)</span>, which is exactly the case here
+(at significance level <span class="math">\(0.1\%\)</span>).
 In other words, weights of US- and non-US-born participants
 differ significantly.</p>
 <div class="admonition important">
@@ -1023,10 +1025,10 @@ Determine whether they are significantly different.</p>
 <p class="admonition-title">Important</p>
 <p>Some statistical textbooks and many research papers in the social
 sciences (amongst many others) employ the significance level
-of <span class="math notranslate nohighlight">\(\alpha=5\%\)</span>, which is often criticised as too high<a class="footnote-reference brackets" href="#footpvalue" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.
+of <span class="math">\(\alpha=5\%\)</span>, which is often criticised as too high<a class="footnote-reference brackets" href="#footpvalue" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.
 Many stakeholders aggressively push towards
 constant improvements in terms of inventing bigger, better, faster,
-more efficient things. In this context, larger <span class="math notranslate nohighlight">\(\alpha\)</span> generates more
+more efficient things. In this context, larger <span class="math">\(\alpha\)</span> generates more
 <em>sensational</em> discoveries: it considers
 smaller differences as already significant.
 This all adds to what we call the reproducibility crisis
@@ -1127,14 +1129,14 @@ In other words, we would like to exercise a <em>classification</em> task
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Assume we are given a set of training points
-<span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
+<span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
 and the corresponding reference outputs
-<span class="math notranslate nohighlight">\(\boldsymbol{y}\in\{L_1,L_2,\dots,L_l\}^n\)</span> in the form of a categorical
-variable with <span class="math notranslate nohighlight">\(l\)</span> distinct levels.
+<span class="math">\(\boldsymbol{y}\in\{L_1,L_2,\dots,L_l\}^n\)</span> in the form of a categorical
+variable with <span class="math">\(l\)</span> distinct levels.
 The aim of a <em>classification</em> algorithm is to predict
 what the outputs for each point from a possibly different
-dataset <span class="math notranslate nohighlight">\(\mathbf{X}'\in\mathbb{R}^{n'\times m}\)</span>, i.e.,
-<span class="math notranslate nohighlight">\(\hat{\boldsymbol{y}}'\in\{L_1,L_2,\dots,L_l\}^{n'}\)</span>, might be.</p>
+dataset <span class="math">\(\mathbf{X}'\in\mathbb{R}^{n'\times m}\)</span>, i.e.,
+<span class="math">\(\hat{\boldsymbol{y}}'\in\{L_1,L_2,\dots,L_l\}^{n'}\)</span>, might be.</p>
 </div>
 <p>In other words, we are asked to fill the gaps in a categorical
 variable.
@@ -1163,15 +1165,15 @@ and which are regression tasks?</p>
 <p>One of the simplest approaches to classification
 is based on the information about a test point’s nearest neighbours
 living in the training sample; compare <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
-<p>Fix <span class="math notranslate nohighlight">\(k\ge 1\)</span>.
-Namely, to classify some <span class="math notranslate nohighlight">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
+<p>Fix <span class="math">\(k\ge 1\)</span>.
+Namely, to classify some <span class="math">\(\boldsymbol{x}'\in\mathbb{R}^m\)</span>:</p>
 <ol class="arabic">
-<li><p>Find the indexes <span class="math notranslate nohighlight">\(N_k(\boldsymbol{x}')=\{i_1,\dots,i_k\}\)</span>
-of the <span class="math notranslate nohighlight">\(k\)</span> points from
-<span class="math notranslate nohighlight">\(\mathbf{X}\)</span> closest to <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>, i.e., ones that fulfil
-for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
+<li><p>Find the indexes <span class="math">\(N_k(\boldsymbol{x}')=\{i_1,\dots,i_k\}\)</span>
+of the <span class="math">\(k\)</span> points from
+<span class="math">\(\mathbf{X}\)</span> closest to <span class="math">\(\boldsymbol{x}'\)</span>, i.e., ones that fulfil
+for all <span class="math">\(j\not\in\{i_1,\dots,i_k\}\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[ \|\mathbf{x}_{i_1,\cdot}-\boldsymbol{x}'\|
     \le\dots\le
     \| \mathbf{x}_{i_k,\cdot} -\boldsymbol{x}' \|
@@ -1180,14 +1182,14 @@ for all <span class="math notranslate nohighlight">\(j\not\in\{i_1,\dots,i_k\}\)
     \]</div>
 </div>
 </li>
-<li><p>Classify <span class="math notranslate nohighlight">\(\boldsymbol{x}'\)</span>
-as <span class="math notranslate nohighlight">\(\hat{y}'=\mathrm{mode}(y_{i_1},\dots,y_{i_k})\)</span>,
+<li><p>Classify <span class="math">\(\boldsymbol{x}'\)</span>
+as <span class="math">\(\hat{y}'=\mathrm{mode}(y_{i_1},\dots,y_{i_k})\)</span>,
 i.e., assign it the label that most frequently occurs
-amongst its <span class="math notranslate nohighlight">\(k\)</span> nearest neighbours.
+amongst its <span class="math">\(k\)</span> nearest neighbours.
 If a mode is nonunique, resolve the ties at random.</p></li>
 </ol>
 <p>It is thus a similar algorithm to
-<span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>).
+<span class="math">\(k\)</span>-nearest neighbour regression (<a class="reference internal" href="330-relationship.html#sec-knn-regression"><span class="std std-numref">Section 9.2.1</span></a>).
 We only replaced the <em>quantitative</em> mean with the <em>qualitative</em> mode.</p>
 <p>This is a variation on the theme: if you don’t know what to do
 in a given situation, try to mimic what the majority of people around you
@@ -1225,7 +1227,7 @@ Instead, we apply what we have learnt about <strong class="command">numpy</stron
 <p>First, we fetched the indexes of each test point’s nearest neighbours
 (amongst the points in the training set).
 Then, we read their corresponding labels; they are stored
-in a matrix with <span class="math notranslate nohighlight">\(k\)</span> columns.
+in a matrix with <span class="math">\(k\)</span> columns.
 Finally, we computed the modes in each row.
 As a consequence, we have each point in the test set
 classified.</p>
@@ -1240,13 +1242,13 @@ classified.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Unfortunately, <strong class="command">scipy.stats.mode</strong> does not resolve possible
-ties at random: e.g., the mode of <span class="math notranslate nohighlight">\((1, 1, 1, 2, 2, 2)\)</span> is always 1.
-Nevertheless, in our case, <span class="math notranslate nohighlight">\(k\)</span> is odd and the number
-of possible classes is <span class="math notranslate nohighlight">\(l=2\)</span>, so the mode is always unique.</p>
+ties at random: e.g., the mode of <span class="math">\((1, 1, 1, 2, 2, 2)\)</span> is always 1.
+Nevertheless, in our case, <span class="math">\(k\)</span> is odd and the number
+of possible classes is <span class="math">\(l=2\)</span>, so the mode is always unique.</p>
 </div>
 <p><a class="reference internal" href="#fig-knn-class"><span class="std std-numref">Figure 12.9</span></a> shows how nearest neighbour classification
 categorises different regions of a section of the two-dimensional
-plane. The greater the <span class="math notranslate nohighlight">\(k\)</span>, the smoother the decision boundaries.
+plane. The greater the <span class="math">\(k\)</span>, the smoother the decision boundaries.
 Naturally, in regions corresponding to few training points, we do not
 expect the classification accuracy to be acceptable<a class="footnote-reference brackets" href="#football" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">Z_train</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
@@ -1272,7 +1274,7 @@ expect the classification accuracy to be acceptable<a class="footnote-reference 
 <figure class="align-default" id="id49">
 <span id="fig-knn-class"></span><img alt="../_images/knn-class-17.png" src="../_images/knn-class-17.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.9 </span><span class="caption-text"><span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classification of a whole, dense, two-dimensional grid of points for different <span class="math notranslate nohighlight">\(k\)</span>.</span><a class="headerlink" href="#id49" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 12.9 </span><span class="caption-text"><span class="math">\(k\)</span>-nearest neighbour classification of a whole, dense, two-dimensional grid of points for different <span class="math">\(k\)</span>.</span><a class="headerlink" href="#id49" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-example" id="id50">
@@ -1308,21 +1310,21 @@ have already been assessed by some experts.</p>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>The <em>accuracy</em> score is the most straightforward measure of the similarity
-between these true labels (denoted <span class="math notranslate nohighlight">\(\boldsymbol{y}'=(y_1',\dots,y_{n'}')\)</span>)
+between these true labels (denoted <span class="math">\(\boldsymbol{y}'=(y_1',\dots,y_{n'}')\)</span>)
 and the ones predicted by the classifier
-(denoted <span class="math notranslate nohighlight">\(\hat{\boldsymbol{y}}'=(\hat{y}_1',\dots,\hat{y}_{n'}')\)</span>).
+(denoted <span class="math">\(\hat{\boldsymbol{y}}'=(\hat{y}_1',\dots,\hat{y}_{n'}')\)</span>).
 It is defined as a ratio between the correctly classified instances
 and all the instances:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{Accuracy}(\boldsymbol{y}', \hat{\boldsymbol{y}}') =
 \frac{\sum_{i=1}^{n'} \mathbf{1}(y_i' = \hat{y}_i')}{n'},
 \]</div>
 </div>
 <p>where the <em>indicator function</em>
-<span class="math notranslate nohighlight">\(\mathbf{1}(y_i' = \hat{y}_i')=1\)</span> if and only if
-<span class="math notranslate nohighlight">\(y_i' = \hat{y}_i'\)</span> and <span class="math notranslate nohighlight">\(0\)</span> otherwise.</p>
+<span class="math">\(\mathbf{1}(y_i' = \hat{y}_i')=1\)</span> if and only if
+<span class="math">\(y_i' = \hat{y}_i'\)</span> and <span class="math">\(0\)</span> otherwise.</p>
 <p>Computing the above for our test sample gives:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_test</span> <span class="o">==</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="c1">## 0.706</span>
@@ -1341,7 +1343,7 @@ in terms of the distribution of label counts:</p>
 <p>It turns out that the majority of the wines (330 out of 500)
 in our sample are <em>truly</em> delicious.
 Notice that a dummy classifier which labels <em>all</em> the wines as great
-would have accuracy of 66%. Our <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour approach
+would have accuracy of 66%. Our <span class="math">\(k\)</span>-nearest neighbour approach
 to wine quality assessment is not that usable after all.</p>
 <div style="margin-top: 1em"></div><p>It is therefore always beneficial to analyse the corresponding
 <em>confusion matrix</em>, which is a two-way contingency table
@@ -1356,36 +1358,36 @@ summarising the correct decisions and errors we make.</p>
 <span class="c1">## 1        58  81</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>In the binary classification case (<span class="math notranslate nohighlight">\(l=2\)</span>) such as this one,
+<div style="margin-top: 1em"></div><p>In the binary classification case (<span class="math">\(l=2\)</span>) such as this one,
 its entries are usually referred to as (see also the table below):</p>
 <ul class="simple">
-<li><p>TN – the number of cases where the true <span class="math notranslate nohighlight">\(y_i'=0\)</span> and
-the predicted <span class="math notranslate nohighlight">\(\hat{y}_i'=0\)</span> (true negative),</p></li>
-<li><p>TP – the number of instances such that the true <span class="math notranslate nohighlight">\(y_i'=1\)</span> and
-the predicted <span class="math notranslate nohighlight">\(\hat{y}_i'=1\)</span> (true positive),</p></li>
-<li><p>FN – how many times the true <span class="math notranslate nohighlight">\(y_i'=1\)</span> but
-the predicted <span class="math notranslate nohighlight">\(\hat{y}_i'=0\)</span> (false negative),</p></li>
-<li><p>FN – how many times the true <span class="math notranslate nohighlight">\(y_i'=0\)</span> but the predicted <span class="math notranslate nohighlight">\(\hat{y}_i'=1\)</span>
+<li><p>TN – the number of cases where the true <span class="math">\(y_i'=0\)</span> and
+the predicted <span class="math">\(\hat{y}_i'=0\)</span> (true negative),</p></li>
+<li><p>TP – the number of instances such that the true <span class="math">\(y_i'=1\)</span> and
+the predicted <span class="math">\(\hat{y}_i'=1\)</span> (true positive),</p></li>
+<li><p>FN – how many times the true <span class="math">\(y_i'=1\)</span> but
+the predicted <span class="math">\(\hat{y}_i'=0\)</span> (false negative),</p></li>
+<li><p>FN – how many times the true <span class="math">\(y_i'=0\)</span> but the predicted <span class="math">\(\hat{y}_i'=1\)</span>
 (false positive).</p></li>
 </ul>
 <p>The terms <em>positive</em> and <em>negative</em> refer to
 the output predicted by a classifier, i.e., they indicate whether some
-<span class="math notranslate nohighlight">\(\hat{y}_i'\)</span> is equal to 1 and 0, respectively.</p>
+<span class="math">\(\hat{y}_i'\)</span> is equal to 1 and 0, respectively.</p>
 <div class="table-wrapper colwidths-auto docutils container" id="id51">
 <table class="docutils align-default" id="id51">
-<caption><span class="caption-number">Table 12.1 </span><span class="caption-text">The different cases of true vs predicted labels in a binary classification task <span class="math notranslate nohighlight">\((l=2)\)</span></span><a class="headerlink" href="#id51" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 12.1 </span><span class="caption-text">The different cases of true vs predicted labels in a binary classification task <span class="math">\((l=2)\)</span></span><a class="headerlink" href="#id51" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p><span class="math notranslate nohighlight">\(y_i'=0\)</span></p></th>
-<th class="head"><p><span class="math notranslate nohighlight">\(y_i'=1\)</span></p></th>
+<th class="head"><p><span class="math">\(y_i'=0\)</span></p></th>
+<th class="head"><p><span class="math">\(y_i'=1\)</span></p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\hat{y}_i'=0\)</span></p></td>
+<tr class="row-even"><td><p><span class="math">\(\hat{y}_i'=0\)</span></p></td>
 <td><p><strong>True Negative</strong></p></td>
 <td><p>False Negative (Type II error)</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\hat{y}_i'=1\)</span></p></td>
+<tr class="row-odd"><td><p><span class="math">\(\hat{y}_i'=1\)</span></p></td>
 <td><p>False Positive (Type I error)</p></td>
 <td><p><strong>True Positive</strong></p></td>
 </tr>
@@ -1397,7 +1399,7 @@ should be as low as possible. The accuracy score only takes the raw
 number of true negatives (TN) and true positives (TP)
 into account:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{Accuracy}(\boldsymbol{y}', \hat{\boldsymbol{y}}') =
 \frac{\text{TN}+\text{TP}}{\text{TN}+\text{TP}+\text{FN}+\text{FP}}.
@@ -1418,7 +1420,7 @@ being asked to stay at home with nothing but a headache.</p>
 <div style="margin-top: 1em"></div><p><em>Precision</em> answers the question: If the classifier outputs 1,
 what is the probability that this is indeed true?</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{Precision}(\boldsymbol{y}', \hat{\boldsymbol{y}}') =
 \frac{\text{TP}}{\text{TP}+\text{FP}}
@@ -1441,7 +1443,7 @@ addresses the question:
 If the true class is 1, what is the probability that the classifier
 will detect it?</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{Recall}(\boldsymbol{y}', \hat{\boldsymbol{y}}') =
 \frac{\text{TP}}{\text{TP}+\text{FN}}
@@ -1457,11 +1459,11 @@ will detect it?</p>
 </div>
 <p>Only 48% of the really bad wines will be filtered out
 by the classifier.</p>
-<div style="margin-top: 1em"></div><p>The <em>F measure</em> (or <span class="math notranslate nohighlight">\(F_1\)</span> measure), is the harmonic<a class="footnote-reference brackets" href="#foothar" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> mean of
+<div style="margin-top: 1em"></div><p>The <em>F measure</em> (or <span class="math">\(F_1\)</span> measure), is the harmonic<a class="footnote-reference brackets" href="#foothar" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> mean of
 precision and recall in the case where we would rather have them
 aggregated into a single number:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{F}(\boldsymbol{y}', \hat{\boldsymbol{y}}') = \frac{1}{
     \frac{
@@ -1502,7 +1504,7 @@ aggregated into a single number:</p>
 <section id="splitting-into-training-and-test-sets">
 <span id="sec-train-test-split"></span><h3><span class="section-number">12.3.3. </span>Splitting into training and test sets<a class="headerlink" href="#splitting-into-training-and-test-sets" title="Link to this heading">#</a></h3>
 <p>The training set was used as a source of knowledge about our
-problem domain. The <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classifier is technically
+problem domain. The <span class="math">\(k\)</span>-nearest neighbour classifier is technically
 <em>model-free</em>. As a consequence, to generate a new prediction, we need
 to be able to query all the points in the database every time.</p>
 <p>Nonetheless, most statistical/machine learning algorithms, by construction,
@@ -1538,8 +1540,8 @@ phase is complete.</p>
 <li><p>what is the best way to preprocess them; e.g., which of them should be
 standardised,</p></li>
 <li><p>if an algorithm has some tunable parameters, what is their
-best combination; for instance, which <span class="math notranslate nohighlight">\(k\)</span> should we use in the
-<span class="math notranslate nohighlight">\(k\)</span>-nearest neighbours search.</p></li>
+best combination; for instance, which <span class="math">\(k\)</span> should we use in the
+<span class="math">\(k\)</span>-nearest neighbours search.</p></li>
 </ul>
 <p>At initial stages of data analysis, we usually tune them up by trial and
 error. Later, but this is already beyond the scope of this introductory
@@ -1582,12 +1584,12 @@ must neither be used in the training nor the validation phase.</p>
         
     </div><div class="proof-content">
 <p>Determine the <em>best</em> parameter setting
-for the <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classification of the <code class="docutils literal notranslate"><span class="pre">color</span></code> variable
+for the <span class="math">\(k\)</span>-nearest neighbour classification of the <code class="docutils literal notranslate"><span class="pre">color</span></code> variable
 based on standardised versions of
 some physicochemical features (chosen columns) of wines
 in the <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/other/wine_quality_all.csv"><code class="docutils literal notranslate"><span class="pre">wine_quality_all</span></code></a> dataset.
 Create a 60/20/20% dataset split.
-For each <span class="math notranslate nohighlight">\(k=1, 3, 5, 7, 9\)</span>, compute the corresponding
+For each <span class="math">\(k=1, 3, 5, 7, 9\)</span>, compute the corresponding
 F measure on the validation test.
 Evaluate the quality of the best classifier on the test set.</p>
 </div></div><div class="admonition note">
@@ -1597,7 +1599,7 @@ Instead of a training/validation/test split,
 we can use various <em>cross-validation</em> techniques, especially
 on smaller datasets.
 For instance, in a <em>5-fold cross-validation</em>, we split the original
-training set randomly into five disjoint parts: <span class="math notranslate nohighlight">\(A, B, C, D, E\)</span>
+training set randomly into five disjoint parts: <span class="math">\(A, B, C, D, E\)</span>
 (more or less of the same size). We use each
 combination of four chunks as training sets and the remaining part
 as the validation set, for which we generate the predictions and then
@@ -1611,31 +1613,31 @@ compute, say, the F measure:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(B\cup C\cup D\cup E\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(A\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(F_A\)</span></p></td>
+<tr class="row-even"><td><p><span class="math">\(B\cup C\cup D\cup E\)</span></p></td>
+<td><p><span class="math">\(A\)</span></p></td>
+<td><p><span class="math">\(F_A\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(A\cup C\cup D\cup E\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(B\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(F_B\)</span></p></td>
+<tr class="row-odd"><td><p><span class="math">\(A\cup C\cup D\cup E\)</span></p></td>
+<td><p><span class="math">\(B\)</span></p></td>
+<td><p><span class="math">\(F_B\)</span></p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(A\cup B\cup D\cup E\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(C\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(F_C\)</span></p></td>
+<tr class="row-even"><td><p><span class="math">\(A\cup B\cup D\cup E\)</span></p></td>
+<td><p><span class="math">\(C\)</span></p></td>
+<td><p><span class="math">\(F_C\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(A\cup B\cup C\cup E\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(D\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(F_D\)</span></p></td>
+<tr class="row-odd"><td><p><span class="math">\(A\cup B\cup C\cup E\)</span></p></td>
+<td><p><span class="math">\(D\)</span></p></td>
+<td><p><span class="math">\(F_D\)</span></p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(A\cup B\cup C\cup D\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(E\)</span></p></td>
-<td><p><span class="math notranslate nohighlight">\(F_E\)</span></p></td>
+<tr class="row-even"><td><p><span class="math">\(A\cup B\cup C\cup D\)</span></p></td>
+<td><p><span class="math">\(E\)</span></p></td>
+<td><p><span class="math">\(F_E\)</span></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>In the end, we can determine the average F measure,
-<span class="math notranslate nohighlight">\((F_A+F_B+F_C+F_D+F_E)/5\)</span>, as a basis for assessing different
+<span class="math">\((F_A+F_B+F_C+F_D+F_E)/5\)</span>, as a basis for assessing different
 classifiers’ quality.</p>
 <p>Once the best classifier is chosen, we can use the whole
 training sample to fit the final model and then consider the separate
@@ -1670,20 +1672,20 @@ and weight data but no information about the subjects’ sexes).</p>
 <p><em>Clustering methods</em> (also known as segmentation or quantisation;
 see, e.g., <span id="id10">[<a class="reference internal" href="999-bibliography.html#id154" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>, <a class="reference internal" href="999-bibliography.html#id108" title="Wierzchoń, S.T. and Kłopotek, M.A. (2018).  Modern Algorithms for Cluster Analysis. Springer. DOI: 10.1007/978-3-319-69308-8.">97</a>]</span>)
 partition a dataset into groups based only on the spatial structure
-of the points’ relative densities. In the <span class="math notranslate nohighlight">\(k\)</span>-means method, which we
+of the points’ relative densities. In the <span class="math">\(k\)</span>-means method, which we
 discuss below, the cluster structure is determined based on
-the points’ proximity to <span class="math notranslate nohighlight">\(k\)</span> carefully chosen group centroids;
+the points’ proximity to <span class="math">\(k\)</span> carefully chosen group centroids;
 compare <a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>.</p>
 <section id="k-means-method">
 <h3><span class="section-number">12.4.1. </span><em>K</em>-means method<a class="headerlink" href="#k-means-method" title="Link to this heading">#</a></h3>
-<p>Fix <span class="math notranslate nohighlight">\(k \ge 2\)</span>.
-In the <span class="math notranslate nohighlight">\(k\)</span>-means method<a class="footnote-reference brackets" href="#footkmeans" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>, we seek <span class="math notranslate nohighlight">\(k\)</span> pivot points,
-<span class="math notranslate nohighlight">\(\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k\in\mathbb{R}^m\)</span>,
+<p>Fix <span class="math">\(k \ge 2\)</span>.
+In the <span class="math">\(k\)</span>-means method<a class="footnote-reference brackets" href="#footkmeans" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>, we seek <span class="math">\(k\)</span> pivot points,
+<span class="math">\(\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k\in\mathbb{R}^m\)</span>,
 such that the sum of squared distances between the input points
-in <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
+in <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
 and their closest pivots is minimised:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{minimise}\ \sum_{i=1}^n
 \min\left\{
@@ -1695,22 +1697,22 @@ and their closest pivots is minimised:</p>
 \qquad\text{w.r.t. }{\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k}.
 \]</div>
 </div>
-<p>Let us introduce the <em>label vector</em> <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> such that:</p>
+<p>Let us introduce the <em>label vector</em> <span class="math">\(\boldsymbol{l}\)</span> such that:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 l_i = \mathrm{arg}\min_{j} \| \mathbf{x}_{i,\cdot} - \boldsymbol{c}_{j} \|^2,
 \]</div>
 </div>
-<p>i.e., it is the index of the pivot closest to <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span>.</p>
-<p>We will consider all the points <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span>
-with <span class="math notranslate nohighlight">\(i\)</span> such that <span class="math notranslate nohighlight">\(l_i=j\)</span> as belonging to the same, <span class="math notranslate nohighlight">\(j\)</span>-th,
-<em>cluster</em> (point group). This way <span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> defines
+<p>i.e., it is the index of the pivot closest to <span class="math">\(\mathbf{x}_{i,\cdot}\)</span>.</p>
+<p>We will consider all the points <span class="math">\(\mathbf{x}_{i,\cdot}\)</span>
+with <span class="math">\(i\)</span> such that <span class="math">\(l_i=j\)</span> as belonging to the same, <span class="math">\(j\)</span>-th,
+<em>cluster</em> (point group). This way <span class="math">\(\boldsymbol{l}\)</span> defines
 a <em>partition</em> of the original dataset
-into <span class="math notranslate nohighlight">\(k\)</span> nonempty, mutually disjoint subsets.</p>
+into <span class="math">\(k\)</span> nonempty, mutually disjoint subsets.</p>
 <p>Now, the above optimisation task can be equivalently rewritten as:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \text{minimise}\ \sum_{i=1}^n \| \mathbf{x}_{i,\cdot} - \boldsymbol{c}_{l_i} \|^2
 \qquad\text{w.r.t. }{\boldsymbol{c}_1, \boldsymbol{c}_2,\dots,\boldsymbol{c}_k}.
@@ -1719,34 +1721,34 @@ into <span class="math notranslate nohighlight">\(k\)</span> nonempty, mutually 
 <p>And this is why we refer to the above objective function
 as the (total) <em>within-cluster sum of squares</em> (WCSS).
 This problem looks easier, but let us not be tricked;
-<span class="math notranslate nohighlight">\(l_i\)</span>s depend on <span class="math notranslate nohighlight">\(\boldsymbol{c}_j\)</span>s. They vary <em>together</em>.
+<span class="math">\(l_i\)</span>s depend on <span class="math">\(\boldsymbol{c}_j\)</span>s. They vary <em>together</em>.
 We have just made it less explicit.</p>
 <p>It can be shown that given a fixed label vector
-<span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span> representing a partition,
-<span class="math notranslate nohighlight">\(\boldsymbol{c}_j\)</span> must be the centroid (<a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>)
+<span class="math">\(\boldsymbol{l}\)</span> representing a partition,
+<span class="math">\(\boldsymbol{c}_j\)</span> must be the centroid (<a class="reference internal" href="320-transform-matrix.html#sec-centroid"><span class="std std-numref">Section 8.4.2</span></a>)
 of the points assigned thereto:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 \boldsymbol{c}_j = \frac{1}{n_j} \sum_{i: l_i=j} \mathbf{x}_{i,\cdot},
 \]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(n_j=|\{i: l_i=j\}|\)</span> gives the number of
-<span class="math notranslate nohighlight">\(i\)</span>s such that <span class="math notranslate nohighlight">\(l_i=j\)</span>, i.e., the size of the <span class="math notranslate nohighlight">\(j\)</span>-th cluster.</p>
+<p>where <span class="math">\(n_j=|\{i: l_i=j\}|\)</span> gives the number of
+<span class="math">\(i\)</span>s such that <span class="math">\(l_i=j\)</span>, i.e., the size of the <span class="math">\(j\)</span>-th cluster.</p>
 <div style="margin-top: 1em"></div><p>Here is an example dataset (see below for a scatter plot):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/blobs1.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can call <strong class="command">scipy.cluster.vq.kmeans2</strong> to find <span class="math notranslate nohighlight">\(k=2\)</span>
+<p>We can call <strong class="command">scipy.cluster.vq.kmeans2</strong> to find <span class="math">\(k=2\)</span>
 clusters:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.cluster.vq</span>
 <span class="n">C</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">vq</span><span class="o">.</span><span class="n">kmeans2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The discovered cluster centres are stored in a matrix
-with <span class="math notranslate nohighlight">\(k\)</span> rows and <span class="math notranslate nohighlight">\(m\)</span> columns, i.e., the <span class="math notranslate nohighlight">\(j\)</span>-th row
-gives <span class="math notranslate nohighlight">\(\mathbf{c}_j\)</span>.</p>
+with <span class="math">\(k\)</span> rows and <span class="math">\(m\)</span> columns, i.e., the <span class="math">\(j\)</span>-th row
+gives <span class="math">\(\mathbf{c}_j\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span>
 <span class="c1">## array([[ 0.99622971,  1.052801  ],</span>
 <span class="c1">##        [-0.90041365, -1.08411794]])</span>
@@ -1757,7 +1759,7 @@ gives <span class="math notranslate nohighlight">\(\mathbf{c}_j\)</span>.</p>
 <span class="c1">## array([1, 1, 1, ..., 0, 0, 0], dtype=int32)</span>
 </pre></div>
 </div>
-<p>As usual in Python, indexing starts at 0. So for <span class="math notranslate nohighlight">\(k=2\)</span>
+<p>As usual in Python, indexing starts at 0. So for <span class="math">\(k=2\)</span>
 we only obtain the labels 0 and 1.</p>
 <p><a class="reference internal" href="#fig-two-blobs-clusters"><span class="std std-numref">Figure 12.10</span></a>
 depicts the two clusters together with the cluster centroids.
@@ -1774,7 +1776,7 @@ very natural partitioning of this dataset into two clusters.</p>
 <figure class="align-default" id="id55">
 <span id="fig-two-blobs-clusters"></span><img alt="../_images/two-blobs-clusters-19.png" src="../_images/two-blobs-clusters-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.10 </span><span class="caption-text">Two clusters discovered by the <span class="math notranslate nohighlight">\(k\)</span>-means method. Cluster centroids are marked separately.</span><a class="headerlink" href="#id55" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 12.10 </span><span class="caption-text">Two clusters discovered by the <span class="math">\(k\)</span>-means method. Cluster centroids are marked separately.</span><a class="headerlink" href="#id55" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Here are the cluster sizes:</p>
@@ -1816,7 +1818,7 @@ and then picking the indexes of the closest pivots:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>By construction<a class="footnote-reference brackets" href="#footvoronoi" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>,
-the <span class="math notranslate nohighlight">\(k\)</span>-means method can only detect clusters of convex shapes
+the <span class="math">\(k\)</span>-means method can only detect clusters of convex shapes
 (such as Gaussian blobs).</p>
 </div>
 <div class="proof proof-type-exercise" id="id56">
@@ -1844,7 +1846,7 @@ and its perception being disturbed when a plot’s aspect ratio is not 1:1.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*)
-An even simpler classifier than the <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbours one
+An even simpler classifier than the <span class="math">\(k\)</span>-nearest neighbours one
 described above builds upon the concept of the nearest centroids.
 Namely, it first determines the centroids (componentwise
 arithmetic means) of the points in each class. Then, a new point
@@ -1853,19 +1855,19 @@ is the closest thereto.
 The implementation of such a classifier is left as a rather
 straightforward exercise for the reader.
 As an application, we recommend using it
-to extrapolate the results generated by the <span class="math notranslate nohighlight">\(k\)</span>-means method
-(for different <span class="math notranslate nohighlight">\(k\)</span>s) to previously unobserved data,
+to extrapolate the results generated by the <span class="math">\(k\)</span>-means method
+(for different <span class="math">\(k\)</span>s) to previously unobserved data,
 e.g., all points on a dense equidistant grid.</p>
 </div>
 </section>
 <section id="solving-k-means-is-hard">
 <h3><span class="section-number">12.4.2. </span>Solving <em>k</em>-means is hard<a class="headerlink" href="#solving-k-means-is-hard" title="Link to this heading">#</a></h3>
-<p>Unfortunately, the <span class="math notranslate nohighlight">\(k\)</span>-means method – the identification
+<p>Unfortunately, the <span class="math">\(k\)</span>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
 optimisation problem (e.g., <span id="id13">[<a class="reference internal" href="999-bibliography.html#id134" title="Lee, J. (2011).  A First Course in Combinatorial Optimisation. Cambridge University Press.">58</a>]</span>). In other words, the search
 for the <em>truly</em> (i.e., globally) optimal solution takes,
-for larger <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(k\)</span>, an impractically long time.</p>
+for larger <span class="math">\(n\)</span> and <span class="math">\(k\)</span>, an impractically long time.</p>
 <p>As a consequence, we must rely on some approximate algorithms
 which all have one drawback in common. Namely, whatever they return
 can be <em>suboptimal</em>. Hence, they can constitute a
@@ -1886,42 +1888,42 @@ to AIC or BIC in linear regression is another example).</p>
 </section>
 <section id="lloyd-algorithm">
 <h3><span class="section-number">12.4.3. </span>Lloyd algorithm<a class="headerlink" href="#lloyd-algorithm" title="Link to this heading">#</a></h3>
-<p>Technically, there is no such thing as <em>the</em> <span class="math notranslate nohighlight">\(k\)</span>-means <em>algorithm</em>.
+<p>Technically, there is no such thing as <em>the</em> <span class="math">\(k\)</span>-means <em>algorithm</em>.
 There are many procedures, based on numerous different heuristics,
-that attempt to solve the <span class="math notranslate nohighlight">\(k\)</span>-means <em>problem</em>. Unfortunately,
+that attempt to solve the <span class="math">\(k\)</span>-means <em>problem</em>. Unfortunately,
 neither of them is perfect. This is not possible.</p>
 <p>Perhaps the most widely known and easiest to understand
 method is traditionally attributed to Lloyd <span id="id14">[<a class="reference internal" href="999-bibliography.html#id133" title="Lloyd, S.P. (1957 (1982)).  Least squares quantization in PCM. IEEE Transactions on Information Theory, 28:128–137. Originally a 1957 Bell Telephone Laboratories Research Report; republished in 1982. DOI: 10.1109/TIT.1982.1056489.">61</a>]</span>.
 It is based on the fixed-point iteration and.
-For a given <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and <span class="math notranslate nohighlight">\(k \ge 2\)</span>:</p>
+For a given <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and <span class="math">\(k \ge 2\)</span>:</p>
 <ol class="arabic">
 <li><p>Pick initial cluster centres
-<span class="math notranslate nohighlight">\(\boldsymbol{c}_{1}, \dots, \boldsymbol{c}_{k}\)</span> randomly.</p></li>
-<li><p>For each point in the dataset, <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span>,
-determine the index of its closest centre <span class="math notranslate nohighlight">\(l_i\)</span>:</p>
+<span class="math">\(\boldsymbol{c}_{1}, \dots, \boldsymbol{c}_{k}\)</span> randomly.</p></li>
+<li><p>For each point in the dataset, <span class="math">\(\mathbf{x}_{i,\cdot}\)</span>,
+determine the index of its closest centre <span class="math">\(l_i\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
     l_i = \mathrm{arg}\min_{j} \| \mathbf{x}_{i,\cdot} - \boldsymbol{c}_{j} \|^2.
     \]</div>
 </div>
 </li>
 <li><p>Compute the centroids of the clusters defined by the label vector
-<span class="math notranslate nohighlight">\(\boldsymbol{l}\)</span>, i.e., for every <span class="math notranslate nohighlight">\(j=1,2,\dots,k\)</span>:</p>
+<span class="math">\(\boldsymbol{l}\)</span>, i.e., for every <span class="math">\(j=1,2,\dots,k\)</span>:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
     \boldsymbol{c}_j = \frac{1}{n_j} \sum_{i: l_i=j} \mathbf{x}_{i,\cdot},
     \]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(n_j=|\{i: l_i=j\}|\)</span> gives the size of the <span class="math notranslate nohighlight">\(j\)</span>-th cluster.</p>
+<p>where <span class="math">\(n_j=|\{i: l_i=j\}|\)</span> gives the size of the <span class="math">\(j\)</span>-th cluster.</p>
 </li>
 <li><p>If the objective function (total within-cluster sum of squares)
 has not changed significantly since the last
 iteration (say, the absolute value of the difference
-between the last and the current loss is less than <span class="math notranslate nohighlight">\(10^{-9}\)</span>),
+between the last and the current loss is less than <span class="math">\(10^{-9}\)</span>),
 then stop and return the current
-<span class="math notranslate nohighlight">\(\boldsymbol{c}_1,\dots,\boldsymbol{c}_k\)</span> as the result.
+<span class="math">\(\boldsymbol{c}_1,\dots,\boldsymbol{c}_k\)</span> as the result.
 Otherwise, go to Step 2.</p></li>
 </ol>
 <div class="proof proof-type-exercise" id="id58">
@@ -1931,8 +1933,8 @@ Otherwise, go to Step 2.</p></li>
         
     </div><div class="proof-content">
 <p>(*) Implement the Lloyd algorithm in the form of a function
-<strong class="command">kmeans</strong><code class="code docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">C)</span></code>, where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the data matrix (<span class="math notranslate nohighlight">\(n\times m\)</span>)
-and where the rows in <code class="docutils literal notranslate"><span class="pre">C</span></code>, being a <span class="math notranslate nohighlight">\(k\times m\)</span> matrix,
+<strong class="command">kmeans</strong><code class="code docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">C)</span></code>, where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the data matrix (<span class="math">\(n\times m\)</span>)
+and where the rows in <code class="docutils literal notranslate"><span class="pre">C</span></code>, being a <span class="math">\(k\times m\)</span> matrix,
 give the initial cluster centres.</p>
 </div></div></section>
 <section id="local-minima">
@@ -1941,7 +1943,7 @@ give the initial cluster centres.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Lloyd’s method guarantees that the centres
-<span class="math notranslate nohighlight">\(\boldsymbol{c}_1,\dots,\boldsymbol{c}_k\)</span> it returns cannot be
+<span class="math">\(\boldsymbol{c}_1,\dots,\boldsymbol{c}_k\)</span> it returns cannot be
 significantly improved any further by repeating Steps 2 and 3
 of the algorithm.
 Still, it does not necessarily
@@ -1984,7 +1986,7 @@ dataset.</p>
 </pre></div>
 </div>
 <p>It is a three-dimensional dataset, where each point (row) corresponds
-to a different country. Let us find a partition into <span class="math notranslate nohighlight">\(k=3\)</span> clusters.</p>
+to a different country. Let us find a partition into <span class="math">\(k=3\)</span> clusters.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># reproducibility matters</span>
 <span class="n">C1</span><span class="p">,</span> <span class="n">l1</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">vq</span><span class="o">.</span><span class="n">kmeans2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
@@ -2035,9 +2037,9 @@ table for the two label vectors:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Clusters are essentially unordered.
-The label vector <span class="math notranslate nohighlight">\((1, 1, 2, 2, 1, 3)\)</span> represents
-the same clustering as the label vectors <span class="math notranslate nohighlight">\((3, 3, 2, 2, 3, 1)\)</span>
-and <span class="math notranslate nohighlight">\((2, 2, 3, 3, 2, 1)\)</span>.</p>
+The label vector <span class="math">\((1, 1, 2, 2, 1, 3)\)</span> represents
+the same clustering as the label vectors <span class="math">\((3, 3, 2, 2, 3, 1)\)</span>
+and <span class="math">\((2, 2, 3, 3, 2, 1)\)</span>.</p>
 </div>
 <p>By looking at the contingency table, we see
 that clusters 0, 1, and 2 in <code class="docutils literal notranslate"><span class="pre">l1</span></code> correspond, respectively,
@@ -2109,13 +2111,13 @@ see <a class="reference internal" href="#fig-wcss-local-minima"><span class="std
 <figure class="align-default" id="id61">
 <span id="fig-wcss-local-minima"></span><img alt="../_images/wcss-local-minima-23.png" src="../_images/wcss-local-minima-23.png" />
 <figcaption>
-<p><span class="caption-number">Figure 12.12 </span><span class="caption-text">Within-cluster sum of squares at the results returned by different runs of the <span class="math notranslate nohighlight">\(k\)</span>-means algorithm. Sometimes we might be very unlucky.</span><a class="headerlink" href="#id61" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 12.12 </span><span class="caption-text">Within-cluster sum of squares at the results returned by different runs of the <span class="math">\(k\)</span>-means algorithm. Sometimes we might be very unlucky.</span><a class="headerlink" href="#id61" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Also, <a class="reference internal" href="#fig-kmeans-suboptimal-centres"><span class="std std-numref">Figure 12.13</span></a> depicts
 all the cluster centres to which the algorithm converged.
 We see that we should not be trusting the results
-generated by a single run of a heuristic solver to the <span class="math notranslate nohighlight">\(k\)</span>-means problem.</p>
+generated by a single run of a heuristic solver to the <span class="math">\(k\)</span>-means problem.</p>
 <figure class="align-default" id="id62">
 <span id="fig-kmeans-suboptimal-centres"></span><img alt="../_images/kmeans-suboptimal-centres-25.png" src="../_images/kmeans-suboptimal-centres-25.png" />
 <figcaption>
@@ -2159,7 +2161,7 @@ There is no free lunch in optimisation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Some datasets are more well-behaving than others.
-The <span class="math notranslate nohighlight">\(k\)</span>-means method is <em>overall</em> quite usable,
+The <span class="math">\(k\)</span>-means method is <em>overall</em> quite usable,
 but we must always be cautious.</p>
 <p>We recommend performing at least 100 random restarts.
 Also, if a report from data analysis does not say anything about
@@ -2173,7 +2175,7 @@ a pain, but we know better; compare Rule#9.</p>
         <span class="proof-type">Exercise 12.24</span>
         
     </div><div class="proof-content">
-<p>Run the <span class="math notranslate nohighlight">\(k\)</span>-means method, <span class="math notranslate nohighlight">\(k=8\)</span>, on the
+<p>Run the <span class="math">\(k\)</span>-means method, <span class="math">\(k=8\)</span>, on the
 <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/clustering/sipu_unbalance.csv"><code class="docutils literal notranslate"><span class="pre">sipu_unbalance</span></code></a>
 dataset from many random sets of cluster centres.
 Note the value of the total within-cluster sum
@@ -2181,21 +2183,21 @@ of squares. Also, plot the cluster centres discovered. Do they make sense?
 Compare these to the case where you start the method from the
 following cluster centres which are close to the global minimum.</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{C} = \left[
 \begin{array}{cc}
-   -15  &amp; 5    \\
-   -12  &amp; 10   \\
-   -10  &amp; 5    \\
-    15  &amp; 0    \\
-    15  &amp; 10   \\
-    20  &amp; 5    \\
-    25  &amp; 0    \\
-    25  &amp; 10   \\
+   -15  & 5    \\
+   -12  & 10   \\
+   -10  & 5    \\
+    15  & 0    \\
+    15  & 10   \\
+    20  & 5    \\
+    25  & 0    \\
+    25  & 10   \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
 </div></div></section>
 </section>
@@ -2268,7 +2270,7 @@ of how they are defined and where they are the most useful?</p>
         <span class="proof-type">Exercise 12.30</span>
         
     </div><div class="proof-content">
-<p>Explain how the <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classification and regression
+<p>Explain how the <span class="math">\(k\)</span>-nearest neighbour classification and regression
 algorithms work. Why do we say that they are model-free?</p>
 </div></div><div class="proof proof-type-exercise" id="id71">
 
@@ -2276,7 +2278,7 @@ algorithms work. Why do we say that they are model-free?</p>
         <span class="proof-type">Exercise 12.31</span>
         
     </div><div class="proof-content">
-<p>In the context of <span class="math notranslate nohighlight">\(k\)</span>-nearest neighbour classification,
+<p>In the context of <span class="math">\(k\)</span>-nearest neighbour classification,
 why it might be important to resolve the
 potential ties at random when computing the mode of the neighbours’ labels?</p>
 </div></div><div class="proof proof-type-exercise" id="id72">
@@ -2300,7 +2302,7 @@ split?</p>
         <span class="proof-type">Exercise 12.34</span>
         
     </div><div class="proof-content">
-<p>Are there any cluster shapes that cannot be detected by the <span class="math notranslate nohighlight">\(k\)</span>-means
+<p>Are there any cluster shapes that cannot be detected by the <span class="math">\(k\)</span>-means
 method?</p>
 </div></div><div class="proof proof-type-exercise" id="id75">
 
@@ -2308,7 +2310,7 @@ method?</p>
         <span class="proof-type">Exercise 12.35</span>
         
     </div><div class="proof-content">
-<p>Why do we say that solving the <span class="math notranslate nohighlight">\(k\)</span>-means problem is hard?</p>
+<p>Why do we say that solving the <span class="math">\(k\)</span>-means problem is hard?</p>
 </div></div><div class="proof proof-type-exercise" id="id76">
 
     <div class="proof-title">
@@ -2358,17 +2360,17 @@ In sparsely populated regions, the decision might be
 <aside class="footnote brackets" id="foothar" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">6</a><span class="fn-bracket">]</span></span>
 <p>(*) For any vector of nonnegative values,
-its minimum <span class="math notranslate nohighlight">\(\le\)</span> its harmonic mean <span class="math notranslate nohighlight">\(\le\)</span> its arithmetic mean.</p>
+its minimum <span class="math">\(\le\)</span> its harmonic mean <span class="math">\(\le\)</span> its arithmetic mean.</p>
 </aside>
 <aside class="footnote brackets" id="footkmeans" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">7</a><span class="fn-bracket">]</span></span>
 <p>We do not have to denote the number of clusters
-with <span class="math notranslate nohighlight">\(k\)</span>. We could be speaking about the <span class="math notranslate nohighlight">\(2\)</span>-means, <span class="math notranslate nohighlight">\(3\)</span>-means,
-<span class="math notranslate nohighlight">\(l\)</span>-means, or <em>ü</em>-means method too. Nevertheless,
-some mainstream practitioners consider <span class="math notranslate nohighlight">\(k\)</span>-means as a kind of a
+with <span class="math">\(k\)</span>. We could be speaking about the <span class="math">\(2\)</span>-means, <span class="math">\(3\)</span>-means,
+<span class="math">\(l\)</span>-means, or <em>ü</em>-means method too. Nevertheless,
+some mainstream practitioners consider <span class="math">\(k\)</span>-means as a kind of a
 brand name, let us thus refrain from adding to their confusion.
 Interestingly, another widely known algorithm
-is called fuzzy (weighted) <span class="math notranslate nohighlight">\(c\)</span>-means <span id="id26">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">6</a>]</span>.</p>
+is called fuzzy (weighted) <span class="math">\(c\)</span>-means <span id="id26">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">6</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footvoronoi" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">8</a><span class="fn-bracket">]</span></span>
@@ -2378,7 +2380,7 @@ is called fuzzy (weighted) <span class="math notranslate nohighlight">\(c\)</spa
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">9</a><span class="fn-bracket">]</span></span>
 <p>If we have many different heuristics,
 each aiming to approximate
-a solution to the <span class="math notranslate nohighlight">\(k\)</span>-means problem, from the practical
+a solution to the <span class="math">\(k\)</span>-means problem, from the practical
 point of view it does not really matter which one returns
 the best solution – they are merely our tools to achieve
 a higher goal. Ideally, we could run all of them
@@ -2437,7 +2439,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-13T20:52:56+1100.
+              Last updated on 2023-11-14T15:11:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2508,7 +2510,8 @@ that data analysts only stick with the default arguments.</p>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/katex.min.js?v=deb2f140"></script>
+    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

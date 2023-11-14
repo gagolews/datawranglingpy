@@ -33,8 +33,10 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cc2833c3" />
     
     
 
@@ -304,24 +306,24 @@ are appreciated. Make sure to check out
 <span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2023).  Deep R Programming. Zenodo. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">34</a>]</span> too.</em></p>
 </div></blockquote>
 <p>From the perspective of structured datasets,
-a vector often represents <span class="math notranslate nohighlight">\(n\)</span> independent measurements
-of the same quantitative property, e.g., heights of <span class="math notranslate nohighlight">\(n\)</span> different patients,
-incomes in <span class="math notranslate nohighlight">\(n\)</span> randomly chosen households, or ages of <span class="math notranslate nohighlight">\(n\)</span> runners.
-More generally, these are all instances of a bag of <span class="math notranslate nohighlight">\(n\)</span> points on the
+a vector often represents <span class="math">\(n\)</span> independent measurements
+of the same quantitative property, e.g., heights of <span class="math">\(n\)</span> different patients,
+incomes in <span class="math">\(n\)</span> randomly chosen households, or ages of <span class="math">\(n\)</span> runners.
+More generally, these are all instances of a bag of <span class="math">\(n\)</span> points on the
 real line. By far<a class="footnote-reference brackets" href="#footsolveex" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, we should have become quite fluent
 with the methods for processing such one-dimensional arrays.</p>
 <p>Let us increase the level of complexity
-by permitting each of the <span class="math notranslate nohighlight">\(n\)</span> entities to be described by <span class="math notranslate nohighlight">\(m\)</span> features,
-for any <span class="math notranslate nohighlight">\(m\ge 1\)</span>.
-In other words, we will be dealing with <span class="math notranslate nohighlight">\(n\)</span> points
-in an <span class="math notranslate nohighlight">\(m\)</span>-dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
-<p>We can arrange all the observations in a table with <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(m\)</span> columns
+by permitting each of the <span class="math">\(n\)</span> entities to be described by <span class="math">\(m\)</span> features,
+for any <span class="math">\(m\ge 1\)</span>.
+In other words, we will be dealing with <span class="math">\(n\)</span> points
+in an <span class="math">\(m\)</span>-dimensional space, <span class="math">\(\mathbb{R}^m\)</span>.</p>
+<p>We can arrange all the observations in a table with <span class="math">\(n\)</span> rows and <span class="math">\(m\)</span> columns
 (just like in spreadsheets).
 Such an object can be expressed with <strong class="program">numpy</strong> as a two-dimensional
 array which we will refer to as <em>matrices</em>.
-Thanks to matrices, we can keep the <span class="math notranslate nohighlight">\(n\)</span> tuples of length
-<span class="math notranslate nohighlight">\(m\)</span> together in a single object and process them all at once
-(or <span class="math notranslate nohighlight">\(m\)</span> tuples of length <span class="math notranslate nohighlight">\(n\)</span>, depending on how we want to look at them).
+Thanks to matrices, we can keep the <span class="math">\(n\)</span> tuples of length
+<span class="math">\(m\)</span> together in a single object and process them all at once
+(or <span class="math">\(m\)</span> tuples of length <span class="math">\(n\)</span>, depending on how we want to look at them).
 Very convenient.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -420,21 +422,21 @@ For example:</p>
 <span class="c1">##        [ 9, 10, 11, 12]])</span>
 </pre></div>
 </div>
-<p>It gave a <span class="math notranslate nohighlight">\(3\times 4\)</span> (3-by-4) matrix.</p>
+<p>It gave a <span class="math">\(3\times 4\)</span> (3-by-4) matrix.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">])</span>
 <span class="c1">## array([[1],</span>
 <span class="c1">##        [2],</span>
 <span class="c1">##        [3]])</span>
 </pre></div>
 </div>
-<p>It yielded a <span class="math notranslate nohighlight">\(3\times 1\)</span> one; we call a <em>column vector</em>,
+<p>It yielded a <span class="math">\(3\times 1\)</span> one; we call a <em>column vector</em>,
 but it is a special matrix (we will soon learn that shapes
 can make a significant difference). Moreover:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="p">])</span>
 <span class="c1">## array([[1, 2, 3, 4]])</span>
 </pre></div>
 </div>
-<p>It produced a <span class="math notranslate nohighlight">\(1\times 4\)</span> array (a <em>row vector</em>).</p>
+<p>It produced a <span class="math">\(1\times 4\)</span> array (a <em>row vector</em>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>An ordinary vector (a unidimensional array) only uses
@@ -473,30 +475,30 @@ over axis <code class="docutils literal notranslate"><span class="pre">1</span><
     </div><div class="proof-content">
 <p>How can we generate matrices of the following kinds?</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}\left[
+<div class="math">
+\[\left[
 \begin{array}{cc}
-    1 &amp; 2 \\
-    1 &amp; 2 \\
-    1 &amp; 2 \\
-    3 &amp; 4 \\
-    3 &amp; 4 \\
-    3 &amp; 4 \\
-    3 &amp; 4 \\
+    1 & 2 \\
+    1 & 2 \\
+    1 & 2 \\
+    3 & 4 \\
+    3 & 4 \\
+    3 & 4 \\
+    3 & 4 \\
 \end{array}
 \right], \qquad
 \left[
 \begin{array}{cccccc}
-    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2 \\
-    1 &amp; 2 &amp; 1 &amp; 2&amp; 1&amp; 2 \\
+    1 & 2 & 1 & 2& 1& 2 \\
+    1 & 2 & 1 & 2& 1& 2 \\
 \end{array}
 \right], \qquad
 \left[
 \begin{array}{ccccc}
-    1&amp; 1&amp;  2&amp; 2 &amp; 2 \\
-    3&amp; 3&amp;  4&amp; 4 &amp; 4 \\
+    1& 1&  2& 2 & 2 \\
+    3& 3&  4& 4 & 4 \\
 \end{array}
-\right].\end{split}\]</div>
+\right].\]</div>
 </div>
 </div></div></section>
 <section id="stacking-arrays">
@@ -572,7 +574,7 @@ to refer to their documentation.</p>
 </section>
 <section id="reshaping-matrices">
 <h2><span class="section-number">7.2. </span>Reshaping matrices<a class="headerlink" href="#reshaping-matrices" title="Link to this heading">#</a></h2>
-<p>Let us take an example <span class="math notranslate nohighlight">\(3\times 4\)</span> matrix:</p>
+<p>Let us take an example <span class="math">\(3\times 4\)</span> matrix:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span> <span class="p">],</span>
     <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span> <span class="p">],</span>
@@ -590,7 +592,7 @@ the row-major<a class="footnote-reference brackets" href="#footrowmajor" id="id3
 </pre></div>
 </div>
 <p>It is the <code class="docutils literal notranslate"><span class="pre">shape</span></code> slot that is causing the 12 elements to be treated as
-if they were arranged on a <span class="math notranslate nohighlight">\(3\times 4\)</span> grid,
+if they were arranged on a <span class="math">\(3\times 4\)</span> grid,
 for example in different algebraic computations and during
 the printing thereof.
 This arrangement can be altered anytime without modifying
@@ -654,7 +656,7 @@ Higher-dimensional arrays are also possible. For example:</p>
 </pre></div>
 </div>
 <p>Is an array of “depth” 2, “height” 4, and “width” 3;
-we can see it as two <span class="math notranslate nohighlight">\(4\times 3\)</span> matrices stacked together.
+we can see it as two <span class="math">\(4\times 3\)</span> matrices stacked together.
 Theoretically, they can be used for representing contingency tables for
 products of many factors.
 Still, in our application areas, we prefer to stick with
@@ -667,71 +669,71 @@ sparse data.</p>
 <h2><span class="section-number">7.3. </span>Mathematical notation<a class="headerlink" href="#mathematical-notation" title="Link to this heading">#</a></h2>
 <p>Here is some standalone mathematical notation that we shall
 be employing in this course.
-A matrix with <span class="math notranslate nohighlight">\(n\)</span> rows and <span class="math notranslate nohighlight">\(m\)</span> columns
-(an <span class="math notranslate nohighlight">\(n\times m\)</span> matrix) <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> can be written as:</p>
+A matrix with <span class="math">\(n\)</span> rows and <span class="math">\(m\)</span> columns
+(an <span class="math">\(n\times m\)</span> matrix) <span class="math">\(\mathbf{X}\)</span> can be written as:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X}=
 \left[
 \begin{array}{cccc}
-x_{1,1} &amp; x_{1,2} &amp; \cdots &amp; x_{1,m} \\
-x_{2,1} &amp; x_{2,2} &amp; \cdots &amp; x_{2,m} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,m} \\
+x_{1,1} & x_{1,2} & \cdots & x_{1,m} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,m} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n,1} & x_{n,2} & \cdots & x_{n,m} \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
-<p>Mathematically, we denote this as <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>.
+<p>Mathematically, we denote this as <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>.
 Spreadsheets use a similar display of data.</p>
 <p>We see that
-<span class="math notranslate nohighlight">\(x_{i,j}\in\mathbb{R}\)</span> denotes
-the element in the <span class="math notranslate nohighlight">\(i\)</span>-th row (e.g., the <span class="math notranslate nohighlight">\(i\)</span>-th <em>observation</em> or <em>case</em>)
-and the <span class="math notranslate nohighlight">\(j\)</span>-th column (e.g., the <span class="math notranslate nohighlight">\(j\)</span>-th <em>feature</em> or <em>variable</em>), for every
-<span class="math notranslate nohighlight">\(i=1,\dots,n\)</span>, <span class="math notranslate nohighlight">\(j=1,\dots,m\)</span>.</p>
-<p>In particular, if <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> denoted the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset,
-then <span class="math notranslate nohighlight">\(x_{1,2}\)</span> would be the height of the first person.</p>
+<span class="math">\(x_{i,j}\in\mathbb{R}\)</span> denotes
+the element in the <span class="math">\(i\)</span>-th row (e.g., the <span class="math">\(i\)</span>-th <em>observation</em> or <em>case</em>)
+and the <span class="math">\(j\)</span>-th column (e.g., the <span class="math">\(j\)</span>-th <em>feature</em> or <em>variable</em>), for every
+<span class="math">\(i=1,\dots,n\)</span>, <span class="math">\(j=1,\dots,m\)</span>.</p>
+<p>In particular, if <span class="math">\(\mathbf{X}\)</span> denoted the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset,
+then <span class="math">\(x_{1,2}\)</span> would be the height of the first person.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Matrices are a convenient means of representing many different kinds of data:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(n\)</span> points in an <span class="math notranslate nohighlight">\(m\)</span>-dimensional space (like <span class="math notranslate nohighlight">\(n\)</span> observations for which
-there are <span class="math notranslate nohighlight">\(m\)</span> measurements/features recorded,
+<li><p><span class="math">\(n\)</span> points in an <span class="math">\(m\)</span>-dimensional space (like <span class="math">\(n\)</span> observations for which
+there are <span class="math">\(m\)</span> measurements/features recorded,
 where each row describes a different object;
 exactly the case of the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset above) – this
 is the most common scenario;</p></li>
-<li><p><span class="math notranslate nohighlight">\(m\)</span> time series sampled at <span class="math notranslate nohighlight">\(n\)</span> points in time (e.g., prices of <span class="math notranslate nohighlight">\(m\)</span>
-different currencies on <span class="math notranslate nohighlight">\(n\)</span> consecutive days;
+<li><p><span class="math">\(m\)</span> time series sampled at <span class="math">\(n\)</span> points in time (e.g., prices of <span class="math">\(m\)</span>
+different currencies on <span class="math">\(n\)</span> consecutive days;
 see <a class="reference internal" href="530-time-series.html#chap-time-series"><span class="std std-numref">Chapter 16</span></a>);</p></li>
 <li><p>a single kind of measurement for data
-in <span class="math notranslate nohighlight">\(m\)</span> groups, each consisting of <span class="math notranslate nohighlight">\(n\)</span> subjects
-(e.g., heights of <span class="math notranslate nohighlight">\(n\)</span> males and <span class="math notranslate nohighlight">\(n\)</span> females);
+in <span class="math">\(m\)</span> groups, each consisting of <span class="math">\(n\)</span> subjects
+(e.g., heights of <span class="math">\(n\)</span> males and <span class="math">\(n\)</span> females);
 here, the order of elements in each column does not usually
 matter as observations are not <em>paired</em>; there is no relationship
-between <span class="math notranslate nohighlight">\(x_{i,j}\)</span> and <span class="math notranslate nohighlight">\(x_{i,k}\)</span> for <span class="math notranslate nohighlight">\(j\neq k\)</span>;
+between <span class="math">\(x_{i,j}\)</span> and <span class="math">\(x_{i,k}\)</span> for <span class="math">\(j\neq k\)</span>;
 a matrix is used merely as a convenient container for
 storing a few unrelated vectors of identical sizes;
 we will be dealing with a more generic case of possibly
 nonhomogeneous groups in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>;</p></li>
 <li><p>two-way contingency tables (see <a class="reference internal" href="420-categorical.html#sec-contingency-two"><span class="std std-numref">Section 11.2.2</span></a>),
 where an element
-<span class="math notranslate nohighlight">\(x_{i,j}\)</span> gives the number of occurrences of items
-at the <span class="math notranslate nohighlight">\(i\)</span>-th level of the first categorical variable and,
-at the same time, being at the <span class="math notranslate nohighlight">\(j\)</span>-th level of the second
+<span class="math">\(x_{i,j}\)</span> gives the number of occurrences of items
+at the <span class="math">\(i\)</span>-th level of the first categorical variable and,
+at the same time, being at the <span class="math">\(j\)</span>-th level of the second
 variable (e.g., blue-eyed <em>and</em> blonde-haired);</p></li>
 <li><p>graphs and other relationships between objects,
-e.g., <span class="math notranslate nohighlight">\(x_{i,j}=0\)</span> might denote that the <span class="math notranslate nohighlight">\(i\)</span>-th object
-is not connected<a class="footnote-reference brackets" href="#footsparse" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> with the <span class="math notranslate nohighlight">\(j\)</span>-th one
-and <span class="math notranslate nohighlight">\(x_{k,l}=0.2\)</span> that there is a weak connection between
-<span class="math notranslate nohighlight">\(k\)</span> and <span class="math notranslate nohighlight">\(l\)</span>
+e.g., <span class="math">\(x_{i,j}=0\)</span> might denote that the <span class="math">\(i\)</span>-th object
+is not connected<a class="footnote-reference brackets" href="#footsparse" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> with the <span class="math">\(j\)</span>-th one
+and <span class="math">\(x_{k,l}=0.2\)</span> that there is a weak connection between
+<span class="math">\(k\)</span> and <span class="math">\(l\)</span>
 (e.g., who is a friend of whom, whether a user recommends
 a particular item);</p></li>
-<li><p>images, where <span class="math notranslate nohighlight">\(x_{i,j}\)</span> represents the
+<li><p>images, where <span class="math">\(x_{i,j}\)</span> represents the
 intensity of a colour component (e.g., red, green, blue
 or shades of grey or hue, saturation, brightness;
 compare <a class="reference internal" href="530-time-series.html#sec-image"><span class="std std-numref">Section 16.4</span></a>)
-of a pixel in the <span class="math notranslate nohighlight">\((n-i+1)\)</span>-th row and the <span class="math notranslate nohighlight">\(j\)</span>-th column.</p></li>
+of a pixel in the <span class="math">\((n-i+1)\)</span>-th row and the <span class="math">\(j\)</span>-th column.</p></li>
 </ul>
 </div>
 <div class="admonition note">
@@ -751,10 +753,10 @@ and 50% heroic fantasy, but let us not take it for granted).</p>
 <section id="row-and-column-vectors">
 <h3><span class="section-number">7.3.1. </span>Row and column vectors<a class="headerlink" href="#row-and-column-vectors" title="Link to this heading">#</a></h3>
 <p>Additionally, will sometimes use the following notation to emphasise
-that <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> consists of <span class="math notranslate nohighlight">\(n\)</span> rows:</p>
+that <span class="math">\(\mathbf{X}\)</span> consists of <span class="math">\(n\)</span> rows:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X}
 =
 \left[
@@ -765,49 +767,49 @@ that <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> consists o
 \mathbf{x}_{n,\cdot} \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
-<p>Here, <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\cdot}\)</span> is a <em>row vector</em> of length <span class="math notranslate nohighlight">\(m\)</span>,
-i.e., a <span class="math notranslate nohighlight">\((1\times m)\)</span>-matrix:</p>
+<p>Here, <span class="math">\(\mathbf{x}_{i,\cdot}\)</span> is a <em>row vector</em> of length <span class="math">\(m\)</span>,
+i.e., a <span class="math">\((1\times m)\)</span>-matrix:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{x}_{i,\cdot} = \left[
 \begin{array}{cccc}
-x_{i,1} &amp;
-x_{i,2} &amp;
-\cdots &amp;
+x_{i,1} &
+x_{i,2} &
+\cdots &
 x_{i,m} \\
 \end{array}
 \right].
-\end{split}\]</div>
+\]</div>
 </div>
-<div style="margin-top: 1em"></div><p>Alternatively, we can specify the <span class="math notranslate nohighlight">\(m\)</span> columns:</p>
+<div style="margin-top: 1em"></div><p>Alternatively, we can specify the <span class="math">\(m\)</span> columns:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{X}
 =
 \left[
 \begin{array}{cccc}
-\mathbf{x}_{\cdot,1} &amp;
-\mathbf{x}_{\cdot,2} &amp;
-\cdots &amp;
+\mathbf{x}_{\cdot,1} &
+\mathbf{x}_{\cdot,2} &
+\cdots &
 \mathbf{x}_{\cdot,m} \\
 \end{array}
 \right],
-\end{split}\]</div>
+\]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{x}_{\cdot,j}\)</span> is a <em>column vector</em> of length <span class="math notranslate nohighlight">\(n\)</span>,
-i.e., an <span class="math notranslate nohighlight">\((n\times 1)\)</span>-matrix:</p>
+<p>where <span class="math">\(\mathbf{x}_{\cdot,j}\)</span> is a <em>column vector</em> of length <span class="math">\(n\)</span>,
+i.e., an <span class="math">\((n\times 1)\)</span>-matrix:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{x}_{\cdot,j} = \left[
 \begin{array}{cccc}
-x_{1,j} &amp;
-x_{2,j} &amp;
-\cdots &amp;
+x_{1,j} &
+x_{2,j} &
+\cdots &
 x_{n,j} \\
 \end{array}
 \right]^T=\left[
@@ -818,21 +820,21 @@ x_{n,j} \\
 {x}_{n,j} \\
 \end{array}
 \right],
-\end{split}\]</div>
+\]</div>
 </div>
-<p>where <span class="math notranslate nohighlight">\(\cdot^T\)</span> denotes the transpose of a given matrix
+<p>where <span class="math">\(\cdot^T\)</span> denotes the transpose of a given matrix
 (thanks to which we can save some vertical space, we do not
 want this book to be 1000 pages long, do we?).</p>
 <div style="margin-top: 1em"></div><p>Also, recall that we are used to denoting
-<em>vectors</em> of length <span class="math notranslate nohighlight">\(m\)</span> with <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1, \dots, x_m)\)</span>.
+<em>vectors</em> of length <span class="math">\(m\)</span> with <span class="math">\(\boldsymbol{x}=(x_1, \dots, x_m)\)</span>.
 A vector is a one-dimensional array (not a two-dimensional one),
 hence a slightly different font in the case where ambiguity
 can be troublesome.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To avoid notation clutter, we will often be implicitly  promoting
-vectors like <span class="math notranslate nohighlight">\(\boldsymbol{x}=(x_1,\dots,x_m)\)</span>
-to row vectors <span class="math notranslate nohighlight">\(\mathbf{x}=[x_1\,\cdots\,x_m]\)</span>.
+vectors like <span class="math">\(\boldsymbol{x}=(x_1,\dots,x_m)\)</span>
+to row vectors <span class="math">\(\mathbf{x}=[x_1\,\cdots\,x_m]\)</span>.
 This is the behaviour that <strong class="program">numpy</strong><a class="footnote-reference brackets" href="#footcolumnwisevecs" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>
 uses; see <a class="reference internal" href="320-transform-matrix.html#chap-transform-matrix"><span class="std std-numref">Chapter 8</span></a>.</p>
 </div>
@@ -840,24 +842,24 @@ uses; see <a class="reference internal" href="320-transform-matrix.html#chap-tra
 <section id="transpose">
 <h3><span class="section-number">7.3.2. </span>Transpose<a class="headerlink" href="#transpose" title="Link to this heading">#</a></h3>
 <p>The <em>transpose</em> of a matrix
-<span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
-is an <span class="math notranslate nohighlight">\((m\times n)\)</span>-matrix <span class="math notranslate nohighlight">\(\mathbf{Y}\)</span> given by:</p>
+<span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span>
+is an <span class="math">\((m\times n)\)</span>-matrix <span class="math">\(\mathbf{Y}\)</span> given by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math">
+\[
 \mathbf{Y}=
 \mathbf{X}^T=
 \left[
 \begin{array}{cccc}
-x_{1,1} &amp; x_{2,1} &amp; \cdots &amp; x_{m,1} \\
-x_{1,2} &amp; x_{2,2} &amp; \cdots &amp; x_{m,2} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-x_{1,n} &amp; x_{2,n} &amp; \cdots &amp; x_{m,n} \\
+x_{1,1} & x_{2,1} & \cdots & x_{m,1} \\
+x_{1,2} & x_{2,2} & \cdots & x_{m,2} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{1,n} & x_{2,n} & \cdots & x_{m,n} \\
 \end{array}
 \right],
-\end{split}\]</div>
+\]</div>
 </div>
-<p>i.e., it enjoys <span class="math notranslate nohighlight">\(y_{i,j}=x_{j, i}\)</span>.</p>
+<p>i.e., it enjoys <span class="math">\(y_{i,j}=x_{j, i}\)</span>.</p>
 <div class="proof proof-type-exercise" id="id11">
 
     <div class="proof-title">
@@ -869,9 +871,9 @@ x_{1,n} &amp; x_{2,n} &amp; \cdots &amp; x_{m,n} \\
 </div></div></section>
 <section id="identity-and-other-diagonal-matrices">
 <h3><span class="section-number">7.3.3. </span>Identity and other diagonal matrices<a class="headerlink" href="#identity-and-other-diagonal-matrices" title="Link to this heading">#</a></h3>
-<p><span class="math notranslate nohighlight">\(\mathbf{I}\)</span> denotes the <em>identity matrix</em>,
-being a square <span class="math notranslate nohighlight">\(n\times n\)</span> matrix
-(with <span class="math notranslate nohighlight">\(n\)</span> most often clear from the context)
+<p><span class="math">\(\mathbf{I}\)</span> denotes the <em>identity matrix</em>,
+being a square <span class="math">\(n\times n\)</span> matrix
+(with <span class="math">\(n\)</span> most often clear from the context)
 with 0s everywhere except on the main diagonal, where 1s lie.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># I</span>
 <span class="c1">## array([[1., 0., 0., 0., 0.],</span>
@@ -884,7 +886,7 @@ with 0s everywhere except on the main diagonal, where 1s lie.</p>
 <p>The identity matrix is a neutral element of the matrix multiplication
 (<a class="reference internal" href="320-transform-matrix.html#sec-matrix-multiply"><span class="std std-numref">Section 8.3</span></a>).</p>
 <p>More generally, any diagonal matrix,
-<span class="math notranslate nohighlight">\(\mathrm{diag}(a_1,\dots,a_n)\)</span>,
+<span class="math">\(\mathrm{diag}(a_1,\dots,a_n)\)</span>,
 can be constructed from a given sequence of elements by calling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 <span class="c1">## array([[1, 0, 0, 0],</span>
@@ -916,7 +918,7 @@ dataset will make the same sense
 (but sorting a single column and leaving others
 unchanged will be semantically invalid).</p>
 <p>Mathematically, we consider the above as
-a set of 4221 points in a seven-dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^7\)</span>.
+a set of 4221 points in a seven-dimensional space, <span class="math">\(\mathbb{R}^7\)</span>.
 Let us discuss how we can try visualising different
 natural <em>projections</em> thereof.</p>
 <section id="d-data">
@@ -937,7 +939,7 @@ natural <em>projections</em> thereof.</p>
 <p><a class="reference internal" href="#fig-body-scatter-1-3"><span class="std std-numref">Figure 7.1</span></a> depicts
 upper leg length (the y-axis) vs (versus; against; as a function of)
 standing height (the x-axis) in the form
-of a point cloud with <span class="math notranslate nohighlight">\((x, y)\)</span> coordinates like
+of a point cloud with <span class="math">\((x, y)\)</span> coordinates like
 <code class="docutils literal notranslate"><span class="pre">(body[i,</span> <span class="pre">1],</span> <span class="pre">body[i,</span> <span class="pre">3])</span></code>.</p>
 <div class="proof proof-type-example" id="id13">
 
@@ -1090,8 +1092,8 @@ and any attempts towards visualising them will simply not work,
 don’t even trip.</p>
 <p>Luckily, this is where mathematics comes to our rescue.
 With some more knowledge and intuitions, and this book helps us develop them,
-it will be as easy<a class="footnote-reference brackets" href="#footjoke" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> as imagining a generic <span class="math notranslate nohighlight">\(m\)</span>-dimensional space,
-and then assuming that, say, <span class="math notranslate nohighlight">\(m=7\)</span> or <span class="math notranslate nohighlight">\(42\)</span>.</p>
+it will be as easy<a class="footnote-reference brackets" href="#footjoke" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> as imagining a generic <span class="math">\(m\)</span>-dimensional space,
+and then assuming that, say, <span class="math">\(m=7\)</span> or <span class="math">\(42\)</span>.</p>
 <p>This is exactly why data science relies
 on automated methods for knowledge/pattern discovery. Thanks to them,
 we can identify, describe, and analyse the structures that
@@ -1307,7 +1309,7 @@ find funny. Ha.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-13T20:52:56+1100.
+              Last updated on 2023-11-14T15:11:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1367,7 +1369,8 @@ find funny. Ha.</p>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/katex.min.js?v=deb2f140"></script>
+    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

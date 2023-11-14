@@ -33,8 +33,10 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=dd03ec4f" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=cc2833c3" />
     
     
 
@@ -370,7 +372,7 @@ as mixed bags of unrelated items.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In time series, for any given
-item <span class="math notranslate nohighlight">\(x_i\)</span>, its neighbouring elements <span class="math notranslate nohighlight">\(x_{i-1}\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>
+item <span class="math">\(x_i\)</span>, its neighbouring elements <span class="math">\(x_{i-1}\)</span> and <span class="math">\(x_{i+1}\)</span>
 denote the recordings occurring directly before and after it.
 We can use this <em>temporal ordering</em> to model how <em>consecutive</em>
 measurements <em>depend</em> on each other, describe how they
@@ -624,7 +626,7 @@ summertime the living is easy, what a wonderful world.</p>
 <p>Recall from <a class="reference internal" href="220-transform-vector.html#sec-cumsum"><span class="std std-numref">Section 5.5.1</span></a> the <strong class="command">numpy.diff</strong> function
 and its almost-inverse, <strong class="command">numpy.cumsum</strong>.
 The former can turn a time series into a vector of <em>relative changes</em>
-(<em>deltas</em>), <span class="math notranslate nohighlight">\(\Delta_i=x_{i+1}-x_i\)</span>.</p>
+(<em>deltas</em>), <span class="math">\(\Delta_i=x_{i+1}-x_i\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">temps</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:]</span>  <span class="c1"># last 7 days</span>
 <span class="n">x</span>
 <span class="c1">## array([ -1.4,  -5. ,  -9.4, -12.8, -12.2, -11.4, -11.4])</span>
@@ -680,18 +682,18 @@ it takes a bank teller to interact with a customer
 (there is a whole branch of applied mathematics
 called queuing theory that deals with this type of modelling).</p>
 <div style="margin-top: 1em"></div><p>An exponential family is identified by the scale parameter
-<span class="math notranslate nohighlight">\(s &gt; 0\)</span>, being at the same time its expected value.
-The probability density function of <span class="math notranslate nohighlight">\(\mathrm{Exp}(s)\)</span>
-is given for <span class="math notranslate nohighlight">\(x\ge 0\)</span> by:</p>
+<span class="math">\(s &gt; 0\)</span>, being at the same time its expected value.
+The probability density function of <span class="math">\(\mathrm{Exp}(s)\)</span>
+is given for <span class="math">\(x\ge 0\)</span> by:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 f(x) = \tfrac{1}{s} e^{-x/s},
 \]</div>
 </div>
-<p>and <span class="math notranslate nohighlight">\(f(x)=0\)</span> otherwise.
+<p>and <span class="math">\(f(x)=0\)</span> otherwise.
 We need to be careful: some textbooks choose the parametrisation by
-<span class="math notranslate nohighlight">\(\lambda=1/s\)</span> instead of <span class="math notranslate nohighlight">\(s\)</span>. The <strong class="program">scipy</strong> package also uses this
+<span class="math">\(\lambda=1/s\)</span> instead of <span class="math">\(s\)</span>. The <strong class="program">scipy</strong> package also uses this
 convention.</p>
 <div style="margin-top: 1em"></div><p>Here is a pseudorandom sample where there are five events per
 minute on average:</p>
@@ -708,7 +710,7 @@ minute on average:</p>
 <span class="c1">## 11.839894504211724</span>
 </pre></div>
 </div>
-<p>The result is close to what we <em>expected</em>, i.e., <span class="math notranslate nohighlight">\(s=12\)</span> seconds between
+<p>The result is close to what we <em>expected</em>, i.e., <span class="math">\(s=12\)</span> seconds between
 the events.</p>
 <p>We can convert the above to date-time
 (starting at a fixed calendar date) as follows.
@@ -815,18 +817,18 @@ the five preceding days.</p></li>
 consecutive points as there is a time dependence between them.
 In particular, we can consider computing different
 aggregates inside <em>rolling windows</em> of a particular size.
-For instance, the <em><span class="math notranslate nohighlight">\(k\)</span>-moving average</em> of a given sequence
-<span class="math notranslate nohighlight">\((x_1, x_2, \dots, x_n)\)</span> is a vector <span class="math notranslate nohighlight">\((y_1, y_2, \dots, y_{n-k+1})\)</span>
+For instance, the <em><span class="math">\(k\)</span>-moving average</em> of a given sequence
+<span class="math">\((x_1, x_2, \dots, x_n)\)</span> is a vector <span class="math">\((y_1, y_2, \dots, y_{n-k+1})\)</span>
 such that:</p>
 <div class="math-wrapper docutils container">
-<div class="math notranslate nohighlight">
+<div class="math">
 \[
 y_i = \frac{1}{k}\left( x_{i}+x_{i+1}+\dots+x_{i+k-1} \right)
 = \frac{1}{k} \sum_{j=1}^k x_{i+j-1},
 \]</div>
 </div>
-<p>i.e., the arithmetic mean of <span class="math notranslate nohighlight">\(k\le n\)</span> consecutive observations
-starting at <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
+<p>i.e., the arithmetic mean of <span class="math">\(k\le n\)</span> consecutive observations
+starting at <span class="math">\(x_i\)</span>.</p>
 <div style="margin-top: 1em"></div><p>For example, here are the temperatures in the last seven days of
 December 2011:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:,</span> <span class="p">:]</span>
@@ -1064,10 +1066,10 @@ the average PM2.5 was greater than in the preceding day.</p></li>
 <section id="plotting-multidimensional-time-series">
 <h3><span class="section-number">16.3.5. </span>Plotting multidimensional time series<a class="headerlink" href="#plotting-multidimensional-time-series" title="Link to this heading">#</a></h3>
 <p>Multidimensional time series stored in the form of
-an <span class="math notranslate nohighlight">\(n\times m\)</span> matrix are best viewed as <span class="math notranslate nohighlight">\(m\)</span> time series –
+an <span class="math">\(n\times m\)</span> matrix are best viewed as <span class="math">\(m\)</span> time series –
 possibly but not necessarily related to each other –
-all sampled at the same <span class="math notranslate nohighlight">\(n\)</span> points in time
-(e.g., <span class="math notranslate nohighlight">\(m\)</span> different stocks on <span class="math notranslate nohighlight">\(n\)</span> consecutive days).</p>
+all sampled at the same <span class="math">\(n\)</span> points in time
+(e.g., <span class="math">\(m\)</span> different stocks on <span class="math">\(n\)</span> consecutive days).</p>
 <p>Consider the currency exchange rates
 for the first half of 2020:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eurxxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1292,9 +1294,9 @@ see, e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.
         <span class="proof-type">Exercise 16.20</span>
         
     </div><div class="proof-content">
-<p>Assume we have a time series with <span class="math notranslate nohighlight">\(n\)</span> observations.
-What is a <span class="math notranslate nohighlight">\(1\)</span>- and an <span class="math notranslate nohighlight">\(n\)</span>-moving average?
-Which one is smoother, a <span class="math notranslate nohighlight">\((0.01n)\)</span>- or a <span class="math notranslate nohighlight">\((0.1n)\)</span>- one?</p>
+<p>Assume we have a time series with <span class="math">\(n\)</span> observations.
+What is a <span class="math">\(1\)</span>- and an <span class="math">\(n\)</span>-moving average?
+Which one is smoother, a <span class="math">\((0.01n)\)</span>- or a <span class="math">\((0.1n)\)</span>- one?</p>
 </div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
@@ -1366,7 +1368,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-13T20:52:56+1100.
+              Last updated on 2023-11-14T15:11:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1422,7 +1424,8 @@ This dataset is considered for illustrational purposes only.</p>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../_static/proof.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/katex.min.js?v=deb2f140"></script>
+    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>
