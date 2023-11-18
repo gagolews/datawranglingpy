@@ -1,7 +1,8 @@
 <!-- NOTE EDIT in *-src; *-public is a clone! -->
 
-<a href="https://datawranglingpy.gagolewski.com/"><img src="docs/_static/img/cover.png" align="right" height="225" /></a>
 # [Minimalist Data Wrangling with Python](https://datawranglingpy.gagolewski.com/)
+
+<a href="https://datawranglingpy.gagolewski.com/"><img src="docs/_static/img/cover.png" align="right" height="225" /></a>
 
 *Minimalist Data Wrangling with Python* is envisaged as a student's first
 introduction to data science, providing a high-level overview as well as
