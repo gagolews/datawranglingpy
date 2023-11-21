@@ -306,35 +306,35 @@ are appreciated. Make sure to check out
 <span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2023).  Deep R Programming. Zenodo. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">34</a>]</span> too.</em></p>
 </div></blockquote>
 <p>In this part, we introduce the basics of the Python language itself.
-As it is a general-purpose tool, various packages supporting
-data wrangling operations will provided as third-party extensions.
-In further chapters, based on the concepts discussed here,
-we will be able to use
-<strong class="program">numpy</strong>, <strong class="program">scipy</strong>,
+Being a general-purpose tool, various packages supporting
+data wrangling operations are provided as third-party extensions.
+In further chapters, extending upon the concepts discussed here,
+we will be able to use <strong class="program">numpy</strong>, <strong class="program">scipy</strong>,
 <strong class="program">matplotlib</strong>, <strong class="program">pandas</strong>, <strong class="program">seaborn</strong>,
-and other packages with some healthy degree of confidence.</p>
+and other packages with a healthy degree of confidence.</p>
 <section id="scalar-types">
 <h2><span class="section-number">2.1. </span>Scalar types<a class="headerlink" href="#scalar-types" title="Link to this heading">#</a></h2>
-<p>The five ubiquitous scalar types (i.e., <em>single</em> or <em>atomic</em> values) are:</p>
+<p><em>Scalars</em> are <em>single</em> or <em>atomic</em> values.
+Their five ubiquitous types are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> – logical,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">complex</span></code> – numeric,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">str</span></code> – character.</p></li>
 </ul>
+<p>Let us discuss them in detail.</p>
 <section id="logical-values">
 <h3><span class="section-number">2.1.1. </span>Logical values<a class="headerlink" href="#logical-values" title="Link to this heading">#</a></h3>
 <p>There are only two possible logical (Boolean) values: <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>.
-We can type:</p>
+By typing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kc">True</span>
 <span class="c1">## True</span>
 </pre></div>
 </div>
-<p>to instantiate one of them. This might seem boring;
-unless, when trying to play with the above code,
-we fell into the following pitfall.</p>
+<p>we instantiate the former. This is a dull exercise unless
+we have fallen into the following pitfall.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Python is case-sensitive.
+<p>Python is a case-sensitive language.
 Writing “<code class="docutils literal notranslate"><span class="pre">TRUE</span></code>” or “<code class="docutils literal notranslate"><span class="pre">true</span></code>” instead of “<code class="docutils literal notranslate"><span class="pre">True</span></code>” is an error.</p>
 </div>
 </section>
@@ -345,24 +345,23 @@ Writing “<code class="docutils literal notranslate"><span class="pre">TRUE</sp
 <li><p><code class="docutils literal notranslate"><span class="pre">int</span></code> – integers, e.g., <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">-42</span></code>, <code class="docutils literal notranslate"><span class="pre">1_000_000</span></code>;</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">float</span></code> – floating-point (real) numbers, e.g., <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">3.14159</span></code>,
 <code class="docutils literal notranslate"><span class="pre">1.23e-4</span></code>;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">complex</span></code> (*) – complex numbers, e.g., <code class="docutils literal notranslate"><span class="pre">1+2j</span></code>
-(these are infrequently used in our applications;
-however, see <a class="reference internal" href="210-vector.html#sec-numpy-runderscore"><span class="std std-numref">Section 4.1.4</span></a>).</p></li>
+<li><p>(*) <code class="docutils literal notranslate"><span class="pre">complex</span></code> – complex numbers, e.g., <code class="docutils literal notranslate"><span class="pre">1+2j</span></code>.</p></li>
 </ul>
 <p>In practice, numbers of the type <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">float</span></code> often interoperate
 seamlessly. We usually do not have to think about them as being of
-distinctive types.</p>
+distinctive types.
+On the other hand, complex numbers are rather infrequently used in
+basic data science applications (but see <a class="reference internal" href="210-vector.html#sec-numpy-runderscore"><span class="std std-numref">Section 4.1.4</span></a>).</p>
 <div class="proof proof-type-exercise" id="id2">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 2.1</span>
         
     </div><div class="proof-content">
-<p><code class="docutils literal notranslate"><span class="pre">1.23e-4</span></code> and <code class="docutils literal notranslate"><span class="pre">9.8e5</span></code> are examples of numbers entered
-using the so-called scientific notation, where “<code class="docutils literal notranslate"><span class="pre">e</span></code>” stands for
-“times 10 to the power of”.
+<p><code class="docutils literal notranslate"><span class="pre">1.23e-4</span></code> and <code class="docutils literal notranslate"><span class="pre">9.8e5</span></code> are examples of numbers in <em>scientific notation</em>,
+where “<code class="docutils literal notranslate"><span class="pre">e</span></code>” stands for “… times 10 to the power of …”.
 Additionally, <code class="docutils literal notranslate"><span class="pre">1_000_000</span></code> is a decorated (more human-readable) version
-of <code class="docutils literal notranslate"><span class="pre">1000000</span></code>. Use the <code class="docutils literal notranslate"><span class="pre">print</span></code> function to check their values.</p>
+of <code class="docutils literal notranslate"><span class="pre">1000000</span></code>. Use the <code class="docutils literal notranslate"><span class="pre">print</span></code> function to check out their values.</p>
 </div></div><section id="arithmetic-operators">
 <h4><span class="section-number">2.1.2.1. </span>Arithmetic operators<a class="headerlink" href="#arithmetic-operators" title="Link to this heading">#</a></h4>
 <p>Here is the list of available arithmetic operators:</p>
@@ -372,7 +371,7 @@ of <code class="docutils literal notranslate"><span class="pre">1000000</span></
 <span class="c1">## -6</span>
 <span class="mi">4</span> <span class="o">*</span> <span class="mf">0.5</span>  <span class="c1"># multiplication</span>
 <span class="c1">## 2.0</span>
-<span class="mi">7</span> <span class="o">/</span> <span class="mi">3</span>    <span class="c1"># float division (the result is always of the type float)</span>
+<span class="mi">7</span> <span class="o">/</span> <span class="mi">3</span>    <span class="c1"># float division (results are always of the type float)</span>
 <span class="c1">## 2.3333333333333335</span>
 <span class="mi">7</span> <span class="o">//</span> <span class="mi">3</span>   <span class="c1"># integer division</span>
 <span class="c1">## 2</span>
@@ -385,46 +384,47 @@ of <code class="docutils literal notranslate"><span class="pre">1000000</span></
 <p>The precedence of these operators is
 <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#operator-precedence">quite predictable</a>,
 e.g., exponentiation has higher priority than multiplication and division,
-which in turn bind more strongly than addition and subtraction. Consequently:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">**</span> <span class="mi">4</span>  <span class="c1"># the same as 1+(2*(3**4))</span>
+which in turn bind more strongly than addition and subtraction. Thus,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">**</span> <span class="mi">4</span>
 <span class="c1">## 163</span>
 </pre></div>
 </div>
-<p>is different from, e.g., <code class="docutils literal notranslate"><span class="pre">((1+2)*3)**4)</span></code>.</p>
+<p>is the same as <code class="docutils literal notranslate"><span class="pre">1+(2*(3**4))</span></code> and is different from,
+e.g., <code class="docutils literal notranslate"><span class="pre">((1+2)*3)**4)</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Keep in mind that computers’ floating-point arithmetic is precise
-only up to a few significant digits.
-As a consequence, the result of <code class="docutils literal notranslate"><span class="pre">7/3</span></code> is only approximate
-(<code class="docutils literal notranslate"><span class="pre">2.3333333333333335</span></code>).
-We will get back to this topic in <a class="reference internal" href="220-transform-vector.html#sec-fp-error"><span class="std std-numref">Section 5.5.6</span></a>.</p>
+only up to a dozen or so significant digits.
+As a consequence, the result of <code class="docutils literal notranslate"><span class="pre">7/3</span></code> is only approximate;
+hence the <code class="docutils literal notranslate"><span class="pre">2.3333333333333335</span></code> above.
+We will get discuss this topic in <a class="reference internal" href="220-transform-vector.html#sec-fp-error"><span class="std std-numref">Section 5.5.6</span></a>.</p>
 </div>
 </section>
 <section id="creating-named-variables">
 <h4><span class="section-number">2.1.2.2. </span>Creating named variables<a class="headerlink" href="#creating-named-variables" title="Link to this heading">#</a></h4>
-<p>Named variables can be introduced using the <em>assignment operator</em>,
-`<strong class="command">=</strong>`.  They can store arbitrary Python objects and be
-referred to anytime. Names of variables can include any lower- and uppercase
-letters, underscores, and digits (but not at the beginning).
-It is best to make them self-explanatory, like:</p>
+<p>A named variable can be introduced through the <em>assignment operator</em>,
+`<strong class="command">=</strong>`. It can store an arbitrary Python object which we
+can recall at any later time. Names of variables can include
+any lower- and uppercase letters, underscores, and
+(except at the beginning) digits.</p>
+<p>To make our code easier to understand for humans, it is best to use
+names that are self-explanatory, like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># read: let `x` from now on be equal to 7 (or: `x` becomes 7)</span>
 </pre></div>
 </div>
-<p>We can check that <code class="docutils literal notranslate"><span class="pre">x</span></code> (great name, by the way: it means
-<em>something of general interest</em> in mathematics) is now available
-for further reference by printing out the value it is bound to:</p>
+<p>“<code class="docutils literal notranslate"><span class="pre">x</span></code>” is great name: it means <em>something of general interest</em> in mathematics.
+Let us print out the value it is bound to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># or just `x`</span>
 <span class="c1">## 7</span>
 </pre></div>
 </div>
-<p>New variable can easily be created based on existing ones:</p>
+<p>New variables can easily be created based on existing ones:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_2nd_variable</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span>  <span class="c1"># creates `my_2nd_variable`</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">my_2nd_variable</span><span class="p">)</span>
 <span class="c1">## 0.3333333333333335</span>
 </pre></div>
 </div>
-<p>Also, existing variables can be rebound to any other value whenever
-we please:</p>
+<p>Existing variables may be rebound to any other value freely:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="mi">3</span>  <span class="c1"># let the new `x` be equal to the old `x` (7) divided by 3</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## 2.3333333333333335</span>
@@ -436,9 +436,9 @@ we please:</p>
         <span class="proof-type">Exercise 2.2</span>
         
     </div><div class="proof-content">
-<p>Create two named variables <code class="docutils literal notranslate"><span class="pre">height</span></code> (in centimetres) and <code class="docutils literal notranslate"><span class="pre">weight</span></code>
-(in kilograms). Based on them, determine your
-<a class="reference external" href="https://en.wikipedia.org/wiki/Body_mass_index">BMI</a>.</p>
+<p>Define two named variables <code class="docutils literal notranslate"><span class="pre">height</span></code> (in centimetres) and <code class="docutils literal notranslate"><span class="pre">weight</span></code>
+(in kilograms). Determine the corresponding
+body mass index (<a class="reference external" href="https://en.wikipedia.org/wiki/Body_mass_index">BMI</a>).</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>(*) Augmented assignments are also available. For example:</p>
@@ -448,30 +448,35 @@ we please:</p>
 </pre></div>
 </div>
 <p>In this context, the above is equivalent to <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x*3</span></code>. In other
-words, it created a new variable. Nevertheless, in other scenarios,
-augmented assignments modify the objects they act upon <em>in place</em>;
+words, it creates a new object. Nevertheless, in some scenarios,
+augmented assignments may modify the objects they act upon <em>in place</em>;
 compare <a class="reference internal" href="130-sequential.html#sec-copying"><span class="std std-numref">Section 3.5</span></a>.</p>
 </div>
 </section>
 </section>
 <section id="character-strings">
 <span id="sec-strings-intro"></span><h3><span class="section-number">2.1.3. </span>Character strings<a class="headerlink" href="#character-strings" title="Link to this heading">#</a></h3>
-<p>Character strings (objects of the type <code class="docutils literal notranslate"><span class="pre">str</span></code>) consist of arbitrary text.
-They are created using either double quotes or apostrophes:</p>
+<p>Character strings (objects of the type <code class="docutils literal notranslate"><span class="pre">str</span></code>) store text data.
+They are created using apostrophes or double quotes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam, spam, #, bacon, and spam&quot;</span><span class="p">)</span>
 <span class="c1">## spam, spam, #, bacon, and spam</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cześć! ¿Qué tal?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cześć! ¿Qué tal?&#39;</span><span class="p">)</span>
 <span class="c1">## Cześć! ¿Qué tal?</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&quot;G</span><span class="se">\&#39;</span><span class="s1">day, howya goin</span><span class="se">\&#39;</span><span class="s1">,&quot; he asked.</span><span class="se">\n</span><span class="s1">&quot;Fine, thanks,&quot; she responded.</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="c1">## &quot;G&#39;day, howya goin&#39;,&quot; he asked.</span>
-<span class="c1">## &quot;Fine, thanks,&quot; she responded.\</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&quot;G</span><span class="se">\&#39;</span><span class="s1">day, how</span><span class="se">\&#39;</span><span class="s1">s it goin</span><span class="se">\&#39;</span><span class="s1">,&quot; he asked.</span><span class="se">\\\n</span><span class="s1">&quot;All good,&quot; she responded.&#39;</span><span class="p">)</span>
+<span class="c1">## &quot;G&#39;day, how&#39;s it goin&#39;,&quot; he asked.\</span>
+<span class="c1">## &quot;All good,&quot; she responded.</span>
 </pre></div>
 </div>
-<p>Above, “<code class="docutils literal notranslate"><span class="pre">\'</span></code>” (a way to include an apostrophe in an apostrophe-delimited
-string), “<code class="docutils literal notranslate"><span class="pre">\\</span></code>” (a backslash), and “<code class="docutils literal notranslate"><span class="pre">\n</span></code>” (a newline character)
-are examples of
-<a class="reference external" href="https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals"><em>escape sequences</em></a>.</p>
-<div style="margin-top: 1em"></div><p>Multiline strings are also possible:</p>
+<p>We see some examples of
+<a class="reference external" href="https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals"><em>escape sequences</em></a> here:</p>
+<ul class="simple">
+<li><p>“<code class="docutils literal notranslate"><span class="pre">\'</span></code>” is a way to include an apostrophe in an apostrophe-delimited
+string,</p></li>
+<li><p>“<code class="docutils literal notranslate"><span class="pre">\\</span></code>” enters a backslash,</p></li>
+<li><p>“<code class="docutils literal notranslate"><span class="pre">\n</span></code>” inputs a newline character.</p></li>
+</ul>
+<div style="margin-top: 1em"></div><p>Multiline strings are created using three apostrophes or
+double quotes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">spam\\spam</span>
 <span class="sd">tasty\t&quot;spam&quot;</span>
@@ -487,19 +492,17 @@ are examples of
         
     </div><div class="proof-content">
 <p>Call the <strong class="command">print</strong> function on the above object to reveal
-the special meaning of the included escape sequences.</p>
+the meaning of the included escape sequences.</p>
 </div></div><div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Many string operations are available, e.g., for formatting,
-pattern searching, or extracting matching chunks.
-They are especially important in the art of data wrangling as
+<p>Many string operations are available, e.g., for formatting and pattern
+searching. They are especially important in the art of data wrangling as
 information often arrives in textual form.
 <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a> covers this topic in detail.</p>
 </div>
 <section id="f-strings-formatted-string-literals">
 <span id="sec-f-strings"></span><h4><span class="section-number">2.1.3.1. </span>F-strings (formatted string literals)<a class="headerlink" href="#f-strings-formatted-string-literals" title="Link to this heading">#</a></h4>
-<p>Also, <em>f-strings</em> (formatted string literals)
-help prepare nice output messages:</p>
+<p><em>F-strings</em> are formatted string literals:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="sa">f</span><span class="s2">&quot;x is equal to </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="c1">## &#39;x is equal to 2&#39;</span>
@@ -507,23 +510,25 @@ help prepare nice output messages:</p>
 </div>
 <p>Notice the “<code class="docutils literal notranslate"><span class="pre">f</span></code>” prefix. The “<code class="docutils literal notranslate"><span class="pre">{x}</span></code>” part was replaced with the value
 stored in the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable.</p>
-<p>There are many options available. As usual, it is best
+<p>The formatting of items can be fine-tuned. As usual, it is best
 to study the <a class="reference external" href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">documentation</a>
 in search of interesting features. Here, let us just mention that
 we will frequently be referring to placeholders like
-“<code class="docutils literal notranslate"><span class="pre">{variable:width}</span></code>” and “<code class="docutils literal notranslate"><span class="pre">{variable:width.precision}</span></code>”,
+“<code class="docutils literal notranslate"><span class="pre">{value:width}</span></code>” and “<code class="docutils literal notranslate"><span class="pre">{value:width.precision}</span></code>”,
 which specify the field width and the number of fractional digits
-of a number. This can arouse a series of values nicely aligned
-one below another.</p>
+of a number. This way, we can output a series of values aesthetically
+aligned one below another.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">π</span> <span class="o">=</span> <span class="mf">3.14159265358979323846</span>
 <span class="n">e</span> <span class="o">=</span> <span class="mf">2.71828182845904523536</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">π = </span><span class="si">{</span><span class="n">π</span><span class="si">:</span><span class="s2">10.8f</span><span class="si">}</span>
-<span class="s2">e = </span><span class="si">{</span><span class="n">e</span><span class="si">:</span><span class="s2">10.8f</span><span class="si">}</span>
+<span class="s2">π   = </span><span class="si">{</span><span class="n">π</span><span class="si">:</span><span class="s2">10.8f</span><span class="si">}</span>
+<span class="s2">e   = </span><span class="si">{</span><span class="n">e</span><span class="si">:</span><span class="s2">10.8f</span><span class="si">}</span>
+<span class="s2">πe² = </span><span class="si">{</span><span class="p">(</span><span class="n">π</span><span class="o">*</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">10.8f</span><span class="si">}</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="c1">## </span>
-<span class="c1">## π = 3.14159265</span>
-<span class="c1">## e = 2.71828183</span>
+<span class="c1">## π   = 3.14159265</span>
+<span class="c1">## e   = 2.71828183</span>
+<span class="c1">## πe² = 23.21340436</span>
 </pre></div>
 </div>
 <p>“<code class="docutils literal notranslate"><span class="pre">10.8f</span></code>” means that a value should be formatted as a <code class="docutils literal notranslate"><span class="pre">float</span></code>,
@@ -534,13 +539,13 @@ and use eight fractional digits.</p>
 </section>
 <section id="calling-built-in-functions">
 <h2><span class="section-number">2.2. </span>Calling built-in functions<a class="headerlink" href="#calling-built-in-functions" title="Link to this heading">#</a></h2>
-<p>We have a few functions at our disposal. For instance:</p>
+<p>We have a few base functions at our disposal. For instance,
+to round the Euler constant <code class="docutils literal notranslate"><span class="pre">e</span></code> to two decimal digits, we can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="mf">2.718281828459045</span>
 <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="c1">## 2.72</span>
 </pre></div>
 </div>
-<p>We rounded the Euler constant <code class="docutils literal notranslate"><span class="pre">e</span></code> to two decimal digits.</p>
 <div class="proof proof-type-exercise" id="id5">
 
     <div class="proof-title">
@@ -549,12 +554,12 @@ and use eight fractional digits.</p>
     </div><div class="proof-content">
 <p>Call <strong class="command">help</strong><code class="code docutils literal notranslate"><span class="pre">(&quot;round&quot;)</span></code>
 to access the function’s manual. Note that the second argument,
-called <code class="docutils literal notranslate"><span class="pre">ndigits</span></code>, which we set to <code class="docutils literal notranslate"><span class="pre">2</span></code>, has a default value of <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+called <code class="docutils literal notranslate"><span class="pre">ndigits</span></code>, which we set to <code class="docutils literal notranslate"><span class="pre">2</span></code>, defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.
 Check what happens when we omit it during the call.</p>
 </div></div><section id="positional-and-keyword-arguments">
 <h3><span class="section-number">2.2.1. </span>Positional and keyword arguments<a class="headerlink" href="#positional-and-keyword-arguments" title="Link to this heading">#</a></h3>
-<p>As <strong class="command">round</strong> has two parameters, <code class="docutils literal notranslate"><span class="pre">number</span></code> and <code class="docutils literal notranslate"><span class="pre">ndigits</span></code>, the
-following (and no other) calls are equivalent:</p>
+<p>The <strong class="command">round</strong> function has two parameters, <code class="docutils literal notranslate"><span class="pre">number</span></code> and <code class="docutils literal notranslate"><span class="pre">ndigits</span></code>.
+Thus, the following calls are equivalent:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
     <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># two arguments matched positionally</span>
     <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">ndigits</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>  <span class="c1"># positional and keyword argument</span>
@@ -564,37 +569,38 @@ following (and no other) calls are equivalent:</p>
 <span class="c1">## 2.72 2.72 2.72 2.72</span>
 </pre></div>
 </div>
-<p>That no other form is permitted is left as an exercise,
+<p>Verifying that no other call scheme is permitted is left as an exercise,
 i.e., positionally matched arguments must be listed before the keyword ones.</p>
 </section>
 <section id="modules-and-packages">
 <h3><span class="section-number">2.2.2. </span>Modules and packages<a class="headerlink" href="#modules-and-packages" title="Link to this heading">#</a></h3>
-<p>Other functions are available in numerous Python modules
-and packages (which are collections of modules).</p>
-<p>For example, <strong class="program">math</strong> features many mathematical functions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>   <span class="c1"># the math module must be imported prior its first use</span>
+<p>Python modules and packages (which are collections of modules)
+define thousands of additional functions.
+For example, <strong class="program">math</strong> features the most common mathematical routines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>   <span class="c1"># the math module must be imported before we can use it</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.718281828459045</span><span class="p">))</span>  <span class="c1"># the natural logarithm (base e)</span>
 <span class="c1">## 1.0</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="o">-</span><span class="mf">7.33</span><span class="p">))</span>  <span class="c1"># the floor function</span>
 <span class="c1">## -8</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>  <span class="c1"># sin(pi) equals 0 (with some numeric error)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>  <span class="c1"># sin(pi) equals 0 (with small numeric error)</span>
 <span class="c1">## 1.2246467991473532e-16</span>
 </pre></div>
 </div>
 <p>See the <a class="reference external" href="https://docs.python.org/3/library/math.html">official documentation</a>
-for the comprehensive list of objects defined therein. On a side note,
+for the comprehensive list of objects available. On a side note,
 all floating-point computations in any programming language are subject
 to round-off errors and other inaccuracies. This is why the result
 of <span class="math">\(\sin\pi\)</span> is not exactly 0, but some value very close thereto.
 We will elaborate on this topic in <a class="reference internal" href="220-transform-vector.html#sec-fp-error"><span class="std std-numref">Section 5.5.6</span></a>.</p>
 <p>Packages can be given aliases, for the sake of code readability
-or due to our being lazy. For instance, we are used to importing
-the <strong class="program">numpy</strong> package under the <code class="docutils literal notranslate"><span class="pre">np</span></code> alias:</p>
+or due to our being lazy. For instance, in <a class="reference internal" href="210-vector.html#chap-vector"><span class="std std-numref">Chapter 4</span></a>
+we will get used to importing the <strong class="program">numpy</strong> package
+under the <code class="docutils literal notranslate"><span class="pre">np</span></code> alias:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 <p>And now, instead of writing, for example,
-<strong class="command">numpy.random.rand</strong><code class="code docutils literal notranslate"><span class="pre">()</span></code>, we can call instead:</p>
+<strong class="command">numpy.random.rand</strong><code class="code docutils literal notranslate"><span class="pre">()</span></code>, we can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>  <span class="c1"># a pseudorandom value in [0.0, 1.0)</span>
 <span class="c1">## 0.6964691855978616</span>
 </pre></div>
@@ -612,7 +618,7 @@ by calling the <strong class="command">type</strong> function:</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Classes define the following kinds of <em>attributes</em>:</p>
+<p>Classes define two kinds of <em>attributes</em>:</p>
 <ul class="simple">
 <li><p><em>slots</em> – associated data,</p></li>
 <li><p><em>methods</em> – associated functions.</p></li>
@@ -664,18 +670,18 @@ accessed by typing <strong class="command">help</strong><code class="code docuti
 <span class="c1">## True</span>
 </pre></div>
 </div>
-<p>Logical results might be combined using <strong class="command">and</strong>
-(conjunction; for testing if both operands are true) and
-<strong class="command">or</strong> (alternative; for determining whether at least one operand
-is true). Likewise, <strong class="command">not</strong> (negation) is available too.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">&lt;=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">&lt;=</span> <span class="mi">4</span>
+<p>Logical results can be combined using <strong class="command">and</strong>
+(<em>conjunction</em>; for testing if both operands are true) and
+<strong class="command">or</strong> (<em>alternative</em>; for determining whether at least one operand
+is true). Likewise, <strong class="command">not</strong> stands for <em>negation</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">&lt;=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">&lt;=</span> <span class="mi">4</span>  <span class="c1"># is it between 3 and 4?</span>
 <span class="c1">## True</span>
 <span class="ow">not</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="mi">100</span> <span class="o">&lt;=</span> <span class="mi">3</span>
 <span class="c1">## True</span>
 </pre></div>
 </div>
 <p>Notice that <strong class="command">not </strong><code class="code docutils literal notranslate"><span class="pre">100</span> <span class="pre">&lt;=</span> <span class="pre">3</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">100</span> <span class="pre">&gt;</span> <span class="pre">3</span></code>.
-Also, based on the de Morgan’s laws,
+Also, based on the de Morgan laws,
 <strong class="command">not </strong><code class="code docutils literal notranslate"><span class="pre">(1</span> <span class="pre">&gt;</span> <span class="pre">2</span> </code><strong class="command">and</strong><code class="code docutils literal notranslate"> <span class="pre">2</span> <span class="pre">&lt;</span> <span class="pre">3)</span></code> is true
 if and only if <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">2</span> </code><strong class="command">or</strong><code class="code docutils literal notranslate"> <span class="pre">2</span> <span class="pre">&gt;=</span> <span class="pre">3</span></code> holds.</p>
 <div class="proof proof-type-exercise" id="id7">
@@ -699,25 +705,25 @@ simplify the following expressions:</p>
 </div></div></section>
 <section id="the-if-statement">
 <h3><span class="section-number">2.3.2. </span>The <strong class="command">if</strong> statement<a class="headerlink" href="#the-if-statement" title="Link to this heading">#</a></h3>
-<p>The <strong class="command">if</strong> statement allows us to execute a chunk of code
-conditionally, based on whether the provided expression is true or not.</p>
-<p>For instance, given some variable:</p>
+<p>The <strong class="command">if</strong> statement executes a chunk of code
+<em>conditionally</em>, based on whether the provided expression is true or not.
+For instance, given some variable:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>  <span class="c1"># a pseudorandom value in [0.0, 1.0)</span>
 </pre></div>
 </div>
-<p>we can react enthusiastically to its being less than 0.5
-(note the colon after the tested condition):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
+<p>we can react enthusiastically to its being less than 0.5:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>  <span class="c1"># note the colon after the tested condition</span>
 </pre></div>
 </div>
-<p>We did not get excited because <code class="docutils literal notranslate"><span class="pre">x</span></code> is equal to:</p>
+<p>Actually, we remained cool as a cucumber (nothing was printed)
+because <code class="docutils literal notranslate"><span class="pre">x</span></code> is equal to:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## 0.6964691855978616</span>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Multiple <strong class="command">elif</strong> (<em>else-if</em>) parts can also be added.
-They can be followed by an optional <strong class="command">else</strong> part, which is executed
-if all the conditions tested are not true.</p>
+They may be followed by an optional <strong class="command">else</strong> part, which is executed
+if all of the tested conditions turn out to be false.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.25</span><span class="p">:</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
 <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ham!&quot;</span><span class="p">)</span>    <span class="c1"># i.e., x in [0.25, 0.5)</span>
 <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.75</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bacon!&quot;</span><span class="p">)</span>  <span class="c1"># i.e., x in [0.5, 0.75)</span>
@@ -726,14 +732,14 @@ if all the conditions tested are not true.</p>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>If more than one statement is to be executed conditionally,
-an indented code block can be introduced.</p>
+an <em>indented code block</em> can be introduced.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">0.25</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">0.75</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bacon!&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I love it!&quot;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I&#39;d rather eat spam!&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;more spam!&quot;</span><span class="p">)</span>  <span class="c1"># executed regardless of the condition&#39;s state</span>
-<span class="c1">## spam!</span>
+<span class="c1">## bacon!</span>
 <span class="c1">## I love it!</span>
 <span class="c1">## more spam!</span>
 </pre></div>
@@ -741,9 +747,9 @@ an indented code block can be introduced.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The indentation must be neat and consistent.
-We recommend using four spaces.
+We recommend using <em>four spaces</em>.
 The reader is encouraged to try to execute the following code chunk
-and note what kind of error is generated:</p>
+and note the kind of error generated:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ham!&quot;</span><span class="p">)</span>    <span class="c1"># :(</span>
@@ -763,7 +769,7 @@ a simplistic measure. Both the medical and statistical communities
 pointed out its inherent limitations. Read the Wikipedia article thereon
 for more details (and appreciate the amount of data wrangling required
 for its preparation: tables, charts, calculations; something that we will be
-able to do quite soon, given quality reference data, of course).</p>
+able to perform quite soon, given quality reference data, of course).</p>
 </div></div><div class="proof proof-type-exercise" id="id9">
 
     <div class="proof-title">
@@ -773,15 +779,15 @@ able to do quite soon, given quality reference data, of course).</p>
 <p>(*)
 Check if it is easy to find on the internet (in reliable sources)
 some raw datasets related to the body mass studies, e.g., measuring
-subjects’ height, weight, body fat and muscle percentage, etc.</p>
+subjects’ height, weight, body fat and muscle mass, etc.</p>
 </div></div></section>
 <section id="the-while-loop">
 <h3><span class="section-number">2.3.3. </span>The <strong class="command">while</strong> loop<a class="headerlink" href="#the-while-loop" title="Link to this heading">#</a></h3>
 <p>The <strong class="command">while</strong> loop executes a given statement or a series of
-statements as long as a given condition is true.</p>
-<p>For example, here is a simple simulator determining
-how long we have to wait until drawing the first number
-not greater than 0.01 whilst generating numbers in the unit interval:</p>
+statements <em>as long as</em> a given condition is true.
+For example, here is a simple simulator determining
+how long we have to wait <em>until</em> drawing the first number
+<em>not</em> greater than 0.01 whilst generating numbers in the unit interval:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
     <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
@@ -796,14 +802,14 @@ not greater than 0.01 whilst generating numbers in the unit interval:</p>
         
     </div><div class="proof-content">
 <p>Using the <strong class="command">while</strong> loop,
-determine the arithmetic mean of 10 randomly generated numbers
-(i.e., the sum of the numbers divided by 10).</p>
+determine the arithmetic mean of 100 randomly generated numbers
+(i.e., the sum of the numbers divided by 100).</p>
 </div></div></section>
 </section>
 <section id="defining-functions">
 <h2><span class="section-number">2.4. </span>Defining functions<a class="headerlink" href="#defining-functions" title="Link to this heading">#</a></h2>
-<p>We can also introduce our own functions as a means for code reuse.
-For instance, below is one that computes the minimum
+<p>As a means for <em>code reuse</em>, we can define <em>our own</em> functions.
+For instance, below is a procedure that computes the minimum
 (with respect to the `<strong class="command">&lt;</strong>` relation) of three given
 objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">min3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
@@ -811,7 +817,7 @@ objects:</p>
 <span class="sd">    A function to determine the minimum of three given inputs.</span>
 
 <span class="sd">    By the way, this is a docstring (documentation string);</span>
-<span class="sd">    call help(&quot;min3&quot;) later.</span>
+<span class="sd">    call help(&quot;min3&quot;) later to view it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">:</span>
@@ -835,10 +841,10 @@ objects:</p>
 <span class="c1">## 10 10 10 10 10 10</span>
 </pre></div>
 </div>
-<p>Note that the function <em>returns</em> a value. The result can be
-fetched and used in further computations:</p>
+<p>Note that <strong class="command">min3</strong> <em>returns</em> a value. The result it yields can be
+consumed in further computations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">min3</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">())</span>  <span class="c1"># minimum of 3 numbers</span>
-<span class="n">x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># do something with the result</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># transform the result somehow</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="c1">## 0.5</span>
 </pre></div>
@@ -853,8 +859,8 @@ fetched and used in further computations:</p>
 person’s BMI, given their weight (in kilograms) and height (in centimetres).
 As documenting functions constitutes a good development practice,
 do not forget about including a docstring.</p>
-</div></div><p>We can also introduce new variables inside a function’s body.
-This can help the function perform what it has been designed to do.</p>
+</div></div><p>New variables can be introduced inside a function’s body.
+This can help the function perform its duties.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">min3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A function to determine the minimum of three given inputs</span>
@@ -911,7 +917,7 @@ minimum of four values.</p>
 <p class="admonition-title">Note</p>
 <p><em>Lambda expressions</em> give us an uncomplicated way to define
 functions using a single line of code.
-Their syntax is: <strong class="command">lambda</strong><code class="code docutils literal notranslate"> <span class="pre">argument_name:</span> <span class="pre">return_value</span></code>.</p>
+The are defined using the syntax <strong class="command">lambda</strong><code class="code docutils literal notranslate"> <span class="pre">argument_name:</span> <span class="pre">return_expression</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># i.e., def square(x): return x**2</span>
 <span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="c1">## 16</span>
@@ -919,9 +925,9 @@ Their syntax is: <strong class="command">lambda</strong><code class="code docuti
 </div>
 </div>
 <p>Objects generated through lambda expressions
-do not have to be assigned a name – they can be anonymous.
-This is useful when calling methods that take other functions
-as their arguments. With lambdas, the latter can be generated on the fly.</p>
+do not have to be assigned a name: they can remain anonymous.
+This is useful when calling a method which takes another function
+as its argument. With lambdas, the latter can be generated on the fly.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_x_and_fx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments: x - some object; f - a function to be called on x</span>
@@ -1010,7 +1016,7 @@ as their arguments. With lambdas, the latter can be generated on the fly.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-18T14:07:10+1100.
+              Last updated on 2023-11-21T16:29:35+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
