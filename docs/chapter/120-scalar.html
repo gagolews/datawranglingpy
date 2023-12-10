@@ -722,16 +722,26 @@ because <code class="docutils literal notranslate"><span class="pre">x</span></c
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Multiple <strong class="command">elif</strong> (<em>else-if</em>) parts can also be added.
-They may be followed by an optional <strong class="command">else</strong> part, which is executed
-if all of the tested conditions turn out to be false.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.25</span><span class="p">:</span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
+They are executed one by one, until one of the tests turns out to
+be successful.
+At the end, an optional <strong class="command">else</strong> part can be included,
+which is executed when all of the tested conditions turn out to be false.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span>   <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.25</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spam!&quot;</span><span class="p">)</span>
 <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ham!&quot;</span><span class="p">)</span>    <span class="c1"># i.e., x in [0.25, 0.5)</span>
 <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.75</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bacon!&quot;</span><span class="p">)</span>  <span class="c1"># i.e., x in [0.5, 0.75)</span>
 <span class="k">else</span><span class="p">:</span>          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;eggs!&quot;</span><span class="p">)</span>   <span class="c1"># i.e., x &gt;= 0.75</span>
 <span class="c1">## bacon!</span>
 </pre></div>
 </div>
-<div style="margin-top: 1em"></div><p>If more than one statement is to be executed conditionally,
+<p>Note that if we wrote the second condition
+as <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0.25</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.5</span></code>, we would introduce some redundancy;
+when it is being considered, we already know that
+<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.25</span></code> (the first test) is <em>not</em> true.
+Similarly, the <code class="docutils literal notranslate"><span class="pre">else</span></code> part is only executed when all the tests
+fail, which in our case happens if
+neither <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.25</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.5</span></code>, nor <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">0.75</span></code> is true,
+i.e., if <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0.75</span></code>.</p>
+<div style="margin-top: 1em"></div><p>Whenever more than one statement is to be executed conditionally,
 an <em>indented code block</em> can be introduced.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">0.25</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">0.75</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bacon!&quot;</span><span class="p">)</span>
@@ -1016,7 +1026,7 @@ as its argument. With lambdas, the latter can be generated on the fly.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2023-11-22T20:18:14+1100.
+              Last updated on 2023-12-10T17:48:24+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
