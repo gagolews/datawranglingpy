@@ -5,8 +5,8 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
-<meta content="2023" name="citation_date" />
-<meta content="2023" name="citation_publication_date" />
+<meta content="2024" name="citation_date" />
+<meta content="2024" name="citation_publication_date" />
 <meta content="https://datawranglingpy.gagolewski.com/datawranglingpy.pdf" name="citation_pdf_url" />
 <meta content="https://datawranglingpy.gagolewski.com/" name="citation_public_url" />
 <meta content="10.5281/zenodo.6451068" name="citation_doi" />
@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=5282ffc2" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1e0fcfc0" />
     
     
 
@@ -193,7 +193,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9105
+v1.0.3.9106
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -303,7 +303,7 @@ Refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy">bug/typo reports/fixes</a>
 are appreciated. Make sure to check out
 <a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2023).  Deep R Programming. Zenodo. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">34</a>]</span> too.</em></p>
+<span id="id1">[<a class="reference internal" href="999-bibliography.html#id2">35</a>]</span> too.</em></p>
 </div></blockquote>
 <p>So far, we have been using <strong class="program">numpy</strong> and <strong class="program">pandas</strong>
 mostly for storing:</p>
@@ -410,13 +410,13 @@ Usually, we will be creating dates from strings. For instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2024-01-12&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2024-01-18&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2024-01-11T23:27:24&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2024-01-17T22:52:35&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -429,9 +429,9 @@ the number of days (<code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([-29372,      0,      1,  18992,  19734])</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19740])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([      7265, 1705015644])</span>
+<span class="c1">## array([      7265, 1705531955])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -451,9 +451,9 @@ all dates in the <em>YYYY-MM-DD</em> format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2024-01-11&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2024-01-17&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2024-01-12T11:27:24&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2024-01-18T10:52:35&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -1251,18 +1251,17 @@ are usually independent from but still to some extent similar to each other.
 We often treat them as samples from different larger populations
 which we would like to describe or compare at some level
 of generality (think: health data on patients being
-subject to two treatment plans that we wish
-to evaluate).</p>
+subject to two treatment plans that we want to evaluate).</p>
 <p>From this perspective, time series are already quite distinct:
 there is some dependence observed in the time domain.
 For instance, a price of a stock that we observe
 today is influenced by what was happening yesterday.
 There might also be some seasonal patterns or trends under the hood.
 For a comprehensive introduction to forecasting; see
-<span id="id3">[<a class="reference internal" href="999-bibliography.html#id36" title="Hyndman, R.J. and Athanasopoulos, G. (2021).  Forecasting: Principles and Practice. OTexts. URL: https://otexts.com/fpp3.">52</a>, <a class="reference internal" href="999-bibliography.html#id37" title="Ord, J.K., Fildes, R., and Kourentzes, N. (2017).  Principles of Business Forecasting. Wessex Press.">71</a>]</span>.
+<span id="id3">[<a class="reference internal" href="999-bibliography.html#id36" title="Hyndman, R.J. and Athanasopoulos, G. (2021).  Forecasting: Principles and Practice. OTexts. URL: https://otexts.com/fpp3.">53</a>, <a class="reference internal" href="999-bibliography.html#id37" title="Ord, J.K., Fildes, R., and Kourentzes, N. (2017).  Principles of Business Forecasting. Wessex Press.">72</a>]</span>.
 Also, for data of this kind, employing statistical modelling
 techniques (<em>stochastic processes</em>) can make a lot of sense;
-see, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id35" title="Tijms, H.C. (2003).  A First Course in Stochastic Models. Wiley.">86</a>]</span>.</p>
+see, e.g., <span id="id4">[<a class="reference internal" href="999-bibliography.html#id35" title="Tijms, H.C. (2003).  A First Course in Stochastic Models. Wiley.">87</a>]</span>.</p>
 <div style="margin-top: 1em"></div><p><em>Signals</em> such as audio, images, and video are different
 because <em>structured randomness</em> does not play a dominant role there
 (unless it is a noise that we would like to filter out).
@@ -1275,7 +1274,7 @@ e.g., Fourier analysis and finite impulse response (discrete
 convolution) filters. This course obviously cannot be about everything
 (also because it requires some more advanced calculus skills that we
 did not assume the reader to have at this time);
-but see, e.g., <span id="id5">[<a class="reference internal" href="999-bibliography.html#id34" title="Smith, S.W. (2002).  The Scientist and Engineer's Guide to Digital Signal Processing. Newnes. URL: https://www.dspguide.com/.">83</a>, <a class="reference internal" href="999-bibliography.html#id33" title="Steiglitz, K. (1996).  A Digital Signal Processing Primer: With Applications to Digital Audio and Computer Music. Pearson.">85</a>]</span>.</p>
+but see, e.g., <span id="id5">[<a class="reference internal" href="999-bibliography.html#id34" title="Smith, S.W. (2002).  The Scientist and Engineer's Guide to Digital Signal Processing. Newnes. URL: https://www.dspguide.com/.">84</a>, <a class="reference internal" href="999-bibliography.html#id33" title="Steiglitz, K. (1996).  A Digital Signal Processing Primer: With Applications to Digital Audio and Computer Music. Pearson.">86</a>]</span>.</p>
 <p>Nevertheless, keep in mind that these are not completely
 independent domains. For example, we can extract various features of audio
 signals (e.g., overall loudness, timbre, and danceability of each
@@ -1284,7 +1283,7 @@ data to be analysed using the techniques described in this course.
 Moreover, machine learning (e.g., convolutional neural networks)
 algorithms may also be used for tasks such as object detection
 on images or optical character recognition;
-see, e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.html#id57" title="Goodfellow, I., Bengio, Y., and Courville, A. (2016).  Deep Learning. MIT Press. URL: https://www.deeplearningbook.org/.">42</a>]</span>.</p>
+see, e.g., <span id="id6">[<a class="reference internal" href="999-bibliography.html#id57" title="Goodfellow, I., Bengio, Y., and Courville, A. (2016).  Deep Learning. MIT Press. URL: https://www.deeplearningbook.org/.">43</a>]</span>.</p>
 </section>
 <section id="exercises">
 <h2><span class="section-number">16.5. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
@@ -1368,7 +1367,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-17T13:43:21+1100.
+              Last updated on 2024-01-18T16:30:15+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1419,7 +1418,7 @@ This dataset is considered for illustrational purposes only.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=43660efb"></script>
+</div><script src="../_static/documentation_options.js?v=749e8491"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
