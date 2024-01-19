@@ -228,7 +228,7 @@ v1.0.3.9106
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional data</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. Multidimensional numeric data at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. From uni- to multidimensional numeric data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">8. Processing multidimensional data</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">9. Exploring relationships between variables</a></li>
 </ul>
@@ -310,8 +310,8 @@ are appreciated. Make sure to check out
 <a class="reference internal" href="310-matrix.html#sec-visual-multidim"><span class="std std-numref">Section 7.4</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip first row (column names)</span>
-<span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview: 6 first rows, all columns</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip the first row (column names)</span>
+<span class="n">body</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview: the first six rows, all columns</span>
 <span class="c1">## array([[ 97.1, 160.2,  34.7,  40.8,  35.8, 126.1, 117.9],</span>
 <span class="c1">##        [ 91.1, 152.7,  33.5,  33. ,  38.5, 125.5, 103.1],</span>
 <span class="c1">##        [ 73. , 161.2,  37.4,  38. ,  31.8, 106.2,  92. ],</span>
@@ -715,7 +715,7 @@ where we have data on gross domestic product per capita (based
 on purchasing power parity) and life expectancy at birth in many countries.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/world_factbook_2020_subset1.csv&quot;</span><span class="p">,</span>
-    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip first row (column names)</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>  <span class="c1"># skip the first row (column names)</span>
 <span class="n">world</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview</span>
 <span class="c1">## array([[ 2000. ,    52.8],</span>
 <span class="c1">##        [12500. ,    79. ],</span>
@@ -2416,7 +2416,7 @@ have already been centred (so that their column means are all 0).</p>
 </pre></div>
 </div>
 <p>And now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview first few rows</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">U</span><span class="p">[:</span><span class="mi">6</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># preview the first few rows</span>
 <span class="c1">## array([[-0.00195072,  0.00474569],</span>
 <span class="c1">##        [-0.00510625, -0.00563582],</span>
 <span class="c1">##        [ 0.01986719,  0.01419324],</span>
@@ -2952,7 +2952,7 @@ referred to as orthogonal ones.</p>
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">13</a><span class="fn-bracket">]</span></span>
 <p>(**) The Eckart–Young–Mirsky theorem states that
 <span class="math">\(\mathbf{U}_{\cdot, :k} \mathbf{S}_{:k, :k} \mathbf{Q}_{:k, \cdot}\)</span>
-(where “<span class="math">\(:k\)</span>” denotes “first <span class="math">\(k\)</span> rows or columns”)
+(where “<span class="math">\(:k\)</span>” denotes “the first <span class="math">\(k\)</span> rows or columns”)
 is the best rank-<span class="math">\(k\)</span> approximation of <span class="math">\(\mathbf{X}\)</span>
 with respect to both the Frobenius and spectral norms.</p>
 </aside>
@@ -3003,7 +3003,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-18T16:30:15+1100.
+              Last updated on 2024-01-19T14:43:20+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

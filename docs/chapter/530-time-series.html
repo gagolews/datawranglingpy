@@ -228,7 +228,7 @@ v1.0.3.9106
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. Multidimensional numeric data at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. From uni- to multidimensional numeric data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">8. Processing multidimensional data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-relationship.html">9. Exploring relationships between variables</a></li>
 </ul>
@@ -328,7 +328,8 @@ or highest yearly temperatures recorded in some location.</p>
 <h2><span class="section-number">16.1. </span>Temporal ordering and line charts<a class="headerlink" href="#temporal-ordering-and-line-charts" title="Link to this heading">#</a></h2>
 <p>Consider the midrange<a class="footnote-reference brackets" href="#footmidrange" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> daily temperatures in degrees Celsius
 at the Spokane International Airport (Spokane, WA, US)
-between 1889-08-01 (first observation) and 2021-12-31 (last observation).</p>
+between 1889-08-01 (the first observation)
+and 2021-12-31 (the last observation).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/spokane_temperature.txt&quot;</span><span class="p">)</span>
 </pre></div>
@@ -410,13 +411,13 @@ Usually, we will be creating dates from strings. For instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2024-01-18&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2024-01-19&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2024-01-17T22:52:35&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2024-01-19T01:40:44&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -429,9 +430,9 @@ the number of days (<code class="docutils literal notranslate"><span class="pre"
 </div>
 <p>Let us verify the above statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([-29372,      0,      1,  18992,  19740])</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19741])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([      7265, 1705531955])</span>
+<span class="c1">## array([      7265, 1705628444])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -451,9 +452,9 @@ all dates in the <em>YYYY-MM-DD</em> format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2024-01-17&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2024-01-18&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2024-01-18T10:52:35&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2024-01-19T13:40:44&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -1367,7 +1368,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-18T16:30:15+1100.
+              Last updated on 2024-01-19T14:43:20+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

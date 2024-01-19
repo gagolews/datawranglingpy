@@ -228,7 +228,7 @@ v1.0.3.9106
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Multidimensional data</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. Multidimensional numeric data at a glance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="310-matrix.html">7. From uni- to multidimensional numeric data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="320-transform-matrix.html">8. Processing multidimensional data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="330-relationship.html">9. Exploring relationships between variables</a></li>
 </ul>
@@ -380,7 +380,7 @@ integers, we can call <strong class="command">pandas.factorize</strong>:</p>
 </pre></div>
 </div>
 <p>The code sequence 0, 0, 0, 1, … corresponds to
-the first, first, first, second, … level in <code class="docutils literal notranslate"><span class="pre">cat_cntrs16</span></code>,
+the first, the first, the first, the second, … level in <code class="docutils literal notranslate"><span class="pre">cat_cntrs16</span></code>,
 i.e., Kenya, Kenya, Kenya, Ethiopia, ….</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -789,7 +789,7 @@ together with the corresponding items in <code class="docutils literal notransla
 each having possibly different levels.
 Let us now consider all the runners in the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># first two chars</span>
-<span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="s2">&quot;60&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;60+&quot;</span>  <span class="c1"># too few runners aged 70+</span>
+<span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="s2">&quot;60&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;60+&quot;</span>  <span class="c1"># not enough 70+ y.olds</span>
 <span class="n">marathon</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span>
 <span class="n">marathon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">##   sex age country</span>
@@ -1422,7 +1422,7 @@ that leads to the rejection of the null hypothesis.</p>
 and test whether the runners’ age distributions
 differ significantly between men and women.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>  <span class="c1"># first row, second row</span>
+<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>  <span class="c1"># the first row, the second row</span>
 <span class="n">c1</span>  <span class="c1"># women</span>
 <span class="c1">## array([240, 449, 262,  43,  19])</span>
 <span class="n">c2</span>  <span class="c1"># men</span>
@@ -1855,7 +1855,7 @@ is a better candidate.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-18T16:30:15+1100.
+              Last updated on 2024-01-19T14:43:20+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
