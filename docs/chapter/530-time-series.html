@@ -411,28 +411,28 @@ Usually, we will be creating dates from strings. For instance:</p>
 <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">)</span>
 <span class="n">d</span>
 <span class="c1">## array([&#39;1889-08-01&#39;, &#39;1970-01-01&#39;, &#39;1970-01-02&#39;, &#39;2021-12-31&#39;,</span>
-<span class="c1">##        &#39;2024-01-19&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2024-01-20&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 </pre></div>
 </div>
 <p>Similarly with date-times:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;1970-01-01T02:01:05&quot;</span><span class="p">,</span> <span class="s2">&quot;now&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[s]&quot;</span><span class="p">)</span>
 <span class="n">dt</span>
-<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2024-01-19T01:40:44&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T02:01:05&#39;, &#39;2024-01-20T01:44:22&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Internally, the above are represented as
+<p>Internally, date-times are represented as
 the number of days (<code class="docutils literal notranslate"><span class="pre">datetime64[D]</span></code>) or seconds
 (<code class="docutils literal notranslate"><span class="pre">datetime64[s]</span></code>) since the <em>UNIX Epoch</em>,
 1970-01-01T00:00:00 in the UTC time zone.</p>
 </div>
-<p>Let us verify the above statement:</p>
+<p>Let us verify the preceding statement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([-29372,      0,      1,  18992,  19741])</span>
+<span class="c1">## array([-29372,      0,      1,  18992,  19742])</span>
 <span class="n">dt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="c1">## array([      7265, 1705628444])</span>
+<span class="c1">## array([      7265, 1705715062])</span>
 </pre></div>
 </div>
 <p>When we think about it for a while, this is exactly what we expected.</p>
@@ -452,9 +452,9 @@ all dates in the <em>YYYY-MM-DD</em> format from a
 to the <code class="docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code> objects:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">)</span>  <span class="c1"># minus 1 Day</span>
 <span class="c1">## array([&#39;1889-07-31&#39;, &#39;1969-12-31&#39;, &#39;1970-01-01&#39;, &#39;2021-12-30&#39;,</span>
-<span class="c1">##        &#39;2024-01-18&#39;], dtype=&#39;datetime64[D]&#39;)</span>
+<span class="c1">##        &#39;2024-01-19&#39;], dtype=&#39;datetime64[D]&#39;)</span>
 <span class="n">dt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>  <span class="c1"># plus 12 hours</span>
-<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2024-01-19T13:40:44&#39;],</span>
+<span class="c1">## array([&#39;1970-01-01T14:01:05&#39;, &#39;2024-01-20T13:44:22&#39;],</span>
 <span class="c1">##       dtype=&#39;datetime64[s]&#39;)</span>
 </pre></div>
 </div>
@@ -507,8 +507,8 @@ with <strong class="command">loc</strong><code class="code docutils literal notr
         <span class="proof-type">Example 16.2</span>
         
     </div><div class="proof-content">
-<p>Based on the above, we can plot the data for the last five years quite
-easily; see <a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a>.</p>
+<p><a class="reference internal" href="#fig-spokane-5-linechart"><span class="std std-numref">Figure 16.3</span></a> depicts the temperatures in the
+last five years:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">temp</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -544,7 +544,7 @@ e.g., <code class="docutils literal notranslate"><span class="pre">&quot;MM/DD/Y
 </div></div><p>Several date-time functions and related properties can
 be referred to via the <strong class="command">pandas.Series.dt</strong> accessor,
 which is similar to <strong class="command">pandas.Series.str</strong> discussed
-in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>.</p>
+in <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>.</p>
 <p>For instance, converting date-time objects to strings
 following custom format specifiers can be performed with:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.%m.%Y&quot;</span><span class="p">)</span>
@@ -713,7 +713,7 @@ minute on average:</p>
 </div>
 <p>The result is close to what we <em>expected</em>, i.e., <span class="math">\(s=12\)</span> seconds between
 the events.</p>
-<p>We can convert the above to date-time
+<p>We can convert the current sample to date-times
 (starting at a fixed calendar date) as follows.
 Note that we will measure the deltas in milliseconds so that we do not loose
 precision; <code class="docutils literal notranslate"><span class="pre">datetime64</span></code> is based on integers, not floating-point numbers.</p>
@@ -914,7 +914,7 @@ the plots of the one-year moving minimums, medians, and maximums.</p>
 <section id="detecting-trends-and-seasonal-patterns">
 <h3><span class="section-number">16.3.3. </span>Detecting trends and seasonal patterns<a class="headerlink" href="#detecting-trends-and-seasonal-patterns" title="Link to this heading">#</a></h3>
 <p>Thanks to windowed aggregation, we can also detect general trends
-(when using longish windows). For instance, below we compute
+(when using longish windows). For instance, let us compute
 the ten-year moving averages for the last 50-odd years’ worth
 of data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">spokane</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;1970-01-01&quot;</span><span class="p">:,</span> <span class="s2">&quot;temp&quot;</span><span class="p">]</span>
@@ -1368,7 +1368,7 @@ This dataset is considered for illustrational purposes only.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-19T17:57:51+1100.
+              Last updated on 2024-01-20T13:32:23+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

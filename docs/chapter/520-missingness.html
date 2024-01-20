@@ -314,7 +314,7 @@ outliers, missing, censored, imprecise, and incorrect data.</p>
 <section id="missing-data">
 <span id="sec-missing-data"></span><h2><span class="section-number">15.1. </span>Missing data<a class="headerlink" href="#missing-data" title="Link to this heading">#</a></h2>
 <p>Let us consider an excerpt from National Health and Nutrition Examination
-Survey that we played with in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>:</p>
+Survey that we played with in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
@@ -626,11 +626,11 @@ However, a beginner analyst needs to be at least aware of
 the existence of:</p>
 <ul class="simple">
 <li><p><em>right-censored</em> data: we only know that the actual value
-is above the recorded one (e.g., we stopped the experiment
+is greater than the recorded one (e.g., we stopped the experiment
 on the reliability of light bulbs after 1000 hours,
 so those which still work will not have their time-of-failure
 precisely known);</p></li>
-<li><p><em>left-censored</em> data: the true observation is below
+<li><p><em>left-censored</em> data: the true observation is less than
 the recorded one, e.g., we observe a component’s failure, but
 we do not know for how long it has been in operation before
 the study has started.</p></li>
@@ -691,7 +691,7 @@ if there is a 1 in some column, then all the columns to the right
 are filled with 1s too.</p></li>
 </ol>
 </div></div><p>Many data validation methods can be reduced to operations on strings;
-see <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>.
+see <a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a>.
 They may be as simple as writing a single regular expression
 or checking if a label is in a dictionary of possible values
 but also as difficult as writing your own parser for a
@@ -705,7 +705,7 @@ custom context-sensitive grammar.</p>
 <p>Once we import the data fetched from dirty sources, relevant information
 will have to be extracted from raw text,
 e.g., strings like <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code> should be converted to floating-point
-numbers. Below we suggest several tasks
+numbers. In the sequel, we suggest several tasks
 that can aid in developing data validation skills involving
 some operations on text.</p>
 <p>Given an example data frame with text columns
@@ -772,7 +772,7 @@ so it is not affected by potential outliers
 Plus, the magic constant 1.5 is nicely round and thus easy to memorise
 (an attractive feature). It is not too small and not too large;
 for the normal distribution <span class="math">\(\mathrm{N}(\mu, \sigma)\)</span>,
-the above interval corresponds to roughly
+the aforementioned interval corresponds to roughly
 <span class="math">\([\mu-2.698\sigma, \mu+2.698\sigma]\)</span>,
 and the probability of obtaining a value outside of it
 is c. 0.7%. In other words, for a sample of size 1000 that is <em>truly</em>
@@ -804,7 +804,7 @@ and see if they make sense.</p>
         <span class="proof-type">Exercise 15.9</span>
         
     </div><div class="proof-content">
-<p>Perform the above separately for data in each group
+<p>Perform the foregoing separately for data in each group
 as defined by the <code class="docutils literal notranslate"><span class="pre">RIAGENDR</span></code> column.</p>
 </div></div></section>
 <section id="unidimensional-density-estimation">
@@ -904,9 +904,8 @@ projections might lead to our losing too much information.
 Some values can seem perfectly fine when they are considered
 in isolation, but already plotting them in 2D reveals that
 the reality is more complex than that.</p>
-<p>Consider the following example dataset
-and the depiction of the distributions of its two natural projections
-in <a class="reference internal" href="#fig-blobs1-uni"><span class="std std-numref">Figure 15.4</span></a>.</p>
+<p><a class="reference internal" href="#fig-blobs1-uni"><span class="std std-numref">Figure 15.4</span></a> depicts the distributions of two natural
+projections of an example dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/blobs1.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># width=height</span>
@@ -1120,7 +1119,7 @@ different is beautifully described by the copula theory <span id="id14">[<a clas
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-19T17:57:51+1100.
+              Last updated on 2024-01-20T13:32:23+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

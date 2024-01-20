@@ -351,7 +351,7 @@ For example, inspecting their distribution.</p>
 <h2><span class="section-number">4.1. </span>Creating vectors in <strong class="program">numpy</strong><a class="headerlink" href="#creating-vectors-in-numpy" title="Link to this heading">#</a></h2>
 <p>In this chapter, we introduce basic ways to create <strong class="program">numpy</strong>
 vectors, which are an efficient data structure for
-storing and operating on numeric data just like the ones above.</p>
+storing and operating on numeric data.</p>
 <p><a class="reference external" href="https://numpy.org/doc/stable/reference/index.html"><strong class="program">numpy</strong></a>
 <span id="id2">[<a class="reference internal" href="999-bibliography.html#id9" title="Harris, C.R. and others. (2020).  Array programming with NumPy. Nature, 585(7825):357–362. DOI: 10.1038/s41586-020-2649-2.">46</a>]</span> is an open-source add-on for numerical computing
 written by Travis Oliphant and other developers
@@ -409,7 +409,7 @@ as a tuple of length 1 (the number of dimensions is given by querying
 </div>
 <p>We can therefore fetch its length also by accessing <code class="docutils literal notranslate"><span class="pre">x.shape[0]</span></code>.
 On a side note, matrices – two-dimensional arrays discussed
-in <a class="reference internal" href="310-matrix.html#chap-matrix"><span class="std std-numref">Chapter 7</span></a> - will be of shape like
+in <a class="reference internal" href="310-matrix.html#chap-matrix"><span class="std std-numref">Chapter 7</span></a> - will be of shape like
 <code class="docutils literal notranslate"><span class="pre">(number_of_rows,</span> <span class="pre">number_of_columns)</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -432,16 +432,14 @@ been defined.</p>
 <span class="c1">## dtype(&#39;int64&#39;)</span>
 </pre></div>
 </div>
-<p>Other element types are also possible.
-For instance, we can convert the above to a vector with
-elements of the type <code class="docutils literal notranslate"><span class="pre">float</span></code>:</p>
+<p>To show that other element types are also available, let us can convert it
+to a vector with elements of the type <code class="docutils literal notranslate"><span class="pre">float</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># or np.array(x, dtype=float)</span>
 <span class="c1">## array([10., 20., 30., 40., 50., 60.])</span>
 </pre></div>
 </div>
-<p>Let us emphasise that the above is printed differently from
-its <code class="docutils literal notranslate"><span class="pre">int</span></code>-based counterpart: note the decimal separators.
-Furthermore:</p>
+<p>Let us emphasise this vector is printed differently from its <code class="docutils literal notranslate"><span class="pre">int</span></code>-based
+counterpart: note the decimal separators. Furthermore:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
 <span class="c1">## array([ True, False, False,  True])</span>
 </pre></div>
@@ -513,14 +511,13 @@ with <em>recycling</em>:</p>
 <p>Notice the difference between the above
 and the result of <strong class="command">numpy.repeat</strong><code class="code docutils literal notranslate"><span class="pre">([1,</span> <span class="pre">2],</span> <span class="pre">3)</span></code>.</p>
 <p>See also<a class="footnote-reference brackets" href="#footseealso" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> <strong class="command">numpy.zeros</strong> and <strong class="command">numpy.ones</strong> for
-some specialised versions of the above.</p>
+some specialised versions of the foregoing functions.</p>
 </section>
 <section id="numpy-r">
 <span id="sec-numpy-runderscore"></span><h3><span class="section-number">4.1.4. </span><strong class="command">numpy.r_</strong> (*)<a class="headerlink" href="#numpy-r" title="Link to this heading">#</a></h3>
 <p><strong class="command">numpy.r_</strong> gives perhaps the most flexible means for
 creating vectors involving quite a few of the aforementioned scenarios,
-albeit its syntax is quirky.
-For example:</p>
+albeit its syntax is quirky. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span>
 <span class="c1">## array([ 1.,  2.,  3., nan,  5., inf])</span>
 </pre></div>
@@ -580,7 +577,7 @@ the uniform distribution on the unit interval:</p>
 <h3><span class="section-number">4.1.6. </span>Loading data from files<a class="headerlink" href="#loading-data-from-files" title="Link to this heading">#</a></h3>
 <p>We will usually be reading whole heterogeneous tabular datasets
 using <strong class="command">pandas.read_csv</strong>, being the topic we shall cover
-in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>.
+in <a class="reference internal" href="410-data-frame.html#chap-data-frame"><span class="std std-numref">Chapter 10</span></a>.
 It is worth knowing, though, that arrays with elements of the
 same type can be read efficiently from
 text files (e.g., CSV) using <strong class="command">numpy.genfromtxt</strong>.
@@ -673,7 +670,7 @@ scholarships)?</p></li>
 at hand. On a side note, <em>descriptive</em> (categorical, qualitative)
 labels can always be <em>encoded</em> as numbers,
 e.g., female = 1, male = 2, but this will be the topic of
-<a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>.</p>
+<a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>.</p>
 </div></div><div style="margin-top: 1em"></div><p>By <span class="math">\(x_{(i)}\)</span> (notice the bracket<a class="footnote-reference brackets" href="#footorderalt" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>)
 we denote the <span class="math">\(i\)</span>-th <em>order statistic</em>,
 that is, the <span class="math">\(i\)</span>-th smallest value in <span class="math">\(\boldsymbol{x}\)</span>.
@@ -744,7 +741,7 @@ Traditionally, we are used to saying that it is in the shape of a <em>bell</em>.
 The most typical (<em>normal</em>, common) observations are
 somewhere in the middle, and the probability mass decreases quickly
 on both sides.</p>
-<p>As a matter of fact, in <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a>, we will model this
+<p>As a matter of fact, in <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a>, we will model this
 dataset using a <em>normal</em> distribution and obtain an excellent fit.
 In particular, we will mention that observations outside the
 interval [139, 181] are very rare (probability less than 1%;
@@ -860,9 +857,9 @@ Providing two or three histograms can sometimes be a much better idea.</p>
 <p>Further, let us be aware that someone might want to trick us by choosing the
 number of bins that depict the reality in a good light,
 when the object matter is slightly more nuanced. For instance,
-the histogram on the left above hides the poorest households
-inside the first bar – the first income bracket is very wide.
-If we cannot request access to the original data, the best thing
+the histogram on the left side of <a class="reference internal" href="#fig-income-histogram-binnumber"><span class="std std-numref">Figure 4.4</span></a>
+hides the poorest households inside the first bar: the first income bracket
+is very wide. If we cannot request access to the original data, the best
 we can do is to simply ignore such a data visualisation instance
 and warn others not to trust it. A true data scientist must be sceptical.</p>
 <p>Also, note that in the right histogram, we exactly know
@@ -1148,7 +1145,7 @@ Instead, the increases are now <em>geometrical</em>:
 <p>The current dataset enjoys a right-skewed distribution even on the
 logarithmic scale. Many real-world datasets behave alike;
 e.g., the frequencies of occurrences of words in books.
-On a side note, <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a> will discuss
+On a side note, <a class="reference internal" href="230-distribution.html#chap-distribution"><span class="std std-numref">Chapter 6</span></a> will discuss
 the Pareto distribution family which yields similar histograms.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1349,7 +1346,7 @@ of processing <em>individual</em> elements using <strong class="command">for</st
 </aside>
 <aside class="footnote brackets" id="footstrtrunc" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">3</a><span class="fn-bracket">]</span></span>
-<p><a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a> will point out that replacing
+<p><a class="reference internal" href="510-text.html#chap-text"><span class="std std-numref">Chapter 14</span></a> will point out that replacing
 any element with new content results in the too-long strings’
 being truncated. We shall see that this can be remedied by calling
 <code class="docutils literal notranslate"><span class="pre">x.astype(&quot;&lt;U10&quot;)</span></code>.</p>
@@ -1443,7 +1440,7 @@ see <span id="id18">[<a class="reference internal" href="999-bibliography.html#i
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-19T17:57:51+1100.
+              Last updated on 2024-01-20T13:32:23+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

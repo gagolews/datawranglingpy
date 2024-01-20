@@ -328,7 +328,7 @@ for labelling individual
 rows and columns in <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s and items in <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> – which
 model observations grouped by a categorical variable
-or a combination of factors (<a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>),</p></li>
+or a combination of factors (<a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>),</p></li>
 </ul>
 <p>together with many methods for:</p>
 <ul class="simple">
@@ -568,8 +568,8 @@ that gives the row names:</p>
 <span class="c1">## RangeIndex(start=0, stop=5, step=1)</span>
 </pre></div>
 </div>
-<p>The above represents a sequence (0, 1, 2, 3, 4).</p>
-<p>Furthermore, the <code class="docutils literal notranslate"><span class="pre">column</span></code> slot gives:</p>
+<p>It represents a sequence (0, 1, 2, 3, 4).
+Furthermore, the <code class="docutils literal notranslate"><span class="pre">column</span></code> slot gives:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>  <span class="c1"># column labels</span>
 <span class="c1">## Index([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;], dtype=&#39;object&#39;)</span>
 </pre></div>
@@ -682,7 +682,7 @@ For example:</p>
     <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>, we will get used to writing:</p>
+<p>In <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>, we will get used to writing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">])[</span><span class="s2">&quot;bmival&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">res</span>  <span class="c1"># BMI by gender and US born-ness</span>
 <span class="c1">## gender  usborn</span>
@@ -938,8 +938,8 @@ are vectorised <em>labelwisely</em>:</p>
 <p>Here, each element in the first <code class="docutils literal notranslate"><span class="pre">Series</span></code> named <code class="docutils literal notranslate"><span class="pre">a</span></code> was
 multiplied by each (there was only one) element labelled <code class="docutils literal notranslate"><span class="pre">a</span></code> in the second
 <code class="docutils literal notranslate"><span class="pre">Series</span></code>. For <code class="docutils literal notranslate"><span class="pre">d</span></code>, there were no matches, hence the result’s being marked
-as missing; compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>.
-Thus, this behaves like a full outer join-type operation;
+as missing; compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>.
+Thus, it behaves like a full outer join-type operation;
 see <a class="reference internal" href="#sec-join"><span class="std std-numref">Section 10.6.3</span></a>.</p>
 <p>The above is different from <em>elementwise</em> vectorisation in <strong class="program">numpy</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -961,10 +961,9 @@ the <em>index</em> operator, <code class="docutils literal notranslate"><span cl
 not only through the <em>indexers</em> known from
 the <strong class="program">numpy</strong> part (e.g., numerical ones, i.e., by position)
 but also ones that pinpoint the items via their
-labels. That is quite a lot of index-ing.</p>
-<p>Let us study different forms thereof in very detail.
-For illustration, we will be playing with the two following objects of
-class <code class="docutils literal notranslate"><span class="pre">Series</span></code>:</p>
+labels. We have thus quite a lot of index-ing to discuss.</p>
+<p>For illustration, we will be playing with two objects of
+the type <code class="docutils literal notranslate"><span class="pre">Series</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">b</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
@@ -1024,7 +1023,7 @@ they can also be accessed through the contents of the <code class="docutils lite
 </pre></div>
 </div>
 <p>both do not select the first item, but the item labelled <code class="docutils literal notranslate"><span class="pre">0</span></code>.
-However, the following two calls fall back to position-based
+However, the undermentioned two calls fall back to position-based
 indexing.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># do not use it: it will change in the future!</span>
 <span class="c1">## 2    0.7</span>
@@ -1096,7 +1095,7 @@ But in this case, we can write:</p>
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
-<p>The above calls return all elements between the two indicated labels.</p>
+<p>They return all elements between the two indicated labels.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Be careful that if there are repeated labels, then
@@ -1216,7 +1215,7 @@ of data frame sorting (<a class="reference internal" href="#sec-df-sort"><span c
 <span class="c1">## 3  0.55  1.98     eggs  False</span>
 </pre></div>
 </div>
-<p>Note how different are the following results</p>
+<p>Note how different are the following results:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># up to label 3, inclusive</span>
 <span class="c1">##       u     v        w      x</span>
 <span class="c1">## 4  0.72 -1.62  sausage   True</span>
@@ -1454,8 +1453,7 @@ equal (or almost equal if that is not possible) sizes.</p>
 </div></div></section>
 <section id="hierarchical-indexes">
 <h3><span class="section-number">10.5.5. </span>Hierarchical indexes (*)<a class="headerlink" href="#hierarchical-indexes" title="Link to this heading">#</a></h3>
-<p>Consider the following <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> object
-with a hierarchical index:</p>
+<p>Consider a data frame with a hierarchical index:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">2025</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span>
@@ -1576,7 +1574,7 @@ in the Australian state of Victoria.</p>
 each element in a <code class="docutils literal notranslate"><span class="pre">Series</span></code> is enlisted in a given sequence.
 We could also have used <strong class="command">set_index</strong> and <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
 for that.</p>
-<p>Notice that the above code spans many lines.
+<p>Notice that the preceding code spans many lines.
 We needed to enclose it in round brackets to avoid a syntax error.
 Alternatively, we could have used backslashes at the end of each line.</p>
 <p>Anyway, here is the data frame:</p>
@@ -1733,7 +1731,7 @@ and <strong class="command">numpy.argsort</strong>.</p>
 <p>Let us discuss some further ways to transform
 data frames that benefit from, make sense thanks to,
 or are possible because they can have columns of various types.</p>
-<p>The above <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the <em>long</em> (<em>tall</em>) format.
+<p>The <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the <em>long</em> (<em>tall</em>) format.
 All measurements are <em>stacked</em> one after/below another.
 Such a form is quite convenient for data storage,
 especially where there are only a few recorded values
@@ -1808,8 +1806,7 @@ and pathologies stemming from them (e.g., <span id="id9">[<a class="reference in
         <span class="proof-type">Example 10.18</span>
         
     </div><div class="proof-content">
-<p>The above air quality parameters
-are separately described in another data frame:</p>
+<p>The air quality parameters are separately described in another data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/air_quality_2018_param.csv&quot;</span><span class="p">,</span>
     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
@@ -1835,8 +1832,7 @@ we would have to update all the relevant records.</p>
 <p>Instead, we can always match the records in both data frames
 that have the same <code class="docutils literal notranslate"><span class="pre">param_id</span></code>s,
 and join (merge) these datasets only when we really need this.</p>
-</div></div><div style="margin-top: 1em"></div><p>Let us discuss the possible join operations by studying
-the two following toy datasets:</p>
+</div></div><div style="margin-top: 1em"></div><p>Let us discuss the possible join operations by studying two toy datasets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a3&quot;</span><span class="p">],</span>
     <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;b3&quot;</span><span class="p">]</span>
@@ -2068,7 +2064,7 @@ we can see that they are abundant. Together with the object-orientated
 syntax, we will often find ourselves appreciating the high readability
 of even quite complex operation chains such as
 <code class="docutils literal notranslate"><span class="pre">data.drop_duplicates().groupby([&quot;year&quot;,</span> <span class="pre">&quot;month&quot;]).mean().reset_index()</span></code>;
-see <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>.</p>
+see <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>.</p>
 <p>Nevertheless, the methods are probably too plentiful to our taste.
 Their developers were overgenerous. They wanted
 to include a list of all the possible <em>verbs</em> related to data analysis,
@@ -2263,7 +2259,7 @@ where we can work with data frames; e.g., base R and Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-19T17:57:51+1100.
+              Last updated on 2024-01-20T13:32:23+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
