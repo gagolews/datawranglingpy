@@ -193,7 +193,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9106
+v1.0.3.9107
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -399,7 +399,7 @@ in <a class="reference internal" href="210-vector.html#fig-heights-histogram-bin
 <span class="c1">## 4221</span>
 </pre></div>
 </div>
-<p>Let us estimate the said parameters for this sample:</p>
+<p>Let’s estimate the said parameters of the normal distribution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
@@ -545,7 +545,7 @@ This <em>looks</em> like a superb match.</p>
     </div><div class="proof-content">
 <p><span class="math">\(F(b)-F(a)=\int_{a}^b f(t)\,dt\)</span> is the probability
 of generating a value in the interval <span class="math">\([a, b]\)</span>.
-Let us compute the probability related to the <span class="math">\(3\sigma\)</span> rule:</p>
+Let’s compute the probability related to the <span class="math">\(3\sigma\)</span> rule:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">F</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
 <span class="n">F</span><span class="p">(</span><span class="n">mu</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">sigma</span><span class="p">)</span> <span class="o">-</span> <span class="n">F</span><span class="p">(</span><span class="n">mu</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">sigma</span><span class="p">)</span>
 <span class="c1">## 0.9973002039367398</span>
@@ -777,7 +777,7 @@ in the case of the UK taxpayers’ incomes<a class="footnote-reference brackets"
 <p><span class="caption-number">Figure 6.7 </span><span class="caption-text">A histogram of the logarithm of incomes.</span><a class="headerlink" href="#id37" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Let us thus proceed with the fitting of a log-normal model,
+<p>Let’s thus proceed with the fitting of a log-normal model,
 <span class="math">\(\mathrm{LN}(\mu, \sigma)\)</span>. The procedure is similar to the normal case,
 but this time we determine the mean and standard deviation based on the logarithms of the observations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lmu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">income</span><span class="p">))</span>
@@ -933,9 +933,9 @@ more delightful than doing stats? Yeah, nah.)</p>
 <p><span class="caption-number">Figure 6.10 </span><span class="caption-text">A histogram of the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset. Note the log-scale on the x-axis.</span><a class="headerlink" href="#id43" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>This time, however, we will be interested in not what is <em>typical</em>,
+<p>This time, however, we will be concerned with not what is <em>typical</em>,
 but what is in some sense <em>anomalous</em> or <em>extreme</em>.
-Just like in <a class="reference internal" href="210-vector.html#sec-cities"><span class="std std-numref">Section 4.3.7</span></a>, let us look at the <em>truncated</em> version of
+Just like in <a class="reference internal" href="210-vector.html#sec-cities"><span class="std std-numref">Section 4.3.7</span></a>, let’s look at the <em>truncated</em> version of
 the city size distribution by considering the cities with 10 000
 or more inhabitants.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="mi">10_000</span>
@@ -1016,14 +1016,13 @@ The model could be better, but the cities are still growing, aren’t they?</p>
         <span class="proof-type">Example 6.7</span>
         
     </div><div class="proof-content">
-<p>(*) It might also be interesting to see how accurately we can predict the
-probability of a randomly selected city’s being at least of a given size.
-Let us denote by <span class="math">\(S(x)=1-F(x)\)</span> the <em>complementary
+<p>(*) We might also be keen on verifying how accurately the
+probability of a randomly selected city’s being at least of a given size
+can be predicted. Let’s denote by <span class="math">\(S(x)=1-F(x)\)</span> the <em>complementary
 cumulative distribution function</em> (CCDF; sometimes referred to as
-the survival function),
-and by <span class="math">\(\hat{S}_n(x)=1-\hat{F}_n(x)\)</span> its empirical version.
-<a class="reference internal" href="#fig-ccdf-pareto"><span class="std std-numref">Figure 6.12</span></a> compares the empirical and the fitted CCDFs
-with probabilities on the linear- and log-scale.</p>
+the survival function), and by <span class="math">\(\hat{S}_n(x)=1-\hat{F}_n(x)\)</span>
+its empirical version. <a class="reference internal" href="#fig-ccdf-pareto"><span class="std std-numref">Figure 6.12</span></a> compares the empirical
+and the fitted CCDFs with probabilities on the linear- and log-scale.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">large_cities</span><span class="p">),</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">probs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pareto</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">large_cities</span><span class="p">)</span>
@@ -1049,7 +1048,7 @@ with probabilities on the linear- and log-scale.</p>
 </figure>
 <p>In terms of the maximal absolute distance between the two functions,
 <span class="math">\(\hat{D}_n\)</span>, from the left plot we see that the fit seems acceptable.
-Still, let us stress that the log-scale overemphasises the relatively
+Still, let’s stress that the log-scale overemphasises the relatively
 minor differences in the right tail and should not be used for judging
 the value of <span class="math">\(\hat{D}_n\)</span>.</p>
 <p>However, that the Kolmogorov–Smirnov goodness-of-fit test
@@ -1132,7 +1131,7 @@ Also, some people sometimes became millionaires, don’t they?</p>
 <p>In data modelling (e.g., Bayesian statistics),
 sometimes a uniform distribution is chosen
 as a placeholder for “we know nothing about a phenomenon,
-so let us just assume that every event is equally likely”.
+so let’s just assume that every event is equally likely”.
 Nonetheless, it is quite fascinating that in the end, the real world tends
 to be structured. Patterns that emerge are plentiful, and
 most often they are far from being uniformly distributed.
@@ -1217,7 +1216,7 @@ categorical variable that divides the dataset into natural groups; compare
 It also enables us to perform many experiments on data that we do not
 currently have, but we might obtain in the future,
 to test various scenarios and hypotheses.
-Let us thus discuss some methods for  generating random samples of
+Let’s thus discuss some methods for  generating random samples of
 independent (not related to each other) observations.</p>
 <section id="id13">
 <h3><span class="section-number">6.4.1. </span>Uniform distribution<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
@@ -1245,15 +1244,14 @@ random number generator on the unit interval using the formula
 machine. Albeit they are indistinguishable from truly random
 when subject to rigorous tests for randomness,
 we refer to them as <em>pseudorandom</em> or random-like ones.</p>
-<p>To prove that they are not random-random, let us set a specific initial
-state of the generator (the <em>seed</em>) and inspect what
-values are produced:</p>
+<p>To prove that they are not random-random, let’s set a specific initial
+state of the generator (the <em>seed</em>) and inspect what values are produced:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># set the seed (the ID of the initial state)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="c1">## array([0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897])</span>
 </pre></div>
 </div>
-<p>Now, let us set the same seed and see how “random” the next values are:</p>
+<p>Now, let’s set the same seed and see how “random” the next values are:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># set seed</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="c1">## array([0.69646919, 0.28613933, 0.22685145, 0.55131477, 0.71946897])</span>
@@ -1427,7 +1425,7 @@ the theoretical CDF, i.e., <span class="math">\(\hat{D}_n\)</span>.</p>
 <span class="n">Dns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Dns</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now let us compute the proportion of cases which lead to
+<p>Now let’s compute the proportion of cases which lead to
 <span class="math">\(\hat{D}_n\)</span> greater than the critical value <span class="math">\(K_n\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">Dns</span><span class="p">[</span><span class="n">Dns</span> <span class="o">&gt;=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kstwo</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">n</span><span class="p">)])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">Dns</span><span class="p">)</span>
 <span class="c1">## 0.0008</span>
@@ -1484,7 +1482,7 @@ e.g., when drawing scatter plots.</p>
 </section>
 <section id="independence-assumption">
 <h3><span class="section-number">6.4.6. </span>Independence assumption<a class="headerlink" href="#independence-assumption" title="Link to this heading">#</a></h3>
-<p>Let us generate nine binary digits in a pseudorandom fashion:</p>
+<p>Let’s generate nine binary digits in a pseudorandom fashion:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">9</span><span class="p">)</span>
 <span class="c1">## array([1, 1, 1, 1, 1, 1, 1, 1, 1])</span>
 </pre></div>
@@ -1717,7 +1715,7 @@ to a real-valued sample, we had to call
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-22T18:20:26+1100.
+              Last updated on 2024-01-23T16:48:05+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1779,7 +1777,7 @@ to a real-valued sample, we had to call
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=749e8491"></script>
+</div><script src="../_static/documentation_options.js?v=d0e60088"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

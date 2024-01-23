@@ -193,7 +193,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9106
+v1.0.3.9107
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -340,15 +340,14 @@ e.g., CSV and HDF5 files or relational databases,</p></li>
 <li><p>handling missing data,</p></li>
 </ul>
 <p>all of which we introduce in this part.</p>
-<div style="margin-top: 1em"></div><p>Before we delve into the world of <strong class="program">pandas</strong>,
-let us point out that it is customary to make it available
-under the following alias:</p>
+<div style="margin-top: 1em"></div><p>It is customary to import the <strong class="program">pandas</strong> package under
+the following alias:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Let us repeat: <strong class="program">pandas</strong> is built on top of
+<p>Let’s repeat: <strong class="program">pandas</strong> is built on top of
 <strong class="program">numpy</strong> and most objects therein can be processed by
 <strong class="program">numpy</strong> functions as well.
 Many other functions, e.g., in <strong class="program">scikit-learn</strong>,
@@ -377,7 +376,7 @@ can be fed, for example, with a <strong class="program">numpy</strong> matrix:</
 </div>
 <p>Notice that rows and columns are labelled (and how readable that is).</p>
 <p>A dictionary of vector-like objects of equal lengths is another
-common option:</p>
+common data source:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
@@ -401,7 +400,7 @@ common option:</p>
 <span class="c1">## 4  0.72  NaN   True     E   eggs 2025-05-05                [ham]</span>
 </pre></div>
 </div>
-<p>This illustrates the possibility of having columns of different
+<p>The above illustrates the possibility of having columns of different
 types.</p>
 <div class="proof proof-type-exercise" id="id12">
 
@@ -696,8 +695,7 @@ For example:</p>
 </pre></div>
 </div>
 <p>This returned a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object with a hierarchical index.
-Let us fret not, though: <strong class="command">reset_index</strong> always comes to
-our rescue:</p>
+If we do not fancy it, <strong class="command">reset_index</strong> comes to our rescue:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender  usborn     bmival</span>
 <span class="c1">## 0       1       1  25.734110</span>
@@ -792,7 +790,7 @@ that can apply all aggregates given by a list of functions.
 Compose a call equivalent to <code class="docutils literal notranslate"><span class="pre">df.describe()</span></code>.</p>
 </div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(*) Let us stress that above we see
+<p>(*) Let’s stress that above we see
 the corrected for bias (but still only asymptotically unbiased)
 version of standard deviation,
 given by <span class="math">\(\sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i-\bar{x})^2}\)</span>;
@@ -1335,11 +1333,10 @@ modify it, and then to replace the old contents with the new ones.</p>
 </section>
 <section id="pseudorandom-sampling-and-splitting">
 <span id="sec-random-sampling"></span><h3><span class="section-number">10.5.4. </span>Pseudorandom sampling and splitting<a class="headerlink" href="#pseudorandom-sampling-and-splitting" title="Link to this heading">#</a></h3>
-<p>As a simple application of what we have covered so far,
-let us consider the ways to sample several rows
-from an existing data frame.</p>
-<p>We can use the <strong class="command">pandas.DataFrame.sample</strong> method
-in the most basic scenarios, such as:</p>
+<p>As a simple application of what we have covered so far, let’s consider
+some ways to sample several rows from an existing data frame. In the most
+basic scenarios, we can use the <strong class="command">pandas.DataFrame.sample</strong> method,
+e.g., to:</p>
 <ul class="simple">
 <li><p>select five rows, without replacement,</p></li>
 <li><p>select 20% rows, with replacement,</p></li>
@@ -1521,7 +1518,7 @@ and dropped (!) this level of the hierarchy.</p>
 to subset a hierarchical index by using <strong class="command">reset_index</strong>
 and <strong class="command">set_index</strong> creatively (together with
 <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">pandas.Series.isin</strong>, etc.).</p>
-<p>Let us stress again that the `<strong class="command">:</strong>` operator
+<p>Let’s stress again that the `<strong class="command">:</strong>` operator
 can only be used <em>directly</em> within the square brackets.
 Nonetheless, we can always use the <strong class="command">slice</strong> constructor to create
 a slice in any context:</p>
@@ -1555,8 +1552,7 @@ from data analysis or research papers. Here are some functions
 that can aid in their formatting.</p>
 <section id="sorting">
 <span id="sec-df-sort"></span><h3><span class="section-number">10.6.1. </span>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">#</a></h3>
-<p>Let us consider another example dataset.
-Here are the yearly (for 2018) average
+<p>Consider another example dataset: the yearly (for 2018) average
 <a class="reference external" href="https://discover.data.vic.gov.au/dataset/epa-air-watch-all-sites-air-quality-hourly-averages-yearly">air quality data</a>
 in the Australian state of Victoria.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
@@ -1728,7 +1724,7 @@ and <strong class="command">numpy.argsort</strong>.</p>
 </div></div></section>
 <section id="stacking-and-unstacking-long-tall-and-wide-forms">
 <span id="sec-stack"></span><h3><span class="section-number">10.6.2. </span>Stacking and unstacking (long/tall and wide forms)<a class="headerlink" href="#stacking-and-unstacking-long-tall-and-wide-forms" title="Link to this heading">#</a></h3>
-<p>Let us discuss some further ways to transform
+<p>Let’s discuss some further ways to transform
 data frames that benefit from, make sense thanks to,
 or are possible because they can have columns of various types.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">air</span></code> dataset is in the <em>long</em> (<em>tall</em>) format.
@@ -1832,7 +1828,7 @@ we would have to update all the relevant records.</p>
 <p>Instead, we can always match the records in both data frames
 that have the same <code class="docutils literal notranslate"><span class="pre">param_id</span></code>s,
 and join (merge) these datasets only when we really need this.</p>
-</div></div><div style="margin-top: 1em"></div><p>Let us discuss the possible join operations by studying two toy datasets:</p>
+</div></div><div style="margin-top: 1em"></div><p>Let’s discuss the possible join operations by studying two toy datasets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a3&quot;</span><span class="p">],</span>
     <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;b3&quot;</span><span class="p">]</span>
@@ -2191,7 +2187,7 @@ of the S language <span id="id11">[<a class="reference internal" href="999-bibli
 </aside>
 <aside class="footnote brackets" id="footgoback" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
-<p>If by any chance some overenthusiastic readers
+<p>If, by any chance, some overenthusiastic readers
 decided to start this superb book at this chapter,
 it is now the time to go back to the <a class="reference internal" href="000-preface.html#chap-preface"><span class="std std-ref">Preface</span></a>
 and learn everything in the right order. See you later.</p>
@@ -2259,7 +2255,7 @@ where we can work with data frames; e.g., base R and Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-22T18:20:26+1100.
+              Last updated on 2024-01-23T16:48:05+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2324,7 +2320,7 @@ where we can work with data frames; e.g., base R and Julia with
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=749e8491"></script>
+</div><script src="../_static/documentation_options.js?v=d0e60088"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
