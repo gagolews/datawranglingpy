@@ -424,14 +424,13 @@ In such a case, they are encoded with a not-a-number;
 compare <a class="reference internal" href="520-missingness.html#chap-missingness"><span class="std std-numref">Chapter 15</span></a>.</p>
 </div></div></section>
 <section id="exporting-data-to-a-database">
-<h2><span class="section-number">13.2. </span>Exporting data to a database<a class="headerlink" href="#exporting-data-to-a-database" title="Link to this heading">#</a></h2>
-<p>Let’s establish a connection with the to-be
-SQLite database. In our case,
+<span id="sec-data-export"></span><h2><span class="section-number">13.2. </span>Exporting data to a database<a class="headerlink" href="#exporting-data-to-a-database" title="Link to this heading">#</a></h2>
+<p>Let’s establish a connection with a new SQLite database. In our case,
 this will be an ordinary file stored on the computer’s disk:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span><span class="o">,</span> <span class="nn">os.path</span>
 <span class="n">dbfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(),</span> <span class="s2">&quot;travel.db&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dbfile</span><span class="p">)</span>
-<span class="c1">## /tmp/tmp_667os21/travel.db</span>
+<span class="c1">## /tmp/tmpc7497eu4/travel.db</span>
 </pre></div>
 </div>
 <p>It defines the file path (compare <a class="reference internal" href="#sec-file-paths"><span class="std std-numref">Section 13.6.1</span></a>)
@@ -1266,18 +1265,28 @@ to be able to react to any of the envisaged errors</p>
 <span id="sec-file-connection"></span><h3><span class="section-number">13.6.4. </span>File connections (*)<a class="headerlink" href="#file-connections" title="Link to this heading">#</a></h3>
 <p>Basic ways of opening and reading from/writing to file connections
 are described in the
-<a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html">documentation</a>.
+<a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html">Python documentation</a>.
 <a class="reference internal" href="510-text.html#sec-manual-markdown"><span class="std std-numref">Section 14.3.5</span></a> shows an example where we
 create a Markdown file manually.</p>
 <p>They may be useful for processing large files chunk by chunk.
 In particular, <strong class="command">pandas.read_csv</strong>
-accepts a file handler (see <strong class="command">open</strong>).
-Then, passing the <code class="docutils literal notranslate"><span class="pre">nrows</span></code> argument we can indicate the number of rows
-to fetch.</p>
+accepts a file handler (see <strong class="command">open</strong> and <strong class="command">numpy.DataSource</strong>).
+Then, by passing the <code class="docutils literal notranslate"><span class="pre">nrows</span></code> argument we can request a specific
+number of records to be read at the current position.</p>
+<p>With <strong class="command">pandas.to_csv</strong> we can also append portions of data frames
+to a file.</p>
 </section>
+</section>
+<section id="further-reading">
+<h2><span class="section-number">13.7. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<p><strong class="program">pandas</strong> is not the only package that brings data frames
+to the Python world; check out  <strong class="program">polars</strong>.
+Furthermore, <strong class="program">Dask</strong> and <strong class="program">modin</strong> can be helpful
+with data that do not fit into memory (and when we do not want to rely on
+sampling or chunking).</p>
 </section>
 <section id="exercises">
-<h2><span class="section-number">13.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">13.8. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
@@ -1361,7 +1370,7 @@ intermediate-level users.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-01-23T16:48:05+1100.
+              Last updated on 2024-01-25T13:12:31+1100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1403,7 +1412,8 @@ intermediate-level users.</p>
 <li><a class="reference internal" href="#file-connections">13.6.4. File connections (*)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#exercises">13.7. Exercises</a></li>
+<li><a class="reference internal" href="#further-reading">13.7. Further reading</a></li>
+<li><a class="reference internal" href="#exercises">13.8. Exercises</a></li>
 </ul>
 </li>
 </ul>
