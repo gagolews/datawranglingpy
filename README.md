@@ -44,9 +44,9 @@ this repository's *Issues* tracker. Thank you.
 
 ## About the Author
 
-Dr habil. [Marek Gagolewski][1]
-is currently an Associate Professor
-at the Systems Research Institute of the Polish Academy of Sciences.
+[Marek Gagolewski][1] is currently an Associate Professor
+in Data Science at the Faculty of Mathematics and Information Science,
+Warsaw University of Technology.
 
 His research interests are related to data science, in particular: modelling
 complex phenomena, developing usable, general-purpose algorithms, studying
@@ -54,7 +54,7 @@ their analytical properties, and finding out how people use, misuse,
 understand, and misunderstand methods of data analysis in research, commercial,
 and decision-making settings.
 
-He's an author of 90+ publications, including journal papers
+He's an author of 95+ publications, including journal papers
 in outlets such as *Proceedings of the National Academy of Sciences (PNAS)*,
 *Journal of Statistical Software*, *The R Journal*, *Information Fusion*,
 *International Journal of Forecasting*, *Statistical Modelling*,
