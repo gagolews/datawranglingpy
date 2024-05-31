@@ -1612,23 +1612,31 @@ copy of the subsetted elements: by definition, sliced ranges are <em>regular</em
 This is important when we apply operations which modify a
 given vector in place, such as the <strong class="command">sort</strong>
 method that we mention in the sequel.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-<span class="n">y</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">10</span>  <span class="c1"># modifies parts of y in place</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">zilchify</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># re-sets all values in x</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">zilchify</span><span class="p">(</span><span class="n">y</span><span class="p">[::</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># modifies parts of y in place</span>
 <span class="n">y</span>  <span class="c1"># has changed</span>
-<span class="c1">## array([60,  4, 80,  5, 10,  3, 20,  9, 70])</span>
+<span class="c1">## array([0, 4, 0, 5, 0, 3, 0, 9, 0])</span>
 </pre></div>
 </div>
-<p>This multiplied every second element in <code class="docutils literal notranslate"><span class="pre">y</span></code> by 10
-(i.e., <code class="docutils literal notranslate"><span class="pre">[6,</span> <span class="pre">8,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">7]</span></code>).
-On the other hand, indexing with an integer or logical
-vector always returns a copy.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="p">]</span> <span class="o">*=</span> <span class="mi">10</span>  <span class="c1"># modifies a new object and then forgets about it</span>
+<p>It zeroed every second element in <code class="docutils literal notranslate"><span class="pre">y</span></code>. On the other hand,
+indexing with an integer or logical vector always returns a copy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zilchify</span><span class="p">(</span><span class="n">y</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="p">])</span>  <span class="c1"># modifies a new object and then forgets about it</span>
 <span class="n">y</span>  <span class="c1"># has not changed since the last modification</span>
-<span class="c1">## array([60, 40, 80, 50, 10, 30, 20, 90, 70])</span>
+<span class="c1">## array([0, 4, 0, 5, 0, 3, 0, 9, 0])</span>
 </pre></div>
 </div>
 <p>The original vector has <em>not</em> been modified, because
-we applied `<strong class="command">*=</strong>` on a <em>new</em> (temporary) object.</p>
+we applied the function on a <em>new</em> (temporary) object. However,
+we note that compound operations such as <strong class="command">+=</strong> work differently,
+because setting elements at specific indexes is always possible:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">]</span> <span class="o">+=</span> <span class="mi">7</span>  <span class="c1"># the same as y[ [0, 7] ] = y[ [0, 7] ] + 7</span>
+<span class="n">y</span>
+<span class="c1">## array([7, 4, 0, 5, 0, 3, 0, 9, 7])</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="other-operations">
@@ -2306,7 +2314,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-05-21T09:39:51+0200.
+              Last updated on 2024-05-28T10:08:07+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

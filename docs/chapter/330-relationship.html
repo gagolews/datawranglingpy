@@ -491,10 +491,13 @@ but this is like building your evidence base on sand.
 No wonder why some fields suffer from a reproducibility
 crisis these days (albeit there are beautiful exceptions to this
 general observation).</p>
-<p>If a dataset at hand does not give us too strong a confidence,
+<p>If a dataset at hand does not give us too strong an evidence,
 it is our ethical duty to refrain ourselves
-from making unjustified statements. One must not mislead
-the recipients of our data analysis exercises.</p>
+from making unjustified claims. One must not mislead
+the recipients of our data analysis exercises.
+Still, let us remember that sometimes discovering that some factors
+popularly conceived as dependent are not correlated might also
+be interesting for this is an instance of myths’ debunking.</p>
 </div>
 </section>
 <section id="no-linear-correlation-does-not-imply-independence">
@@ -525,8 +528,8 @@ see <a class="reference internal" href="#fig-corr-ex-2"><span class="std std-num
 </figcaption>
 </figure>
 </section>
-<section id="false-linear-correlations">
-<h4><span class="section-number">9.1.1.4. </span>False linear correlations<a class="headerlink" href="#false-linear-correlations" title="Link to this heading">#</a></h4>
+<section id="false-correlations">
+<h4><span class="section-number">9.1.1.4. </span>False correlations<a class="headerlink" href="#false-correlations" title="Link to this heading">#</a></h4>
 <p>What is more, sometimes we can fall into the trap of <em>false</em> correlations.
 This happens when data are actually functionally dependent,
 the relationship is not linear, but the points are aligned not
@@ -550,10 +553,32 @@ far from a line; see <a class="reference internal" href="#fig-corr-ex-3"><span c
 </figcaption>
 </figure>
 <p>A single measure cannot be perfect: we are trying to compress
-<span class="math">\(n\)</span> data points into a single number. It is obvious that
-there are many different datasets, sometimes remarkably diverse,
-which yield the same correlation degree.</p>
-</section>
+<span class="math">\(n\)</span> data points into a single number here. It is obvious that
+many different datasets, sometimes remarkably diverse,
+will yield the same correlation degree.</p>
+<div style="margin-top: 1em"></div><p>Furthermore, even truly independent variables might
+return significant Pearson’s <span class="math">\(r\)</span>. Especially in datasets with many
+columns and very few observations, it will be possible to find paradoxical
+pairs of variables that our naïve tool will report as correlated.
+Tyler Vigen’s <a class="reference external" href="https://tylervigen.com/spurious-correlations"><em>Spurious Correlations</em></a>
+project documents numerous hilarious instances of this kind, such as
+Divorce rates in the United Kingdom vs Disney movies released
+(<span class="math">\(r=0.93\)</span>) or
+Number of G***le searches for <em>Why do I have green poop</em>
+vs Pirate attacks globally (<span class="math">\(r=0.853\)</span>).
+For every (small) feature, there is something that correlates with it.</p>
+<div class="proof proof-type-exercise" id="id30">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.2</span>
+        
+    </div><div class="proof-content">
+<p>(*) Two independent, normally distributed samples, each of length <span class="math">\(n\)</span>,
+yield Pearson’s <span class="math">\(r\)</span> which is approximately normally distributed
+with expectation <span class="math">\(0\)</span> and standard deviation <span class="math">\(1/\sqrt{n-3}\)</span>.
+Compute the probability of drawing an independent pair of samples
+that yields <span class="math">\(|r|&gt;0.6\)</span> for <span class="math">\(n=10\)</span>, <span class="math">\(25\)</span>, and <span class="math">\(100\)</span>.</p>
+</div></div></section>
 <section id="correlation-is-not-causation">
 <h4><span class="section-number">9.1.1.5. </span>Correlation is not causation<a class="headerlink" href="#correlation-is-not-causation" title="Link to this heading">#</a></h4>
 <p>A high correlation degree (either positive or negative) does not
@@ -561,10 +586,10 @@ mean that there is any <em>causal</em> relationship between the two variables.
 We cannot say that having large arm circumference affects hip size
 or vice versa. There might be some <em>latent</em> variable
 that influences these two (e.g., maybe also related to weight?).</p>
-<div class="proof proof-type-exercise" id="id30">
+<div class="proof proof-type-exercise" id="id31">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.2</span>
+        <span class="proof-type">Exercise 9.3</span>
         
     </div><div class="proof-content">
 <p>Quite often, medical advice is formulated
@@ -637,10 +662,10 @@ on a fancified call to <strong class="command">matplotlib.pyplot.imshow</strong>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id31">
+<figure class="align-default" id="id32">
 <span id="fig-cor-heat"></span><img alt="../_images/cor-heat-9.png" src="../_images/cor-heat-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.5 </span><span class="caption-text">A correlation heat map.</span><a class="headerlink" href="#id31" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.5 </span><span class="caption-text">A correlation heat map.</span><a class="headerlink" href="#id32" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Notice that we ordered<a class="footnote-reference brackets" href="#foothclust" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> the columns to reveal some naturally
@@ -650,10 +675,10 @@ and weight are all strongly correlated.</p>
 is trivially correlated with itself. This heat map is symmetric
 which is due to the property
 <span class="math">\(r(\boldsymbol{x}, \boldsymbol{y}) = r(\boldsymbol{y}, \boldsymbol{x})\)</span>.</p>
-<div class="proof proof-type-example" id="id32">
+<div class="proof proof-type-example" id="id33">
 
     <div class="proof-title">
-        <span class="proof-type">Example 9.3</span>
+        <span class="proof-type">Example 9.4</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -686,10 +711,10 @@ and repeating items:</p>
 flattened (unidimensional) array. We had to use
 <strong class="command">numpy.unravel_index</strong> to convert it to a two-dimensional
 one.</p>
-</div></div><div class="proof proof-type-example" id="id33">
+</div></div><div class="proof proof-type-example" id="id34">
 
     <div class="proof-title">
-        <span class="proof-type">Example 9.4</span>
+        <span class="proof-type">Example 9.5</span>
         
     </div><div class="proof-content">
 <p>(*)
@@ -729,10 +754,10 @@ a scatter plot.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id34">
+<figure class="align-default" id="id35">
 <span id="fig-worldfactbook-gdp-life"></span><img alt="../_images/WorldFactbook-gdp-life-11.png" src="../_images/WorldFactbook-gdp-life-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatter plots for life expectancy vs gross domestic product (purchasing power parity) on linear (left) and log-scale (right).</span><a class="headerlink" href="#id34" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.6 </span><span class="caption-text">Scatter plots for life expectancy vs gross domestic product (purchasing power parity) on linear (left) and log-scale (right).</span><a class="headerlink" href="#id35" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>If we compute Pearson’s <span class="math">\(r\)</span> between these two,
@@ -787,28 +812,28 @@ ranks (or only reverse them).</p>
 <span class="c1">## -0.8275220380818622</span>
 </pre></div>
 </div>
-<div class="proof proof-type-exercise" id="id35">
+<div class="proof proof-type-exercise" id="id36">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.5</span>
+        <span class="proof-type">Exercise 9.6</span>
         
     </div><div class="proof-content">
 <p>We included the <span class="math">\(\rho\)</span>s in all the outputs generated
 by our <strong class="command">plot_corr</strong> function. Review all the preceding figures.</p>
-</div></div><div class="proof proof-type-exercise" id="id36">
+</div></div><div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.6</span>
+        <span class="proof-type">Exercise 9.7</span>
         
     </div><div class="proof-content">
 <p>Apply <strong class="command">numpy.corrcoef</strong>
 and <strong class="command">scipy.stats.rankdata</strong> (with the appropriate <code class="docutils literal notranslate"><span class="pre">axis</span></code> argument)
 to compute the Spearman correlation matrix for all the variable
 pairs in <code class="docutils literal notranslate"><span class="pre">body</span></code>. Draw it on a heat map.</p>
-</div></div><div class="proof proof-type-exercise" id="id37">
+</div></div><div class="proof proof-type-exercise" id="id38">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.7</span>
+        <span class="proof-type">Exercise 9.8</span>
         
     </div><div class="proof-content">
 <p>(*) Draw the scatter plots of the ranks of each column
@@ -918,10 +943,10 @@ for a few different <span class="math">\(k\)</span>s.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id38">
+<figure class="align-default" id="id39">
 <span id="fig-knn-reg"></span><img alt="../_images/knn-reg-13.png" src="../_images/knn-reg-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><span class="math">\(k\)</span>-nearest neighbour regression curves for example datasets. The greater the <span class="math">\(k\)</span>, the more coarse-grained the approximation.</span><a class="headerlink" href="#id38" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.7 </span><span class="caption-text"><span class="math">\(k\)</span>-nearest neighbour regression curves for example datasets. The greater the <span class="math">\(k\)</span>, the more coarse-grained the approximation.</span><a class="headerlink" href="#id39" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We obtained a <em>smoothened</em> version of the original dataset.
@@ -1167,6 +1192,16 @@ hip circumference of 100 cm is 65.4 kg.
 Thanks to such models, we might get more insight into certain phenomena,
 or find some proxies for different variables (especially if measuring
 them directly is tedious, costly, dangerous, etc.).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>What we have performed above is an instance of <em>machine learning</em>.
+The machine (the equation <span class="math">\(y=ax+b\)</span>) is controlled by two
+parameters (memory; <span class="math">\(a, b\)</span>).
+We have <em>learnt</em> their best values based on the knowledge about
+the world we had (the inputs <span class="math">\(x\)</span> and the desired outputs <span class="math">\(y\)</span>).
+Thus, this term is really an obscure marketing slogan
+designed to impress (or confuse) the laypeople.</p>
+</div>
 <p>Let’s determine the predicted weights for all of the participants:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">c</span> <span class="o">@</span> <span class="n">X_train</span><span class="o">.</span><span class="n">T</span>
 <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">preview_indices</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># preview</span>
@@ -1184,16 +1219,16 @@ indicates a fair fit but, of course, there is some natural variability.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id39">
+<figure class="align-default" id="id40">
 <span id="fig-hip-weight-lm"></span><img alt="../_images/hip-weight-lm-15.png" src="../_images/hip-weight-lm-15.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.8 </span><span class="caption-text">The least squares line for weight vs hip circumference.</span><a class="headerlink" href="#id39" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.8 </span><span class="caption-text">The least squares line for weight vs hip circumference.</span><a class="headerlink" href="#id40" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id40">
+<div class="proof proof-type-exercise" id="id41">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.8</span>
+        <span class="proof-type">Exercise 9.9</span>
         
     </div><div class="proof-content">
 <p>The <a class="reference external" href="https://github.com/gagolews/teaching-data/raw/master/r/anscombe.csv">Anscombe quartet</a>
@@ -1206,17 +1241,17 @@ Reflect upon this toy example.</p>
 <section id="analysis-of-residuals">
 <h3><span class="section-number">9.2.4. </span>Analysis of residuals (*)<a class="headerlink" href="#analysis-of-residuals" title="Link to this heading">#</a></h3>
 <p>The residuals (i.e., the estimation errors – what we expected vs what
-we got), for the chosen 6 observations are
+we got), for the chosen six observations are
 visualised in <a class="reference internal" href="#fig-residuals"><span class="std std-numref">Figure 9.9</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">y_train</span> <span class="o">-</span> <span class="n">y_pred</span>  <span class="c1"># residuals</span>
 <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">preview_indices</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># preview</span>
 <span class="c1">## array([ -0.23, -12.17,   5.61,   9.17,   5.56,  -5.36])</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id41">
+<figure class="align-default" id="id42">
 <span id="fig-residuals"></span><img alt="../_images/residuals-17.png" src="../_images/residuals-17.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.9 </span><span class="caption-text">Example residuals in a simple linear regression task.</span><a class="headerlink" href="#id41" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.9 </span><span class="caption-text">Example residuals in a simple linear regression task.</span><a class="headerlink" href="#id42" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We wanted the squared residuals (on average – across all the points)
@@ -1263,10 +1298,10 @@ we have already sought to minimise.</p>
 </div>
 <p>MAE is nicely interpretable: it measures by
 how many kilograms we err <em>on average</em>. Not bad.</p>
-<div class="proof proof-type-exercise" id="id42">
+<div class="proof proof-type-exercise" id="id43">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.9</span>
+        <span class="proof-type">Exercise 9.10</span>
         
     </div><div class="proof-content">
 <p>Fit a regression line
@@ -1297,16 +1332,16 @@ at random therein, without any dependence structure
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id43">
+<figure class="align-default" id="id44">
 <span id="fig-resid-vs-fit"></span><img alt="../_images/resid-vs-fit-19.png" src="../_images/resid-vs-fit-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference. The variance of residuals slightly increases as <span class="math">\(\hat{y}_i\)</span> increases. This is not ideal, but it could be much worse than this.</span><a class="headerlink" href="#id43" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.10 </span><span class="caption-text">Residuals vs fitted values for the linear model explaining weight as a function of hip circumference. The variance of residuals slightly increases as <span class="math">\(\hat{y}_i\)</span> increases. This is not ideal, but it could be much worse than this.</span><a class="headerlink" href="#id44" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id44">
+<div class="proof proof-type-exercise" id="id45">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.10</span>
+        <span class="proof-type">Exercise 9.11</span>
         
     </div><div class="proof-content">
 <p>Compare<a class="footnote-reference brackets" href="#footknnas" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> the RMSE and MAE for the <span class="math">\(k\)</span>-nearest neighbour
@@ -1513,16 +1548,16 @@ considered). The four models are depicted in
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id45">
+<figure class="align-default" id="id46">
 <span id="fig-gdp-life-four-models"></span><img alt="../_images/gdp-life-four-models-21.png" src="../_images/gdp-life-four-models-21.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.11 </span><span class="caption-text">Different models for life expectancy vs GDP.</span><a class="headerlink" href="#id45" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.11 </span><span class="caption-text">Different models for life expectancy vs GDP.</span><a class="headerlink" href="#id46" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id46">
+<div class="proof proof-type-exercise" id="id47">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.11</span>
+        <span class="proof-type">Exercise 9.12</span>
         
     </div><div class="proof-content">
 <p>Draw box plots and histograms of residuals
@@ -1602,10 +1637,10 @@ for an imaginary country with $500 000 per capita GDP:</p>
 </pre></div>
 </div>
 <p>Nonsense.</p>
-<div class="proof proof-type-example" id="id47">
+<div class="proof proof-type-example" id="id48">
 
     <div class="proof-title">
-        <span class="proof-type">Example 9.12</span>
+        <span class="proof-type">Example 9.13</span>
         
     </div><div class="proof-content">
 <p>Consider a theoretical illustration, where
@@ -1664,16 +1699,16 @@ see <a class="reference internal" href="#fig-true-model-vs-guess"><span class="s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id48">
+<figure class="align-default" id="id49">
 <span id="fig-true-model-vs-guess"></span><img alt="../_images/true-model-vs-guess-23.png" src="../_images/true-model-vs-guess-23.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.12 </span><span class="caption-text">The true (theoretical) model vs some guesstimates (fitted based on noisy data). More degrees of freedom is not always better.</span><a class="headerlink" href="#id48" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.12 </span><span class="caption-text">The true (theoretical) model vs some guesstimates (fitted based on noisy data). More degrees of freedom is not always better.</span><a class="headerlink" href="#id49" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</div></div><div class="proof proof-type-example" id="id49">
+</div></div><div class="proof proof-type-example" id="id50">
 
     <div class="proof-title">
-        <span class="proof-type">Example 9.13</span>
+        <span class="proof-type">Example 9.14</span>
         
     </div><div class="proof-content">
 <p>(**)
@@ -1726,10 +1761,10 @@ let’s consider a range of polynomial models of different degrees.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id50">
+<figure class="align-default" id="id51">
 <span id="fig-true-model-vs-polynomials-rmse"></span><img alt="../_images/true-model-vs-polynomials-rmse-25.png" src="../_images/true-model-vs-polynomials-rmse-25.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.13 </span><span class="caption-text">Small RMSE on training data does not necessarily imply good generalisation abilities.</span><a class="headerlink" href="#id50" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.13 </span><span class="caption-text">Small RMSE on training data does not necessarily imply good generalisation abilities.</span><a class="headerlink" href="#id51" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><a class="reference internal" href="#fig-true-model-vs-polynomials-rmse"><span class="std std-numref">Figure 9.13</span></a> shows that a model’s
@@ -1748,10 +1783,10 @@ see <a class="reference internal" href="#fig-true-model-vs-polynomials"><span cl
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id51">
+<figure class="align-default" id="id52">
 <span id="fig-true-model-vs-polynomials"></span><img alt="../_images/true-model-vs-polynomials-27.png" src="../_images/true-model-vs-polynomials-27.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.14 </span><span class="caption-text">Under- and overfitting to training data.</span><a class="headerlink" href="#id51" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.14 </span><span class="caption-text">Under- and overfitting to training data.</span><a class="headerlink" href="#id52" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div></div><div class="admonition important">
@@ -2013,20 +2048,20 @@ is better than the polynomial one.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id52">
+<figure class="align-default" id="id53">
 <span id="fig-ill-cond"></span><img alt="../_images/ill-cond-29.png" src="../_images/ill-cond-29.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can give a very wrong model.</span><a class="headerlink" href="#id52" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.15 </span><span class="caption-text">Ill-conditioned model matrix can give a very wrong model.</span><a class="headerlink" href="#id53" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Always check the model matrix’s condition number.</p>
 </div>
-<div class="proof proof-type-exercise" id="id53">
+<div class="proof proof-type-exercise" id="id54">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.14</span>
+        <span class="proof-type">Exercise 9.15</span>
         
     </div><div class="proof-content">
 <p>Check the condition numbers of all the models fitted so far in this chapter
@@ -2097,10 +2132,10 @@ inverse of the cosine function, i.e., arccosine.</p>
 </pre></div>
 </div>
 <p>Notice that we converted the angle from radians to degrees.</p>
-<figure class="align-default" id="id54">
+<figure class="align-default" id="id55">
 <span id="fig-two-vectors-angle"></span><img alt="../_images/two-vectors-angle-31.png" src="../_images/two-vectors-angle-31.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.16 </span><span class="caption-text">Example vectors and the angle between them.</span><a class="headerlink" href="#id54" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.16 </span><span class="caption-text">Example vectors and the angle between them.</span><a class="headerlink" href="#id55" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -2277,10 +2312,10 @@ Both are orthonormal matrices too.</p>
 <span class="n">X</span> <span class="o">=</span> <span class="n">Xp</span> <span class="o">@</span> <span class="n">S</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">+</span> <span class="n">t</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id55">
+<figure class="align-default" id="id56">
 <span id="fig-geom-trans"></span><img alt="../_images/geom-trans-33.png" src="../_images/geom-trans-33.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version.</span><a class="headerlink" href="#id55" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.17 </span><span class="caption-text">A dataset and its scaled, rotated, and shifted version.</span><a class="headerlink" href="#id56" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We can consider <span class="math">\(\mathbf{X}=\mathbf{X}' \mathbf{S} \mathbf{Q} + \mathbf{t}\)</span>
@@ -2300,10 +2335,10 @@ is not rare during a dataset’s preprocessing step,
 especially if they are on the same scale or are unitless.
 As a matter of fact,
 the standardisation itself is a form of scaling and translation.</p>
-<div class="proof proof-type-exercise" id="id56">
+<div class="proof proof-type-exercise" id="id57">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.15</span>
+        <span class="proof-type">Exercise 9.16</span>
         
     </div><div class="proof-content">
 <p>Assume that we have a dataset with two columns representing the number
@@ -2425,7 +2460,8 @@ Consequently, they are on the same scale:</p>
 </div>
 <p>What is more, they are orthogonal: their dot products
 are all equal to 0. Regarding what we said about Pearson’s
-linear correlation coefficient and its relation to dot products of normalised vectors, we imply that the columns in <span class="math">\(\mathbf{U}\)</span> are not
+linear correlation coefficient and its relation to dot products of normalised
+vectors, we imply that the columns in <span class="math">\(\mathbf{U}\)</span> are not
 linearly correlated. In some sense, they form <em>independent</em> dimensions.</p>
 <p>Now, we have <span class="math">\(\mathbf{S} = \mathrm{diag}(s_1,\dots,s_m)\)</span>,
 with the elements on the diagonal being:</p>
@@ -2480,10 +2516,10 @@ column variances).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id57">
+<figure class="align-default" id="id58">
 <span id="fig-principal-directions"></span><img alt="../_images/principal-directions-35.png" src="../_images/principal-directions-35.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.18 </span><span class="caption-text">Principal directions of an example dataset (scaled so that they are proportional to the standard deviations along them).</span><a class="headerlink" href="#id57" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.18 </span><span class="caption-text">Principal directions of an example dataset (scaled so that they are proportional to the standard deviations along them).</span><a class="headerlink" href="#id58" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -2506,10 +2542,10 @@ from the perspective of the axes of the Cartesian coordinate system
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id58">
+<figure class="align-default" id="id59">
 <span id="fig-chainlink-pairplot"></span><img alt="../_images/chainlink-pairplot-37.png" src="../_images/chainlink-pairplot-37.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.19 </span><span class="caption-text">Views from the perspective of the main axes.</span><a class="headerlink" href="#id58" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.19 </span><span class="caption-text">Views from the perspective of the main axes.</span><a class="headerlink" href="#id59" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>These viewpoints by no means must reveal the true geometric
@@ -2531,10 +2567,10 @@ hopefully visible <a class="reference internal" href="#fig-chainlink-rotated"><s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id59">
+<figure class="align-default" id="id60">
 <span id="fig-chainlink-rotated"></span><img alt="../_images/chainlink-rotated-39.png" src="../_images/chainlink-rotated-39.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.20 </span><span class="caption-text">Different views of the same dataset.</span><a class="headerlink" href="#id59" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.20 </span><span class="caption-text">Different views of the same dataset.</span><a class="headerlink" href="#id60" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>It turns out that we may find a noteworthy viewpoint using the SVD.
@@ -2558,11 +2594,9 @@ of a centred dataset which we denote by <span class="math">\(\mathbf{X}\)</span>
 \mathbf{P}=\mathbf{X} \mathbf{Q}^{-1} = \mathbf{U}\mathbf{S},
 \]</div>
 </div>
-<p>we know that its first column has the highest variance,
-the second column has the second highest variability,
-and so on.
-It might indeed be worth looking at that dataset from that
-<em>most informative</em> perspective.</p>
+<p>we know that its first column has the highest variance, the second column
+has the second highest variability, and so on. It might indeed be worth
+looking at that dataset from that <em>most informative</em> perspective.</p>
 <p><a class="reference internal" href="#fig-chainlink-svd"><span class="std std-numref">Figure 9.21</span></a> gives the scatter plot for <span class="math">\(\mathbf{p}_{\cdot,1}\)</span>
 and <span class="math">\(\mathbf{p}_{\cdot,2}\)</span>. Maybe it does not reveal the true
 geometric structure of the dataset (no single two-dimensional projection
@@ -2574,10 +2608,10 @@ ones (from the pairs plot).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id60">
+<figure class="align-default" id="id61">
 <span id="fig-chainlink-svd"></span><img alt="../_images/chainlink-svd-41.png" src="../_images/chainlink-svd-41.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes.</span><a class="headerlink" href="#id60" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.21 </span><span class="caption-text">The view from the two principal axes.</span><a class="headerlink" href="#id61" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What we just did is a kind of <em>dimensionality reduction</em>.
@@ -2697,16 +2731,16 @@ but it might be an interesting one for some decision makers.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id61">
+<figure class="align-default" id="id62">
 <span id="fig-pca-country"></span><img alt="../_images/pca-country-43.png" src="../_images/pca-country-43.png" />
 <figcaption>
-<p><span class="caption-number">Figure 9.22 </span><span class="caption-text">An example principal component analysis of countries.</span><a class="headerlink" href="#id61" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 9.22 </span><span class="caption-text">An example principal component analysis of countries.</span><a class="headerlink" href="#id62" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="proof proof-type-exercise" id="id62">
+<div class="proof proof-type-exercise" id="id63">
 
     <div class="proof-title">
-        <span class="proof-type">Exercise 9.16</span>
+        <span class="proof-type">Exercise 9.17</span>
         
     </div><div class="proof-content">
 <p>Perform a principal component analysis of the <code class="docutils literal notranslate"><span class="pre">body</span></code> dataset.
@@ -2731,124 +2765,124 @@ checking out <span id="id22">[<a class="reference internal" href="999-bibliograp
 </section>
 <section id="exercises">
 <h2><span class="section-number">9.5. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<div class="proof proof-type-exercise" id="id63">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 9.17</span>
-        
-    </div><div class="proof-content">
-<p>Why correlation is not causation?</p>
-</div></div><div class="proof proof-type-exercise" id="id64">
+<div class="proof proof-type-exercise" id="id64">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.18</span>
         
     </div><div class="proof-content">
-<p>What does the linear correlation of 0.9 mean?
-What? about the rank correlation of 0.9?
-And the linear correlation of 0.0?</p>
+<p>Why correlation is not causation?</p>
 </div></div><div class="proof proof-type-exercise" id="id65">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.19</span>
         
     </div><div class="proof-content">
-<p>How is Spearman’s coefficient related to Pearson’s one?</p>
+<p>What does the linear correlation of 0.9 mean?
+What? about the rank correlation of 0.9?
+And the linear correlation of 0.0?</p>
 </div></div><div class="proof proof-type-exercise" id="id66">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.20</span>
         
     </div><div class="proof-content">
-<p>State the optimisation problem behind the least squares fitting
-of linear models.</p>
+<p>How is Spearman’s coefficient related to Pearson’s one?</p>
 </div></div><div class="proof proof-type-exercise" id="id67">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.21</span>
         
     </div><div class="proof-content">
-<p>What are the different ways of the numerical summarising of residuals?</p>
+<p>State the optimisation problem behind the least squares fitting
+of linear models.</p>
 </div></div><div class="proof proof-type-exercise" id="id68">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.22</span>
         
     </div><div class="proof-content">
-<p>Why is it important for the residuals to be homoscedastic?</p>
+<p>What are the different ways of the numerical summarising of residuals?</p>
 </div></div><div class="proof proof-type-exercise" id="id69">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.23</span>
         
     </div><div class="proof-content">
-<p>Is a more complex model always better?</p>
+<p>Why is it important for the residuals to be homoscedastic?</p>
 </div></div><div class="proof proof-type-exercise" id="id70">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.24</span>
         
     </div><div class="proof-content">
-<p>Why must extrapolation be handled with care?</p>
+<p>Is a more complex model always better?</p>
 </div></div><div class="proof proof-type-exercise" id="id71">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.25</span>
         
     </div><div class="proof-content">
-<p>Why did we say that novice users should refrain from using
-<strong class="program">scikit-learn</strong>?</p>
+<p>Why must extrapolation be handled with care?</p>
 </div></div><div class="proof proof-type-exercise" id="id72">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.26</span>
         
     </div><div class="proof-content">
-<p>What is the condition number of a model matrix and why is it
-worthwhile to always check it?</p>
+<p>Why did we say that novice users should refrain from using
+<strong class="program">scikit-learn</strong>?</p>
 </div></div><div class="proof proof-type-exercise" id="id73">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.27</span>
         
     </div><div class="proof-content">
-<p>What is the geometrical interpretation of the dot product of
-two normalised vectors?</p>
+<p>What is the condition number of a model matrix and why is it
+worthwhile to always check it?</p>
 </div></div><div class="proof proof-type-exercise" id="id74">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.28</span>
         
     </div><div class="proof-content">
-<p>How can we verify if two vectors are orthonormal? What is an orthonormal
-projection? What is the inverse of an orthonormal matrix?</p>
+<p>What is the geometrical interpretation of the dot product of
+two normalised vectors?</p>
 </div></div><div class="proof proof-type-exercise" id="id75">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.29</span>
         
     </div><div class="proof-content">
-<p>What is the inverse of a diagonal matrix?</p>
+<p>How can we verify if two vectors are orthonormal? What is an orthonormal
+projection? What is the inverse of an orthonormal matrix?</p>
 </div></div><div class="proof proof-type-exercise" id="id76">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.30</span>
         
     </div><div class="proof-content">
-<p>Characterise the general properties of the three matrices obtained
-by performing the singular value decomposition of a given matrix
-of shape <span class="math">\(n\times m\)</span>.</p>
+<p>What is the inverse of a diagonal matrix?</p>
 </div></div><div class="proof proof-type-exercise" id="id77">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.31</span>
         
     </div><div class="proof-content">
-<p>How can we obtain the first principal component of a given centred matrix?</p>
+<p>Characterise the general properties of the three matrices obtained
+by performing the singular value decomposition of a given matrix
+of shape <span class="math">\(n\times m\)</span>.</p>
 </div></div><div class="proof proof-type-exercise" id="id78">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 9.32</span>
+        
+    </div><div class="proof-content">
+<p>How can we obtain the first principal component of a given centred matrix?</p>
+</div></div><div class="proof proof-type-exercise" id="id79">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 9.33</span>
         
     </div><div class="proof-content">
 <p>How can we compute the ratios of the variances explained by the
@@ -3005,7 +3039,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-05-21T09:39:51+0200.
+              Last updated on 2024-05-28T10:08:07+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -3032,7 +3066,7 @@ to function properly. We need more maths in our lives.</p>
 <li><a class="reference internal" href="#perfect-linear-correlation">9.1.1.1. Perfect linear correlation</a></li>
 <li><a class="reference internal" href="#strong-linear-correlation">9.1.1.2. Strong linear correlation</a></li>
 <li><a class="reference internal" href="#no-linear-correlation-does-not-imply-independence">9.1.1.3. No linear correlation does not imply independence</a></li>
-<li><a class="reference internal" href="#false-linear-correlations">9.1.1.4. False linear correlations</a></li>
+<li><a class="reference internal" href="#false-correlations">9.1.1.4. False correlations</a></li>
 <li><a class="reference internal" href="#correlation-is-not-causation">9.1.1.5. Correlation is not causation</a></li>
 </ul>
 </li>
