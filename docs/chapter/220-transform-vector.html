@@ -28,12 +28,12 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="6. Continuous probability distributions" href="230-distribution.html" /><link rel="prev" title="4. Unidimensional numeric data and their empirical distribution" href="210-vector.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/220-transform-vector.html" />
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>5. Processing unidimensional data - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1e0fcfc0" />
@@ -107,7 +107,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -122,7 +122,7 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
@@ -130,7 +130,7 @@
   <symbol id="svg-sun-half" viewBox="0 0 24 24">
     <title>Auto light/dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <circle cx="12" cy="12" r="9" />
       <path d="M13 12h5" />
@@ -138,6 +138,60 @@
       <path d="M13 18h1" />
       <path d="M13 9h4" />
       <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
@@ -269,11 +323,7 @@ v1.0.3.9107
         <div class="content-icon-container">
           <div class="edit-this-page">
   <a class="muted-link" href="https://github.com/gagolews/datawranglingpy" title="Edit this page">
-    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-    </svg>
+    <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
 </div><div class="theme-toggle-container theme-toggle-content">
@@ -291,7 +341,7 @@ v1.0.3.9107
         </div>
         <article role="main">
           <section class="tex2jax_ignore mathjax_ignore" id="processing-unidimensional-data">
-<span id="chap-transform-vector"></span><h1><span class="section-number">5. </span>Processing unidimensional data<a class="headerlink" href="#processing-unidimensional-data" title="Link to this heading">#</a></h1>
+<span id="chap-transform-vector"></span><h1><span class="section-number">5. </span>Processing unidimensional data<a class="headerlink" href="#processing-unidimensional-data" title="Link to this heading">¶</a></h1>
 <blockquote>
 <div><p><em>This open-access textbook
 is, and will remain, freely available for everyone’s enjoyment
@@ -331,7 +381,7 @@ deviations).</p></li>
 the same operations on individual data frame columns.</p>
 </div>
 <section id="aggregating-numeric-data">
-<span id="sec-aggregate"></span><h2><span class="section-number">5.1. </span>Aggregating numeric data<a class="headerlink" href="#aggregating-numeric-data" title="Link to this heading">#</a></h2>
+<span id="sec-aggregate"></span><h2><span class="section-number">5.1. </span>Aggregating numeric data<a class="headerlink" href="#aggregating-numeric-data" title="Link to this heading">¶</a></h2>
 <p>Recall that in the previous chapter, we discussed
 the <code class="docutils literal notranslate"><span class="pre">heights</span></code> and <code class="docutils literal notranslate"><span class="pre">income</span></code> datasets whose histograms
 we gave in <a class="reference internal" href="210-vector.html#fig-heights-histogram-bins11"><span class="std std-numref">Figure 4.2</span></a>
@@ -362,9 +412,9 @@ as the arithmetic mean and median;</p></li>
 </ul>
 <p>We also introduce <em>box-and-whisker plots</em>.</p>
 <section id="measures-of-location">
-<h3><span class="section-number">5.1.1. </span>Measures of location<a class="headerlink" href="#measures-of-location" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.1.1. </span>Measures of location<a class="headerlink" href="#measures-of-location" title="Link to this heading">¶</a></h3>
 <section id="arithmetic-mean-and-median">
-<h4><span class="section-number">5.1.1.1. </span>Arithmetic mean and median<a class="headerlink" href="#arithmetic-mean-and-median" title="Link to this heading">#</a></h4>
+<h4><span class="section-number">5.1.1.1. </span>Arithmetic mean and median<a class="headerlink" href="#arithmetic-mean-and-median" title="Link to this heading">¶</a></h4>
 <p>Two main measures of <em>central tendency</em> are:</p>
 <ul>
 <li><p><em>the arithmetic mean</em> (sometimes for simplicity called the average or
@@ -453,7 +503,7 @@ we prefer sticking with them.</p>
 </div>
 </section>
 <section id="sensitive-to-outliers-vs-robust">
-<span id="sec-robust-intro-median"></span><h4><span class="section-number">5.1.1.2. </span>Sensitive to outliers vs robust<a class="headerlink" href="#sensitive-to-outliers-vs-robust" title="Link to this heading">#</a></h4>
+<span id="sec-robust-intro-median"></span><h4><span class="section-number">5.1.1.2. </span>Sensitive to outliers vs robust<a class="headerlink" href="#sensitive-to-outliers-vs-robust" title="Link to this heading">¶</a></h4>
 <p>The arithmetic mean is strongly influenced by very large
 or very small observations which, in some contexts, we might refer
 to as <em>outliers</em>; see <a class="reference internal" href="520-missingness.html#sec-outliers"><span class="std std-numref">Section 15.4</span></a>.
@@ -491,7 +541,7 @@ summaries allow us to look at a <em>single</em> data <em>aspect</em> only,
 and there can be many different, valid perspectives. The reality is complex.</p>
 </section>
 <section id="sample-quantiles">
-<span id="sec-quantiles"></span><h4><span class="section-number">5.1.1.3. </span>Sample quantiles<a class="headerlink" href="#sample-quantiles" title="Link to this heading">#</a></h4>
+<span id="sec-quantiles"></span><h4><span class="section-number">5.1.1.3. </span>Sample quantiles<a class="headerlink" href="#sample-quantiles" title="Link to this heading">¶</a></h4>
 <p>Quantiles generalise the notion of the sample median and of the inverse
 of the empirical cumulative distribution function (<a class="reference internal" href="210-vector.html#sec-ecdf"><span class="std std-numref">Section 4.3.8</span></a>).
 They provide us with the value that is not exceeded by the elements
@@ -602,7 +652,7 @@ of whether <span class="math">\(n\)</span> is even or not.</p>
 <figure class="align-default" id="id25">
 <span id="fig-quantile7"></span><img alt="../_images/quantile7-1.png" src="../_images/quantile7-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math">\(q_p\)</span> as a function of <span class="math">\(p\)</span> for example vectors of length 5 (left subfigure) and 6 (right).</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.1 </span><span class="caption-text"><span class="math">\(q_p\)</span> as a function of <span class="math">\(p\)</span> for example vectors of length 5 (left subfigure) and 6 (right).</span><a class="headerlink" href="#id25" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -626,7 +676,7 @@ unless otherwise stated. In many contexts, that is good enough.</p>
 </section>
 </section>
 <section id="measures-of-dispersion">
-<h3><span class="section-number">5.1.2. </span>Measures of dispersion<a class="headerlink" href="#measures-of-dispersion" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.1.2. </span>Measures of dispersion<a class="headerlink" href="#measures-of-dispersion" title="Link to this heading">¶</a></h3>
 <p>Measures of central tendency quantify the location of the
 most <em>typical</em> value (whatever that means, and we already
 know it is complicated). That of dispersion (spread), on the other hand,
@@ -645,7 +695,7 @@ where everyone feels that they are special, is not really sustainable
 <p>Let’s explore the different ways in which we can quantify
 this data aspect.</p>
 <section id="standard-deviation-and-variance">
-<h4><span class="section-number">5.1.2.1. </span>Standard deviation (and variance)<a class="headerlink" href="#standard-deviation-and-variance" title="Link to this heading">#</a></h4>
+<h4><span class="section-number">5.1.2.1. </span>Standard deviation (and variance)<a class="headerlink" href="#standard-deviation-and-variance" title="Link to this heading">¶</a></h4>
 <p>The standard deviation<a class="footnote-reference brackets" href="#footsdbiased" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>,
 is the root mean square distance to the arithmetic mean:</p>
 <div class="math-wrapper docutils container">
@@ -692,7 +742,7 @@ drawback. For many reasons, mathematicians find the square root in the definitio
 the <span class="math">\(s^2\)</span> measure every now and then too.</p>
 </section>
 <section id="interquartile-range">
-<h4><span class="section-number">5.1.2.2. </span>Interquartile range<a class="headerlink" href="#interquartile-range" title="Link to this heading">#</a></h4>
+<h4><span class="section-number">5.1.2.2. </span>Interquartile range<a class="headerlink" href="#interquartile-range" title="Link to this heading">¶</a></h4>
 <p>The interquartile range (IQR) is another popular way to quantify
 data dispersion. It is defined as the difference between the third
 and the first quartile:</p>
@@ -720,7 +770,7 @@ and minimal observation.</p>
 </section>
 </section>
 <section id="measures-of-shape">
-<h3><span class="section-number">5.1.3. </span>Measures of shape<a class="headerlink" href="#measures-of-shape" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.1.3. </span>Measures of shape<a class="headerlink" href="#measures-of-shape" title="Link to this heading">¶</a></h3>
 <p>From a histogram, we can easily read whether a dataset is
 symmetric or skewed. It turns out that such a data characteristic
 can be easily quantified. Namely, the <em>skewness</em> is given by:</p>
@@ -775,7 +825,7 @@ compare <strong class="command">scipy.stats.kurtosis</strong>.</p>
 </div>
 </section>
 <section id="box-and-whisker-plots">
-<span id="sec-boxplot"></span><h3><span class="section-number">5.1.4. </span>Box (and whisker) plots<a class="headerlink" href="#box-and-whisker-plots" title="Link to this heading">#</a></h3>
+<span id="sec-boxplot"></span><h3><span class="section-number">5.1.4. </span>Box (and whisker) plots<a class="headerlink" href="#box-and-whisker-plots" title="Link to this heading">¶</a></h3>
 <p>A <em>box-and-whisker</em> plot (<em>box plot</em> for short)
 depicts many noteworthy features of a data sample all at the same time.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># two rows, one column; the first subplot</span>
@@ -790,7 +840,7 @@ depicts many noteworthy features of a data sample all at the same time.</p>
 <figure class="align-default" id="id26">
 <span id="fig-boxplot-income-heights"></span><img alt="../_images/boxplot-income-heights-3.png" src="../_images/boxplot-income-heights-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box plots.</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.2 </span><span class="caption-text">Example box plots.</span><a class="headerlink" href="#id26" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Each box plot (compare <a class="reference internal" href="#fig-boxplot-income-heights"><span class="std std-numref">Figure 5.2</span></a>)
@@ -875,12 +925,12 @@ version of a histogram; see <a class="reference internal" href="520-missingness.
 <figure class="align-default" id="id29">
 <span id="fig-violinplot-income"></span><img alt="../_images/violinplot-income-5.png" src="../_images/violinplot-income-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.3 </span><span class="caption-text">Example violin plots.</span><a class="headerlink" href="#id29" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.3 </span><span class="caption-text">Example violin plots.</span><a class="headerlink" href="#id29" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></div></section>
 <section id="other-aggregation-methods">
-<h3><span class="section-number">5.1.5. </span>Other aggregation methods (*)<a class="headerlink" href="#other-aggregation-methods" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.1.5. </span>Other aggregation methods (*)<a class="headerlink" href="#other-aggregation-methods" title="Link to this heading">¶</a></h3>
 <p>We said that the arithmetic mean is overly sensitive to extreme observations.
 The sample median is an example of a <em>robust</em> aggregate: it ignores
 all but 1–2 middle observations (we say it has
@@ -956,7 +1006,7 @@ of the summaries for the case of multidimensional data.</p>
 </section>
 </section>
 <section id="vectorised-mathematical-functions">
-<span id="sec-vecfun"></span><h2><span class="section-number">5.2. </span>Vectorised mathematical functions<a class="headerlink" href="#vectorised-mathematical-functions" title="Link to this heading">#</a></h2>
+<span id="sec-vecfun"></span><h2><span class="section-number">5.2. </span>Vectorised mathematical functions<a class="headerlink" href="#vectorised-mathematical-functions" title="Link to this heading">¶</a></h2>
 <p><strong class="program">numpy</strong>, just like any other comprehensive numerical computing environment (e.g., R, GNU Octave, Scilab, and Julia),
 gives access to many mathematical functions:</p>
 <ul class="simple">
@@ -1007,7 +1057,7 @@ the generally slow Python-level <strong class="command">while</strong> or <stron
 to traverse through each element in a given sequence.</p>
 </div>
 <section id="logarithms-and-exponential-functions">
-<h3><span class="section-number">5.2.1. </span>Logarithms and exponential functions<a class="headerlink" href="#logarithms-and-exponential-functions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.2.1. </span>Logarithms and exponential functions<a class="headerlink" href="#logarithms-and-exponential-functions" title="Link to this heading">¶</a></h3>
 <p>Let’s list some well-known properties of the natural logarithm
 and its inverse, the exponential function.
 By convention, Euler’s number <span class="math">\(e \simeq 2.718\)</span>,
@@ -1041,7 +1091,7 @@ On the other hand, <span class="math">\(e^x\to 0\)</span>  as <span class="math"
 <figure class="align-default" id="id30">
 <span id="fig-log-exp"></span><img alt="../_images/log-exp-7.png" src="../_images/log-exp-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right).</span><a class="headerlink" href="#id30" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.4 </span><span class="caption-text">The natural logarithm (left) and the exponential function (right).</span><a class="headerlink" href="#id30" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Logarithms of different bases and non-natural exponential functions are
@@ -1053,10 +1103,9 @@ For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mf">10.0</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># exponentiation; see below</span>
 <span class="c1">## array([  0.1,   1. ,  10. , 100. ])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
+<span class="c1">## &lt;string&gt;:1: RuntimeWarning: invalid value encountered in log10</span>
 <span class="c1">## array([     nan, -2.     , -1.     ,  0.     ,  0.30103,  0.69897,</span>
 <span class="c1">##         1.     ,  2.     ,  3.     ,  4.     ])</span>
-<span class="c1">## </span>
-<span class="c1">## &lt;string&gt;:1: RuntimeWarning: invalid value encountered in log10</span>
 </pre></div>
 </div>
 <p>Take note of the warning and the not-a-number (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>) generated.</p>
@@ -1073,7 +1122,7 @@ For example:</p>
 linear.</p>
 </div></div></section>
 <section id="trigonometric-functions">
-<h3><span class="section-number">5.2.2. </span>Trigonometric functions<a class="headerlink" href="#trigonometric-functions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.2.2. </span>Trigonometric functions<a class="headerlink" href="#trigonometric-functions" title="Link to this heading">¶</a></h3>
 <p>The trigonometric functions in <strong class="program">numpy</strong> accept angles in radians.
 If <span class="math">\(x\)</span> is the degree in angles, then to compute its
 cosine, we should instead write <span class="math">\(\cos (x \pi /180)\)</span>.</p>
@@ -1093,7 +1142,7 @@ cosine, we should instead write <span class="math">\(\cos (x \pi /180)\)</span>.
 <figure class="align-default" id="id32">
 <span id="fig-cos"></span><img alt="../_images/cos-9.png" src="../_images/cos-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine and the sine functions.</span><a class="headerlink" href="#id32" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.5 </span><span class="caption-text">The cosine and the sine functions.</span><a class="headerlink" href="#id32" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Some identities worth memorising, which we shall refer to later:</p>
@@ -1107,14 +1156,14 @@ cosine, we should instead write <span class="math">\(\cos (x \pi /180)\)</span>.
 </section>
 </section>
 <section id="arithmetic-operators">
-<h2><span class="section-number">5.3. </span>Arithmetic operators<a class="headerlink" href="#arithmetic-operators" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>Arithmetic operators<a class="headerlink" href="#arithmetic-operators" title="Link to this heading">¶</a></h2>
 <p>We can apply the standard binary (two-argument) arithmetic operators
 `<strong class="command">+</strong>`, `<strong class="command">-</strong>`, `<strong class="command">*</strong>`,
 `<strong class="command">/</strong>`, `<strong class="command">**</strong>`, `<strong class="command">%</strong>`, and
 `<strong class="command">//</strong>` on vectors too.
 Beneath we discuss the possible cases of the operands’ lengths.</p>
 <section id="vector-scalar-case">
-<h3><span class="section-number">5.3.1. </span>Vector-scalar case<a class="headerlink" href="#vector-scalar-case" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>Vector-scalar case<a class="headerlink" href="#vector-scalar-case" title="Link to this heading">¶</a></h3>
 <p>Often, we will be referring to the binary operators
 in contexts where one operand is a vector and the other is a single
 value (scalar). For example:</p>
@@ -1141,7 +1190,7 @@ c \boldsymbol{x} + t = (cx_1+t, cx_2+t, \dots, cx_n+t).
 which is equivalent to <span class="math">\((1/c) \boldsymbol{x} + (-t/c)\)</span>.</p>
 </section>
 <section id="application-feature-scaling">
-<span id="sec-standardisation"></span><h3><span class="section-number">5.3.2. </span>Application: Feature scaling<a class="headerlink" href="#application-feature-scaling" title="Link to this heading">#</a></h3>
+<span id="sec-standardisation"></span><h3><span class="section-number">5.3.2. </span>Application: Feature scaling<a class="headerlink" href="#application-feature-scaling" title="Link to this heading">¶</a></h3>
 <p>Vector-scalar operations and aggregation functions are the basis
 for the popular <em>feature scalers</em> that we discuss in the sequel:</p>
 <ul class="simple">
@@ -1154,15 +1203,15 @@ bringing them onto a common, unitless scale.
 They might also be essential when computing
 pairwise distances between multidimensional points; see
 <a class="reference internal" href="320-transform-matrix.html#sec-distances"><span class="std std-numref">Section 8.4</span></a>.</p>
-<p>These transformations are <em>linear</em>, i.e., are of the form
-<span class="math">\(\boldsymbol{y}=c \boldsymbol{x}+t\)</span>.
+<p>These transformations are of the form <span class="math">\(\boldsymbol{y}=c \boldsymbol{x}+t\)</span>,
+i.e., they are <em>affine</em>.
 We can interpret them geometrically as scaling
 (stretching or shrinking) and shifting (translating);
 see <a class="reference internal" href="#fig-scale-shift"><span class="std std-numref">Figure 5.6</span></a> for an illustration.</p>
 <figure class="align-default" id="id33">
 <span id="fig-scale-shift"></span><img alt="../_images/scale-shift-11.png" src="../_images/scale-shift-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of an example vector.</span><a class="headerlink" href="#id33" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.6 </span><span class="caption-text">Scaled and shifted versions of an example vector.</span><a class="headerlink" href="#id33" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -1183,7 +1232,7 @@ The same happens for the interquartile range and the range.</p></li>
 <p>As a byproduct, for the variance, we get <span class="math">\(s_y^2 = c^2 s_x^2\)</span>.</p>
 </div>
 <section id="standardisation-and-z-scores">
-<h4><span class="section-number">5.3.2.1. </span>Standardisation and z-scores<a class="headerlink" href="#standardisation-and-z-scores" title="Link to this heading">#</a></h4>
+<h4><span class="section-number">5.3.2.1. </span>Standardisation and z-scores<a class="headerlink" href="#standardisation-and-z-scores" title="Link to this heading">¶</a></h4>
 <p>A <em>standardised</em> version of a vector <span class="math">\(\boldsymbol{x}=(x_1,\dots,x_n)\)</span>
 consists in subtracting, from each element, the sample arithmetic mean
 (which we call <em>centring</em>) and then dividing it by the standard deviation,
@@ -1260,7 +1309,7 @@ In such a case, we can replace the mean with the median
 and the standard deviation with the IQR.</p>
 </section>
 <section id="min-max-scaling-and-clipping">
-<h4><span class="section-number">5.3.2.2. </span>Min-max scaling and clipping<a class="headerlink" href="#min-max-scaling-and-clipping" title="Link to this heading">#</a></h4>
+<h4><span class="section-number">5.3.2.2. </span>Min-max scaling and clipping<a class="headerlink" href="#min-max-scaling-and-clipping" title="Link to this heading">¶</a></h4>
 <p>A less frequently but still noteworthy transformation
 is called <em>min-max scaling</em> and
 involves subtracting the minimum
@@ -1289,7 +1338,7 @@ minimum and maximum functions:</p>
 </div>
 </section>
 <section id="normalisation-l-2-dividing-by-magnitude">
-<span id="sec-normalisation"></span><h4><span class="section-number">5.3.2.3. </span>Normalisation (<span class="math">\(l_2\)</span>; dividing by magnitude)<a class="headerlink" href="#normalisation-l-2-dividing-by-magnitude" title="Link to this heading">#</a></h4>
+<span id="sec-normalisation"></span><h4><span class="section-number">5.3.2.3. </span>Normalisation (<span class="math">\(l_2\)</span>; dividing by magnitude)<a class="headerlink" href="#normalisation-l-2-dividing-by-magnitude" title="Link to this heading">¶</a></h4>
 <p><em>Normalisation</em> is the scaling of a given vector so that it is of
 <em>unit length</em>. Usually, by <em>length</em> we mean the square root of the sum of
 squares, i.e., the Euclidean (<span class="math">\(l_2\)</span>) norm also known as the <em>magnitude</em>:</p>
@@ -1345,7 +1394,7 @@ as we only scale (stretch or shrink) the observations here.</p>
 </div>
 </section>
 <section id="normalisation-l-1-dividing-by-sum">
-<h4><span class="section-number">5.3.2.4. </span>Normalisation (<span class="math">\(l_1\)</span>; dividing by sum)<a class="headerlink" href="#normalisation-l-1-dividing-by-sum" title="Link to this heading">#</a></h4>
+<h4><span class="section-number">5.3.2.4. </span>Normalisation (<span class="math">\(l_1\)</span>; dividing by sum)<a class="headerlink" href="#normalisation-l-1-dividing-by-sum" title="Link to this heading">¶</a></h4>
 <p>At other times, we might be interested in considering
 the Manhattan (<span class="math">\(l_1\)</span>) norm:</p>
 <div class="math-wrapper docutils container">
@@ -1385,7 +1434,7 @@ or <em>proportions</em>: values between 0 and 1 which sum to 1 (or, equivalently
 </div></div></section>
 </section>
 <section id="vector-vector-case">
-<h3><span class="section-number">5.3.3. </span>Vector-vector case<a class="headerlink" href="#vector-vector-case" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.3.3. </span>Vector-vector case<a class="headerlink" href="#vector-vector-case" title="Link to this heading">¶</a></h3>
 <p>We have been applying `<strong class="command">*</strong>`, `<strong class="command">+</strong>`, etc.,
 so far on vectors and scalars only.
 All arithmetic operators can also be applied on two vectors of equal lengths.
@@ -1457,7 +1506,7 @@ to draw what we see in <a class="reference internal" href="#fig-vectorised-easy"
 <figure class="align-default" id="id39">
 <span id="fig-vectorised-easy"></span><img alt="../_images/vectorised-easy-13.png" src="../_images/vectorised-easy-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one. We used different line styles so that the plot is readable also when printed in black and white.</span><a class="headerlink" href="#id39" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 5.7 </span><span class="caption-text">With vectorised functions, it is easy to generate plots like this one. We used different line styles so that the plot is readable also when printed in black and white.</span><a class="headerlink" href="#id39" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Decreasing the number of points in <code class="docutils literal notranslate"><span class="pre">x</span></code> will reveal that the
@@ -1479,7 +1528,7 @@ person.</p>
 </div></div></section>
 </section>
 <section id="indexing-vectors">
-<span id="sec-vector-indexing"></span><h2><span class="section-number">5.4. </span>Indexing vectors<a class="headerlink" href="#indexing-vectors" title="Link to this heading">#</a></h2>
+<span id="sec-vector-indexing"></span><h2><span class="section-number">5.4. </span>Indexing vectors<a class="headerlink" href="#indexing-vectors" title="Link to this heading">¶</a></h2>
 <p>Recall from <a class="reference internal" href="130-sequential.html#sec-extract-elem"><span class="std std-numref">Section 3.2.1</span></a> and <a class="reference internal" href="130-sequential.html#sec-slicing"><span class="std std-numref">Section 3.2.2</span></a>
 that sequential objects in Python (lists, tuples, strings, ranges)
 support indexing by scalars and slices:</p>
@@ -1493,7 +1542,7 @@ support indexing by scalars and slices:</p>
 <p><strong class="program">numpy</strong> vectors support two <em>additional</em> indexer types:
 integer and boolean sequences.</p>
 <section id="integer-indexing">
-<h3><span class="section-number">5.4.1. </span>Integer indexing<a class="headerlink" href="#integer-indexing" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.1. </span>Integer indexing<a class="headerlink" href="#integer-indexing" title="Link to this heading">¶</a></h3>
 <p>Indexing with a single integer <em>extracts</em>
 a particular element:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
@@ -1521,7 +1570,7 @@ as <code class="docutils literal notranslate"><span class="pre">x[[0]]</span></c
 Nah, it is a list inside the index operator.)</p>
 </section>
 <section id="logical-indexing">
-<h3><span class="section-number">5.4.2. </span>Logical indexing<a class="headerlink" href="#logical-indexing" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.2. </span>Logical indexing<a class="headerlink" href="#logical-indexing" title="Link to this heading">¶</a></h3>
 <p>Subsetting using a logical vector of the same length as the indexed
 vector is possible too:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span> <span class="p">]</span>
@@ -1590,7 +1639,7 @@ or greater than 35 (are not between 15 and 35).</p>
 <p>Compute the BMIs only of the women whose height is between 150 and 170 cm.</p>
 </div></div></section>
 <section id="slicing">
-<h3><span class="section-number">5.4.3. </span>Slicing<a class="headerlink" href="#slicing" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.4.3. </span>Slicing<a class="headerlink" href="#slicing" title="Link to this heading">¶</a></h3>
 <p>Just as with ordinary lists, slicing with `<strong class="command">:</strong>`
 fetches the elements at indexes in a given range like <code class="docutils literal notranslate"><span class="pre">from:to</span></code>
 or <code class="docutils literal notranslate"><span class="pre">from:to:by</span></code>.</p>
@@ -1640,9 +1689,9 @@ because setting elements at specific indexes is always possible:</p>
 </section>
 </section>
 <section id="other-operations">
-<h2><span class="section-number">5.5. </span>Other operations<a class="headerlink" href="#other-operations" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>Other operations<a class="headerlink" href="#other-operations" title="Link to this heading">¶</a></h2>
 <section id="cumulative-sums-and-iterated-differences">
-<span id="sec-cumsum"></span><h3><span class="section-number">5.5.1. </span>Cumulative sums and iterated differences<a class="headerlink" href="#cumulative-sums-and-iterated-differences" title="Link to this heading">#</a></h3>
+<span id="sec-cumsum"></span><h3><span class="section-number">5.5.1. </span>Cumulative sums and iterated differences<a class="headerlink" href="#cumulative-sums-and-iterated-differences" title="Link to this heading">¶</a></h3>
 <p>Recall that the `<strong class="command">+</strong>` operator acts on two vectors elementwisely
 and that the <strong class="command">numpy.sum</strong> function aggregates all values into
 a single one. We have a similar function, but vectorised
@@ -1669,7 +1718,7 @@ processing time series, e.g., stock exchange data
 or determining cumulative distribution functions (<a class="reference internal" href="210-vector.html#sec-ecdf"><span class="std std-numref">Section 4.3.8</span></a>).</p>
 </section>
 <section id="sorting">
-<h3><span class="section-number">5.5.2. </span>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.5.2. </span>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">¶</a></h3>
 <p>The <strong class="command">numpy.sort</strong> function returns a sorted copy
 of a given vector, i.e., determines the order statistics.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
@@ -1697,7 +1746,7 @@ should give <strong class="command">numpy.random.permutation</strong> a try: it
 shuffles the elements in a given vector.</p>
 </div></div></section>
 <section id="dealing-with-tied-observations">
-<span id="sec-ties"></span><h3><span class="section-number">5.5.3. </span>Dealing with tied observations<a class="headerlink" href="#dealing-with-tied-observations" title="Link to this heading">#</a></h3>
+<span id="sec-ties"></span><h3><span class="section-number">5.5.3. </span>Dealing with tied observations<a class="headerlink" href="#dealing-with-tied-observations" title="Link to this heading">¶</a></h3>
 <p>Some statistical methods, especially for continuous data<a class="footnote-reference brackets" href="#footconttie" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>,
 assume that all observations in a vector are unique, i.e.,
 there are no <em>ties</em>. In real life, however, some values
@@ -1735,7 +1784,7 @@ It permits pinpointing the indexes of the first occurrences
 of each unique value.</p>
 </div></div></section>
 <section id="determining-the-ordering-permutation-and-ranking">
-<h3><span class="section-number">5.5.4. </span>Determining the ordering permutation and ranking<a class="headerlink" href="#determining-the-ordering-permutation-and-ranking" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.5.4. </span>Determining the ordering permutation and ranking<a class="headerlink" href="#determining-the-ordering-permutation-and-ranking" title="Link to this heading">¶</a></h3>
 <p><strong class="command">numpy.argsort</strong> returns a sequence of indexes that
 lead to an ordered version of a given vector
 (i.e., an ordering permutation).</p>
@@ -1805,7 +1854,7 @@ is equivalent to
 </div>
 </section>
 <section id="searching-for-certain-indexes-argmin-argmax">
-<h3><span class="section-number">5.5.5. </span>Searching for certain indexes (argmin, argmax)<a class="headerlink" href="#searching-for-certain-indexes-argmin-argmax" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.5.5. </span>Searching for certain indexes (argmin, argmax)<a class="headerlink" href="#searching-for-certain-indexes-argmin-argmax" title="Link to this heading">¶</a></h3>
 <p><strong class="command">numpy.argmin</strong> and <strong class="command">numpy.argmax</strong> return the index at
 which we can find the smallest and the largest observation
 in a given vector.</p>
@@ -1855,7 +1904,7 @@ Create an expression that returns a randomly chosen index
 pinpointing one of the sample maxima.</p>
 </div></div></section>
 <section id="dealing-with-round-off-and-measurement-errors">
-<span id="sec-fp-error"></span><h3><span class="section-number">5.5.6. </span>Dealing with round-off and measurement errors<a class="headerlink" href="#dealing-with-round-off-and-measurement-errors" title="Link to this heading">#</a></h3>
+<span id="sec-fp-error"></span><h3><span class="section-number">5.5.6. </span>Dealing with round-off and measurement errors<a class="headerlink" href="#dealing-with-round-off-and-measurement-errors" title="Link to this heading">¶</a></h3>
 <p>Mathematics tells us (the easy proof is left as an exercise for the reader)
 that a centred version of a given vector
 <span class="math">\(\boldsymbol{x}\)</span>, <span class="math">\(\boldsymbol{y} = \boldsymbol{x}-\bar{x}\)</span>,
@@ -1975,7 +2024,7 @@ inaccuracies is <span id="id17">[<a class="reference internal" href="999-bibliog
 for a more comprehensive treatment of numerical analysis.</p>
 </section>
 <section id="vectorising-scalar-operations-with-list-comprehensions">
-<span id="sec-list-comprehension"></span><h3><span class="section-number">5.5.7. </span>Vectorising scalar operations with list comprehensions<a class="headerlink" href="#vectorising-scalar-operations-with-list-comprehensions" title="Link to this heading">#</a></h3>
+<span id="sec-list-comprehension"></span><h3><span class="section-number">5.5.7. </span>Vectorising scalar operations with list comprehensions<a class="headerlink" href="#vectorising-scalar-operations-with-list-comprehensions" title="Link to this heading">¶</a></h3>
 <p><em>List comprehensions</em> of the form
 <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">expression</span> </code><strong class="command">for</strong><code class="code docutils literal notranslate"> <span class="pre">name</span> </code><strong class="command">in</strong><code class="code docutils literal notranslate"> <span class="pre">iterable</span> <span class="pre">]</span></code>
 are part of base Python.
@@ -2050,7 +2099,7 @@ of different approaches on large vectors.</p>
 </div></div></section>
 </section>
 <section id="exercises">
-<h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
 <div class="proof proof-type-exercise" id="id49">
 
     <div class="proof-title">
@@ -2314,7 +2363,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-05-28T10:08:07+0200.
+              Last updated on 2024-07-19T12:46:41+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2399,12 +2448,12 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=d0e60088"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
     <script src="../_static/proof.js"></script>
-    <script src="../_static/katex.min.js?v=deb2f140"></script>
-    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex.min.js?v=be8ff15f"></script>
+    <script src="../_static/auto-render.min.js?v=ad136472"></script>
     <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

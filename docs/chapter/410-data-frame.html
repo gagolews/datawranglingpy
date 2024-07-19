@@ -28,12 +28,12 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="11. Handling categorical data" href="420-categorical.html" /><link rel="prev" title="9. Exploring relationships between variables" href="330-relationship.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/410-data-frame.html" />
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>10. Introducing data frames - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1e0fcfc0" />
@@ -107,7 +107,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -122,7 +122,7 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
@@ -130,7 +130,7 @@
   <symbol id="svg-sun-half" viewBox="0 0 24 24">
     <title>Auto light/dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <circle cx="12" cy="12" r="9" />
       <path d="M13 12h5" />
@@ -138,6 +138,60 @@
       <path d="M13 18h1" />
       <path d="M13 9h4" />
       <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
@@ -269,11 +323,7 @@ v1.0.3.9107
         <div class="content-icon-container">
           <div class="edit-this-page">
   <a class="muted-link" href="https://github.com/gagolews/datawranglingpy" title="Edit this page">
-    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-    </svg>
+    <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
 </div><div class="theme-toggle-container theme-toggle-content">
@@ -291,7 +341,7 @@ v1.0.3.9107
         </div>
         <article role="main">
           <section class="tex2jax_ignore mathjax_ignore" id="introducing-data-frames">
-<span id="chap-data-frame"></span><h1><span class="section-number">10. </span>Introducing data frames<a class="headerlink" href="#introducing-data-frames" title="Link to this heading">#</a></h1>
+<span id="chap-data-frame"></span><h1><span class="section-number">10. </span>Introducing data frames<a class="headerlink" href="#introducing-data-frames" title="Link to this heading">¶</a></h1>
 <blockquote>
 <div><p><em>This open-access textbook
 is, and will remain, freely available for everyone’s enjoyment
@@ -358,7 +408,7 @@ processing using fast, lower-level C/C++/Fortran routines.</p>
 But there is more, hence this part.</p>
 </div>
 <section id="creating-data-frames">
-<h2><span class="section-number">10.1. </span>Creating data frames<a class="headerlink" href="#creating-data-frames" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.1. </span>Creating data frames<a class="headerlink" href="#creating-data-frames" title="Link to this heading">¶</a></h2>
 <p>Data frames can be created, amongst others,
 using the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> class constructor, which
 can be fed, for example, with a <strong class="program">numpy</strong> matrix:</p>
@@ -454,7 +504,7 @@ and <code class="docutils literal notranslate"><span class="pre">nrows</span></c
 On a side note, sampling is mentioned in <a class="reference internal" href="#sec-random-sampling"><span class="std std-numref">Section 10.5.4</span></a>
 and chunking in <a class="reference internal" href="440-sql.html#sec-data-export"><span class="std std-numref">Section 13.2</span></a>.</p>
 </div></div><section id="data-frames-are-matrix-like">
-<h3><span class="section-number">10.1.1. </span>Data frames are matrix-like<a class="headerlink" href="#data-frames-are-matrix-like" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.1.1. </span>Data frames are matrix-like<a class="headerlink" href="#data-frames-are-matrix-like" title="Link to this heading">¶</a></h3>
 <p>Data frames are modelled through <strong class="program">numpy</strong> matrices.
 We can thus already feel quite at home with them.</p>
 <p>For example, a data frame, it is easy to fetch its number of rows
@@ -478,7 +528,7 @@ and columns:</p>
 <p>Recall that  <strong class="program">numpy</strong> arrays are equipped with the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> slot.</p>
 </section>
 <section id="series">
-<h3><span class="section-number">10.1.2. </span><code class="docutils literal notranslate"><span class="pre">Series</span></code><a class="headerlink" href="#series" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.1.2. </span><code class="docutils literal notranslate"><span class="pre">Series</span></code><a class="headerlink" href="#series" title="Link to this heading">¶</a></h3>
 <p>There is a separate class for storing individual data frame
 columns: it is called <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;a&quot;</span><span class="p">]</span>  <span class="c1"># extract the `a` column; alternatively: df.a</span>
@@ -573,7 +623,7 @@ as the <code class="docutils literal notranslate"><span class="pre">name</span><
 </div>
 </section>
 <section id="index">
-<span id="sec-df-index"></span><h3><span class="section-number">10.1.3. </span><code class="docutils literal notranslate"><span class="pre">Index</span></code><a class="headerlink" href="#index" title="Link to this heading">#</a></h3>
+<span id="sec-df-index"></span><h3><span class="section-number">10.1.3. </span><code class="docutils literal notranslate"><span class="pre">Index</span></code><a class="headerlink" href="#index" title="Link to this heading">¶</a></h3>
 <p>Another important class is called <code class="docutils literal notranslate"><span class="pre">Index</span></code><a class="footnote-reference brackets" href="#footindex" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
 We use it for storing element or axes labels.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">index</span></code> (lowercase) <em>slot</em> of a data frame stores an
@@ -623,9 +673,8 @@ to make a data frame column act as a sequence of row labels:</p>
 <span class="c1">## eggs   0.72  NaN   True     E 2025-05-05                [ham]</span>
 </pre></div>
 </div>
-<p>Having a named <code class="docutils literal notranslate"><span class="pre">index</span></code> slot is handy when we decide
-that we want to convert the vector of row labels back
-to a standalone column:</p>
+<p>Having a named <code class="docutils literal notranslate"><span class="pre">index</span></code> slot is handy when converting a vector
+of row labels back to a standalone column:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;NEW_COLUMN&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##   NEW_COLUMN     a    b      c     d          f                    g</span>
 <span class="c1">## 0       spam  0.70  1.0   True     A 2021-01-01               [spam]</span>
@@ -635,7 +684,19 @@ to a standalone column:</p>
 <span class="c1">## 4       eggs  0.72  NaN   True     E 2025-05-05                [ham]</span>
 </pre></div>
 </div>
-<p>There is also an option to get rid of the current <code class="docutils literal notranslate"><span class="pre">index</span></code>
+<p>But we can also do it this way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s2">&quot;Spanish Inquisition&quot;</span><span class="p">)</span>
+<span class="c1">##   Spanish Inquisition     a    b  ...     d          f                    g</span>
+<span class="c1">## 0                spam  0.70  1.0  ...     A 2021-01-01               [spam]</span>
+<span class="c1">## 1                spam  0.29  2.5  ...     B 2022-02-02        [bacon, spam]</span>
+<span class="c1">## 2               bacon  0.23  NaN  ...     C 2023-03-03                 None</span>
+<span class="c1">## 3                spam  0.55  4.0  ...  None 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## 4                eggs  0.72  NaN  ...     E 2025-05-05                [ham]</span>
+<span class="c1">## </span>
+<span class="c1">## [5 rows x 7 columns]</span>
+</pre></div>
+</div>
+<p>There is also an option to drop the current <code class="docutils literal notranslate"><span class="pre">index</span></code> whatsoever
 and to replace it with the default label sequence, i.e.,
 0, 1, 2, …:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -725,7 +786,7 @@ If we do not fancy it, <strong class="command">reset_index</strong> comes to our
 </div></div></section>
 </section>
 <section id="aggregating-data-frames">
-<h2><span class="section-number">10.2. </span>Aggregating data frames<a class="headerlink" href="#aggregating-data-frames" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.2. </span>Aggregating data frames<a class="headerlink" href="#aggregating-data-frames" title="Link to this heading">¶</a></h2>
 <p>Here is another toy data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
@@ -822,7 +883,7 @@ but please do not blame the messenger.</p>
 </div>
 </section>
 <section id="transforming-data-frames">
-<h2><span class="section-number">10.3. </span>Transforming data frames<a class="headerlink" href="#transforming-data-frames" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.3. </span>Transforming data frames<a class="headerlink" href="#transforming-data-frames" title="Link to this heading">¶</a></h2>
 <p>By applying the already well-known vectorised mathematical
 functions from <strong class="program">numpy</strong>, we can transform each data cell
 and return an object of the same type as the input one.</p>
@@ -965,7 +1026,7 @@ However, we need to be aware of this (yet another) incompatibility between
 the two packages.</p>
 </div></div></section>
 <section id="indexing-series-objects">
-<span id="sec-series-indexing"></span><h2><span class="section-number">10.4. </span>Indexing <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects<a class="headerlink" href="#indexing-series-objects" title="Link to this heading">#</a></h2>
+<span id="sec-series-indexing"></span><h2><span class="section-number">10.4. </span>Indexing <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects<a class="headerlink" href="#indexing-series-objects" title="Link to this heading">¶</a></h2>
 <p>Recall that each <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> object
 is equipped with a slot called <code class="docutils literal notranslate"><span class="pre">index</span></code>, which is
 an object of the class <code class="docutils literal notranslate"><span class="pre">Index</span></code> (or subclass thereof),
@@ -1026,7 +1087,7 @@ a slice, an integer vector, and a logical vector.
 they can also be accessed through the contents of the <code class="docutils literal notranslate"><span class="pre">index</span></code> slot.</p>
 </div>
 <section id="do-not-use-directly-in-the-current-version-of-pandas">
-<h3><span class="section-number">10.4.1. </span>Do not use <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly (in the current version of <strong class="program">pandas</strong>)<a class="headerlink" href="#do-not-use-directly-in-the-current-version-of-pandas" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.4.1. </span>Do not use <code class="docutils literal notranslate"><span class="pre">[...]</span></code> directly (in the current version of <strong class="program">pandas</strong>)<a class="headerlink" href="#do-not-use-directly-in-the-current-version-of-pandas" title="Link to this heading">¶</a></h3>
 <p>Applying the index operator,
 <code class="docutils literal notranslate"><span class="pre">[...]</span></code>, directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> is currently not a wise idea:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># do not use it</span>
@@ -1062,7 +1123,7 @@ currently serves as a label-based selector of columns only.</p>
 </div>
 </section>
 <section id="loc">
-<h3><span class="section-number">10.4.2. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.4.2. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc" title="Link to this heading">¶</a></h3>
 <p><strong class="command">Series.loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> implements label-based indexing.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="c1">## 0.39</span>
@@ -1127,7 +1188,7 @@ we will be returning <em>all</em> (sic!<a class="footnote-reference brackets" hr
 </div>
 </section>
 <section id="iloc">
-<h3><span class="section-number">10.4.3. </span><strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#iloc" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.4.3. </span><strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#iloc" title="Link to this heading">¶</a></h3>
 <p>Here are some examples of position-based indexing with
 the <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> accessor.
 It is worth stressing that, fortunately, its behaviour
@@ -1153,7 +1214,7 @@ For example:</p>
 (not including <code class="docutils literal notranslate"><span class="pre">b.iloc[7]</span></code>, i.e., the eight one).</p>
 </section>
 <section id="logical-indexing">
-<h3><span class="section-number">10.4.4. </span>Logical indexing<a class="headerlink" href="#logical-indexing" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.4.4. </span>Logical indexing<a class="headerlink" href="#logical-indexing" title="Link to this heading">¶</a></h3>
 <p>Indexing using a logical vector-like object is also available.
 For this purpose, we will usually be using <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code>
 with either a logical <code class="docutils literal notranslate"><span class="pre">Series</span></code> object of identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slot
@@ -1170,9 +1231,9 @@ e.g., be an ordinary <strong class="program">numpy</strong> vector.</p>
 </section>
 </section>
 <section id="indexing-data-frames">
-<span id="sec-df-indexing"></span><h2><span class="section-number">10.5. </span>Indexing data frames<a class="headerlink" href="#indexing-data-frames" title="Link to this heading">#</a></h2>
+<span id="sec-df-indexing"></span><h2><span class="section-number">10.5. </span>Indexing data frames<a class="headerlink" href="#indexing-data-frames" title="Link to this heading">¶</a></h2>
 <section id="loc-and-iloc">
-<h3><span class="section-number">10.5.1. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc-and-iloc" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.5.1. </span><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> and <strong class="command">iloc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code><a class="headerlink" href="#loc-and-iloc" title="Link to this heading">¶</a></h3>
 <p>For data frames, <code class="docutils literal notranslate"><span class="pre">iloc</span></code> and <code class="docutils literal notranslate"><span class="pre">loc</span></code> can be applied too.
 Now, however, they require <em>two</em> arguments: a row and a column
 selector. For example:</p>
@@ -1292,7 +1353,7 @@ dataset, select data on male customers where the total bills were in the
 the tips were greater than $5.</p>
 </div></div></section>
 <section id="adding-rows-and-columns">
-<h3><span class="section-number">10.5.2. </span>Adding rows and columns<a class="headerlink" href="#adding-rows-and-columns" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.5.2. </span>Adding rows and columns<a class="headerlink" href="#adding-rows-and-columns" title="Link to this heading">¶</a></h3>
 <p><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> can also be used to add new columns to an
 existing data frame:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># or df.loc[:, &quot;y&quot;] = df.u**2</span>
@@ -1329,7 +1390,7 @@ to add a new column not necessarily at the end of <code class="docutils literal 
 to add a few more rows to <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
 </div></div></section>
 <section id="modifying-items">
-<h3><span class="section-number">10.5.3. </span>Modifying items<a class="headerlink" href="#modifying-items" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.5.3. </span>Modifying items<a class="headerlink" href="#modifying-items" title="Link to this heading">¶</a></h3>
 <p>In the current version of <strong class="program">pandas</strong>, modifying particular elements
 gives a warning:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># the same as df.u.iloc[0] = 7</span>
@@ -1350,7 +1411,7 @@ modify it, and then to replace the old contents with the new ones.</p>
 </div>
 </section>
 <section id="pseudorandom-sampling-and-splitting">
-<span id="sec-random-sampling"></span><h3><span class="section-number">10.5.4. </span>Pseudorandom sampling and splitting<a class="headerlink" href="#pseudorandom-sampling-and-splitting" title="Link to this heading">#</a></h3>
+<span id="sec-random-sampling"></span><h3><span class="section-number">10.5.4. </span>Pseudorandom sampling and splitting<a class="headerlink" href="#pseudorandom-sampling-and-splitting" title="Link to this heading">¶</a></h3>
 <p>As a simple application of what we have covered so far, let’s consider
 some ways to sample several rows from an existing data frame.
 We may need them, e.g., when our datasets are too large to fit into memory
@@ -1476,7 +1537,7 @@ in stemming from randomly partitioning <code class="docutils literal notranslate
 equal (or almost equal if that is not possible) sizes.</p>
 </div></div></section>
 <section id="hierarchical-indexes">
-<h3><span class="section-number">10.5.5. </span>Hierarchical indexes (*)<a class="headerlink" href="#hierarchical-indexes" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.5.5. </span>Hierarchical indexes (*)<a class="headerlink" href="#hierarchical-indexes" title="Link to this heading">¶</a></h3>
 <p>Consider a data frame with a hierarchical index:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
@@ -1572,13 +1633,13 @@ a slice in any context:</p>
 </section>
 </section>
 <section id="further-operations-on-data-frames">
-<h2><span class="section-number">10.6. </span>Further operations on data frames<a class="headerlink" href="#further-operations-on-data-frames" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.6. </span>Further operations on data frames<a class="headerlink" href="#further-operations-on-data-frames" title="Link to this heading">¶</a></h2>
 <p>One of the many roles of data frames is to represent tables
 of values for their nice presentation, e.g., in reports
 from data analysis or research papers. Here are some functions
 that can aid in their formatting.</p>
 <section id="sorting">
-<span id="sec-df-sort"></span><h3><span class="section-number">10.6.1. </span>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">#</a></h3>
+<span id="sec-df-sort"></span><h3><span class="section-number">10.6.1. </span>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">¶</a></h3>
 <p>Consider another example dataset: the yearly (for 2018) average
 <a class="reference external" href="https://discover.data.vic.gov.au/dataset/epa-air-watch-all-sites-air-quality-hourly-averages-yearly">air quality data</a>
 in the Australian state of Victoria.</p>
@@ -1750,7 +1811,7 @@ To switch to a mergesort-like method (timsort), we should pass
 and <strong class="command">numpy.argsort</strong>.</p>
 </div></div></section>
 <section id="stacking-and-unstacking-long-tall-and-wide-forms">
-<span id="sec-stack"></span><h3><span class="section-number">10.6.2. </span>Stacking and unstacking (long/tall and wide forms)<a class="headerlink" href="#stacking-and-unstacking-long-tall-and-wide-forms" title="Link to this heading">#</a></h3>
+<span id="sec-stack"></span><h3><span class="section-number">10.6.2. </span>Stacking and unstacking (long/tall and wide forms)<a class="headerlink" href="#stacking-and-unstacking-long-tall-and-wide-forms" title="Link to this heading">¶</a></h3>
 <p>Let’s discuss some further ways to transform
 data frames that benefit from, make sense thanks to,
 or are possible because they can have columns of various types.</p>
@@ -1819,7 +1880,7 @@ the combinations of <code class="docutils literal notranslate"><span class="pre"
 are not provided.</p>
 </section>
 <section id="joining-merging">
-<span id="sec-join"></span><h3><span class="section-number">10.6.3. </span>Joining (merging)<a class="headerlink" href="#joining-merging" title="Link to this heading">#</a></h3>
+<span id="sec-join"></span><h3><span class="section-number">10.6.3. </span>Joining (merging)<a class="headerlink" href="#joining-merging" title="Link to this heading">¶</a></h3>
 <p>In database design, it is common to normalise
 the datasets. We do this to avoid the duplication of information
 and pathologies stemming from them (e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id77" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">21</a>]</span>).</p>
@@ -1963,7 +2024,7 @@ This token is mentioned in numerous datasets, including:</p>
 <p>Join a few chosen datasets that you find interesting.</p>
 </div></div></section>
 <section id="set-theoretic-operations-and-removing-duplicates">
-<h3><span class="section-number">10.6.4. </span>Set-theoretic operations and removing duplicates<a class="headerlink" href="#set-theoretic-operations-and-removing-duplicates" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.6.4. </span>Set-theoretic operations and removing duplicates<a class="headerlink" href="#set-theoretic-operations-and-removing-duplicates" title="Link to this heading">¶</a></h3>
 <p>Here are two not at all disjoint sets of imaginary persons:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/marek/some_birth_dates1.csv&quot;</span><span class="p">,</span>
@@ -2079,7 +2140,7 @@ Hint: consider using
 <strong class="command">pandas.DataFrame.drop_duplicates</strong>.</p>
 </div></div></section>
 <section id="and-too-many-more">
-<h3><span class="section-number">10.6.5. </span>…and (too) many more<a class="headerlink" href="#and-too-many-more" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">10.6.5. </span>…and (too) many more<a class="headerlink" href="#and-too-many-more" title="Link to this heading">¶</a></h3>
 <p>Looking at the list of methods
 for the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> classes in the <strong class="program">pandas</strong> package’s
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/index.html">documentation</a>,
@@ -2105,7 +2166,7 @@ We have brains for a reason.</p>
 </section>
 </section>
 <section id="exercises">
-<h2><span class="section-number">10.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
 <div class="proof proof-type-exercise" id="id37">
 
     <div class="proof-title">
@@ -2282,7 +2343,7 @@ where we can work with data frames; e.g., base R and Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-05-28T10:08:07+0200.
+              Last updated on 2024-07-19T12:46:41+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2348,12 +2409,12 @@ where we can work with data frames; e.g., base R and Julia with
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=d0e60088"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
     <script src="../_static/proof.js"></script>
-    <script src="../_static/katex.min.js?v=deb2f140"></script>
-    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex.min.js?v=be8ff15f"></script>
+    <script src="../_static/auto-render.min.js?v=ad136472"></script>
     <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>

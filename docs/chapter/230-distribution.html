@@ -28,12 +28,12 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="7. From uni- to multidimensional numeric data" href="310-matrix.html" /><link rel="prev" title="5. Processing unidimensional data" href="220-transform-vector.html" />
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/230-distribution.html" />
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>6. Continuous probability distributions - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1e0fcfc0" />
@@ -107,7 +107,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -122,7 +122,7 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
@@ -130,7 +130,7 @@
   <symbol id="svg-sun-half" viewBox="0 0 24 24">
     <title>Auto light/dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <circle cx="12" cy="12" r="9" />
       <path d="M13 12h5" />
@@ -138,6 +138,60 @@
       <path d="M13 18h1" />
       <path d="M13 9h4" />
       <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
@@ -269,11 +323,7 @@ v1.0.3.9107
         <div class="content-icon-container">
           <div class="edit-this-page">
   <a class="muted-link" href="https://github.com/gagolews/datawranglingpy" title="Edit this page">
-    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-    </svg>
+    <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
 </div><div class="theme-toggle-container theme-toggle-content">
@@ -291,7 +341,7 @@ v1.0.3.9107
         </div>
         <article role="main">
           <section class="tex2jax_ignore mathjax_ignore" id="continuous-probability-distributions">
-<span id="chap-distribution"></span><h1><span class="section-number">6. </span>Continuous probability distributions<a class="headerlink" href="#continuous-probability-distributions" title="Link to this heading">#</a></h1>
+<span id="chap-distribution"></span><h1><span class="section-number">6. </span>Continuous probability distributions<a class="headerlink" href="#continuous-probability-distributions" title="Link to this heading">¶</a></h1>
 <blockquote>
 <div><p><em>This open-access textbook
 is, and will remain, freely available for everyone’s enjoyment
@@ -356,7 +406,7 @@ the normal, log-normal, Pareto, and uniform families
 (we will also mention the chi-squared,
 Kolmogorov, and exponential ones in this course).</p>
 <section id="normal-distribution">
-<h2><span class="section-number">6.1. </span>Normal distribution<a class="headerlink" href="#normal-distribution" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.1. </span>Normal distribution<a class="headerlink" href="#normal-distribution" title="Link to this heading">¶</a></h2>
 <p>A <em>normal (Gaussian) distribution</em> has a prototypical,
 nicely symmetric, bell-shaped density.
 It is described by two parameters:</p>
@@ -377,11 +427,11 @@ f(x) = \frac{1}{\sqrt{2\pi \sigma^2}}
 <figure class="align-default" id="id29">
 <span id="fig-normalpdf"></span><img alt="../_images/normalpdf-1.png" src="../_images/normalpdf-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.1 </span><span class="caption-text">The probability density functions of some normal distributions <span class="math">\(\mathrm{N}(\mu, \sigma)\)</span>. Note that <span class="math">\(\mu\)</span> is responsible for shifting and <span class="math">\(\sigma\)</span> affects scaling/stretching of the probability mass.</span><a class="headerlink" href="#id29" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.1 </span><span class="caption-text">The probability density functions of some normal distributions <span class="math">\(\mathrm{N}(\mu, \sigma)\)</span>. Note that <span class="math">\(\mu\)</span> is responsible for shifting and <span class="math">\(\sigma\)</span> affects scaling/stretching of the probability mass.</span><a class="headerlink" href="#id29" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <section id="estimating-parameters">
-<h3><span class="section-number">6.1.1. </span>Estimating parameters<a class="headerlink" href="#estimating-parameters" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.1.1. </span>Estimating parameters<a class="headerlink" href="#estimating-parameters" title="Link to this heading">¶</a></h3>
 <p>A course in mathematical statistics, may tell us
 that the sample arithmetic mean <span class="math">\(\bar{x}\)</span> and standard deviation <span class="math">\(s\)</span>
 are natural, statistically well-behaving <em>estimators</em> of the said parameters.
@@ -427,7 +477,7 @@ the PDF of <span class="math">\(\mathrm{N}(160.1, 7.06)\)</span>, which we compu
 <figure class="align-default" id="id30">
 <span id="fig-heights-normal"></span><img alt="../_images/heights-normal-3.png" src="../_images/heights-normal-3.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.2 </span><span class="caption-text">A histogram for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset and the probability density function of the fitted normal distribution.</span><a class="headerlink" href="#id30" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.2 </span><span class="caption-text">A histogram for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset and the probability density function of the fitted normal distribution.</span><a class="headerlink" href="#id30" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>We passed <code class="docutils literal notranslate"><span class="pre">density=True</span></code> to <strong class="command">matplotlib.pyplot.hist</strong>
@@ -438,7 +488,7 @@ the goodness-of-fit more rigorously, we should heap praise on the potential
 benefits of getting access to idealised <em>models</em> of our datasets.</p>
 </section>
 <section id="data-models-are-useful">
-<span id="sec-three-sigma"></span><h3><span class="section-number">6.1.2. </span>Data models are useful<a class="headerlink" href="#data-models-are-useful" title="Link to this heading">#</a></h3>
+<span id="sec-three-sigma"></span><h3><span class="section-number">6.1.2. </span>Data models are useful<a class="headerlink" href="#data-models-are-useful" title="Link to this heading">¶</a></h3>
 <p><em>If</em> (provided that, assuming that, on condition that)
 our sample is <em>really</em> a realisation of the independent random variables
 following a given distribution, or a data analyst judges that such an
@@ -492,9 +542,9 @@ case. A hammer neither barks nor can it serve as a screwdriver. Period.</p>
 </section>
 </section>
 <section id="assessing-goodness-of-fit">
-<h2><span class="section-number">6.2. </span>Assessing goodness-of-fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.2. </span>Assessing goodness-of-fit<a class="headerlink" href="#assessing-goodness-of-fit" title="Link to this heading">¶</a></h2>
 <section id="comparing-cumulative-distribution-functions">
-<h3><span class="section-number">6.2.1. </span>Comparing cumulative distribution functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.2.1. </span>Comparing cumulative distribution functions<a class="headerlink" href="#comparing-cumulative-distribution-functions" title="Link to this heading">¶</a></h3>
 <p>Bell-shaped histograms are encountered fairly frequently in real-world data:
 e.g., measurement errors in physical experiments and standardised tests’
 results (like IQ and other ability scores) tend to be distributed this way,
@@ -534,7 +584,7 @@ This <em>looks</em> like a superb match.</p>
 <figure class="align-default" id="id32">
 <span id="fig-heights-cdf"></span><img alt="../_images/heights-cdf-5.png" src="../_images/heights-cdf-5.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.3 </span><span class="caption-text">The empirical CDF and the fitted normal CDF for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset: the fit is superb.</span><a class="headerlink" href="#id32" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.3 </span><span class="caption-text">The empirical CDF and the fitted normal CDF for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset: the fit is superb.</span><a class="headerlink" href="#id32" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-example" id="id33">
@@ -594,7 +644,7 @@ of someone being as tall as any given height
 with an error less than about 1.05%.</p>
 </section>
 <section id="comparing-quantiles">
-<span id="sec-qqplot"></span><h3><span class="section-number">6.2.2. </span>Comparing quantiles<a class="headerlink" href="#comparing-quantiles" title="Link to this heading">#</a></h3>
+<span id="sec-qqplot"></span><h3><span class="section-number">6.2.2. </span>Comparing quantiles<a class="headerlink" href="#comparing-quantiles" title="Link to this heading">¶</a></h3>
 <p>A <em>Q-Q plot</em> (quantile-quantile or probability plot)
 is another graphical method for comparing two distributions.
 This time, instead of working with a cumulative distribution function <span class="math">\(F\)</span>,
@@ -612,7 +662,7 @@ Here, <em>ppf</em> stands for the percent point function which is another
 <figure class="align-default" id="id34">
 <span id="fig-normalcdfvsquant"></span><img alt="../_images/normalcdfvsquant-7.png" src="../_images/normalcdfvsquant-7.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.4 </span><span class="caption-text">The cumulative distribution functions (left) and the quantile functions (being the inverse of the CDF; right) of some normal distributions.</span><a class="headerlink" href="#id34" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.4 </span><span class="caption-text">The cumulative distribution functions (left) and the quantile functions (being the inverse of the CDF; right) of some normal distributions.</span><a class="headerlink" href="#id34" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-example" id="id35">
@@ -666,7 +716,7 @@ the normal distribution family).</p>
 <figure class="align-default" id="id36">
 <span id="fig-qq-heights"></span><img alt="../_images/qq-heights-9.png" src="../_images/qq-heights-9.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.5 </span><span class="caption-text">The Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset. It is a nice fit.</span><a class="headerlink" href="#id36" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.5 </span><span class="caption-text">The Q-Q plot for the <code class="docutils literal notranslate"><span class="pre">heights</span></code> dataset. It is a nice fit.</span><a class="headerlink" href="#id36" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Ideally, we wish that the points would be arranged on the <span class="math">\(y=x\)</span> line.
@@ -678,7 +728,7 @@ and certain distribution families.
 However, overall, we can say that we observe a fine fit.</p>
 </section>
 <section id="kolmogorovsmirnov-test">
-<span id="sec-ks-test"></span><h3><span class="section-number">6.2.3. </span>Kolmogorov–Smirnov test (*)<a class="headerlink" href="#kolmogorovsmirnov-test" title="Link to this heading">#</a></h3>
+<span id="sec-ks-test"></span><h3><span class="section-number">6.2.3. </span>Kolmogorov–Smirnov test (*)<a class="headerlink" href="#kolmogorovsmirnov-test" title="Link to this heading">¶</a></h3>
 <p>To be more scientific, we can introduce a more formal method
 for assessing the quality of fit. It will enable us to test the null
 hypothesis stating that a given empirical distribution <span class="math">\(\hat{F}_n\)</span>
@@ -716,7 +766,7 @@ which we obtained by referring to <strong class="command">scipy.stats.kstwo</str
 <figure class="align-default" id="id37">
 <span id="fig-kolmogorovdistr"></span><img alt="../_images/kolmogorovdistr-11.png" src="../_images/kolmogorovdistr-11.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.6 </span><span class="caption-text">Densities (left) and cumulative distribution functions (right) of some Kolmogorov distributions. The greater the sample size, the smaller the acceptable deviations between the theoretical and empirical CDFs.</span><a class="headerlink" href="#id37" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.6 </span><span class="caption-text">Densities (left) and cumulative distribution functions (right) of some Kolmogorov distributions. The greater the sample size, the smaller the acceptable deviations between the theoretical and empirical CDFs.</span><a class="headerlink" href="#id37" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The choice of the critical value <span class="math">\(K_n\)</span> involves a trade-off between
@@ -754,9 +804,9 @@ and <a class="reference internal" href="430-group-by.html#sec-ks-test2"><span cl
 </section>
 </section>
 <section id="other-noteworthy-distributions">
-<h2><span class="section-number">6.3. </span>Other noteworthy distributions<a class="headerlink" href="#other-noteworthy-distributions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.3. </span>Other noteworthy distributions<a class="headerlink" href="#other-noteworthy-distributions" title="Link to this heading">¶</a></h2>
 <section id="log-normal-distribution">
-<span id="sec-log-normal-distribution"></span><h3><span class="section-number">6.3.1. </span>Log-normal distribution<a class="headerlink" href="#log-normal-distribution" title="Link to this heading">#</a></h3>
+<span id="sec-log-normal-distribution"></span><h3><span class="section-number">6.3.1. </span>Log-normal distribution<a class="headerlink" href="#log-normal-distribution" title="Link to this heading">¶</a></h3>
 <p>We say that a sample is <em>log-normally distributed</em>,
 if its logarithm is normally distributed.
 Such a behaviour is frequently observed in biology and medicine
@@ -774,7 +824,7 @@ in the case of the UK taxpayers’ incomes<a class="footnote-reference brackets"
 <figure class="align-default" id="id38">
 <span id="fig-heights-log"></span><img alt="../_images/heights-log-13.png" src="../_images/heights-log-13.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.7 </span><span class="caption-text">A histogram of the logarithm of incomes.</span><a class="headerlink" href="#id38" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.7 </span><span class="caption-text">A histogram of the logarithm of incomes.</span><a class="headerlink" href="#id38" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Let’s thus proceed with the fitting of a log-normal model,
@@ -820,7 +870,7 @@ but it is beyond the scope of our simple exercise.</p>
 <figure class="align-default" id="id39">
 <span id="fig-heights-lognormal"></span><img alt="../_images/heights-lognormal-15.png" src="../_images/heights-lognormal-15.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.8 </span><span class="caption-text">A histogram and the probability density function of the fitted log-normal distribution for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset, on log- (left) and original (right) scale.</span><a class="headerlink" href="#id39" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.8 </span><span class="caption-text">A histogram and the probability density function of the fitted log-normal distribution for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset, on log- (left) and original (right) scale.</span><a class="headerlink" href="#id39" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Next, the left side of <a class="reference internal" href="#fig-qq-income"><span class="std std-numref">Figure 6.9</span></a> gives the
@@ -850,7 +900,7 @@ assumption (using a “normal” normal distribution, not its “log” version)
 <figure class="align-default" id="id40">
 <span id="fig-qq-income"></span><img alt="../_images/qq-income-17.png" src="../_images/qq-income-17.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.9 </span><span class="caption-text">The Q-Q plots for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset vs the fitted log-normal (good fit; left) and normal (bad fit; right) distribution.</span><a class="headerlink" href="#id40" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.9 </span><span class="caption-text">The Q-Q plots for the <code class="docutils literal notranslate"><span class="pre">income</span></code> dataset vs the fitted log-normal (good fit; left) and normal (bad fit; right) distribution.</span><a class="headerlink" href="#id40" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-exercise" id="id41">
@@ -907,7 +957,7 @@ below the mean in our <span class="math">\(\mathrm{LN}(10.3, 0.58)\)</span> mode
 Hint: use <strong class="command">scipy.stats.lognorm.cdf</strong> to get the answer.</p>
 </div></div></section>
 <section id="pareto-distribution">
-<span id="sec-pareto"></span><h3><span class="section-number">6.3.2. </span>Pareto distribution<a class="headerlink" href="#pareto-distribution" title="Link to this heading">#</a></h3>
+<span id="sec-pareto"></span><h3><span class="section-number">6.3.2. </span>Pareto distribution<a class="headerlink" href="#pareto-distribution" title="Link to this heading">¶</a></h3>
 <p>Consider again the populations of the US cities:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
     <span class="s2">&quot;teaching-data/master/other/us_cities_2000.txt&quot;</span><span class="p">)</span>
@@ -930,7 +980,7 @@ more delightful than doing stats?)</p>
 <figure class="align-default" id="id44">
 <span id="fig-hist-cities"></span><img alt="../_images/hist-cities-19.png" src="../_images/hist-cities-19.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.10 </span><span class="caption-text">A histogram of the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset. Note the log-scale on the x-axis.</span><a class="headerlink" href="#id44" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.10 </span><span class="caption-text">A histogram of the unabridged <code class="docutils literal notranslate"><span class="pre">cities</span></code> dataset. Note the log-scale on the x-axis.</span><a class="headerlink" href="#id44" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>This time, however, we will be concerned with not what is <em>typical</em>,
@@ -1007,7 +1057,7 @@ The model could be better, but the cities are still growing, aren’t they?</p>
 <figure class="align-default" id="id45">
 <span id="fig-fit-pareto"></span><img alt="../_images/fit-pareto-21.png" src="../_images/fit-pareto-21.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.11 </span><span class="caption-text">A histogram (left) and a Q-Q plot (right) of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset vs the fitted density of a Pareto distribution on a double log-scale.</span><a class="headerlink" href="#id45" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.11 </span><span class="caption-text">A histogram (left) and a Q-Q plot (right) of the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset vs the fitted density of a Pareto distribution on a double log-scale.</span><a class="headerlink" href="#id45" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="proof proof-type-example" id="id46">
@@ -1043,7 +1093,7 @@ and the fitted CCDFs with probabilities on the linear- and log-scale.</p>
 <figure class="align-default" id="id47">
 <span id="fig-ccdf-pareto"></span><img alt="../_images/ccdf-pareto-23.png" src="../_images/ccdf-pareto-23.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.12 </span><span class="caption-text">The empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale.</span><a class="headerlink" href="#id47" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.12 </span><span class="caption-text">The empirical and theoretical complementary cumulative distribution functions for the <code class="docutils literal notranslate"><span class="pre">large_cities</span></code> dataset with probabilities on the linear- (left) and log-scale (right) and city sizes on the log-scale.</span><a class="headerlink" href="#id47" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>In terms of the maximal absolute distance between the two functions,
@@ -1056,7 +1106,7 @@ rejects the hypothesis of Paretianity (at a significance level <span class="math
 is left as an exercise for the reader.</p>
 </div></div></section>
 <section id="uniform-distribution">
-<h3><span class="section-number">6.3.3. </span>Uniform distribution<a class="headerlink" href="#uniform-distribution" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.3. </span>Uniform distribution<a class="headerlink" href="#uniform-distribution" title="Link to this heading">¶</a></h3>
 <p>In the Polish <em>Lotto</em> lottery, six numbered balls
 <span class="math">\(\{1,2,\dots,49\}\)</span> are drawn without replacement from an urn.
 Here is a dataset that summarises the number of times
@@ -1103,7 +1153,7 @@ an outcome like 49.1253 as representing the 49th ball
 <figure class="align-default" id="id48">
 <span id="fig-lotto"></span><img alt="../_images/lotto-25.png" src="../_images/lotto-25.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.13 </span><span class="caption-text">A histogram of the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset.</span><a class="headerlink" href="#id48" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.13 </span><span class="caption-text">A histogram of the <code class="docutils literal notranslate"><span class="pre">lotto</span></code> dataset.</span><a class="headerlink" href="#id48" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Visually, see <a class="reference internal" href="#fig-lotto"><span class="std std-numref">Figure 6.13</span></a>, this model makes much sense,
@@ -1139,7 +1189,7 @@ Even more strikingly, they are subject to quantitative analysis.</p>
 </div>
 </section>
 <section id="distribution-mixtures">
-<span id="sec-mixtures"></span><h3><span class="section-number">6.3.4. </span>Distribution mixtures (*)<a class="headerlink" href="#distribution-mixtures" title="Link to this heading">#</a></h3>
+<span id="sec-mixtures"></span><h3><span class="section-number">6.3.4. </span>Distribution mixtures (*)<a class="headerlink" href="#distribution-mixtures" title="Link to this heading">¶</a></h3>
 <p>Certain datasets may fail to fit through simple probabilistic models.
 It may sometimes be due to their non-random behaviour:
 statistics gives one of many means to create data idealisations, but
@@ -1190,7 +1240,7 @@ should be taken with a pinch of Sichuan pepper.</p>
 <figure class="align-default" id="id50">
 <span id="fig-mixture"></span><img alt="../_images/mixture-27.png" src="../_images/mixture-27.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.14 </span><span class="caption-text">A histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and an estimated mixture of three normal distributions.</span><a class="headerlink" href="#id50" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.14 </span><span class="caption-text">A histogram of the <code class="docutils literal notranslate"><span class="pre">peds</span></code> dataset and an estimated mixture of three normal distributions.</span><a class="headerlink" href="#id50" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <div class="admonition important">
@@ -1211,7 +1261,7 @@ categorical variable that divides the dataset into natural groups; compare
 </section>
 </section>
 <section id="generating-pseudorandom-numbers">
-<span id="sec-pseudorandom"></span><h2><span class="section-number">6.4. </span>Generating pseudorandom numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Link to this heading">#</a></h2>
+<span id="sec-pseudorandom"></span><h2><span class="section-number">6.4. </span>Generating pseudorandom numbers<a class="headerlink" href="#generating-pseudorandom-numbers" title="Link to this heading">¶</a></h2>
 <p>A probability distribution is useful not only for describing a dataset.
 It also enables us to perform many experiments on data that we do not
 currently have, but we might obtain in the future,
@@ -1219,7 +1269,7 @@ to test various scenarios and hypotheses.
 Let’s thus discuss some methods for  generating random samples of
 independent (not related to each other) observations.</p>
 <section id="id14">
-<h3><span class="section-number">6.4.1. </span>Uniform distribution<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.4.1. </span>Uniform distribution<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
 <p>When most people say <em>random</em>, they implicitly mean
 <em>uniformly distributed</em>. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1239,7 +1289,7 @@ random number generator on the unit interval using the formula
 <strong class="command">numpy.random.rand</strong><code class="code docutils literal notranslate"><span class="pre">(5)*25-10</span></code>.</p>
 </section>
 <section id="not-exactly-random">
-<span id="sec-seed"></span><h3><span class="section-number">6.4.2. </span>Not exactly random<a class="headerlink" href="#not-exactly-random" title="Link to this heading">#</a></h3>
+<span id="sec-seed"></span><h3><span class="section-number">6.4.2. </span>Not exactly random<a class="headerlink" href="#not-exactly-random" title="Link to this heading">¶</a></h3>
 <p>We generate numbers using a computer, which is a purely deterministic
 machine. Albeit they are indistinguishable from truly random
 when subject to rigorous tests for randomness,
@@ -1284,7 +1334,7 @@ the seed (for just one call to that function). For instance:</p>
 <p>We obtained the same sequence again.</p>
 </section>
 <section id="sampling-from-other-distributions">
-<h3><span class="section-number">6.4.3. </span>Sampling from other distributions<a class="headerlink" href="#sampling-from-other-distributions" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.4.3. </span>Sampling from other distributions<a class="headerlink" href="#sampling-from-other-distributions" title="Link to this heading">¶</a></h3>
 <p>Generating data from other distributions is possible too;
 there are many <strong class="command">rvs</strong> methods implemented
 in <strong class="program">scipy.stats</strong>.
@@ -1358,7 +1408,7 @@ distribution using inverse transform sampling.</p>
 mixture discussed in <a class="reference internal" href="#sec-mixtures"><span class="std std-numref">Section 6.3.4</span></a>.</p>
 </div></div></section>
 <section id="natural-variability">
-<span id="sec-natural-variability"></span><h3><span class="section-number">6.4.4. </span>Natural variability<a class="headerlink" href="#natural-variability" title="Link to this heading">#</a></h3>
+<span id="sec-natural-variability"></span><h3><span class="section-number">6.4.4. </span>Natural variability<a class="headerlink" href="#natural-variability" title="Link to this heading">¶</a></h3>
 <p>Even a sample truly generated from a specific distribution
 will deviate from it, sometimes considerably.
 Such effects will be especially visible for small sample sizes,
@@ -1382,7 +1432,7 @@ standard normal distribution.</p>
 <figure class="align-default" id="id54">
 <span id="fig-natural-variability"></span><img alt="../_images/natural-variability-29.png" src="../_images/natural-variability-29.png" />
 <figcaption>
-<p><span class="caption-number">Figure 6.15 </span><span class="caption-text">All nine samples are normally distributed.</span><a class="headerlink" href="#id54" title="Link to this image">#</a></p>
+<p><span class="caption-number">Figure 6.15 </span><span class="caption-text">All nine samples are normally distributed.</span><a class="headerlink" href="#id54" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>There is a certain ruggedness in the bar sizes that a naïve observer
@@ -1456,7 +1506,7 @@ Small deviations from the true location parameter <span class="math">\(\mu\)</sp
 ignored, but this improves with sample size <span class="math">\(n\)</span>.</p>
 </div></div></section>
 <section id="adding-jitter-white-noise">
-<h3><span class="section-number">6.4.5. </span>Adding jitter (white noise)<a class="headerlink" href="#adding-jitter-white-noise" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.4.5. </span>Adding jitter (white noise)<a class="headerlink" href="#adding-jitter-white-noise" title="Link to this heading">¶</a></h3>
 <p>We mentioned that measurements might be subject to observational
 error. Rounding can also occur as early as in
 the data collection phase. In particular, our <code class="docutils literal notranslate"><span class="pre">heights</span></code>
@@ -1481,7 +1531,7 @@ either uniformly or normally distributed.</p>
 e.g., when drawing scatter plots.</p>
 </section>
 <section id="independence-assumption">
-<h3><span class="section-number">6.4.6. </span>Independence assumption<a class="headerlink" href="#independence-assumption" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.4.6. </span>Independence assumption<a class="headerlink" href="#independence-assumption" title="Link to this heading">¶</a></h3>
 <p>Let’s generate nine binary digits in a pseudorandom fashion:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">9</span><span class="p">)</span>
 <span class="c1">## array([1, 1, 1, 1, 1, 1, 1, 1, 1])</span>
@@ -1505,7 +1555,7 @@ what we consider it to be.</p>
 </section>
 </section>
 <section id="further-reading">
-<h2><span class="section-number">6.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
 <p>For an excellent general introductory course on probability
 and statistics, see <span id="id16">[<a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">40</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">42</a>]</span>
 and also <span id="id17">[<a class="reference internal" href="999-bibliography.html#id158" title="Ross, S.M. (2020).  Introduction to Probability and Statistics for Engineers and Scientists. Academic Press.">81</a>]</span>.
@@ -1536,7 +1586,7 @@ their properties, and relationships between them,
 see <span id="id26">[<a class="reference internal" href="999-bibliography.html#id83" title="Forbes, C., Evans, M., Hastings, N., and Peacock, B. (2010).  Statistical Distributions. Wiley.">29</a>]</span>.</p>
 </section>
 <section id="exercises">
-<h2><span class="section-number">6.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
 <div class="proof proof-type-exercise" id="id58">
 
     <div class="proof-title">
@@ -1715,7 +1765,7 @@ to a real-valued sample, we had to call
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-05-28T10:08:07+0200.
+              Last updated on 2024-07-19T12:46:41+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1778,12 +1828,12 @@ to a real-valued sample, we had to call
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=d0e60088"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
     <script src="../_static/proof.js"></script>
-    <script src="../_static/katex.min.js?v=deb2f140"></script>
-    <script src="../_static/auto-render.min.js?v=8b9f325c"></script>
+    <script src="../_static/katex.min.js?v=be8ff15f"></script>
+    <script src="../_static/auto-render.min.js?v=ad136472"></script>
     <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>
