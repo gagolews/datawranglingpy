@@ -247,7 +247,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9107
+v1.0.3.9108
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -538,18 +538,18 @@ Replicating a column vector columnwisely is possible as well:</p>
 </div></div></section>
 <section id="stacking-arrays">
 <span id="sec-stacking-array"></span><h3><span class="section-number">7.1.4. </span>Stacking arrays<a class="headerlink" href="#stacking-arrays" title="Link to this heading">¶</a></h3>
-<p><strong class="command">numpy.column_stack</strong> and <strong class="command">numpy.row_stack</strong> take
-a tuple of array-like objects and bind them column- or rowwisely
-to form a new matrix:</p>
+<p><strong class="command">numpy.column_stack</strong> and
+<strong class="command">numpy.vstack</strong> take a tuple of array-like objects and bind
+them column- or rowwisely to form a new matrix:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]))</span>  <span class="c1"># a tuple of lists</span>
 <span class="c1">## array([[10, 30, 50],</span>
 <span class="c1">##        [20, 40, 60]])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">(([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]))</span>
 <span class="c1">## array([[10, 20],</span>
 <span class="c1">##        [30, 40],</span>
 <span class="c1">##        [50, 60]])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">(([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">])),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">])),</span>
     <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
 <span class="p">))</span>
 <span class="c1">## array([[10, 20, 70],</span>
@@ -557,8 +557,7 @@ to form a new matrix:</p>
 <span class="c1">##        [50, 60, 90]])</span>
 </pre></div>
 </div>
-<p>Note the double round brackets: we call these functions on objects
-of the type tuple.</p>
+<p>Note the double round brackets: we called these functions on tuples.</p>
 <div class="proof proof-type-exercise" id="id8">
 
     <div class="proof-title">
@@ -566,7 +565,7 @@ of the type tuple.</p>
         
     </div><div class="proof-content">
 <p>Perform similar operations using <strong class="command">numpy.append</strong>,
-<strong class="command">numpy.vstack</strong>, <strong class="command">numpy.hstack</strong>,
+<strong class="command">numpy.hstack</strong>, <strong class="command">numpy.stack</strong>,
 <strong class="command">numpy.concatenate</strong>, and (*) <strong class="command">numpy.c_</strong>.
 Are they worth taking note of, or are they redundant?</p>
 </div></div><div class="proof proof-type-exercise" id="id9">
@@ -1315,7 +1314,7 @@ find funny. Ha.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2024-07-19T12:46:41+0200.
+              Last updated on 2024-10-14T12:01:18+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1370,7 +1369,7 @@ find funny. Ha.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=d0e60088"></script>
+</div><script src="../_static/documentation_options.js?v=38fca34a"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
