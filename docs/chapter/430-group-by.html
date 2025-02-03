@@ -30,13 +30,13 @@
 
     <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>12. Processing data in groups - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1e0fcfc0" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=a4cbedb2" />
     
     
 
@@ -247,7 +247,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.0.3.9108
+v1.0.3.9109
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -385,23 +385,23 @@ together with demographics
 </div>
 <p>We consider only the adult (at least 18 years old) participants,
 whose country of birth (the US or not) is well-defined.
-Let’s recode the <code class="docutils literal notranslate"><span class="pre">usborn</span></code> and <code class="docutils literal notranslate"><span class="pre">gender</span></code> variables (for readability)
+Let’s recode the <code class="docutils literal notranslate"><span class="pre">usborn</span></code> and <code class="docutils literal notranslate"><span class="pre">gender</span></code> variables (for readability),
 and introduce the BMI categories:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># NOT: nhanes.usborn = ..., it will not work</span>
-    <span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>       <span class="c1"># recode usborn</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+    <span class="n">usborn</span><span class="o">=</span><span class="p">(</span>  <span class="c1"># recode usborn</span>
+        <span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">gender</span><span class="o">=</span><span class="p">(</span>  <span class="c1"># recode gender</span>
+        <span class="n">nhanes</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;male&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">bmicat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>                             <span class="c1"># new column</span>
+        <span class="n">nhanes</span><span class="o">.</span><span class="n">bmival</span><span class="p">,</span>
+        <span class="n">bins</span><span class="o">=</span>  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span>
+        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;underweight&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;overweight&quot;</span><span class="p">,</span> <span class="s2">&quot;obese&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 <span class="p">)</span>
-<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">nhanes</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;male&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>  <span class="c1"># recode gender</span>
-<span class="p">)</span>
-<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>                             <span class="c1"># new column</span>
-    <span class="n">nhanes</span><span class="o">.</span><span class="n">bmival</span><span class="p">,</span>
-    <span class="n">bins</span><span class="o">=</span>  <span class="p">[</span> <span class="mi">0</span><span class="p">,</span>             <span class="mf">18.5</span><span class="p">,</span>        <span class="mi">25</span><span class="p">,</span>            <span class="mi">30</span><span class="p">,</span>       <span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="p">],</span>
-    <span class="n">labels</span><span class="o">=</span><span class="p">[</span>   <span class="s2">&quot;underweight&quot;</span><span class="p">,</span>    <span class="s2">&quot;normal&quot;</span><span class="p">,</span>  <span class="s2">&quot;overweight&quot;</span><span class="p">,</span>  <span class="s2">&quot;obese&quot;</span>       <span class="p">]</span>
-<span class="p">)</span>
-<span class="c1">## &lt;string&gt;:1: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise in a future error of pandas. Value &#39;[&#39;no&#39; &#39;yes&#39; &#39;yes&#39; ... &#39;yes&#39; &#39;yes&#39; &#39;no&#39;]&#39; has dtype incompatible with int64, please explicitly cast to a compatible dtype first.</span>
-<span class="c1">## &lt;string&gt;:1: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise in a future error of pandas. Value &#39;[&#39;female&#39; &#39;male&#39; &#39;male&#39; ... &#39;male&#39; &#39;male&#39; &#39;male&#39;]&#39; has dtype incompatible with int64, please explicitly cast to a compatible dtype first.</span>
 </pre></div>
 </div>
 <p>Here is a preview of this data frame:</p>
@@ -602,11 +602,11 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 <p>We can easily transform individual columns relative to different
 data groups by means of the <strong class="command">transform</strong> method for <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>
 objects.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">std0</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;std0&quot;</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -1263,7 +1263,7 @@ for the training set. This is a representative example of a situation where
 we cannot simply use a built-in method from <strong class="command">pandas</strong>.
 Instead, we apply what we have learnt about <strong class="command">numpy</strong>.</p>
 <p>To make the predictions, we will use the following function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">knn_class</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_class</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">nnis</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">k</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">nnls</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">nnis</span><span class="p">]</span>  <span class="c1"># same as: y_train[nnis.reshape(-1)].reshape(-1, k)</span>
     <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">nnls</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -1329,7 +1329,7 @@ expect the classification accuracy to be acceptable<a class="footnote-reference 
         
     </div><div class="proof-content">
 <p>(*) The same with the <strong class="program">scikit-learn</strong> package:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.neighbors</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.neighbors</span>
 <span class="n">knn</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred2</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_test</span><span class="p">)</span>
@@ -1784,7 +1784,7 @@ of the points assigned thereto:</p>
 </div>
 <p>We can call <strong class="command">scipy.cluster.vq.kmeans2</strong> to find <span class="math">\(k=2\)</span>
 clusters:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.cluster.vq</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.cluster.vq</span>
 <span class="n">C</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">vq</span><span class="o">.</span><span class="n">kmeans2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2041,8 +2041,8 @@ to a different country. Let’s find a partition into <span class="math">\(k=3\)
 </div>
 <p>The objective function (total within-cluster sum of squares)
 at the returned cluster centres is equal to:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_wcss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.spatial.distance</span>
+<span class="k">def</span> <span class="nf">get_wcss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
     <span class="n">D</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
@@ -2178,13 +2178,13 @@ The <strong class="program">scikit-learn</strong> package has an algorithm that 
 to the Lloyd’s one. The method is equipped with
 the <code class="docutils literal notranslate"><span class="pre">n_init</span></code> parameter (which defaults to 10) which automatically
 applies the aforementioned restarting.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.cluster</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.cluster</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">km</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3, n_init=10)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.54671889589287</span>
+<span class="c1">## 437.5467188958929</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2482,7 +2482,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-02-01T10:00:07+0100.
+              Last updated on 2025-02-03T12:36:52+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2548,7 +2548,7 @@ that data analysts only stick with the default arguments.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=38fca34a"></script>
+</div><script src="../_static/documentation_options.js?v=9c842753"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
