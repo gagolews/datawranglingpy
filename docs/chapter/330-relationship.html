@@ -30,7 +30,7 @@
 
     <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>9. Exploring relationships between variables - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
@@ -453,7 +453,7 @@ for any <span class="math">\(a&gt;0\)</span> and <span class="math">\(b\)</span>
 that draws a scatter plot and prints out Pearson’s <span class="math">\(r\)</span>
 (and Spearman’s <span class="math">\(\rho\)</span> discussed in <a class="reference internal" href="#sec-spearman"><span class="std std-numref">Section 9.1.4</span></a>;
 let’s ignore it by then):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes_eq</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes_eq</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
@@ -531,23 +531,21 @@ for the case of negatively correlated point pairs,
 e.g., <span class="math">\(y=-2x+5\)</span>.</p>
 </div></div><div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>As a rule of thumb, linear correlation degree of
-0.9 or greater (or -0.9 or smaller) is fairly strong.
-Closer to -0.8 and 0.8 we should already start being sceptical about
+<p>As a rule of thumb, a linear correlation coefficient of
+0.9 or more (or -0.9 or less) is fairly strong.
+Closer to -0.8 and 0.8, we should already start being sceptical about
 two variables’ possibly being linearly correlated.
 Some statisticians are more lenient; in particular, it is not uncommon
 in the social sciences to consider 0.6 a decent degree of correlation,
 but this is like building your evidence base on sand.
-No wonder why some fields suffer from a reproducibility
+No wonder why some fields are suffering from a reproducibility
 crisis these days (albeit there are beautiful exceptions to this
 general observation).</p>
-<p>If a dataset at hand does not give us too strong an evidence,
-it is our ethical duty to refrain ourselves
-from making unjustified claims. One must not mislead
-the recipients of our data analysis exercises.
-Still, let us remember that sometimes discovering that some factors
-popularly conceived as dependent are not correlated might also
-be interesting for this is an instance of myths’ debunking.</p>
+<p>If the dataset at hand does not give us too strong an evidence,
+it is our ethical duty to refrain from making unjustified claims.
+We must not mislead the recipients of our data analysis exercises.
+Still, it can sometimes be interesting to discover that some factors popularly
+conceived as dependent are actually not correlated, for this is an instance of myth-busting.</p>
 </div>
 </section>
 <section id="no-linear-correlation-does-not-imply-independence">
@@ -674,7 +672,7 @@ determines the linear correlation
 coefficients between all pairs of variables in our dataset.
 We can depict them nicely on a heat map based
 on a fancified call to <strong class="command">matplotlib.pyplot.imshow</strong>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">corrheatmap</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">corrheatmap</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Draws a correlation heat map, given:</span>
 <span class="sd">    * R - matrix of correlation coefficients for all variable pairs,</span>
@@ -936,7 +934,7 @@ as the result.</p></li>
 </ol>
 <p>Here is a straightforward implementation
 that generates the predictions for each point in <code class="docutils literal notranslate"><span class="pre">X_test</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_regress</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">knn_regress</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">k</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># indices of NNs</span>
     <span class="n">y_nn_pred</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># corresponding reference outputs</span>
@@ -963,7 +961,7 @@ of hip circumference (the sixth column) in the <code class="docutils literal not
 i.e., where there is only one independent variable (<span class="math">\(m=1\)</span>).
 We can easily create its appealing visualisation
 by means of the following function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_regress_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">num_test_points</span><span class="o">=</span><span class="mi">1001</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">knn_regress_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">num_test_points</span><span class="o">=</span><span class="mi">1001</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    x - 1D vector - reference inputs</span>
 <span class="sd">    y - 1D vector - corresponding outputs</span>
@@ -1209,7 +1207,7 @@ Here is a preview:</p>
 </pre></div>
 </div>
 <p>Let’s determine the least squares solution to our regression problem:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.linalg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1537,16 +1535,16 @@ in different countries as a function of their GDP per capita (PPP).</p>
 <li><p><span class="math">\(y=c_1+c_2\log x\)</span> (logarithmic).</p></li>
 </ol>
 <p>Here are the helper functions that create the model matrices:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_model_matrix1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_model_matrix1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">make_model_matrix2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_model_matrix2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">make_model_matrix3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_model_matrix3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">make_model_matrix4</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_model_matrix4</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="n">make_model_matrix1</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;linear model&quot;</span>
@@ -1692,7 +1690,7 @@ for an imaginary country with $500 000 per capita GDP:</p>
     </div><div class="proof-content">
 <p>Consider a theoretical illustration, where
 a true model of some reality is <span class="math">\(y=5+3x^3\)</span>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">true_model</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">true_model</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1880,18 +1878,18 @@ provides wrappers for many regression, classification, clustering, and
 dimensionality reduction algorithms (amongst others).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><strong class="program">scikit-learn</strong> is very convenient. Nevertheless, it permits
-us to fit models even when we do not understand
+<p><strong class="program">scikit-learn</strong> is very convenient. Nevertheless, it allows
+us to fit models even if we do not understand
 the mathematics behind them. This is dangerous: it is
 like driving a sports car without the necessary skills
-and, at the same time, wearing a blindfold.
+while wearing a blindfold.
 Advanced students and practitioners will appreciate it, but
-if used by beginners, it needs to be handled with care.
+when used by beginners, it needs to be handled with care.
 We should not mistake something’s being easily accessible
 with its being safe to use.
-Remember that if we are given a procedure for which we are not able
+Remember that if we are given a procedure for which we are unable
 to provide its definition/mathematical properties/explain
-its idealised version using pseudocode,
+its idealised version in pseudocode,
 we are expected to refrain from using it (see Rule#7).</p>
 </div>
 <p>Due of this, we shall only present a quick demo of
@@ -1905,7 +1903,7 @@ circumference:</p>
 <p>In <strong class="program">scikit-learn</strong>, once we construct an object representing
 the model to be fitted, the <strong class="command">fit</strong> method determines the optimal
 parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.linear_model</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.linear_model</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lm</span><span class="o">.</span><span class="n">coef_</span>
@@ -1918,7 +1916,7 @@ as with <strong class="command">scipy.linalg.lstsq</strong>.</p>
 <strong class="command">predict</strong> method.
 For example, we can calculate the coefficient of determination:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">sklearn.metrics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.metrics</span>
 <span class="n">sklearn</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="c1">## 0.9243996585518783</span>
 </pre></div>
@@ -2008,7 +2006,7 @@ condition number can simply be computed as <span class="math">\(s_{1,1}/s_{m,m}\
 As it fits the intercept separately, we expect it to be slightly
 better-behaving; still, it is merely a
 wrapper around <strong class="command">scipy.linalg.lstsq</strong>, but with a different API.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.linear_model</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.linear_model</span>
 <span class="n">lm</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">cs</span><span class="p">[</span><span class="s2">&quot;sklearn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">lm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lm</span><span class="o">.</span><span class="n">coef_</span><span class="p">]</span>
@@ -2482,7 +2480,7 @@ that <span class="math">\(s_{1,1}\ge s_{2,2}\ge\dots\ge s_{m,m}\ge 0\)</span>,</
 have already been centred (so that their column means are all 0).</p>
 </div>
 <p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.linalg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">X_centred</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_centred</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -2629,7 +2627,7 @@ of a centred dataset which we denote by <span class="math">\(\mathbf{X}\)</span>
 \mathbf{X} = \mathbf{U}\mathbf{S}\mathbf{Q}.
 \]</div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.linalg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.linalg</span>
 <span class="n">X_centered</span> <span class="o">=</span> <span class="n">chainlink</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">chainlink</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X_centered</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -3086,7 +3084,7 @@ to function properly. We need more maths in our lives.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-02-03T12:36:52+0100.
+              Last updated on 2025-02-10T13:33:42+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>

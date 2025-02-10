@@ -30,7 +30,7 @@
 
     <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>5. Processing unidimensional data - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
@@ -519,7 +519,7 @@ oh we all feel much richer now, don’t we?
 In fact, the arithmetic mean reflects the income each of us would
 get if all the wealth were gathered inside a single Santa Claus’s (Robin Hood’s or Joseph Stalin’s) sack and then distributed equally amongst
 all of us. A noble idea provided that everyone contributes equally
-to the society, which unfortunately is not the case.</p>
+to the society which, sadly, is not the case.</p>
 <p>On the other hand, the median is the value
 such that 50% of the observations are less than or equal to it
 and 50% of the remaining ones are not less than it.
@@ -788,7 +788,7 @@ g = \frac{
 Positive and negative skewness indicates a heavier right
 and left tail, respectively.</p>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">heights</span></code> are an instance of an almost-symmetric distribution:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span>
 <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="c1">## 0.0811184528074054</span>
 </pre></div>
@@ -1568,6 +1568,14 @@ which return a subvector with elements at the specified indexes:</p>
 as <code class="docutils literal notranslate"><span class="pre">x[[0]]</span></code> looks slightly more obscure.
 (What are these double square brackets?
 Nah, it is a list inside the index operator.)</p>
+<p>To return the vector with the elements
+<em>except</em> at the given indexes, we call the <strong class="command">numpy.delete</strong> function.
+Its name is slightly misleading for the input vector is not modified
+in place.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># except the first and the last</span>
+<span class="c1">## array([20, 30, 40])</span>
+</pre></div>
+</div>
 </section>
 <section id="logical-indexing">
 <h3><span class="section-number">5.4.2. </span>Logical indexing<a class="headerlink" href="#logical-indexing" title="Link to this heading">¶</a></h3>
@@ -1612,7 +1620,7 @@ use the <strong class="command">and</strong>, <strong class="command">or</strong
 They are not vectorised (this is a limitation at the language level).
 Instead, in <strong class="program">numpy</strong>, we use the `<strong class="command">&amp;</strong>`, `<strong class="command">|</strong>`,
 and `<strong class="command">~</strong>` operators.
-Unfortunately, they have a lower order of precedence than
+Alas, they have a lower order of precedence than
 `<strong class="command">&lt;</strong>`, `<strong class="command">&lt;=</strong>`, `<strong class="command">==</strong>`, etc.
 Therefore, the bracketing of the comparisons is obligatory.</p>
 </div>
@@ -1661,7 +1669,7 @@ copy of the subsetted elements: by definition, sliced ranges are <em>regular</em
 This is important when we apply operations which modify a
 given vector in place, such as the <strong class="command">sort</strong>
 method that we mention in the sequel.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">zilchify</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">zilchify</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># re-sets all values in x</span>
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
@@ -2067,7 +2075,7 @@ to return either <code class="docutils literal notranslate"><span class="pre">x_
 <p>This gave the square root of absolute values.</p>
 <div style="margin-top: 1em"></div><p>There is also a tool which vectorises a scalar function
 so that it can be used on <strong class="program">numpy</strong> vectors:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clip01</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clip01</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;clip to the unit interval&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>    <span class="k">return</span> <span class="mi">0</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="k">return</span> <span class="mi">1</span>
@@ -2363,7 +2371,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-02-03T12:36:52+0100.
+              Last updated on 2025-02-10T13:33:42+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
