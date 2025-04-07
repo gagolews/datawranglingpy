@@ -30,7 +30,7 @@
 
     <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>12. Processing data in groups - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
@@ -247,7 +247,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9001
+v1.1.0.9002
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -602,11 +602,11 @@ see, e.g., <strong class="command">print</strong><code class="code docutils lite
 <p>We can easily transform individual columns relative to different
 data groups by means of the <strong class="command">transform</strong> method for <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code>
 objects.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">std0</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;std0&quot;</span>
 
-<span class="k">def</span> <span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -997,7 +997,7 @@ of being cautious. This, in the long run, is more sustainable.</p>
 </div>
 </section>
 <section id="comparing-quantiles">
-<h3><span class="section-number">12.2.7. </span>Comparing quantiles<a class="headerlink" href="#comparing-quantiles" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">12.2.7. </span>Comparing quantiles (*)<a class="headerlink" href="#comparing-quantiles" title="Link to this heading">¶</a></h3>
 <p>Plotting quantiles in two samples against each other
 can also give us some further (informal) insight with regard to the
 possible distributional differences. <a class="reference internal" href="#fig-qqplot2"><span class="std std-numref">Figure 12.7</span></a> depicts an example
@@ -1177,7 +1177,7 @@ for the training set. This is a representative example of a situation where
 we cannot simply use a built-in method from <strong class="command">pandas</strong>.
 Instead, we apply what we have learnt about <strong class="command">numpy</strong>.</p>
 <p>To make the predictions, we will use the following function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">knn_class</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">knn_class</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">nnis</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">k</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">nnls</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">nnis</span><span class="p">]</span>  <span class="c1"># same as: y_train[nnis.reshape(-1)].reshape(-1, k)</span>
     <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">nnls</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -1243,7 +1243,7 @@ expect the classification accuracy to be acceptable<a class="footnote-reference 
         
     </div><div class="proof-content">
 <p>(*) The same with the <strong class="program">scikit-learn</strong> package:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.neighbors</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.neighbors</span>
 <span class="n">knn</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred2</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_test</span><span class="p">)</span>
@@ -1698,7 +1698,7 @@ of the points assigned thereto:</p>
 </div>
 <p>We can call <strong class="command">scipy.cluster.vq.kmeans2</strong> to find <span class="math">\(k=2\)</span>
 clusters:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.cluster.vq</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.cluster.vq</span>
 <span class="n">C</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">vq</span><span class="o">.</span><span class="n">kmeans2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1955,8 +1955,8 @@ to a different country. Let’s find a partition into <span class="math">\(k=3\)
 </div>
 <p>The objective function (total within-cluster sum of squares)
 at the returned cluster centres is equal to:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.spatial.distance</span>
-<span class="k">def</span> <span class="nf">get_wcss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_wcss</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
     <span class="n">D</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
@@ -2091,13 +2091,13 @@ The <strong class="program">scikit-learn</strong> package has an algorithm that 
 to the Lloyd’s one. The method is equipped with
 the <code class="docutils literal notranslate"><span class="pre">n_init</span></code> parameter (which defaults to 10) which automatically
 applies the aforementioned restarting.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn.cluster</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn.cluster</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">km</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3, n_init=10)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.5467188958929</span>
+<span class="c1">## 437.5467188958928</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2395,7 +2395,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-02-28T11:06:17+0100.
+              Last updated on 2025-04-07T16:16:35+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2430,7 +2430,7 @@ that data analysts only stick with the default arguments.</p>
 <li><a class="reference internal" href="#scatter-plots-with-group-information">12.2.4. Scatter plots with group information</a></li>
 <li><a class="reference internal" href="#grid-trellis-plots">12.2.5. Grid (trellis) plots</a></li>
 <li><a class="reference internal" href="#kolmogorovsmirnov-test-for-comparing-ecdfs">12.2.6. Kolmogorov–Smirnov test for comparing ECDFs (*)</a></li>
-<li><a class="reference internal" href="#comparing-quantiles">12.2.7. Comparing quantiles</a></li>
+<li><a class="reference internal" href="#comparing-quantiles">12.2.7. Comparing quantiles (*)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#classification-tasks">12.3. Classification tasks (*)</a><ul>
@@ -2461,7 +2461,7 @@ that data analysts only stick with the default arguments.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=c8b84f65"></script>
+</div><script src="../_static/documentation_options.js?v=ff40c50f"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>

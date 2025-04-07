@@ -30,7 +30,7 @@
 
     <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>5. Processing unidimensional data - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
@@ -247,7 +247,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9001
+v1.1.0.9002
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -788,7 +788,7 @@ g = \frac{
 Positive and negative skewness indicates a heavier right
 and left tail, respectively.</p>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">heights</span></code> are an instance of an almost-symmetric distribution:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span>
 <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">heights</span><span class="p">)</span>
 <span class="c1">## 0.0811184528074054</span>
 </pre></div>
@@ -1669,7 +1669,7 @@ copy of the subsetted elements: by definition, sliced ranges are <em>regular</em
 This is important when we apply operations which modify a
 given vector in place, such as the <strong class="command">sort</strong>
 method that we mention in the sequel.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">zilchify</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">zilchify</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># re-sets all values in x</span>
 
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
@@ -2075,7 +2075,7 @@ to return either <code class="docutils literal notranslate"><span class="pre">x_
 <p>This gave the square root of absolute values.</p>
 <div style="margin-top: 1em"></div><p>There is also a tool which vectorises a scalar function
 so that it can be used on <strong class="program">numpy</strong> vectors:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clip01</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clip01</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;clip to the unit interval&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>    <span class="k">return</span> <span class="mi">0</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="k">return</span> <span class="mi">1</span>
@@ -2158,20 +2158,12 @@ of the obtained aggregates.</p>
         <span class="proof-type">Exercise 5.27</span>
         
     </div><div class="proof-content">
-<p>Give some examples where applying some simple data wrangling
-can drastically change the values of chosen sample aggregates.</p>
+<p>Give the mathematical definitions, use cases, and interpretations
+of standardisation, normalisation, and min-max scaling.</p>
 </div></div><div class="proof proof-type-exercise" id="id54">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.28</span>
-        
-    </div><div class="proof-content">
-<p>Give the mathematical definitions, use cases, and interpretations
-of standardisation, normalisation, and min-max scaling.</p>
-</div></div><div class="proof proof-type-exercise" id="id55">
-
-    <div class="proof-title">
-        <span class="proof-type">Exercise 5.29</span>
         
     </div><div class="proof-content">
 <p>How are <strong class="command">numpy.log</strong> and <strong class="command">numpy.exp</strong> related to each other?
@@ -2180,67 +2172,88 @@ What about <strong class="command">numpy.log</strong> vs <strong class="command"
 <strong class="command">numpy.min</strong> vs <strong class="command">numpy.argmin</strong>,
 <strong class="command">numpy.sort</strong> vs <strong class="command">numpy.argsort</strong>,  and
 <strong class="command">scipy.stats.rankdata</strong> vs <strong class="command">numpy.argsort</strong>?</p>
+</div></div><div class="proof proof-type-exercise" id="id55">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.29</span>
+        
+    </div><div class="proof-content">
+<p>What is the difference between
+<strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
+and <strong class="command">numpy.round</strong>?</p>
 </div></div><div class="proof proof-type-exercise" id="id56">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.30</span>
         
     </div><div class="proof-content">
-<p>What is the difference between
-<strong class="command">numpy.trunc</strong>, <strong class="command">numpy.floor</strong>, <strong class="command">numpy.ceil</strong>,
-and <strong class="command">numpy.round</strong>?</p>
+<p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
+lengths?</p>
 </div></div><div class="proof proof-type-exercise" id="id57">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.31</span>
         
     </div><div class="proof-content">
-<p>What happens when we apply `<strong class="command">+</strong>` on two vectors of different
-lengths?</p>
+<p>List the four general ways to index a vector.</p>
 </div></div><div class="proof proof-type-exercise" id="id58">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.32</span>
         
     </div><div class="proof-content">
-<p>List the four general ways to index a vector.</p>
+<p>What is wrong with the expression
+<code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
+What about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
 </div></div><div class="proof proof-type-exercise" id="id59">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.33</span>
         
     </div><div class="proof-content">
-<p>What is wrong with the expression
-<code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">and</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a numeric vector?
-What about <code class="docutils literal notranslate"><span class="pre">x[</span> <span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">0</span> <span class="pre">&amp;</span> <span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">1</span> <span class="pre">]</span></code>?</p>
+<p>What does it mean that slicing returns a <em>view</em> of existing data?</p>
 </div></div><div class="proof proof-type-exercise" id="id60">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.34</span>
         
     </div><div class="proof-content">
-<p>What does it mean that slicing returns a <em>view</em> of existing data?</p>
+<p>Given a numeric vector <code class="docutils literal notranslate"><span class="pre">x</span></code>, for instance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>perform what follows.</p>
+<ol class="arabic simple">
+<li><p>Print out all values in <code class="docutils literal notranslate"><span class="pre">x</span></code> that belong to the set <span class="math">\([-2,-1]\cup[1,2]\)</span>.</p></li>
+<li><p>Print out the number and the fraction of nonnegative values in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>Find the position (index) of the first value greater than 2.</p></li>
+<li><p>Compute the range, i.e., the difference between the greatest and the smallest value.</p></li>
+<li><p>Compute the midrange, i.e., the arithmetic mean of the maximum and the minimum.</p></li>
+<li><p>Compute the mean of absolute values.</p></li>
+<li><p>Find the values closest to and farthest away from 0.</p></li>
+<li><p>Find the values closest to and farthest away from 2.</p></li>
+</ol>
 </div></div><div class="proof proof-type-exercise" id="id61">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.35</span>
         
     </div><div class="proof-content">
-<p>(**) Reflect on the
-<a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein">famous</a>
-saying: <em>not everything that can be counted counts,
-and not everything that counts can be counted</em>.</p>
+<p>Write a function to compute the <span class="math">\(k\)</span>-winsorised mean,
+given a numeric vector <code class="docutils literal notranslate"><span class="pre">x</span></code> and <span class="math">\(k\le \frac{n-1}{2}\)</span>,
+i.e., the arithmetic mean of a version of <code class="docutils literal notranslate"><span class="pre">x</span></code>, where the <span class="math">\(k\)</span> smallest and <span class="math">\(k\)</span>
+greatest values were replaced by the <span class="math">\((k+1)\)</span>-th smallest and greatest value, respectively.</p>
 </div></div><div class="proof proof-type-exercise" id="id62">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.36</span>
         
     </div><div class="proof-content">
-<p>(**) Being a data scientist can be a frustrating job, especially
-when you care for some causes.
-Reflect on: <em>some things that count can be counted,
-but we will not count them because we ran over budget</em>
-or <em>because our stupid corporate manager simply doesn’t care</em>.</p>
+<p>(**) Reflect on the
+<a class="reference external" href="https://quoteinvestigator.com/2010/05/26/everything-counts-einstein">famous</a>
+saying: <em>not everything that can be counted counts,
+and not everything that counts can be counted</em>.</p>
 </div></div><div class="proof proof-type-exercise" id="id63">
 
     <div class="proof-title">
@@ -2248,14 +2261,25 @@ or <em>because our stupid corporate manager simply doesn’t care</em>.</p>
         
     </div><div class="proof-content">
 <p>(**) Being a data scientist can be a frustrating job, especially
-when you care for the truth.
+when you care for some causes.
 Reflect on: <em>some things that count can be counted,
-but we will not count them for some people might be offended
-or find it unpleasant.</em></p>
+but we will not count them because we ran over budget</em>
+or <em>because our stupid corporate manager simply doesn’t care</em>.</p>
 </div></div><div class="proof proof-type-exercise" id="id64">
 
     <div class="proof-title">
         <span class="proof-type">Exercise 5.38</span>
+        
+    </div><div class="proof-content">
+<p>(**) Being a data scientist can be a frustrating job, especially
+when you care for the truth.
+Reflect on: <em>some things that count can be counted,
+but we will not count them for some people might be offended
+or find it unpleasant.</em></p>
+</div></div><div class="proof proof-type-exercise" id="id65">
+
+    <div class="proof-title">
+        <span class="proof-type">Exercise 5.39</span>
         
     </div><div class="proof-content">
 <p>(**) Assume you were to become the benevolent dictator
@@ -2371,7 +2395,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-02-28T11:06:17+0100.
+              Last updated on 2025-04-07T16:16:35+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2455,7 +2479,7 @@ by the IEEE Standard for Floating-Point Arithmetic (IEEE 754).</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=c8b84f65"></script>
+</div><script src="../_static/documentation_options.js?v=ff40c50f"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>

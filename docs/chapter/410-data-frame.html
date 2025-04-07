@@ -30,7 +30,7 @@
 
     <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
         <title>10. Introducing data frames - Minimalist Data Wrangling with Python</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
@@ -247,7 +247,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9001
+v1.1.0.9002
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -392,7 +392,7 @@ e.g., CSV and HDF5 files or relational databases,</p></li>
 <p>all of which we introduce in this part.</p>
 <div style="margin-top: 1em"></div><p>It is customary to import the <strong class="program">pandas</strong> package under
 the following alias:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -980,13 +980,13 @@ transformed versions of the existing ones. For instance:</p>
 <p>(*)
 Binary operations on objects with different <code class="docutils literal notranslate"><span class="pre">index</span></code> slots
 are vectorised <em>labelwisely</em>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
 <span class="n">x</span>
-<span class="c1">## a         1</span>
-<span class="c1">## b        10</span>
-<span class="c1">## a      1000</span>
-<span class="c1">## a     10000</span>
-<span class="c1">## c    100000</span>
+<span class="c1">## a        1</span>
+<span class="c1">## b       10</span>
+<span class="c1">## a      100</span>
+<span class="c1">## a     1000</span>
+<span class="c1">## c    10000</span>
 <span class="c1">## dtype: int64</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
 <span class="n">y</span>
@@ -1000,13 +1000,13 @@ are vectorised <em>labelwisely</em>:</p>
 </div>
 <p>And now:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
-<span class="c1">## a         3.0</span>
-<span class="c1">## a      3000.0</span>
-<span class="c1">## a     30000.0</span>
-<span class="c1">## b        10.0</span>
-<span class="c1">## b        20.0</span>
-<span class="c1">## c    500000.0</span>
-<span class="c1">## d         NaN</span>
+<span class="c1">## a        3.0</span>
+<span class="c1">## a      300.0</span>
+<span class="c1">## a     3000.0</span>
+<span class="c1">## b       10.0</span>
+<span class="c1">## b       20.0</span>
+<span class="c1">## c    50000.0</span>
+<span class="c1">## d        NaN</span>
 <span class="c1">## dtype: float64</span>
 </pre></div>
 </div>
@@ -1018,7 +1018,7 @@ Thus, it behaves like a full outer join-type operation;
 see <a class="reference internal" href="#sec-join"><span class="std std-numref">Section 10.6.3</span></a>.</p>
 <p>The above is different from <em>elementwise</em> vectorisation in <strong class="program">numpy</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="c1">## array([     1,     20,   3000,  40000, 500000])</span>
+<span class="c1">## array([    1,    20,   300,  4000, 50000])</span>
 </pre></div>
 </div>
 <p>Labelwise vectorisation <em>can</em> be useful in certain contexts.
@@ -2350,7 +2350,7 @@ where we can work with data frames; e.g., base R and Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-02-28T11:06:17+0100.
+              Last updated on 2025-04-07T16:16:35+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2415,7 +2415,7 @@ where we can work with data frames; e.g., base R and Julia with
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=c8b84f65"></script>
+</div><script src="../_static/documentation_options.js?v=ff40c50f"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
