@@ -578,8 +578,38 @@ Are they worth taking note of, or are they redundant?</p>
 end, and in the middle of an array. Let’s stress that this function
 returns a new array.</p>
 </div></div></section>
+<section id="numpy-r-revisited">
+<span id="sec-numpy-runderscore-revisited"></span><h3><span class="section-number">7.1.5. </span><strong class="command">numpy.r_</strong> revisited (*)<a class="headerlink" href="#numpy-r-revisited" title="Link to this heading">¶</a></h3>
+<p>In <a class="reference internal" href="210-vector.html#sec-numpy-runderscore"><span class="std std-numref">Section 4.1.4</span></a>, we introduced the
+<strong class="command">numpy.r_</strong> object that simplifies vector creation.
+It turns out that its first argument can be a string
+that controls the way that the given items are merged:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># row vector</span>
+<span class="c1">## matrix([[1, 2, 3, 4]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># column vector</span>
+<span class="c1">## matrix([[1],</span>
+<span class="c1">##         [2],</span>
+<span class="c1">##         [3],</span>
+<span class="c1">##         [4]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="s1">&#39;0,2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>  <span class="c1"># concatenate along axis 0, ndim=2</span>
+<span class="c1">## array([[1, 2],</span>
+<span class="c1">##        [3, 4],</span>
+<span class="c1">##        [5, 6]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="s1">&#39;1,2,0&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>  <span class="c1"># along axis 1, make them column vecs</span>
+<span class="c1">## array([[1, 3, 5],</span>
+<span class="c1">##        [2, 4, 6]])</span>
+</pre></div>
+</div>
+<p>Furthermore, the last expression can be equivalently
+rewritten using <strong class="command">numpy.c_</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span> <span class="p">]</span>  <span class="c1"># column stack</span>
+<span class="c1">## array([[1, 3, 5],</span>
+<span class="c1">##        [2, 4, 6]])</span>
+</pre></div>
+</div>
+</section>
 <section id="other-functions">
-<h3><span class="section-number">7.1.5. </span>Other functions<a class="headerlink" href="#other-functions" title="Link to this heading">¶</a></h3>
+<h3><span class="section-number">7.1.6. </span>Other functions<a class="headerlink" href="#other-functions" title="Link to this heading">¶</a></h3>
 <p>Many built-in functions can generate arrays of arbitrary shapes
 (not only vectors). For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
@@ -1314,7 +1344,7 @@ find funny. Ha.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-04-11T09:20:27+0200.
+              Last updated on 2025-04-16T11:16:14+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1341,7 +1371,8 @@ find funny. Ha.</p>
 <li><a class="reference internal" href="#enumerating-elements">7.1.2. Enumerating elements</a></li>
 <li><a class="reference internal" href="#repeating-arrays">7.1.3. Repeating arrays</a></li>
 <li><a class="reference internal" href="#stacking-arrays">7.1.4. Stacking arrays</a></li>
-<li><a class="reference internal" href="#other-functions">7.1.5. Other functions</a></li>
+<li><a class="reference internal" href="#numpy-r-revisited">7.1.5. <strong class="command">numpy.r_</strong> revisited (*)</a></li>
+<li><a class="reference internal" href="#other-functions">7.1.6. Other functions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#reshaping-matrices">7.2. Reshaping matrices</a></li>
