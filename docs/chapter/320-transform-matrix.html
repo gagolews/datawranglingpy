@@ -592,7 +592,7 @@ let’s inspect its output for a smaller number of probe points:</p>
 <span class="c1">##        [-5.,  0.,  5.]])</span>
 </pre></div>
 </div>
-<p>Here, each column is the same.</p>
+<p>Here, each column consists of the same values.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">yg</span>
 <span class="c1">## array([[-4., -4., -4.],</span>
 <span class="c1">##        [-2., -2., -2.],</span>
@@ -601,7 +601,7 @@ let’s inspect its output for a smaller number of probe points:</p>
 <span class="c1">##        [ 4.,  4.,  4.]])</span>
 </pre></div>
 </div>
-<p>In this case, each row is identical. Therefore, calling:</p>
+<p>In this case, each row is constant. Therefore, calling:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">xg</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">yg</span> <span class="o">-</span> <span class="mi">11</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">xg</span> <span class="o">+</span> <span class="n">yg</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">7</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
 <span class="c1">## array([[116., 306., 296.],</span>
 <span class="c1">##        [208., 178., 148.],</span>
@@ -960,6 +960,21 @@ it is best to convert them to integer ones first
 We will be forced to apply such double indexing anyway in
 <strong class="program">pandas</strong> whenever selecting rows <em>by position</em> and columns
 <em>by name</em> is required; see <a class="reference internal" href="410-data-frame.html#sec-df-indexing"><span class="std std-numref">Section 10.5</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>(*)
+Interestingly, we can also index a vector using an integer matrix.
+This is like subsetting using a list of integer indexes, but the output’s
+shape matches that of the indexer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="p">])</span>
+<span class="n">u</span><span class="p">[</span><span class="n">V</span><span class="p">]</span>  <span class="c1"># like u[V.ravel()].reshape(V.shape)</span>
+<span class="c1">## array([[&#39;a&#39;, &#39;b&#39;],</span>
+<span class="c1">##        [&#39;b&#39;, &#39;a&#39;],</span>
+<span class="c1">##        [&#39;c&#39;, &#39;b&#39;]], dtype=&#39;&lt;U1&#39;)</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="views-of-existing-arrays">
 <h3><span class="section-number">8.2.5. </span>Views of existing arrays (*)<a class="headerlink" href="#views-of-existing-arrays" title="Link to this heading">¶</a></h3>
@@ -995,11 +1010,10 @@ can be replaced by new content in a natural way:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
 </pre></div>
 </div>
-<p>With <strong class="command">numpy</strong> arrays, however, brand new rows or columns cannot
+<p>With <strong class="command">numpy</strong> arrays, however, new rows or columns cannot
 be added via the index operator. Instead, the whole array needs to
-be created from scratch using, e.g., one
-of the functions discussed in <a class="reference internal" href="310-matrix.html#sec-stacking-array"><span class="std std-numref">Section 7.1.4</span></a>.
-For example:</p>
+be created from scratch using, e.g., one of the functions discussed
+in <a class="reference internal" href="310-matrix.html#sec-stacking-array"><span class="std std-numref">Section 7.1.4</span></a>. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">A</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])))</span>
 <span class="n">A</span>
 <span class="c1">## array([[ 0.04,  0.6 , -0.4 ,  0.4 ,  0.2 ],</span>
@@ -1799,7 +1813,7 @@ but we decided to stick with the traditional name.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-04-16T11:16:14+0200.
+              Last updated on 2025-04-22T11:00:38+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
