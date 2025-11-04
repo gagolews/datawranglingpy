@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="../">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="Minimalist Data Wrangling with Python" name="citation_title" />
 <meta content="Marek Gagolewski" name="citation_author" />
@@ -25,17 +25,18 @@
 <meta content="INDEX,FOLLOW" name="robots" />
 <meta content="book" name="og:type" />
 <meta content="9780645571912" name="og:book:isbn" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="13. Accessing databases" href="440-sql.html" /><link rel="prev" title="11. Handling categorical data" href="420-categorical.html" />
-        <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-group-by.html" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="13. Accessing databases" href="440-sql.html"><link rel="prev" title="11. Handling categorical data" href="420-categorical.html">
+        <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-group-by.html">
+        <link rel="prefetch" href="https://www.gagolewski.com/_static/img/datawranglingpy.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"/><!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
         <title>12. Processing data in groups - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=91adb8b6" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=a4cbedb2" />
     
     
@@ -127,19 +128,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -180,7 +168,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -247,7 +235,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9002
+v1.1.0.9003
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -322,7 +310,7 @@ v1.1.0.9002
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/gagolews/datawranglingpy" title="Edit this page">
+  <a class="muted-link" href="https://github.com/gagolews/datawranglingpy" rel="edit" title="Edit this page">
     <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
@@ -638,8 +626,8 @@ in both groups are equal to 0 and 1:</p>
 <span class="c1">##             height              height_std     </span>
 <span class="c1">##               mean      std0          mean std0</span>
 <span class="c1">## gender                                         </span>
-<span class="c1">## female  160.089189  7.034703 -1.352583e-15  1.0</span>
-<span class="c1">## male    173.759541  7.701323  3.129212e-16  1.0</span>
+<span class="c1">## female  160.089189  7.034703 -1.351747e-15  1.0</span>
+<span class="c1">## male    173.759541  7.701323  3.145329e-16  1.0</span>
 </pre></div>
 </div>
 <p>Note that we needed to use a custom function for computing the standard
@@ -1773,7 +1761,7 @@ and then picking the indexes of the closest pivots:</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>By construction<a class="footnote-reference brackets" href="#footvoronoi" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>,
+<p>By construction<a class="footnote-reference brackets" href="#footvoronoi" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>,
 the <span class="math">\(k\)</span>-means method can only detect clusters of convex shapes
 (such as Gaussian blobs).</p>
 </div>
@@ -1821,7 +1809,7 @@ e.g., all points on a dense equidistant grid.</p>
 <p>Alas, the <span class="math">\(k\)</span>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
-optimisation problem (e.g., <span id="id13">[<a class="reference internal" href="999-bibliography.html#id134" title="Lee, J. (2011).  A First Course in Combinatorial Optimisation. Cambridge University Press.">61</a>]</span>). In other words, the search
+optimisation problem (e.g., <span id="id14">[<a class="reference internal" href="999-bibliography.html#id134" title="Lee, J. (2011).  A First Course in Combinatorial Optimisation. Cambridge University Press.">61</a>]</span>). In other words, the search
 for the <em>truly</em> (i.e., globally) optimal solution takes,
 for larger <span class="math">\(n\)</span> and <span class="math">\(k\)</span>, an impractically long time.</p>
 <p>As a consequence, we must rely on some approximate algorithms
@@ -1849,7 +1837,7 @@ There are many procedures, based on numerous different heuristics,
 that attempt to solve the <span class="math">\(k\)</span>-means <em>problem</em>. Unfortunately,
 neither of them is perfect for it is not possible.</p>
 <p>Perhaps the most widely known and easiest to understand
-method is traditionally attributed to Lloyd <span id="id14">[<a class="reference internal" href="999-bibliography.html#id133" title="Lloyd, S.P. (1957 (1982)).  Least squares quantization in PCM. IEEE Transactions on Information Theory, 28:128–137. Originally a 1957 Bell Telephone Laboratories Research Report; republished in 1982. DOI: 10.1109/TIT.1982.1056489.">64</a>]</span>.
+method is traditionally attributed to Lloyd <span id="id15">[<a class="reference internal" href="999-bibliography.html#id133" title="Lloyd, S.P. (1957 (1982)).  Least squares quantization in PCM. IEEE Transactions on Information Theory, 28:128–137. Originally a 1957 Bell Telephone Laboratories Research Report; republished in 1982. DOI: 10.1109/TIT.1982.1056489.">64</a>]</span>.
 It is based on the fixed-point iteration.
 For a given <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and <span class="math">\(k \ge 2\)</span>:</p>
 <ol class="arabic">
@@ -2030,7 +2018,7 @@ suboptimal solutions.</p>
 <p>There will never be any guarantees, but we can increase
 the probability of generating a satisfactory solution by simply
 restarting the method multiple times from many randomly chosen points
-and picking the best<a class="footnote-reference brackets" href="#footkmeansdoesntmatter" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> solution
+and picking the best<a class="footnote-reference brackets" href="#footkmeansdoesntmatter" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> solution
 (the one with the smallest WCSS) identified as the result.</p>
 <p>Let’s perform 1000 such <em>restarts</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wcss</span><span class="p">,</span> <span class="n">Cs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -2054,7 +2042,7 @@ is:</p>
 </pre></div>
 </div>
 <p>They are the same as <code class="docutils literal notranslate"><span class="pre">C2</span></code> above (up to a permutation of
-labels). We were lucky<a class="footnote-reference brackets" href="#footlucky" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>, after all.</p>
+labels). We were lucky<a class="footnote-reference brackets" href="#footlucky" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>, after all.</p>
 <p>It is very educational to look at the distribution of the
 objective function at the identified local minima to see
 that, proportionally, in the case of this dataset,
@@ -2097,7 +2085,7 @@ applies the aforementioned restarting.</p>
 <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="c1">## KMeans(n_clusters=3, n_init=10)</span>
 <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>  <span class="c1"># WCSS – not optimal!</span>
-<span class="c1">## 437.5467188958928</span>
+<span class="c1">## 437.54671889589287</span>
 </pre></div>
 </div>
 <p>Still, there are no guarantees: the solution is suboptimal too.
@@ -2122,7 +2110,7 @@ but we must always be cautious.</p>
 <p>We recommend performing at least 100 random restarts.
 Also, if a report from data analysis does not say anything about
 the number of tries performed, we are advised to assume that the results
-are gibberish<a class="footnote-reference brackets" href="#footr" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>. People will complain about our being
+are gibberish<a class="footnote-reference brackets" href="#footr" id="id18" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>. People will complain about our being
 a pain, but we know better; compare Rule#9.</p>
 </div>
 <div class="proof proof-type-exercise" id="id63">
@@ -2159,25 +2147,25 @@ following cluster centres which are close to the global minimum.</p>
 </section>
 <section id="further-reading">
 <h2><span class="section-number">12.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
-<p>An overall noteworthy introduction to classification is <span id="id18">[<a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">50</a>]</span>
-and <span id="id19">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">10</a>]</span>.
+<p>An overall noteworthy introduction to classification is <span id="id19">[<a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">50</a>]</span>
+and <span id="id20">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">10</a>]</span>.
 Nevertheless, as we said earlier, we recommend going through
 a solid course in matrix algebra and mathematical statistics
-first, e.g., <span id="id20">[<a class="reference internal" href="999-bibliography.html#id76" title="Deisenroth, M.P., Faisal, A.A., and Ong, C.S. (2020).  Mathematics for Machine Learning. Cambridge University Press. URL: https://mml-book.github.io/.">22</a>, <a class="reference internal" href="999-bibliography.html#id135" title="Gentle, J.E. (2024).  Matrix Algebra: Theory, Computations and Applications in Statistics. Springer.">42</a>]</span>
-and <span id="id21">[<a class="reference internal" href="999-bibliography.html#id47" title="Dekking, F.M., Kraaikamp, C., Lopuhaä, H.P., and Meester, L.E. (2005).  A Modern Introduction to Probability and Statistics: Understanding Why and How. Springer.">23</a>, <a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">40</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">41</a>]</span>.
+first, e.g., <span id="id21">[<a class="reference internal" href="999-bibliography.html#id76" title="Deisenroth, M.P., Faisal, A.A., and Ong, C.S. (2020).  Mathematics for Machine Learning. Cambridge University Press. URL: https://mml-book.github.io/.">22</a>, <a class="reference internal" href="999-bibliography.html#id135" title="Gentle, J.E. (2024).  Matrix Algebra: Theory, Computations and Applications in Statistics. Springer.">42</a>]</span>
+and <span id="id22">[<a class="reference internal" href="999-bibliography.html#id47" title="Dekking, F.M., Kraaikamp, C., Lopuhaä, H.P., and Meester, L.E. (2005).  A Modern Introduction to Probability and Statistics: Understanding Why and How. Springer.">23</a>, <a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">40</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">41</a>]</span>.
 For advanced theoretical (probabilistic, information-theoretic) results,
-see, e.g., <span id="id22">[<a class="reference internal" href="999-bibliography.html#id120" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">11</a>, <a class="reference internal" href="999-bibliography.html#id80" title="Devroye, L., Györfi, L., and Lugosi, G. (1996).  A Probabilistic Theory of Pattern Recognition. Springer. DOI: 10.1007/978-1-4612-0711-5.">24</a>]</span>.</p>
+see, e.g., <span id="id23">[<a class="reference internal" href="999-bibliography.html#id120" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">11</a>, <a class="reference internal" href="999-bibliography.html#id80" title="Devroye, L., Györfi, L., and Lugosi, G. (1996).  A Probabilistic Theory of Pattern Recognition. Springer. DOI: 10.1007/978-1-4612-0711-5.">24</a>]</span>.</p>
 <p>Hierarchical clustering algorithms
-(see, e.g., <span id="id23">[<a class="reference internal" href="999-bibliography.html#id86" title="Gagolewski, M. (2021).  genieclust: Fast and robust hierarchical clustering. SoftwareX, 15:100722. URL: https://genieclust.gagolewski.com/, DOI: 10.1016/j.softx.2021.100722.">34</a>, <a class="reference internal" href="999-bibliography.html#id114" title="Müllner, D. (2011).  Modern hierarchical, agglomerative clustering algorithms. arXiv:1109.2378 [stat.ML]. URL: https://arxiv.org/abs/1109.2378v1.">69</a>]</span>)
+(see, e.g., <span id="id24">[<a class="reference internal" href="999-bibliography.html#id86" title="Gagolewski, M. (2021).  genieclust: Fast and robust hierarchical clustering. SoftwareX, 15:100722. URL: https://genieclust.gagolewski.com/, DOI: 10.1016/j.softx.2021.100722.">34</a>, <a class="reference internal" href="999-bibliography.html#id114" title="Müllner, D. (2011).  Modern hierarchical, agglomerative clustering algorithms. arXiv:1109.2378 [stat.ML]. URL: https://arxiv.org/abs/1109.2378v1.">69</a>]</span>)
 are also worthwhile as they do not require
 asking for a fixed number of clusters.
 Furthermore, density-based algorithms (DBSCAN and its variants)
-<span id="id24">[<a class="reference internal" href="999-bibliography.html#id88" title="Campello, R.J.G.B., Moulavi, D., Zimek, A., and Sander, J. (2015).  Hierarchical density estimates for data clustering, visualization, and outlier detection. ACM Transactions on Knowledge Discovery from Data, 10(1):5:1–5:51. DOI: 10.1145/2733381.">14</a>, <a class="reference internal" href="999-bibliography.html#id89" title="Ester, M., Kriegel, H.P., Sander, J., and Xu, X. (1996).  A density-based algorithm for discovering clusters in large spatial databases with noise. In: Proc. KDD'96, pp. 226–231.">27</a>, <a class="reference internal" href="999-bibliography.html#id90" title="Ling, R.F. (1973).  A probability theory of cluster analysis. Journal of the American Statistical Association, 68(341):159–164. DOI: 10.1080/01621459.1973.10481356.">62</a>]</span>
+<span id="id25">[<a class="reference internal" href="999-bibliography.html#id88" title="Campello, R.J.G.B., Moulavi, D., Zimek, A., and Sander, J. (2015).  Hierarchical density estimates for data clustering, visualization, and outlier detection. ACM Transactions on Knowledge Discovery from Data, 10(1):5:1–5:51. DOI: 10.1145/2733381.">14</a>, <a class="reference internal" href="999-bibliography.html#id89" title="Ester, M., Kriegel, H.P., Sander, J., and Xu, X. (1996).  A density-based algorithm for discovering clusters in large spatial databases with noise. In: Proc. KDD'96, pp. 226–231.">27</a>, <a class="reference internal" href="999-bibliography.html#id90" title="Ling, R.F. (1973).  A probability theory of cluster analysis. Journal of the American Statistical Association, 68(341):159–164. DOI: 10.1080/01621459.1973.10481356.">62</a>]</span>
 utilise the notion of fixed-radius search that we introduced
 in <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
 <p>There are a few ways that aim to assess the quality of clustering
 results, but their meaningfulness is somewhat limited;
-see <span id="id25">[<a class="reference internal" href="999-bibliography.html#id10" title="Gagolewski, M., Bartoszuk, M., and Cena, A. (2021).  Are cluster validity measures (in)valid? Information Sciences, 581:620–636. DOI: 10.1016/j.ins.2021.10.004.">38</a>]</span> for discussion.</p>
+see <span id="id26">[<a class="reference internal" href="999-bibliography.html#id10" title="Gagolewski, M., Bartoszuk, M., and Cena, A. (2021).  Are cluster validity measures (in)valid? Information Sciences, 581:620–636. DOI: 10.1016/j.ins.2021.10.004.">38</a>]</span> for discussion.</p>
 </section>
 <section id="exercises">
 <h2><span class="section-number">12.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
@@ -2276,7 +2264,9 @@ method?</p>
 <p>Why restarting Lloyd’s algorithm many times is necessary?
 Why are reports from data analysis that do not mention the number
 of restarts not trustworthy?</p>
-</div></div><hr class="footnotes docutils" />
+</div></div></section>
+</section>
+<hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footoop" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
@@ -2326,14 +2316,14 @@ by <span class="math">\(k\)</span>. We could be speaking about the <span class="
 some mainstream practitioners consider <span class="math">\(k\)</span>-means as a kind of a
 brand name, let’s thus refrain from adding to their confusion.
 Another widely known algorithm
-is called fuzzy (weighted) <span class="math">\(c\)</span>-means <span id="id26">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">8</a>]</span>.</p>
+is called fuzzy (weighted) <span class="math">\(c\)</span>-means <span id="id12">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">8</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footvoronoi" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">8</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">8</a><span class="fn-bracket">]</span></span>
 <p>(*) And its relation to Voronoi diagrams.</p>
 </aside>
 <aside class="footnote brackets" id="footkmeansdoesntmatter" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">9</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id16">9</a><span class="fn-bracket">]</span></span>
 <p>If we have many different heuristics,
 each aiming to approximate
 a solution to the <span class="math">\(k\)</span>-means problem, from the practical
@@ -2346,19 +2336,17 @@ find the optimal set of cluster centres – the
 more approaches we test, the better the chance of success.</p>
 </aside>
 <aside class="footnote brackets" id="footlucky" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id16">10</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">10</a><span class="fn-bracket">]</span></span>
 <p>Mind who is the benevolent dictator
 of the pseudorandom number generator’s seed.</p>
 </aside>
 <aside class="footnote brackets" id="footr" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">11</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">11</a><span class="fn-bracket">]</span></span>
 <p>For instance, R’s <strong class="command">stats::kmeans</strong>
 automatically uses <code class="docutils literal notranslate"><span class="pre">nstart=1</span></code>. It is not rare, unfortunately,
 that data analysts only stick with the default arguments.</p>
 </aside>
 </aside>
-</section>
-</section>
 
         </article>
       </div>
@@ -2395,7 +2383,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2025-06-02T12:06:36+0200.
+              Last updated on 2025-11-04T14:00:05+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2461,13 +2449,13 @@ that data analysts only stick with the default arguments.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=ff40c50f"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+</div><script src="../_static/documentation_options.js?v=5b384116"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/proof.js"></script>
-    <script src="../_static/katex.min.js?v=be8ff15f"></script>
-    <script src="../_static/auto-render.min.js?v=ad136472"></script>
+    <script src="../_static/katex.min.js?v=5cc8ed51"></script>
+    <script src="../_static/auto-render.min.js?v=af98beb9"></script>
     <script src="../_static/katex_autorenderer.js?v=bebc588a"></script>
     </body>
 </html>
