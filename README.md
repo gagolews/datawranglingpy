@@ -31,7 +31,7 @@ knowledge's sake.
 **Please spread the news about this project.**
 
 Consider citing this book as:
-[Gagolewski M.][1] (2025), *Minimalist Data Wrangling with Python*,
+[Gagolewski M.][1] (2026), *Minimalist Data Wrangling with Python*,
 Melbourne,
 DOI: [10.5281/zenodo.6451068](https://dx.doi.org/10.5281/zenodo.6451068),
 ISBN: 978-0-6455719-1-2,
@@ -73,7 +73,7 @@ hierarchical clustering algorithm in both Python and R).
 
 --------------------------------------------------------------------------------
 
-Copyright (C) 2022–2025, [Marek Gagolewski][1]. Some rights reserved.
+Copyright (C) 2022–2026, [Marek Gagolewski][1]. Some rights reserved.
 
 This material is licensed under the Creative Commons
 [Attribution-NonCommercial-NoDerivatives 4.0 International][2] License
