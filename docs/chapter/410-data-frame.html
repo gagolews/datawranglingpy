@@ -29,10 +29,10 @@
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/410-data-frame.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/datawranglingpy.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>10. Introducing data frames - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
@@ -235,7 +235,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9003
+v1.1.0.9004
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -341,13 +341,13 @@ Refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy">bug/typo reports/fixes</a>
 are appreciated. Make sure to check out
 <a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
 </div></blockquote>
 <p><strong class="program">numpy</strong> arrays are an extremely versatile tool for performing data
 analysis activities and other numerical computations of various kinds.
 Even though it is theoretically possible otherwise, in practice,
 we only store elements of the same type there: most often numbers.</p>
-<p><a class="reference external" href="https://pandas.pydata.org/"><strong class="program">pandas</strong></a> <span id="id2">[<a class="reference internal" href="999-bibliography.html#id18" title="McKinney, W. (2022).  Python for Data Analysis. O'Reilly. URL: https://wesmckinney.com/book.">66</a>]</span>
+<p><a class="reference external" href="https://pandas.pydata.org/"><strong class="program">pandas</strong></a> <span class="bibtex-citation" id="id2">[<a class="reference internal" href="999-bibliography.html#id18" title="McKinney, W. (2022).  Python for Data Analysis. O'Reilly. URL: https://wesmckinney.com/book.">66</a>]</span>
 is amongst over <a class="reference external" href="https://libraries.io/pypi/numpy">one hundred thousand</a>
 open-source packages and repositories that use <strong class="program">numpy</strong> to provide
 additional data wrangling functionality.
@@ -403,7 +403,7 @@ can be fed, for example, with a <strong class="program">numpy</strong> matrix:</
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="c1">##           a         b         c</span>
 <span class="c1">## 0  0.696469  0.286139  0.226851</span>
@@ -420,22 +420,22 @@ common data source:</p>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
     <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
     <span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">],</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">],</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"E"</span><span class="p">],</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"bacon"</span><span class="p">,</span> <span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"eggs"</span><span class="p">],</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2022-02-02&quot;</span><span class="p">,</span> <span class="s2">&quot;2023-03-03&quot;</span><span class="p">,</span> <span class="s2">&quot;2024-04-04&quot;</span><span class="p">,</span> <span class="s2">&quot;2025-05-05&quot;</span>
-    <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;datetime64[D]&quot;</span><span class="p">),</span>
+        <span class="s2">"2021-01-01"</span><span class="p">,</span> <span class="s2">"2022-02-02"</span><span class="p">,</span> <span class="s2">"2023-03-03"</span><span class="p">,</span> <span class="s2">"2024-04-04"</span><span class="p">,</span> <span class="s2">"2025-05-05"</span>
+    <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"datetime64[D]"</span><span class="p">),</span>
     <span class="n">g</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;ham&quot;</span><span class="p">]</span>
+        <span class="p">[</span><span class="s2">"spam"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"bacon"</span><span class="p">,</span> <span class="s2">"spam"</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="s2">"eggs"</span><span class="p">,</span> <span class="s2">"bacon"</span><span class="p">,</span> <span class="s2">"spam"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"ham"</span><span class="p">]</span>
     <span class="p">],</span>
 <span class="p">))</span>
 <span class="n">df</span>
-<span class="c1">##       a    b      c     d      e          f                    g</span>
-<span class="c1">## 0  0.70  1.0   True     A   spam 2021-01-01               [spam]</span>
-<span class="c1">## 1  0.29  2.5   True     B   spam 2022-02-02        [bacon, spam]</span>
-<span class="c1">## 2  0.23  NaN  False     C  bacon 2023-03-03                 None</span>
-<span class="c1">## 3  0.55  4.0  False  None   spam 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## 4  0.72  NaN   True     E   eggs 2025-05-05                [ham]</span>
+<span class="c1">##       a    b      c    d      e          f                    g</span>
+<span class="c1">## 0  0.70  1.0   True    A   spam 2021-01-01               [spam]</span>
+<span class="c1">## 1  0.29  2.5   True    B   spam 2022-02-02        [bacon, spam]</span>
+<span class="c1">## 2  0.23  NaN  False    C  bacon 2023-03-03                 None</span>
+<span class="c1">## 3  0.55  4.0  False  NaN   spam 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## 4  0.72  NaN   True    E   eggs 2025-05-05                [ham]</span>
 </pre></div>
 </div>
 <p>The above illustrates the possibility of having columns of different
@@ -452,9 +452,9 @@ in the <a class="reference external" href="https://pandas.pydata.org/docs">docum
 Use them to create example data frames.</p>
 </div></div><p>Further, data frames can be read from files in different
 formats, for instance, CSV:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">body</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  <span class="c1"># display the first few rows (five by default)</span>
 <span class="c1">##    BMXWT  BMXHT  BMXARML  BMXLEG  BMXARMC  BMXHIP  BMXWAIST</span>
 <span class="c1">## 0   97.1  160.2     34.7    40.8     35.8   126.1     117.9</span>
@@ -506,8 +506,8 @@ and columns:</p>
 <span class="c1">## a          float64</span>
 <span class="c1">## b          float64</span>
 <span class="c1">## c             bool</span>
-<span class="c1">## d           object</span>
-<span class="c1">## e           object</span>
+<span class="c1">## d              str</span>
+<span class="c1">## e              str</span>
 <span class="c1">## f    datetime64[s]</span>
 <span class="c1">## g           object</span>
 <span class="c1">## dtype: object</span>
@@ -519,7 +519,7 @@ and columns:</p>
 <h3><span class="section-number">10.1.2. </span><code class="docutils literal notranslate"><span class="pre">Series</span></code><a class="headerlink" href="#series" title="Link to this heading">¶</a></h3>
 <p>There is a separate class for storing individual data frame
 columns: it is called <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;a&quot;</span><span class="p">]</span>  <span class="c1"># extract the `a` column; alternatively: df.a</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"a"</span><span class="p">]</span>  <span class="c1"># extract the `a` column; alternatively: df.a</span>
 <span class="n">s</span>
 <span class="c1">## 0    0.70</span>
 <span class="c1">## 1    0.29</span>
@@ -577,7 +577,7 @@ Note that their argument list is slightly different.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">shape</span>
 <span class="c1">## (5,)</span>
 <span class="n">s</span><span class="o">.</span><span class="n">dtype</span>
-<span class="c1">## dtype(&#39;float64&#39;)</span>
+<span class="c1">## dtype('float64')</span>
 </pre></div>
 </div>
 <p>They are wrappers around <strong class="program">numpy</strong> arrays.</p>
@@ -595,12 +595,12 @@ with vector processing still holds for data frame columns
 (but there will be more).</p>
 <p><code class="docutils literal notranslate"><span class="pre">Series</span></code> can also be <em>named</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">name</span>
-<span class="c1">## &#39;a&#39;</span>
+<span class="c1">## 'a'</span>
 </pre></div>
 </div>
 <p>This is convenient, especially when we convert them to a data frame
 as the <code class="docutils literal notranslate"><span class="pre">name</span></code> sets the label of the newly created column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;spam&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"spam"</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 <span class="c1">##    spam</span>
 <span class="c1">## 0  0.70</span>
 <span class="c1">## 1  0.29</span>
@@ -624,7 +624,7 @@ that gives the row names:</p>
 <p>It represents a sequence (0, 1, 2, 3, 4).
 Furthermore, the <code class="docutils literal notranslate"><span class="pre">column</span></code> slot gives:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>  <span class="c1"># column labels</span>
-<span class="c1">## Index([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;], dtype=&#39;object&#39;)</span>
+<span class="c1">## Index(['a', 'b', 'c', 'd', 'e', 'f', 'g'], dtype='str')</span>
 </pre></div>
 </div>
 <p>Also, we can label the individual elements in <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects:</p>
@@ -634,52 +634,52 @@ Furthermore, the <code class="docutils literal notranslate"><span class="pre">co
 </div>
 <p>The <strong class="command">set_index</strong> method can be applied
 to make a data frame column act as a sequence of row labels:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"e"</span><span class="p">)</span>
 <span class="n">df2</span>
-<span class="c1">##           a    b      c     d          f                    g</span>
-<span class="c1">## e                                                            </span>
-<span class="c1">## spam   0.70  1.0   True     A 2021-01-01               [spam]</span>
-<span class="c1">## spam   0.29  2.5   True     B 2022-02-02        [bacon, spam]</span>
-<span class="c1">## bacon  0.23  NaN  False     C 2023-03-03                 None</span>
-<span class="c1">## spam   0.55  4.0  False  None 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## eggs   0.72  NaN   True     E 2025-05-05                [ham]</span>
+<span class="c1">##           a    b      c    d          f                    g</span>
+<span class="c1">## e                                                           </span>
+<span class="c1">## spam   0.70  1.0   True    A 2021-01-01               [spam]</span>
+<span class="c1">## spam   0.29  2.5   True    B 2022-02-02        [bacon, spam]</span>
+<span class="c1">## bacon  0.23  NaN  False    C 2023-03-03                 None</span>
+<span class="c1">## spam   0.55  4.0  False  NaN 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## eggs   0.72  NaN   True    E 2025-05-05                [ham]</span>
 </pre></div>
 </div>
 <p>This <code class="docutils literal notranslate"><span class="pre">Index</span></code> object is named:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
-<span class="c1">## &#39;e&#39;</span>
+<span class="c1">## 'e'</span>
 </pre></div>
 </div>
 <p>We can also rename the axes on the fly:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;ROWS&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;COLS&quot;</span><span class="p">)</span>
-<span class="c1">## COLS      a    b      c     d          f                    g</span>
-<span class="c1">## ROWS                                                         </span>
-<span class="c1">## spam   0.70  1.0   True     A 2021-01-01               [spam]</span>
-<span class="c1">## spam   0.29  2.5   True     B 2022-02-02        [bacon, spam]</span>
-<span class="c1">## bacon  0.23  NaN  False     C 2023-03-03                 None</span>
-<span class="c1">## spam   0.55  4.0  False  None 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## eggs   0.72  NaN   True     E 2025-05-05                [ham]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"ROWS"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"COLS"</span><span class="p">)</span>
+<span class="c1">## COLS      a    b      c    d          f                    g</span>
+<span class="c1">## ROWS                                                        </span>
+<span class="c1">## spam   0.70  1.0   True    A 2021-01-01               [spam]</span>
+<span class="c1">## spam   0.29  2.5   True    B 2022-02-02        [bacon, spam]</span>
+<span class="c1">## bacon  0.23  NaN  False    C 2023-03-03                 None</span>
+<span class="c1">## spam   0.55  4.0  False  NaN 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## eggs   0.72  NaN   True    E 2025-05-05                [ham]</span>
 </pre></div>
 </div>
 <p>Having a named <code class="docutils literal notranslate"><span class="pre">index</span></code> slot is handy when converting a vector
 of row labels back to a standalone column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;NEW_COLUMN&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="c1">##   NEW_COLUMN     a    b      c     d          f                    g</span>
-<span class="c1">## 0       spam  0.70  1.0   True     A 2021-01-01               [spam]</span>
-<span class="c1">## 1       spam  0.29  2.5   True     B 2022-02-02        [bacon, spam]</span>
-<span class="c1">## 2      bacon  0.23  NaN  False     C 2023-03-03                 None</span>
-<span class="c1">## 3       spam  0.55  4.0  False  None 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## 4       eggs  0.72  NaN   True     E 2025-05-05                [ham]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"NEW_COLUMN"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1">##   NEW_COLUMN     a    b      c    d          f                    g</span>
+<span class="c1">## 0       spam  0.70  1.0   True    A 2021-01-01               [spam]</span>
+<span class="c1">## 1       spam  0.29  2.5   True    B 2022-02-02        [bacon, spam]</span>
+<span class="c1">## 2      bacon  0.23  NaN  False    C 2023-03-03                 None</span>
+<span class="c1">## 3       spam  0.55  4.0  False  NaN 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## 4       eggs  0.72  NaN   True    E 2025-05-05                [ham]</span>
 </pre></div>
 </div>
 <p>But we can also do it this way:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s2">&quot;Spanish Inquisition&quot;</span><span class="p">)</span>
-<span class="c1">##   Spanish Inquisition     a    b  ...     d          f                    g</span>
-<span class="c1">## 0                spam  0.70  1.0  ...     A 2021-01-01               [spam]</span>
-<span class="c1">## 1                spam  0.29  2.5  ...     B 2022-02-02        [bacon, spam]</span>
-<span class="c1">## 2               bacon  0.23  NaN  ...     C 2023-03-03                 None</span>
-<span class="c1">## 3                spam  0.55  4.0  ...  None 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## 4                eggs  0.72  NaN  ...     E 2025-05-05                [ham]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s2">"Spanish Inquisition"</span><span class="p">)</span>
+<span class="c1">##   Spanish Inquisition     a    b  ...    d          f                    g</span>
+<span class="c1">## 0                spam  0.70  1.0  ...    A 2021-01-01               [spam]</span>
+<span class="c1">## 1                spam  0.29  2.5  ...    B 2022-02-02        [bacon, spam]</span>
+<span class="c1">## 2               bacon  0.23  NaN  ...    C 2023-03-03                 None</span>
+<span class="c1">## 3                spam  0.55  4.0  ...  NaN 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## 4                eggs  0.72  NaN  ...    E 2025-05-05                [ham]</span>
 <span class="c1">## </span>
 <span class="c1">## [5 rows x 7 columns]</span>
 </pre></div>
@@ -688,12 +688,12 @@ of row labels back to a standalone column:</p>
 and to replace it with the default label sequence, i.e.,
 0, 1, 2, …:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1">##       a    b      c     d          f                    g</span>
-<span class="c1">## 0  0.70  1.0   True     A 2021-01-01               [spam]</span>
-<span class="c1">## 1  0.29  2.5   True     B 2022-02-02        [bacon, spam]</span>
-<span class="c1">## 2  0.23  NaN  False     C 2023-03-03                 None</span>
-<span class="c1">## 3  0.55  4.0  False  None 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## 4  0.72  NaN   True     E 2025-05-05                [ham]</span>
+<span class="c1">##       a    b      c    d          f                    g</span>
+<span class="c1">## 0  0.70  1.0   True    A 2021-01-01               [spam]</span>
+<span class="c1">## 1  0.29  2.5   True    B 2022-02-02        [bacon, spam]</span>
+<span class="c1">## 2  0.23  NaN  False    C 2023-03-03                 None</span>
+<span class="c1">## 3  0.55  4.0  False  NaN 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## 4  0.72  NaN   True    E 2025-05-05                [ham]</span>
 </pre></div>
 </div>
 <p>Take note of the fact that <strong class="command">reset_index</strong>, and many other methods
@@ -717,14 +717,14 @@ change the name of the <code class="docutils literal notranslate"><span class="p
 of more than one level – is possible.
 For example, here is a sorted (see <a class="reference internal" href="#sec-df-sort"><span class="std std-numref">Section 10.6.1</span></a>) version
 of <code class="docutils literal notranslate"><span class="pre">df</span></code> with a new index based on two columns at the same time:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
-<span class="c1">##                 a    b     d          f                    g</span>
-<span class="c1">## e     c                                                     </span>
-<span class="c1">## spam  True   0.70  1.0     A 2021-01-01               [spam]</span>
-<span class="c1">##       True   0.29  2.5     B 2022-02-02        [bacon, spam]</span>
-<span class="c1">##       False  0.55  4.0  None 2024-04-04  [eggs, bacon, spam]</span>
-<span class="c1">## eggs  True   0.72  NaN     E 2025-05-05                [ham]</span>
-<span class="c1">## bacon False  0.23  NaN     C 2023-03-03                 None</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"e"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"e"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
+<span class="c1">##                 a    b    d          f                    g</span>
+<span class="c1">## e     c                                                    </span>
+<span class="c1">## spam  True   0.70  1.0    A 2021-01-01               [spam]</span>
+<span class="c1">##       True   0.29  2.5    B 2022-02-02        [bacon, spam]</span>
+<span class="c1">##       False  0.55  4.0  NaN 2024-04-04  [eggs, bacon, spam]</span>
+<span class="c1">## eggs  True   0.72  NaN    E 2025-05-05                [ham]</span>
+<span class="c1">## bacon False  0.23  NaN    C 2023-03-03                 None</span>
 </pre></div>
 </div>
 <p>For the sake of readability,
@@ -737,17 +737,17 @@ the consecutive repeated <code class="docutils literal notranslate"><span class=
     </div><div class="proof-content">
 <p>Hierarchical indexes might arise after aggregating data in groups.
 For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span>
-        <span class="s2">&quot;BMXBMI&quot;</span><span class="p">:</span> <span class="s2">&quot;bmival&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">:</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">:</span> <span class="s2">&quot;usborn&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span>
+        <span class="s2">"BMXBMI"</span><span class="p">:</span> <span class="s2">"bmival"</span><span class="p">,</span>
+        <span class="s2">"RIAGENDR"</span><span class="p">:</span> <span class="s2">"gender"</span><span class="p">,</span>
+        <span class="s2">"DMDBORN4"</span><span class="p">:</span> <span class="s2">"usborn"</span>
     <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>, we will get used to writing:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;usborn&quot;</span><span class="p">])[</span><span class="s2">&quot;bmival&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"usborn"</span><span class="p">])[</span><span class="s2">"bmival"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">res</span>  <span class="c1"># BMI by gender and US born-ness</span>
 <span class="c1">## gender  usborn</span>
 <span class="c1">## 1       1         25.734110</span>
@@ -780,8 +780,8 @@ If we do not fancy it, <strong class="command">reset_index</strong> comes to our
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;sausage&quot;</span><span class="p">]</span>
-<span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">])</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"bacon"</span><span class="p">,</span> <span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"eggs"</span><span class="p">,</span> <span class="s2">"sausage"</span><span class="p">]</span>
+<span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">])</span>
 <span class="n">df</span>
 <span class="c1">##       u     v        w</span>
 <span class="c1">## a  0.70  0.32     spam</span>
@@ -793,14 +793,14 @@ If we do not fancy it, <strong class="command">reset_index</strong> comes to our
 </div>
 <p>All <strong class="program">numpy</strong> functions can be applied on individual
 columns, i.e., objects of the type <code class="docutils literal notranslate"><span class="pre">Series</span></code>, because they are vector-like.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>  <span class="c1"># extract the `u` column (gives a Series; see below)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span>  <span class="c1"># extract the `u` column (gives a Series; see below)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="c1">## array([0.23, 0.55, 0.72])</span>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Most <strong class="program">numpy</strong> functions also work if they are fed with data frames,
 but we will need to extract the numeric columns manually.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span>  <span class="c1"># select two columns (a DataFrame; see below)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">]]</span>  <span class="c1"># select two columns (a DataFrame; see below)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## array([[ 0.23, -1.62],</span>
 <span class="c1">##        [ 0.55, -0.05],</span>
@@ -875,14 +875,14 @@ but please do not blame the messenger.</p>
 <p>By applying the already well-known vectorised mathematical
 functions from <strong class="program">numpy</strong>, we can transform each data cell
 and return an object of the same type as the input one.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">])</span>
 <span class="c1">## a    2.013753</span>
 <span class="c1">## b    1.336427</span>
 <span class="c1">## c    1.258600</span>
 <span class="c1">## d    1.733253</span>
 <span class="c1">## e    2.054433</span>
 <span class="c1">## Name: u, dtype: float64</span>
-<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">]])</span>
 <span class="c1">##           u         v</span>
 <span class="c1">## a  2.013753  1.377128</span>
 <span class="c1">## b  1.336427  0.951229</span>
@@ -896,7 +896,7 @@ and logical operators on an object of the class <code class="docutils literal no
 a scalar or a <strong class="program">numpy</strong> vector, the operations are performed
 elementwisely.
 For instance, here is a standardised version of the <code class="docutils literal notranslate"><span class="pre">u</span></code> column:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span>
 <span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">u</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
 <span class="c1">## a    0.990672</span>
 <span class="c1">## b   -1.020098</span>
@@ -910,7 +910,7 @@ For instance, here is a standardised version of the <code class="docutils litera
 For two objects having identical <code class="docutils literal notranslate"><span class="pre">index</span></code> slots
 (this is the most common scenario), this is the same as elementwise
 vectorisation. For instance:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">]</span>  <span class="c1"># here: elementwise comparison</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"v"</span><span class="p">]</span>  <span class="c1"># here: elementwise comparison</span>
 <span class="c1">## a     True</span>
 <span class="c1">## b     True</span>
 <span class="c1">## c     True</span>
@@ -923,7 +923,7 @@ vectorisation. For instance:</p>
 it is worthwhile either to
 convert them to a numeric matrix explicitly
 and then use the basic <strong class="program">numpy</strong> functions:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">]])</span>
 <span class="n">uv2</span> <span class="o">=</span> <span class="p">(</span><span class="n">uv</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">uv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">uv2</span>
 <span class="c1">## array([[ 0.99067229,  0.20286225],</span>
@@ -935,7 +935,7 @@ and then use the basic <strong class="program">numpy</strong> functions:</p>
 </div>
 <p>or to use the <strong class="command">pandas.DataFrame.apply</strong> method
 which invokes a given function on each column separately:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uv2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="n">uv2</span>
 <span class="c1">##           u         v</span>
 <span class="c1">## a  0.990672  0.202862</span>
@@ -949,7 +949,7 @@ which invokes a given function on each column separately:</p>
 in both cases, we can write <code class="docutils literal notranslate"><span class="pre">df.loc[:,</span> <span class="pre">[&quot;u&quot;,</span> <span class="pre">&quot;v&quot;]]</span> <span class="pre">=</span> <span class="pre">uv2</span></code>
 to replace the old content. Also, new columns can be added based on the
 transformed versions of the existing ones. For instance:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;uv_squared&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;v&quot;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"uv_squared"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"v"</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
 <span class="n">df</span>
 <span class="c1">##       u     v        w  uv_squared</span>
 <span class="c1">## a  0.70  0.32     spam    0.050176</span>
@@ -968,7 +968,7 @@ transformed versions of the existing ones. For instance:</p>
 <p>(*)
 Arithmetic operations on objects with different <code class="docutils literal notranslate"><span class="pre">index</span></code> slots
 are vectorised <em>labelwisely</em>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
 <span class="n">x</span>
 <span class="c1">## a        1</span>
 <span class="c1">## b       10</span>
@@ -976,7 +976,7 @@ are vectorised <em>labelwisely</em>:</p>
 <span class="c1">## a     1000</span>
 <span class="c1">## c    10000</span>
 <span class="c1">## dtype: int64</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
 <span class="n">y</span>
 <span class="c1">## b    1</span>
 <span class="c1">## b    2</span>
@@ -1046,7 +1046,7 @@ the type <code class="docutils literal notranslate"><span class="pre">Series</sp
 </div>
 <p>and:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;abcdefghij&quot;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"abcdefghij"</span><span class="p">)</span>
 <span class="n">c</span>
 <span class="c1">## a    0.70</span>
 <span class="c1">## b    0.29</span>
@@ -1091,10 +1091,10 @@ indexing.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># do not use it: it will change in the future!</span>
 <span class="c1">## 2    0.7</span>
 <span class="c1">## dtype: float64</span>
-<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># there is no label `0` (do not use it: it will change in the future!)</span>
-<span class="c1">## 0.7</span>
 </pre></div>
 </div>
+<p>Moreover, accessing <code class="docutils literal notranslate"><span class="pre">c[0]</span></code> gives an error in the most recent version
+of <strong class="program">pandas</strong>.</p>
 <p>Confusing? Well, with some self-discipline, the solution is easy:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1120,7 +1120,7 @@ currently serves as a label-based selector of columns only.</p>
 <p>This returned the element labelled <code class="docutils literal notranslate"><span class="pre">0</span></code>. On the other hand, <code class="docutils literal notranslate"><span class="pre">c.loc[0]</span></code> will
 raise a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> because <code class="docutils literal notranslate"><span class="pre">c</span></code> consists of string labels only.
 But in this case, we can write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"j"</span><span class="p">]</span>
 <span class="c1">## 0.39</span>
 </pre></div>
 </div>
@@ -1130,7 +1130,7 @@ But in this case, we can write:</p>
 <span class="c1">## 1    0.29</span>
 <span class="c1">## 0    0.39</span>
 <span class="c1">## dtype: float64</span>
-<span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[</span><span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;j&quot;</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[</span><span class="s2">"j"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"j"</span><span class="p">]</span> <span class="p">]</span>
 <span class="c1">## j    0.39</span>
 <span class="c1">## b    0.29</span>
 <span class="c1">## j    0.39</span>
@@ -1152,7 +1152,7 @@ But in this case, we can write:</p>
 <span class="c1">## 5    0.98</span>
 <span class="c1">## 4    0.42</span>
 <span class="c1">## dtype: float64</span>
-<span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">:</span><span class="s2">&quot;g&quot;</span><span class="p">]</span>
+<span class="n">c</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"d"</span><span class="p">:</span><span class="s2">"g"</span><span class="p">]</span>
 <span class="c1">## d    0.55</span>
 <span class="c1">## e    0.72</span>
 <span class="c1">## f    0.42</span>
@@ -1165,8 +1165,8 @@ But in this case, we can write:</p>
 <p class="admonition-title">Note</p>
 <p>Be careful that if there are repeated labels, then
 we will be returning <em>all</em> (sic!<a class="footnote-reference brackets" href="#footallmatch" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>) the matching items:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">])</span>
-<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span>
 <span class="c1">## a    1</span>
 <span class="c1">## a    3</span>
 <span class="c1">## dtype: int64</span>
@@ -1229,13 +1229,13 @@ selector. For example:</p>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;sausage&quot;</span><span class="p">],</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"bacon"</span><span class="p">,</span> <span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"eggs"</span><span class="p">,</span> <span class="s2">"sausage"</span><span class="p">],</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
 <span class="p">))</span>
 </pre></div>
 </div>
 <p>And now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">:</span><span class="s2">&quot;w&quot;</span> <span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"u"</span><span class="p">:</span><span class="s2">"w"</span> <span class="p">]</span>
 <span class="c1">##       u     v        w</span>
 <span class="c1">## 0  0.70  0.32     spam</span>
 <span class="c1">## 3  0.55  1.98     eggs</span>
@@ -1246,7 +1246,7 @@ selector. For example:</p>
 column are greater than 0.5 and then
 returns all columns between <code class="docutils literal notranslate"><span class="pre">u</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> (inclusive!).</p>
 <p>Furthermore:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">]]</span>
 <span class="c1">##       u      w</span>
 <span class="c1">## 0  0.70   spam</span>
 <span class="c1">## 1  0.29  bacon</span>
@@ -1256,7 +1256,7 @@ returns all columns between <code class="docutils literal notranslate"><span cla
 <p>It fetched the first three rows (by position; <code class="docutils literal notranslate"><span class="pre">iloc</span></code> is necessary)
 and then selects two indicated columns.</p>
 <p>Compare this to:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>  <span class="c1"># df[:3, [&quot;u&quot;, &quot;w&quot;]] does not even work; please don&#39;t</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">]]</span>  <span class="c1"># df[:3, ["u", "w"]] does not even work; please don't</span>
 <span class="c1">##       u      w</span>
 <span class="c1">## 0  0.70   spam</span>
 <span class="c1">## 1  0.29  bacon</span>
@@ -1270,7 +1270,7 @@ and then selects two indicated columns.</p>
 <p>Getting a scrambled numeric index that does not match the
 physical positions is not rare: for instance, in the context
 of data frame sorting (<a class="reference internal" href="#sec-df-sort"><span class="std std-numref">Section 10.6.1</span></a>):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;v&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"v"</span><span class="p">)</span>
 <span class="n">df2</span>
 <span class="c1">##       u     v        w      x</span>
 <span class="c1">## 4  0.72 -1.62  sausage   True</span>
@@ -1300,7 +1300,7 @@ of data frame sorting (<a class="reference internal" href="#sec-df-sort"><span c
 <p class="admonition-title">Important</p>
 <p>We can frequently write <code class="docutils literal notranslate"><span class="pre">df.u</span></code> as a shorter version of <code class="docutils literal notranslate"><span class="pre">df.loc[:,</span> <span class="pre">&quot;u&quot;]</span></code>.
 This improves the readability in contexts such as:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">u</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">u</span> <span class="o">&lt;=</span> <span class="mf">0.7</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">u</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">u</span> <span class="o">&lt;=</span> <span class="mf">0.7</span><span class="p">),</span> <span class="p">[</span><span class="s2">"u"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">]]</span>
 <span class="c1">##       u     w</span>
 <span class="c1">## 0  0.70  spam</span>
 <span class="c1">## 3  0.55  eggs</span>
@@ -1344,7 +1344,7 @@ the tips were greater than $5.</p>
 <h3><span class="section-number">10.5.2. </span>Adding rows and columns<a class="headerlink" href="#adding-rows-and-columns" title="Link to this heading">¶</a></h3>
 <p><strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> can also be used to add new columns to an
 existing data frame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># or df.loc[:, &quot;y&quot;] = df.u**2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># or df.loc[:, "y"] = df.u**2</span>
 <span class="n">df</span>
 <span class="c1">##       u     v        w      x       y</span>
 <span class="c1">## 0  0.70  0.32     spam   True  0.4900</span>
@@ -1389,19 +1389,19 @@ of the same <code class="docutils literal notranslate"><span class="pre">dtype</
 <h3><span class="section-number">10.5.3. </span>Modifying items<a class="headerlink" href="#modifying-items" title="Link to this heading">¶</a></h3>
 <p>In the current version of <strong class="program">pandas</strong>, modifying particular elements
 gives a warning:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># the same as df.u.iloc[0] = 7</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># the same as df.u.iloc[0] = 7</span>
 <span class="c1">## SettingWithCopyWarning:</span>
 <span class="c1">## A value is trying to be set on a copy of a slice from a DataFrame</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># testing</span>
-<span class="c1">## 7.0</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># testing</span>
+<span class="c1">## 0.7</span>
 </pre></div>
 </div>
 <p>To remedy this, it is best to create a copy of a column,
 modify it, and then to replace the old contents with the new ones.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">u</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>  <span class="c1"># or a whole for loop to process them all, or whatever</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># testing</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"u"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># testing</span>
 <span class="c1">## 42.0</span>
 </pre></div>
 </div>
@@ -1419,9 +1419,9 @@ we can use the <strong class="command">pandas.DataFrame.sample</strong> method, 
 <li><p>rearrange all the rows.</p></li>
 </ul>
 <p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/nhanes_adult_female_bmx_2020.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">body</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># 5 rows without replacement</span>
 <span class="c1">##       BMXWT  BMXHT  BMXARML  BMXLEG  BMXARMC  BMXHIP  BMXWAIST</span>
 <span class="c1">## 4214   58.4  156.2     35.2    34.7     27.2    99.5      77.5</span>
@@ -1536,9 +1536,9 @@ equal (or almost equal if that is not possible) sizes.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">2025</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span>
-    <span class="n">quarter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">([</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;Q4&quot;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="n">quarter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">([</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">))</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;quarter&quot;</span><span class="p">])</span>
+<span class="p">))</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"quarter"</span><span class="p">])</span>
 <span class="n">df</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
@@ -1586,10 +1586,10 @@ and dropped (!) this level of the hierarchy.</p>
 </pre></div>
 </div>
 <p>To access deeper levels, we can use tuples as indexers:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">),</span> <span class="p">:</span> <span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">"Q1"</span><span class="p">),</span> <span class="p">:</span> <span class="p">]</span>
 <span class="c1">## data    0.7</span>
 <span class="c1">## Name: (2023, Q1), dtype: float64</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">)],</span> <span class="p">:</span> <span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">[(</span><span class="mi">2023</span><span class="p">,</span> <span class="s2">"Q1"</span><span class="p">),</span> <span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">)],</span> <span class="p">:</span> <span class="p">]</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2023 Q1       0.70</span>
@@ -1604,7 +1604,7 @@ and <strong class="command">set_index</strong> creatively (together with
 can only be used <em>directly</em> within the square brackets.
 Nonetheless, we can always use the <strong class="command">slice</strong> constructor to create
 a slice in any context:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">]),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># :, [&quot;Q1&quot;, &quot;Q3&quot;]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">]),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># :, ["Q1", "Q3"]</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2023 Q1       0.70</span>
@@ -1613,7 +1613,7 @@ a slice in any context:</p>
 <span class="c1">##      Q3       0.98</span>
 <span class="c1">## 2025 Q1       0.48</span>
 <span class="c1">##      Q3       0.34</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">&quot;Q2&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">)),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># ::-1, &quot;Q2&quot;:&quot;Q3&quot;</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">)),</span> <span class="p">:</span> <span class="p">]</span>  <span class="c1"># ::-1, "Q2":"Q3"</span>
 <span class="c1">##               data</span>
 <span class="c1">## year quarter      </span>
 <span class="c1">## 2025 Q3       0.34</span>
@@ -1637,12 +1637,12 @@ that can aid in their formatting.</p>
 <p>Consider another example dataset: the yearly (for 2018) average
 <a class="reference external" href="https://discover.data.vic.gov.au/dataset/epa-air-watch-all-sites-air-quality-hourly-averages-yearly">air quality data</a>
 in the Australian state of Victoria.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/air_quality_2018_means.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/air_quality_2018_means.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">air</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">air</span><span class="o">.</span>
-    <span class="n">loc</span><span class="p">[</span><span class="n">air</span><span class="o">.</span><span class="n">param_id</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;BPM2.5&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">]),</span> <span class="p">:]</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[</span><span class="n">air</span><span class="o">.</span><span class="n">param_id</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"BPM2.5"</span><span class="p">,</span> <span class="s2">"NO2"</span><span class="p">]),</span> <span class="p">:]</span><span class="o">.</span>
     <span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -1678,7 +1678,7 @@ Alternatively, we could have used backslashes at the end of each line.</p>
 </div>
 <p><strong class="command">sort_values</strong> is a convenient means to order the rows
 with respect to one criterion, be it numeric or categorical.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"value"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="c1">##           sp_name param_id      value</span>
 <span class="c1">## 6       Footscray      NO2  10.274531</span>
 <span class="c1">## 4       Dandenong      NO2   9.800705</span>
@@ -1699,7 +1699,7 @@ with respect to one criterion, be it numeric or categorical.</p>
 </pre></div>
 </div>
 <p>It is also possible to take into account more sorting criteria:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;param_id&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"param_id"</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
 <span class="c1">##           sp_name param_id      value</span>
 <span class="c1">## 9   Melbourne CBD   BPM2.5   8.072998</span>
 <span class="c1">## 14      Traralgon   BPM2.5   8.024735</span>
@@ -1736,13 +1736,13 @@ Lamentably, <strong class="command">DataFrame.sort_values</strong> by default
 does not use a stable algorithm. If a data frame is sorted with respect to one criterion,
 and then we reorder it with respect to another one, tied observations
 are not guaranteed to be listed in the original order:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/air_quality_2018_means.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;sp_name&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;param_id&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;param_id&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;BPM2.5&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">],</span> <span class="p">:]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/air_quality_2018_means.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"sp_name"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"param_id"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"param_id"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">"BPM2.5"</span><span class="p">,</span> <span class="s2">"NO2"</span><span class="p">],</span> <span class="p">:]</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
 <span class="c1">##    param_id        sp_name      value</span>
 <span class="c1">## 0    BPM2.5  Melbourne CBD   8.072998</span>
@@ -1766,13 +1766,13 @@ are not guaranteed to be listed in the original order:</p>
 <p>We lost the ordering based on station names in the two subgroups.
 To switch to a mergesort-like method (timsort), we should pass
 <code class="docutils literal notranslate"><span class="pre">kind=&quot;stable&quot;</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/air_quality_2018_means.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;sp_name&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;param_id&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>  <span class="c1"># !</span>
-    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;param_id&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;BPM2.5&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">],</span> <span class="p">:]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/air_quality_2018_means.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"sp_name"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"param_id"</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">)</span>  <span class="c1"># !</span>
+    <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"param_id"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">"BPM2.5"</span><span class="p">,</span> <span class="s2">"NO2"</span><span class="p">],</span> <span class="p">:]</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
 <span class="c1">##    param_id        sp_name      value</span>
 <span class="c1">## 0    BPM2.5     Alphington   7.848758</span>
@@ -1815,12 +1815,12 @@ Such a form is convenient for data storage,
 especially where there are only a few recorded values
 but many possible combinations of levels (sparse data).</p>
 <p>The long format might not be optimal in all data processing
-activities, though; compare <span id="id9">[<a class="reference internal" href="999-bibliography.html#id40" title="Wickham, H. (2014).  Tidy data. Journal of Statistical Software, 59(10):1–23. DOI: 10.18637/jss.v059.i10.">101</a>]</span>.
+activities, though; compare <span class="bibtex-citation" id="id9">[<a class="reference internal" href="999-bibliography.html#id40" title="Wickham, H. (2014).  Tidy data. Journal of Statistical Software, 59(10):1–23. DOI: 10.18637/jss.v059.i10.">101</a>]</span>.
 In the part of this book on matrix processing,
 it was much more natural for us to have a single <em>observation</em>
 in each row (e.g., data for each measurement station).</p>
 <p>We can <em>unstack</em> the <code class="docutils literal notranslate"><span class="pre">air</span></code> data frame easily:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;sp_name&quot;</span><span class="p">,</span> <span class="s2">&quot;param_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;value&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span> <span class="o">=</span> <span class="n">air</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"sp_name"</span><span class="p">,</span> <span class="s2">"param_id"</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"value"</span><span class="p">]</span>
 <span class="n">air_wide</span>
 <span class="c1">## param_id         BPM2.5        NO2</span>
 <span class="c1">## sp_name                           </span>
@@ -1845,25 +1845,31 @@ Hence, to drop the last level of the hierarchy,
 we had to add the <strong class="command">loc</strong><code class="code docutils literal notranslate"><span class="pre">[...]</span></code> part.
 Also notice that the <code class="docutils literal notranslate"><span class="pre">index</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> slots are named.</p>
 <p>The other way around, we can use the <strong class="command">stack</strong> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;param&quot;</span><span class="p">)</span><span class="o">.</span>\
-    <span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">air_wide</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"location"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"param"</span><span class="p">)</span><span class="o">.</span>\
+    <span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"value"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    location          param      value</span>
 <span class="c1">## 0    BPM2.5     Alphington   7.848758</span>
-<span class="c1">## 1    BPM2.5      Churchill   6.391230</span>
-<span class="c1">## 2    BPM2.5      Footscray   7.640948</span>
-<span class="c1">## 3    BPM2.5  Geelong South   6.502762</span>
-<span class="c1">## 4    BPM2.5  Melbourne CBD   8.072998</span>
-<span class="c1">## 5    BPM2.5            Moe   6.427079</span>
-<span class="c1">## 6    BPM2.5   Morwell East   6.784596</span>
-<span class="c1">## 7    BPM2.5  Morwell South   6.512849</span>
-<span class="c1">## 8    BPM2.5      Traralgon   8.024735</span>
-<span class="c1">## 9       NO2     Alphington   9.558120</span>
-<span class="c1">## 10      NO2   Altona North   9.467912</span>
-<span class="c1">## 11      NO2      Dandenong   9.800705</span>
-<span class="c1">## 12      NO2      Footscray  10.274531</span>
-<span class="c1">## 13      NO2  Geelong South   5.681722</span>
-<span class="c1">## 14      NO2  Morwell South   5.124430</span>
-<span class="c1">## 15      NO2      Traralgon   5.776333</span>
+<span class="c1">## 1    BPM2.5   Altona North        NaN</span>
+<span class="c1">## 2    BPM2.5      Churchill   6.391230</span>
+<span class="c1">## 3    BPM2.5      Dandenong        NaN</span>
+<span class="c1">## 4    BPM2.5      Footscray   7.640948</span>
+<span class="c1">## 5    BPM2.5  Geelong South   6.502762</span>
+<span class="c1">## 6    BPM2.5  Melbourne CBD   8.072998</span>
+<span class="c1">## 7    BPM2.5            Moe   6.427079</span>
+<span class="c1">## 8    BPM2.5   Morwell East   6.784596</span>
+<span class="c1">## 9    BPM2.5  Morwell South   6.512849</span>
+<span class="c1">## 10   BPM2.5      Traralgon   8.024735</span>
+<span class="c1">## 11      NO2     Alphington   9.558120</span>
+<span class="c1">## 12      NO2   Altona North   9.467912</span>
+<span class="c1">## 13      NO2      Churchill        NaN</span>
+<span class="c1">## 14      NO2      Dandenong   9.800705</span>
+<span class="c1">## 15      NO2      Footscray  10.274531</span>
+<span class="c1">## 16      NO2  Geelong South   5.681722</span>
+<span class="c1">## 17      NO2  Melbourne CBD        NaN</span>
+<span class="c1">## 18      NO2            Moe        NaN</span>
+<span class="c1">## 19      NO2   Morwell East        NaN</span>
+<span class="c1">## 20      NO2  Morwell South   5.124430</span>
+<span class="c1">## 21      NO2      Traralgon   5.776333</span>
 </pre></div>
 </div>
 <p>We used the data frame transpose (<strong class="command">T</strong>) to
@@ -1877,7 +1883,7 @@ are not provided.</p>
 <span id="sec-join"></span><h3><span class="section-number">10.6.3. </span>Joining (merging)<a class="headerlink" href="#joining-merging" title="Link to this heading">¶</a></h3>
 <p>In database design, it is common to normalise
 the datasets. We do this to avoid the duplication of information
-and pathologies stemming from them (e.g., <span id="id10">[<a class="reference internal" href="999-bibliography.html#id77" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">21</a>]</span>).</p>
+and pathologies stemming from them (e.g., <span class="bibtex-citation" id="id10">[<a class="reference internal" href="999-bibliography.html#id77" title="Date, C.J. (2003).  An Introduction to Database Systems. Pearson.">21</a>]</span>).</p>
 <div class="proof proof-type-example" id="id32">
 
     <div class="proof-title">
@@ -1885,10 +1891,10 @@ and pathologies stemming from them (e.g., <span id="id10">[<a class="reference i
         
     </div><div class="proof-content">
 <p>The air quality parameters are separately described in another data frame:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/air_quality_2018_param.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">param</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">param_std_unit_of_measure</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/air_quality_2018_param.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">param_std_unit_of_measure</span><span class="o">=</span><span class="s2">"unit"</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">param</span>
 <span class="c1">##   param_id                   param_name   unit      param_short_name</span>
 <span class="c1">## 0      API      Airborne particle index   none  Visibility Reduction</span>
@@ -1912,8 +1918,8 @@ that have the same <code class="docutils literal notranslate"><span class="pre">
 and join (merge) these datasets only when we really need this.</p>
 </div></div><div style="margin-top: 1em"></div><p>Let’s discuss the possible join operations by studying two toy datasets:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a3&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;b3&quot;</span><span class="p">]</span>
+    <span class="s2">"x"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a0"</span><span class="p">,</span> <span class="s2">"a1"</span><span class="p">,</span> <span class="s2">"a2"</span><span class="p">,</span> <span class="s2">"a3"</span><span class="p">],</span>
+    <span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"b0"</span><span class="p">,</span> <span class="s2">"b1"</span><span class="p">,</span> <span class="s2">"b2"</span><span class="p">,</span> <span class="s2">"b3"</span><span class="p">]</span>
 <span class="p">})</span>
 <span class="n">A</span>
 <span class="c1">##     x   y</span>
@@ -1925,8 +1931,8 @@ and join (merge) these datasets only when we really need this.</p>
 </div>
 <p>and:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;a4&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;c0&quot;</span><span class="p">,</span> <span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="s2">&quot;c3&quot;</span><span class="p">]</span>
+    <span class="s2">"x"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a0"</span><span class="p">,</span> <span class="s2">"a2"</span><span class="p">,</span> <span class="s2">"a2"</span><span class="p">,</span> <span class="s2">"a4"</span><span class="p">],</span>
+    <span class="s2">"z"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"c0"</span><span class="p">,</span> <span class="s2">"c1"</span><span class="p">,</span> <span class="s2">"c2"</span><span class="p">,</span> <span class="s2">"c3"</span><span class="p">]</span>
 <span class="p">})</span>
 <span class="n">B</span>
 <span class="c1">##     x   z</span>
@@ -1939,7 +1945,7 @@ and join (merge) these datasets only when we really need this.</p>
 <p>They both have one column somewhat <em>in common</em>, <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 <p>The <em>inner (natural) join</em> returns the records that have a match in
 both datasets:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
 <span class="c1">##     x   y   z</span>
 <span class="c1">## 0  a0  b0  c0</span>
 <span class="c1">## 1  a2  b2  c1</span>
@@ -1948,7 +1954,7 @@ both datasets:</p>
 </div>
 <p>The <em>left join</em> of <span class="math">\(A\)</span> with <span class="math">\(B\)</span> guarantees to return all the records
 from <span class="math">\(A\)</span>, even those which are not matched by anything in <span class="math">\(B\)</span>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
 <span class="c1">##     x   y    z</span>
 <span class="c1">## 0  a0  b0   c0</span>
 <span class="c1">## 1  a1  b1  NaN</span>
@@ -1959,7 +1965,7 @@ from <span class="math">\(A\)</span>, even those which are not matched by anythi
 </div>
 <p>The <em>right join</em> of <span class="math">\(A\)</span> with <span class="math">\(B\)</span> is the same as the left join of
 <span class="math">\(B\)</span> with <span class="math">\(A\)</span>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
 <span class="c1">##     x    y   z</span>
 <span class="c1">## 0  a0   b0  c0</span>
 <span class="c1">## 1  a2   b2  c1</span>
@@ -1969,7 +1975,7 @@ from <span class="math">\(A\)</span>, even those which are not matched by anythi
 </div>
 <p>Finally, the <em>full outer join</em> is the set-theoretic
 union of the left and the right join:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"x"</span><span class="p">)</span>
 <span class="c1">##     x    y    z</span>
 <span class="c1">## 0  a0   b0   c0</span>
 <span class="c1">## 1  a1   b1  NaN</span>
@@ -2020,9 +2026,9 @@ This token is mentioned in numerous datasets, including:</p>
 <section id="set-theoretic-operations-and-removing-duplicates">
 <h3><span class="section-number">10.6.4. </span>Set-theoretic operations and removing duplicates<a class="headerlink" href="#set-theoretic-operations-and-removing-duplicates" title="Link to this heading">¶</a></h3>
 <p>Here are two not at all disjoint sets of imaginary persons:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/some_birth_dates1.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/some_birth_dates1.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">A</span>
 <span class="c1">##                   Name   BirthDate</span>
 <span class="c1">## 0     Paitoon Ornwimol  26.06.1958</span>
@@ -2038,9 +2044,9 @@ This token is mentioned in numerous datasets, including:</p>
 </pre></div>
 </div>
 <p>and:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/some_birth_dates2.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/some_birth_dates2.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">B</span>
 <span class="c1">##                    Name   BirthDate</span>
 <span class="c1">## 0    Hushang Naigamwala  25.08.1991</span>
@@ -2267,7 +2273,7 @@ they work.</p>
 <aside class="footnote brackets" id="footdf" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
 <p>Data frames were first introduced in the 1991 version
-of the S language <span id="id4">[<a class="reference internal" href="999-bibliography.html#id39" title="Chambers, J.M. and Hastie, T. (1991).  Statistical Models in S. Wadsworth &amp; Brooks/Cole.">15</a>]</span>.</p>
+of the S language <span class="bibtex-citation" id="id4">[<a class="reference internal" href="999-bibliography.html#id39" title="Chambers, J.M. and Hastie, T. (1991).  Statistical Models in S. Wadsworth &amp; Brooks/Cole.">15</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footgoback" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">2</a><span class="fn-bracket">]</span></span>
@@ -2337,7 +2343,7 @@ where we can work with data frames; e.g., base R and Julia with
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-02-17T12:41:35+0100.
+              Last updated on 2026-10-21T10:54:34+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2402,9 +2408,9 @@ where we can work with data frames; e.g., base R and Julia with
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5b384116"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../_static/documentation_options.js?v=90b1d1db"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/proof.js"></script>
     <script src="../_static/katex.min.js?v=5cc8ed51"></script>

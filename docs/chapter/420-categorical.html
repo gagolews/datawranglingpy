@@ -29,10 +29,10 @@
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/420-categorical.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/datawranglingpy.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>11. Handling categorical data - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
@@ -235,7 +235,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9003
+v1.1.0.9004
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -341,7 +341,7 @@ Refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy">bug/typo reports/fixes</a>
 are appreciated. Make sure to check out
 <a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
 </div></blockquote>
 <p>So far, we have been mostly dealing with <em>quantitative</em> (numeric) data,
 on which we were able to apply various mathematical operations,
@@ -377,14 +377,14 @@ is by means of logical vectors. This can be extended to a so-called
 one-hot encoded representation using a logical vector of length <span class="math">\(l\)</span>.</p>
 <div style="margin-top: 1em"></div><p>Consider the data on the original whereabouts of the top
 16 marathoners (the 37th Warsaw Marathon dataset):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/37_pzu_warsaw_marathon_simplified.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">cntrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/37_pzu_warsaw_marathon_simplified.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="n">cntrs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"str"</span><span class="p">)</span>
 <span class="n">cntrs16</span> <span class="o">=</span> <span class="n">cntrs</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
 <span class="n">cntrs16</span>
-<span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
-<span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
+<span class="c1">## array(['KE', 'KE', 'KE', 'ET', 'KE', 'KE', 'ET', 'MA', 'PL', 'PL', 'IL',</span>
+<span class="c1">##        'PL', 'KE', 'KE', 'PL', 'PL'], dtype='&lt;U2')</span>
 </pre></div>
 </div>
 <p>These are two-letter ISO 3166 country codes
@@ -393,7 +393,7 @@ encoded as strings (notice the <code class="docutils literal notranslate"><span 
 the set of distinct categories:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span>
 <span class="n">cat_cntrs16</span>
-<span class="c1">## array([&#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;IL&#39;], dtype=&#39;&lt;U2&#39;)</span>
+<span class="c1">## array(['KE', 'ET', 'MA', 'PL', 'IL'], dtype='&lt;U2')</span>
 </pre></div>
 </div>
 <p>Hence, <code class="docutils literal notranslate"><span class="pre">cntrs16</span></code> is a categorical vector of length <span class="math">\(n=16\)</span>
@@ -412,7 +412,7 @@ In other words, they would <em>not</em> be listed in the order of appearance.</p
 integers, we can call <strong class="command">pandas.factorize</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">codes_cntrs16</span><span class="p">,</span> <span class="n">cat_cntrs16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span>  <span class="c1"># sort=False</span>
 <span class="n">cat_cntrs16</span>
-<span class="c1">## array([&#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;IL&#39;], dtype=&#39;&lt;U2&#39;)</span>
+<span class="c1">## array(['KE', 'ET', 'MA', 'PL', 'IL'], dtype='&lt;U2')</span>
 <span class="n">codes_cntrs16</span>
 <span class="c1">## array([0, 0, 0, 1, 0, 0, 1, 2, 3, 3, 4, 3, 0, 0, 3, 3])</span>
 </pre></div>
@@ -434,15 +434,15 @@ a quantitative type. Arithmetic operations thereon do not really make sense.</p>
 to index a given array of length <span class="math">\(l=5\)</span>.
 As a consequence, to <em>decode</em> our factor, we can call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
-<span class="c1">## array([&#39;KE&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;ET&#39;, &#39;MA&#39;, &#39;PL&#39;, &#39;PL&#39;, &#39;IL&#39;,</span>
-<span class="c1">##        &#39;PL&#39;, &#39;KE&#39;, &#39;KE&#39;, &#39;PL&#39;, &#39;PL&#39;], dtype=&#39;&lt;U2&#39;)</span>
+<span class="c1">## array(['KE', 'KE', 'KE', 'ET', 'KE', 'KE', 'ET', 'MA', 'PL', 'PL', 'IL',</span>
+<span class="c1">##        'PL', 'KE', 'KE', 'PL', 'PL'], dtype='&lt;U2')</span>
 </pre></div>
 </div>
 <p>We can use any other set of labels now:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;Kenya&quot;</span><span class="p">,</span> <span class="s2">&quot;Ethiopia&quot;</span><span class="p">,</span> <span class="s2">&quot;Morocco&quot;</span><span class="p">,</span> <span class="s2">&quot;Poland&quot;</span><span class="p">,</span> <span class="s2">&quot;Israel&quot;</span><span class="p">])[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
-<span class="c1">## array([&#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Ethiopia&#39;, &#39;Kenya&#39;, &#39;Kenya&#39;,</span>
-<span class="c1">##        &#39;Ethiopia&#39;, &#39;Morocco&#39;, &#39;Poland&#39;, &#39;Poland&#39;, &#39;Israel&#39;, &#39;Poland&#39;,</span>
-<span class="c1">##        &#39;Kenya&#39;, &#39;Kenya&#39;, &#39;Poland&#39;, &#39;Poland&#39;], dtype=&#39;&lt;U8&#39;)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"Kenya"</span><span class="p">,</span> <span class="s2">"Ethiopia"</span><span class="p">,</span> <span class="s2">"Morocco"</span><span class="p">,</span> <span class="s2">"Poland"</span><span class="p">,</span> <span class="s2">"Israel"</span><span class="p">])[</span><span class="n">codes_cntrs16</span><span class="p">]</span>
+<span class="c1">## array(['Kenya', 'Kenya', 'Kenya', 'Ethiopia', 'Kenya', 'Kenya',</span>
+<span class="c1">##        'Ethiopia', 'Morocco', 'Poland', 'Poland', 'Israel', 'Poland',</span>
+<span class="c1">##        'Kenya', 'Kenya', 'Poland', 'Poland'], dtype='&lt;U8')</span>
 </pre></div>
 </div>
 <p>It is an instance of the <em>relabelling</em> of a categorical variable.</p>
@@ -457,7 +457,7 @@ changing the order of labels and permuting the numeric codes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># an example permutation of labels</span>
 <span class="n">new_cat_cntrs16</span> <span class="o">=</span> <span class="n">cat_cntrs16</span><span class="p">[</span><span class="n">new_codes</span><span class="p">]</span>
 <span class="n">new_cat_cntrs16</span>
-<span class="c1">## array([&#39;PL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;IL&#39;, &#39;ET&#39;], dtype=&#39;&lt;U2&#39;)</span>
+<span class="c1">## array(['PL', 'KE', 'MA', 'IL', 'ET'], dtype='&lt;U2')</span>
 </pre></div>
 </div>
 <p>Then we make use of the fact that <strong class="command">numpy.argsort</strong>
@@ -491,11 +491,11 @@ and <strong class="command">numpy.searchsorted</strong>.</em></p>
 <strong class="program">pandas</strong> <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/categorical.html">includes</a>
 a special <code class="docutils literal notranslate"><span class="pre">dtype</span></code> for storing categorical data.
 Namely, we can write:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"category"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>or, equivalently:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cntrs16_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cntrs16</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>These two yield a <code class="docutils literal notranslate"><span class="pre">Series</span></code> object displayed as if it was represented
@@ -507,7 +507,7 @@ using string labels:</p>
 <span class="c1">## 3    ET</span>
 <span class="c1">## 4    KE</span>
 <span class="c1">## dtype: category</span>
-<span class="c1">## Categories (5, object): [&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;]</span>
+<span class="c1">## Categories (5, str): ['ET', 'IL', 'KE', 'MA', 'PL']</span>
 </pre></div>
 </div>
 <p>Instead, it is encoded using the aforementioned numeric
@@ -515,26 +515,26 @@ representation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cntrs16_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="p">)</span>
 <span class="c1">## array([2, 2, 2, 0, 2, 2, 0, 3, 4, 4, 1, 4, 2, 2, 4, 4], dtype=int8)</span>
 <span class="n">cntrs16_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
-<span class="c1">## Index([&#39;ET&#39;, &#39;IL&#39;, &#39;KE&#39;, &#39;MA&#39;, &#39;PL&#39;], dtype=&#39;object&#39;)</span>
+<span class="c1">## Index(['ET', 'IL', 'KE', 'MA', 'PL'], dtype='str')</span>
 </pre></div>
 </div>
 <p>This time the labels are sorted lexicographically.</p>
 <p>Most often we will be storing categorical data in data frames
 as ordinary strings, unless a relabelling on the fly is required:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">16</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">16</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
     <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">(</span>
-        <span class="p">[</span><span class="s2">&quot;KE&quot;</span><span class="p">,</span>    <span class="s2">&quot;IL&quot;</span><span class="p">,</span>     <span class="s2">&quot;MA&quot;</span><span class="p">,</span>      <span class="s2">&quot;ET&quot;</span><span class="p">,</span>       <span class="s2">&quot;PL&quot;</span><span class="p">]</span>
+        <span class="p">[</span><span class="s2">"KE"</span><span class="p">,</span>    <span class="s2">"IL"</span><span class="p">,</span>     <span class="s2">"MA"</span><span class="p">,</span>      <span class="s2">"ET"</span><span class="p">,</span>       <span class="s2">"PL"</span><span class="p">]</span>
     <span class="p">)</span>
     <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">(</span>
-        <span class="p">[</span><span class="s2">&quot;Kenya&quot;</span><span class="p">,</span> <span class="s2">&quot;Israel&quot;</span><span class="p">,</span> <span class="s2">&quot;Morocco&quot;</span><span class="p">,</span> <span class="s2">&quot;Ethiopia&quot;</span><span class="p">,</span> <span class="s2">&quot;Poland&quot;</span><span class="p">]</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+        <span class="p">[</span><span class="s2">"Kenya"</span><span class="p">,</span> <span class="s2">"Israel"</span><span class="p">,</span> <span class="s2">"Morocco"</span><span class="p">,</span> <span class="s2">"Ethiopia"</span><span class="p">,</span> <span class="s2">"Poland"</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span>
 <span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">## 0       Kenya</span>
 <span class="c1">## 1       Kenya</span>
 <span class="c1">## 2       Kenya</span>
 <span class="c1">## 3    Ethiopia</span>
 <span class="c1">## 4       Kenya</span>
-<span class="c1">## Name: country, dtype: object</span>
+<span class="c1">## Name: country, dtype: str</span>
 </pre></div>
 </div>
 </section>
@@ -711,7 +711,7 @@ It returns a vector-like object with <code class="docutils literal notranslate">
 with very readable labels generated automatically
 (and ordered; see <a class="reference internal" href="#sec-ordinal-data"><span class="std std-numref">Section 11.4.7</span></a>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cut_mins16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">mins16</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]))</span>
-<span class="n">cut_mins16</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span> <span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>  <span class="c1"># preview</span>
+<span class="n">cut_mins16</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span> <span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span>  <span class="c1"># preview</span>
 <span class="c1">## 0      (-inf, 130.0]</span>
 <span class="c1">## 1     (130.0, 140.0]</span>
 <span class="c1">## 6     (130.0, 140.0]</span>
@@ -719,11 +719,11 @@ with very readable labels generated automatically
 <span class="c1">## 13    (140.0, 150.0]</span>
 <span class="c1">## 14      (150.0, inf]</span>
 <span class="c1">## 15      (150.0, inf]</span>
-<span class="c1">## dtype: object</span>
-<span class="n">cut_mins16</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
-<span class="c1">## Index([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
-<span class="c1">##        &#39;(150.0, inf]&#39;],</span>
-<span class="c1">##       dtype=&#39;object&#39;)</span>
+<span class="c1">## dtype: str</span>
+<span class="n">cut_mins16</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span>
+<span class="c1">## Index(['(-inf, 130.0]', '(130.0, 140.0]', '(140.0, 150.0]',</span>
+<span class="c1">##        '(150.0, inf]'],</span>
+<span class="c1">##       dtype='str')</span>
 </pre></div>
 </div>
 <div class="proof proof-type-example" id="id16">
@@ -736,10 +736,10 @@ with very readable labels generated automatically
 for example, as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bins2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span>
 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">bins2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">bins2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bins2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="p">[</span><span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">bins2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">bins2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">]"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bins2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
 <span class="p">)</span>
-<span class="c1">## array([&#39;(-inf, 130.0]&#39;, &#39;(130.0, 140.0]&#39;, &#39;(140.0, 150.0]&#39;,</span>
-<span class="c1">##        &#39;(150.0, inf]&#39;], dtype=&#39;&lt;U14&#39;)</span>
+<span class="c1">## array(['(-inf, 130.0]', '(130.0, 140.0]', '(140.0, 150.0]',</span>
+<span class="c1">##        '(150.0, inf]'], dtype='&lt;U14')</span>
 </pre></div>
 </div>
 </div></div><div class="proof proof-type-exercise" id="id17">
@@ -761,14 +761,14 @@ on linear and logarithmic scales, respectively.</p>
 with categories picked with given probabilities:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;spam&quot;</span><span class="p">,</span> <span class="s2">&quot;bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;tempeh&quot;</span><span class="p">],</span>
+    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="s2">"spam"</span><span class="p">,</span> <span class="s2">"bacon"</span><span class="p">,</span> <span class="s2">"eggs"</span><span class="p">,</span> <span class="s2">"tempeh"</span><span class="p">],</span>
     <span class="n">p</span><span class="o">=</span><span class="p">[</span>   <span class="mf">0.7</span><span class="p">,</span>     <span class="mf">0.1</span><span class="p">,</span>   <span class="mf">0.15</span><span class="p">,</span>     <span class="mf">0.05</span><span class="p">],</span>
     <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">size</span><span class="o">=</span><span class="mi">16</span>
 <span class="p">)</span>
-<span class="c1">## array([&#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;bacon&#39;, &#39;spam&#39;, &#39;tempeh&#39;, &#39;spam&#39;,</span>
-<span class="c1">##        &#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;bacon&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;spam&#39;, &#39;bacon&#39;],</span>
-<span class="c1">##       dtype=&#39;&lt;U6&#39;)</span>
+<span class="c1">## array(['spam', 'spam', 'spam', 'spam', 'bacon', 'spam', 'tempeh', 'spam',</span>
+<span class="c1">##        'spam', 'spam', 'spam', 'bacon', 'spam', 'spam', 'spam', 'bacon'],</span>
+<span class="c1">##       dtype='&lt;U6')</span>
 </pre></div>
 </div>
 <p>If we generate a sufficiently long vector,
@@ -826,9 +826,9 @@ together with the corresponding items in <code class="docutils literal notransla
 <p>Some datasets may bear many categorical columns,
 each having possibly different levels.
 Let’s now consider all the runners in the <code class="docutils literal notranslate"><span class="pre">marathon</span></code> dataset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># first two chars</span>
-<span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="s2">&quot;60&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;60+&quot;</span>  <span class="c1"># not enough 70+ y.olds</span>
-<span class="n">marathon</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;country&quot;</span><span class="p">]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"age"</span><span class="p">]</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># first two chars</span>
+<span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="s2">"60"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"60+"</span>  <span class="c1"># not enough 70+ y.olds</span>
+<span class="n">marathon</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"country"</span><span class="p">]]</span>
 <span class="n">marathon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">##   sex age country</span>
 <span class="c1">## 0   M  20      KE</span>
@@ -845,15 +845,19 @@ Instead, we note that some interesting patterns might also arise
 when we study the <em>combinations</em> of levels of different variables.</p>
 <p>Here are the levels of the sex and age variables:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">sex</span><span class="p">)</span>
-<span class="c1">## array([&#39;M&#39;, &#39;F&#39;], dtype=object)</span>
+<span class="c1">## &lt;StringArray&gt;</span>
+<span class="c1">## ['M', 'F']</span>
+<span class="c1">## Length: 2, dtype: str</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
-<span class="c1">## array([&#39;20&#39;, &#39;30&#39;, &#39;50&#39;, &#39;40&#39;, &#39;60+&#39;], dtype=object)</span>
+<span class="c1">## &lt;StringArray&gt;</span>
+<span class="c1">## ['20', '30', '50', '40', '60+']</span>
+<span class="c1">## Length: 5, dtype: str</span>
 </pre></div>
 </div>
 <p>We have <span class="math">\(2\cdot 5=10\)</span> combinations thereof.
 We can use <strong class="command">pandas.DataFrame.value_counts</strong> to determine
 the number of observations at each two-dimensional level:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts2</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts2</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">counts2</span>
 <span class="c1">## sex  age</span>
 <span class="c1">## M    30     2200</span>
@@ -875,10 +879,10 @@ the number of occurrences of each pair of values
 from the two factors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">counts2</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">V</span>
-<span class="c1">## age   20    30    40   50  60+</span>
+<span class="c1">## age   20    30   50    40  60+</span>
 <span class="c1">## sex                           </span>
-<span class="c1">## F    240   449   262   43   19</span>
-<span class="c1">## M    879  2200  1708  541  170</span>
+<span class="c1">## M    879  2200  541  1708  170</span>
+<span class="c1">## F    240   449   43   262   19</span>
 </pre></div>
 </div>
 <p>For example, there were 19 women aged at least 60
@@ -888,15 +892,15 @@ can be recreated by computing the rowwise and columnwise sums
 of <code class="docutils literal notranslate"><span class="pre">V</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">## sex</span>
-<span class="c1">## F    1013</span>
 <span class="c1">## M    5498</span>
+<span class="c1">## F    1013</span>
 <span class="c1">## dtype: int64</span>
 <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1">## age</span>
 <span class="c1">## 20     1119</span>
 <span class="c1">## 30     2649</span>
-<span class="c1">## 40     1970</span>
 <span class="c1">## 50      584</span>
+<span class="c1">## 40     1970</span>
 <span class="c1">## 60+     189</span>
 <span class="c1">## dtype: int64</span>
 </pre></div>
@@ -908,11 +912,11 @@ of <code class="docutils literal notranslate"><span class="pre">V</span></code>:
 with a combination of more than two categorical variables:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts3</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span>
     <span class="o">.</span><span class="n">loc</span><span class="p">[</span>
-        <span class="n">marathon</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;PL&quot;</span><span class="p">,</span> <span class="s2">&quot;UA&quot;</span><span class="p">,</span> <span class="s2">&quot;SK&quot;</span><span class="p">]),</span>
-        <span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span>
+        <span class="n">marathon</span><span class="o">.</span><span class="n">country</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"PL"</span><span class="p">,</span> <span class="s2">"UA"</span><span class="p">,</span> <span class="s2">"SK"</span><span class="p">]),</span>
+        <span class="p">[</span><span class="s2">"country"</span><span class="p">,</span> <span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]</span>
     <span class="p">]</span>
     <span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 <span class="n">counts3</span>
@@ -926,22 +930,22 @@ with a combination of more than two categorical variables:</p>
 <span class="c1">## 6       PL   F   20    222</span>
 <span class="c1">## 7       PL   M  60+    134</span>
 <span class="c1">## 8       PL   F   50     26</span>
-<span class="c1">## 9       PL   F  60+      8</span>
-<span class="c1">## 10      UA   M   30      8</span>
-<span class="c1">## 11      UA   M   20      8</span>
+<span class="c1">## 9       UA   M   30      8</span>
+<span class="c1">## 10      UA   M   20      8</span>
+<span class="c1">## 11      PL   F  60+      8</span>
 <span class="c1">## 12      UA   M   50      3</span>
 <span class="c1">## 13      UA   F   30      2</span>
 <span class="c1">## 14      UA   M   40      2</span>
-<span class="c1">## 15      SK   M  60+      1</span>
-<span class="c1">## 16      SK   F   50      1</span>
-<span class="c1">## 17      SK   M   40      1</span>
+<span class="c1">## 15      SK   M   40      1</span>
+<span class="c1">## 16      SK   M  60+      1</span>
+<span class="c1">## 17      SK   F   50      1</span>
 </pre></div>
 </div>
 <p>The display is in the <em>long</em> format (compare <a class="reference internal" href="410-data-frame.html#sec-stack"><span class="std std-numref">Section 10.6.2</span></a>)
 because we cannot nicely print a three-dimensional array.
 Yet, we can always partially unstack the dataset,
 for aesthetic reasons:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts3</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts3</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"country"</span><span class="p">,</span> <span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">])</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
 <span class="c1">##              count                              </span>
 <span class="c1">## age             20      30      40     50    60+</span>
 <span class="c1">## country sex                                     </span>
@@ -968,8 +972,8 @@ datasets, but this is a topic that we cover in <a class="reference internal" hre
 <section id="bar-plots">
 <h3><span class="section-number">11.3.1. </span>Bar plots<a class="headerlink" href="#bar-plots" title="Link to this heading">¶</a></h3>
 <p>Example data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">([</span><span class="s2">&quot;20&quot;</span><span class="p">,</span> <span class="s2">&quot;30&quot;</span><span class="p">,</span> <span class="s2">&quot;40&quot;</span><span class="p">,</span> <span class="s2">&quot;50&quot;</span><span class="p">,</span> <span class="s2">&quot;60+&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">reorder_categories</span><span class="p">([</span><span class="s2">"20"</span><span class="p">,</span> <span class="s2">"30"</span><span class="p">,</span> <span class="s2">"40"</span><span class="p">,</span> <span class="s2">"50"</span><span class="p">,</span> <span class="s2">"60+"</span><span class="p">])</span>
     <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">x</span>
@@ -985,7 +989,7 @@ datasets, but this is a topic that we cover in <a class="reference internal" hre
 <p>Bar plots are self-explanatory and hence
 will do the trick most of the time; see <a class="reference internal" href="#fig-bar-country"><span class="std std-numref">Figure 11.1</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># 0, 1, 2, 3, 4</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1016,12 +1020,12 @@ the counts also in the two-variable case; see
 Let’s now use a pleasant wrapper around <strong class="command">matplotlib.pyplot.bar</strong>
 offered by the statistical data visualisation package called
 <a class="reference external" href="https://seaborn.pydata.org/"><strong class="program">seaborn</strong></a>
-<span id="id3">[<a class="reference internal" href="999-bibliography.html#id53" title="Waskom, M.L. (2021).  seaborn: Statistical data visualization. Journal of Open Source Software, 6(60):3021. DOI: 10.21105/joss.03021.">99</a>]</span> (written by Michael Waskom).</p>
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="999-bibliography.html#id53" title="Waskom, M.L. (2021).  seaborn: Statistical data visualization. Journal of Open Source Software, 6(60):3021. DOI: 10.21105/joss.03021.">99</a>]</span> (written by Michael Waskom).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"sex"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1071,10 +1075,10 @@ In the second round of the 2025 Polish presidential elections,
 Karol Nawrocki won against Rafał Trzaskowski. The results might have been
 presented by some right-wing outlets in a way depicted
 in <a class="reference internal" href="#fig-wybory1"><span class="std std-numref">Figure 11.4</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">49</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"%"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">50.89</span><span class="p">,</span> <span class="mf">49.11</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Nawrocki&quot;</span><span class="p">,</span> <span class="s2">&quot;Trzaskowski&quot;</span><span class="p">])</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">"Nawrocki"</span><span class="p">,</span> <span class="s2">"Trzaskowski"</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1087,9 +1091,9 @@ in <a class="reference internal" href="#fig-wybory1"><span class="std std-numref
 <p>On the other hand, a media conglomerate from the opposite side of
 the political spectrum could have reported them like in <a class="reference internal" href="#fig-wybory2"><span class="std std-numref">Figure 11.5</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="p">[</span><span class="mf">50.89</span><span class="p">,</span> <span class="mf">49.11</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
-    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Nawrocki&quot;</span><span class="p">,</span> <span class="s2">&quot;Trzaskowski&quot;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s2">"Nawrocki"</span><span class="p">,</span> <span class="s2">"Trzaskowski"</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"%"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
@@ -1108,7 +1112,7 @@ the political spectrum could have reported them like in <a class="reference inte
 Also, when drawing bar plots, we must never trick the reader
 for this is unethical; compare Rule#9.
 More issues in statistical deception are explored,
-e.g., in <span id="id4">[<a class="reference internal" href="999-bibliography.html#id143" title="Wainer, H. (1997).  Visual Revelations: Graphical Tales of Fate and Deception from Napoleon Bonaparte to Ross Perot. Copernicus.">98</a>]</span>.</p>
+e.g., in <span class="bibtex-citation" id="id4">[<a class="reference internal" href="999-bibliography.html#id143" title="Wainer, H. (1997).  Visual Revelations: Graphical Tales of Fate and Deception from Napoleon Bonaparte to Ross Perot. Copernicus.">98</a>]</span>.</p>
 </div>
 </section>
 <section id="id5">
@@ -1141,9 +1145,9 @@ follows the Pareto rule.</p>
 Clinical Excellence Commission in New South Wales, Australia,
 listing the most frequent causes of medication errors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cat_med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="s2">&quot;Unauthorised drug&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong IV rate&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong patient&quot;</span><span class="p">,</span> <span class="s2">&quot;Dose missed&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Underdose&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong calculation&quot;</span><span class="p">,</span><span class="s2">&quot;Wrong route&quot;</span><span class="p">,</span> <span class="s2">&quot;Wrong drug&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Wrong time&quot;</span><span class="p">,</span> <span class="s2">&quot;Technique error&quot;</span><span class="p">,</span> <span class="s2">&quot;Duplicated drugs&quot;</span><span class="p">,</span> <span class="s2">&quot;Overdose&quot;</span>
+    <span class="s2">"Unauthorised drug"</span><span class="p">,</span> <span class="s2">"Wrong IV rate"</span><span class="p">,</span> <span class="s2">"Wrong patient"</span><span class="p">,</span> <span class="s2">"Dose missed"</span><span class="p">,</span>
+    <span class="s2">"Underdose"</span><span class="p">,</span> <span class="s2">"Wrong calculation"</span><span class="p">,</span><span class="s2">"Wrong route"</span><span class="p">,</span> <span class="s2">"Wrong drug"</span><span class="p">,</span>
+    <span class="s2">"Wrong time"</span><span class="p">,</span> <span class="s2">"Technique error"</span><span class="p">,</span> <span class="s2">"Duplicated drugs"</span><span class="p">,</span> <span class="s2">"Overdose"</span>
 <span class="p">])</span>
 <span class="n">counts_med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">59</span><span class="p">])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counts_med</span><span class="p">)</span>  <span class="c1"># total number of medication errors</span>
@@ -1185,13 +1189,13 @@ of the <strong class="program">matplotlib</strong> package is left as an exercis
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"%"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
 
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>  <span class="c1"># creates a new coordinate system with a shared x-axis</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="s2">&quot;ro-&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="s2">"ro-"</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;cumulative %&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"cumulative %"</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1242,8 +1246,8 @@ Why add to their stress?</p>
 <p>Two-way contingency tables can be depicted by means of a heat map,
 where each count influences the corresponding cell’s colour intensity;
 see <a class="reference internal" href="#fig-heat-map-marathon"><span class="std std-numref">Figure 11.7</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;copper&quot;</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">"d"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">colormaps</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">"copper"</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1277,7 +1281,7 @@ using <strong class="command">matplotlib.pyplot.imshow</strong>.</p>
 what we are left with is the <em>mode</em>, i.e., the most frequently
 occurring value.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># counts are sorted</span>
-<span class="c1">## &#39;PL&#39;</span>
+<span class="c1">## 'PL'</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -1302,7 +1306,7 @@ of a mode:</p>
 <p>To avoid any bias, it is always best to report all the potential mode
 candidates:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">counts</span> <span class="o">==</span> <span class="n">counts</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
-<span class="c1">## Index([&#39;KE&#39;, &#39;PL&#39;], dtype=&#39;object&#39;, name=&#39;country&#39;)</span>
+<span class="c1">## Index(['KE', 'PL'], dtype='str', name='country')</span>
 </pre></div>
 </div>
 <p>If one value is required, though,
@@ -1314,7 +1318,7 @@ we can pick one at random (calling <strong class="command">numpy.random.choice</
 vectors or, equivalently, vectors of 0s and 1s.</p>
 <p>Perhaps the most useful arithmetic operation on
 logical vectors is the sum. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;PL&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">"PL"</span><span class="p">)</span>
 <span class="c1">## 6033</span>
 </pre></div>
 </div>
@@ -1325,7 +1329,7 @@ represents a binary categorical variable
 with levels: not-Poland (<code class="docutils literal notranslate"><span class="pre">False</span></code>) and Poland (<code class="docutils literal notranslate"><span class="pre">True</span></code>).</p>
 <div style="margin-top: 1em"></div><p>If we divide the preceding result by the length of the vector,
 we will get the proportion:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">&quot;PL&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">marathon</span><span class="o">.</span><span class="n">country</span> <span class="o">==</span> <span class="s2">"PL"</span><span class="p">)</span>
 <span class="c1">## 0.9265857779142989</span>
 </pre></div>
 </div>
@@ -1457,12 +1461,12 @@ that leads to the rejection of the null hypothesis.</p>
 <p>Let’s consider the data depicted in <a class="reference internal" href="#fig-stacked-bar"><span class="std std-numref">Figure 11.3</span></a>
 and test whether the runners’ age distributions
 differ significantly between men and women.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">marathon</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"sex"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>  <span class="c1"># the first row, the second row</span>
 <span class="n">c1</span>  <span class="c1"># women</span>
-<span class="c1">## array([240, 449, 262,  43,  19])</span>
+<span class="c1">## array([ 879, 2200,  541, 1708,  170])</span>
 <span class="n">c2</span>  <span class="c1"># men</span>
-<span class="c1">## array([ 879, 2200, 1708,  541,  170])</span>
+<span class="c1">## array([240, 449,  43, 262,  19])</span>
 </pre></div>
 </div>
 <p>There are <span class="math">\(l=5\)</span> age categories. First, denote the total number of
@@ -1470,21 +1474,21 @@ observations in both groups by <span class="math">\(n'\)</span> and <span class=
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span>
-<span class="c1">## (1013, 5498)</span>
+<span class="c1">## (5498, 1013)</span>
 </pre></div>
 </div>
 <p>The observed proportions in the first group (females),
 denoted by <span class="math">\(\hat{p}_1',\dots,\hat{p}_l'\)</span>, are, respectively:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">c1</span><span class="o">/</span><span class="n">n1</span>
 <span class="n">p1</span>
-<span class="c1">## array([0.23692004, 0.44323791, 0.25863771, 0.04244817, 0.01875617])</span>
+<span class="c1">## array([0.15987632, 0.40014551, 0.09839942, 0.31065842, 0.03092033])</span>
 </pre></div>
 </div>
 <p>Here are the proportions in the second group (males),
 <span class="math">\(\hat{p}_1'',\dots,\hat{p}_l''\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p2</span> <span class="o">=</span> <span class="n">c2</span><span class="o">/</span><span class="n">n2</span>
 <span class="n">p2</span>
-<span class="c1">## array([0.15987632, 0.40014551, 0.31065842, 0.09839942, 0.03092033])</span>
+<span class="c1">## array([0.23692004, 0.44323791, 0.04244817, 0.25863771, 0.01875617])</span>
 </pre></div>
 </div>
 <p>We would like to verify whether the corresponding proportions are equal
@@ -1522,7 +1526,7 @@ presented in the previous subsection.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span><span class="o">*</span><span class="n">p1</span><span class="o">+</span><span class="n">n2</span><span class="o">*</span><span class="n">p2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n1</span><span class="o">+</span><span class="n">n2</span><span class="p">)</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">p1</span><span class="o">-</span><span class="n">pp</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">pp</span> <span class="p">)</span> <span class="o">+</span> <span class="n">n2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">p2</span><span class="o">-</span><span class="n">pp</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">pp</span> <span class="p">)</span>
 <span class="n">T</span>
-<span class="c1">## 75.31373854741857</span>
+<span class="c1">## 75.31373854741855</span>
 </pre></div>
 </div>
 <p>If the null hypothesis is true, the test statistic <em>approximately</em> follows
@@ -1544,11 +1548,11 @@ differs across sexes (at significance level 0.1%).</p>
 data on the prevalence of certain medical conditions
 as a function of age. Here is the extracted contingency table:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="s2">&quot;Arthritis&quot;</span><span class="p">,</span> <span class="s2">&quot;Asthma&quot;</span><span class="p">,</span> <span class="s2">&quot;Back problems&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancer (malignant neoplasms)&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;Chronic obstructive pulmonary disease&quot;</span><span class="p">,</span> <span class="s2">&quot;Diabetes mellitus&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;Heart, stroke and vascular disease&quot;</span><span class="p">,</span> <span class="s2">&quot;Kidney disease&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;Mental and behavioural conditions&quot;</span><span class="p">,</span> <span class="s2">&quot;Osteoporosis&quot;</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;15-44&quot;</span><span class="p">,</span> <span class="s2">&quot;45-64&quot;</span><span class="p">,</span> <span class="s2">&quot;65+&quot;</span><span class="p">]</span>
+    <span class="p">[</span><span class="s2">"Arthritis"</span><span class="p">,</span> <span class="s2">"Asthma"</span><span class="p">,</span> <span class="s2">"Back problems"</span><span class="p">,</span> <span class="s2">"Cancer (malignant neoplasms)"</span><span class="p">,</span>
+     <span class="s2">"Chronic obstructive pulmonary disease"</span><span class="p">,</span> <span class="s2">"Diabetes mellitus"</span><span class="p">,</span>
+     <span class="s2">"Heart, stroke and vascular disease"</span><span class="p">,</span> <span class="s2">"Kidney disease"</span><span class="p">,</span>
+     <span class="s2">"Mental and behavioural conditions"</span><span class="p">,</span> <span class="s2">"Osteoporosis"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"15-44"</span><span class="p">,</span> <span class="s2">"45-64"</span><span class="p">,</span> <span class="s2">"65+"</span><span class="p">]</span>
 <span class="p">]</span>
 <span class="n">C</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span> <span class="mf">360.2</span><span class="p">,</span>     <span class="mf">1489.0</span><span class="p">,</span>      <span class="mf">1772.2</span><span class="p">],</span>
@@ -1729,10 +1733,10 @@ dataset represents the grades (F, P, C, D, HD)
 of 100 students attending an imaginary course in an Australian
 university. You can load it in the form of an <em>ordered</em> categorical <code class="docutils literal notranslate"><span class="pre">Series</span></code>
 by calling:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/grades_results.txt&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grades</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/grades_results.txt"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"str"</span><span class="p">)</span>
 <span class="n">grades</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">grades</span><span class="p">,</span>
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;HD&quot;</span><span class="p">],</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"F"</span><span class="p">,</span> <span class="s2">"P"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">,</span> <span class="s2">"D"</span><span class="p">,</span> <span class="s2">"HD"</span><span class="p">],</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="n">grades</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>  <span class="c1"># note the order of labels</span>
 <span class="c1">## F     30</span>
 <span class="c1">## P     29</span>
@@ -1842,11 +1846,11 @@ however they want. For example, <code class="docutils literal notranslate"><span
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">2</a><span class="fn-bracket">]</span></span>
 <p>(*) There exists a discrete version of the
 Kolmogorov–Smirnov test, but it is defined in a different
-way than in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>; compare <span id="id7">[<a class="reference internal" href="999-bibliography.html#id152" title="Arnold, T.B. and Emerson, J.W. (2011).  Nonparametric goodness-of-fit tests for discrete null distributions. The R Journal, 3(2):34–39. DOI: 10.32614/RJ-2011-016.">4</a>, <a class="reference internal" href="999-bibliography.html#id150" title="Conover, W.J. (1972).  A Kolmogorov goodness-of-fit test for discontinuous distributions. Journal of the American Statistical Association, 67(339):591–596. DOI: 10.1080/01621459.1972.10481254.">18</a>]</span>.</p>
+way than in <a class="reference internal" href="230-distribution.html#sec-ks-test"><span class="std std-numref">Section 6.2.3</span></a>; compare <span class="bibtex-citation" id="id7">[<a class="reference internal" href="999-bibliography.html#id152" title="Arnold, T.B. and Emerson, J.W. (2011).  Nonparametric goodness-of-fit tests for discrete null distributions. The R Journal, 3(2):34–39. DOI: 10.32614/RJ-2011-016.">4</a>, <a class="reference internal" href="999-bibliography.html#id150" title="Conover, W.J. (1972).  A Kolmogorov goodness-of-fit test for discontinuous distributions. Journal of the American Statistical Association, 67(339):591–596. DOI: 10.1080/01621459.1972.10481254.">18</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="recipesdof" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">3</a><span class="fn-bracket">]</span></span>
-<p>Notice that <span id="id9">[<a class="reference internal" href="999-bibliography.html#id142" title="Press, W.H., Teukolsky, S.A., Vetterling, W.T., and Flannery, B.P. (2007).  Numerical Recipes. The Art of Scientific Computing. Cambridge University Press.">77</a>]</span> in Section 14.3
+<p>Notice that <span class="bibtex-citation" id="id9">[<a class="reference internal" href="999-bibliography.html#id142" title="Press, W.H., Teukolsky, S.A., Vetterling, W.T., and Flannery, B.P. (2007).  Numerical Recipes. The Art of Scientific Computing. Cambridge University Press.">77</a>]</span> in Section 14.3
 recommends <span class="math">\(l\)</span> degrees of freedom, but we do not agree with
 this rather informal reasoning.
 Also, simple Monte Carlo simulations suggest that <span class="math">\(l-1\)</span>
@@ -1889,7 +1893,7 @@ is a better candidate.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-02-17T12:41:35+0100.
+              Last updated on 2026-10-21T10:54:34+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1955,9 +1959,9 @@ is a better candidate.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5b384116"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../_static/documentation_options.js?v=90b1d1db"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/proof.js"></script>
     <script src="../_static/katex.min.js?v=5cc8ed51"></script>

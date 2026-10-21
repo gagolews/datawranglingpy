@@ -29,10 +29,10 @@
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/430-group-by.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/datawranglingpy.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>12. Processing data in groups - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
@@ -235,7 +235,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9003
+v1.1.0.9004
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -341,7 +341,7 @@ Refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy">bug/typo reports/fixes</a>
 are appreciated. Make sure to check out
 <a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
 </div></blockquote>
 <p>Consider another subset of the US Centres for Disease Control
 and Prevention National Health and Nutrition Examination Survey,
@@ -349,22 +349,22 @@ this time carrying some body measures
 (<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_BMX.htm">P_BMX</a>)
 together with demographics
 (<a class="reference external" href="https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/P_DEMO.htm">P_DEMO</a>).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">nhanes</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">nhanes</span>
     <span class="o">.</span><span class="n">loc</span><span class="p">[</span>
         <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">DMDBORN4</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">RIDAGEYR</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">),</span>
-        <span class="p">[</span><span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXWT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXBMI&quot;</span><span class="p">,</span> <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">,</span> <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">]</span>
+        <span class="p">[</span><span class="s2">"RIDAGEYR"</span><span class="p">,</span> <span class="s2">"BMXWT"</span><span class="p">,</span> <span class="s2">"BMXHT"</span><span class="p">,</span> <span class="s2">"BMXBMI"</span><span class="p">,</span> <span class="s2">"RIAGENDR"</span><span class="p">,</span> <span class="s2">"DMDBORN4"</span><span class="p">]</span>
     <span class="p">]</span>  <span class="c1"># age &gt;= 18 and only US and non-US born</span>
     <span class="o">.</span><span class="n">rename</span><span class="p">({</span>
-        <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">:</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BMXWT&quot;</span><span class="p">:</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BMXHT&quot;</span><span class="p">:</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BMXBMI&quot;</span><span class="p">:</span> <span class="s2">&quot;bmival&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">:</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;DMDBORN4&quot;</span><span class="p">:</span> <span class="s2">&quot;usborn&quot;</span>
+        <span class="s2">"RIDAGEYR"</span><span class="p">:</span> <span class="s2">"age"</span><span class="p">,</span>
+        <span class="s2">"BMXWT"</span><span class="p">:</span> <span class="s2">"weight"</span><span class="p">,</span>
+        <span class="s2">"BMXHT"</span><span class="p">:</span> <span class="s2">"height"</span><span class="p">,</span>
+        <span class="s2">"BMXBMI"</span><span class="p">:</span> <span class="s2">"bmival"</span><span class="p">,</span>
+        <span class="s2">"RIAGENDR"</span><span class="p">:</span> <span class="s2">"gender"</span><span class="p">,</span>
+        <span class="s2">"DMDBORN4"</span><span class="p">:</span> <span class="s2">"usborn"</span>
     <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># rename columns</span>
     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>   <span class="c1"># remove missing values</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -377,17 +377,17 @@ Let’s recode the <code class="docutils literal notranslate"><span class="pre">
 and introduce the BMI categories:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span>
     <span class="n">usborn</span><span class="o">=</span><span class="p">(</span>  <span class="c1"># recode usborn</span>
-        <span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+        <span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span>
     <span class="p">),</span>
     <span class="n">gender</span><span class="o">=</span><span class="p">(</span>  <span class="c1"># recode gender</span>
-        <span class="n">nhanes</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">&quot;male&quot;</span><span class="p">,</span> <span class="s2">&quot;female&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+        <span class="n">nhanes</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">rename_categories</span><span class="p">([</span><span class="s2">"male"</span><span class="p">,</span> <span class="s2">"female"</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span>
     <span class="p">),</span>
     <span class="n">bmicat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>                             <span class="c1"># new column</span>
         <span class="n">nhanes</span><span class="o">.</span><span class="n">bmival</span><span class="p">,</span>
         <span class="n">bins</span><span class="o">=</span>  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span>
-        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;underweight&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;overweight&quot;</span><span class="p">,</span> <span class="s2">&quot;obese&quot;</span><span class="p">]</span>
+        <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"underweight"</span><span class="p">,</span> <span class="s2">"normal"</span><span class="p">,</span> <span class="s2">"overweight"</span><span class="p">,</span> <span class="s2">"obese"</span><span class="p">]</span>
     <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -419,13 +419,13 @@ e.g., the heights of women and men separately.</p>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects are equipped with the <strong class="command">groupby</strong>
 methods, which assist in performing a wide range
 of operations in data groups defined by one
-or more data frame columns (compare <span id="id2">[<a class="reference internal" href="999-bibliography.html#id38" title="Wickham, H. (2011).  The split-apply-combine strategy for data analysis. Journal of Statistical Software, 40(1):1–29. DOI: 10.18637/jss.v040.i01.">100</a>]</span>).
+or more data frame columns (compare <span class="bibtex-citation" id="id2">[<a class="reference internal" href="999-bibliography.html#id38" title="Wickham, H. (2011).  The split-apply-combine strategy for data analysis. Journal of Statistical Software, 40(1):1–29. DOI: 10.18637/jss.v040.i01.">100</a>]</span>).
 They return objects of the classes <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code>
 and <code class="docutils literal notranslate"><span class="pre">SeriesGroupby</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">))</span>
-<span class="c1">## &lt;class &#39;pandas.core.groupby.generic.DataFrameGroupBy&#39;&gt;</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>  <span class="c1"># or (...)[&quot;height&quot;]</span>
-<span class="c1">## &lt;class &#39;pandas.core.groupby.generic.SeriesGroupBy&#39;&gt;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">))</span>
+<span class="c1">## &lt;class 'pandas.api.typing.DataFrameGroupBy'&gt;</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>  <span class="c1"># or (...)["height"]</span>
+<span class="c1">## &lt;class 'pandas.api.typing.SeriesGroupBy'&gt;</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -446,7 +446,7 @@ Still, they have many methods and slots in common.</p>
 of the said classes.</p>
 </div></div><p>For example, the <strong class="command">pandas.DataFrameGroupBy.size</strong>
 method determines the number of observations in each group:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 <span class="c1">## gender</span>
 <span class="c1">## female    4514</span>
 <span class="c1">## male      4271</span>
@@ -456,7 +456,7 @@ method determines the number of observations in each group:</p>
 <p>It returns an object of the type <code class="docutils literal notranslate"><span class="pre">Series</span></code>.
 We can also perform the grouping with respect
 to a combination of levels in two qualitative columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"bmicat"</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 <span class="c1">## gender  bmicat     </span>
 <span class="c1">## female  underweight      93</span>
 <span class="c1">##         normal         1161</span>
@@ -473,8 +473,8 @@ to a combination of levels in two qualitative columns:</p>
 Nevertheless, we can always call
 <strong class="command">reset_index</strong> to convert it to standalone columns:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
-    <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="p">[</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"bmicat"</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"counts"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender       bmicat  counts</span>
 <span class="c1">## 0  female  underweight      93</span>
 <span class="c1">## 1  female       normal    1161</span>
@@ -505,7 +505,7 @@ for an example.</p>
 <h3><span class="section-number">12.1.1. </span>Aggregating data in groups<a class="headerlink" href="#aggregating-data-in-groups" title="Link to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> classes are equipped
 with several well-known aggregation functions. For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender        age     weight      height     bmival</span>
 <span class="c1">## 0  female  48.956580  78.351839  160.089189  30.489189</span>
 <span class="c1">## 1    male  49.653477  88.589932  173.759541  29.243620</span>
@@ -513,14 +513,14 @@ with several well-known aggregation functions. For example:</p>
 </div>
 <p>The arithmetic mean was computed only on numeric columns<a class="footnote-reference brackets" href="#footoop" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
 Alternatively, we can apply the aggregate only on specific columns:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)[[</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)[[</span><span class="s2">"weight"</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender     weight      height</span>
 <span class="c1">## 0  female  78.351839  160.089189</span>
 <span class="c1">## 1    male  88.589932  173.759541</span>
 </pre></div>
 </div>
 <p>Another example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span><span class="o">.</span>\
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"bmicat"</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">"height"</span><span class="p">]</span><span class="o">.</span>\
     <span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="c1">##    gender       bmicat      height</span>
 <span class="c1">## 0  female  underweight  161.976344</span>
@@ -536,7 +536,7 @@ Alternatively, we can apply the aggregate only on specific columns:</p>
 <p>Further, the most common aggregates that we described in
 <a class="reference internal" href="220-transform-vector.html#sec-aggregate"><span class="std std-numref">Section 5.1</span></a> can be generated by calling the
 <strong class="command">describe</strong> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 <span class="c1">## gender       female         male</span>
 <span class="c1">## count   4514.000000  4271.000000</span>
 <span class="c1">## mean     160.089189   173.759541</span>
@@ -553,8 +553,8 @@ to get a more readable (“tall”) result.</p>
 <p>If different aggregates are needed, we can call <strong class="command">aggregate</strong>
 to apply a custom list of functions:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
-    <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)[[</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span>
-    <span class="n">aggregate</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)[[</span><span class="s2">"height"</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="s2">"mean"</span><span class="p">,</span> <span class="nb">len</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span>
     <span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 <span class="c1">##    gender      height                      weight                 </span>
@@ -570,11 +570,11 @@ to apply a custom list of functions:</p>
 are generated by reading the applied functions’ <code class="docutils literal notranslate"><span class="pre">__name__</span></code> slots;
 see, e.g., <strong class="command">print</strong><code class="code docutils literal notranslate"><span class="pre">(np.mean.__name__)</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mr</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
-<span class="n">mr</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;midrange&quot;</span>
+<span class="n">mr</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">"midrange"</span>
 <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
-    <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span>
-    <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span>
-    <span class="n">aggregate</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">mr</span><span class="p">])</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">mr</span><span class="p">])</span><span class="o">.</span>
     <span class="n">reset_index</span><span class="p">()</span>
 <span class="p">)</span>
 <span class="c1">##    gender      height              weight         </span>
@@ -592,15 +592,15 @@ data groups by means of the <strong class="command">transform</strong> method fo
 objects.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">std0</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;std0&quot;</span>
+<span class="n">std0</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">"std0"</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">standardise</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">std0</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"height_std"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">nhanes</span><span class="o">.</span>
-    <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">]]</span><span class="o">.</span>
-    <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"height"</span><span class="p">,</span> <span class="s2">"gender"</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span>
     <span class="n">transform</span><span class="p">(</span><span class="n">standardise</span><span class="p">)</span>
 <span class="p">)</span>
 
@@ -619,9 +619,9 @@ a man with the same z-score has height of 173.8 cm.</p>
 <p>We can check that the means and standard deviations
 in both groups are equal to 0 and 1:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">nhanes</span><span class="o">.</span>
-    <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="s2">&quot;height_std&quot;</span><span class="p">]]</span><span class="o">.</span>
-    <span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span><span class="o">.</span>
-    <span class="n">aggregate</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="n">std0</span><span class="p">])</span>
+    <span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">,</span> <span class="s2">"height_std"</span><span class="p">]]</span><span class="o">.</span>
+    <span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">aggregate</span><span class="p">([</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">std0</span><span class="p">])</span>
 <span class="p">)</span>
 <span class="c1">##             height              height_std     </span>
 <span class="c1">##               mean      std0          mean std0</span>
@@ -651,11 +651,11 @@ in case where the built-in methods are insufficient (i.e.,
 not so rarely).</p>
 <p>Let’s consider a small sample of our data frame.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grouped</span> <span class="o">=</span> <span class="p">(</span><span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"gender"</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">grouped</span><span class="p">)</span>
-<span class="c1">## [(&#39;female&#39;,    gender  weight  height</span>
-<span class="c1">## 0  female    97.1   160.2), (&#39;male&#39;,   gender  weight  height</span>
+<span class="c1">## [('female',    gender  weight  height</span>
+<span class="c1">## 0  female    97.1   160.2), ('male',   gender  weight  height</span>
 <span class="c1">## 1   male    98.8   182.3</span>
 <span class="c1">## 2   male    74.3   184.2</span>
 <span class="c1">## 3   male   103.7   185.3</span>
@@ -672,7 +672,7 @@ corresponding to these categories.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
     <span class="c1"># level is a string label</span>
     <span class="c1"># df is a data frame - we can do whatever we want</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;There are </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> subject(s) with gender=`</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">`.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"There are </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> subject(s) with gender=`</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">`."</span><span class="p">)</span>
 <span class="c1">## There are 1 subject(s) with gender=`female`.</span>
 <span class="c1">## There are 4 subject(s) with gender=`male`.</span>
 </pre></div>
@@ -715,8 +715,8 @@ plotting grouped data – it is highly interoperable with <strong class="program
 <h3><span class="section-number">12.2.1. </span>Series of box plots<a class="headerlink" href="#series-of-box-plots" title="Link to this heading">¶</a></h3>
 <p><a class="reference internal" href="#fig-gender-usborn-bmi"><span class="std std-numref">Figure 12.1</span></a> depicts a box plot with four
 boxes side by side:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;bmival&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"bmival"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"gender"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"usborn"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">"Paired"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -754,12 +754,12 @@ shows a bar plot representing a contingency table.
 It was obtained in a different way from that used
 in <a class="reference internal" href="420-categorical.html#chap-categorical"><span class="std std-numref">Chapter 11</span></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
-    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;counts&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bmicat&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"counts"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"gender"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"bmicat"</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">"Paired"</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="p">(</span>
         <span class="n">nhanes</span><span class="o">.</span>
-        <span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;bmicat&quot;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span>
+        <span class="n">groupby</span><span class="p">([</span><span class="s2">"gender"</span><span class="p">,</span> <span class="s2">"bmicat"</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span>
         <span class="n">size</span><span class="p">()</span><span class="o">.</span>
-        <span class="n">rename</span><span class="p">(</span><span class="s2">&quot;counts&quot;</span><span class="p">)</span><span class="o">.</span>
+        <span class="n">rename</span><span class="p">(</span><span class="s2">"counts"</span><span class="p">)</span><span class="o">.</span>
         <span class="n">reset_index</span><span class="p">()</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -795,8 +795,8 @@ differ significantly from each other.</p>
 <p><a class="reference internal" href="#fig-hist-transparent-weight-usborn"><span class="std std-numref">Figure 12.3</span></a> illustrates
 that playing with semitransparent objects
 can make comparisons more intuitive (the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> argument).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span>
-    <span class="n">element</span><span class="o">=</span><span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">common_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"weight"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"usborn"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span>
+    <span class="n">element</span><span class="o">=</span><span class="s2">"step"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"density"</span><span class="p">,</span> <span class="n">common_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -815,8 +815,8 @@ It is the behaviour we desire when the samples are of different lengths.</p>
 <p>Scatter plots for grouped data can display category information
 using points of different colours and/or styles, compare
 <a class="reference internal" href="#fig-height-weight-gender"><span class="std std-numref">Figure 12.4</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"height"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"weight"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"gender"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"gender"</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -835,8 +835,8 @@ All the plots share the same coordinate ranges which makes them easily
 comparable. For instance, <a class="reference internal" href="#fig-grid-weight"><span class="std std-numref">Figure 12.5</span></a> depicts a series
 of histograms of weights grouped by a combination of two
 categorical variables.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">nhanes</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"gender"</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">"usborn"</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"density"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -872,9 +872,9 @@ grouped by BMI category and gender.</p>
 <p><a class="reference internal" href="#fig-ecdf-weight-usborn"><span class="std std-numref">Figure 12.6</span></a> compares the empirical
 cumulative distribution functions of the weight distributions
 for US and non-US born participants.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">usborn</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">usborn</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"usborn"</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">:</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">ecdfplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">usborn</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"usborn"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -915,9 +915,9 @@ discussed in <a class="reference internal" href="230-distribution.html#sec-ks-te
 <p>Computing it is slightly trickier than
 in the previous case<a class="footnote-reference brackets" href="#footintroalgs" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Luckily,
 an appropriate procedure is available in <strong class="program">scipy.stats</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x12</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;usborn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="n">x12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;yes&quot;</span><span class="p">]</span>  <span class="c1"># the first sample</span>
-<span class="n">x2</span> <span class="o">=</span> <span class="n">x12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;no&quot;</span><span class="p">]</span>   <span class="c1"># the second sample</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x12</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"usborn"</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">x12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>  <span class="c1"># the first sample</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">x12</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>   <span class="c1"># the second sample</span>
 <span class="n">Dnm</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">Dnm</span>
 <span class="c1">## 0.22068075889911914</span>
@@ -993,19 +993,19 @@ Q-Q plot (see also the one-sample version in <a class="reference internal" href=
 where we see that the distributions have similar shapes (points
 more or less lie on a straight line), but they are shifted and/or
 scaled (if they were, they would be on the identity line).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span> <span class="o">==</span> <span class="s2">&quot;yes&quot;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span> <span class="o">==</span> <span class="s2">&quot;no&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span> <span class="o">==</span> <span class="s2">"yes"</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">usborn</span> <span class="o">==</span> <span class="s2">"no"</span><span class="p">]</span>
 <span class="n">xd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">yd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">yd</span><span class="p">):</span>  <span class="c1"># interpolate between quantiles in a longer sample</span>
     <span class="n">xd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">yd</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">yd</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">yd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">yd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="n">xd</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="n">xd</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">xd</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>  <span class="c1"># identity line</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample quantiles (weight; usborn=yes)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sample quantiles (weight; usborn=no)&quot;</span><span class="p">)</span>
+    <span class="n">linestyle</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">)</span>  <span class="c1"># identity line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sample quantiles (weight; usborn=yes)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sample quantiles (weight; usborn=no)"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1023,9 +1023,9 @@ to match the length of the shorter vector.</p>
 <h2><span class="section-number">12.3. </span>Classification tasks (*)<a class="headerlink" href="#classification-tasks" title="Link to this heading">¶</a></h2>
 <p>Consider a small sample of white, rather sweet wines
 from a much larger <a class="reference external" href="http://archive.ics.uci.edu/ml/datasets/Wine+Quality">wine quality</a> dataset.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wine_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-        <span class="s2">&quot;teaching-data/master/other/sweetwhitewine_train2.csv&quot;</span><span class="p">,</span>
-        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wine_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+        <span class="s2">"teaching-data/master/other/sweetwhitewine_train2.csv"</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">wine_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">##      alcohol      sugar  bad</span>
 <span class="c1">## 0  10.625271  10.340159    0</span>
@@ -1040,11 +1040,11 @@ as well as a binary categorical variable stating whether a group of
 sommeliers deem a given beverage rather bad (1) or not (0).
 <a class="reference internal" href="#fig-wines"><span class="std std-numref">Figure 12.8</span></a> reveals that subpar wines are fairly low in…
 alcohol and, to some extent, sugar.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sugar&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">wine_train</span><span class="p">,</span>
-    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;alcohol&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sugar&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;bad&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"alcohol"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"sugar"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">wine_train</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">"bad"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"bad"</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s2">"o"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"alcohol"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"sugar"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"bad"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1057,9 +1057,9 @@ alcohol and, to some extent, sugar.</p>
 <p>Someone answer the door! We have a delivery of
 a few new wine bottles. Interestingly, their alcohol and sugar contents have
 been given on their respective labels.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wine_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-        <span class="s2">&quot;teaching-data/master/other/sweetwhitewine_test2.csv&quot;</span><span class="p">,</span>
-        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">wine_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+        <span class="s2">"teaching-data/master/other/sweetwhitewine_test2.csv"</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">wine_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">##      alcohol      sugar</span>
 <span class="c1">## 0   9.315523  10.041971</span>
@@ -1072,7 +1072,7 @@ been given on their respective labels.</p>
 <p>We would like to determine which of the wines from the test
 set might be not-bad without asking an expert for their opinion.
 In other words, we would like to exercise a <em>classification</em> task
-(see, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">10</a>, <a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">50</a>]</span>). More formally:</p>
+(see, e.g., <span class="bibtex-citation" id="id7">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">10</a>, <a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">50</a>]</span>). More formally:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Assume we are given a set of training points
@@ -1150,14 +1150,14 @@ take you for a very refined wine taster.</p>
 of the dataset. As we are about to use a technique based on pairwise
 distances, it would be best if the variables were on the same scale.
 Thus, we first compute the z-scores for the training set:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="s2">&quot;sugar&quot;</span><span class="p">]])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_train</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"alcohol"</span><span class="p">,</span> <span class="s2">"sugar"</span><span class="p">]])</span>
 <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">sds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">Z_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_train</span><span class="o">-</span><span class="n">means</span><span class="p">)</span><span class="o">/</span><span class="n">sds</span>
 </pre></div>
 </div>
 <p>Then, we determine the z-scores for the test set:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Z_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_test</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;alcohol&quot;</span><span class="p">,</span> <span class="s2">&quot;sugar&quot;</span><span class="p">]])</span><span class="o">-</span><span class="n">means</span><span class="p">)</span><span class="o">/</span><span class="n">sds</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Z_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wine_test</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"alcohol"</span><span class="p">,</span> <span class="s2">"sugar"</span><span class="p">]])</span><span class="o">-</span><span class="n">means</span><span class="p">)</span><span class="o">/</span><span class="n">sds</span>
 </pre></div>
 </div>
 <p>Let’s stress that we referred to the aggregates computed
@@ -1207,14 +1207,14 @@ expect the classification accuracy to be acceptable<a class="footnote-reference 
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ks</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">yg12</span> <span class="o">=</span> <span class="n">knn_class</span><span class="p">(</span><span class="n">Xg12</span><span class="p">,</span> <span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Z_train</span><span class="p">[</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="s2">&quot;#DF536B&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">=</span><span class="s2">"#DF536B"</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"v"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">yg12</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x1</span><span class="p">)),</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gist_heat&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$k=</span><span class="si">{</span><span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;alcohol&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;sugar&quot;</span><span class="p">)</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">"gist_heat"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"$k=</span><span class="si">{</span><span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">$"</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"alcohol"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"sugar"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1247,9 +1247,9 @@ expect the classification accuracy to be acceptable<a class="footnote-reference 
 <span id="sec-classifier-metrics"></span><h3><span class="section-number">12.3.2. </span>Assessing prediction quality (*)<a class="headerlink" href="#assessing-prediction-quality" title="Link to this heading">¶</a></h3>
 <p>It is time to reveal the truth: our test wines, it turns out,
 have already been assessed by some experts.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-        <span class="s2">&quot;teaching-data/master/other/sweetwhitewine_test2.csv&quot;</span><span class="p">,</span>
-        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+        <span class="s2">"teaching-data/master/other/sweetwhitewine_test2.csv"</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">bad</span><span class="p">)</span>
 <span class="n">y_test</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># preview</span>
 <span class="c1">## array([1, 0, 0, 1, 0, 0, 1, 0, 1, 1])</span>
@@ -1259,7 +1259,7 @@ have already been assessed by some experts.</p>
 between these true labels (denoted <span class="math">\(\boldsymbol{y}'=(y_1',\dots,y_{n'}')\)</span>)
 and the ones predicted by the classifier
 (denoted <span class="math">\(\hat{\boldsymbol{y}}'=(\hat{y}_1',\dots,\hat{y}_{n'}')\)</span>).
-It is defined as a ratio between the correctly classified instances
+It is defined as a ratio between the number of correctly classified instances
 and all the instances:</p>
 <div class="math-wrapper docutils container">
 <div class="math">
@@ -1298,10 +1298,10 @@ summarising the correct decisions and errors we make.</p>
     <span class="nb">dict</span><span class="p">(</span><span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span><span class="n">y_test</span><span class="p">)</span>
 <span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">C</span>
-<span class="c1">## y_test    0   1</span>
+<span class="c1">## y_test   1    0</span>
 <span class="c1">## y_pred         </span>
-<span class="c1">## 0       272  89</span>
-<span class="c1">## 1        58  81</span>
+<span class="c1">## 1       81   58</span>
+<span class="c1">## 0       89  272</span>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>In the binary classification case (<span class="math">\(l=2\)</span>) such as this one,
@@ -1377,7 +1377,7 @@ what is the probability that this is indeed true?</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>  <span class="c1"># convert to matrix</span>
 <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># precision</span>
-<span class="c1">## 0.5827338129496403</span>
+<span class="c1">## 0.7534626038781164</span>
 <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_test</span><span class="o">*</span><span class="n">y_pred</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>  <span class="c1"># equivalently</span>
 <span class="c1">## 0.5827338129496403</span>
 </pre></div>
@@ -1398,7 +1398,7 @@ will detect it?</p>
 \]</div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># recall</span>
-<span class="c1">## 0.4764705882352941</span>
+<span class="c1">## 0.8242424242424242</span>
 <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_test</span><span class="o">*</span><span class="n">y_pred</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>  <span class="c1"># equivalently</span>
 <span class="c1">## 0.4764705882352941</span>
 </pre></div>
@@ -1428,7 +1428,7 @@ aggregated into a single number:</p>
 \]</div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># F</span>
-<span class="c1">## 0.5242718446601942</span>
+<span class="c1">## 0.7872648335745297</span>
 </pre></div>
 </div>
 <p>Overall, we can conclude that our classifier is rather weak.</p>
@@ -1615,7 +1615,7 @@ a distribution mixture, where some subsets behave differently, but a
 grouping variable has not been provided at all (e.g., we have height
 and weight data but no information about the subjects’ sexes).</p>
 <p><em>Clustering methods</em> (also known as segmentation or quantisation;
-see, e.g., <span id="id10">[<a class="reference internal" href="999-bibliography.html#id157" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>, <a class="reference internal" href="999-bibliography.html#id108" title="Wierzchoń, S.T. and Kłopotek, M.A. (2018).  Modern Algorithms for Cluster Analysis. Springer. DOI: 10.1007/978-3-319-69308-8.">103</a>]</span>)
+see, e.g., <span class="bibtex-citation" id="id10">[<a class="reference internal" href="999-bibliography.html#id157" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>, <a class="reference internal" href="999-bibliography.html#id108" title="Wierzchoń, S.T. and Kłopotek, M.A. (2018).  Modern Algorithms for Cluster Analysis. Springer. DOI: 10.1007/978-3-319-69308-8.">103</a>]</span>)
 partition a dataset into groups based only on the spatial structure
 of the points’ relative densities. In the undermentioned <span class="math">\(k\)</span>-means method,
 the cluster structure is determined based on
@@ -1680,8 +1680,8 @@ of the points assigned thereto:</p>
 <p>where <span class="math">\(n_j=|\{i: l_i=j\}|\)</span> gives the number of
 <span class="math">\(i\)</span>s such that <span class="math">\(l_i=j\)</span>, i.e., the size of the <span class="math">\(j\)</span>-th cluster.</p>
 <div style="margin-top: 1em"></div><p>Here is an example dataset (see below for a scatter plot):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/blobs1.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/blobs1.txt"</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">","</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can call <strong class="command">scipy.cluster.vq.kmeans2</strong> to find <span class="math">\(k=2\)</span>
@@ -1711,9 +1711,9 @@ We use <code class="docutils literal notranslate"><span class="pre">l</span></co
 in <code class="docutils literal notranslate"><span class="pre">my_colours[l]</span></code> (this is a clever instance of the integer vector-based
 indexing). It seems that we correctly discovered the
 very natural partitioning of this dataset into two clusters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;#DF536B&quot;</span><span class="p">])[</span><span class="n">l</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">C</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">C</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;yX&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"black"</span><span class="p">,</span> <span class="s2">"#DF536B"</span><span class="p">])[</span><span class="n">l</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">C</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">C</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"yX"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1744,7 +1744,7 @@ in the dataset. Here is a preview:</p>
 data in groups that we have discussed so far.
 In particular, computing the columnwise means
 gives nothing else than the above cluster centroids:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Xl</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Xl</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"l"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="c1">##          X1        X2</span>
 <span class="c1">## l                    </span>
 <span class="c1">## 0  0.996230  1.052801</span>
@@ -1809,7 +1809,7 @@ e.g., all points on a dense equidistant grid.</p>
 <p>Alas, the <span class="math">\(k\)</span>-means method – the identification
 of label vectors/cluster centres that minimise the total within-cluster
 sum of squares – relies on solving a computationally hard combinatorial
-optimisation problem (e.g., <span id="id14">[<a class="reference internal" href="999-bibliography.html#id134" title="Lee, J. (2011).  A First Course in Combinatorial Optimisation. Cambridge University Press.">61</a>]</span>). In other words, the search
+optimisation problem (e.g., <span class="bibtex-citation" id="id14">[<a class="reference internal" href="999-bibliography.html#id134" title="Lee, J. (2011).  A First Course in Combinatorial Optimisation. Cambridge University Press.">61</a>]</span>). In other words, the search
 for the <em>truly</em> (i.e., globally) optimal solution takes,
 for larger <span class="math">\(n\)</span> and <span class="math">\(k\)</span>, an impractically long time.</p>
 <p>As a consequence, we must rely on some approximate algorithms
@@ -1837,7 +1837,7 @@ There are many procedures, based on numerous different heuristics,
 that attempt to solve the <span class="math">\(k\)</span>-means <em>problem</em>. Unfortunately,
 neither of them is perfect for it is not possible.</p>
 <p>Perhaps the most widely known and easiest to understand
-method is traditionally attributed to Lloyd <span id="id15">[<a class="reference internal" href="999-bibliography.html#id133" title="Lloyd, S.P. (1957 (1982)).  Least squares quantization in PCM. IEEE Transactions on Information Theory, 28:128–137. Originally a 1957 Bell Telephone Laboratories Research Report; republished in 1982. DOI: 10.1109/TIT.1982.1056489.">64</a>]</span>.
+method is traditionally attributed to Lloyd <span class="bibtex-citation" id="id15">[<a class="reference internal" href="999-bibliography.html#id133" title="Lloyd, S.P. (1957 (1982)).  Least squares quantization in PCM. IEEE Transactions on Information Theory, 28:128–137. Originally a 1957 Bell Telephone Laboratories Research Report; republished in 1982. DOI: 10.1109/TIT.1982.1056489.">64</a>]</span>.
 It is based on the fixed-point iteration.
 For a given <span class="math">\(\mathbf{X}\in\mathbb{R}^{n\times m}\)</span> and <span class="math">\(k \ge 2\)</span>:</p>
 <ol class="arabic">
@@ -1910,18 +1910,18 @@ centres are picked at random. Let’s test its behaviour
 by analysing three chosen categories
 from the 2016 <a class="reference external" href="https://ssi.wi.th-koeln.de/">Sustainable Society Indices</a>
 dataset.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/ssi_2016_categories.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">ssi</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Country&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span>
-    <span class="p">[</span><span class="s2">&quot;PersonalDevelopmentAndHealth&quot;</span><span class="p">,</span> <span class="s2">&quot;WellBalancedSociety&quot;</span><span class="p">,</span> <span class="s2">&quot;Economy&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ssi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/ssi_2016_categories.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">ssi</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Country"</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span>
+    <span class="p">[</span><span class="s2">"PersonalDevelopmentAndHealth"</span><span class="p">,</span> <span class="s2">"WellBalancedSociety"</span><span class="p">,</span> <span class="s2">"Economy"</span><span class="p">]</span>
 <span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span>
-        <span class="s2">&quot;PersonalDevelopmentAndHealth&quot;</span><span class="p">:</span> <span class="s2">&quot;Health&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;WellBalancedSociety&quot;</span><span class="p">:</span> <span class="s2">&quot;Balance&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Economy&quot;</span><span class="p">:</span> <span class="s2">&quot;Economy&quot;</span>
+        <span class="s2">"PersonalDevelopmentAndHealth"</span><span class="p">:</span> <span class="s2">"Health"</span><span class="p">,</span>
+        <span class="s2">"WellBalancedSociety"</span><span class="p">:</span> <span class="s2">"Balance"</span><span class="p">,</span>
+        <span class="s2">"Economy"</span><span class="p">:</span> <span class="s2">"Economy"</span>
     <span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># rename columns</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;Australia&quot;</span><span class="p">,</span> <span class="s2">&quot;Germany&quot;</span><span class="p">,</span> <span class="s2">&quot;Poland&quot;</span><span class="p">,</span> <span class="s2">&quot;United States&quot;</span><span class="p">],</span> <span class="p">:]</span>  <span class="c1"># preview</span>
+<span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">"Australia"</span><span class="p">,</span> <span class="s2">"Germany"</span><span class="p">,</span> <span class="s2">"Poland"</span><span class="p">,</span> <span class="s2">"United States"</span><span class="p">],</span> <span class="p">:]</span>  <span class="c1"># preview</span>
 <span class="c1">##                  Health   Balance   Economy</span>
 <span class="c1">## Country                                    </span>
 <span class="c1">## Australia      8.590927  6.105539  7.593052</span>
@@ -1972,11 +1972,11 @@ Again, we cannot tell, alone in the dark.</p>
 It is indeed the case here. Let’s look at the contingency
 table for the two label vectors:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="n">l2</span><span class="p">))</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1">## l2   0   1   2</span>
+<span class="c1">## l2   2   0   1</span>
 <span class="c1">## l1            </span>
-<span class="c1">## 0    8   0  43</span>
-<span class="c1">## 1   39   6   0</span>
-<span class="c1">## 2    0  57   1</span>
+<span class="c1">## 0   43   8   0</span>
+<span class="c1">## 1    0  39   6</span>
+<span class="c1">## 2    1   0  57</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -1993,11 +1993,11 @@ We can relabel the elements in <code class="docutils literal notranslate"><span 
 result:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l1p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])[</span><span class="n">l1</span><span class="p">]</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">l1p</span><span class="o">=</span><span class="n">l1p</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="n">l2</span><span class="p">))</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1">## l2    0   1   2</span>
+<span class="c1">## l2    2   0   1</span>
 <span class="c1">## l1p            </span>
-<span class="c1">## 0    39   6   0</span>
-<span class="c1">## 1     0  57   1</span>
-<span class="c1">## 2     8   0  43</span>
+<span class="c1">## 2    43   8   0</span>
+<span class="c1">## 0     0  39   6</span>
+<span class="c1">## 1     1   0  57</span>
 </pre></div>
 </div>
 <p>It is an improvement. It turns out that 8+6+1 countries
@@ -2147,25 +2147,25 @@ following cluster centres which are close to the global minimum.</p>
 </section>
 <section id="further-reading">
 <h2><span class="section-number">12.5. </span>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
-<p>An overall noteworthy introduction to classification is <span id="id19">[<a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">50</a>]</span>
-and <span id="id20">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">10</a>]</span>.
+<p>An overall noteworthy introduction to classification is <span class="bibtex-citation" id="id19">[<a class="reference internal" href="999-bibliography.html#id55" title="Hastie, T., Tibshirani, R., and Friedman, J. (2017).  The Elements of Statistical Learning. Springer-Verlag. URL: https://hastie.su.domains/ElemStatLearn.">50</a>]</span>
+and <span class="bibtex-citation" id="id20">[<a class="reference internal" href="999-bibliography.html#id56" title="Bishop, C. (2006).  Pattern Recognition and Machine Learning. Springer-Verlag. URL: https://www.microsoft.com/en-us/research/people/cmbishop.">10</a>]</span>.
 Nevertheless, as we said earlier, we recommend going through
 a solid course in matrix algebra and mathematical statistics
-first, e.g., <span id="id21">[<a class="reference internal" href="999-bibliography.html#id76" title="Deisenroth, M.P., Faisal, A.A., and Ong, C.S. (2020).  Mathematics for Machine Learning. Cambridge University Press. URL: https://mml-book.github.io/.">22</a>, <a class="reference internal" href="999-bibliography.html#id135" title="Gentle, J.E. (2024).  Matrix Algebra: Theory, Computations and Applications in Statistics. Springer.">42</a>]</span>
-and <span id="id22">[<a class="reference internal" href="999-bibliography.html#id47" title="Dekking, F.M., Kraaikamp, C., Lopuhaä, H.P., and Meester, L.E. (2005).  A Modern Introduction to Probability and Statistics: Understanding Why and How. Springer.">23</a>, <a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">40</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">41</a>]</span>.
+first, e.g., <span class="bibtex-citation" id="id21">[<a class="reference internal" href="999-bibliography.html#id76" title="Deisenroth, M.P., Faisal, A.A., and Ong, C.S. (2020).  Mathematics for Machine Learning. Cambridge University Press. URL: https://mml-book.github.io/.">22</a>, <a class="reference internal" href="999-bibliography.html#id135" title="Gentle, J.E. (2024).  Matrix Algebra: Theory, Computations and Applications in Statistics. Springer.">42</a>]</span>
+and <span class="bibtex-citation" id="id22">[<a class="reference internal" href="999-bibliography.html#id47" title="Dekking, F.M., Kraaikamp, C., Lopuhaä, H.P., and Meester, L.E. (2005).  A Modern Introduction to Probability and Statistics: Understanding Why and How. Springer.">23</a>, <a class="reference internal" href="999-bibliography.html#id50" title="Gentle, J.E. (2009).  Computational Statistics. Springer-Verlag.">40</a>, <a class="reference internal" href="999-bibliography.html#id45" title="Gentle, J.E. (2020).  Theory of Statistics. book draft. URL: https://mason.gmu.edu/~jgentle/books/MathStat.pdf.">41</a>]</span>.
 For advanced theoretical (probabilistic, information-theoretic) results,
-see, e.g., <span id="id23">[<a class="reference internal" href="999-bibliography.html#id120" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">11</a>, <a class="reference internal" href="999-bibliography.html#id80" title="Devroye, L., Györfi, L., and Lugosi, G. (1996).  A Probabilistic Theory of Pattern Recognition. Springer. DOI: 10.1007/978-1-4612-0711-5.">24</a>]</span>.</p>
+see, e.g., <span class="bibtex-citation" id="id23">[<a class="reference internal" href="999-bibliography.html#id120" title="Blum, A., Hopcroft, J., and Kannan, R. (2020).  Foundations of Data Science. Cambridge University Press. URL: https://www.cs.cornell.edu/jeh/book.pdf.">11</a>, <a class="reference internal" href="999-bibliography.html#id80" title="Devroye, L., Györfi, L., and Lugosi, G. (1996).  A Probabilistic Theory of Pattern Recognition. Springer. DOI: 10.1007/978-1-4612-0711-5.">24</a>]</span>.</p>
 <p>Hierarchical clustering algorithms
-(see, e.g., <span id="id24">[<a class="reference internal" href="999-bibliography.html#id86" title="Gagolewski, M. (2021).  genieclust: Fast and robust hierarchical clustering. SoftwareX, 15:100722. URL: https://genieclust.gagolewski.com/, DOI: 10.1016/j.softx.2021.100722.">34</a>, <a class="reference internal" href="999-bibliography.html#id114" title="Müllner, D. (2011).  Modern hierarchical, agglomerative clustering algorithms. arXiv:1109.2378 [stat.ML]. URL: https://arxiv.org/abs/1109.2378v1.">69</a>]</span>)
+(see, e.g., <span class="bibtex-citation" id="id24">[<a class="reference internal" href="999-bibliography.html#id86" title="Gagolewski, M. (2021).  genieclust: Fast and robust hierarchical clustering. SoftwareX, 15:100722. URL: https://genieclust.gagolewski.com/, DOI: 10.1016/j.softx.2021.100722.">34</a>, <a class="reference internal" href="999-bibliography.html#id114" title="Müllner, D. (2011).  Modern hierarchical, agglomerative clustering algorithms. arXiv:1109.2378 [stat.ML]. URL: https://arxiv.org/abs/1109.2378v1.">69</a>]</span>)
 are also worthwhile as they do not require
 asking for a fixed number of clusters.
 Furthermore, density-based algorithms (DBSCAN and its variants)
-<span id="id25">[<a class="reference internal" href="999-bibliography.html#id88" title="Campello, R.J.G.B., Moulavi, D., Zimek, A., and Sander, J. (2015).  Hierarchical density estimates for data clustering, visualization, and outlier detection. ACM Transactions on Knowledge Discovery from Data, 10(1):5:1–5:51. DOI: 10.1145/2733381.">14</a>, <a class="reference internal" href="999-bibliography.html#id89" title="Ester, M., Kriegel, H.P., Sander, J., and Xu, X. (1996).  A density-based algorithm for discovering clusters in large spatial databases with noise. In: Proc. KDD'96, pp. 226–231.">27</a>, <a class="reference internal" href="999-bibliography.html#id90" title="Ling, R.F. (1973).  A probability theory of cluster analysis. Journal of the American Statistical Association, 68(341):159–164. DOI: 10.1080/01621459.1973.10481356.">62</a>]</span>
+<span class="bibtex-citation" id="id25">[<a class="reference internal" href="999-bibliography.html#id88" title="Campello, R.J.G.B., Moulavi, D., Zimek, A., and Sander, J. (2015).  Hierarchical density estimates for data clustering, visualization, and outlier detection. ACM Transactions on Knowledge Discovery from Data, 10(1):5:1–5:51. DOI: 10.1145/2733381.">14</a>, <a class="reference internal" href="999-bibliography.html#id89" title="Ester, M., Kriegel, H.P., Sander, J., and Xu, X. (1996).  A density-based algorithm for discovering clusters in large spatial databases with noise. In: Proc. KDD'96, pp. 226–231.">27</a>, <a class="reference internal" href="999-bibliography.html#id90" title="Ling, R.F. (1973).  A probability theory of cluster analysis. Journal of the American Statistical Association, 68(341):159–164. DOI: 10.1080/01621459.1973.10481356.">62</a>]</span>
 utilise the notion of fixed-radius search that we introduced
 in <a class="reference internal" href="320-transform-matrix.html#sec-knn-vs-radius"><span class="std std-numref">Section 8.4.4</span></a>.</p>
 <p>There are a few ways that aim to assess the quality of clustering
 results, but their meaningfulness is somewhat limited;
-see <span id="id26">[<a class="reference internal" href="999-bibliography.html#id10" title="Gagolewski, M., Bartoszuk, M., and Cena, A. (2021).  Are cluster validity measures (in)valid? Information Sciences, 581:620–636. DOI: 10.1016/j.ins.2021.10.004.">38</a>]</span> for discussion.</p>
+see <span class="bibtex-citation" id="id26">[<a class="reference internal" href="999-bibliography.html#id10" title="Gagolewski, M., Bartoszuk, M., and Cena, A. (2021).  Are cluster validity measures (in)valid? Information Sciences, 581:620–636. DOI: 10.1016/j.ins.2021.10.004.">38</a>]</span> for discussion.</p>
 </section>
 <section id="exercises">
 <h2><span class="section-number">12.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">¶</a></h2>
@@ -2316,7 +2316,7 @@ by <span class="math">\(k\)</span>. We could be speaking about the <span class="
 some mainstream practitioners consider <span class="math">\(k\)</span>-means as a kind of a
 brand name, let’s thus refrain from adding to their confusion.
 Another widely known algorithm
-is called fuzzy (weighted) <span class="math">\(c\)</span>-means <span id="id12">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">8</a>]</span>.</p>
+is called fuzzy (weighted) <span class="math">\(c\)</span>-means <span class="bibtex-citation" id="id12">[<a class="reference internal" href="999-bibliography.html#id92" title="Bezdek, J.C., Ehrlich, R., and Full, W. (1984).  FCM: The fuzzy c-means clustering algorithm. Computer and Geosciences, 10(2–3):191–203. DOI: 10.1016/0098-3004(84)90020-7.">8</a>]</span>.</p>
 </aside>
 <aside class="footnote brackets" id="footvoronoi" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">8</a><span class="fn-bracket">]</span></span>
@@ -2383,7 +2383,7 @@ that data analysts only stick with the default arguments.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-02-17T12:41:35+0100.
+              Last updated on 2026-10-21T10:54:34+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -2449,9 +2449,9 @@ that data analysts only stick with the default arguments.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5b384116"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../_static/documentation_options.js?v=90b1d1db"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/proof.js"></script>
     <script src="../_static/katex.min.js?v=5cc8ed51"></script>

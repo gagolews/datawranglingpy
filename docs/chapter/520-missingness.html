@@ -29,10 +29,10 @@
         <link rel="canonical" href="https://datawranglingpy.gagolewski.com/chapter/520-missingness.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/datawranglingpy.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/datawranglingpy.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>15. Missing, censored, and questionable data - Minimalist Data Wrangling with Python</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
     <link rel="stylesheet" type="text/css" href="../_static/katex-math.css?v=05624691" />
@@ -235,7 +235,7 @@
 <div class="sidebar-brand">
 An open-access textbook<br />
 by <a href='https://www.gagolewski.com/' style="display: contents">Marek Gagolewski</a><br />
-v1.1.0.9003
+v1.1.0.9004
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -341,7 +341,7 @@ Refer to the <a class="reference internal" href="000-preface.html#chap-preface">
 <a class="reference external" href="https://github.com/gagolews/datawranglingpy">bug/typo reports/fixes</a>
 are appreciated. Make sure to check out
 <a class="reference external" href="https://deepr.gagolewski.com/"><em>Deep R Programming</em></a>
-<span id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
+<span class="bibtex-citation" id="id1">[<a class="reference internal" href="999-bibliography.html#id2" title="Gagolewski, M. (2026).  Deep R Programming. URL: https://deepr.gagolewski.com/, DOI: 10.5281/zenodo.7490464.">36</a>]</span> too.</em></p>
 </div></blockquote>
 <p>Up to now, we have been mostly assuming that observations
 are of decent quality, i.e., trustworthy. It would be nice if
@@ -353,10 +353,10 @@ outliers, missing, censored, imprecise, and incorrect data.</p>
 <span id="sec-missing-data"></span><h2><span class="section-number">15.1. </span>Missing data<a class="headerlink" href="#missing-data" title="Link to this heading">¶</a></h2>
 <p>Consider an excerpt from National Health and Nutrition Examination
 Survey that we played with in <a class="reference internal" href="430-group-by.html#chap-group-by"><span class="std std-numref">Chapter 12</span></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv&quot;</span><span class="p">,</span>
-    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;BMXWT&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">,</span> <span class="s2">&quot;BMIHEAD&quot;</span><span class="p">,</span> <span class="s2">&quot;BMXHEAD&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/nhanes_p_demo_bmx_2020.csv"</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"BMXWT"</span><span class="p">,</span> <span class="s2">"BMXHT"</span><span class="p">,</span> <span class="s2">"RIDAGEYR"</span><span class="p">,</span> <span class="s2">"BMIHEAD"</span><span class="p">,</span> <span class="s2">"BMXHEAD"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1">##    BMXWT  BMXHT  RIDAGEYR  BMIHEAD  BMXHEAD</span>
 <span class="c1">## 0    NaN    NaN         2      NaN      NaN</span>
 <span class="c1">## 1   42.2  154.7        13      NaN      NaN</span>
@@ -398,7 +398,7 @@ as well as <strong class="command">isna</strong> methods for the <code class="do
 verify whether an item is missing or not.</p>
 <p>For instance, here are the counts and proportions of missing
 values in selected columns of <code class="docutils literal notranslate"><span class="pre">nhanes</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">)</span>  <span class="c1"># top 5 only</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nhanes</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">)</span>  <span class="c1"># top 5 only</span>
 <span class="c1">##               sum      mean</span>
 <span class="c1">## BMIHEAD   14300.0  1.000000</span>
 <span class="c1">## BMIRECUM  14257.0  0.996993</span>
@@ -443,7 +443,7 @@ numbers or subtracting two infinite entities.
 We thus need extra care when handling them.</p>
 <p>Generally, arithmetic operations on missing values yield a result
 that is undefined as well:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">+</span> <span class="mi">2</span>  <span class="c1"># &quot;don&#39;t know&quot; + 2 == &quot;don&#39;t know&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">+</span> <span class="mi">2</span>  <span class="c1"># "don't know" + 2 == "don't know"</span>
 <span class="c1">## nan</span>
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="c1">## nan</span>
@@ -460,7 +460,7 @@ that ignore missing values whatsoever:
 <p>Regrettably, running these aggregation functions directly on <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects
 ignores missing entities by default. Compare an application
 of <strong class="command">numpy.mean</strong> on a <code class="docutils literal notranslate"><span class="pre">Series</span></code> instance vs on a vector:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">]</span>  <span class="c1"># some example Series, whatever</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"BMXHT"</span><span class="p">]</span>  <span class="c1"># some example Series, whatever</span>
 <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="c1">## (134.73333333333332, nan)</span>
 </pre></div>
@@ -493,7 +493,7 @@ the more semantically valid missing value.
 Hence, if we want to retain the missingness information
 (we do not know if a missing value is greater than 100),
 we need to do it manually:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;object&quot;</span><span class="p">)</span>  <span class="c1"># required for numpy vectors, not for pandas Series</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"object"</span><span class="p">)</span>  <span class="c1"># required for numpy vectors, not for pandas Series</span>
 <span class="n">y</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="n">y</span>
 <span class="c1">## 0     None</span>
@@ -515,7 +515,7 @@ we need to do it manually:</p>
 <section id="missing-at-random-or-not">
 <h3><span class="section-number">15.1.3. </span>Missing at random or not?<a class="headerlink" href="#missing-at-random-or-not" title="Link to this heading">¶</a></h3>
 <p>At a general level (from the mathematical modelling perspective),
-we may distinguish between a few missingness patterns <span id="id3">[<a class="reference internal" href="999-bibliography.html#id30" title="Rubin, D.B. (1976).  Inference and missing data. Biometrika, 63(3):581–590.">85</a>]</span>:</p>
+we may distinguish between a few missingness patterns <span class="bibtex-citation" id="id3">[<a class="reference internal" href="999-bibliography.html#id30" title="Rubin, D.B. (1976).  Inference and missing data. Biometrika, 63(3):581–590.">85</a>]</span>:</p>
 <ul class="simple">
 <li><p><em>missing completely at random</em>: reasons are unrelated to data
 and probabilities of cases’ being missing are all the same;</p></li>
@@ -578,7 +578,7 @@ Sometimes they might strongly affect the results.</p>
 </div>
 <p>Consider an example vector with missing values,
 comprised of heights of the adult participants of the NHANES study.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;BMXHT&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"RIDAGEYR"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">"BMXHT"</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The simplest approach is to replace
@@ -594,7 +594,7 @@ with the median, or – in the case of categorical data – the mode.</p>
 Consequently, another imputation option is to replace
 the missing values with the corresponding within-group averages:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xg</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;RIDAGEYR&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;RIAGENDR&quot;</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nhanes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"RIDAGEYR"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">"RIAGENDR"</span><span class="p">]</span>
 <span class="n">xg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">xg</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">xg</span><span class="p">[</span><span class="n">g</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># male</span>
 <span class="n">xg</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">xg</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">g</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">xg</span><span class="p">[</span><span class="n">g</span> <span class="o">==</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># female</span>
 </pre></div>
@@ -644,8 +644,8 @@ the missing observations can be replaced by the values
 predicted by those models.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>(**) Rubin (e.g., in <span id="id5">[<a class="reference internal" href="999-bibliography.html#id29" title="Little, R.J.A. and Rubin, D.B. (2002).  Statistical Analysis with Missing Data. John Wiley &amp; Sons.">63</a>]</span>) suggests the use of a procedure
-called <em>multiple imputation</em> (see also <span id="id6">[<a class="reference internal" href="999-bibliography.html#id31" title="van Buuren, S. (2018).  Flexible Imputation of Missing Data. CRC Press. URL: https://stefvanbuuren.name/fimd.">94</a>]</span>),
+<p>(**) Rubin (e.g., in <span class="bibtex-citation" id="id5">[<a class="reference internal" href="999-bibliography.html#id29" title="Little, R.J.A. and Rubin, D.B. (2002).  Statistical Analysis with Missing Data. John Wiley &amp; Sons.">63</a>]</span>) suggests the use of a procedure
+called <em>multiple imputation</em> (see also <span class="bibtex-citation" id="id6">[<a class="reference internal" href="999-bibliography.html#id31" title="van Buuren, S. (2018).  Flexible Imputation of Missing Data. CRC Press. URL: https://stefvanbuuren.name/fimd.">94</a>]</span>),
 where copies of the original datasets are created,
 missing values are imputed by sampling from some estimated distributions,
 the inference is made, and then the results are aggregated.
@@ -658,7 +658,7 @@ in <strong class="command">sklearn.impute.IterativeImputer</strong>.</p>
 <h2><span class="section-number">15.2. </span>Censored and interval data (*)<a class="headerlink" href="#censored-and-interval-data" title="Link to this heading">¶</a></h2>
 <p>Censored data frequently appear in the context of reliability, risk analysis,
 and biostatistics, where the observed objects might <em>fail</em>
-(e.g., break down, die, withdraw; compare, e.g., <span id="id7">[<a class="reference internal" href="999-bibliography.html#id32" title="Modarres, M., Kaminskiy, M.P., and Krivtsov, V. (2016).  Reliability Engineering and Risk Analysis: A Practical Guide. CRC Press.">67</a>]</span>).
+(e.g., break down, die, withdraw; compare, e.g., <span class="bibtex-citation" id="id7">[<a class="reference internal" href="999-bibliography.html#id32" title="Modarres, M., Kaminskiy, M.P., and Krivtsov, V. (2016).  Reliability Engineering and Risk Analysis: A Practical Guide. CRC Press.">67</a>]</span>).
 Our introductory course cannot obviously cover everything.
 However, a beginner analyst needs to be at least aware of
 the existence of:</p>
@@ -789,9 +789,9 @@ separately.
 In particular, there is a separate subfield in statistics
 called extreme value theory that is interested in predicting
 the distribution of very large observations (e.g., for modelling
-floods, extreme rainfall, or temperatures); see, e.g., <span id="id8">[<a class="reference internal" href="999-bibliography.html#id5" title="Beirlant, J., Goegebeur, Y., Teugels, J., and Segers, J. (2004).  Statistics of Extremes: Theory and Applications. Wiley. DOI: 10.1002/0470012382.">6</a>]</span>.
+floods, extreme rainfall, or temperatures); see, e.g., <span class="bibtex-citation" id="id8">[<a class="reference internal" href="999-bibliography.html#id5" title="Beirlant, J., Goegebeur, Y., Teugels, J., and Segers, J. (2004).  Statistics of Extremes: Theory and Applications. Wiley. DOI: 10.1002/0470012382.">6</a>]</span>.
 But this is a topic for a more advanced course;
-see, e.g., <span id="id9">[<a class="reference internal" href="999-bibliography.html#id164" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">53</a>]</span>. By then, let’s stick with some simpler settings.</p>
+see, e.g., <span class="bibtex-citation" id="id9">[<a class="reference internal" href="999-bibliography.html#id164" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">53</a>]</span>. By then, let’s stick with some simpler settings.</p>
 <section id="the-3-2-iqr-rule-for-normally-distributed-data">
 <span id="sec-32iqr"></span><h3><span class="section-number">15.4.1. </span>The 3/2 IQR rule for normally-distributed data<a class="headerlink" href="#the-3-2-iqr-rule-for-normally-distributed-data" title="Link to this heading">¶</a></h3>
 <p>For unidimensional data (or individual columns in matrices
@@ -807,7 +807,7 @@ everything that does not fall into the interval
 <span class="math">\([Q_1-1.5\mathrm{IQR}, Q_3+1.5\mathrm{IQR}]\)</span> can be considered
 suspicious. This definition is based on quartiles only,
 so it is not affected by potential outliers
-(they are robust aggregates; compare <span id="id10">[<a class="reference internal" href="999-bibliography.html#id164" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">53</a>]</span>).
+(they are robust aggregates; compare <span class="bibtex-citation" id="id10">[<a class="reference internal" href="999-bibliography.html#id164" title="Huber, P.J. and Ronchetti, E.M. (2009).  Robust Statistics. Wiley.">53</a>]</span>).
 Plus, the magic constant 1.5 is nicely round and thus easy to memorise
 (an attractive feature). It is not too small and not too large;
 for the normal distribution <span class="math">\(\mathrm{N}(\mu, \sigma)\)</span>,
@@ -864,14 +864,14 @@ nor the <span class="math">\(1.5\mathrm{IQR}\)</span> rule might not be ideal to
 data is exemplified in <a class="reference internal" href="#fig-blobs2"><span class="std std-numref">Figure 15.2</span></a>. Here, we have
 a mixture of <span class="math">\(\mathrm{N}(10, 1)\)</span> and <span class="math">\(\mathrm{N}(25, 1)\)</span>
 samples and four potential outliers at <span class="math">\(0\)</span>, <span class="math">\(15\)</span>, <span class="math">\(45\)</span>, and <span class="math">\(50\)</span>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/blobs2.txt&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/blobs2.txt"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -923,9 +923,9 @@ Of course, <span class="math">\(r\)</span> must be chosen with care, just like t
 of bins in a histogram.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
 <span class="n">dz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">query_ball_point</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="p">))</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;density estimator ($r=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">$)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"density estimator ($r=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">$)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -945,21 +945,21 @@ in isolation, but already plotting them in 2D reveals that
 the reality is more complex than that.</p>
 <p><a class="reference internal" href="#fig-blobs1-uni"><span class="std std-numref">Figure 15.4</span></a> depicts the distributions of two natural
 projections of an example dataset:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/gagolews/&quot;</span> <span class="o">+</span>
-    <span class="s2">&quot;teaching-data/master/marek/blobs1.txt&quot;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># width=height</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">"https://raw.githubusercontent.com/gagolews/"</span> <span class="o">+</span>
+    <span class="s2">"teaching-data/master/marek/blobs1.txt"</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">","</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"figure.figsize"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># width=height</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;X[:, 0]&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">"X[:, 0]"</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;X[:, 0]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"X[:, 0]"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vert</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;X[:, 1]&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">"X[:, 1]"</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;X[:, 1]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"X[:, 1]"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -972,8 +972,8 @@ projections of an example dataset:</p>
 <p>There is nothing suspicious here. Or is there?</p>
 <div style="margin-top: 1em"></div><p>The scatter plot in <a class="reference internal" href="#fig-blobs1-multi"><span class="std std-numref">Figure 15.5</span></a>
 reveals that the data consist of two well-separable blobs:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"o"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -998,7 +998,7 @@ very end of the dataset. Ha.</p>
 </pre></div>
 </div>
 <div style="margin-top: 1em"></div><p>Handling multidimensional data requires slightly more sophisticated
-methods; see, e.g., <span id="id12">[<a class="reference internal" href="999-bibliography.html#id157" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>]</span>.
+methods; see, e.g., <span class="bibtex-citation" id="id12">[<a class="reference internal" href="999-bibliography.html#id157" title="Aggarwal, C.C. (2015).  Data Mining: The Textbook. Springer.">2</a>]</span>.
 A straightforward approach is to check if there are any points
 within an observation’s radius of some assumed size <span class="math">\(r&gt;0\)</span>. If that is not the
 case, we may consider it an outlier. This is a variation on the
@@ -1021,9 +1021,9 @@ aforementioned unidimensional density estimation approach<a class="footnote-refe
 <span class="math">\(r\)</span>-radius (with respect to the Euclidean distance),
 including the point itself. Consequently, <code class="docutils literal notranslate"><span class="pre">c[i]==1</span></code> denotes a
 potential outlier; see <a class="reference internal" href="#fig-blobs1-eps"><span class="std std-numref">Figure 15.6</span></a> for an illustration.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;normal point&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;outlier&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"normal point"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"v"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"outlier"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1119,7 +1119,7 @@ a true 2D kernel density estimator, but multivariate statistics
 is beyond the scope of this course.
 In particular, that data might have fixed marginal distributions
 (projections onto 1D) but their multidimensional images might be very
-different is beautifully described by the copula theory <span id="id14">[<a class="reference internal" href="999-bibliography.html#id81" title="Nelsen, R.B. (1999).  An Introduction to Copulas. Springer-Verlag.">70</a>]</span>.</p>
+different is beautifully described by the copula theory <span class="bibtex-citation" id="id14">[<a class="reference internal" href="999-bibliography.html#id81" title="Nelsen, R.B. (1999).  An Introduction to Copulas. Springer-Verlag.">70</a>]</span>.</p>
 </aside>
 </aside>
 
@@ -1158,7 +1158,7 @@ different is beautifully described by the copula theory <span id="id14">[<a clas
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-02-17T12:41:35+0100.
+              Last updated on 2026-10-21T10:54:34+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -1209,9 +1209,9 @@ different is beautifully described by the copula theory <span id="id14">[<a clas
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=5b384116"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="../_static/documentation_options.js?v=90b1d1db"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/proof.js"></script>
     <script src="../_static/katex.min.js?v=5cc8ed51"></script>
